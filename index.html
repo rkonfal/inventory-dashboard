@@ -310,6 +310,10 @@ body {
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h3l2 2h9a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
       Skupiny
     </a>
+    <a href="#viditelnost">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      👁️ Viditelnost
+    </a>
     <a href="#detail">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
       Detailní tabulka
@@ -1567,6 +1571,534 @@ body {
         <td style="text-align:right"><span style="background:#6b7280;color:#fff;border-radius:12px;padding:2px 8px;font-size:11px;font-weight:600">97 dní</span></td>
       </tr>
           <tr><td colspan="6" style="text-align:center;color:var(--text-muted);font-size:12px;padding:12px">Zobrazeno TOP 50 podle hodnoty z celkem 415 mrtvých položek.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- VIDITELNOST -->
+  <div class="section" id="viditelnost">
+    <div class="section-title">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      Aktivní vs. skryté produkty
+    </div>
+
+    <!-- WARNING BANNER -->
+    <div style="background:linear-gradient(135deg,#fef2f2,#fee2e2);border:1px solid #fca5a5;border-radius:12px;padding:16px 20px;margin-bottom:24px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:24px">⚠️</span>
+      <div>
+        <div style="font-weight:700;color:#dc2626;font-size:15px">541 produktů za 3,648,571 Kč leží na skladě, ale nejsou v prodeji</div>
+        <div style="color:#b91c1c;font-size:13px;margin-top:2px">Skryté produkty se zásobami = zmrazený kapitál. Zvažte zviditelnění nebo likvidaci.</div>
+      </div>
+    </div>
+
+    <!-- KPI CARDS -->
+    <div class="kpi-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px">
+      <div class="kpi-card green" style="padding:18px 20px">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:6px">Aktivní produkty</div>
+        <div style="font-size:28px;font-weight:800;color:#16a34a">696</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">24.0% z celkového sortimentu</div>
+      </div>
+      <div class="kpi-card red" style="padding:18px 20px">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:6px">Skryté produkty</div>
+        <div style="font-size:28px;font-weight:800;color:var(--danger)">2,198</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">76.0% z celkového sortimentu</div>
+      </div>
+      <div class="kpi-card red" style="padding:18px 20px">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:6px">Skryté se zásobami</div>
+        <div style="font-size:28px;font-weight:800;color:var(--danger)">541</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">produktů skrytých, ale na skladě</div>
+      </div>
+      <div class="kpi-card red" style="padding:18px 20px">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:6px">Hodnota skladu (skryté)</div>
+        <div style="font-size:22px;font-weight:800;color:var(--danger)">3.65M Kč</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">pořizovací cena dle skladové karty</div>
+      </div>
+    </div>
+
+    <!-- CHART + TABLE LAYOUT -->
+    <div style="display:grid;grid-template-columns:220px 1fr;gap:24px;margin-bottom:28px;align-items:start">
+      <!-- DONUT CHART -->
+      <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center">
+        <div style="font-size:13px;font-weight:600;margin-bottom:12px;color:var(--text)">Rozložení sortimentu</div>
+        <svg viewBox="0 0 180 180" width="160" height="160" style="overflow:visible;margin:0 auto;display:block">
+          <circle cx="90" cy="90" r="70" fill="none" stroke="#fee2e2" stroke-width="28"/>
+          <circle cx="90" cy="90" r="70" fill="none" stroke="#16a34a" stroke-width="28"
+            stroke-dasharray="105.6 439.8"
+            stroke-dashoffset="110.0"
+            transform="rotate(-90 90 90)"/>
+          <circle cx="90" cy="90" r="70" fill="none" stroke="#ef4444" stroke-width="28"
+            stroke-dasharray="334.3 439.8"
+            stroke-dashoffset="8.8"
+            transform="rotate(-90 90 90)" opacity="0.7"/>
+          <text x="90" y="85" text-anchor="middle" font-size="20" font-weight="800" fill="#1e293b">2894</text>
+          <text x="90" y="103" text-anchor="middle" font-size="11" fill="#64748b">produktů celkem</text>
+        </svg>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:12px;font-size:12px">
+          <div style="display:flex;align-items:center;gap:8px;justify-content:center">
+            <span style="width:12px;height:12px;border-radius:50%;background:#16a34a;display:inline-block"></span>
+            <span>Aktivní: <b>696</b> (24.0%)</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;justify-content:center">
+            <span style="width:12px;height:12px;border-radius:50%;background:#ef4444;display:inline-block"></span>
+            <span>Skryté: <b>2198</b> (76.0%)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BAR CHART -->
+      <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:20px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:16px;color:var(--text)">Skryté produkty se zásobami vs. bez zásob</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:4px">
+              <span>Skryté BEZ zásob</span><span>1,657 produktů</span>
+            </div>
+            <div style="background:var(--bg);border-radius:6px;height:22px;overflow:hidden">
+              <div style="height:100%;width:75.4%;background:linear-gradient(90deg,#94a3b8,#cbd5e1);border-radius:6px;transition:width .5s"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:4px">
+              <span>Skryté SE zásobami ⚠️</span><span>541 produktů</span>
+            </div>
+            <div style="background:var(--bg);border-radius:6px;height:22px;overflow:hidden">
+              <div style="height:100%;width:24.6%;background:linear-gradient(90deg,#ef4444,#dc2626);border-radius:6px;transition:width .5s"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:4px">
+              <span>Aktivní (viditelné)</span><span>696 produktů</span>
+            </div>
+            <div style="background:var(--bg);border-radius:6px;height:22px;overflow:hidden">
+              <div style="height:100%;width:24.0%;background:linear-gradient(90deg,#16a34a,#15803d);border-radius:6px;transition:width .5s"></div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--text-muted)">
+          Data: WPJ Shop API · 2894 produktů celkem · stav 07.04.2026
+        </div>
+      </div>
+    </div>
+
+    <!-- TOP HIDDEN WITH STOCK TABLE -->
+    <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--text)">
+      Top 50 skrytých produktů se zásobami — zmrazený kapitál
+    </div>
+    <div class="table-wrap" style="max-height:520px;overflow-y:auto">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width:40px">#</th>
+            <th>Kód</th>
+            <th>Název produktu</th>
+            <th style="text-align:right">Zásoba (ks)</th>
+            <th style="text-align:right">Cena (s DPH)</th>
+            <th style="text-align:right">Hodnota skladu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">1</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">AE596</code></td>
+            <td style="font-weight:500">Detoxikační balíček pro nohy s bylinným bonusem</td>
+            <td style="text-align:right">1,658</td>
+            <td style="text-align:right">2,356 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">3,906,248 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">2</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">DB290</code></td>
+            <td style="font-weight:500">Přírodní rovnováha pro aktivní ženu – rozchodnice, bylinné v</td>
+            <td style="text-align:right">2,487</td>
+            <td style="text-align:right">1,027 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">2,554,149 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">3</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">ZC357</code></td>
+            <td style="font-weight:500">Balíček Harmonie ledvin</td>
+            <td style="text-align:right">1,064</td>
+            <td style="text-align:right">1,880 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">2,000,320 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">4</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">GJ227</code></td>
+            <td style="font-weight:500">Ženská harmonie a vitální vlasy</td>
+            <td style="text-align:right">905</td>
+            <td style="text-align:right">1,881 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">1,702,305 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">5</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">MU915</code></td>
+            <td style="font-weight:500">Bylinná péče zevnitř i zvenčí</td>
+            <td style="text-align:right">1,064</td>
+            <td style="text-align:right">1,341 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">1,426,824 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">6</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">BM742</code></td>
+            <td style="font-weight:500">BIO REHAB Trojice pro silné, husté a vitální vlasy</td>
+            <td style="text-align:right">929</td>
+            <td style="text-align:right">1,465 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">1,360,985 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">7</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">LI284</code></td>
+            <td style="font-weight:500">Podpořte zdraví ledvin</td>
+            <td style="text-align:right">1,064</td>
+            <td style="text-align:right">1,230 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">1,308,720 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">8</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">TC243</code></td>
+            <td style="font-weight:500">Balíček pro vaše ledviny</td>
+            <td style="text-align:right">1,064</td>
+            <td style="text-align:right">1,230 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">1,308,720 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">9</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">WM139</code></td>
+            <td style="font-weight:500">Sada pro růst vlasů</td>
+            <td style="text-align:right">929</td>
+            <td style="text-align:right">1,340 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">1,244,860 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">10</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">KC171</code></td>
+            <td style="font-weight:500">Přírodní rovnováha pro ženu v menopauze</td>
+            <td style="text-align:right">331</td>
+            <td style="text-align:right">3,215 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">1,064,165 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">11</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">XG874</code></td>
+            <td style="font-weight:500">Regenerační péče o pleť i ruce s mucinem hlemýžďů – kompletn</td>
+            <td style="text-align:right">368</td>
+            <td style="text-align:right">2,877 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">1,058,736 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">12</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">OL388</code></td>
+            <td style="font-weight:500">Balíček na bolavé klouby</td>
+            <td style="text-align:right">1,314</td>
+            <td style="text-align:right">799 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">1,049,886 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">13</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">YK308</code></td>
+            <td style="font-weight:500">Balíček Aktivní život bez bolesti</td>
+            <td style="text-align:right">615</td>
+            <td style="text-align:right">1,670 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">1,027,050 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">14</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">XV195</code></td>
+            <td style="font-weight:500">Snail secret - na pleť i pokožku rukou</td>
+            <td style="text-align:right">368</td>
+            <td style="text-align:right">2,636 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">970,048 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">15</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">JW560</code></td>
+            <td style="font-weight:500">Kompletní systém pro aktivaci růstu vlasů</td>
+            <td style="text-align:right">929</td>
+            <td style="text-align:right">1,039 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">965,231 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">16</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">CE043</code></td>
+            <td style="font-weight:500">Šnečí mucin - záchrana pro pleť</td>
+            <td style="text-align:right">368</td>
+            <td style="text-align:right">2,449 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">901,232 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">17</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">AX659</code></td>
+            <td style="font-weight:500">Bio rehab - pro aktivní růst vlasů silou přírody</td>
+            <td style="text-align:right">929</td>
+            <td style="text-align:right">951 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">883,479 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">18</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">NT086</code></td>
+            <td style="font-weight:500">Intimní harmonie s dárkem</td>
+            <td style="text-align:right">646</td>
+            <td style="text-align:right">1,304 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">842,384 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">19</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">LU883</code></td>
+            <td style="font-weight:500">Balíček intimního komfortu pro každý den</td>
+            <td style="text-align:right">905</td>
+            <td style="text-align:right">889 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">804,545 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">20</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">IO685</code></td>
+            <td style="font-weight:500">Balíček pro maminku, která dbá na své pohodlí</td>
+            <td style="text-align:right">905</td>
+            <td style="text-align:right">889 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">804,545 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">21</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">UD015</code></td>
+            <td style="font-weight:500">Každodenní přírodní rovnováha pro moderní ženu</td>
+            <td style="text-align:right">383</td>
+            <td style="text-align:right">2,093 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">801,619 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">22</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">EF193</code></td>
+            <td style="font-weight:500">Přírodní trojboj proti bolesti</td>
+            <td style="text-align:right">615</td>
+            <td style="text-align:right">1,303 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">801,345 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">23</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">AS869</code></td>
+            <td style="font-weight:500">Bylinná úleva pro svaly, klouby a unavené nohy</td>
+            <td style="text-align:right">615</td>
+            <td style="text-align:right">1,303 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">801,345 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">24</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">DY049</code></td>
+            <td style="font-weight:500">Komplexní přírodní péče o namáhané svaly a klouby tianDe</td>
+            <td style="text-align:right">615</td>
+            <td style="text-align:right">1,303 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">801,345 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">25</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">VY518</code></td>
+            <td style="font-weight:500">Síla hlemýždího mucinu pro tvou pleť</td>
+            <td style="text-align:right">405</td>
+            <td style="text-align:right">1,966 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">796,230 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">26</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">BJ602</code></td>
+            <td style="font-weight:500">Kompletní hydratační rituál s kolagenem a mořskými složkami</td>
+            <td style="text-align:right">289</td>
+            <td style="text-align:right">2,664 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">769,896 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">27</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">VR726</code></td>
+            <td style="font-weight:500">Kompletní detoxikační péče pro nohy a tělo</td>
+            <td style="text-align:right">208</td>
+            <td style="text-align:right">3,651 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">759,408 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">28</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">GS427</code></td>
+            <td style="font-weight:500">Balíček pro ženské zdraví a intimní pohodu - začínáme s tian</td>
+            <td style="text-align:right">331</td>
+            <td style="text-align:right">2,272 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">752,032 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">29</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">VP726</code></td>
+            <td style="font-weight:500">Luxusní sada pro péči o zralou pleť</td>
+            <td style="text-align:right">349</td>
+            <td style="text-align:right">2,132 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">744,068 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">30</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">WW214</code></td>
+            <td style="font-weight:500">Denní rutina pro zářivou a regenerovanou pleť</td>
+            <td style="text-align:right">368</td>
+            <td style="text-align:right">1,966 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">723,488 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">31</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">KU235</code></td>
+            <td style="font-weight:500">Komplexní hydratační rituál pro obnovu suché pleti</td>
+            <td style="text-align:right">247</td>
+            <td style="text-align:right">2,924 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">722,228 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">32</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">GD321</code></td>
+            <td style="font-weight:500">Kompletní řešení pro menstruační cyklus a intimní pohodu</td>
+            <td style="text-align:right">299</td>
+            <td style="text-align:right">2,294 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">685,906 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">33</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">BE906</code></td>
+            <td style="font-weight:500">Balíček Vitalita v přechodu - přírodní síla pro hormonální p</td>
+            <td style="text-align:right">450</td>
+            <td style="text-align:right">1,519 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">683,550 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">34</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">OT111</code></td>
+            <td style="font-weight:500">Očista organismu</td>
+            <td style="text-align:right">208</td>
+            <td style="text-align:right">3,217 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">669,136 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">35</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">EO350</code></td>
+            <td style="font-weight:500">Přírodní harmonie v čase menopauzy</td>
+            <td style="text-align:right">239</td>
+            <td style="text-align:right">2,756 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">658,684 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">36</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">GB472</code></td>
+            <td style="font-weight:500">Snail secret - mládí na dlouho</td>
+            <td style="text-align:right">405</td>
+            <td style="text-align:right">1,613 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">653,265 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">37</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">ZQ005</code></td>
+            <td style="font-weight:500">Hedvábná péče obličeje a krku</td>
+            <td style="text-align:right">251</td>
+            <td style="text-align:right">2,519 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">632,269 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">38</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">GM038</code></td>
+            <td style="font-weight:500">Balíček pro citlivou pleť</td>
+            <td style="text-align:right">368</td>
+            <td style="text-align:right">1,671 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">614,928 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">39</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">SH469</code></td>
+            <td style="font-weight:500">Tříkroková péče o pleť s cordycepsem a bylinnou esencí</td>
+            <td style="text-align:right">445</td>
+            <td style="text-align:right">1,373 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">610,985 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">40</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">TO369</code></td>
+            <td style="font-weight:500">Čisté nádobí bez chemie</td>
+            <td style="text-align:right">843</td>
+            <td style="text-align:right">707 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">596,001 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">41</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">UA668</code></td>
+            <td style="font-weight:500">Snail secret - dlouhé mládí</td>
+            <td style="text-align:right">368</td>
+            <td style="text-align:right">1,613 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">593,584 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">42</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">ZG095</code></td>
+            <td style="font-weight:500">Balíček Aktivní pohyb</td>
+            <td style="text-align:right">1,314</td>
+            <td style="text-align:right">435 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">571,590 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">43</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">WU282</code></td>
+            <td style="font-weight:500">Vyživující duo pro hebké ruce a chodidla</td>
+            <td style="text-align:right">779</td>
+            <td style="text-align:right">730 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">568,670 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">44</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">HX870</code></td>
+            <td style="font-weight:500">Osvěžující Letní rituál pro ženy</td>
+            <td style="text-align:right">325</td>
+            <td style="text-align:right">1,680 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">546,000 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">45</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">VM622</code></td>
+            <td style="font-weight:500">Připravte se na detox</td>
+            <td style="text-align:right">250</td>
+            <td style="text-align:right">2,179 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">544,750 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">46</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">QV389</code></td>
+            <td style="font-weight:500">Nastartujte svojí imunitu</td>
+            <td style="text-align:right">207</td>
+            <td style="text-align:right">2,620 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">542,340 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">47</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">RQ797</code></td>
+            <td style="font-weight:500">Bylinný Artemisia Set pro komfortní menstruaci a intimní hyg</td>
+            <td style="text-align:right">624</td>
+            <td style="text-align:right">852 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">531,648 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">48</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">GS162</code></td>
+            <td style="font-weight:500">Kompletní sada pro čistou domácnost</td>
+            <td style="text-align:right">194</td>
+            <td style="text-align:right">2,676 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">519,144 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">49</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">WX598</code></td>
+            <td style="font-weight:500">Zářivá pokožka, kterou si zamilujete</td>
+            <td style="text-align:right">370</td>
+            <td style="text-align:right">1,342 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">496,540 Kč</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--text-muted)">50</td>
+            <td><code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:3px">PU701</code></td>
+            <td style="font-weight:500">Přírodní balíček pro ženskou pohodu a svěžest</td>
+            <td style="text-align:right">450</td>
+            <td style="text-align:right">1,089 Kč</td>
+            <td style="text-align:right;font-weight:600;color:var(--danger)">490,050 Kč</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -15583,7 +16115,7 @@ function goPage(p) {
 }
 
 // Sidebar active link on scroll
-const sections = ['kpi','sklady','top30','orders','dead','detail'];
+const sections = ['kpi','sklady','top30','orders','dead','viditelnost','detail'];
 const navLinks = document.querySelectorAll('.sidebar-nav a');
 window.addEventListener('scroll', () => {
   let cur = 'kpi';
