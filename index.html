@@ -261,6 +261,34 @@ body {
 .skupiny-table tr:last-child td { border-bottom: none; }
 .skupiny-table tr:hover td { background: #f8fafc; }
 
+/* ===== DETAIL SKLADŮ ===== */
+.sklady-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.sklady-tab {
+  padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  border: 1px solid var(--border); background: var(--bg); color: var(--text-muted);
+  cursor: pointer; transition: all .2s;
+}
+.sklady-tab:hover { background: var(--brand-light); color: #fff; border-color: var(--brand-light); }
+.sklady-tab.active { background: var(--brand); color: #fff; border-color: var(--brand); }
+.sklady-pane { display: none; }
+.sklady-pane.active { display: block; }
+.sklady-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.sklady-kpi-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+  padding: 16px 18px; position: relative; overflow: hidden;
+}
+.sklady-kpi-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background: var(--brand); }
+.sklady-kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .6px; font-weight: 600; }
+.sklady-kpi-value { font-size: 22px; font-weight: 800; margin: 4px 0 2px; }
+.sklady-kpi-sub { font-size: 11.5px; color: var(--text-muted); }
+.sklady-dead-banner {
+  background: #fffbeb; border: 1px solid #fde68a; color: #92400e;
+  border-radius: 8px; padding: 10px 16px; margin-bottom: 14px;
+  font-size: 13px; display: flex; align-items: center; gap: 10px;
+}
+[data-theme="dark"] .sklady-dead-banner { background: #2a2510; border-color: #5a4a15; color: #fcd34d; }
+.sklady-section-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; }
+
 </style>
 </head>
 <body>
@@ -313,6 +341,10 @@ body {
     <a href="#viditelnost">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
       👁️ Viditelnost
+    </a>
+    <a href="#sklady-detail">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M9 22V12h6v10"/></svg>
+      🏭 Sklady
     </a>
     <a href="#detail">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
@@ -16053,6 +16085,268 @@ body {
     <div class="pagination" id="paginationDiv"></div>
   </div>
 
+  <!-- DETAIL SKLADŮ -->
+  <div class="section" id="sklady-detail">
+    <div class="section-title">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M9 22V12h6v10"/></svg>
+      Detail skladů
+    </div>
+
+    <div class="sklady-tabs">
+      <button class="sklady-tab active" onclick="switchSklad('sklad-main')">SKLAD</button>
+      <button class="sklady-tab" onclick="switchSklad('sklad-sk')">SK</button>
+      <button class="sklady-tab" onclick="switchSklad('sklad-ltm')">LTM</button>
+      <button class="sklady-tab" onclick="switchSklad('sklad-mecin')">MĚČÍN</button>
+      <button class="sklady-tab" onclick="switchSklad('sklad-klinika')">KLINIKA</button>
+    </div>
+
+    <!-- SKLAD -->
+    <div class="sklady-pane active" id="pane-sklad-main">
+      <div class="sklady-kpi">
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Hodnota skladu</div>
+          <div class="sklady-kpi-value">20 489 669 Kč</div>
+          <div class="sklady-kpi-sub">celková skladová hodnota</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Produkty na skladě</div>
+          <div class="sklady-kpi-value">408</div>
+          <div class="sklady-kpi-sub">položek s množstvím &gt; 0</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Celkové množství</div>
+          <div class="sklady-kpi-value">411 652</div>
+          <div class="sklady-kpi-sub">kusů na skladě</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Prům. cena položky</div>
+          <div class="sklady-kpi-value">99,86 Kč</div>
+          <div class="sklady-kpi-sub">průměrná nákupní cena</div>
+        </div>
+      </div>
+      <div class="sklady-dead-banner">⏰ <strong>51 položek</strong> bez pohybu déle než 90 dní — hodnota <strong>1 320 879 Kč</strong></div>
+      <div class="sklady-section-title">TOP 15 produktů dle hodnoty</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Název</th><th>Kód</th><th style="text-align:right">Množství</th><th style="text-align:right">Hodnota (Kč)</th><th style="text-align:right">Prům. cena</th><th style="text-align:right">Posl. pohyb</th></tr></thead>
+          <tbody>
+            <tr><td>Fytoformula s rozhodnicí</td><td>191014</td><td>2 584</td><td>865 898</td><td>335,10</td><td>07.04.2026</td></tr>
+            <tr><td>Fytogel Slaviton</td><td>44402-2</td><td>3 744</td><td>584 195</td><td>156,03</td><td>07.04.2026</td></tr>
+            <tr><td>Kolagen s višňovou a granátovou šťávou</td><td>195429</td><td>1 337</td><td>575 144</td><td>430,18</td><td>07.04.2026</td></tr>
+            <tr><td>Kosmetická fytonáplast Wutong</td><td>30118</td><td>8 000</td><td>529 118</td><td>66,14</td><td>01.04.2026</td></tr>
+            <tr><td>Kosmetická fytonáplast Jian Kang</td><td>30117</td><td>7 200</td><td>475 914</td><td>66,10</td><td>01.04.2026</td></tr>
+            <tr><td>Kosmetická tělová fytonáplast Yaoshen Forte</td><td>30111</td><td>6 533</td><td>460 923</td><td>70,55</td><td>07.04.2026</td></tr>
+            <tr><td>Královská bylinná směs zdravá žena</td><td>PROMO74</td><td>9 894</td><td>435 336</td><td>44,00</td><td>07.04.2026</td></tr>
+            <tr><td>Jemný intimní gel</td><td>64404-2</td><td>3 071</td><td>423 728</td><td>137,98</td><td>07.04.2026</td></tr>
+            <tr><td>Denní hygienická vložka „Jemná péče"</td><td>60145/01</td><td>14 487</td><td>370 401</td><td>25,57</td><td>07.04.2026</td></tr>
+            <tr><td>Denní vložka Energie života</td><td>63601</td><td>13 750</td><td>357 239</td><td>25,98</td><td>15.01.2026</td></tr>
+            <tr><td>Královská bylinná směs detoxikační</td><td>PROMO75</td><td>7 281</td><td>320 364</td><td>44,00</td><td>07.04.2026</td></tr>
+            <tr><td>Krém na nohy s 30 % močoviny</td><td>46903-2</td><td>3 720</td><td>260 567</td><td>70,05</td><td>07.04.2026</td></tr>
+            <tr><td>Královská bylinná směs silná imunita</td><td>PROMO73</td><td>5 845</td><td>257 180</td><td>44,00</td><td>03.04.2026</td></tr>
+            <tr><td>BIO REHAB - Tonikum-aktivátor růstu vlasů</td><td>23403</td><td>1 169</td><td>228 347</td><td>195,33</td><td>07.04.2026</td></tr>
+            <tr><td>Hygienický sprej Fytoncidy tajgy a mořská sůl</td><td>65916-2</td><td>2 374</td><td>216 308</td><td>91,12</td><td>07.04.2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SKLAD-SK -->
+    <div class="sklady-pane" id="pane-sklad-sk">
+      <div class="sklady-kpi">
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Hodnota skladu</div>
+          <div class="sklady-kpi-value">6 228 234 Kč</div>
+          <div class="sklady-kpi-sub">celková skladová hodnota</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Produkty na skladě</div>
+          <div class="sklady-kpi-value">418</div>
+          <div class="sklady-kpi-sub">položek s množstvím &gt; 0</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Celkové množství</div>
+          <div class="sklady-kpi-value">76 321</div>
+          <div class="sklady-kpi-sub">kusů na skladě</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Prům. cena položky</div>
+          <div class="sklady-kpi-value">102,59 Kč</div>
+          <div class="sklady-kpi-sub">průměrná nákupní cena</div>
+        </div>
+      </div>
+      <div class="sklady-dead-banner">⏰ <strong>78 položek</strong> bez pohybu déle než 90 dní — hodnota <strong>340 319 Kč</strong></div>
+      <div class="sklady-section-title">TOP 15 produktů dle hodnoty</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Název</th><th>Kód</th><th style="text-align:right">Množství</th><th style="text-align:right">Hodnota (Kč)</th><th style="text-align:right">Prům. cena</th><th style="text-align:right">Posl. pohyb</th></tr></thead>
+          <tbody>
+            <tr><td>Náplast na nohy 10ks</td><td>41314/10</td><td>208</td><td>123 930</td><td>595,82</td><td>03.04.2026</td></tr>
+            <tr><td>Levandulová náplast na nohy - 10ks</td><td>41328/10</td><td>238</td><td>122 211</td><td>513,49</td><td>07.04.2026</td></tr>
+            <tr><td>Denní hygienická vložka „Jemná péče" 5ks</td><td>60145/05</td><td>878</td><td>107 765</td><td>122,74</td><td>07.04.2026</td></tr>
+            <tr><td>Zlatý amarantový olej</td><td>135415-1</td><td>254</td><td>102 559</td><td>403,77</td><td>07.04.2026</td></tr>
+            <tr><td>Fytogel Slaviton</td><td>44402-2</td><td>599</td><td>95 905</td><td>160,11</td><td>07.04.2026</td></tr>
+            <tr><td>Kosmetická tělová fytonáplast Yaoshen Forte</td><td>30111</td><td>1 323</td><td>90 893</td><td>68,70</td><td>30.03.2026</td></tr>
+            <tr><td>Masážní gel Orthophyt</td><td>34401-2</td><td>538</td><td>86 905</td><td>161,53</td><td>06.04.2026</td></tr>
+            <tr><td>Regenerační sérum v kapslích</td><td>10101</td><td>343</td><td>80 466</td><td>234,60</td><td>07.04.2026</td></tr>
+            <tr><td>Denní vložka Energie života</td><td>63601/01</td><td>2 705</td><td>79 067</td><td>29,23</td><td>07.04.2026</td></tr>
+            <tr><td>Náplast na nohy 5ks</td><td>41314/05</td><td>167</td><td>72 943</td><td>436,79</td><td>07.04.2026</td></tr>
+            <tr><td>BIO REHAB - Tonikum-aktivátor růstu vlasů</td><td>23403</td><td>341</td><td>68 691</td><td>201,44</td><td>07.04.2026</td></tr>
+            <tr><td>Kosmetická fytonáplast Jian Kang - 3ks</td><td>30117/03</td><td>402</td><td>68 442</td><td>170,25</td><td>07.04.2026</td></tr>
+            <tr><td>Glutatione complex</td><td>135456</td><td>133</td><td>65 062</td><td>489,18</td><td>07.04.2026</td></tr>
+            <tr><td>Denní vložka Energie života 10ks</td><td>63601/10</td><td>254</td><td>64 732</td><td>254,85</td><td>07.04.2026</td></tr>
+            <tr><td>Jemný intimní gel</td><td>64404-2</td><td>436</td><td>61 167</td><td>140,29</td><td>07.04.2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SKLAD-LTM -->
+    <div class="sklady-pane" id="pane-sklad-ltm">
+      <div class="sklady-kpi">
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Hodnota skladu</div>
+          <div class="sklady-kpi-value">1 828 384 Kč</div>
+          <div class="sklady-kpi-sub">celková skladová hodnota</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Produkty na skladě</div>
+          <div class="sklady-kpi-value">457</div>
+          <div class="sklady-kpi-sub">položek s množstvím &gt; 0</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Celkové množství</div>
+          <div class="sklady-kpi-value">8 888</div>
+          <div class="sklady-kpi-sub">kusů na skladě</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Prům. cena položky</div>
+          <div class="sklady-kpi-value">148,18 Kč</div>
+          <div class="sklady-kpi-sub">průměrná nákupní cena</div>
+        </div>
+      </div>
+      <div class="sklady-dead-banner" style="background:#fef2f2;border-color:#fecaca;color:#991b1b;">⚠️ <strong>163 položek</strong> bez pohybu déle než 90 dní — hodnota <strong>288 588 Kč</strong></div>
+      <div class="sklady-section-title">TOP 15 produktů dle hodnoty</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Název</th><th>Kód</th><th style="text-align:right">Množství</th><th style="text-align:right">Hodnota (Kč)</th><th style="text-align:right">Prům. cena</th><th style="text-align:right">Posl. pohyb</th></tr></thead>
+          <tbody>
+            <tr><td>Následná HARMONIZACE ENERGETICKÉHO STAVU vč. čipu</td><td>BIOANALYZA013</td><td>294</td><td>617 400</td><td>2 100,00</td><td>07.04.2026</td></tr>
+            <tr><td>Levandulová náplast na nohy</td><td>41328/01</td><td>546</td><td>81 354</td><td>149,00</td><td>06.03.2026</td></tr>
+            <tr><td>Náplast na nohy</td><td>41314/01</td><td>412</td><td>66 332</td><td>161,00</td><td>06.03.2026</td></tr>
+            <tr><td>Fytogel Slaviton</td><td>44402-2</td><td>70</td><td>30 380</td><td>434,00</td><td>06.03.2026</td></tr>
+            <tr><td>Doplňkový prodej - klinika</td><td>DOPL001</td><td>40</td><td>29 114</td><td>727,85</td><td>07.04.2026</td></tr>
+            <tr><td>Regenerační tonikum s mucínem hlemýžďů</td><td>14604</td><td>68</td><td>28 380</td><td>417,36</td><td>31.12.2025</td></tr>
+            <tr><td>Homocystein</td><td>BIO014</td><td>38</td><td>22 420</td><td>590,00</td><td>07.04.2026</td></tr>
+            <tr><td>Tělový krém Tekutá náplast</td><td>34413-2</td><td>100</td><td>21 405</td><td>214,05</td><td>06.03.2026</td></tr>
+            <tr><td>Vícefunkční krém na obličej s mucínem hlemýžďů</td><td>14601</td><td>45</td><td>20 194</td><td>448,76</td><td>19.03.2026</td></tr>
+            <tr><td>Kosmetická fytonáplast Wutong 1ks</td><td>30118/01</td><td>91</td><td>18 309</td><td>201,20</td><td>18.03.2026</td></tr>
+            <tr><td>Čaga s mumiem</td><td>195466</td><td>19</td><td>16 920</td><td>890,55</td><td>26.03.2026</td></tr>
+            <tr><td>Kapsle na hygienické praní</td><td>140110</td><td>27</td><td>15 578</td><td>576,97</td><td>06.03.2026</td></tr>
+            <tr><td>Regenerační sérum v kapslích</td><td>10101</td><td>50</td><td>15 149</td><td>302,98</td><td>16.03.2026</td></tr>
+            <tr><td>Olejová esence na vlasy v kapslích</td><td>20155</td><td>67</td><td>14 341</td><td>214,05</td><td>06.03.2026</td></tr>
+            <tr><td>Masážní gel Orthophyt</td><td>34401-2</td><td>66</td><td>14 315</td><td>216,90</td><td>19.03.2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SKLAD-MĚČÍN -->
+    <div class="sklady-pane" id="pane-sklad-mecin">
+      <div class="sklady-kpi">
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Hodnota skladu</div>
+          <div class="sklady-kpi-value">514 562 Kč</div>
+          <div class="sklady-kpi-sub">celková skladová hodnota</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Produkty na skladě</div>
+          <div class="sklady-kpi-value">337</div>
+          <div class="sklady-kpi-sub">položek s množstvím &gt; 0</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Celkové množství</div>
+          <div class="sklady-kpi-value">12 502</div>
+          <div class="sklady-kpi-sub">kusů na skladě</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Prům. cena položky</div>
+          <div class="sklady-kpi-value">146,08 Kč</div>
+          <div class="sklady-kpi-sub">průměrná nákupní cena</div>
+        </div>
+      </div>
+      <div class="sklady-dead-banner" style="background:#fef2f2;border-color:#fecaca;color:#991b1b;">⚠️ <strong>125 položek</strong> bez pohybu déle než 90 dní — hodnota <strong>115 493 Kč</strong></div>
+      <div class="sklady-section-title">TOP 15 produktů dle hodnoty</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Název</th><th>Kód</th><th style="text-align:right">Množství</th><th style="text-align:right">Hodnota (Kč)</th><th style="text-align:right">Prům. cena</th><th style="text-align:right">Posl. pohyb</th></tr></thead>
+          <tbody>
+            <tr><td>Náplast na nohy</td><td>41314</td><td>1 200</td><td>72 802</td><td>60,67</td><td>26.03.2026</td></tr>
+            <tr><td>Čaga s mumiem</td><td>195466</td><td>35</td><td>21 848</td><td>624,22</td><td>18.03.2026</td></tr>
+            <tr><td>Kosmetická fytonáplast Jian Kang 5ks</td><td>30117/05</td><td>46</td><td>13 626</td><td>296,21</td><td>21.01.2026</td></tr>
+            <tr><td>Glutatione complex</td><td>135456</td><td>20</td><td>12 484</td><td>624,22</td><td>18.03.2026</td></tr>
+            <tr><td>Tablety s extraktem z jader vinné révy</td><td>113013</td><td>38</td><td>11 103</td><td>292,19</td><td>18.03.2026</td></tr>
+            <tr><td>Extrakt z plodu ostropestřce mariánského</td><td>113012</td><td>35</td><td>8 723</td><td>249,22</td><td>01.04.2026</td></tr>
+            <tr><td>Funkční komplex s vlašským ořechem</td><td>113011</td><td>27</td><td>7 889</td><td>292,19</td><td>31.03.2026</td></tr>
+            <tr><td>Funkční komplex Citrokalcevit</td><td>113004</td><td>27</td><td>7 889</td><td>292,19</td><td>18.03.2026</td></tr>
+            <tr><td>Fytokoncentrát s hruštičkou okrouhlolistou</td><td>191005</td><td>25</td><td>7 441</td><td>297,66</td><td>18.03.2026</td></tr>
+            <tr><td>Tělový deodorant-spray „Přírodní alunit a šalvěj"</td><td>30115</td><td>28</td><td>5 381</td><td>192,19</td><td>11.03.2026</td></tr>
+            <tr><td>Kosmetická fytonáplast Wutong 5ks</td><td>30118/05</td><td>16</td><td>5 216</td><td>326,00</td><td>31.12.2025</td></tr>
+            <tr><td>Regenerační sérum v kapslích</td><td>10101</td><td>18</td><td>5 155</td><td>286,41</td><td>07.04.2026</td></tr>
+            <tr><td>Mezoroller (masážní váleček)</td><td>90141</td><td>9</td><td>5 063</td><td>562,50</td><td>31.12.2025</td></tr>
+            <tr><td>Pás s bodovou turmalínovou vrstvou</td><td>30126</td><td>5</td><td>4 801</td><td>960,16</td><td>19.01.2026</td></tr>
+            <tr><td>Kosmetická tělová fytonáplast Yaoshen Forte</td><td>30111</td><td>52</td><td>4 672</td><td>89,84</td><td>31.12.2025</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SKLAD-KLINIKA -->
+    <div class="sklady-pane" id="pane-sklad-klinika">
+      <div class="sklady-kpi">
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Produkty na skladě</div>
+          <div class="sklady-kpi-value">120</div>
+          <div class="sklady-kpi-sub">položek s množstvím &gt; 0</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Celkové množství</div>
+          <div class="sklady-kpi-value">700</div>
+          <div class="sklady-kpi-sub">kusů na skladě</div>
+        </div>
+        <div class="sklady-kpi-card">
+          <div class="sklady-kpi-label">Posl. pohyb</div>
+          <div class="sklady-kpi-value">31.01.2026</div>
+          <div class="sklady-kpi-sub">datum posledního pohybu</div>
+        </div>
+      </div>
+      <div class="sklady-dead-banner" style="background:#eff6ff;border-color:#bfdbfe;color:#1e40af;">ℹ️ Klinika eviduje položky v hodnotě <strong>1 Kč/ks</strong> (poukazy, klinické služby). Skladová hodnota není relevantní — tracking probíhá přes počty kusů.</div>
+      <div class="sklady-section-title">TOP 15 produktů dle množství</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Název</th><th>Kód</th><th style="text-align:right">Množství</th><th style="text-align:right">Posl. pohyb</th></tr></thead>
+          <tbody>
+            <tr><td>Homocystein</td><td>BIO014</td><td>62</td><td>31.01.2026</td></tr>
+            <tr><td>Dárkový poukaz Bicom 1 000 Kč</td><td>DPBIC1000</td><td>40</td><td>31.01.2026</td></tr>
+            <tr><td>Dárkový poukaz Bicom 2 000 Kč</td><td>DPBIC2000</td><td>39</td><td>31.01.2026</td></tr>
+            <tr><td>Kotvičník zemní s vrbovkou, kapky 100 ml</td><td>POP00092</td><td>22</td><td>31.01.2026</td></tr>
+            <tr><td>Masticha 20 tbl.</td><td>BIO013</td><td>17</td><td>31.01.2026</td></tr>
+            <tr><td>Ovosan 90 kapslí</td><td>BIO018</td><td>15</td><td>31.01.2026</td></tr>
+            <tr><td>Čisté ledviny, porcovaná směs, 30 g</td><td>POP00009</td><td>12</td><td>31.01.2026</td></tr>
+            <tr><td>Odkyselení, originální bylinné kapky, 50 ml</td><td>POP00079</td><td>12</td><td>31.01.2026</td></tr>
+            <tr><td>Močové cesty, porcovaná směs, 30 g</td><td>POP00007</td><td>11</td><td>31.01.2026</td></tr>
+            <tr><td>Dobré trávení, porcovaný čaj, 30 g</td><td>POP00008</td><td>11</td><td>31.01.2026</td></tr>
+            <tr><td>Ashwagandha, originální bylinné kapky, 50 ml</td><td>POP00067</td><td>11</td><td>31.01.2026</td></tr>
+            <tr><td>Tlak – srdce, originální bylinné kapky, 50 ml</td><td>POP00103</td><td>11</td><td>31.01.2026</td></tr>
+            <tr><td>Masticha 240 tbl.</td><td>BIO011</td><td>10</td><td>31.01.2026</td></tr>
+            <tr><td>Průdušky-dýchací cesty 100 ml</td><td>POP00150</td><td>10</td><td>31.01.2026</td></tr>
+            <tr><td>Krk, mandle, hlasivky, porcovaný čaj, 30 g</td><td>POP00015</td><td>9</td><td>31.01.2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
 <script>
@@ -16115,7 +16409,14 @@ function goPage(p) {
 }
 
 // Sidebar active link on scroll
-const sections = ['kpi','sklady','top30','orders','dead','viditelnost','detail'];
+const sections = ['kpi','sklady','top30','orders','dead','skupiny','viditelnost','sklady-detail','detail'];
+
+function switchSklad(id) {
+  document.querySelectorAll('.sklady-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sklady-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('pane-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
 const navLinks = document.querySelectorAll('.sidebar-nav a');
 window.addEventListener('scroll', () => {
   let cur = 'kpi';
