@@ -1,499 +1,385 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" class="h-full">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Přehled skladu — Diamond Plus</title>
-<style>
-:root {
-  --brand: #5C2450;
-  --brand-light: #7a3a6c;
-  --brand-dark: #3e1836;
-  --accent: #e6a817;
-  --success: #22c55e;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --bg: #f4f5f7;
-  --card: #ffffff;
-  --text: #1e1e2f;
-  --text-muted: #6b7280;
-  --border: #e5e7eb;
-  --sidebar-w: 260px;
-  --radius: 12px;
-}
-[data-theme="dark"] {
-  --bg: #0f1117;
-  --card: #1a1c25;
-  --text: #e4e4e7;
-  --text-muted: #9ca3af;
-  --border: #2d2f3a;
-  --brand-light: #9b6490;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  min-height: 100vh;
-  display: flex;
-}
-.sidebar {
-  width: var(--sidebar-w);
-  background: linear-gradient(180deg, var(--brand-dark) 0%, var(--brand) 100%);
-  color: #fff;
-  position: fixed;
-  top: 0; left: 0;
-  height: 100vh;
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  transition: transform .3s ease;
-  overflow-y: auto;
-}
-.sidebar-logo { padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 16px; }
-.sidebar-logo h2 { font-size: 18px; font-weight: 700; color: #fff; margin: 0; }
-.sidebar-logo span { font-size: 11px; color: rgba(255,255,255,0.5); }
-.sidebar-reports { padding: 14px 0 0; }
-.sidebar-reports a {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 24px;
-  color: rgba(255,255,255,.7);
-  text-decoration: none;
-  font-size: 12.5px;
-  font-weight: 500;
-  border-left: 3px solid transparent;
-  transition: all .2s;
-}
-.sidebar-reports a:hover { background: rgba(255,255,255,.08); color: #fff; border-left-color: var(--accent); }
-.sidebar-reports a.report-active { background: rgba(255,255,255,.12); color: #fff; border-left-color: var(--accent); }
-.sidebar-reports a .report-emoji { font-size: 15px; flex-shrink: 0; width: 18px; text-align: center; }
-.sidebar-divider { height: 1px; background: rgba(255,255,255,.12); margin: 10px 24px; }
-.sidebar-nav { padding: 4px 0; flex: 1; }
-.sidebar-nav a {
-  display: flex; align-items: center; gap: 12px;
-  padding: 10px 24px;
-  color: rgba(255,255,255,.75);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  border-left: 3px solid transparent;
-  transition: all .2s;
-}
-.sidebar-nav a:hover, .sidebar-nav a.active { background: rgba(255,255,255,.08); color: #fff; border-left-color: var(--accent); }
-.sidebar-nav a svg { width: 18px; height: 18px; flex-shrink: 0; }
-.sidebar-footer { padding: 18px 24px; border-top: 1px solid rgba(255,255,255,.12); font-size: 11px; opacity: .5; }
-.hamburger {
-  display: none; position: fixed; top: 14px; left: 14px; z-index: 200;
-  background: var(--brand); border: none; color: #fff;
-  width: 42px; height: 42px; border-radius: 10px; cursor: pointer;
-  align-items: center; justify-content: center;
-  box-shadow: 0 2px 12px rgba(0,0,0,.25);
-}
-.hamburger svg { width: 22px; height: 22px; }
-.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 90; }
-.main { flex: 1; margin-left: var(--sidebar-w); padding: 32px 40px; max-width: 1280px; }
-.header { margin-bottom: 32px; }
-.header h1 { font-size: 26px; font-weight: 700; color: var(--brand); }
-[data-theme="dark"] .header h1 { color: var(--brand-light); }
-.header .period { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
-.header-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; }
-.theme-toggle {
-  background: var(--card); border: 1px solid var(--border); color: var(--text);
-  padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 13px;
-  display: flex; align-items: center; gap: 6px;
-}
-.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-bottom: 32px; }
-.kpi-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 22px 24px;
-  position: relative; overflow: hidden;
-}
-.kpi-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
-.kpi-card.purple::before { background: var(--brand); }
-.kpi-card.gold::before { background: var(--accent); }
-.kpi-card.red::before { background: var(--danger); }
-.kpi-card.green::before { background: var(--success); }
-.kpi-card.blue::before { background: #3b82f6; }
-.kpi-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .7px; font-weight: 600; }
-.kpi-value { font-size: 32px; font-weight: 800; margin: 6px 0 2px; }
-.kpi-sub { font-size: 12.5px; color: var(--text-muted); }
-.section {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 28px; margin-bottom: 24px;
-}
-.section-title { font-size: 17px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-.section-title svg { width: 20px; height: 20px; color: var(--brand); }
-.donut-wrapper { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
-.donut-stats { min-width: 260px; }
-.donut-stat { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13.5px; }
-.donut-stat:last-child { border-bottom: none; }
-.donut-stat .dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; flex-shrink: 0; }
-.donut-stat-left { display: flex; align-items: center; }
-.donut-stat-right { font-weight: 700; }
-.data-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; }
-.data-table thead th {
-  background: var(--brand); color: #fff; padding: 11px 14px;
-  text-align: right; font-weight: 600; font-size: 12px; letter-spacing: .3px; white-space: nowrap;
-}
-.data-table thead th:first-child { text-align: left; border-radius: 8px 0 0 0; }
-.data-table thead th:last-child { border-radius: 0 8px 0 0; }
-.data-table tbody td { padding: 10px 14px; text-align: right; border-bottom: 1px solid var(--border); }
-.data-table tbody td:first-child { text-align: left; font-weight: 600; }
-.data-table tbody tr:hover { background: rgba(92,36,80,.04); }
-[data-theme="dark"] .data-table tbody tr:hover { background: rgba(155,100,144,.08); }
-.search-bar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
-.search-bar input, .search-bar select {
-  padding: 9px 14px; border: 1px solid var(--border); border-radius: 8px;
-  background: var(--card); color: var(--text); font-size: 13px; outline: none;
-}
-.search-bar input { flex: 1; min-width: 200px; }
-.search-bar input:focus, .search-bar select:focus { border-color: var(--brand); }
-.alert-banner {
-  border-radius: 10px; padding: 14px 18px; margin-bottom: 16px;
-  display: flex; align-items: center; gap: 12px; font-size: 13.5px;
-}
-.alert-banner.red { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
-[data-theme="dark"] .alert-banner.red { background: #2a1515; border-color: #5a2020; color: #fca5a5; }
-.alert-banner.orange { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
-[data-theme="dark"] .alert-banner.orange { background: #2a2510; border-color: #5a4a15; color: #fcd34d; }
-.table-wrap { overflow-x: auto; max-height: 520px; overflow-y: auto; }
-.table-wrap::-webkit-scrollbar { width: 6px; height: 6px; }
-.table-wrap::-webkit-scrollbar-track { background: var(--bg); }
-.table-wrap::-webkit-scrollbar-thumb { background: var(--brand-light); border-radius: 3px; }
-.table-wrap thead th { position: sticky; top: 0; z-index: 1; }
-.pagination { display: flex; gap: 8px; justify-content: center; margin-top: 14px; flex-wrap: wrap; align-items: center; font-size: 13px; color: var(--text-muted); }
-.pagination button {
-  padding: 5px 12px; border: 1px solid var(--border); border-radius: 6px;
-  background: var(--card); color: var(--text); cursor: pointer; font-size: 13px;
-}
-.pagination button:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
-.pagination button.active { background: var(--brand); color: #fff; border-color: var(--brand); }
-@media (max-width: 900px) {
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.open { transform: translateX(0); }
-  .hamburger { display: flex; }
-  .overlay.show { display: block; }
-  .main { margin-left: 0; padding: 24px 18px; padding-top: 68px; }
-}
-@media (max-width: 600px) {
-  .kpi-grid { grid-template-columns: 1fr; }
-}
-@media print {
-  .sidebar, .hamburger, .overlay, .theme-toggle { display: none !important; }
-  .main { margin-left: 0; padding: 20px; }
-  .section { break-inside: avoid; }
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skladové zásoby — Diamond Plus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+          colors: {
+            brand: {
+              DEFAULT: '#4A154B',
+              light: '#6B2D6C',
+              dark: '#350F36',
+              50: '#F9F0F9',
+              100: '#F0D9F0',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .sidebar-link { transition: background 0.15s, color 0.15s; }
+    .sidebar-link:hover { background: rgba(255,255,255,0.12); }
+    .sidebar-link.active { background: rgba(255,255,255,0.18); font-weight: 600; }
+    #sidebar { transition: transform 0.25s cubic-bezier(.4,0,.2,1); }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1c4d2; border-radius: 99px; }
+    .dark ::-webkit-scrollbar-thumb { background: #4a2f4b; }
 
-/* ===== SKUPINY PRODUKTŮ ===== */
-.skupiny-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-.skupiny-card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 1rem 1.2rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-}
-.skupiny-card-header {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-bottom: 0.4rem;
-}
-.skupiny-card-value {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 0.4rem;
-}
-.skupiny-card-meta {
-  display: flex;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-  font-size: 0.78rem;
-  color: #64748b;
-}
-.skupiny-chart-row {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-.skupiny-donut { flex-shrink: 0; }
-.skupiny-legend { display: flex; flex-direction: column; gap: 0.6rem; min-width: 220px; }
-.skupiny-legend-title { font-size: 0.85rem; font-weight: 600; color: #64748b; margin-bottom: 0.2rem; }
-.skupiny-legend-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: #1e293b; }
-.skupiny-legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-.skupiny-legend-pct { margin-left: auto; font-weight: 600; color: #475569; }
-.skupiny-legend-total { margin-top: 0.5rem; font-size: 0.88rem; color: #475569; border-top: 1px solid #e2e8f0; padding-top: 0.5rem; }
-.skupiny-tables { display: flex; flex-direction: column; gap: 0.6rem; }
-.skupiny-toggle {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0.9rem 1rem;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #1e293b;
-  text-align: left;
-  transition: background 0.15s;
-}
-.skupiny-toggle:hover { background: #f1f5f9; }
-.skupiny-toggle-meta { font-size: 0.8rem; font-weight: 400; color: #64748b; margin-left: auto; }
-.skupiny-chevron { width: 16px; height: 16px; flex-shrink: 0; transition: transform 0.2s; }
-.skupiny-chevron.open { transform: rotate(180deg); }
-.skupiny-table-wrap { overflow-x: auto; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 8px 8px; }
-.skupiny-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-.skupiny-table th { background: #f1f5f9; padding: 0.5rem 0.8rem; text-align: left; font-weight: 600; color: #475569; border-bottom: 1px solid #e2e8f0; }
-.skupiny-table td { padding: 0.45rem 0.8rem; border-bottom: 1px solid #f1f5f9; color: #1e293b; }
-.skupiny-table tr:last-child td { border-bottom: none; }
-.skupiny-table tr:hover td { background: #f8fafc; }
+    /* ── Data table ─────────────────────────────── */
+    .data-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+    .data-table thead th {
+      background: #4A154B; color: #fff; padding: 11px 14px;
+      text-align: right; font-weight: 600; font-size: 12px; letter-spacing: .3px; white-space: nowrap;
+      position: sticky; top: 0; z-index: 1;
+    }
+    .data-table thead th:first-child { text-align: left; border-radius: 8px 0 0 0; }
+    .data-table thead th:last-child { border-radius: 0 8px 0 0; }
+    .data-table tbody td { padding: 10px 14px; text-align: right; border-bottom: 1px solid #e5e7eb; }
+    .dark .data-table tbody td { border-bottom-color: #2d2f3a; }
+    .data-table tbody td:first-child { text-align: left; font-weight: 600; }
+    .data-table tbody tr:hover { background: rgba(74,21,75,0.04); }
+    .dark .data-table tbody tr:hover { background: rgba(155,100,144,0.08); }
+    th.sortable { cursor: pointer; user-select: none; }
+    th.sortable:hover { color: #d1c4d2; }
+    th.sort-asc::after { content: ' ↑'; }
+    th.sort-desc::after { content: ' ↓'; }
 
-/* ===== DETAIL SKLADŮ ===== */
-.sklady-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
-.sklady-tab {
-  padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
-  border: 1px solid var(--border); background: var(--bg); color: var(--text-muted);
-  cursor: pointer; transition: all .2s;
-}
-.sklady-tab:hover { background: var(--brand-light); color: #fff; border-color: var(--brand-light); }
-.sklady-tab.active { background: var(--brand); color: #fff; border-color: var(--brand); }
-.sklady-pane { display: none; }
-.sklady-pane.active { display: block; }
-.sklady-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 20px; }
-.sklady-kpi-card {
-  background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
-  padding: 16px 18px; position: relative; overflow: hidden;
-}
-.sklady-kpi-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background: var(--brand); }
-.sklady-kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .6px; font-weight: 600; }
-.sklady-kpi-value { font-size: 22px; font-weight: 800; margin: 4px 0 2px; }
-.sklady-kpi-sub { font-size: 11.5px; color: var(--text-muted); }
-.sklady-dead-banner {
-  background: #fffbeb; border: 1px solid #fde68a; color: #92400e;
-  border-radius: 8px; padding: 10px 16px; margin-bottom: 14px;
-  font-size: 13px; display: flex; align-items: center; gap: 10px;
-}
-[data-theme="dark"] .sklady-dead-banner { background: #2a2510; border-color: #5a4a15; color: #fcd34d; }
-.sklady-section-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; }
+    /* ── Skupiny table ───────────────────────────── */
+    .w-full.border-collapse.text-\[13px\] th {
+      background: #f1f5f9; padding: 6px 10px; text-align: left;
+      font-weight: 600; color: #475569; border-bottom: 1px solid #e2e8f0;
+    }
+    .dark .w-full.border-collapse.text-\[13px\] th {
+      background: #1e293b; color: #94a3b8; border-bottom-color: #334155;
+    }
+    .w-full.border-collapse.text-\[13px\] td {
+      padding: 5px 10px; border-bottom: 1px solid #f1f5f9; color: #1e293b;
+    }
+    .dark .w-full.border-collapse.text-\[13px\] td { color: #e2e8f0; border-bottom-color: #1e293b; }
+    .w-full.border-collapse.text-\[13px\] tr:last-child td { border-bottom: none; }
+    .w-full.border-collapse.text-\[13px\] tr:hover td { background: #f8fafc; }
+    .dark .w-full.border-collapse.text-\[13px\] tr:hover td { background: #1a2332; }
 
+    /* ── Search inputs + selects ─────────────────── */
+    .search-input-tw {
+      padding: 9px 14px; border: 1px solid #e5e7eb; border-radius: 8px;
+      background: #fff; color: #1e1e2f; font-size: 13px; outline: none;
+      flex: 1; min-width: 200px; transition: border-color .2s;
+    }
+    .dark .search-input-tw { background: #1a1c25; color: #e4e4e7; border-color: #2d2f3a; }
+    .search-input-tw:focus { border-color: #4A154B; }
+    .search-select-tw {
+      padding: 9px 14px; border: 1px solid #e5e7eb; border-radius: 8px;
+      background: #fff; color: #1e1e2f; font-size: 13px; outline: none; transition: border-color .2s;
+    }
+    .dark .search-select-tw { background: #1a1c25; color: #e4e4e7; border-color: #2d2f3a; }
 
-/* ===== WAREHOUSE FILTER UI ===== */
-.wh-filter-bar {
-  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
-  margin-bottom: 14px; padding: 14px 16px;
-  background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
-}
-.wh-search {
-  flex: 1; min-width: 200px;
-  padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
-  background: var(--card); color: var(--text); font-size: 13px;
-  outline: none; transition: border-color .2s;
-}
-.wh-search:focus { border-color: var(--brand); }
-.wh-pills { display: flex; flex-wrap: wrap; gap: 5px; }
-.wh-pill {
-  padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
-  border: 1.5px solid var(--border); background: var(--bg); color: var(--text-muted);
-  cursor: pointer; transition: all .15s; white-space: nowrap;
-}
-.wh-pill:hover { border-color: var(--brand-light); color: var(--brand-light); }
-.wh-pill.active { background: var(--brand); color: #fff; border-color: var(--brand); }
-.wh-pill-sep { width: 1px; background: var(--border); align-self: stretch; margin: 0 2px; }
-.wh-results-info {
-  font-size: 12px; color: var(--text-muted); padding: 6px 0 2px;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.wh-pagination {
-  display: flex; gap: 4px; align-items: center; flex-wrap: wrap; margin-top: 12px;
-}
-.wh-pagination button {
-  padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;
-  border: 1px solid var(--border); background: var(--bg); color: var(--text);
-  cursor: pointer; transition: all .15s;
-}
-.wh-pagination button:hover { background: var(--brand-light); color: #fff; border-color: var(--brand-light); }
-.wh-pagination button.active { background: var(--brand); color: #fff; border-color: var(--brand); }
-.wh-pagination span { font-size: 12px; color: var(--text-muted); padding: 0 4px; }
-th.sortable { cursor: pointer; user-select: none; }
-th.sortable:hover { color: var(--brand-light); }
-th.sort-asc::after { content: ' ↑'; }
-th.sort-desc::after { content: ' ↓'; }
-</style>
+    /* ── Pagination buttons ──────────────────────── */
+    .pagination button, .wh-pagination-btn {
+      padding: 5px 12px; border: 1px solid #e5e7eb; border-radius: 6px;
+      background: #fff; color: #1e1e2f; cursor: pointer; font-size: 13px; transition: all .15s;
+    }
+    .dark .pagination button, .dark .wh-pagination-btn {
+      background: #1a1c25; color: #e4e4e7; border-color: #2d2f3a;
+    }
+    .pagination button:hover, .pagination button.active,
+    .wh-pagination-btn:hover, .wh-pagination-btn.active {
+      background: #4A154B; color: #fff; border-color: #4A154B;
+    }
+    .flex.gap-1.items-center.flex-wrap.mt-3 button {
+      padding: 4px 10px; border: 1px solid #e5e7eb; border-radius: 6px;
+      background: #fff; color: #1e1e2f; cursor: pointer; font-size: 12px; font-weight: 600; transition: all .15s;
+    }
+    .dark .flex.gap-1.items-center.flex-wrap.mt-3 button {
+      background: #1a1c25; color: #e4e4e7; border-color: #2d2f3a;
+    }
+    .flex.gap-1.items-center.flex-wrap.mt-3 button:hover,
+    .flex.gap-1.items-center.flex-wrap.mt-3 button.active {
+      background: #4A154B; color: #fff; border-color: #4A154B;
+    }
+    .flex.gap-1.items-center.flex-wrap.mt-3 span {
+      font-size: 12px; color: #6b7280; padding: 0 4px;
+    }
+
+    /* ── Donut stat ──────────────────────────────── */
+    .donut-stat { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-size: 13.5px; }
+    .dark .donut-stat { border-bottom-color: #2d2f3a; }
+    .donut-stat:last-child { border-bottom: none; }
+    .donut-stat .dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; flex-shrink: 0; }
+    .donut-stat-left { display: flex; align-items: center; }
+    .donut-stat-right { font-weight: 700; }
+    .donut-wrapper { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+    .donut-stats { min-width: 260px; }
+
+    /* ── Skupiny chevron ─────────────────────────── */
+    .skupiny-chevron.open { transform: rotate(180deg); }
+
+    /* ── KPI card accent bar ─────────────────────── */
+    .kpi-accent { position: relative; overflow: hidden; }
+    .kpi-accent::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
+    .kpi-accent.purple::before { background: #4A154B; }
+    .kpi-accent.gold::before { background: #e6a817; }
+    .kpi-accent.red::before { background: #ef4444; }
+    .kpi-accent.green::before { background: #22c55e; }
+    .kpi-accent.blue::before { background: #3b82f6; }
+
+    @media print {
+      #sidebar, #hamburger, #overlay { display: none !important; }
+      .lg\:pl-64 { padding-left: 0 !important; }
+    }
+  </style>
 </head>
-<body>
+<body class="h-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
 
-<button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
-  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-</button>
-<div class="overlay" onclick="toggleSidebar()"></div>
+<!-- ── SIDEBAR ─────────────────────────────────────────────────────────── -->
+<aside id="sidebar"
+  class="fixed inset-y-0 left-0 z-40 w-64 flex flex-col"
+  style="background: linear-gradient(180deg, #4A154B 0%, #350F36 100%);">
 
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-logo">
-    <h2>DIAMOND PLUS</h2>
-    <span>Království TianDe</span>
+  <!-- Logo -->
+  <div class="flex items-center gap-3 px-6 py-5 border-b border-white/10">
+    <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-white font-bold text-lg select-none">D+</div>
+    <div>
+      <div class="text-white font-semibold text-[15px] leading-tight">Diamond Plus</div>
+      <div class="text-white/50 text-[11px]">Business Portal</div>
+    </div>
   </div>
-  <nav class="sidebar-reports">
-    <a href="https://rkonfal.github.io/diamond-plus-portal/"><span class="report-emoji">🏠</span> Portál</a>
-    <a href="https://rkonfal.github.io/diamond-plus-report/"><span class="report-emoji">💰</span> Hospodaření</a>
-    <a href="https://rkonfal.github.io/4px-obalovy-material/"><span class="report-emoji">📦</span> Obaly</a>
-    <a href="https://rkonfal.github.io/4px-kpi-dashboard/"><span class="report-emoji">📊</span> Expedice</a>
-    <a href="https://rkonfal.github.io/4px-carriers/"><span class="report-emoji">🚚</span> Přepravci</a>
-    <a href="https://rkonfal.github.io/eshop-dashboard/"><span class="report-emoji">🛒</span> E-shop</a>
-    <a href="#" class="report-active"><span class="report-emoji">📋</span> Sklad</a>
-  </nav>
-  <div class="sidebar-divider"></div>
-  <nav class="sidebar-nav">
-    <a href="#kpi" class="active">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"/></svg>
-      Přehled
+
+  <!-- Nav -->
+  <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-0.5">
+    <a href="https://rkonfal.github.io/diamond-plus-portal/" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/80 hover:text-white text-sm">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Dashboard
     </a>
-    <a href="#sklady">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>
-      Hodnota po skladech
+    <a href="https://rkonfal.github.io/diamond-plus-report/" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/80 hover:text-white text-sm">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      Hospodaření
     </a>
-    <a href="#top30">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6m6 0h6m-6 0V9a2 2 0 012-2h2a2 2 0 012 2v10m6 0v-4a2 2 0 00-2-2h-2a2 2 0 00-2 2v4"/></svg>
-      TOP 30 produktů
+    <a href="#" class="sidebar-link active flex items-center gap-3 px-3 py-2.5 rounded-lg text-white text-sm">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+      Sklad
     </a>
-    <a href="#orders">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01M5.07 19H19a2 2 0 001.75-2.96l-6.93-12a2 2 0 00-3.5 0l-6.93 12A2 2 0 005.07 19z"/></svg>
-      Co brzy dojde
+    <a href="https://rkonfal.github.io/4px-kpi-dashboard/" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/80 hover:text-white text-sm">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/></svg>
+      Expedice
     </a>
-    <a href="#dead">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      Co leží na skladě
+    <a href="https://rkonfal.github.io/4px-carriers/" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/80 hover:text-white text-sm">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      Přepravci
     </a>
-    <a href="#skupiny">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h3l2 2h9a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+    <a href="https://rkonfal.github.io/eshop-dashboard/" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/80 hover:text-white text-sm">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      E-shop
+    </a>
+    <a href="https://rkonfal.github.io/4px-obalovy-material/" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/80 hover:text-white text-sm">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+      Obaly
+    </a>
+    <a href="https://rkonfal.github.io/balicky-dashboard/" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/80 hover:text-white text-sm">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l9 5-9 5-9-5 9-5z"/><path d="M3 7l9 5 9-5"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>
+      Balíčky
+    </a>
+    <a href="https://rkonfal.github.io/skupiny-dashboard/" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/80 hover:text-white text-sm">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M21 21v-2a4 4 0 00-3-3.87"/></svg>
       Skupiny
     </a>
-    <a href="#viditelnost">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-      👁️ Viditelnost
+    <a href="https://rkonfal.github.io/expirace-dashboard/" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/80 hover:text-white text-sm">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Expirace
     </a>
-    <a href="#sklady-detail">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M9 22V12h6v10"/></svg>
-      🏭 Sklady
+
+    <div class="border-t border-white/10 my-2 mx-1"></div>
+    <p class="px-3 pt-1 text-white/30 text-[10px] uppercase tracking-widest font-semibold">Navigace v sekci</p>
+    <a href="#kpi" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-white/70 hover:text-white text-xs">
+      <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Přehled KPI
     </a>
-    <a href="#detail">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+    <a href="#skupiny" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-white/70 hover:text-white text-xs">
+      <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h3l2 2h9a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+      Skupiny produktů
+    </a>
+    <a href="#sklady" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-white/70 hover:text-white text-xs">
+      <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>
+      Hodnota po skladech
+    </a>
+    <a href="#top30" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-white/70 hover:text-white text-xs">
+      <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6m6 0h6m-6 0V9a2 2 0 012-2h2a2 2 0 012 2v10m6 0v-4a2 2 0 00-2-2h-2a2 2 0 00-2 2v4"/></svg>
+      TOP 30 produktů
+    </a>
+    <a href="#orders" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-white/70 hover:text-white text-xs">
+      <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01M5.07 19H19a2 2 0 001.75-2.96l-6.93-12a2 2 0 00-3.5 0l-6.93 12A2 2 0 005.07 19z"/></svg>
+      Co brzy dojde
+    </a>
+    <a href="#dead" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-white/70 hover:text-white text-xs">
+      <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Co leží na skladě
+    </a>
+    <a href="#viditelnost" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-white/70 hover:text-white text-xs">
+      <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      Viditelnost
+    </a>
+    <a href="#sklady-detail" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-white/70 hover:text-white text-xs">
+      <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M9 22V12h6v10"/></svg>
+      Detail skladů
+    </a>
+    <a href="#detail" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-white/70 hover:text-white text-xs">
+      <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
       Detailní tabulka
     </a>
   </nav>
-  <div class="sidebar-footer">
-    Stav k 07.04.2026<br>
-    WPJ Shop · Diamond Plus
+
+  <!-- Dark mode toggle + version -->
+  <div class="px-4 py-4 border-t border-white/10">
+    <button id="darkToggle"
+      onclick="toggleTheme()"
+      class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 text-sm transition">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
+      </svg>
+      <span>Tmavý režim</span>
+    </button>
+    <p class="text-white/25 text-[10px] text-center mt-3">v2.0 · Diamond Plus &copy; 2025</p>
   </div>
 </aside>
 
-<div class="main">
-  <!-- HEADER -->
-  <div class="header" id="kpi">
-    <div class="header-row">
-      <div>
-        <h1>📋 Přehled skladu — Diamond Plus</h1>
-        <div class="period">Stav k 07.04.2026&nbsp;|&nbsp;5 skladů&nbsp;|&nbsp;Zdroj: WPJ Shop</div>
+<!-- ── OVERLAY (mobile) ──────────────────────────────────────────────── -->
+<div id="overlay" class="fixed inset-0 z-30 bg-black/50 hidden" onclick="closeSidebar()"></div>
+
+<!-- ── MAIN ──────────────────────────────────────────────────────────── -->
+<div class="lg:pl-64 min-h-screen flex flex-col">
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-20 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200 dark:border-gray-800">
+    <div class="flex items-center justify-between px-6 py-3.5">
+      <div class="flex items-center gap-4">
+        <button id="hamburger" onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <div>
+          <h1 class="text-xl font-bold text-gray-900 dark:text-white">Skladové zásoby</h1>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Stav k 07.04.2026 &nbsp;·&nbsp; 5 skladů &nbsp;·&nbsp; Zdroj: WPJ Shop</p>
+        </div>
       </div>
-      <button class="theme-toggle" onclick="toggleTheme()">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-        Tmavý režim
-      </button>
+      <div class="flex items-center gap-2">
+        <span class="hidden sm:inline-flex items-center gap-1.5 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-medium px-3 py-1.5 rounded-full border border-green-200 dark:border-green-800">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+          Live data
+        </span>
+        <button onclick="toggleTheme()" class="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
+          </svg>
+        </button>
+      </div>
     </div>
-  </div>
+  </header>
 
-  <!-- KPI CARDS -->
-  <div class="kpi-grid">
-    <div class="kpi-card purple">
-      <div class="kpi-label">Celková hodnota skladu</div>
-      <div class="kpi-value">29,1 M Kč</div>
-      <div class="kpi-sub">celkem napříč 5 sklady</div>
-    </div>
-    <div class="kpi-card gold">
-      <div class="kpi-label">Počet produktů v ceníku</div>
-      <div class="kpi-value">1 779</div>
-      <div class="kpi-sub">unikátních kódů</div>
-    </div>
-    <div class="kpi-card green">
-      <div class="kpi-label">Produkty skladem</div>
-      <div class="kpi-value">1 740</div>
-      <div class="kpi-sub">ze 1 779 má kladný stav</div>
-    </div>
-    <div class="kpi-card red">
-      <div class="kpi-label">Mrtvé zásoby (90+ dní)</div>
-      <div class="kpi-value">415</div>
-      <div class="kpi-sub">hodnota 2,06 M Kč</div>
-    </div>
-    <div class="kpi-card blue">
-      <div class="kpi-label">Objednáno, ale není skladem</div>
-      <div class="kpi-value">71</div>
-      <div class="kpi-sub">produktů s otevřenými požadavky</div>
-    </div>
-  </div>
+  <!-- Content -->
+  <main id="kpi" class="flex-1 px-4 sm:px-6 py-6 space-y-0 max-w-[1400px] w-full mx-auto">
 
+    <!-- ── KPI CARDS ─────────────────────────────────────────── -->
+    <section class="mb-6">
+      <h2 class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">Stav skladu &middot; 07.04.2026</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
+
+        <div class="kpi-accent purple bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 pl-7">
+          <div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Celková hodnota skladu</div>
+          <div class="text-3xl font-extrabold text-gray-900 dark:text-white">29,1 M Kč</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">celkem napříč 5 sklady</div>
+        </div>
+
+        <div class="kpi-accent gold bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 pl-7">
+          <div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Produkty v ceníku</div>
+          <div class="text-3xl font-extrabold text-gray-900 dark:text-white">1&nbsp;779</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">unikátních kódů</div>
+        </div>
+
+        <div class="kpi-accent green bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 pl-7">
+          <div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Produkty skladem</div>
+          <div class="text-3xl font-extrabold text-gray-900 dark:text-white">1&nbsp;740</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">ze 1 779 má kladný stav</div>
+        </div>
+
+        <div class="kpi-accent red bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 pl-7">
+          <div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Mrtvé zásoby (90+ dní)</div>
+          <div class="text-3xl font-extrabold text-red-600 dark:text-red-400">415</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">hodnota 2,06 M Kč</div>
+        </div>
+
+        <div class="kpi-accent blue bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 pl-7">
+          <div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Objednáno, není skladem</div>
+          <div class="text-3xl font-extrabold text-blue-600 dark:text-blue-400">71</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">produktů s otevřenými požadavky</div>
+        </div>
+
+      </div>
+    </section>
 
   <!-- SKUPINY PRODUKTŮ -->
-  <div class="section" id="skupiny">
-    <div class="section-title">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-7 mb-6" id="skupiny">
+    <div class="text-[17px] font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2.5 [&>svg]:w-5 [&>svg]:h-5 [&>svg]:text-brand">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h3l2 2h9a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
       Rozdělení produktů
     </div>
 
     <!-- 5 Group Cards -->
-    <div class="skupiny-cards">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
       
-    <div class="skupiny-card" style="border-left: 4px solid #10b981;">
-      <div class="skupiny-card-header" style="color:#10b981;">🛒 Běžný sortiment</div>
-      <div class="skupiny-card-value">29 064 229 Kč</div>
-      <div class="skupiny-card-meta">
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700" style="border-left: 4px solid #10b981;">
+      <div class="text-[11px] font-bold tracking-wider uppercase mb-1.5" style="color:#10b981;">🛒 Běžný sortiment</div>
+      <div class="text-xl font-bold text-gray-900 dark:text-white mb-1.5">29 064 229 Kč</div>
+      <div class="flex gap-2 flex-wrap text-xs text-gray-500 dark:text-gray-400">
         <span>1574 produktů</span>
         <span style="font-weight:600;color:#10b981;">100.0%</span>
         <span>509 770 ks</span>
       </div>
     </div>
-    <div class="skupiny-card" style="border-left: 4px solid #ef4444;">
-      <div class="skupiny-card-header" style="color:#ef4444;">🎁 PROMO</div>
-      <div class="skupiny-card-value">0 Kč</div>
-      <div class="skupiny-card-meta">
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700" style="border-left: 4px solid #ef4444;">
+      <div class="text-[11px] font-bold tracking-wider uppercase mb-1.5" style="color:#ef4444;">🎁 PROMO</div>
+      <div class="text-xl font-bold text-gray-900 dark:text-white mb-1.5">0 Kč</div>
+      <div class="flex gap-2 flex-wrap text-xs text-gray-500 dark:text-gray-400">
         <span>2 produktů</span>
         <span style="font-weight:600;color:#ef4444;">0.0%</span>
         <span>0 ks</span>
       </div>
     </div>
-    <div class="skupiny-card" style="border-left: 4px solid #8b5cf6;">
-      <div class="skupiny-card-header" style="color:#8b5cf6;">🔬 BIOANALÝZA</div>
-      <div class="skupiny-card-value">0 Kč</div>
-      <div class="skupiny-card-meta">
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700" style="border-left: 4px solid #8b5cf6;">
+      <div class="text-[11px] font-bold tracking-wider uppercase mb-1.5" style="color:#8b5cf6;">🔬 BIOANALÝZA</div>
+      <div class="text-xl font-bold text-gray-900 dark:text-white mb-1.5">0 Kč</div>
+      <div class="flex gap-2 flex-wrap text-xs text-gray-500 dark:text-gray-400">
         <span>8 produktů</span>
         <span style="font-weight:600;color:#8b5cf6;">0.0%</span>
         <span>0 ks</span>
       </div>
     </div>
-    <div class="skupiny-card" style="border-left: 4px solid #f59e0b;">
-      <div class="skupiny-card-header" style="color:#f59e0b;">📨 PF</div>
-      <div class="skupiny-card-value">0 Kč</div>
-      <div class="skupiny-card-meta">
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700" style="border-left: 4px solid #f59e0b;">
+      <div class="text-[11px] font-bold tracking-wider uppercase mb-1.5" style="color:#f59e0b;">📨 PF</div>
+      <div class="text-xl font-bold text-gray-900 dark:text-white mb-1.5">0 Kč</div>
+      <div class="flex gap-2 flex-wrap text-xs text-gray-500 dark:text-gray-400">
         <span>3 produktů</span>
         <span style="font-weight:600;color:#f59e0b;">0.0%</span>
         <span>0 ks</span>
       </div>
     </div>
-    <div class="skupiny-card" style="border-left: 4px solid #ec4899;">
-      <div class="skupiny-card-header" style="color:#ec4899;">🎀 Dárkové vouchery</div>
-      <div class="skupiny-card-value">158 Kč</div>
-      <div class="skupiny-card-meta">
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700" style="border-left: 4px solid #ec4899;">
+      <div class="text-[11px] font-bold tracking-wider uppercase mb-1.5" style="color:#ec4899;">🎀 Dárkové vouchery</div>
+      <div class="text-xl font-bold text-gray-900 dark:text-white mb-1.5">158 Kč</div>
+      <div class="flex gap-2 flex-wrap text-xs text-gray-500 dark:text-gray-400">
         <span>33 produktů</span>
         <span style="font-weight:600;color:#ec4899;">0.0%</span>
         <span>283 ks</span>
@@ -502,7 +388,7 @@ th.sort-desc::after { content: ' ↓'; }
     </div>
 
     <!-- Chart + Legend -->
-    <div class="skupiny-chart-row">
+    <div class="flex gap-8 items-center mb-6 flex-wrap">
       <div class="skupiny-donut">
         <svg viewBox="0 0 320 320" width="260" height="260">
   <path d="M 160.0 20.0 A 140 140 0 1 1 160.0 20.0 L 160.0 80.0 A 80 80 0 1 0 160.0 80.0 Z" fill="#10b981" stroke="white" stroke-width="2"><title>Běžný sortiment: 100.0%</title></path><path d="M 160.0 20.0 A 140 140 0 0 1 160.0 20.0 L 160.0 80.0 A 80 80 0 0 0 160.0 80.0 Z" fill="#ec4899" stroke="white" stroke-width="2"><title>Dárkové vouchery: 0.0%</title></path>
@@ -510,77 +396,77 @@ th.sort-desc::after { content: ' ↓'; }
   <text x="160" y="174" text-anchor="middle" font-size="12" fill="#64748b">Běžný sortiment</text>
 </svg>
       </div>
-      <div class="skupiny-legend">
-        <div class="skupiny-legend-title">Podíl na celkové hodnotě</div>
-        <div class="skupiny-legend-item"><span class="skupiny-legend-dot" style="background:#10b981;"></span><span>Běžný sortiment</span><span class="skupiny-legend-pct">100.0%</span></div>
-<div class="skupiny-legend-item"><span class="skupiny-legend-dot" style="background:#ec4899;"></span><span>Dárkové vouchery</span><span class="skupiny-legend-pct">0.0%</span></div>
-        <div class="skupiny-legend-total">Celkem: <strong>29 064 387 Kč</strong></div>
+      <div class="flex flex-col gap-2 min-w-[220px]">
+        <div class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-0.5">Podíl na celkové hodnotě</div>
+        <div class="flex items-center gap-2 text-[14px] text-gray-900 dark:text-gray-100"><span class="w-3 h-3 rounded-full flex-shrink-0" style="background:#10b981;"></span><span>Běžný sortiment</span><span class="ml-auto font-semibold text-gray-500 dark:text-gray-400">100.0%</span></div>
+<div class="flex items-center gap-2 text-[14px] text-gray-900 dark:text-gray-100"><span class="w-3 h-3 rounded-full flex-shrink-0" style="background:#ec4899;"></span><span>Dárkové vouchery</span><span class="ml-auto font-semibold text-gray-500 dark:text-gray-400">0.0%</span></div>
+        <div class="mt-2 text-[14px] text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 pt-2">Celkem: <strong>29 064 387 Kč</strong></div>
       </div>
     </div>
 
     <!-- Collapsible product tables -->
-    <div class="skupiny-tables">
+    <div class="flex flex-col gap-1.5">
       
   <div class="skupiny-table-block">
-    <button class="skupiny-toggle" onclick="toggleSkupina(this)" style="border-left:4px solid #10b981;">
+    <button class="w-full flex items-center gap-3 px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer text-sm font-semibold text-gray-900 dark:text-white text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition" onclick="toggleSkupina(this)" style="border-left:4px solid #10b981;">
       <span>🛒 Běžný sortiment</span>
-      <span class="skupiny-toggle-meta">1574 produktů · 29 064 229 Kč (zobrazeno 200 z 1574)</span>
-      <svg class="skupiny-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      <span class="text-xs font-normal text-gray-500 dark:text-gray-400 ml-auto">1574 produktů · 29 064 229 Kč (zobrazeno 200 z 1574)</span>
+      <svg class="skupiny-chevron w-4 h-4 flex-shrink-0 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
     </button>
-    <div class="skupiny-table-wrap" style="display:none;">
-      <table class="skupiny-table">
+    <div class="overflow-x-auto border border-gray-200 dark:border-gray-700 border-t-0 rounded-b-lg" style="display:none;">
+      <table class="w-full border-collapse text-[13px]">
         <thead><tr><th>Produkt</th><th style="text-align:right;">Hodnota</th><th style="text-align:right;">Ks</th></tr></thead>
         <tbody><tr><td style="max-width:400px;word-break:break-word;">Náplast na nohy 10ks</td><td style="text-align:right;">123 930 Kč</td><td style="text-align:right;">208</td></tr><tr><td style="max-width:400px;word-break:break-word;">Levandulová náplast na nohy - 10ks</td><td style="text-align:right;">122 211 Kč</td><td style="text-align:right;">238</td></tr><tr><td style="max-width:400px;word-break:break-word;">Denní hygienická vložka „Jemná péče“ 5kusů</td><td style="text-align:right;">107 765 Kč</td><td style="text-align:right;">878</td></tr><tr><td style="max-width:400px;word-break:break-word;">Zlatý amarantový olej</td><td style="text-align:right;">102 559 Kč</td><td style="text-align:right;">254</td></tr><tr><td style="max-width:400px;word-break:break-word;">Fytogel Slaviton</td><td style="text-align:right;">95 905 Kč</td><td style="text-align:right;">599</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kosmetická tělová fytonáplast Yaoshen Forte</td><td style="text-align:right;">90 893 Kč</td><td style="text-align:right;">1 323</td></tr><tr><td style="max-width:400px;word-break:break-word;">Regenerační sérum v kapslích</td><td style="text-align:right;">80 466 Kč</td><td style="text-align:right;">343</td></tr><tr><td style="max-width:400px;word-break:break-word;"> Náplast na nohy 5ks</td><td style="text-align:right;">72 943 Kč</td><td style="text-align:right;">167</td></tr><tr><td style="max-width:400px;word-break:break-word;">BIO REHAB - Tonikum-aktivátor růstu vlasů</td><td style="text-align:right;">68 691 Kč</td><td style="text-align:right;">341</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kosmetická fytonáplast Jian Kang - 3ks</td><td style="text-align:right;">68 442 Kč</td><td style="text-align:right;">402</td></tr><tr><td style="max-width:400px;word-break:break-word;">Glutatione complex</td><td style="text-align:right;">65 062 Kč</td><td style="text-align:right;">133</td></tr><tr><td style="max-width:400px;word-break:break-word;">Denní vložka Energie života 10ks</td><td style="text-align:right;">64 732 Kč</td><td style="text-align:right;">254</td></tr><tr><td style="max-width:400px;word-break:break-word;">Hydrogelové polštářky na oční víčka s červenými mořskými řasami a yuzu</td><td style="text-align:right;">60 095 Kč</td><td style="text-align:right;">277</td></tr><tr><td style="max-width:400px;word-break:break-word;">Denní hygienická vložka „Jemná péče“ 10 kuaů</td><td style="text-align:right;">59 654 Kč</td><td style="text-align:right;">245</td></tr><tr><td style="max-width:400px;word-break:break-word;">Preventivní krém na nohy s hadím olejem 5ks</td><td style="text-align:right;">58 962 Kč</td><td style="text-align:right;">481</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kosmetický kufřík šedý</td><td style="text-align:right;">56 400 Kč</td><td style="text-align:right;">470</td></tr><tr><td style="max-width:400px;word-break:break-word;">Peelingové tampony na obličej s obsahem kyselin AHA a PHA</td><td style="text-align:right;">55 521 Kč</td><td style="text-align:right;">225</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kosmetická fytonáplast Jian Kang</td><td style="text-align:right;">53 959 Kč</td><td style="text-align:right;">800</td></tr><tr><td style="max-width:400px;word-break:break-word;">Intenzivní komplex na pokožku kolem očí</td><td style="text-align:right;">53 561 Kč</td><td style="text-align:right;">272</td></tr><tr><td style="max-width:400px;word-break:break-word;">CC pleťový krém s blur efektem SPF 20</td><td style="text-align:right;">52 986 Kč</td><td style="text-align:right;">248</td></tr><tr><td style="max-width:400px;word-break:break-word;">Denní vložka energie života 5ks</td><td style="text-align:right;">52 801 Kč</td><td style="text-align:right;">442</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kosmetická fytonáplast Wutong 3ks</td><td style="text-align:right;">51 619 Kč</td><td style="text-align:right;">106</td></tr><tr><td style="max-width:400px;word-break:break-word;">Fytoformula s rozhodnicí</td><td style="text-align:right;">50 806 Kč</td><td style="text-align:right;">159</td></tr><tr><td style="max-width:400px;word-break:break-word;">Peptidový krém na oční víčka na vrásky</td><td style="text-align:right;">48 777 Kč</td><td style="text-align:right;">185</td></tr><tr><td style="max-width:400px;word-break:break-word;">3D masážní pomůcka pro lifting pokožky obličeje a těla</td><td style="text-align:right;">46 951 Kč</td><td style="text-align:right;">177</td></tr><tr><td style="max-width:400px;word-break:break-word;">Collagen active -  jemné hydratační tonikum z kolagenu</td><td style="text-align:right;">46 653 Kč</td><td style="text-align:right;">236</td></tr><tr><td style="max-width:400px;word-break:break-word;">Nosní masážní olej Tajemství energie Čchi</td><td style="text-align:right;">46 598 Kč</td><td style="text-align:right;">213</td></tr><tr><td style="max-width:400px;word-break:break-word;">Tablety do myčky s aktivním kyslíkem</td><td style="text-align:right;">45 811 Kč</td><td style="text-align:right;">207</td></tr><tr><td style="max-width:400px;word-break:break-word;">Revitalizační noční pleťová krémová maska Biotics</td><td style="text-align:right;">44 448 Kč</td><td style="text-align:right;">222</td></tr><tr><td style="max-width:400px;word-break:break-word;">Piknik koš černý</td><td style="text-align:right;">44 080 Kč</td><td style="text-align:right;">152</td></tr><tr><td style="max-width:400px;word-break:break-word;">Zpevňující a liftingová emulze na obličej a krk</td><td style="text-align:right;">43 679 Kč</td><td style="text-align:right;">221</td></tr><tr><td style="max-width:400px;word-break:break-word;">Modelující gel na tvar obličeje</td><td style="text-align:right;">43 562 Kč</td><td style="text-align:right;">230</td></tr><tr><td style="max-width:400px;word-break:break-word;">Spa rukavice</td><td style="text-align:right;">42 239 Kč</td><td style="text-align:right;">649</td></tr><tr><td style="max-width:400px;word-break:break-word;">Super tenké slipové vložky s bylinným komplexem Artemisia, 20 ks</td><td style="text-align:right;">40 307 Kč</td><td style="text-align:right;">443</td></tr><tr><td style="max-width:400px;word-break:break-word;">Denní menstruační vložky s fytomembránou „Energie bylin“</td><td style="text-align:right;">39 931 Kč</td><td style="text-align:right;">431</td></tr><tr><td style="max-width:400px;word-break:break-word;">Instantní nápoj s čekankou a L-karnitinem</td><td style="text-align:right;">39 416 Kč</td><td style="text-align:right;">1 630</td></tr><tr><td style="max-width:400px;word-break:break-word;">Oční gel na vrásky z hadího tuku</td><td style="text-align:right;">39 294 Kč</td><td style="text-align:right;">160</td></tr><tr><td style="max-width:400px;word-break:break-word;">Denní vložka energie života - 8ks</td><td style="text-align:right;">39 179 Kč</td><td style="text-align:right;">217</td></tr><tr><td style="max-width:400px;word-break:break-word;">Ultra-jemný čistící gel</td><td style="text-align:right;">39 138 Kč</td><td style="text-align:right;">455</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kosmetická fytonáplast Wutong 5ks</td><td style="text-align:right;">39 042 Kč</td><td style="text-align:right;">152</td></tr><tr><td style="max-width:400px;word-break:break-word;">Šampon - aktivátor růstu vlasů</td><td style="text-align:right;">38 285 Kč</td><td style="text-align:right;">278</td></tr><tr><td style="max-width:400px;word-break:break-word;">Fluid na oční víčka Ocean Riches</td><td style="text-align:right;">38 143 Kč</td><td style="text-align:right;">256</td></tr><tr><td style="max-width:400px;word-break:break-word;">BIO REHAB Maska-aktivátor růstu vlasů</td><td style="text-align:right;">38 021 Kč</td><td style="text-align:right;">343</td></tr><tr><td style="max-width:400px;word-break:break-word;">Geroproline</td><td style="text-align:right;">36 388 Kč</td><td style="text-align:right;">70</td></tr><tr><td style="max-width:400px;word-break:break-word;">FUCOIDAN anti-aging krém na obličej</td><td style="text-align:right;">35 960 Kč</td><td style="text-align:right;">205</td></tr><tr><td style="max-width:400px;word-break:break-word;">Čaga s mumiem</td><td style="text-align:right;">35 640 Kč</td><td style="text-align:right;">69</td></tr><tr><td style="max-width:400px;word-break:break-word;">Královská kalkulačka modrá </td><td style="text-align:right;">35 000 Kč</td><td style="text-align:right;">250</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kosmetický kufřík růžový</td><td style="text-align:right;">33 240 Kč</td><td style="text-align:right;">277</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kosmetická fytonáplast Jian Kang 5ks</td><td style="text-align:right;">32 442 Kč</td><td style="text-align:right;">100</td></tr><tr><td style="max-width:400px;word-break:break-word;">Fucoidan - oční krém</td><td style="text-align:right;">32 362 Kč</td><td style="text-align:right;">197</td></tr><tr><td style="max-width:400px;word-break:break-word;">Levandulová náplast na nohy po 7 ks </td><td style="text-align:right;">32 156 Kč</td><td style="text-align:right;">100</td></tr><tr><td style="max-width:400px;word-break:break-word;">Pleťová čistící pěna Vita Derm</td><td style="text-align:right;">31 981 Kč</td><td style="text-align:right;">148</td></tr><tr><td style="max-width:400px;word-break:break-word;">Zubní pasta ProDental</td><td style="text-align:right;">31 425 Kč</td><td style="text-align:right;">131</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dámské bylinné menstruační vložky Nefritová svěžest. denní super</td><td style="text-align:right;">31 073 Kč</td><td style="text-align:right;">412</td></tr><tr><td style="max-width:400px;word-break:break-word;">Preventivní krém na nohy s hadím olejem 3ks</td><td style="text-align:right;">30 904 Kč</td><td style="text-align:right;">409</td></tr><tr><td style="max-width:400px;word-break:break-word;">Krém s válečkem na tvarování kontur brady a krku, 120 g	</td><td style="text-align:right;">30 739 Kč</td><td style="text-align:right;">215</td></tr><tr><td style="max-width:400px;word-break:break-word;">Denní vložky s fytomembránou „Energie bylin“</td><td style="text-align:right;">29 994 Kč</td><td style="text-align:right;">322</td></tr><tr><td style="max-width:400px;word-break:break-word;">Revitalizační šampon Oliva a Marakuja, 370 g</td><td style="text-align:right;">29 979 Kč</td><td style="text-align:right;">202</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kolagen s višňovou a granátovou šťávou</td><td style="text-align:right;">29 596 Kč</td><td style="text-align:right;">69</td></tr><tr><td style="max-width:400px;word-break:break-word;">Korigující maska na obličej Intenzivní lifting</td><td style="text-align:right;">29 379 Kč</td><td style="text-align:right;">789</td></tr><tr><td style="max-width:400px;word-break:break-word;">Doplňkový prodej - klinika</td><td style="text-align:right;">29 114 Kč</td><td style="text-align:right;">40</td></tr><tr><td style="max-width:400px;word-break:break-word;">Tající kolagenová liftingová pleťová maska s mořskými řasami	</td><td style="text-align:right;">29 045 Kč</td><td style="text-align:right;">656</td></tr><tr><td style="max-width:400px;word-break:break-word;">Královská kalkulačka červená</td><td style="text-align:right;">28 000 Kč</td><td style="text-align:right;">200</td></tr><tr><td style="max-width:400px;word-break:break-word;">Královská kalkulačka oranžová</td><td style="text-align:right;">28 000 Kč</td><td style="text-align:right;">200</td></tr><tr><td style="max-width:400px;word-break:break-word;">Toaletní taška šedá </td><td style="text-align:right;">27 830 Kč</td><td style="text-align:right;">242</td></tr><tr><td style="max-width:400px;word-break:break-word;">Peptidová maska na rty s arganovým olejem</td><td style="text-align:right;">27 389 Kč</td><td style="text-align:right;">205</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kosmetická fytonáplast Wutong</td><td style="text-align:right;">27 251 Kč</td><td style="text-align:right;">400</td></tr><tr><td style="max-width:400px;word-break:break-word;">Tekutá bylinná sezónní směs s extraktem jedlového jehličí</td><td style="text-align:right;">26 930 Kč</td><td style="text-align:right;">151</td></tr><tr><td style="max-width:400px;word-break:break-word;">Tělová sůl „Grapefruit“</td><td style="text-align:right;">26 887 Kč</td><td style="text-align:right;">226</td></tr><tr><td style="max-width:400px;word-break:break-word;">Hyaluronový gel-lotion na obličej a tělo s mořskými řasami, 220 ml</td><td style="text-align:right;">25 986 Kč</td><td style="text-align:right;">187</td></tr><tr><td style="max-width:400px;word-break:break-word;">Hydratační šampon Vodní meloun a Hrozny, 370 g	</td><td style="text-align:right;">25 883 Kč</td><td style="text-align:right;">165</td></tr><tr><td style="max-width:400px;word-break:break-word;">Hydratační báze pod make-up</td><td style="text-align:right;">25 864 Kč</td><td style="text-align:right;">190</td></tr><tr><td style="max-width:400px;word-break:break-word;">Antioxidační pleťový peeling</td><td style="text-align:right;">25 622 Kč</td><td style="text-align:right;">263</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dámské bylinné slipové vložky Nefritová svěžest</td><td style="text-align:right;">25 598 Kč</td><td style="text-align:right;">394</td></tr><tr><td style="max-width:400px;word-break:break-word;">Královská čelenka</td><td style="text-align:right;">25 491 Kč</td><td style="text-align:right;">879</td></tr><tr><td style="max-width:400px;word-break:break-word;">Omlazující krém-booster na ruce s mucinem hlemýžďů</td><td style="text-align:right;">25 302 Kč</td><td style="text-align:right;">355</td></tr><tr><td style="max-width:400px;word-break:break-word;">Zlatophyt</td><td style="text-align:right;">25 296 Kč</td><td style="text-align:right;">289</td></tr><tr><td style="max-width:400px;word-break:break-word;">Slipové vložky se stříbrem. super tenké</td><td style="text-align:right;">25 229 Kč</td><td style="text-align:right;">395</td></tr><tr><td style="max-width:400px;word-break:break-word;">Multipeptidové pleťové sérum</td><td style="text-align:right;">24 930 Kč</td><td style="text-align:right;">150</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vysoce účinný hydratační krém na obličej</td><td style="text-align:right;">24 130 Kč</td><td style="text-align:right;">208</td></tr><tr><td style="max-width:400px;word-break:break-word;">Aroma-tyčinka s vůní višní a máty</td><td style="text-align:right;">24 069 Kč</td><td style="text-align:right;">500</td></tr><tr><td style="max-width:400px;word-break:break-word;">Funkční komplex Citrokalcevit</td><td style="text-align:right;">24 018 Kč</td><td style="text-align:right;">94</td></tr><tr><td style="max-width:400px;word-break:break-word;">Náplast na nohy</td><td style="text-align:right;">23 819 Kč</td><td style="text-align:right;">400</td></tr><tr><td style="max-width:400px;word-break:break-word;">Fucoidan pleťová voda</td><td style="text-align:right;">23 648 Kč</td><td style="text-align:right;">179</td></tr><tr><td style="max-width:400px;word-break:break-word;">Funkční komplex s vlašským ořechem se sladidlem</td><td style="text-align:right;">23 480 Kč</td><td style="text-align:right;">100</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vyživující krém na obličej na vrásky</td><td style="text-align:right;">23 118 Kč</td><td style="text-align:right;">193</td></tr><tr><td style="max-width:400px;word-break:break-word;">Gel na obličej s projevy akné BioComplex</td><td style="text-align:right;">23 055 Kč</td><td style="text-align:right;">157</td></tr><tr><td style="max-width:400px;word-break:break-word;">Levandulová náplast na nohy</td><td style="text-align:right;">22 924 Kč</td><td style="text-align:right;">440</td></tr><tr><td style="max-width:400px;word-break:break-word;">Extrakt z jedlového jehličí s šípkovou a rybízovou šťávou</td><td style="text-align:right;">22 828 Kč</td><td style="text-align:right;">128</td></tr><tr><td style="max-width:400px;word-break:break-word;">Fluid na vlasy s arganovým olejem a aminokyselinami</td><td style="text-align:right;">22 661 Kč</td><td style="text-align:right;">131</td></tr><tr><td style="max-width:400px;word-break:break-word;">Nákoleníky s bodovou turmalínovou vrstvou</td><td style="text-align:right;">22 613 Kč</td><td style="text-align:right;">34</td></tr><tr><td style="max-width:400px;word-break:break-word;">Homocystein</td><td style="text-align:right;">22 420 Kč</td><td style="text-align:right;">38</td></tr><tr><td style="max-width:400px;word-break:break-word;">Utěrka-skraber na úklid „2v1“, 1 ks</td><td style="text-align:right;">21 844 Kč</td><td style="text-align:right;">222</td></tr><tr><td style="max-width:400px;word-break:break-word;">Krystalový tělový deodorant Natural Veil</td><td style="text-align:right;">21 706 Kč</td><td style="text-align:right;">155</td></tr><tr><td style="max-width:400px;word-break:break-word;">Balzám Talisman</td><td style="text-align:right;">21 672 Kč</td><td style="text-align:right;">233</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kosmetická tělová fytonáplast Zhui Feng Forte</td><td style="text-align:right;">21 658 Kč</td><td style="text-align:right;">440</td></tr><tr><td style="max-width:400px;word-break:break-word;">Krém na vrásky Hadí tuk</td><td style="text-align:right;">21 619 Kč</td><td style="text-align:right;">128</td></tr><tr><td style="max-width:400px;word-break:break-word;">Mezoroller (masážní váleček)</td><td style="text-align:right;">21 384 Kč</td><td style="text-align:right;">48</td></tr><tr><td style="max-width:400px;word-break:break-word;">Šampon proti šedivým vlasům</td><td style="text-align:right;">21 382 Kč</td><td style="text-align:right;">96</td></tr><tr><td style="max-width:400px;word-break:break-word;">Toaletní taška modrá </td><td style="text-align:right;">21 275 Kč</td><td style="text-align:right;">185</td></tr><tr><td style="max-width:400px;word-break:break-word;">Denní vložky s extraktem aloe Nefritová svěžest</td><td style="text-align:right;">21 000 Kč</td><td style="text-align:right;">322</td></tr><tr><td style="max-width:400px;word-break:break-word;">Zubní kartáček Bambusové uhlí</td><td style="text-align:right;">20 990 Kč</td><td style="text-align:right;">278</td></tr><tr><td style="max-width:400px;word-break:break-word;">Krém na oči s mucinem hlemýžďů</td><td style="text-align:right;">20 251 Kč</td><td style="text-align:right;">79</td></tr><tr><td style="max-width:400px;word-break:break-word;">Krém pro obnovu pleti hadí tuk</td><td style="text-align:right;">20 193 Kč</td><td style="text-align:right;">124</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dámské bylinné menstruační vložky Nefritová svěžest. noční super</td><td style="text-align:right;">19 411 Kč</td><td style="text-align:right;">255</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vícefunkční krém na obličej s mucinem hlemýžďů- 1 sáček</td><td style="text-align:right;">19 005 Kč</td><td style="text-align:right;">343</td></tr><tr><td style="max-width:400px;word-break:break-word;">Mycí prostředek na nádobí na bázi plodů Mýdelníku</td><td style="text-align:right;">18 904 Kč</td><td style="text-align:right;">90</td></tr><tr><td style="max-width:400px;word-break:break-word;">Škrabka na okno</td><td style="text-align:right;">18 865 Kč</td><td style="text-align:right;">539</td></tr><tr><td style="max-width:400px;word-break:break-word;">Pleťová maska s kyselinou azelaovou a vitamínem C</td><td style="text-align:right;">18 731 Kč</td><td style="text-align:right;">505</td></tr><tr><td style="max-width:400px;word-break:break-word;">Balzám na vlasy na zpevnění vlasových kořínků s extraktem Lingzhi</td><td style="text-align:right;">18 669 Kč</td><td style="text-align:right;">189</td></tr><tr><td style="max-width:400px;word-break:break-word;">Tělové mýdlo s ženšenem</td><td style="text-align:right;">18 651 Kč</td><td style="text-align:right;">268</td></tr><tr><td style="max-width:400px;word-break:break-word;">Balzám na vlasy Zlatý zázvor</td><td style="text-align:right;">18 587 Kč</td><td style="text-align:right;">144</td></tr><tr><td style="max-width:400px;word-break:break-word;">Ultra tenké dámské denní menstruační vložky Nebeská bavlna, 8 ks</td><td style="text-align:right;">18 310 Kč</td><td style="text-align:right;">271</td></tr><tr><td style="max-width:400px;word-break:break-word;">Peeling na obličej</td><td style="text-align:right;">17 966 Kč</td><td style="text-align:right;">227</td></tr><tr><td style="max-width:400px;word-break:break-word;">Hyaluronové sérum na pleť</td><td style="text-align:right;">17 892 Kč</td><td style="text-align:right;">142</td></tr><tr><td style="max-width:400px;word-break:break-word;">Krém na ruce s hadím tukem</td><td style="text-align:right;">17 888 Kč</td><td style="text-align:right;">304</td></tr><tr><td style="max-width:400px;word-break:break-word;">Fytokoncentrát s hruštičkou okrouhlolistou a tryprofanem pro ženy </td><td style="text-align:right;">17 706 Kč</td><td style="text-align:right;">70</td></tr><tr><td style="max-width:400px;word-break:break-word;">Balzám na poškozené vlasy</td><td style="text-align:right;">16 675 Kč</td><td style="text-align:right;">257</td></tr><tr><td style="max-width:400px;word-break:break-word;">Polypeptidový pleťový krém s kolagenem na vrásky</td><td style="text-align:right;">16 473 Kč</td><td style="text-align:right;">60</td></tr><tr><td style="max-width:400px;word-break:break-word;">Intenzivní omlazující maska na obličej a krk Q10</td><td style="text-align:right;">16 366 Kč</td><td style="text-align:right;">507</td></tr><tr><td style="max-width:400px;word-break:break-word;">Pleťová voda na aknózní pleť</td><td style="text-align:right;">16 264 Kč</td><td style="text-align:right;">122</td></tr><tr><td style="max-width:400px;word-break:break-word;">Královská kuchyňská zástěra</td><td style="text-align:right;">16 240 Kč</td><td style="text-align:right;">232</td></tr><tr><td style="max-width:400px;word-break:break-word;">Balzám na vlasy s  ženšenem</td><td style="text-align:right;">15 916 Kč</td><td style="text-align:right;">101</td></tr><tr><td style="max-width:400px;word-break:break-word;">Šampón na vlasy „Zlatý zázvor“</td><td style="text-align:right;">15 887 Kč</td><td style="text-align:right;">110</td></tr><tr><td style="max-width:400px;word-break:break-word;">Aquagel na oči a obličej</td><td style="text-align:right;">15 458 Kč</td><td style="text-align:right;">122</td></tr><tr><td style="max-width:400px;word-break:break-word;">Tužka na obočí</td><td style="text-align:right;">15 363 Kč</td><td style="text-align:right;">144</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dámské bylinné slipové vložky s anionty Nefritová svěžest</td><td style="text-align:right;">15 344 Kč</td><td style="text-align:right;">234</td></tr><tr><td style="max-width:400px;word-break:break-word;">Šampon na padající vlasy</td><td style="text-align:right;">15 203 Kč</td><td style="text-align:right;">64</td></tr><tr><td style="max-width:400px;word-break:break-word;">Olejová esence na vlasy v kapslích</td><td style="text-align:right;">14 732 Kč</td><td style="text-align:right;">92</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kosmetická fytonáplast Wutong 1ks</td><td style="text-align:right;">14 627 Kč</td><td style="text-align:right;">202</td></tr><tr><td style="max-width:400px;word-break:break-word;">Pleťové sérum s kordycepsem</td><td style="text-align:right;">14 600 Kč</td><td style="text-align:right;">129</td></tr><tr><td style="max-width:400px;word-break:break-word;">Regenerační krém z ovčí placenty kosmetiky tianDe</td><td style="text-align:right;">14 429 Kč</td><td style="text-align:right;">202</td></tr><tr><td style="max-width:400px;word-break:break-word;">Tělová sůl “Krystaly z Mrtvého moře”</td><td style="text-align:right;">14 424 Kč</td><td style="text-align:right;">94</td></tr><tr><td style="max-width:400px;word-break:break-word;">Šampon pro posílení vlasů s extraktem Ling Zhi</td><td style="text-align:right;">14 097 Kč</td><td style="text-align:right;">139</td></tr><tr><td style="max-width:400px;word-break:break-word;">Solná koupel na nohy Čajovníkový strom</td><td style="text-align:right;">14 072 Kč</td><td style="text-align:right;">696</td></tr><tr><td style="max-width:400px;word-break:break-word;">Přírodní houba „Konjac“</td><td style="text-align:right;">14 005 Kč</td><td style="text-align:right;">384</td></tr><tr><td style="max-width:400px;word-break:break-word;">Krém na nohy s hadím tukem</td><td style="text-align:right;">13 990 Kč</td><td style="text-align:right;">233</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vícefunkční krém na obličej s mucinem hlemýžďů</td><td style="text-align:right;">13 803 Kč</td><td style="text-align:right;">45</td></tr><tr><td style="max-width:400px;word-break:break-word;">Regenerační krémová maska na obličej Mořský elixír</td><td style="text-align:right;">13 761 Kč</td><td style="text-align:right;">364</td></tr><tr><td style="max-width:400px;word-break:break-word;">Čistící gel proti akné a na mastnou pleť</td><td style="text-align:right;">13 532 Kč</td><td style="text-align:right;">114</td></tr><tr><td style="max-width:400px;word-break:break-word;">Revitalizační pleťová esence ve spreji Biotics</td><td style="text-align:right;">13 471 Kč</td><td style="text-align:right;">242</td></tr><tr><td style="max-width:400px;word-break:break-word;">Pleťové tonikum z hadího tuku</td><td style="text-align:right;">13 420 Kč</td><td style="text-align:right;">101</td></tr><tr><td style="max-width:400px;word-break:break-word;">Královská bylinná směs silná imunita</td><td style="text-align:right;">13 068 Kč</td><td style="text-align:right;">297</td></tr><tr><td style="max-width:400px;word-break:break-word;">Noční menstruační vložky s fytomembránou „Energie bylin“</td><td style="text-align:right;">13 006 Kč</td><td style="text-align:right;">118</td></tr><tr><td style="max-width:400px;word-break:break-word;">Revitalizační maska na obličej a krk Lingzhi</td><td style="text-align:right;">12 996 Kč</td><td style="text-align:right;">432</td></tr><tr><td style="max-width:400px;word-break:break-word;">Krémová omlazující maska na obličej. krk a dekolt</td><td style="text-align:right;">12 913 Kč</td><td style="text-align:right;">87</td></tr><tr><td style="max-width:400px;word-break:break-word;">Ultra tenké slipové vložky Nebeská bavlna, 20 ks</td><td style="text-align:right;">12 750 Kč</td><td style="text-align:right;">215</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kondicionér na vlasy Efekt bio-laminace</td><td style="text-align:right;">12 712 Kč</td><td style="text-align:right;">95</td></tr><tr><td style="max-width:400px;word-break:break-word;">Revitalizační sprchový gel Oliva a Marakuja, 470 g	</td><td style="text-align:right;">12 481 Kč</td><td style="text-align:right;">80</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kapsle na hygienické praní</td><td style="text-align:right;">12 246 Kč</td><td style="text-align:right;">48</td></tr><tr><td style="max-width:400px;word-break:break-word;">Hydratační sprchový gel Vodní meloun a Hrozny, 470 g	</td><td style="text-align:right;">12 196 Kč</td><td style="text-align:right;">70</td></tr><tr><td style="max-width:400px;word-break:break-word;">Preventivní krém na nohy s hadím olejem 1ks</td><td style="text-align:right;">12 056 Kč</td><td style="text-align:right;">434</td></tr><tr><td style="max-width:400px;word-break:break-word;">Fucoidan čistící mléko na obličej a dekolt</td><td style="text-align:right;">11 952 Kč</td><td style="text-align:right;">91</td></tr><tr><td style="max-width:400px;word-break:break-word;">Intenzivní hydratační maska na obličej a krk Hyaluronová kyselina</td><td style="text-align:right;">11 725 Kč</td><td style="text-align:right;">364</td></tr><tr><td style="max-width:400px;word-break:break-word;">Tónovací krém z ovčí placenty - tmavý</td><td style="text-align:right;">11 589 Kč</td><td style="text-align:right;">126</td></tr><tr><td style="max-width:400px;word-break:break-word;">Tablety s extraktem z jader vinné révy se sladidlem</td><td style="text-align:right;">11 376 Kč</td><td style="text-align:right;">50</td></tr><tr><td style="max-width:400px;word-break:break-word;">Pleťová beauty maska "Vinná terapie"</td><td style="text-align:right;">11 336 Kč</td><td style="text-align:right;">655</td></tr><tr><td style="max-width:400px;word-break:break-word;">Hydratační krémová maska na obličej Aloe</td><td style="text-align:right;">11 312 Kč</td><td style="text-align:right;">423</td></tr><tr><td style="max-width:400px;word-break:break-word;">Pleťová esence s kolagenem a mořskými řasami</td><td style="text-align:right;">11 207 Kč</td><td style="text-align:right;">86</td></tr><tr><td style="max-width:400px;word-break:break-word;">Sametový pleťový pudr Duo (odstín 01), 10 g	</td><td style="text-align:right;">11 192 Kč</td><td style="text-align:right;">174</td></tr><tr><td style="max-width:400px;word-break:break-word;">Tělová sůl „Zelený čaj“</td><td style="text-align:right;">11 168 Kč</td><td style="text-align:right;">129</td></tr><tr><td style="max-width:400px;word-break:break-word;">Sirupy s ovocnými šťávami a vitamíny</td><td style="text-align:right;">11 048 Kč</td><td style="text-align:right;">63</td></tr><tr><td style="max-width:400px;word-break:break-word;">Hadřík na nádobí</td><td style="text-align:right;">11 006 Kč</td><td style="text-align:right;">191</td></tr><tr><td style="max-width:400px;word-break:break-word;">Intenzivní liftingový krém na obličej</td><td style="text-align:right;">10 427 Kč</td><td style="text-align:right;">51</td></tr><tr><td style="max-width:400px;word-break:break-word;">Zubní pasta Zelený čaj a ženšen Sanchi</td><td style="text-align:right;">10 392 Kč</td><td style="text-align:right;">145</td></tr><tr><td style="max-width:400px;word-break:break-word;">Posilující maska na vlasy Hadí olej</td><td style="text-align:right;">10 346 Kč</td><td style="text-align:right;">81</td></tr><tr><td style="max-width:400px;word-break:break-word;">Stylingový sprej na vlasy s aloe „Objem a pružnost“</td><td style="text-align:right;">10 314 Kč</td><td style="text-align:right;">87</td></tr><tr><td style="max-width:400px;word-break:break-word;">Peeling Citrónový</td><td style="text-align:right;">10 168 Kč</td><td style="text-align:right;">164</td></tr><tr><td style="max-width:400px;word-break:break-word;">Krémový balzám na padající vlasy</td><td style="text-align:right;">9 860 Kč</td><td style="text-align:right;">57</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dámské bylinné slipové vložky Nefritová svěžest - super tenké</td><td style="text-align:right;">9 831 Kč</td><td style="text-align:right;">150</td></tr><tr><td style="max-width:400px;word-break:break-word;">Liftingový krém na kontury očí</td><td style="text-align:right;">9 762 Kč</td><td style="text-align:right;">123</td></tr><tr><td style="max-width:400px;word-break:break-word;">Hydratační pleťová PGA-maska s pivoňkou a pupečníkem asijským</td><td style="text-align:right;">9 522 Kč</td><td style="text-align:right;">322</td></tr><tr><td style="max-width:400px;word-break:break-word;"> Krém na nohy s 30 % močoviny na pokožku s prasklinami a otlaky</td><td style="text-align:right;">9 446 Kč</td><td style="text-align:right;">136</td></tr><tr><td style="max-width:400px;word-break:break-word;">Masticha 240tbl.</td><td style="text-align:right;">9 421 Kč</td><td style="text-align:right;">5</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kamencový deodorant s prebiotiky, květinová vůně </td><td style="text-align:right;">9 350 Kč</td><td style="text-align:right;">123</td></tr><tr><td style="max-width:400px;word-break:break-word;">Čistící maska na obličej s projevy akné a jizvami</td><td style="text-align:right;">9 273 Kč</td><td style="text-align:right;">433</td></tr><tr><td style="max-width:400px;word-break:break-word;">Volupta + pro ženy </td><td style="text-align:right;">9 256 Kč</td><td style="text-align:right;">177</td></tr><tr><td style="max-width:400px;word-break:break-word;">BOTOLUXE revitalizační  gel - zlatý</td><td style="text-align:right;">9 148 Kč</td><td style="text-align:right;">56</td></tr><tr><td style="max-width:400px;word-break:break-word;">Pleťový krém s bílým čajem</td><td style="text-align:right;">9 115 Kč</td><td style="text-align:right;">66</td></tr><tr><td style="max-width:400px;word-break:break-word;">Hydrofilní butter</td><td style="text-align:right;">9 073 Kč</td><td style="text-align:right;">43</td></tr><tr><td style="max-width:400px;word-break:break-word;">Královská bylinná směs detoxikační</td><td style="text-align:right;">9 020 Kč</td><td style="text-align:right;">205</td></tr><tr><td style="max-width:400px;word-break:break-word;">Papírová záložka s pravítkem</td><td style="text-align:right;">8 946 Kč</td><td style="text-align:right;">994</td></tr><tr><td style="max-width:400px;word-break:break-word;">Královský deštník šedý</td><td style="text-align:right;">8 880 Kč</td><td style="text-align:right;">74</td></tr><tr><td style="max-width:400px;word-break:break-word;">Super tenké menstruační vložky s bylinným komplexem Artemisia, 8 ks</td><td style="text-align:right;">8 760 Kč</td><td style="text-align:right;">110</td></tr><tr><td style="max-width:400px;word-break:break-word;">Tónovací krém na obličej - světlý</td><td style="text-align:right;">8 755 Kč</td><td style="text-align:right;">148</td></tr><tr><td style="max-width:400px;word-break:break-word;">Čistící gel na pleť Oceán krásy</td><td style="text-align:right;">8 642 Kč</td><td style="text-align:right;">189</td></tr><tr><td style="max-width:400px;word-break:break-word;">Královská lahev </td><td style="text-align:right;">8 400 Kč</td><td style="text-align:right;">200</td></tr><tr><td style="max-width:400px;word-break:break-word;">Probiomix</td><td style="text-align:right;">8 356 Kč</td><td style="text-align:right;">9</td></tr><tr><td style="max-width:400px;word-break:break-word;">Hygienický sprej Fytoncidy tajgy a mořská sůl	</td><td style="text-align:right;">8 308 Kč</td><td style="text-align:right;">90</td></tr><tr><td style="max-width:400px;word-break:break-word;">Klíčenka Království tianDe</td><td style="text-align:right;">8 283 Kč</td><td style="text-align:right;">668</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vyživující šampon s kořenem ženšenu</td><td style="text-align:right;">8 084 Kč</td><td style="text-align:right;">55</td></tr><tr><td style="max-width:400px;word-break:break-word;">Čistící maska na obličej s projevy akné a jizvami po 7 ks </td><td style="text-align:right;">7 992 Kč</td><td style="text-align:right;">46</td></tr><tr><td style="max-width:400px;word-break:break-word;">Masážní váleček na obličej</td><td style="text-align:right;">7 960 Kč</td><td style="text-align:right;">139</td></tr><tr><td style="max-width:400px;word-break:break-word;">Zjemňující balzám na rty</td><td style="text-align:right;">7 942 Kč</td><td style="text-align:right;">149</td></tr><tr><td style="max-width:400px;word-break:break-word;">Šampon a sprchový gel pro muže 2 v 1       </td><td style="text-align:right;">7 786 Kč</td><td style="text-align:right;">69</td></tr><tr><td style="max-width:400px;word-break:break-word;">Kamencový deodorant s prebiotiky, svěží vůně</td><td style="text-align:right;">7 645 Kč</td><td style="text-align:right;">100</td></tr><tr><td style="max-width:400px;word-break:break-word;">Látková taška Království tianDe</td><td style="text-align:right;">7 618 Kč</td><td style="text-align:right;">293</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vodou rozpustná maska na obličej  Perlový pudr</td><td style="text-align:right;">7 323 Kč</td><td style="text-align:right;">125</td></tr><tr><td style="max-width:400px;word-break:break-word;">Jablečná vláknina a prášek dýně</td><td style="text-align:right;">7 270 Kč</td><td style="text-align:right;">316</td></tr></tbody>
       </table>
     </div>
   </div>
   <div class="skupiny-table-block">
-    <button class="skupiny-toggle" onclick="toggleSkupina(this)" style="border-left:4px solid #ef4444;">
+    <button class="w-full flex items-center gap-3 px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer text-sm font-semibold text-gray-900 dark:text-white text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition" onclick="toggleSkupina(this)" style="border-left:4px solid #ef4444;">
       <span>🎁 PROMO</span>
-      <span class="skupiny-toggle-meta">2 produktů · 0 Kč</span>
-      <svg class="skupiny-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      <span class="text-xs font-normal text-gray-500 dark:text-gray-400 ml-auto">2 produktů · 0 Kč</span>
+      <svg class="skupiny-chevron w-4 h-4 flex-shrink-0 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
     </button>
-    <div class="skupiny-table-wrap" style="display:none;">
-      <table class="skupiny-table">
+    <div class="overflow-x-auto border border-gray-200 dark:border-gray-700 border-t-0 rounded-b-lg" style="display:none;">
+      <table class="w-full border-collapse text-[13px]">
         <thead><tr><th>Produkt</th><th style="text-align:right;">Hodnota</th><th style="text-align:right;">Ks</th></tr></thead>
         <tbody><tr><td style="max-width:400px;word-break:break-word;">tianDe reklamní promo stolek</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">tianDe reklamní promo deštník</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr></tbody>
       </table>
     </div>
   </div>
   <div class="skupiny-table-block">
-    <button class="skupiny-toggle" onclick="toggleSkupina(this)" style="border-left:4px solid #8b5cf6;">
+    <button class="w-full flex items-center gap-3 px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer text-sm font-semibold text-gray-900 dark:text-white text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition" onclick="toggleSkupina(this)" style="border-left:4px solid #8b5cf6;">
       <span>🔬 BIOANALÝZA</span>
-      <span class="skupiny-toggle-meta">8 produktů · 0 Kč</span>
-      <svg class="skupiny-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      <span class="text-xs font-normal text-gray-500 dark:text-gray-400 ml-auto">8 produktů · 0 Kč</span>
+      <svg class="skupiny-chevron w-4 h-4 flex-shrink-0 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
     </button>
-    <div class="skupiny-table-wrap" style="display:none;">
-      <table class="skupiny-table">
+    <div class="overflow-x-auto border border-gray-200 dark:border-gray-700 border-t-0 rounded-b-lg" style="display:none;">
+      <table class="w-full border-collapse text-[13px]">
         <thead><tr><th>Produkt</th><th style="text-align:right;">Hodnota</th><th style="text-align:right;">Ks</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
   </div>
   <div class="skupiny-table-block">
-    <button class="skupiny-toggle" onclick="toggleSkupina(this)" style="border-left:4px solid #f59e0b;">
+    <button class="w-full flex items-center gap-3 px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer text-sm font-semibold text-gray-900 dark:text-white text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition" onclick="toggleSkupina(this)" style="border-left:4px solid #f59e0b;">
       <span>📨 PF</span>
-      <span class="skupiny-toggle-meta">3 produktů · 0 Kč</span>
-      <svg class="skupiny-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      <span class="text-xs font-normal text-gray-500 dark:text-gray-400 ml-auto">3 produktů · 0 Kč</span>
+      <svg class="skupiny-chevron w-4 h-4 flex-shrink-0 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
     </button>
-    <div class="skupiny-table-wrap" style="display:none;">
-      <table class="skupiny-table">
+    <div class="overflow-x-auto border border-gray-200 dark:border-gray-700 border-t-0 rounded-b-lg" style="display:none;">
+      <table class="w-full border-collapse text-[13px]">
         <thead><tr><th>Produkt</th><th style="text-align:right;">Hodnota</th><th style="text-align:right;">Ks</th></tr></thead>
         <tbody><tr><td style="max-width:400px;word-break:break-word;">PF 2022</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">PF 2023</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">PF 2026</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr></tbody>
       </table>
     </div>
   </div>
   <div class="skupiny-table-block">
-    <button class="skupiny-toggle" onclick="toggleSkupina(this)" style="border-left:4px solid #ec4899;">
+    <button class="w-full flex items-center gap-3 px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer text-sm font-semibold text-gray-900 dark:text-white text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition" onclick="toggleSkupina(this)" style="border-left:4px solid #ec4899;">
       <span>🎀 Dárkové vouchery</span>
-      <span class="skupiny-toggle-meta">33 produktů · 158 Kč</span>
-      <svg class="skupiny-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      <span class="text-xs font-normal text-gray-500 dark:text-gray-400 ml-auto">33 produktů · 158 Kč</span>
+      <svg class="skupiny-chevron w-4 h-4 flex-shrink-0 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
     </button>
-    <div class="skupiny-table-wrap" style="display:none;">
-      <table class="skupiny-table">
+    <div class="overflow-x-auto border border-gray-200 dark:border-gray-700 border-t-0 rounded-b-lg" style="display:none;">
+      <table class="w-full border-collapse text-[13px]">
         <thead><tr><th>Produkt</th><th style="text-align:right;">Hodnota</th><th style="text-align:right;">Ks</th></tr></thead>
         <tbody><tr><td style="max-width:400px;word-break:break-word;">Dárková krabička </td><td style="text-align:right;">11 Kč</td><td style="text-align:right;">18</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dárková Taška modrá s logem tianDe</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Papírová dárková taška tianDe s orchidejí</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Papírová dárková taška s motýly tianDe</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Papírová dárková taška Coast of Azure tianDe</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dárková krabička "Motýlci"</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dárková krabička "Lotos"</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dárkový poukaz 300 Kč</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dárkový poukaz 500 Kč</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dárkový poukaz 200 Kč</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dárkový poukaz Bicom 1 000 Kč</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dárkový poukaz Bicom 2 000 Kč </td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dárkový poukaz Bicom 5 000 Kč </td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dárkový poukaz BICOM 10 000 Kč </td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dárkový poukaz 2000 Kč</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Darčekový poukaz 10 €</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dárkový poukaz 100 Kč</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Dárkový poukaz 1000 Kč</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Darčekový poukaz 20 €</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Darčekový poukaz 40 €</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Darčekový poukaz 5 €</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Darčekový poukaz 80 €</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vánoční darčekový poukaz 10 €</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vánoční darčekový poukaz 20 €</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vánoční darčekový poukaz 40 €</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vánoční darčekový poukaz 5 €</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vánoční darčekový poukaz 80 €</td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vánoční dárkový poukaz 100Kč </td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vánoční dárkový poukaz 1000Kč </td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vánoční dárkový poukaz 200Kč </td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vánoční dárkový poukaz 2000Kč </td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vánoční dárkový poukaz 300Kč </td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr><tr><td style="max-width:400px;word-break:break-word;">Vánoční dárkový poukaz 500Kč </td><td style="text-align:right;">0 Kč</td><td style="text-align:right;">0</td></tr></tbody>
       </table>
@@ -590,8 +476,8 @@ th.sort-desc::after { content: ' ↓'; }
   </div>
 
   <!-- SKLADY -->
-  <div class="section" id="sklady">
-    <div class="section-title">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-7 mb-6" id="sklady">
+    <div class="text-[17px] font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2.5 [&>svg]:w-5 [&>svg]:h-5 [&>svg]:text-brand">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>
       Hodnota zásob po skladech
     </div>
@@ -652,12 +538,12 @@ th.sort-desc::after { content: ' ↓'; }
   </div>
 
   <!-- TOP 30 -->
-  <div class="section" id="top30">
-    <div class="section-title">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-7 mb-6" id="top30">
+    <div class="text-[17px] font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2.5 [&>svg]:w-5 [&>svg]:h-5 [&>svg]:text-brand">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6m6 0h6m-6 0V9a2 2 0 012-2h2a2 2 0 012 2v10m6 0v-4a2 2 0 00-2-2h-2a2 2 0 00-2 2v4"/></svg>
       TOP 30 produktů podle hodnoty
     </div>
-    <div class="table-wrap">
+    <div class="overflow-x-auto max-h-[520px] overflow-y-auto">
       <table class="data-table">
         <thead><tr>
           <th style="text-align:left;width:30px">#</th>
@@ -986,16 +872,16 @@ th.sort-desc::after { content: ' ↓'; }
   </div>
 
   <!-- OBJEDNÁNO, NENÍ SKLADEM -->
-  <div class="section" id="orders">
-    <div class="section-title">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-7 mb-6" id="orders">
+    <div class="text-[17px] font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2.5 [&>svg]:w-5 [&>svg]:h-5 [&>svg]:text-brand">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01M5.07 19H19a2 2 0 001.75-2.96l-6.93-12a2 2 0 00-3.5 0l-6.93 12A2 2 0 005.07 19z"/></svg>
       ⚠️ Co brzy dojde — objednáno, ale není skladem
     </div>
-    <div class="alert-banner red">
+    <div class="rounded-xl p-4 mb-4 flex items-center gap-3 text-sm bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300">
       <span style="font-size:22px">🔴</span>
       <div><strong>71 produktů</strong> má otevřené objednávky (požadavky), ale <strong>nulový stav na skladě</strong>. Zákazníci čekají — je potřeba zajistit doplnění nebo informovat.</div>
     </div>
-    <div class="table-wrap">
+    <div class="overflow-x-auto max-h-[520px] overflow-y-auto">
       <table class="data-table">
         <thead><tr>
           <th style="text-align:left">Produkt</th>
@@ -1223,16 +1109,16 @@ th.sort-desc::after { content: ' ↓'; }
   </div>
 
   <!-- DEAD STOCK -->
-  <div class="section" id="dead">
-    <div class="section-title">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-7 mb-6" id="dead">
+    <div class="text-[17px] font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2.5 [&>svg]:w-5 [&>svg]:h-5 [&>svg]:text-brand">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       💤 Co nám leží na skladě — mrtvé zásoby (bez pohybu 90+ dní)
     </div>
-    <div class="alert-banner orange">
+    <div class="rounded-xl p-4 mb-4 flex items-center gap-3 text-sm bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300">
       <span style="font-size:22px">⚠️</span>
       <div><strong>415 produktů</strong> nemělo žádný pohyb více než 90 dní. Celková hodnota těchto zásob je <strong>2 056 992 Kč</strong>. Uvažuj o akci, výprodeji nebo likvidaci.</div>
     </div>
-    <div class="table-wrap">
+    <div class="overflow-x-auto max-h-[520px] overflow-y-auto">
       <table class="data-table">
         <thead><tr>
           <th style="text-align:left">Produkt</th>
@@ -1652,8 +1538,8 @@ th.sort-desc::after { content: ' ↓'; }
 
 
   <!-- VIDITELNOST -->
-  <div class="section" id="viditelnost">
-    <div class="section-title">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-7 mb-6" id="viditelnost">
+    <div class="text-[17px] font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2.5 [&>svg]:w-5 [&>svg]:h-5 [&>svg]:text-brand">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
       Aktivní vs. skryté produkty
     </div>
@@ -1760,7 +1646,7 @@ th.sort-desc::after { content: ' ↓'; }
     <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--text)">
       Top 50 skrytých produktů se zásobami — zmrazený kapitál
     </div>
-    <div class="table-wrap" style="max-height:520px;overflow-y:auto">
+    <div class="overflow-x-auto max-h-[520px] overflow-y-auto" style="max-height:520px;overflow-y:auto">
       <table class="data-table">
         <thead>
           <tr>
@@ -2179,14 +2065,14 @@ th.sort-desc::after { content: ' ↓'; }
   </div>
 
   <!-- DETAIL TABLE -->
-  <div class="section" id="detail">
-    <div class="section-title">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-7 mb-6" id="detail">
+    <div class="text-[17px] font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2.5 [&>svg]:w-5 [&>svg]:h-5 [&>svg]:text-brand">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
       Detailní tabulka — všechny produkty skladem
     </div>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="🔍 Hledat produkt nebo kód..." oninput="filterTable()">
-      <select id="warehouseFilter" onchange="filterTable()">
+    <div class="flex gap-2.5 mb-4 flex-wrap">
+      <input type="text" class="search-input-tw" id="searchInput" placeholder="🔍 Hledat produkt nebo kód..." oninput="filterTable()">
+      <select class="search-select-tw" id="warehouseFilter" onchange="filterTable()">
         <option value="">Všechny sklady</option>
         <option value="SKLAD">Hlavní sklad (CZ)</option>
         <option value="SKLAD-SK">SKLAD-SK</option>
@@ -2196,7 +2082,7 @@ th.sort-desc::after { content: ' ↓'; }
       </select>
     </div>
     <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px" id="rowCount">Zobrazeno <span id="visibleCount">1 740</span> z 1 740 produktů</div>
-    <div class="table-wrap" id="tableWrap">
+    <div class="overflow-x-auto max-h-[520px] overflow-y-auto" id="tableWrap">
       <table class="data-table" id="detailTable">
         <thead><tr>
           <th style="text-align:left">Kód</th>
@@ -16124,70 +16010,70 @@ th.sort-desc::after { content: ' ↓'; }
         </tbody>
       </table>
     </div>
-    <div class="pagination" id="paginationDiv"></div>
+    <div class="flex gap-2 justify-center mt-3.5 flex-wrap items-center text-sm text-gray-500 dark:text-gray-400" id="paginationDiv"></div>
   </div>
 
   <!-- DETAIL SKLADŮ -->
-  <div class="section" id="sklady-detail">
-    <div class="section-title">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-7 mb-6" id="sklady-detail">
+    <div class="text-[17px] font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2.5 [&>svg]:w-5 [&>svg]:h-5 [&>svg]:text-brand">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M9 22V12h6v10"/></svg>
       Detail skladů
     </div>
 
-    <div class="sklady-tabs">
-      <button class="sklady-tab active" onclick="switchSklad('sklad-main')">SKLAD</button>
-      <button class="sklady-tab" onclick="switchSklad('sklad-sk')">SK</button>
-      <button class="sklady-tab" onclick="switchSklad('sklad-ltm')">LTM</button>
-      <button class="sklady-tab" onclick="switchSklad('sklad-mecin')">MĚČÍN</button>
-      <button class="sklady-tab" onclick="switchSklad('sklad-klinika')">KLINIKA</button>
+    <div class="flex gap-1.5 flex-wrap mb-5">
+      <button class="sklady-tab active px-4 py-2 rounded-lg text-sm font-semibold border border-brand bg-brand text-white cursor-pointer" onclick="switchSklad('sklad-main')">SKLAD</button>
+      <button class="sklady-tab px-4 py-2 rounded-lg text-sm font-semibold border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-500 dark:text-gray-400 cursor-pointer hover:bg-brand hover:text-white hover:border-brand transition" onclick="switchSklad('sklad-sk')">SK</button>
+      <button class="sklady-tab px-4 py-2 rounded-lg text-sm font-semibold border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-500 dark:text-gray-400 cursor-pointer hover:bg-brand hover:text-white hover:border-brand transition" onclick="switchSklad('sklad-ltm')">LTM</button>
+      <button class="sklady-tab px-4 py-2 rounded-lg text-sm font-semibold border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-500 dark:text-gray-400 cursor-pointer hover:bg-brand hover:text-white hover:border-brand transition" onclick="switchSklad('sklad-mecin')">MĚČÍN</button>
+      <button class="sklady-tab px-4 py-2 rounded-lg text-sm font-semibold border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-500 dark:text-gray-400 cursor-pointer hover:bg-brand hover:text-white hover:border-brand transition" onclick="switchSklad('sklad-klinika')">KLINIKA</button>
     </div>
 
     <!-- SKLAD -->
-    <div class="sklady-pane active" id="pane-sklad-main">
-<div class="sklady-kpi">
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Hodnota skladu</div>
-          <div class="sklady-kpi-value">20 489 669 Kč</div>
-          <div class="sklady-kpi-sub">celková skladová hodnota</div>
+    <div class="sklady-pane block" id="pane-sklad-main">
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Hodnota skladu</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">20 489 669 Kč</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">celková skladová hodnota</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Produkty na skladě</div>
-          <div class="sklady-kpi-value">408</div>
-          <div class="sklady-kpi-sub">položek s množstvím &gt; 0</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Produkty na skladě</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">408</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">položek s množstvím &gt; 0</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Celkové množství</div>
-          <div class="sklady-kpi-value">411 652</div>
-          <div class="sklady-kpi-sub">kusů na skladě</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Celkové množství</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">411 652</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">kusů na skladě</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Prům. cena položky</div>
-          <div class="sklady-kpi-value">99,86 Kč</div>
-          <div class="sklady-kpi-sub">průměrná nákupní cena</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Prům. cena položky</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">99,86 Kč</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">průměrná nákupní cena</div>
         </div>
       </div>
-      <div class="sklady-dead-banner">⏰ <strong>51 položek</strong> bez pohybu déle než 90 dní — hodnota <strong>1 320 879 Kč</strong></div>
+      <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 text-amber-800 dark:text-amber-300 rounded-lg px-4 py-2.5 mb-3.5 text-sm flex items-center gap-2.5">⏰ <strong>51 položek</strong> bez pohybu déle než 90 dní — hodnota <strong>1 320 879 Kč</strong></div>
 
-      <div class="wh-filter-bar" id="fb-main">
-        <input type="text" class="wh-search" id="wsearch-main" placeholder="Hledat podle názvu nebo kódu..." oninput="whFilter('main')">
-        <div class="wh-pills" id="wpills-stock-main">
-          <button class="wh-pill active" onclick="whSetFilter('main','stock','all')">Vše</button>
-          <button class="wh-pill" onclick="whSetFilter('main','stock','in')">Skladem</button>
-          <button class="wh-pill" onclick="whSetFilter('main','stock','out')">Vyprodáno</button>
-          <button class="wh-pill" onclick="whSetFilter('main','stock','low')">Nízký stav</button>
+      <div class="flex flex-wrap gap-2.5 items-center mb-3.5 px-4 py-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl" id="fb-main">
+        <input type="text" class="wh-search flex-1 min-w-[200px] px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm outline-none focus:border-brand dark:focus:border-brand transition" id="wsearch-main" placeholder="Hledat podle názvu nebo kódu..." oninput="whFilter('main')">
+        <div class="flex flex-wrap gap-1.5" id="wpills-stock-main">
+          <button class="wh-pill active px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] bg-brand text-white border-brand cursor-pointer whitespace-nowrap" onclick="whSetFilter('main','stock','all')">Vše</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('main','stock','in')">Skladem</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('main','stock','out')">Vyprodáno</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('main','stock','low')">Nízký stav</button>
         </div>
-        <div class="wh-pill-sep"></div>
-        <div class="wh-pills" id="wpills-mv-main">
-          <button class="wh-pill active" onclick="whSetFilter('main','mv','all')">Vše</button>
-          <button class="wh-pill" onclick="whSetFilter('main','mv','active')">Aktivní &lt;30 dní</button>
-          <button class="wh-pill" onclick="whSetFilter('main','mv','inactive')">Neaktivní 30–90 dní</button>
-          <button class="wh-pill" onclick="whSetFilter('main','mv','dead')">Mrtvé 90+ dní</button>
+        <div class="w-px bg-gray-200 dark:bg-gray-600 self-stretch mx-0.5"></div>
+        <div class="flex flex-wrap gap-1.5" id="wpills-mv-main">
+          <button class="wh-pill active px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] bg-brand text-white border-brand cursor-pointer whitespace-nowrap" onclick="whSetFilter('main','mv','all')">Vše</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('main','mv','active')">Aktivní &lt;30 dní</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('main','mv','inactive')">Neaktivní 30–90 dní</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('main','mv','dead')">Mrtvé 90+ dní</button>
         </div>
       </div>
-      <div class="wh-results-info" id="winfo-main">
+      <div class="text-xs text-gray-500 dark:text-gray-400 py-1.5 flex justify-between items-center" id="winfo-main">
         <span id="wcnt-main"></span>
       </div>
-      <div class="table-wrap" id="wtable-wrap-main">
+      <div class="overflow-x-auto max-h-[520px] overflow-y-auto" id="wtable-wrap-main">
         <table class="data-table" id="wtable-main">
           <thead><tr>
             <th class="sortable" onclick="whSort('main','n')" id="wth-main-n">Název</th>
@@ -16200,55 +16086,55 @@ th.sort-desc::after { content: ' ↓'; }
           <tbody id="wtbody-main"></tbody>
         </table>
       </div>
-      <div class="wh-pagination" id="wpag-main"></div>
+      <div class="flex gap-1 items-center flex-wrap mt-3" id="wpag-main"></div>
     </div>
 
     <!-- SKLAD-SK -->
-    <div class="sklady-pane" id="pane-sklad-sk">
-<div class="sklady-kpi">
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Hodnota skladu</div>
-          <div class="sklady-kpi-value">6 228 234 Kč</div>
-          <div class="sklady-kpi-sub">celková skladová hodnota</div>
+    <div class="sklady-pane hidden" id="pane-sklad-sk">
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Hodnota skladu</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">6 228 234 Kč</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">celková skladová hodnota</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Produkty na skladě</div>
-          <div class="sklady-kpi-value">418</div>
-          <div class="sklady-kpi-sub">položek s množstvím &gt; 0</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Produkty na skladě</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">418</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">položek s množstvím &gt; 0</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Celkové množství</div>
-          <div class="sklady-kpi-value">76 321</div>
-          <div class="sklady-kpi-sub">kusů na skladě</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Celkové množství</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">76 321</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">kusů na skladě</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Prům. cena položky</div>
-          <div class="sklady-kpi-value">102,59 Kč</div>
-          <div class="sklady-kpi-sub">průměrná nákupní cena</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Prům. cena položky</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">102,59 Kč</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">průměrná nákupní cena</div>
         </div>
       </div>
-      <div class="sklady-dead-banner">⏰ <strong>78 položek</strong> bez pohybu déle než 90 dní — hodnota <strong>340 319 Kč</strong></div>
+      <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 text-amber-800 dark:text-amber-300 rounded-lg px-4 py-2.5 mb-3.5 text-sm flex items-center gap-2.5">⏰ <strong>78 položek</strong> bez pohybu déle než 90 dní — hodnota <strong>340 319 Kč</strong></div>
 
-      <div class="wh-filter-bar" id="fb-sk">
-        <input type="text" class="wh-search" id="wsearch-sk" placeholder="Hledat podle názvu nebo kódu..." oninput="whFilter('sk')">
-        <div class="wh-pills" id="wpills-stock-sk">
-          <button class="wh-pill active" onclick="whSetFilter('sk','stock','all')">Vše</button>
-          <button class="wh-pill" onclick="whSetFilter('sk','stock','in')">Skladem</button>
-          <button class="wh-pill" onclick="whSetFilter('sk','stock','out')">Vyprodáno</button>
-          <button class="wh-pill" onclick="whSetFilter('sk','stock','low')">Nízký stav</button>
+      <div class="flex flex-wrap gap-2.5 items-center mb-3.5 px-4 py-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl" id="fb-sk">
+        <input type="text" class="wh-search flex-1 min-w-[200px] px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm outline-none focus:border-brand dark:focus:border-brand transition" id="wsearch-sk" placeholder="Hledat podle názvu nebo kódu..." oninput="whFilter('sk')">
+        <div class="flex flex-wrap gap-1.5" id="wpills-stock-sk">
+          <button class="wh-pill active px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] bg-brand text-white border-brand cursor-pointer whitespace-nowrap" onclick="whSetFilter('sk','stock','all')">Vše</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('sk','stock','in')">Skladem</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('sk','stock','out')">Vyprodáno</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('sk','stock','low')">Nízký stav</button>
         </div>
-        <div class="wh-pill-sep"></div>
-        <div class="wh-pills" id="wpills-mv-sk">
-          <button class="wh-pill active" onclick="whSetFilter('sk','mv','all')">Vše</button>
-          <button class="wh-pill" onclick="whSetFilter('sk','mv','active')">Aktivní &lt;30 dní</button>
-          <button class="wh-pill" onclick="whSetFilter('sk','mv','inactive')">Neaktivní 30–90 dní</button>
-          <button class="wh-pill" onclick="whSetFilter('sk','mv','dead')">Mrtvé 90+ dní</button>
+        <div class="w-px bg-gray-200 dark:bg-gray-600 self-stretch mx-0.5"></div>
+        <div class="flex flex-wrap gap-1.5" id="wpills-mv-sk">
+          <button class="wh-pill active px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] bg-brand text-white border-brand cursor-pointer whitespace-nowrap" onclick="whSetFilter('sk','mv','all')">Vše</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('sk','mv','active')">Aktivní &lt;30 dní</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('sk','mv','inactive')">Neaktivní 30–90 dní</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('sk','mv','dead')">Mrtvé 90+ dní</button>
         </div>
       </div>
-      <div class="wh-results-info" id="winfo-sk">
+      <div class="text-xs text-gray-500 dark:text-gray-400 py-1.5 flex justify-between items-center" id="winfo-sk">
         <span id="wcnt-sk"></span>
       </div>
-      <div class="table-wrap" id="wtable-wrap-sk">
+      <div class="overflow-x-auto max-h-[520px] overflow-y-auto" id="wtable-wrap-sk">
         <table class="data-table" id="wtable-sk">
           <thead><tr>
             <th class="sortable" onclick="whSort('sk','n')" id="wth-sk-n">Název</th>
@@ -16261,55 +16147,55 @@ th.sort-desc::after { content: ' ↓'; }
           <tbody id="wtbody-sk"></tbody>
         </table>
       </div>
-      <div class="wh-pagination" id="wpag-sk"></div>
+      <div class="flex gap-1 items-center flex-wrap mt-3" id="wpag-sk"></div>
     </div>
 
     <!-- SKLAD-LTM -->
-    <div class="sklady-pane" id="pane-sklad-ltm">
-<div class="sklady-kpi">
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Hodnota skladu</div>
-          <div class="sklady-kpi-value">1 828 384 Kč</div>
-          <div class="sklady-kpi-sub">celková skladová hodnota</div>
+    <div class="sklady-pane hidden" id="pane-sklad-ltm">
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Hodnota skladu</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">1 828 384 Kč</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">celková skladová hodnota</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Produkty na skladě</div>
-          <div class="sklady-kpi-value">457</div>
-          <div class="sklady-kpi-sub">položek s množstvím &gt; 0</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Produkty na skladě</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">457</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">položek s množstvím &gt; 0</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Celkové množství</div>
-          <div class="sklady-kpi-value">8 888</div>
-          <div class="sklady-kpi-sub">kusů na skladě</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Celkové množství</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">8 888</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">kusů na skladě</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Prům. cena položky</div>
-          <div class="sklady-kpi-value">148,18 Kč</div>
-          <div class="sklady-kpi-sub">průměrná nákupní cena</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Prům. cena položky</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">148,18 Kč</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">průměrná nákupní cena</div>
         </div>
       </div>
-      <div class="sklady-dead-banner" style="background:#fef2f2;border-color:#fecaca;color:#991b1b;">⚠️ <strong>163 položek</strong> bez pohybu déle než 90 dní — hodnota <strong>288 588 Kč</strong></div>
+      <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 text-amber-800 dark:text-amber-300 rounded-lg px-4 py-2.5 mb-3.5 text-sm flex items-center gap-2.5" style="background:#fef2f2;border-color:#fecaca;color:#991b1b;">⚠️ <strong>163 položek</strong> bez pohybu déle než 90 dní — hodnota <strong>288 588 Kč</strong></div>
 
-      <div class="wh-filter-bar" id="fb-ltm">
-        <input type="text" class="wh-search" id="wsearch-ltm" placeholder="Hledat podle názvu nebo kódu..." oninput="whFilter('ltm')">
-        <div class="wh-pills" id="wpills-stock-ltm">
-          <button class="wh-pill active" onclick="whSetFilter('ltm','stock','all')">Vše</button>
-          <button class="wh-pill" onclick="whSetFilter('ltm','stock','in')">Skladem</button>
-          <button class="wh-pill" onclick="whSetFilter('ltm','stock','out')">Vyprodáno</button>
-          <button class="wh-pill" onclick="whSetFilter('ltm','stock','low')">Nízký stav</button>
+      <div class="flex flex-wrap gap-2.5 items-center mb-3.5 px-4 py-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl" id="fb-ltm">
+        <input type="text" class="wh-search flex-1 min-w-[200px] px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm outline-none focus:border-brand dark:focus:border-brand transition" id="wsearch-ltm" placeholder="Hledat podle názvu nebo kódu..." oninput="whFilter('ltm')">
+        <div class="flex flex-wrap gap-1.5" id="wpills-stock-ltm">
+          <button class="wh-pill active px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] bg-brand text-white border-brand cursor-pointer whitespace-nowrap" onclick="whSetFilter('ltm','stock','all')">Vše</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('ltm','stock','in')">Skladem</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('ltm','stock','out')">Vyprodáno</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('ltm','stock','low')">Nízký stav</button>
         </div>
-        <div class="wh-pill-sep"></div>
-        <div class="wh-pills" id="wpills-mv-ltm">
-          <button class="wh-pill active" onclick="whSetFilter('ltm','mv','all')">Vše</button>
-          <button class="wh-pill" onclick="whSetFilter('ltm','mv','active')">Aktivní &lt;30 dní</button>
-          <button class="wh-pill" onclick="whSetFilter('ltm','mv','inactive')">Neaktivní 30–90 dní</button>
-          <button class="wh-pill" onclick="whSetFilter('ltm','mv','dead')">Mrtvé 90+ dní</button>
+        <div class="w-px bg-gray-200 dark:bg-gray-600 self-stretch mx-0.5"></div>
+        <div class="flex flex-wrap gap-1.5" id="wpills-mv-ltm">
+          <button class="wh-pill active px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] bg-brand text-white border-brand cursor-pointer whitespace-nowrap" onclick="whSetFilter('ltm','mv','all')">Vše</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('ltm','mv','active')">Aktivní &lt;30 dní</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('ltm','mv','inactive')">Neaktivní 30–90 dní</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('ltm','mv','dead')">Mrtvé 90+ dní</button>
         </div>
       </div>
-      <div class="wh-results-info" id="winfo-ltm">
+      <div class="text-xs text-gray-500 dark:text-gray-400 py-1.5 flex justify-between items-center" id="winfo-ltm">
         <span id="wcnt-ltm"></span>
       </div>
-      <div class="table-wrap" id="wtable-wrap-ltm">
+      <div class="overflow-x-auto max-h-[520px] overflow-y-auto" id="wtable-wrap-ltm">
         <table class="data-table" id="wtable-ltm">
           <thead><tr>
             <th class="sortable" onclick="whSort('ltm','n')" id="wth-ltm-n">Název</th>
@@ -16322,55 +16208,55 @@ th.sort-desc::after { content: ' ↓'; }
           <tbody id="wtbody-ltm"></tbody>
         </table>
       </div>
-      <div class="wh-pagination" id="wpag-ltm"></div>
+      <div class="flex gap-1 items-center flex-wrap mt-3" id="wpag-ltm"></div>
     </div>
 
     <!-- SKLAD-MĚČÍN -->
-    <div class="sklady-pane" id="pane-sklad-mecin">
-<div class="sklady-kpi">
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Hodnota skladu</div>
-          <div class="sklady-kpi-value">514 562 Kč</div>
-          <div class="sklady-kpi-sub">celková skladová hodnota</div>
+    <div class="sklady-pane hidden" id="pane-sklad-mecin">
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Hodnota skladu</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">514 562 Kč</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">celková skladová hodnota</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Produkty na skladě</div>
-          <div class="sklady-kpi-value">337</div>
-          <div class="sklady-kpi-sub">položek s množstvím &gt; 0</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Produkty na skladě</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">337</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">položek s množstvím &gt; 0</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Celkové množství</div>
-          <div class="sklady-kpi-value">12 502</div>
-          <div class="sklady-kpi-sub">kusů na skladě</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Celkové množství</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">12 502</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">kusů na skladě</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Prům. cena položky</div>
-          <div class="sklady-kpi-value">146,08 Kč</div>
-          <div class="sklady-kpi-sub">průměrná nákupní cena</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Prům. cena položky</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">146,08 Kč</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">průměrná nákupní cena</div>
         </div>
       </div>
-      <div class="sklady-dead-banner" style="background:#fef2f2;border-color:#fecaca;color:#991b1b;">⚠️ <strong>125 položek</strong> bez pohybu déle než 90 dní — hodnota <strong>115 493 Kč</strong></div>
+      <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 text-amber-800 dark:text-amber-300 rounded-lg px-4 py-2.5 mb-3.5 text-sm flex items-center gap-2.5" style="background:#fef2f2;border-color:#fecaca;color:#991b1b;">⚠️ <strong>125 položek</strong> bez pohybu déle než 90 dní — hodnota <strong>115 493 Kč</strong></div>
 
-      <div class="wh-filter-bar" id="fb-mecin">
-        <input type="text" class="wh-search" id="wsearch-mecin" placeholder="Hledat podle názvu nebo kódu..." oninput="whFilter('mecin')">
-        <div class="wh-pills" id="wpills-stock-mecin">
-          <button class="wh-pill active" onclick="whSetFilter('mecin','stock','all')">Vše</button>
-          <button class="wh-pill" onclick="whSetFilter('mecin','stock','in')">Skladem</button>
-          <button class="wh-pill" onclick="whSetFilter('mecin','stock','out')">Vyprodáno</button>
-          <button class="wh-pill" onclick="whSetFilter('mecin','stock','low')">Nízký stav</button>
+      <div class="flex flex-wrap gap-2.5 items-center mb-3.5 px-4 py-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl" id="fb-mecin">
+        <input type="text" class="wh-search flex-1 min-w-[200px] px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm outline-none focus:border-brand dark:focus:border-brand transition" id="wsearch-mecin" placeholder="Hledat podle názvu nebo kódu..." oninput="whFilter('mecin')">
+        <div class="flex flex-wrap gap-1.5" id="wpills-stock-mecin">
+          <button class="wh-pill active px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] bg-brand text-white border-brand cursor-pointer whitespace-nowrap" onclick="whSetFilter('mecin','stock','all')">Vše</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('mecin','stock','in')">Skladem</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('mecin','stock','out')">Vyprodáno</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('mecin','stock','low')">Nízký stav</button>
         </div>
-        <div class="wh-pill-sep"></div>
-        <div class="wh-pills" id="wpills-mv-mecin">
-          <button class="wh-pill active" onclick="whSetFilter('mecin','mv','all')">Vše</button>
-          <button class="wh-pill" onclick="whSetFilter('mecin','mv','active')">Aktivní &lt;30 dní</button>
-          <button class="wh-pill" onclick="whSetFilter('mecin','mv','inactive')">Neaktivní 30–90 dní</button>
-          <button class="wh-pill" onclick="whSetFilter('mecin','mv','dead')">Mrtvé 90+ dní</button>
+        <div class="w-px bg-gray-200 dark:bg-gray-600 self-stretch mx-0.5"></div>
+        <div class="flex flex-wrap gap-1.5" id="wpills-mv-mecin">
+          <button class="wh-pill active px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] bg-brand text-white border-brand cursor-pointer whitespace-nowrap" onclick="whSetFilter('mecin','mv','all')">Vše</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('mecin','mv','active')">Aktivní &lt;30 dní</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('mecin','mv','inactive')">Neaktivní 30–90 dní</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('mecin','mv','dead')">Mrtvé 90+ dní</button>
         </div>
       </div>
-      <div class="wh-results-info" id="winfo-mecin">
+      <div class="text-xs text-gray-500 dark:text-gray-400 py-1.5 flex justify-between items-center" id="winfo-mecin">
         <span id="wcnt-mecin"></span>
       </div>
-      <div class="table-wrap" id="wtable-wrap-mecin">
+      <div class="overflow-x-auto max-h-[520px] overflow-y-auto" id="wtable-wrap-mecin">
         <table class="data-table" id="wtable-mecin">
           <thead><tr>
             <th class="sortable" onclick="whSort('mecin','n')" id="wth-mecin-n">Název</th>
@@ -16383,50 +16269,50 @@ th.sort-desc::after { content: ' ↓'; }
           <tbody id="wtbody-mecin"></tbody>
         </table>
       </div>
-      <div class="wh-pagination" id="wpag-mecin"></div>
+      <div class="flex gap-1 items-center flex-wrap mt-3" id="wpag-mecin"></div>
     </div>
 
     <!-- SKLAD-KLINIKA -->
-    <div class="sklady-pane" id="pane-sklad-klinika">
-<div class="sklady-kpi">
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Produkty na skladě</div>
-          <div class="sklady-kpi-value">120</div>
-          <div class="sklady-kpi-sub">položek s množstvím &gt; 0</div>
+    <div class="sklady-pane hidden" id="pane-sklad-klinika">
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Produkty na skladě</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">120</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">položek s množstvím &gt; 0</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Celkové množství</div>
-          <div class="sklady-kpi-value">700</div>
-          <div class="sklady-kpi-sub">kusů na skladě</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Celkové množství</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">700</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">kusů na skladě</div>
         </div>
-        <div class="sklady-kpi-card">
-          <div class="sklady-kpi-label">Posl. pohyb</div>
-          <div class="sklady-kpi-value">31.01.2026</div>
-          <div class="sklady-kpi-sub">datum posledního pohybu</div>
+        <div class="bg-gray-50 dark:bg-gray-900 border-l-4 border-l-brand border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+          <div class="text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Posl. pohyb</div>
+          <div class="text-2xl font-extrabold mt-1 mb-0.5 text-gray-900 dark:text-white">31.01.2026</div>
+          <div class="text-[11.5px] text-gray-500 dark:text-gray-400">datum posledního pohybu</div>
         </div>
       </div>
-      <div class="sklady-dead-banner" style="background:#eff6ff;border-color:#bfdbfe;color:#1e40af;">ℹ️ Klinika eviduje položky v hodnotě <strong>1 Kč/ks</strong> (poukazy, klinické služby). Skladová hodnota není relevantní — tracking probíhá přes počty kusů.</div>
+      <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 text-amber-800 dark:text-amber-300 rounded-lg px-4 py-2.5 mb-3.5 text-sm flex items-center gap-2.5" style="background:#eff6ff;border-color:#bfdbfe;color:#1e40af;">ℹ️ Klinika eviduje položky v hodnotě <strong>1 Kč/ks</strong> (poukazy, klinické služby). Skladová hodnota není relevantní — tracking probíhá přes počty kusů.</div>
 
-      <div class="wh-filter-bar" id="fb-klinika">
-        <input type="text" class="wh-search" id="wsearch-klinika" placeholder="Hledat podle názvu nebo kódu..." oninput="whFilter('klinika')">
-        <div class="wh-pills" id="wpills-stock-klinika">
-          <button class="wh-pill active" onclick="whSetFilter('klinika','stock','all')">Vše</button>
-          <button class="wh-pill" onclick="whSetFilter('klinika','stock','in')">Skladem</button>
-          <button class="wh-pill" onclick="whSetFilter('klinika','stock','out')">Vyprodáno</button>
-          <button class="wh-pill" onclick="whSetFilter('klinika','stock','low')">Nízký stav</button>
+      <div class="flex flex-wrap gap-2.5 items-center mb-3.5 px-4 py-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl" id="fb-klinika">
+        <input type="text" class="wh-search flex-1 min-w-[200px] px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm outline-none focus:border-brand dark:focus:border-brand transition" id="wsearch-klinika" placeholder="Hledat podle názvu nebo kódu..." oninput="whFilter('klinika')">
+        <div class="flex flex-wrap gap-1.5" id="wpills-stock-klinika">
+          <button class="wh-pill active px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] bg-brand text-white border-brand cursor-pointer whitespace-nowrap" onclick="whSetFilter('klinika','stock','all')">Vše</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('klinika','stock','in')">Skladem</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('klinika','stock','out')">Vyprodáno</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('klinika','stock','low')">Nízký stav</button>
         </div>
-        <div class="wh-pill-sep"></div>
-        <div class="wh-pills" id="wpills-mv-klinika">
-          <button class="wh-pill active" onclick="whSetFilter('klinika','mv','all')">Vše</button>
-          <button class="wh-pill" onclick="whSetFilter('klinika','mv','active')">Aktivní &lt;30 dní</button>
-          <button class="wh-pill" onclick="whSetFilter('klinika','mv','inactive')">Neaktivní 30–90 dní</button>
-          <button class="wh-pill" onclick="whSetFilter('klinika','mv','dead')">Mrtvé 90+ dní</button>
+        <div class="w-px bg-gray-200 dark:bg-gray-600 self-stretch mx-0.5"></div>
+        <div class="flex flex-wrap gap-1.5" id="wpills-mv-klinika">
+          <button class="wh-pill active px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] bg-brand text-white border-brand cursor-pointer whitespace-nowrap" onclick="whSetFilter('klinika','mv','all')">Vše</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('klinika','mv','active')">Aktivní &lt;30 dní</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('klinika','mv','inactive')">Neaktivní 30–90 dní</button>
+          <button class="wh-pill px-3 py-1 rounded-full text-[12px] font-semibold border-[1.5px] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-pointer whitespace-nowrap hover:border-brand hover:text-brand transition" onclick="whSetFilter('klinika','mv','dead')">Mrtvé 90+ dní</button>
         </div>
       </div>
-      <div class="wh-results-info" id="winfo-klinika">
+      <div class="text-xs text-gray-500 dark:text-gray-400 py-1.5 flex justify-between items-center" id="winfo-klinika">
         <span id="wcnt-klinika"></span>
       </div>
-      <div class="table-wrap" id="wtable-wrap-klinika">
+      <div class="overflow-x-auto max-h-[520px] overflow-y-auto" id="wtable-wrap-klinika">
         <table class="data-table" id="wtable-klinika">
           <thead><tr>
             <th class="sortable" onclick="whSort('klinika','n')" id="wth-klinika-n">Název</th>
@@ -16437,21 +16323,34 @@ th.sort-desc::after { content: ' ↓'; }
           <tbody id="wtbody-klinika"></tbody>
         </table>
       </div>
-      <div class="wh-pagination" id="wpag-klinika"></div>
+      <div class="flex gap-1 items-center flex-wrap mt-3" id="wpag-klinika"></div>
     </div>
 
   </div>
-
+  </main>
 </div>
 
 <script>
 function toggleTheme() {
   const html = document.documentElement;
-  html.dataset.theme = html.dataset.theme === 'dark' ? '' : 'dark';
+  html.classList.toggle('dark');
+  localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
 }
 function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-  document.querySelector('.overlay').classList.toggle('show');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const isOpen = !sidebar.classList.contains('-translate-x-full');
+  if (isOpen) {
+    sidebar.classList.add('-translate-x-full');
+    overlay.classList.add('hidden');
+  } else {
+    sidebar.classList.remove('-translate-x-full');
+    overlay.classList.remove('hidden');
+  }
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.add('-translate-x-full');
+  document.getElementById('overlay').classList.add('hidden');
 }
 
 // Pagination + filter for detail table
@@ -16707,6 +16606,14 @@ function toggleSkupina(btn) {
     chevron.classList.remove('open');
   }
 }
+</script>
+<script>
+// Init dark mode from localStorage
+(function() {
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+  }
+})();
 </script>
 </body>
 </html>
