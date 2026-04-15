@@ -7180,7 +7180,10 @@ aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-siz
         <option value="SKLAD - KLINIKA">SKLAD - KLINIKA</option>
       </select>
     </div>
-    <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px" id="rowCount">Zobrazeno <span id="visibleCount">1737</span> z 1737 produktů</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;" id="rowCount">
+      <span>Zobrazeno <span id="visibleCount">1737</span> z 1737 produktů</span>
+      <button onclick="exportDetailTableCSV()" style="background:#5C2450;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;">📥 Export CSV</button>
+    </div>
     <div class="table-wrap" id="tableWrap">
       <table class="data-table" id="detailTable">
         <thead><tr>
@@ -21155,6 +21158,7 @@ aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-siz
       </div>
       <div class="wh-results-info" id="winfo-main">
         <span id="wcnt-main"></span>
+        <button onclick="exportWarehouseCSV('main')" style="background:#5C2450;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;">📥 Export CSV</button>
       </div>
       <div class="table-wrap" id="wtable-wrap-main">
         <table class="data-table" id="wtable-main">
@@ -21216,6 +21220,7 @@ aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-siz
       </div>
       <div class="wh-results-info" id="winfo-sk">
         <span id="wcnt-sk"></span>
+        <button onclick="exportWarehouseCSV('sk')" style="background:#5C2450;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;">📥 Export CSV</button>
       </div>
       <div class="table-wrap" id="wtable-wrap-sk">
         <table class="data-table" id="wtable-sk">
@@ -21277,6 +21282,7 @@ aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-siz
       </div>
       <div class="wh-results-info" id="winfo-ltm">
         <span id="wcnt-ltm"></span>
+        <button onclick="exportWarehouseCSV('ltm')" style="background:#5C2450;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;">📥 Export CSV</button>
       </div>
       <div class="table-wrap" id="wtable-wrap-ltm">
         <table class="data-table" id="wtable-ltm">
@@ -21338,6 +21344,7 @@ aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-siz
       </div>
       <div class="wh-results-info" id="winfo-mecin">
         <span id="wcnt-mecin"></span>
+        <button onclick="exportWarehouseCSV('mecin')" style="background:#5C2450;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;">📥 Export CSV</button>
       </div>
       <div class="table-wrap" id="wtable-wrap-mecin">
         <table class="data-table" id="wtable-mecin">
@@ -21394,6 +21401,7 @@ aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-siz
       </div>
       <div class="wh-results-info" id="winfo-klinika">
         <span id="wcnt-klinika"></span>
+        <button onclick="exportWarehouseCSV('klinika')" style="background:#5C2450;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;">📥 Export CSV</button>
       </div>
       <div class="table-wrap" id="wtable-wrap-klinika">
         <table class="data-table" id="wtable-klinika">
@@ -21691,10 +21699,74 @@ function toggleSkupina(btn) {
     chevron.classList.remove('open');
   }
 }
+
+function exportWarehouseCSV(key) {
+  const dataMap = {main: whData_main, sk: whData_sk, ltm: whData_ltm, mecin: whData_mecin, klinika: whData_klinika};
+  const data = dataMap[key];
+  if (!data || !data.length) { alert('Žádná data k exportu'); return; }
+  let csv = '\uFEFF';
+  csv += 'Kód;Název;Množství;Hodnota (Kč);Prům. cena;Posl. pohyb;Týd. prodej;Dny zásoby\n';
+  data.forEach(r => {
+    csv += `"${r.c}";"${r.n}";${r.q};${r.v.toFixed(2)};${r.p.toFixed(2)};"${r.l}";${r.ws};${r.dos}\n`;
+  });
+  const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `sklad_${key}_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function exportDetailTableCSV() {
+  const rows = Array.from(document.querySelectorAll('#detailBody tr'));
+  const visible = rows.filter(r => r.dataset.visible !== '0');
+  if (!visible.length) { alert('Žádná data k exportu'); return; }
+  let csv = '\uFEFF';
+  csv += 'Kód;Název;Sklad;Kusů;Hodnota (Kč);Prům. cena;Posl. pohyb\n';
+  visible.forEach(r => {
+    const c = r.cells;
+    const kod = (c[0]?.textContent || '').trim();
+    const nazev = (c[1]?.textContent || '').trim();
+    const sklad = (c[2]?.textContent || '').trim();
+    const kusu = (c[3]?.textContent || '').trim().replace(/\s/g, '');
+    const hodnota = (c[4]?.textContent || '').trim().replace(/\s/g, '').replace('Kč', '').trim();
+    const prumCena = (c[5]?.textContent || '').trim().replace('Kč', '').trim();
+    const poslPohyb = (c[6]?.textContent || '').trim();
+    csv += `"${kod}";"${nazev}";"${sklad}";${kusu};${hodnota};${prumCena};"${poslPohyb}"\n`;
+  });
+  const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `detail_sklad_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function exportAbraDiffCSV() {
+  const rows = Array.from(document.querySelectorAll('#abra-4px-diff tbody tr'));
+  if (!rows.length) { alert('Žádná data k exportu'); return; }
+  let csv = '\uFEFF';
+  csv += 'Kód;Název;ABRA CZ;4PX CZ;Rozdíl CZ;ABRA SK;4PX SK;Rozdíl SK;Celkový rozdíl\n';
+  rows.forEach(r => {
+    csv += Array.from(r.cells).map(c => `"${c.textContent.trim()}"`).join(';') + '\n';
+  });
+  const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `abra_4px_diff_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
 </script>
 
 <section id="abra-4px-diff" style="padding:24px;">
-<h2 style="font-size:1.3rem;margin-bottom:8px;">🔍 Rozdíly ABRA vs 4PX sklad</h2>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+  <h2 style="font-size:1.3rem;margin:0;">🔍 Rozdíly ABRA vs 4PX sklad</h2>
+  <button onclick="exportAbraDiffCSV()" style="background:#5C2450;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;">📥 Export CSV</button>
+</div>
 <p style="color:#666;margin-bottom:16px;">Porovnání účetního stavu (ABRA Flexi) s fyzickým skladem (4PX API). Zobrazeny pouze SKU s rozdílem. Červené = velký rozdíl (&gt;50 ks), žluté = střední (&gt;10 ks).</p>
 <div style="display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap;">
 <div style="background:#fff;border:1px solid #ddd;padding:16px;border-radius:8px;min-width:150px;text-align:center;"><div style="font-size:11px;color:#666;">POROVNÁNO SKU</div><div style="font-size:1.8rem;font-weight:700;">20</div></div>
