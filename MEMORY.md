@@ -39,4 +39,5 @@
 
 ## Notes to self
 - I reviewed an imported Claude history archive on 2026-04-15 to absorb this context.
+- Ruda wants a daily 08:00 Europe/Prague report with previous-day WPJ and 4PX data once the automation is wired.
 - If any old API tokens were exposed in earlier chats/exports, recommend rotating them rather than reusing them.
