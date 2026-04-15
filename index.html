@@ -415,6 +415,10 @@ aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-siz
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
       Detailní tabulka
     </a>
+    <a href="#abra-4px-diff">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      ABRA vs 4PX
+    </a>
   </nav>
   <div class="sidebar-footer">
     Stav k 13.04.2026<br>
@@ -21522,9 +21526,6 @@ aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-siz
 
   </div>
 
-
-</div>
-
 <script>
 function toggleTheme() {
   const html = document.documentElement;
@@ -21863,30 +21864,34 @@ function exportAbraDiffCSV() {
 }
 </script>
 
-<section id="abra-4px-diff" style="padding:24px;">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-  <h2 style="font-size:1.3rem;margin:0;">🔍 Rozdíly ABRA vs 4PX sklad</h2>
-  <button onclick="exportAbraDiffCSV()" style="background:#5C2450;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;">📥 Export CSV</button>
-</div>
-<p style="color:#666;margin-bottom:16px;">Porovnání účetního stavu (ABRA Flexi) s fyzickým skladem (4PX API). Zobrazeny pouze SKU s rozdílem. Červené = velký rozdíl (&gt;50 ks), žluté = střední (&gt;10 ks).</p>
-<div style="display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap;">
-<div style="background:#fff;border:1px solid #ddd;padding:16px;border-radius:8px;min-width:150px;text-align:center;"><div style="font-size:11px;color:#666;">POROVNÁNO SKU</div><div style="font-size:1.8rem;font-weight:700;">20</div></div>
-<div style="background:#fff;border:1px solid #ddd;padding:16px;border-radius:8px;min-width:150px;text-align:center;"><div style="font-size:11px;color:#666;">S ROZDÍLEM</div><div style="font-size:1.8rem;font-weight:700;color:#dc2626;">15</div></div>
-<div style="background:#fff;border:1px solid #ddd;padding:16px;border-radius:8px;min-width:150px;text-align:center;"><div style="font-size:11px;color:#666;">SHODA</div><div style="font-size:1.8rem;font-weight:700;color:#16a34a;">5</div></div>
-<div style="background:#fff;border:1px solid #ddd;padding:16px;border-radius:8px;min-width:150px;text-align:center;"><div style="font-size:11px;color:#666;">ABRA CELKEM VYŠŠÍ O</div><div style="font-size:1.8rem;font-weight:700;color:#d97706;">650 ks</div></div>
-<div style="background:#fff;border:1px solid #ddd;padding:16px;border-radius:8px;min-width:150px;text-align:center;"><div style="font-size:11px;color:#666;">4PX CELKEM VYŠŠÍ O</div><div style="font-size:1.8rem;font-weight:700;color:#7c3aed;">49,039 ks</div></div>
-</div>
-<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:13px;">
-<thead><tr style="background:#5C2450;color:#fff;">
-<th style="padding:10px;text-align:left;">Kód</th>
-<th style="padding:10px;text-align:left;">Název</th>
-<th style="padding:10px;text-align:right;">ABRA CZ</th>
-<th style="padding:10px;text-align:right;">4PX CZ</th>
-<th style="padding:10px;text-align:right;">Rozdíl CZ</th>
-<th style="padding:10px;text-align:right;">ABRA SK</th>
-<th style="padding:10px;text-align:right;">4PX SK</th>
-<th style="padding:10px;text-align:right;">Rozdíl SK</th>
-<th style="padding:10px;text-align:right;">Celkový rozdíl</th>
+  <!-- ABRA vs 4PX DIFF -->
+  <div class="section" id="abra-4px-diff">
+    <div class="section-title" style="justify-content:space-between;flex-wrap:wrap;gap:10px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        🔍 Rozdíly ABRA vs 4PX sklad
+      </div>
+      <button onclick="exportAbraDiffCSV()" style="background:var(--brand);color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;">📥 Export CSV</button>
+    </div>
+    <p style="color:var(--text-muted);margin-bottom:16px;">Porovnání účetního stavu (ABRA Flexi) s fyzickým skladem (4PX API). Zobrazeny pouze SKU s rozdílem. Červené = velký rozdíl (&gt;50 ks), žluté = střední (&gt;10 ks).</p>
+    <div class="sklady-kpi">
+      <div class="sklady-kpi-card"><div class="sklady-kpi-label">POROVNÁNO SKU</div><div class="sklady-kpi-value">20</div></div>
+      <div class="sklady-kpi-card"><div class="sklady-kpi-label">S ROZDÍLEM</div><div class="sklady-kpi-value" style="color:#dc2626;">15</div></div>
+      <div class="sklady-kpi-card"><div class="sklady-kpi-label">SHODA</div><div class="sklady-kpi-value" style="color:#16a34a;">5</div></div>
+      <div class="sklady-kpi-card"><div class="sklady-kpi-label">ABRA CELKEM VYŠŠÍ O</div><div class="sklady-kpi-value" style="color:#d97706;">650 ks</div></div>
+      <div class="sklady-kpi-card"><div class="sklady-kpi-label">4PX CELKEM VYŠŠÍ O</div><div class="sklady-kpi-value" style="color:#7c3aed;">49 039 ks</div></div>
+    </div>
+    <div class="table-wrap"><table class="data-table">
+<thead><tr>
+<th style="text-align:left;">Kód</th>
+<th style="text-align:left;">Název</th>
+<th>ABRA CZ</th>
+<th>4PX CZ</th>
+<th>Rozdíl CZ</th>
+<th>ABRA SK</th>
+<th>4PX SK</th>
+<th>Rozdíl SK</th>
+<th>Celkový rozdíl</th>
 </tr></thead>
 <tbody><tr style="background:#ffebee">
 <td style="padding:8px;font-weight:600">52903</td>
@@ -22040,7 +22045,9 @@ function exportAbraDiffCSV() {
 <td style="padding:8px;text-align:right;font-weight:700;color:#16a34a">-100</td>
 </tr></tbody>
 </table></div>
-<p style="color:#999;font-size:12px;margin-top:12px;">Generováno 15. 4. 2026 · ABRA: skladová karta 13.4. · 4PX: API (20 SKU)</p>
-</section>
+    <p style="color:var(--text-muted);font-size:12px;margin-top:12px;">Generováno 15. 4. 2026 · ABRA: skladová karta 13.4. · 4PX: API (20 SKU)</p>
+  </div>
+
+</div>
 </body>
 </html>
