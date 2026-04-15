@@ -21104,11 +21104,11 @@ aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-siz
       Sklady — detailní přehled
     </div>
     <div class="sklady-tabs">
-      <button class="sklady-tab active" onclick="switchSklad('sklad-main'">SKLAD</button>
-      <button class="sklady-tab " onclick="switchSklad('sklad-sk'">SK</button>
-      <button class="sklady-tab " onclick="switchSklad('sklad-ltm'">LTM</button>
-      <button class="sklady-tab " onclick="switchSklad('sklad-mecin'">MĚČÍN</button>
-      <button class="sklady-tab " onclick="switchSklad('sklad-klinika'">KLINIKA</button>
+      <button class="sklady-tab active" onclick="switchSklad('sklad-main')">SKLAD</button>
+      <button class="sklady-tab" onclick="switchSklad('sklad-sk')">SK</button>
+      <button class="sklady-tab" onclick="switchSklad('sklad-ltm')">LTM</button>
+      <button class="sklady-tab" onclick="switchSklad('sklad-mecin')">MĚČÍN</button>
+      <button class="sklady-tab" onclick="switchSklad('sklad-klinika')">KLINIKA</button>
     </div>
 
     <!-- SKLAD -->
@@ -21580,7 +21580,7 @@ function whGetFiltered(k) {
     // stock filter
     if (s.stockFilter === 'in' && it.q <= 0) return false;
     if (s.stockFilter === 'out' && it.q > 0) return false;
-    if (s.stockFilter === 'low' && !(it.m > 0 && it.q < it.m)) return false;
+    if (s.stockFilter === 'low' && !(it.q > 0 && it.dos >= 0 && it.dos < 30)) return false;
     // movement filter
     if (s.mvFilter === 'active' && it.d >= 30) return false;
     if (s.mvFilter === 'inactive' && (it.d < 30 || it.d >= 90)) return false;
