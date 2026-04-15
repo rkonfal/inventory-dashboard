@@ -128,6 +128,18 @@ Likely candidates:
 - cron/launchd jobs on the Mac
 - shell, Python, or JS scripts that rewrite index.html and push to GitHub
 
+## New operational clue from Rudolf
+Rudolf confirmed on 2026-04-15 that the current update flow is tied to a Claude dispatch bot.
+
+This strongly matches the repo evidence:
+- GitHub repos hold rendered HTML outputs
+- commit history shows auto-refresh style messages
+- no generator scripts are committed alongside the dashboards
+
+Likely reality:
+- Claude dispatch bot or a related Claude-side automation prepares the refreshed dashboard output
+- then pushes updated static HTML into one or more GitHub Pages repos
+
 ## Recommendation
 Do not start by editing the portal homepage only.
 First secure the generation path for:
@@ -135,5 +147,10 @@ First secure the generation path for:
 2. inventory-dashboard
 3. 4px-kpi-dashboard
 4. expirace-dashboard
+
+Best next move now:
+- locate the Claude dispatch bot project, prompt, script, or runtime folder
+- decide whether to keep it as the renderer or replace it with a simpler deterministic local pipeline
+- keep 4PX ingestion direct via API where possible, because that path is now verified and reproducible
 
 Once those are reproducible, the portal homepage and the 8:00 report become easy and stable.
