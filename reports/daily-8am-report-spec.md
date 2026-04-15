@@ -55,8 +55,23 @@ A daily morning report delivered at 08:00 Europe/Prague with data for the previo
 ## Example header
 **Ranní report, včerejšek (14. 4. 2026)**
 
+## Confirmed 4PX data path
+4PX can be pulled directly through the live Open API, so this part is now unblocked.
+
+Verified on 2026-04-15:
+- Warehouse list endpoint works: `com.basis.warehouse.getlist`
+- Inventory endpoint works: `fu.wms.inventory.get`
+- Outbound parcels endpoint works: `fu.wms.outbound.getlist`
+- Prague warehouse code is available as `CZPRGA`
+- Both TIANDE_SK and TIANDE_CZ credentials returned live data successfully
+
+Practical use for the morning report:
+- Previous-day shipped parcels can come from `fu.wms.outbound.getlist`
+- Current warehouse stock and low-stock checks can come from `fu.wms.inventory.get`
+- Carrier and packaging views can be derived from outbound data plus the existing packaging logic/dashboard assumptions
+
 ## Blocking reality today
 This report format is ready, but live automation still needs:
 1. WPJ refresh script or dashboard source files
-2. 4PX data source wiring, likely email attachment ingestion or another machine-readable feed
-3. Cron setup on the host once the data path is verified
+2. A small 4PX extraction layer that pulls previous-day parcel and inventory data into a stable local dataset
+3. Cron setup on the host once the data path is verified end to end

@@ -102,6 +102,24 @@ We rebuild the missing generation pipeline ourselves in this workspace:
 The portal itself is not the hard part.
 The real job is the hidden data-refresh pipeline behind the linked repos.
 
+## New finding after live 4PX credential check
+On 2026-04-15 I verified that 4PX Open API access is working for both provided accounts.
+
+Confirmed working endpoints:
+- `com.basis.warehouse.getlist`
+- `fu.wms.inventory.get`
+- `fu.wms.outbound.getlist`
+
+Confirmed useful live facts:
+- Prague warehouse code `CZPRGA` exists in 4PX warehouse master data
+- SK account returned live inventory and outbound data for customer code `14940062`
+- CZ account returned live inventory and outbound data for customer code `14940063`
+
+This materially changes the automation picture:
+- 4PX-based dashboards do not need email scraping as a first step
+- inventory, outbound, carrier splits, and part of packaging logic can be rebuilt directly from API pulls
+- the remaining major unknown is now WPJ / ABRA source access, not 4PX access
+
 ## Immediate next best move
 Find where the current auto-update scripts live, if they already exist on your machine.
 Likely candidates:
