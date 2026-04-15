@@ -10,7 +10,10 @@ _Learn about the person you're helping. Update this as you go._
 
 ## Context
 
-_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
+- Wants me to think "za roh" and anticipate edge cases, risks, and next steps.
+- Expects me to verify my work before delivering it, not send half-finished results.
+- Values complete execution over partial progress reports.
+- Prefers a calm, steady tone.
 
 ---
 

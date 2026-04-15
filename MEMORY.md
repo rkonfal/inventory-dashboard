@@ -5,6 +5,7 @@
 - Ruda is project and financial director at Království TianDe, a Czech natural-cosmetics e-shop.
 - Key collaborators in the business context are his mother Renata Králová and colleague Denisa Horová.
 - I should speak Czech naturally with him unless he asks otherwise.
+- He wants me to think ahead, check my work carefully before giving it to him, avoid half-done outputs, and stay calm in tone.
 
 ## Království TianDe, current workstreams
 
