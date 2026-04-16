@@ -1319,6 +1319,7 @@ def build_morning_report(report_date, wpj_summary, baseline_orders, baseline_rev
     report = {
         'generatedAt': current_local_time().isoformat(),
         'reportDate': report_date.isoformat(),
+        'detailUrl': os.environ.get('MORNING_REPORT_DETAIL_URL', 'https://rkonfal.github.io/diamond-plus-reporting-preview/site/index.html'),
         'window': {
             'from': datetime(report_date.year, report_date.month, report_date.day, 0, 0, 0, tzinfo=PRAGUE_TZ).isoformat(),
             'to': datetime(report_date.year, report_date.month, report_date.day, 23, 59, 59, tzinfo=PRAGUE_TZ).isoformat(),
@@ -1396,10 +1397,6 @@ def format_morning_report_text(report):
         *top_rows_text(eshop['topProductsByUnits'], 'formatted'),
         '• Top 5 produktů podle obratu:',
         *top_rows_text(eshop['topProductsByRevenue'], 'formatted'),
-        '• Platební metody:',
-        *counts_text(eshop['paymentMethods'][:5]),
-        '• Dopravní metody:',
-        *counts_text(eshop['deliveryMethods'][:5]),
     ]
     sections.append('\n'.join(section2))
 
@@ -1431,8 +1428,6 @@ def format_morning_report_text(report):
         '**4. 4PX logistika za včerejšek**',
         f'• Počet zásilek celkem: {logistics["shipmentsTotal"]}',
         f'• Rozpad podle účtu: CZ {logistics["byAccount"].get("CZ", 0)} / SK {logistics["byAccount"].get("SK", 0)}',
-        '• Rozpad podle dopravce:',
-        *counts_text(logistics['carrierCounts'][:5]),
         '• 5 produktů s nejvyšším expiračním rizikem:',
     ]
     if logistics['expiringProducts']:
@@ -1447,6 +1442,13 @@ def format_morning_report_text(report):
     section5 = ['**5. Dnešní priority**']
     section5.extend(f'• {item}' for item in report.get('priorities') or ['Bez nové priority.'])
     sections.append('\n\n'.join(['', '\n'.join(section5)]).strip())
+
+    detail_url = report.get('detailUrl')
+    if detail_url:
+        sections.append('\n'.join([
+            '**6. Podrobnější report**',
+            f'• {detail_url}',
+        ]))
 
     return '\n\n'.join(sections).strip() + '\n'
 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>ai.rudanek.reporting-v2.morning-report</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/zsh</string>
+      <string>/Users/rudolfkonfal/.openclaw/workspace/reporting-v2/scripts/send_morning_report.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/rudolfkonfal/.openclaw/workspace/reporting-v2</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>AUTO_PUBLISH_PREVIEW</key>
+      <string>1</string>
+      <key>MORNING_REPORT_CHANNEL</key>
+      <string>telegram</string>
+      <key>MORNING_REPORT_TARGET</key>
+      <string>7056032500</string>
+      <key>MORNING_REPORT_DETAIL_URL</key>
+      <string>https://rkonfal.github.io/diamond-plus-reporting-preview/site/index.html</string>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+      <key>Hour</key>
+      <integer>8</integer>
+      <key>Minute</key>
+      <integer>0</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/rudolfkonfal/.openclaw/workspace/reporting-v2/logs/morning-report.launchd.out.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/rudolfkonfal/.openclaw/workspace/reporting-v2/logs/morning-report.launchd.err.log</string>
+  </dict>
+</plist>

@@ -1,0 +1,4 @@
+# Diamond Plus Reporting V2 morning report
+# Install with: crontab reporting-v2/ops/morning-report.cron
+
+0 8 * * * /bin/zsh /Users/rudolfkonfal/.openclaw/workspace/reporting-v2/scripts/send_morning_report.sh
