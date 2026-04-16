@@ -233,12 +233,15 @@ def format_czk(value):
 
 
 def format_units(value):
-    return f'{round(float(value or 0), 1):g} ks'
+    number = float(value or 0)
+    if abs(number - round(number)) < 0.05:
+        return f'{int(round(number)):,}'.replace(',', ' ') + ' ks'
+    return f'{number:,.1f}'.replace(',', ' ').replace('.0', '') + ' ks'
 
 
 def previous_day_window(now_local: datetime):
     target_date = now_local.date() - timedelta(days=1)
-    start = datetime(target_date.year, target_date.month, target_date.day, 0, 0, 0, tzinfo=PRAGUE_TZ)
+    start = datetime(target_date.year, target_date.month, target_date.day, 0, 0, 1, tzinfo=PRAGUE_TZ)
     end = start + timedelta(days=1) - timedelta(seconds=1)
     return start, end
 
@@ -1321,7 +1324,7 @@ def build_morning_report(report_date, wpj_summary, baseline_orders, baseline_rev
         'reportDate': report_date.isoformat(),
         'detailUrl': os.environ.get('MORNING_REPORT_DETAIL_URL', 'https://rkonfal.github.io/diamond-plus-reporting-preview/site/index.html'),
         'window': {
-            'from': datetime(report_date.year, report_date.month, report_date.day, 0, 0, 0, tzinfo=PRAGUE_TZ).isoformat(),
+            'from': datetime(report_date.year, report_date.month, report_date.day, 0, 0, 1, tzinfo=PRAGUE_TZ).isoformat(),
             'to': datetime(report_date.year, report_date.month, report_date.day, 23, 59, 59, tzinfo=PRAGUE_TZ).isoformat(),
         },
         'warnings': warnings,
@@ -1351,6 +1354,12 @@ def counts_text(rows, empty='• data zatím nejsou'):
     if not rows:
         return [empty]
     return [f'• {row["name"]}: {row["count"]}' for row in rows]
+
+
+def compact_counts_line(rows, limit=4, empty='bez dat'):
+    if not rows:
+        return empty
+    return ', '.join(f'{row["name"]} {row["count"]}' for row in rows[:limit])
 
 
 def format_morning_report_text(report):
@@ -1396,6 +1405,9 @@ def format_morning_report_text(report):
         f'• Obrat s DPH: {format_czk(eshop["revenueWithVat"])}',
         f'• Průměrná hodnota objednávky: {format_czk(eshop["averageOrderValue"])}',
         f'• Stornované / problematické: {eshop["cancelledOrders"]} / {eshop["problematicOrders"]}',
+        f'• Nejčastější stavy: {compact_counts_line(eshop.get("statuses"), 5)}',
+        f'• Top platby: {compact_counts_line(eshop.get("paymentMethods"), 4)}',
+        f'• Top dopravy: {compact_counts_line(eshop.get("deliveryMethods"), 4)}',
         '• Top 5 prodaných produktů podle kusů:',
         *top_rows_text(eshop['topProductsByUnits'], 'formatted'),
         '• Top 5 produktů podle obratu:',
@@ -1433,6 +1445,7 @@ def format_morning_report_text(report):
         '**4. 4PX logistika za včerejšek**',
         f'• Počet zásilek celkem: {logistics["shipmentsTotal"]}',
         f'• Rozpad podle účtu: CZ {logistics["byAccount"].get("CZ", 0)} / SK {logistics["byAccount"].get("SK", 0)}',
+        f'• Top dopravci / služby: {compact_counts_line(logistics.get("carrierCounts"), 5)}',
         '• 5 produktů s nejvyšším expiračním rizikem:',
     ]
     if logistics['expiringProducts']:
