@@ -28,4 +28,10 @@ Open:
 - `http://localhost:8080/site/eshop.html`
 
 ## Hourly refresh
-See `ops/hourly-refresh.cron`.
+Primary automation assets:
+- `ops/hourly-refresh.cron` for classic cron install
+- `ops/ai.rudanek.reporting-v2.hourly.plist` for macOS LaunchAgent scheduling
+
+Current host state:
+- cron file is prepared
+- macOS LaunchAgent fallback was installed and loaded so hourly refresh can run even while `crontab` is being uncooperative in the current exec context
