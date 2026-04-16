@@ -1,0 +1,31 @@
+Ranní report, včerejšek (15. 4. 2026)
+✅ WPJ + 4PX kompletní
+
+📌 Přehled
+• Objednávky: 418 (-7,4 % vs 7D)
+• Tržby: 600 411 Kč (-16,2 % vs 7D)
+• Expedice: 569 (CZ 503 / SK 66)
+• Sklad: 379 651 ks
+
+⚠️ Co dnes pálí
+• 6 problematických / stornovaných objednávek
+• 2 včera prodané produkty jsou teď na nízkém skladu
+• 10 skladových pozic je v mínusu
+
+🛒 E-shop
+• AOV: 1 436 Kč
+• Problematické / storno: 6 / 6
+• Tahouni: 64404-2 137 ks, 44402-2 128 ks, 61914 114 ks
+
+📦 Sklad a logistika
+• Nízký sklad: POP00060 0 ks, 195464 2 ks
+• Mínusové pozice: 00102 -8 339 ks, OMA1 -723 ks, SET04 -432 ks
+• Expirace: 40203 do 8. 5. (2 277 ks), 52902/03 do 7. 5. (346 ks)
+
+✅ Co dnes udělat
+• Dohlédnout POP00060, aktuálně 0 ks.
+• Dohlédnout 195464, aktuálně 2 ks.
+• Prověřit 6 problémových / stornovaných objednávek.
+• Rozhodnout o doprodeji nebo přesunu nejbližších expirací.
+
+Detail: https://rkonfal.github.io/diamond-plus-reporting-preview/site/index.html

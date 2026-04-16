@@ -1362,6 +1362,95 @@ def compact_counts_line(rows, limit=4, empty='bez dat'):
     return ', '.join(f'{row["name"]} {row["count"]}' for row in rows[:limit])
 
 
+def format_pct_compact(value):
+    if value is None:
+        return 'bez srovnání'
+    return f'{value:+.1f}'.replace('.', ',') + ' % vs 7D'
+
+
+def compact_alert_text(alert):
+    if not alert:
+        return ''
+    clean = alert.rstrip('.')
+    replacements = {
+        'problematických nebo stornovaných objednávek': 'problematických / stornovaných objednávek',
+        'včera prodaných produktů je teď na nízkém skladu': 'včera prodané produkty jsou teď na nízkém skladu',
+        'skladových pozic je v mínusu': 'skladových pozic je v mínusu',
+    }
+    for source, target in replacements.items():
+        clean = clean.replace(source, target)
+    return clean
+
+
+def compact_top_codes(rows, limit=3, value_key='formatted', empty='bez dat'):
+    if not rows:
+        return empty
+    parts = []
+    for row in rows[:limit]:
+        code = row.get('code') or row.get('sku') or row.get('name') or 'položka'
+        value = row.get('formatted') or row.get(value_key)
+        if isinstance(value, (int, float)):
+            value = round(value, 2)
+        parts.append(f'{code} {value}')
+    return ', '.join(parts)
+
+
+def first_method_text(rows, empty='bez dat'):
+    if not rows:
+        return empty
+    row = rows[0]
+    return f'{row.get("name", "bez názvu")} ({row.get("count", 0)})'
+
+
+def low_stock_line(rows, limit=2):
+    if not rows:
+        return 'nic kritického po včerejším prodeji'
+    return ', '.join(f'{row.get("code", "SKU")} {format_units(row.get("stock", 0))}' for row in rows[:limit])
+
+
+def negative_positions_line(rows, limit=3):
+    if not rows:
+        return 'bez mínusových pozic'
+    return ', '.join(f'{row.get("code", "SKU")} {format_units(row.get("inStore", 0))}' for row in rows[:limit])
+
+
+def expiry_line(rows, limit=2):
+    if not rows:
+        return 'bez kritické expirace v dostupných datech'
+    parts = []
+    for row in rows[:limit]:
+        try:
+            expiry = parse_dt(row.get('dateExpiry')).strftime('%-d. %-m.')
+        except Exception:
+            expiry = row.get('dateExpiry') or 'bez data'
+        parts.append(f'{row.get("sku") or row.get("code") or "SKU"} do {expiry} ({format_units(row.get("datedStock", 0))})')
+    return ', '.join(parts)
+
+
+def status_lines(warnings):
+    if not warnings:
+        return ['✅ WPJ + 4PX kompletní']
+    lines = [f'⚠️ {warning}' for warning in warnings[:2]]
+    if len(warnings) > 2:
+        lines.append(f'⚠️ +{len(warnings) - 2} další upozornění')
+    return lines
+
+
+def compact_priority_text(priority):
+    if not priority:
+        return ''
+    text = priority.strip()
+    match = re.match(r'^Dohlédnout\s+([^\s]+)\s+\([^)]*\),\s*(aktuálně\s+.+)$', text)
+    if match:
+        return f'Dohlédnout {match.group(1)}, {match.group(2)}'
+    replacements = {
+        'Dohlédnout ': 'Dohlédnout ',
+        'Projít 6 problematických nebo stornovaných objednávek z včerejška.': 'Prověřit 6 problémových / stornovaných objednávek.',
+        'Projít nejbližší expirace v 4PX a rozhodnout o doprodeji nebo přesunu zásoby.': 'Rozhodnout o doprodeji nebo přesunu nejbližších expirací.',
+    }
+    return replacements.get(text, text)
+
+
 def format_morning_report_text(report):
     report_date = parse_dt(report['window']['from']).strftime('%-d. %-m. %Y')
     quick = report['quickSummary']
@@ -1371,120 +1460,101 @@ def format_morning_report_text(report):
     logistics = report['logistics']
     warnings = report.get('warnings') or []
 
-    header = [f'**Ranní report, včerejšek ({report_date})**']
-    if warnings:
-        header.extend([f'⚠️ {warning}' for warning in warnings])
+    priorities = report.get('priorities') or []
+    alerts = [compact_alert_text(alert) for alert in quick.get('alerts') or [] if compact_alert_text(alert)]
 
-    orders_line = f'• Objednávky: {eshop["orders"]}'
-    if quick['orders']['baseline'] is not None:
-        delta = quick['orders']['deltaPct']
-        sign = '+' if delta and delta > 0 else ''
-        orders_line += f' ({sign}{delta:.1f} % vs 7denní průměr {quick["orders"]["baseline"]:.1f})'
-
-    revenue_line = f'• Tržby s DPH: {format_czk(eshop["revenueWithVat"])}'
-    if quick['revenueWithVat']['baseline'] is not None:
-        delta = quick['revenueWithVat']['deltaPct']
-        sign = '+' if delta and delta > 0 else ''
-        revenue_line += f' ({sign}{delta:.1f} % vs 7denní průměr {format_czk(quick["revenueWithVat"]["baseline"])})'
-
-    orders_delta = quick['orders']['deltaPct']
-    orders_delta_text = f'{orders_delta:+.1f} %' if orders_delta is not None else 'bez srovnání'
-    revenue_delta = quick['revenueWithVat']['deltaPct']
-    revenue_delta_text = f'{revenue_delta:+.1f} %' if revenue_delta is not None else 'bez srovnání'
-    compact_alerts = []
-    for alert in quick['alerts']:
-        clean_alert = alert.rstrip('.')
-        if 'problematických nebo stornovaných objednávek' in alert:
-            compact_alerts.append(clean_alert.replace('problematických nebo stornovaných objednávek', 'problematických / stornovaných'))
-        elif 'včera prodaných produktů je teď na nízkém skladu' in alert:
-            compact_alerts.append(clean_alert.replace('včera prodaných produktů je teď na nízkém skladu', 'low stock po včerejším prodeji'))
-        elif 'skladových pozic je v mínusu' in alert:
-            compact_alerts.append(clean_alert.replace('skladových pozic je v mínusu', 'pozic je v mínusu'))
-        else:
-            compact_alerts.append(clean_alert)
-    alerts_line = '; '.join(compact_alerts[:3]) if compact_alerts else 'bez zásadního varování'
-
-    sections = []
-    sections.append('\n'.join([
-        *header,
+    lines = [
+        f'**Ranní report, včerejšek ({report_date})**',
+        *status_lines(warnings),
         '',
-        '**1. Rychlý souhrn**',
-        f'• WPJShop: {eshop["orders"]} objednávek, {format_czk(eshop["revenueWithVat"])} s DPH, AOV {format_czk(eshop["averageOrderValue"])}',
-        f'• Srovnání: objednávky {orders_delta_text}, tržby {revenue_delta_text} vs 7denní průměr',
-        f'• 4PX: {logistics["shipmentsTotal"]} zásilek, sklad {format_units(inventory.get("availableStockTotal", 0))} (CZ {format_units((inventory.get("byAccount") or {}).get("CZ", 0))}, SK {format_units((inventory.get("byAccount") or {}).get("SK", 0))})',
-        f'• Rizika: {alerts_line}',
-    ]))
-
-    section2 = [
-        '**2. E-shop výkon za včerejšek (celý WPJShop www.kralovstvi-tiande)**',
-        f'• Počet objednávek: {eshop["orders"]}',
-        f'• Obrat s DPH: {format_czk(eshop["revenueWithVat"])}',
-        f'• Průměrná hodnota objednávky: {format_czk(eshop["averageOrderValue"])}',
-        f'• Stornované / problematické: {eshop["cancelledOrders"]} / {eshop["problematicOrders"]}',
-        f'• Nejčastější stavy: {compact_counts_line(eshop.get("statuses"), 5)}',
-        f'• Top platby: {compact_counts_line(eshop.get("paymentMethods"), 4)}',
-        f'• Top dopravy: {compact_counts_line(eshop.get("deliveryMethods"), 4)}',
-        '• Top 5 prodaných produktů podle kusů:',
-        *top_rows_text(eshop['topProductsByUnits'], 'formatted'),
-        '• Top 5 produktů podle obratu:',
-        *top_rows_text(eshop['topProductsByRevenue'], 'formatted'),
+        '**1. Přehled dne**',
+        f'• Objednávky: {eshop["orders"]} ({format_pct_compact(quick["orders"].get("deltaPct"))})',
+        f'• Tržby s DPH: {format_czk(eshop["revenueWithVat"])} ({format_pct_compact(quick["revenueWithVat"].get("deltaPct"))})',
+        f'• Expedice: {logistics["shipmentsTotal"]} zásilek (CZ {logistics["byAccount"].get("CZ", 0)} / SK {logistics["byAccount"].get("SK", 0)})',
+        f'• Sklad CZ+SK: {format_units(inventory.get("availableStockTotal", 0))}',
+        '',
+        '**2. Co dnes pálí**',
     ]
-    sections.append('\n'.join(section2))
-
-    section3 = [
-        '**3. Sklad a dostupnost**',
-        f'• 4PX sklad celkem: {format_units(inventory.get("availableStockTotal", 0))} (CZ {format_units((inventory.get("byAccount") or {}).get("CZ", 0))}, SK {format_units((inventory.get("byAccount") or {}).get("SK", 0))})',
-        f'• 4PX skladových řádků: {inventory.get("itemsTotal", 0)} (CZ {(inventory.get("itemsByAccount") or {}).get("CZ", 0)}, SK {(inventory.get("itemsByAccount") or {}).get("SK", 0)})',
-        '• Produkty s nízkým skladem z včera prodaných:',
-    ]
-    if stock['lowStockSoldYesterday']:
-        for row in stock['lowStockSoldYesterday']:
-            section3.append(f'• {row["code"]} · {row["title"]}: {format_units(row["stock"])}')
-    else:
-        section3.append('• žádný včera prodaný produkt teď není na hraně ≤ 10 ks')
-    section3.append('• Produkty do mínusu / rezervované nad fyzický stav:')
-    if stock['negativeStoreStock']:
-        for row in stock['negativeStoreStock'][:5]:
-            section3.append(f'• {row["code"]} · {row["title"]} / {row["storeName"]}: {format_units(row["inStore"])}')
-    else:
-        section3.append('• bez záporných skladových pozic')
-    section3.append('• Největší pohyby od posledního snapshotu:')
-    if stock['largestMovesSinceLastSnapshot']:
-        for row in stock['largestMovesSinceLastSnapshot'][:5]:
-            sign = '+' if row['delta'] > 0 else ''
-            section3.append(f'• {row["code"]} · {row["title"]}: {sign}{format_units(row["delta"])}')
-    else:
-        section3.append('• baseline zatím chybí, první srovnání vznikne po dalším refreshi')
-    sections.append('\n'.join(section3))
-
-    section4 = [
-        '**4. 4PX logistika za včerejšek**',
-        f'• Počet zásilek celkem: {logistics["shipmentsTotal"]}',
-        f'• Rozpad podle účtu: CZ {logistics["byAccount"].get("CZ", 0)} / SK {logistics["byAccount"].get("SK", 0)}',
-        f'• Top dopravci / služby: {compact_counts_line(logistics.get("carrierCounts"), 5)}',
-        '• 5 produktů s nejvyšším expiračním rizikem:',
-    ]
-    if logistics['expiringProducts']:
-        for row in logistics['expiringProducts'][:5]:
-            section4.append(f'• {row["label"]}: expirace {row["dateExpiry"]}, expirující sklad {format_units(row["datedStock"])}')
-    else:
-        section4.append('• zatím bez dat, dostupné zdroje vrací batch_no bez data expirace')
-    if logistics['coverageWarnings']:
-        section4.extend(f'• {warning}' for warning in logistics['coverageWarnings'])
-    sections.append('\n'.join(section4))
-
-    section5 = ['**5. Dnešní priority**']
-    section5.extend(f'• {item}' for item in report.get('priorities') or ['Bez nové priority.'])
-    sections.append('\n\n'.join(['', '\n'.join(section5)]).strip())
+    lines.extend(f'• {item}' for item in (alerts[:3] or ['Bez zásadního ranního alertu.']))
+    lines.extend([
+        '',
+        '**3. E-shop včera**',
+        f'• AOV: {format_czk(eshop["averageOrderValue"])}',
+        f'• Problematické / storno: {eshop["problematicOrders"]} / {eshop["cancelledOrders"]}',
+        f'• Tahouni podle kusů: {compact_top_codes(eshop.get("topProductsByUnits"), 3)}',
+        f'• Tahouni podle obratu: {compact_top_codes(eshop.get("topProductsByRevenue"), 3)}',
+        f'• Top platba: {first_method_text(eshop.get("paymentMethods"))}',
+        f'• Top doprava: {first_method_text(eshop.get("deliveryMethods"))}',
+        '',
+        '**4. Sklad a logistika**',
+        f'• Nízký sklad po včerejším prodeji: {low_stock_line(stock.get("lowStockSoldYesterday"))}',
+        f'• Mínusové pozice: {negative_positions_line(stock.get("negativeStoreStock"))}',
+        f'• Nejbližší expirace: {expiry_line(logistics.get("expiringProducts"))}',
+    ])
+    if logistics.get('coverageWarnings'):
+        lines.extend(f'• {warning}' for warning in logistics['coverageWarnings'][:2])
+    lines.extend([
+        '',
+        '**5. Co dnes udělat**',
+    ])
+    lines.extend(f'• {compact_priority_text(item)}' for item in (priorities[:4] or ['Bez nové priority.']))
 
     detail_url = report.get('detailUrl')
     if detail_url:
-        sections.append('\n'.join([
-            '**6. Podrobnější report**',
+        lines.extend([
+            '',
+            '**6. Detail**',
             f'• {detail_url}',
-        ]))
+        ])
 
-    return '\n\n'.join(sections).strip() + '\n'
+    return '\n'.join(lines).strip() + '\n'
+
+
+def format_morning_report_telegram_text(report):
+    report_date = parse_dt(report['window']['from']).strftime('%-d. %-m. %Y')
+    quick = report['quickSummary']
+    eshop = report['eshop']
+    stock = report['stock']
+    inventory = report.get('inventory') or {}
+    logistics = report['logistics']
+    warnings = report.get('warnings') or []
+    priorities = report.get('priorities') or []
+    alerts = [compact_alert_text(alert) for alert in quick.get('alerts') or [] if compact_alert_text(alert)]
+
+    lines = [
+        f'Ranní report, včerejšek ({report_date})',
+        *status_lines(warnings),
+        '',
+        '📌 Přehled',
+        f'• Objednávky: {eshop["orders"]} ({format_pct_compact(quick["orders"].get("deltaPct"))})',
+        f'• Tržby: {format_czk(eshop["revenueWithVat"])} ({format_pct_compact(quick["revenueWithVat"].get("deltaPct"))})',
+        f'• Expedice: {logistics["shipmentsTotal"]} (CZ {logistics["byAccount"].get("CZ", 0)} / SK {logistics["byAccount"].get("SK", 0)})',
+        f'• Sklad: {format_units(inventory.get("availableStockTotal", 0))}',
+        '',
+        '⚠️ Co dnes pálí',
+    ]
+    lines.extend(f'• {item}' for item in (alerts[:3] or ['Bez zásadního ranního alertu.']))
+    lines.extend([
+        '',
+        '🛒 E-shop',
+        f'• AOV: {format_czk(eshop["averageOrderValue"])}',
+        f'• Problematické / storno: {eshop["problematicOrders"]} / {eshop["cancelledOrders"]}',
+        f'• Tahouni: {compact_top_codes(eshop.get("topProductsByUnits"), 3)}',
+        '',
+        '📦 Sklad a logistika',
+        f'• Nízký sklad: {low_stock_line(stock.get("lowStockSoldYesterday"))}',
+        f'• Mínusové pozice: {negative_positions_line(stock.get("negativeStoreStock"))}',
+        f'• Expirace: {expiry_line(logistics.get("expiringProducts"))}',
+        '',
+        '✅ Co dnes udělat',
+    ])
+    lines.extend(f'• {compact_priority_text(item)}' for item in (priorities[:4] or ['Bez nové priority.']))
+
+    detail_url = report.get('detailUrl')
+    if detail_url:
+        lines.extend(['', f'Detail: {detail_url}'])
+
+    return '\n'.join(lines).strip() + '\n'
 
 
 def clean_html_cell(value):
@@ -2380,6 +2450,7 @@ def main():
         warnings,
     )
     report_text = format_morning_report_text(report_json)
+    report_telegram_text = format_morning_report_telegram_text(report_json)
 
     CURRENT_DIR.mkdir(parents=True, exist_ok=True)
     snapshot_path = SNAPSHOT_DIR / stamp
@@ -2410,6 +2481,8 @@ def main():
 
     write_text(CURRENT_DIR / 'morning_report_previous_day.txt', report_text)
     write_text(snapshot_path / 'morning_report_previous_day.txt', report_text)
+    write_text(CURRENT_DIR / 'morning_report_previous_day_telegram.txt', report_telegram_text)
+    write_text(snapshot_path / 'morning_report_previous_day_telegram.txt', report_telegram_text)
 
     portal_summary = {
         'generatedAt': generated_at,
