@@ -1602,7 +1602,7 @@ def fetch_abra_live_snapshot(now_local):
         payload = abra_get(config, 'faktura-prijata', {
             'detail': 'full',
             'limit': 200,
-            'order': 'datSplat@A',
+            'order': 'datSplat@D',
         })
     except Exception as exc:
         return {

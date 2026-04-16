@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T15:30:34.452996+02:00",
+  "generatedAt": "2026-04-16T16:40:32.239407+02:00",
   "reportDate": "2026-04-15",
   "detailUrl": "https://rkonfal.github.io/diamond-plus-reporting-preview/site/index.html",
   "window": {
@@ -34,19 +34,19 @@
     "statuses": [
       {
         "name": "přijatá",
-        "count": 265
-      },
-      {
-        "name": "připraveno k vyzvednutí",
-        "count": 59
+        "count": 251
       },
       {
         "name": "doručeno",
-        "count": 48
+        "count": 71
+      },
+      {
+        "name": "připraveno k vyzvednutí",
+        "count": 46
       },
       {
         "name": "expedováno",
-        "count": 28
+        "count": 32
       },
       {
         "name": "nová",
@@ -767,12 +767,6 @@
         "inStore": -432.0
       },
       {
-        "code": "52902",
-        "title": "Revitalizační maska na obličej a krk Lingzhi",
-        "storeName": "[FlexiBee] Sklad Měčín",
-        "inStore": -277.0
-      },
-      {
         "code": "000077",
         "title": "Brožura Detoxikace",
         "storeName": "[FlexiBee] Sklad Měčín",
@@ -807,9 +801,23 @@
         "title": "Zázvorový nápoj 2+1",
         "storeName": "[FlexiBee] Sklad Měčín",
         "inStore": -80.0
+      },
+      {
+        "code": "000085",
+        "title": "Brožura Potravinové doplňky",
+        "storeName": "[FlexiBee] Sklad Měčín",
+        "inStore": -70.0
       }
     ],
-    "largestMovesSinceLastSnapshot": []
+    "largestMovesSinceLastSnapshot": [
+      {
+        "code": "85607",
+        "title": "Zjemňující balzám na rty",
+        "currentStock": 353.0,
+        "previousStock": 354.0,
+        "delta": -1.0
+      }
+    ]
   },
   "logistics": {
     "shipmentsTotal": 569,
@@ -856,11 +864,11 @@
     "statusCounts": [
       {
         "name": "C",
-        "count": 515
+        "count": 542
       },
       {
         "name": "P",
-        "count": 54
+        "count": 27
       }
     ],
     "coverageWarnings": [],
@@ -870,10 +878,10 @@
         "sku": "40203",
         "dateExpiry": "2026-05-08",
         "daysToExpiry": 22,
-        "datedStock": 2423.0,
-        "stockAtNearestExpiry": 2423.0,
+        "datedStock": 2368.0,
+        "stockAtNearestExpiry": 2368.0,
         "batchCount": 14,
-        "riskScore": 41.13,
+        "riskScore": 40.19,
         "title": "Peeling Broskvový",
         "label": "40203 · Peeling Broskvový (CZ)"
       },
@@ -882,10 +890,10 @@
         "sku": "52902/03",
         "dateExpiry": "2026-05-07",
         "daysToExpiry": 21,
-        "datedStock": 371.0,
-        "stockAtNearestExpiry": 371.0,
+        "datedStock": 361.0,
+        "stockAtNearestExpiry": 361.0,
         "batchCount": 3,
-        "riskScore": 6.67,
+        "riskScore": 6.49,
         "title": "Revitalizační maska na obličej a krk Lingzhi - 3ks",
         "label": "52902/03 · Revitalizační maska na obličej a krk Lingzhi - 3ks (CZ)"
       },
@@ -894,8 +902,8 @@
         "sku": "PROMO74",
         "dateExpiry": "2027-02-09",
         "daysToExpiry": 299,
-        "datedStock": 9480.0,
-        "stockAtNearestExpiry": 2360.0,
+        "datedStock": 9478.0,
+        "stockAtNearestExpiry": 2358.0,
         "batchCount": 18,
         "riskScore": 5.71,
         "title": "Královská bylinná směs zdravá žena ",
@@ -906,8 +914,8 @@
         "sku": "63601/01",
         "dateExpiry": "2026-12-31",
         "daysToExpiry": 259,
-        "datedStock": 7547.0,
-        "stockAtNearestExpiry": 7547.0,
+        "datedStock": 7544.0,
+        "stockAtNearestExpiry": 7544.0,
         "batchCount": 14,
         "riskScore": 5.47,
         "title": "Denní vložka Energie života",
@@ -918,8 +926,8 @@
         "sku": "30111",
         "dateExpiry": "2026-12-10",
         "daysToExpiry": 238,
-        "datedStock": 6404.0,
-        "stockAtNearestExpiry": 6404.0,
+        "datedStock": 6401.0,
+        "stockAtNearestExpiry": 6401.0,
         "batchCount": 18,
         "riskScore": 5.18,
         "title": "Kosmetická tělová fytonáplast Yaoshen Forte",
