@@ -69,6 +69,25 @@ query ($offset:Int,$limit:Int,$sort:OrderSortInput,$filter:OrderFilterInput){
 }
 '''
 
+WPJ_ORDERS_YEAR_METRICS_QUERY = '''
+query ($offset:Int,$limit:Int,$sort:OrderSortInput,$filter:OrderFilterInput){
+  orders(offset:$offset, limit:$limit, sort:$sort, filter:$filter) {
+    items {
+      id
+      dateCreated
+      items {
+        type
+        code
+        name
+        pieces
+      }
+    }
+    hasNextPage
+    hasPreviousPage
+  }
+}
+'''
+
 WPJ_PRODUCTS_QUERY = '''
 query ($offset:Int,$limit:Int,$sort:ProductSortInput){
   products(offset:$offset, limit:$limit, sort:$sort) {
@@ -363,6 +382,49 @@ def fetch_wpj_products(url, access_token, limit=1000):
             break
         offset += len(page_items)
     return items
+
+
+def fetch_wpj_year_order_metrics(url, access_token, start_dt, end_dt, limit=1000):
+    offset = 0
+    items = []
+    while True:
+        payload = call_wpj(
+            WPJ_ORDERS_YEAR_METRICS_QUERY,
+            {
+                'offset': offset,
+                'limit': limit,
+                'sort': {'dateCreated': 'DESC'},
+                'filter': {
+                    'dateFrom': start_dt.strftime('%Y-%m-%d %H:%M:%S'),
+                    'dateTo': end_dt.strftime('%Y-%m-%d %H:%M:%S'),
+                },
+            },
+            url,
+            access_token,
+        )
+        page = payload['orders']
+        page_items = page.get('items') or []
+        items.extend(page_items)
+        if not page.get('hasNextPage') or not page_items:
+            break
+        offset += len(page_items)
+    return items
+
+
+def load_json_if_fresh(path: Path, *, max_age_hours):
+    if not path.exists():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding='utf-8'))
+    except Exception:
+        return None
+    generated = parse_dt(data.get('generatedAt'))
+    if not generated:
+        return None
+    age_hours = (current_local_time() - generated).total_seconds() / 3600
+    if age_hours > max_age_hours:
+        return None
+    return data
 
 
 def product_label(item):
@@ -684,6 +746,7 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
             'wpj': {
                 'inStore': num((wpj or {}).get('inStore')),
                 'fourpxStoreTotal': wpj_fourpx_total,
+                'priceWithVat': money(((wpj or {}).get('price') or {}).get('withVat')),
                 'stores': stores,
             },
             'fourpx': {
@@ -817,6 +880,102 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
         'topOutboundProducts': shipped_yesterday[:20],
     }
     return combined_index, combined_overview
+
+
+def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt, generated_at):
+    metrics = {}
+    for order in year_orders:
+        dt = parse_dt(order.get('dateCreated'))
+        if not dt:
+            continue
+        days_ago = (end_dt.date() - dt.date()).days
+        for item in order.get('items') or []:
+            if item.get('type') != 'product':
+                continue
+            code = item.get('code') or item.get('name') or '–'
+            row = metrics.setdefault(code, {
+                'code': code,
+                'name': item.get('name') or 'Bez názvu',
+                'units365d': 0.0,
+                'units180d': 0.0,
+                'units90d': 0.0,
+                'units30d': 0.0,
+                'lastSaleDate': None,
+            })
+            units = num(item.get('pieces'))
+            row['units365d'] += units
+            if days_ago <= 180:
+                row['units180d'] += units
+            if days_ago <= 90:
+                row['units90d'] += units
+            if days_ago <= 30:
+                row['units30d'] += units
+            if not row['lastSaleDate'] or dt.isoformat() > row['lastSaleDate']:
+                row['lastSaleDate'] = dt.isoformat()
+
+    items = []
+    for item in combined_index.get('items') or []:
+        code = item['code']
+        metric = metrics.get(code, {'units365d': 0.0, 'units180d': 0.0, 'units90d': 0.0, 'units30d': 0.0, 'lastSaleDate': None, 'name': item['title']})
+        effective_stock = item['fourpx']['availableTotal'] if item['fourpx']['availableTotal'] > 0 else item['wpj']['fourpxStoreTotal']
+        daily_run_rate = metric['units365d'] / 365 if metric['units365d'] else 0.0
+        days_of_cover = round(effective_stock / daily_run_rate, 1) if daily_run_rate > 0 else None
+        last_sale_dt = parse_dt(metric.get('lastSaleDate'))
+        days_since_last_sale = (end_dt.date() - last_sale_dt.date()).days if last_sale_dt else None
+        selling_value = round(effective_stock * money(item.get('wpj', {}).get('priceWithVat')), 2) if item.get('wpj', {}).get('priceWithVat') else None
+
+        tags = []
+        if effective_stock > 0 and metric['units365d'] == 0:
+            tags.append('dead_stock')
+        if effective_stock > 0 and days_since_last_sale is not None and days_since_last_sale >= 90:
+            tags.append('slow_mover')
+        if effective_stock > 0 and days_of_cover is not None and days_of_cover >= 365:
+            tags.append('overstocked')
+        if effective_stock > 0 and days_of_cover is not None and days_of_cover <= 30 and metric['units365d'] > 0:
+            tags.append('fast_mover_low_cover')
+
+        items.append({
+            'code': code,
+            'title': item['title'],
+            'effectiveStock': round(effective_stock, 2),
+            'fourpxAvailable': item['fourpx']['availableTotal'],
+            'wpj4pxStoreTotal': item['wpj']['fourpxStoreTotal'],
+            'units365d': round(metric['units365d'], 2),
+            'units180d': round(metric['units180d'], 2),
+            'units90d': round(metric['units90d'], 2),
+            'units30d': round(metric['units30d'], 2),
+            'avgMonthlyUnits365d': round(metric['units365d'] / 12, 1) if metric['units365d'] else 0,
+            'dailyRunRate365d': round(daily_run_rate, 3),
+            'daysOfCover365d': days_of_cover,
+            'lastSaleDate': metric['lastSaleDate'],
+            'daysSinceLastSale': days_since_last_sale,
+            'stockValueSelling': selling_value,
+            'tags': tags,
+        })
+
+    turnover = sorted([item for item in items if item['units365d'] > 0 and item['effectiveStock'] > 0], key=lambda item: item['units365d'], reverse=True)
+    dead_stock = sorted([item for item in items if 'dead_stock' in item['tags']], key=lambda item: item['effectiveStock'], reverse=True)
+    slow_movers = sorted([item for item in items if 'slow_mover' in item['tags'] and item['effectiveStock'] > 0], key=lambda item: ((item['daysSinceLastSale'] or 0), item['effectiveStock']), reverse=True)
+    overstocked = sorted([item for item in items if 'overstocked' in item['tags'] and item['effectiveStock'] > 0], key=lambda item: (item['daysOfCover365d'] or 0), reverse=True)
+    fast_low_cover = sorted([item for item in items if 'fast_mover_low_cover' in item['tags']], key=lambda item: (item['daysOfCover365d'] or 999, -item['units365d']))
+
+    return {
+        'generatedAt': generated_at,
+        'window': {'from': start_dt.isoformat(), 'to': end_dt.isoformat()},
+        'summary': {
+            'trackedItems': len(items),
+            'turnoverItems': len(turnover),
+            'deadStockItems': len(dead_stock),
+            'slowMoverItems': len(slow_movers),
+            'overstockedItems': len(overstocked),
+            'fastLowCoverItems': len(fast_low_cover),
+        },
+        'topTurnover': turnover[:50],
+        'deadStock': dead_stock[:100],
+        'slowMovers': slow_movers[:100],
+        'overstocked': overstocked[:100],
+        'fastLowCover': fast_low_cover[:100],
+    }
 
 
 def summarize_4px_window(label, outbound, start_dt, end_dt):
@@ -1134,6 +1293,7 @@ def main():
     wpj_orders_payload = {'generatedAt': generated_at, 'items': []}
     wpj_products_payload = {'generatedAt': generated_at, 'items': []}
     wpj_history_payload = {'generatedAt': generated_at, 'days': []}
+    inventory_analytics_payload = {'generatedAt': generated_at, 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': []}
     combined_index_payload = {'generatedAt': generated_at, 'items': [], 'counts': {}}
     combined_overview_payload = {'generatedAt': generated_at, 'counts': {}}
     baseline_orders = None
@@ -1149,6 +1309,7 @@ def main():
         wpj_url = wpj_endpoint()
         wpj_token = os.environ['WPJ_ACCESS_TOKEN']
         history_start = report_start - timedelta(days=7)
+        year_start = report_start - timedelta(days=364)
         history_orders = fetch_wpj_orders(wpj_url, wpj_token, history_start, report_end, limit=1000, detailed=False)
         yesterday_orders = fetch_wpj_orders(wpj_url, wpj_token, report_start, report_end, limit=250, detailed=True)
         wpj_products = fetch_wpj_products(wpj_url, wpj_token)
@@ -1167,6 +1328,18 @@ def main():
             report_end,
             generated_at,
         )
+
+        analytics_cache_path = CURRENT_DIR / 'inventory_analytics_365d.json'
+        inventory_analytics_payload = load_json_if_fresh(analytics_cache_path, max_age_hours=24)
+        if not inventory_analytics_payload:
+            year_orders = fetch_wpj_year_order_metrics(wpj_url, wpj_token, year_start, report_end, limit=1000)
+            inventory_analytics_payload = build_inventory_analytics_365d(
+                combined_index_payload,
+                year_orders,
+                year_start,
+                report_end,
+                generated_at,
+            )
 
         wpj_orders_payload = {
             'generatedAt': generated_at,
@@ -1233,6 +1406,7 @@ def main():
         '4px_sk_outbound_recent.json': {'generatedAt': generated_at, **sk_outbound},
         'combined_product_index.json': combined_index_payload,
         'combined_inventory_overview.json': combined_overview_payload,
+        'inventory_analytics_365d.json': inventory_analytics_payload,
         'wpj_orders_previous_day.json': wpj_orders_payload,
         'wpj_products.json': wpj_products_payload,
         'wpj_history_8_days.json': wpj_history_payload,
