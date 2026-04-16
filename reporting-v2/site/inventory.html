@@ -65,6 +65,17 @@
             </select>
           </label>
           <label class="control-group">
+            <span class="control-label">Řadit</span>
+            <select id="inventory-sort" class="select">
+              <option value="priority">Priorita / relevance</option>
+              <option value="delta">Největší delta</option>
+              <option value="stock">Největší 4PX sklad</option>
+              <option value="sales365d">Největší prodej 365d</option>
+              <option value="coverAsc">Nejnižší pokrytí</option>
+              <option value="code">Kód A–Z</option>
+            </select>
+          </label>
+          <label class="control-group">
             <span class="control-label">Řádků</span>
             <select id="inventory-limit" class="select">
               <option value="25">25</option>
@@ -74,6 +85,17 @@
             </select>
           </label>
         </div>
+      </div>
+
+      <div class="quick-filters" id="inventory-quick-filters">
+        <button class="quick-filter active" type="button" data-filter="all">Všechno</button>
+        <button class="quick-filter" type="button" data-filter="mismatch">Mismatchy</button>
+        <button class="quick-filter" type="button" data-filter="lowAfterSales">Nízký sklad po prodeji</button>
+        <button class="quick-filter" type="button" data-filter="only4px">Pouze v 4PX</button>
+        <button class="quick-filter" type="button" data-filter="manualAlias">Ruční override</button>
+        <button class="quick-filter" type="button" data-filter="autoAlias">Auto alias</button>
+        <button class="quick-filter" type="button" data-filter="fastLowCover">Nízké pokrytí</button>
+        <button class="quick-filter" type="button" data-filter="deadStock">Dead stock</button>
       </div>
 
       <div class="section-subtitle" id="inventory-explorer-summary">Načítám explorer…</div>
@@ -370,7 +392,9 @@
 
       const searchInput = document.getElementById('inventory-search');
       const filterSelect = document.getElementById('inventory-filter');
+      const sortSelect = document.getElementById('inventory-sort');
       const limitSelect = document.getElementById('inventory-limit');
+      const quickFilterButtons = Array.from(document.querySelectorAll('#inventory-quick-filters [data-filter]'));
       const explorerSummary = document.getElementById('inventory-explorer-summary');
       const explorerTable = document.getElementById('inventory-explorer-table');
 
@@ -394,19 +418,43 @@
       function renderExplorer() {
         const query = searchInput.value.trim().toLowerCase();
         const filter = filterSelect.value;
+        const sort = sortSelect.value;
         const limit = Number(limitSelect.value || 50);
 
         const rows = explorerRows
           .filter(({ row, metric }) => matchesExplorerFilter(row, metric, filter))
-          .filter(({ row, metric }) => !query || explorerSearchBlob(row, metric).includes(query))
-          .sort((a, b) => explorerScore(b.row, b.metric) - explorerScore(a.row, a.metric)
+          .filter(({ row, metric }) => !query || explorerSearchBlob(row, metric).includes(query));
+
+        rows.sort((a, b) => {
+          if (sort === 'delta') {
+            return Math.abs(Number(b.row.stockDelta || 0)) - Math.abs(Number(a.row.stockDelta || 0))
+              || explorerScore(b.row, b.metric) - explorerScore(a.row, a.metric);
+          }
+          if (sort === 'stock') {
+            return Number(b.row.fourpx?.availableTotal || 0) - Number(a.row.fourpx?.availableTotal || 0)
+              || explorerScore(b.row, b.metric) - explorerScore(a.row, a.metric);
+          }
+          if (sort === 'sales365d') {
+            return Number(b.metric.units365d || 0) - Number(a.metric.units365d || 0)
+              || explorerScore(b.row, b.metric) - explorerScore(a.row, a.metric);
+          }
+          if (sort === 'coverAsc') {
+            const aCover = a.metric.daysOfCover365d == null ? Number.POSITIVE_INFINITY : Number(a.metric.daysOfCover365d);
+            const bCover = b.metric.daysOfCover365d == null ? Number.POSITIVE_INFINITY : Number(b.metric.daysOfCover365d);
+            return aCover - bCover || explorerScore(b.row, b.metric) - explorerScore(a.row, a.metric);
+          }
+          if (sort === 'code') {
+            return String(a.row.code || '').localeCompare(String(b.row.code || ''), 'cs');
+          }
+          return explorerScore(b.row, b.metric) - explorerScore(a.row, a.metric)
             || Math.abs(Number(b.row.stockDelta || 0)) - Math.abs(Number(a.row.stockDelta || 0))
             || Number(b.metric.units365d || 0) - Number(a.metric.units365d || 0)
             || Number(b.row.fourpx?.availableTotal || 0) - Number(a.row.fourpx?.availableTotal || 0)
-            || String(a.row.code || '').localeCompare(String(b.row.code || ''), 'cs'));
+            || String(a.row.code || '').localeCompare(String(b.row.code || ''), 'cs');
+        });
 
         const visible = rows.slice(0, limit);
-        explorerSummary.textContent = `Zobrazeno ${fmt(visible.length)} z ${fmt(rows.length)} výsledků, celkem ${fmt(explorerRows.length)} produktových řádků v kombinovaném skladu.`;
+        explorerSummary.textContent = `Zobrazeno ${fmt(visible.length)} z ${fmt(rows.length)} výsledků, celkem ${fmt(explorerRows.length)} produktových řádků v kombinovaném skladu. Filtr: ${filterSelect.options[filterSelect.selectedIndex].text}. Řazení: ${sortSelect.options[sortSelect.selectedIndex].text}.`;
 
         explorerTable.innerHTML = visible.map(({ row, metric }) => `
           <tr>
@@ -428,7 +476,18 @@
 
       searchInput.addEventListener('input', renderExplorer);
       filterSelect.addEventListener('change', renderExplorer);
+      sortSelect.addEventListener('change', renderExplorer);
       limitSelect.addEventListener('change', renderExplorer);
+      quickFilterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          filterSelect.value = button.dataset.filter;
+          quickFilterButtons.forEach(item => item.classList.toggle('active', item === button));
+          renderExplorer();
+        });
+      });
+      filterSelect.addEventListener('change', () => {
+        quickFilterButtons.forEach(button => button.classList.toggle('active', button.dataset.filter === filterSelect.value));
+      });
       renderExplorer();
 
       document.getElementById('priority-shortlist-table').innerHTML = (overview.priorityShortlist || []).map(row => `

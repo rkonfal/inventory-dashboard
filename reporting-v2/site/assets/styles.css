@@ -322,6 +322,30 @@ a { color: inherit; }
   flex-wrap: wrap;
   align-items: flex-end;
 }
+.quick-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.quick-filter {
+  background: rgba(107,61,99,.05);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 9px 13px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.quick-filter:hover,
+.quick-filter.active {
+  border-color: var(--border-strong);
+  background: rgba(107,61,99,.10);
+}
+[data-theme="dark"] .quick-filter {
+  background: rgba(255,255,255,.04);
+}
 .control-group {
   display: grid;
   gap: 6px;
