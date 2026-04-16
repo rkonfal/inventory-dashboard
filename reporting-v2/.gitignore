@@ -1,0 +1,5 @@
+.env.local
+logs/
+node_modules/
+__pycache__/
+data/snapshots/

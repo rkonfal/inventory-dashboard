@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-shop / WPJ, Reporting V2</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo"><h2>Diamond Plus</h2><span>Reporting V2</span></div>
+    <div class="sidebar-section-label">Přehled</div>
+    <nav class="sidebar-nav">
+      <a href="index.html">🏠 Portal</a>
+      <a href="inventory.html">📦 Sklad</a>
+      <a href="logistics.html">🚚 Logistika 4PX</a>
+      <a class="active" href="eshop.html">🛒 E-shop / WPJ</a>
+    </nav>
+    <div class="sidebar-footer">WPJ část je připravená na napojení, ale ještě čeká na aktuální token / current flow.</div>
+  </aside>
+
+  <main class="main">
+    <header class="header">
+      <div class="header-row">
+        <div>
+          <h1>E-shop výkon</h1>
+          <div class="header-sub">
+            <span class="badge warn" id="wpj-state">Čekám na WPJ zdroj…</span>
+            <span class="badge info">Připraveno pro GraphQL / proxy flow</span>
+          </div>
+        </div>
+        <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2 class="section-title">Stav WPJ vrstvy</h2>
+      <div class="alert warn" id="wpj-message">WPJ data zatím nejsou v rebuildu živě připojena.</div>
+      <div class="block-list">
+        <div class="block-item"><h4>Co už víme</h4><p>Historická stopa ukazuje na WPJShop GraphQL a Cloudflare proxy. Připravil jsem nový reporting tak, aby se WPJ vrstva dala připojit bez zásahu do 4PX části.</p></div>
+        <div class="block-item"><h4>Co chybí</h4><p>Aktuální token, nebo přesná current pipeline z Claude dispatch bota.</p></div>
+        <div class="block-item"><h4>Co bude po napojení</h4><p>Objednávky, obrat, top produkty, platební a dopravní metody, problematické objednávky a výstup pro ranní report.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/app.js"></script>
+  <script>
+    DP.initThemeToggle();
+    (async () => {
+      const summary = await DP.loadJson('../data/current/portal_summary.json');
+      document.getElementById('wpj-state').textContent = summary.wpJ.ready ? 'WPJ připojeno' : 'WPJ čeká na napojení';
+      document.getElementById('wpj-message').textContent = summary.wpJ.message;
+    })();
+  </script>
+</body>
+</html>

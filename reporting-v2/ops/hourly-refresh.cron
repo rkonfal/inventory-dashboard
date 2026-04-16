@@ -1,0 +1,4 @@
+# Diamond Plus Reporting V2 hourly refresh
+# Install with: crontab reporting-v2/ops/hourly-refresh.cron
+
+0 * * * * /bin/zsh /Users/rudolfkonfal/.openclaw/workspace/reporting-v2/scripts/hourly_refresh.sh

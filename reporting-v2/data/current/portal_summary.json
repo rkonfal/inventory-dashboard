@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-04-16T09:02:25.716272+02:00",
+  "config": {
+    "warehouseCode": "CZPRGA",
+    "outboundMaxPages": 10
+  },
+  "warnings": [
+    "WPJ část zatím není připojená. 4PX reporting běží, ale e-shop výkon čeká na GraphQL token nebo current Claude flow."
+  ],
+  "accounts": {
+    "cz": {
+      "label": "CZ",
+      "inventory": {
+        "items": 768,
+        "availableStockTotal": 309628,
+        "pendingStockTotal": 4758,
+        "freezeStockTotal": 0,
+        "lowStockItems": 100
+      },
+      "outbound": {
+        "items": 1000,
+        "scannedPages": 10,
+        "topLogisticsProduct": "F1401"
+      }
+    },
+    "sk": {
+      "label": "SK",
+      "inventory": {
+        "items": 621,
+        "availableStockTotal": 70994,
+        "pendingStockTotal": 553,
+        "freezeStockTotal": 0,
+        "lowStockItems": 100
+      },
+      "outbound": {
+        "items": 1000,
+        "scannedPages": 10,
+        "topLogisticsProduct": "F1406"
+      }
+    }
+  },
+  "wpJ": {
+    "ready": false,
+    "message": "WPJ zatím není připojené. Chybí token nebo current refresh flow.",
+    "orders": 0
+  }
+}
