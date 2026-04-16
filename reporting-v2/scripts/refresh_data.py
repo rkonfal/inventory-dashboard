@@ -710,6 +710,7 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
     shipped_yesterday = [item for item in items if item['yesterdayOutbound']['shipments'] > 0]
 
     priority_shortlist = []
+    mapping_suggestions = []
     for item in items:
         if not ({'stock_mismatch', 'only_in_4px', 'only_in_wpj_4px_context'} & set(item['flags'])):
             continue
@@ -767,11 +768,28 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
             'flags': item['flags'],
         })
 
+        if 'only_in_4px' in item['flags'] and '/' in item['code']:
+            base_code = item['code'].split('/')[0]
+            wpj_candidate = wpj_by_code.get(base_code)
+            if wpj_candidate:
+                mapping_suggestions.append({
+                    'orphanCode': item['code'],
+                    'orphanTitle': item['title'],
+                    'suggestedWpjCode': base_code,
+                    'suggestedWpjTitle': wpj_candidate.get('title') or 'Bez názvu',
+                    'confidence': 'high',
+                    'rule': 'strip_/variant_suffix',
+                    'fourpxAvailable': item['fourpx']['availableTotal'],
+                    'yesterdaySalesUnits': sales_units,
+                    'yesterdayOutboundUnits': outbound_units,
+                })
+
     low_after_sales.sort(key=lambda item: (item['fourpx']['availableTotal'], -item['yesterdaySales']['units'], item['code']))
     stock_mismatches.sort(key=lambda item: abs(item['stockDelta']), reverse=True)
     only_in_4px.sort(key=lambda item: item['fourpx']['availableTotal'], reverse=True)
     shipped_yesterday.sort(key=lambda item: item['yesterdayOutbound']['czUnits'] + item['yesterdayOutbound']['skUnits'], reverse=True)
     priority_shortlist.sort(key=lambda item: item['score'], reverse=True)
+    mapping_suggestions.sort(key=lambda item: (item['yesterdayOutboundUnits'], item['yesterdaySalesUnits'], item['fourpxAvailable']), reverse=True)
 
     combined_index = {
         'generatedAt': generated_at,
@@ -792,6 +810,7 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
         'window': {'from': start_dt.isoformat(), 'to': end_dt.isoformat()},
         'counts': combined_index['counts'],
         'priorityShortlist': priority_shortlist[:25],
+        'mappingSuggestions': mapping_suggestions[:50],
         'lowAfterSales': low_after_sales[:20],
         'stockMismatches': stock_mismatches[:20],
         'onlyIn4px': only_in_4px[:20],
