@@ -269,6 +269,82 @@ def fetch_inventory(app_key, app_secret, warehouse_code):
     }
 
 
+def chunked(values, size):
+    for idx in range(0, len(values), size):
+        yield values[idx:idx + size]
+
+
+def fetch_inventory_details(app_key, app_secret, warehouse_code, inventory_items, batch_size=100):
+    unique_skus = []
+    seen = set()
+    for row in inventory_items:
+        sku = str(row.get('sku_code') or '').strip()
+        if not sku or sku in seen:
+            continue
+        seen.add(sku)
+        unique_skus.append(sku)
+
+    details = []
+    for sku_batch in chunked(unique_skus, batch_size):
+        payload = call_4px(
+            'fu.wms.inventory.getdetail',
+            {'warehouse_code': warehouse_code, 'lstsku': sku_batch},
+            app_key,
+            app_secret,
+        )
+        details.extend(payload.get('inventorydetaillist') or [])
+    return {
+        'items': details,
+        'uniqueSkuCount': len(unique_skus),
+        'detailRows': len(details),
+    }
+
+
+def summarize_expiry_details(label, detail_rows):
+    per_sku = {}
+    for row in detail_rows:
+        expiry_dt = parse_dt(row.get('expiry_date'))
+        stock = num(row.get('warehouse_stock'))
+        if not expiry_dt or stock <= 0:
+            continue
+        sku = row.get('sku_code') or '–'
+        if str(sku).upper().startswith('TEST'):
+            continue
+        item = per_sku.setdefault(sku, {
+            'account': label,
+            'sku': sku,
+            'batchCount': 0,
+            'datedStock': 0.0,
+            'nearestExpiry': None,
+            'nearestExpiryStock': 0.0,
+        })
+        item['batchCount'] += 1
+        item['datedStock'] += stock
+        if item['nearestExpiry'] is None or expiry_dt < item['nearestExpiry']:
+            item['nearestExpiry'] = expiry_dt
+            item['nearestExpiryStock'] = stock
+        elif expiry_dt == item['nearestExpiry']:
+            item['nearestExpiryStock'] += stock
+
+    results = []
+    now_local = current_local_time()
+    for sku, row in per_sku.items():
+        days_to_expiry = (row['nearestExpiry'].date() - now_local.date()).days
+        results.append({
+            'account': row['account'],
+            'sku': sku,
+            'dateExpiry': row['nearestExpiry'].date().isoformat(),
+            'daysToExpiry': days_to_expiry,
+            'datedStock': round(row['datedStock'], 2),
+            'stockAtNearestExpiry': round(row['nearestExpiryStock'], 2),
+            'batchCount': row['batchCount'],
+            'riskScore': round(row['datedStock'] / (max(days_to_expiry + 1, 1) ** 1.3), 2),
+        })
+
+    results.sort(key=lambda item: (-item['riskScore'], item['daysToExpiry'], -item['datedStock'], item['sku']))
+    return results
+
+
 def outbound_timestamp(item):
     return parse_dt(item.get('create_time') or item.get('audit_time') or item.get('update_time'))
 
@@ -978,6 +1054,27 @@ def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt
     }
 
 
+def build_expiry_overview(generated_at, combined_index, cz_expiry_rows, sk_expiry_rows):
+    title_by_code = {row['code']: row['title'] for row in combined_index.get('items') or []}
+    combined_rows = []
+    for row in (cz_expiry_rows or []) + (sk_expiry_rows or []):
+        enriched = dict(row)
+        enriched['title'] = title_by_code.get(row['sku']) or row['sku']
+        enriched['label'] = f"{row['sku']} · {enriched['title']} ({row['account']})"
+        combined_rows.append(enriched)
+
+    combined_rows.sort(key=lambda item: (-item['riskScore'], item['daysToExpiry'], -item['datedStock'], item['sku']))
+    return {
+        'generatedAt': generated_at,
+        'summary': {
+            'datedSkuCount': len(combined_rows),
+            'czSkuCount': len(cz_expiry_rows or []),
+            'skSkuCount': len(sk_expiry_rows or []),
+        },
+        'topExpiring': combined_rows[:100],
+    }
+
+
 def summarize_4px_window(label, outbound, start_dt, end_dt):
     window_items = []
     for item in outbound.get('items') or []:
@@ -1017,6 +1114,8 @@ def build_alerts(wpj_summary, stock_summary, logistics_summary, warnings):
         alerts.append(f'{len(stock_summary["negativeStoreStock"])} skladových pozic je v mínusu.')
     if logistics_summary.get('coverageWarnings'):
         alerts.extend(logistics_summary['coverageWarnings'])
+    if any((row.get('daysToExpiry') is not None and row.get('daysToExpiry') <= 30) for row in (logistics_summary.get('expiringProducts') or [])):
+        alerts.append('V top expiracích je aspoň jedna položka do 30 dnů.')
     alerts.extend(warnings)
     deduped = []
     for alert in alerts:
@@ -1037,6 +1136,8 @@ def build_priorities(wpj_summary, stock_summary, logistics_summary):
         priorities.append('Rozšířit 4PX pull, aby ranní report neřezal starší včerejší zásilky.')
     if not logistics_summary.get('expiringProducts'):
         priorities.append('Dohledat spolehlivý zdroj expirací, 4PX inventory zatím vrací jen batch_no bez data spotřeby.')
+    else:
+        priorities.append('Projít nejbližší expirace v 4PX a rozhodnout o doprodeji nebo přesunu zásoby.')
     return priorities[:5]
 
 
@@ -1175,11 +1276,11 @@ def format_morning_report_text(report):
         f'• Rozpad podle účtu: CZ {logistics["byAccount"].get("CZ", 0)} / SK {logistics["byAccount"].get("SK", 0)}',
         '• Rozpad podle dopravce:',
         *counts_text(logistics['carrierCounts'][:5]),
-        '• 5 produktů s nejbližší expirací:',
+        '• 5 produktů s nejvyšším expiračním rizikem:',
     ]
     if logistics['expiringProducts']:
         for row in logistics['expiringProducts'][:5]:
-            section4.append(f'• {row["label"]}: expirace {row["dateExpiry"]}, sklad {format_units(row["stock"])}')
+            section4.append(f'• {row["label"]}: expirace {row["dateExpiry"]}, expirující sklad {format_units(row["datedStock"])}')
     else:
         section4.append('• zatím bez dat, dostupné zdroje vrací batch_no bez data expirace')
     if logistics['coverageWarnings']:
@@ -1260,6 +1361,10 @@ def main():
 
     cz_inventory = fetch_inventory(os.environ['FOURPX_CZ_APP_KEY'], os.environ['FOURPX_CZ_APP_SECRET'], warehouse_code)
     sk_inventory = fetch_inventory(os.environ['FOURPX_SK_APP_KEY'], os.environ['FOURPX_SK_APP_SECRET'], warehouse_code)
+    cz_inventory_detail = fetch_inventory_details(os.environ['FOURPX_CZ_APP_KEY'], os.environ['FOURPX_CZ_APP_SECRET'], warehouse_code, cz_inventory['items'])
+    sk_inventory_detail = fetch_inventory_details(os.environ['FOURPX_SK_APP_KEY'], os.environ['FOURPX_SK_APP_SECRET'], warehouse_code, sk_inventory['items'])
+    cz_expiry_summary = summarize_expiry_details('CZ', cz_inventory_detail['items'])
+    sk_expiry_summary = summarize_expiry_details('SK', sk_inventory_detail['items'])
     cz_outbound = fetch_recent_outbound(
         os.environ['FOURPX_CZ_APP_KEY'],
         os.environ['FOURPX_CZ_APP_SECRET'],
@@ -1294,6 +1399,7 @@ def main():
     wpj_products_payload = {'generatedAt': generated_at, 'items': []}
     wpj_history_payload = {'generatedAt': generated_at, 'days': []}
     inventory_analytics_payload = {'generatedAt': generated_at, 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': []}
+    expiry_overview_payload = {'generatedAt': generated_at, 'summary': {}, 'topExpiring': []}
     combined_index_payload = {'generatedAt': generated_at, 'items': [], 'counts': {}}
     combined_overview_payload = {'generatedAt': generated_at, 'counts': {}}
     baseline_orders = None
@@ -1328,6 +1434,7 @@ def main():
             report_end,
             generated_at,
         )
+        expiry_overview_payload = build_expiry_overview(generated_at, combined_index_payload, cz_expiry_summary, sk_expiry_summary)
 
         analytics_cache_path = CURRENT_DIR / 'inventory_analytics_365d.json'
         inventory_analytics_payload = load_json_if_fresh(analytics_cache_path, max_age_hours=24)
@@ -1356,6 +1463,9 @@ def main():
     else:
         warnings.append('WPJ část není připojená, ranní report nebude mít e-shop výkon.')
 
+    if not expiry_overview_payload.get('topExpiring'):
+        expiry_overview_payload = build_expiry_overview(generated_at, combined_index_payload, cz_expiry_summary, sk_expiry_summary)
+
     cz_daily = summarize_4px_window('CZ', cz_outbound, report_start, report_end)
     sk_daily = summarize_4px_window('SK', sk_outbound, report_start, report_end)
     logistics_summary = {
@@ -1374,8 +1484,8 @@ def main():
             for name, count in (Counter({}) + Counter({row['name']: row['count'] for row in cz_daily['statusCounts']}) + Counter({row['name']: row['count'] for row in sk_daily['statusCounts']})).most_common()
         ],
         'coverageWarnings': [warning for warning in [cz_daily['coverageWarning'], sk_daily['coverageWarning']] if warning],
-        'expiringProducts': [],
-        'notes': ['Zdroj expirací zatím chybí, dostupné API vrací jen batch_no bez data spotřeby.'],
+        'expiringProducts': (expiry_overview_payload.get('topExpiring') or [])[:5],
+        'notes': [],
     }
     warnings.extend(logistics_summary['coverageWarnings'])
 
@@ -1402,8 +1512,11 @@ def main():
     payloads = {
         '4px_cz_inventory.json': {'generatedAt': generated_at, **cz_inventory},
         '4px_sk_inventory.json': {'generatedAt': generated_at, **sk_inventory},
+        '4px_cz_inventory_detail.json': {'generatedAt': generated_at, **cz_inventory_detail},
+        '4px_sk_inventory_detail.json': {'generatedAt': generated_at, **sk_inventory_detail},
         '4px_cz_outbound_recent.json': {'generatedAt': generated_at, **cz_outbound},
         '4px_sk_outbound_recent.json': {'generatedAt': generated_at, **sk_outbound},
+        '4px_expiry_overview.json': expiry_overview_payload,
         'combined_product_index.json': combined_index_payload,
         'combined_inventory_overview.json': combined_overview_payload,
         'inventory_analytics_365d.json': inventory_analytics_payload,
@@ -1449,6 +1562,7 @@ def main():
             'alerts': alerts,
             'priorities': priorities,
         },
+        'expiries': expiry_overview_payload.get('summary') or {},
         'pairing': combined_overview_payload.get('counts') or {},
     }
     write_json(CURRENT_DIR / 'portal_summary.json', portal_summary)
