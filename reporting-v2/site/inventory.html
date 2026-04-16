@@ -108,6 +108,14 @@
         <button class="quick-filter" type="button" data-filter="deadStock">Dead stock</button>
       </div>
 
+      <div class="quick-filters" id="inventory-presets">
+        <button class="quick-filter" type="button" data-preset="operativa">Preset: Operativa</button>
+        <button class="quick-filter" type="button" data-preset="mismatch">Preset: Mismatchy</button>
+        <button class="quick-filter" type="button" data-preset="mapping">Preset: Mapování</button>
+        <button class="quick-filter" type="button" data-preset="deadstock">Preset: Dead stock</button>
+        <button class="quick-filter" type="button" data-preset="reset">Reset pohledu</button>
+      </div>
+
       <div class="section-subtitle" id="inventory-explorer-summary">Načítám explorer…</div>
 
       <table class="table">
@@ -397,6 +405,15 @@
       return `"${text.replace(/"/g, '""')}"`;
     }
 
+    const EXPLORER_STATE_KEY = 'dp-inventory-explorer-state-v1';
+    const EXPLORER_PRESETS = {
+      operativa: { filter: 'lowAfterSales', sort: 'coverAsc', limit: '100', search: '' },
+      mismatch: { filter: 'mismatch', sort: 'delta', limit: '100', search: '' },
+      mapping: { filter: 'autoAlias', sort: 'priority', limit: '100', search: '' },
+      deadstock: { filter: 'deadStock', sort: 'stock', limit: '100', search: '' },
+      reset: { filter: 'all', sort: 'priority', limit: '50', search: '' },
+    };
+
     (async () => {
       const [overview, analytics, combined] = await Promise.all([
         DP.loadJson('../data/current/combined_inventory_overview.json'),
@@ -416,8 +433,36 @@
       const limitSelect = document.getElementById('inventory-limit');
       const exportButton = document.getElementById('inventory-export-csv');
       const quickFilterButtons = Array.from(document.querySelectorAll('#inventory-quick-filters [data-filter]'));
+      const presetButtons = Array.from(document.querySelectorAll('#inventory-presets [data-preset]'));
       const explorerSummary = document.getElementById('inventory-explorer-summary');
       const explorerTable = document.getElementById('inventory-explorer-table');
+
+      function syncQuickFilterButtons() {
+        quickFilterButtons.forEach(button => button.classList.toggle('active', button.dataset.filter === filterSelect.value));
+      }
+
+      function persistExplorerState() {
+        localStorage.setItem(EXPLORER_STATE_KEY, JSON.stringify({
+          search: searchInput.value,
+          filter: filterSelect.value,
+          sort: sortSelect.value,
+          limit: limitSelect.value,
+        }));
+      }
+
+      function applyExplorerState(nextState) {
+        if (!nextState) return;
+        if (typeof nextState.search === 'string') searchInput.value = nextState.search;
+        if (nextState.filter) filterSelect.value = nextState.filter;
+        if (nextState.sort) sortSelect.value = nextState.sort;
+        if (nextState.limit) limitSelect.value = String(nextState.limit);
+        syncQuickFilterButtons();
+      }
+
+      try {
+        const savedState = JSON.parse(localStorage.getItem(EXPLORER_STATE_KEY) || 'null');
+        applyExplorerState(savedState);
+      } catch (_) {}
 
       document.getElementById('inventory-window').textContent = `Okno: ${new Date(overview.window.from).toLocaleDateString('cs-CZ')}`;
       document.getElementById('inventory-paired').textContent = `Spárované: ${fmt(overview.counts.pairedProducts)} • manuální ${fmt(overview.counts.manualMapped4pxAliases || 0)} • auto ${fmt(overview.counts.autoMapped4pxAliases || 0)}`;
@@ -483,6 +528,7 @@
 
         const visible = rows.slice(0, limit);
         explorerSummary.textContent = `Zobrazeno ${fmt(visible.length)} z ${fmt(rows.length)} výsledků, celkem ${fmt(explorerRows.length)} produktových řádků v kombinovaném skladu. Filtr: ${filterSelect.options[filterSelect.selectedIndex].text}. Řazení: ${sortSelect.options[sortSelect.selectedIndex].text}. Export CSV bere celý aktuálně filtrovaný výběr.`;
+        persistExplorerState();
 
         explorerTable.innerHTML = visible.map(({ row, metric }) => `
           <tr>
@@ -557,12 +603,18 @@
       quickFilterButtons.forEach(button => {
         button.addEventListener('click', () => {
           filterSelect.value = button.dataset.filter;
-          quickFilterButtons.forEach(item => item.classList.toggle('active', item === button));
+          syncQuickFilterButtons();
+          renderExplorer();
+        });
+      });
+      presetButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          applyExplorerState(EXPLORER_PRESETS[button.dataset.preset]);
           renderExplorer();
         });
       });
       filterSelect.addEventListener('change', () => {
-        quickFilterButtons.forEach(button => button.classList.toggle('active', button.dataset.filter === filterSelect.value));
+        syncQuickFilterButtons();
       });
       renderExplorer();
 
