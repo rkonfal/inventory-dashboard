@@ -58,6 +58,11 @@
               <option value="lowAfterSales">Jen nízký sklad po prodeji</option>
               <option value="manualAlias">Jen ruční override</option>
               <option value="autoAlias">Jen auto alias</option>
+              <option value="visible">Jen viditelné produkty</option>
+              <option value="soldYesterday">Jen prodané včera</option>
+              <option value="shippedYesterday">Jen expedované včera</option>
+              <option value="negativeDelta">Jen negativní delta</option>
+              <option value="zero4px">Jen bez 4PX skladu</option>
               <option value="fastLowCover">Jen nízké pokrytí</option>
               <option value="deadStock">Jen dead stock</option>
               <option value="slowMover">Jen ležáky</option>
@@ -84,6 +89,7 @@
               <option value="250">250</option>
             </select>
           </label>
+          <button id="inventory-export-csv" class="quick-filter" type="button">Export CSV</button>
         </div>
       </div>
 
@@ -91,7 +97,11 @@
         <button class="quick-filter active" type="button" data-filter="all">Všechno</button>
         <button class="quick-filter" type="button" data-filter="mismatch">Mismatchy</button>
         <button class="quick-filter" type="button" data-filter="lowAfterSales">Nízký sklad po prodeji</button>
+        <button class="quick-filter" type="button" data-filter="soldYesterday">Prodané včera</button>
+        <button class="quick-filter" type="button" data-filter="visible">Viditelné</button>
+        <button class="quick-filter" type="button" data-filter="negativeDelta">Negativní delta</button>
         <button class="quick-filter" type="button" data-filter="only4px">Pouze v 4PX</button>
+        <button class="quick-filter" type="button" data-filter="zero4px">Bez 4PX skladu</button>
         <button class="quick-filter" type="button" data-filter="manualAlias">Ruční override</button>
         <button class="quick-filter" type="button" data-filter="autoAlias">Auto alias</button>
         <button class="quick-filter" type="button" data-filter="fastLowCover">Nízké pokrytí</button>
@@ -353,6 +363,11 @@
         case 'lowAfterSales': return flags.has('low_after_sales');
         case 'manualAlias': return list(row.fourpx?.manualMappedSourceCodes).length > 0;
         case 'autoAlias': return flags.has('auto_mapped_4px_alias');
+        case 'visible': return Boolean(row.visible);
+        case 'soldYesterday': return Number(row.yesterdaySales?.units || 0) > 0;
+        case 'shippedYesterday': return Number(row.yesterdayOutbound?.czUnits || 0) + Number(row.yesterdayOutbound?.skUnits || 0) > 0;
+        case 'negativeDelta': return Number(row.stockDelta || 0) < 0;
+        case 'zero4px': return Number(row.fourpx?.availableTotal || 0) <= 0;
         case 'fastLowCover': return tags.has('fast_mover_low_cover');
         case 'deadStock': return tags.has('dead_stock');
         case 'slowMover': return tags.has('slow_mover');
@@ -377,6 +392,11 @@
       return score;
     }
 
+    function csvCell(value) {
+      const text = String(value ?? '');
+      return `"${text.replace(/"/g, '""')}"`;
+    }
+
     (async () => {
       const [overview, analytics, combined] = await Promise.all([
         DP.loadJson('../data/current/combined_inventory_overview.json'),
@@ -394,6 +414,7 @@
       const filterSelect = document.getElementById('inventory-filter');
       const sortSelect = document.getElementById('inventory-sort');
       const limitSelect = document.getElementById('inventory-limit');
+      const exportButton = document.getElementById('inventory-export-csv');
       const quickFilterButtons = Array.from(document.querySelectorAll('#inventory-quick-filters [data-filter]'));
       const explorerSummary = document.getElementById('inventory-explorer-summary');
       const explorerTable = document.getElementById('inventory-explorer-table');
@@ -415,12 +436,10 @@
         </div>
       `).join('');
 
-      function renderExplorer() {
+      function getExplorerRows() {
         const query = searchInput.value.trim().toLowerCase();
         const filter = filterSelect.value;
         const sort = sortSelect.value;
-        const limit = Number(limitSelect.value || 50);
-
         const rows = explorerRows
           .filter(({ row, metric }) => matchesExplorerFilter(row, metric, filter))
           .filter(({ row, metric }) => !query || explorerSearchBlob(row, metric).includes(query));
@@ -453,8 +472,17 @@
             || String(a.row.code || '').localeCompare(String(b.row.code || ''), 'cs');
         });
 
+        return rows;
+      }
+
+      function renderExplorer() {
+        const filter = filterSelect.value;
+        const sort = sortSelect.value;
+        const limit = Number(limitSelect.value || 50);
+        const rows = getExplorerRows();
+
         const visible = rows.slice(0, limit);
-        explorerSummary.textContent = `Zobrazeno ${fmt(visible.length)} z ${fmt(rows.length)} výsledků, celkem ${fmt(explorerRows.length)} produktových řádků v kombinovaném skladu. Filtr: ${filterSelect.options[filterSelect.selectedIndex].text}. Řazení: ${sortSelect.options[sortSelect.selectedIndex].text}.`;
+        explorerSummary.textContent = `Zobrazeno ${fmt(visible.length)} z ${fmt(rows.length)} výsledků, celkem ${fmt(explorerRows.length)} produktových řádků v kombinovaném skladu. Filtr: ${filterSelect.options[filterSelect.selectedIndex].text}. Řazení: ${sortSelect.options[sortSelect.selectedIndex].text}. Export CSV bere celý aktuálně filtrovaný výběr.`;
 
         explorerTable.innerHTML = visible.map(({ row, metric }) => `
           <tr>
@@ -478,6 +506,54 @@
       filterSelect.addEventListener('change', renderExplorer);
       sortSelect.addEventListener('change', renderExplorer);
       limitSelect.addEventListener('change', renderExplorer);
+      exportButton.addEventListener('click', () => {
+        const rows = getExplorerRows();
+        const header = [
+          'code',
+          'title',
+          'visible',
+          'flags',
+          'fourpx_available',
+          'wpj_4px_stock',
+          'stock_delta',
+          'sold_yesterday_units',
+          'outbound_yesterday_units',
+          'units_365d',
+          'days_of_cover_365d',
+          'source_codes',
+          'manual_aliases',
+          'auto_aliases'
+        ];
+        const lines = [header.map(csvCell).join(';')];
+        rows.forEach(({ row, metric }) => {
+          lines.push([
+            row.code,
+            row.title,
+            row.visible ? '1' : '0',
+            list(row.flags).join(','),
+            row.fourpx?.availableTotal ?? '',
+            row.wpj?.fourpxStoreTotal ?? '',
+            row.stockDelta ?? '',
+            row.yesterdaySales?.units ?? '',
+            Number(row.yesterdayOutbound?.czUnits || 0) + Number(row.yesterdayOutbound?.skUnits || 0),
+            metric.units365d ?? '',
+            metric.daysOfCover365d ?? '',
+            list(row.fourpx?.sourceCodes).join(','),
+            list(row.fourpx?.manualMappedSourceCodes).join(','),
+            list(row.fourpx?.autoMappedSourceCodes).join(','),
+          ].map(csvCell).join(';'));
+        });
+
+        const blob = new Blob(['\uFEFF' + lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `inventory-explorer-${new Date().toISOString().slice(0, 10)}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      });
       quickFilterButtons.forEach(button => {
         button.addEventListener('click', () => {
           filterSelect.value = button.dataset.filter;
