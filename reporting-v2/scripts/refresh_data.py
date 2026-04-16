@@ -709,10 +709,69 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
     only_in_4px = [item for item in items if 'only_in_4px' in item['flags']]
     shipped_yesterday = [item for item in items if item['yesterdayOutbound']['shipments'] > 0]
 
+    priority_shortlist = []
+    for item in items:
+        if not ({'stock_mismatch', 'only_in_4px', 'only_in_wpj_4px_context'} & set(item['flags'])):
+            continue
+        score = min(abs(item['stockDelta']) / 50, 40)
+        reasons = []
+        sales_units = item['yesterdaySales']['units']
+        outbound_units = item['yesterdayOutbound']['czUnits'] + item['yesterdayOutbound']['skUnits']
+        fourpx_available = item['fourpx']['availableTotal']
+
+        if sales_units > 0:
+            score += min(18 + sales_units * 2.5, 28)
+            reasons.append(f'včera se prodalo {round(sales_units, 2):g} ks')
+        if outbound_units > 0:
+            score += min(14 + outbound_units * 1.8, 24)
+            reasons.append(f'včera se expedovalo {round(outbound_units, 2):g} ks')
+        if 'only_in_4px' in item['flags']:
+            score += 14
+            reasons.append('existuje jen ve 4PX')
+        if 'only_in_wpj_4px_context' in item['flags']:
+            score += 12
+            reasons.append('WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí')
+        if 'low_after_sales' in item['flags']:
+            score += 10
+            reasons.append('po včerejším prodeji je na nízkém skladu')
+        if fourpx_available <= 0:
+            score += 8
+            reasons.append('4PX available je nula')
+
+        if score >= 65:
+            priority = 'critical'
+        elif score >= 38:
+            priority = 'high'
+        else:
+            priority = 'medium'
+
+        if 'only_in_4px' in item['flags']:
+            action = 'Doplnit nebo opravit vazbu SKU mezi 4PX a WPJ.'
+        elif 'only_in_wpj_4px_context' in item['flags']:
+            action = 'Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.'
+        else:
+            action = 'Prověřit rozdíl mezi WPJ store stavem a 4PX inventory pull em.'
+
+        priority_shortlist.append({
+            'code': item['code'],
+            'title': item['title'],
+            'priority': priority,
+            'score': round(score, 2),
+            'reasons': reasons,
+            'recommendedAction': action,
+            'wpj4pxStock': item['wpj']['fourpxStoreTotal'],
+            'fourpxAvailable': fourpx_available,
+            'stockDelta': item['stockDelta'],
+            'yesterdaySalesUnits': sales_units,
+            'yesterdayOutboundUnits': outbound_units,
+            'flags': item['flags'],
+        })
+
     low_after_sales.sort(key=lambda item: (item['fourpx']['availableTotal'], -item['yesterdaySales']['units'], item['code']))
     stock_mismatches.sort(key=lambda item: abs(item['stockDelta']), reverse=True)
     only_in_4px.sort(key=lambda item: item['fourpx']['availableTotal'], reverse=True)
     shipped_yesterday.sort(key=lambda item: item['yesterdayOutbound']['czUnits'] + item['yesterdayOutbound']['skUnits'], reverse=True)
+    priority_shortlist.sort(key=lambda item: item['score'], reverse=True)
 
     combined_index = {
         'generatedAt': generated_at,
@@ -732,6 +791,7 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
         'generatedAt': generated_at,
         'window': {'from': start_dt.isoformat(), 'to': end_dt.isoformat()},
         'counts': combined_index['counts'],
+        'priorityShortlist': priority_shortlist[:25],
         'lowAfterSales': low_after_sales[:20],
         'stockMismatches': stock_mismatches[:20],
         'onlyIn4px': only_in_4px[:20],
