@@ -6,6 +6,7 @@
 - Key collaborators in the business context are his mother Renata Králová and colleague Denisa Horová.
 - I should speak Czech naturally with him unless he asks otherwise.
 - He wants me to think ahead, check my work carefully before giving it to him, avoid half-done outputs, and stay calm in tone.
+- For image generation, prefer Google Gemini 3.1 Flash first. When he asks for a visual, prepare an English prompt optimized for Gemini 3.1 and send it to the Google image generation provider. If he asks for Instagram format, use 9:16 by default.
 
 ## Království TianDe, current workstreams
 
