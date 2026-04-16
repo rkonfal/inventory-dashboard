@@ -10,7 +10,7 @@ import time
 from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import urlencode
+from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
@@ -1557,12 +1557,15 @@ def abra_records(payload, evidence):
     return []
 
 
-def abra_get(config, evidence, params=None):
+def abra_get(config, evidence, params=None, selector=None):
     if not config.get('enabled'):
         raise RuntimeError('ABRA API není nakonfigurované.')
 
     query = urlencode({'auth': 'http', **(params or {})}, doseq=True)
-    url = f"{config['baseUrl']}/c/{config['company']}/{evidence}.json"
+    base = f"{config['baseUrl']}/c/{config['company']}/{evidence}"
+    if selector:
+        base = base + '/' + quote(selector, safe="()'/-")
+    url = f'{base}.json'
     if query:
         url = f'{url}?{query}'
 
@@ -1591,6 +1594,169 @@ def abra_due_status(due_dt, amount_total, amount_due, now_local):
         paid_pct = round((1 - (amount_due / amount_total)) * 100)
         status += f' ({paid_pct}% uhrazeno)'
     return status
+
+
+ACCOUNT_CLASS_LABELS = {
+    '50': 'Spotřeba a zboží',
+    '51': 'Služby',
+    '52': 'Mzdy a personální náklady',
+    '53': 'Daně a poplatky',
+    '54': 'Jiné provozní náklady',
+    '55': 'Odpisy a rezervy',
+    '56': 'Finanční náklady',
+    '57': 'Mimořádné / opravné položky',
+    '58': 'Daňové a mimořádné náklady',
+    '60': 'Tržby za vlastní výkony a zboží',
+    '61': 'Změny stavu zásob / aktivace',
+    '64': 'Jiné provozní výnosy',
+    '66': 'Finanční výnosy',
+}
+
+
+def month_floor(dt):
+    return datetime(dt.year, dt.month, 1, 0, 0, 0, tzinfo=PRAGUE_TZ)
+
+
+def shift_month(dt, delta_months):
+    month_index = (dt.year * 12 + (dt.month - 1)) + delta_months
+    year = month_index // 12
+    month = (month_index % 12) + 1
+    return datetime(year, month, 1, 0, 0, 0, tzinfo=PRAGUE_TZ)
+
+
+def month_label(dt):
+    return f'{dt.month}/{dt.year}'
+
+
+def abra_account_parts(raw_value, show_as):
+    show = abra_text(show_as)
+    raw = abra_text(raw_value)
+    source = show or raw
+    if not source:
+        return '', ''
+    if ':' in source:
+        code, label = source.split(':', 1)
+        return code.replace('code', '').replace('=', '').strip(), label.strip()
+    return source.strip(), source.strip()
+
+
+def account_class_label(account_code):
+    prefix = (account_code or '')[:2]
+    return ACCOUNT_CLASS_LABELS.get(prefix, f'Účet {prefix}xx' if prefix else 'Bez účtu')
+
+
+def fetch_abra_journal_rows(config, start_dt, end_dt, page_size=2000, max_pages=12):
+    selector = f"(datUcto gt '{start_dt.date().isoformat()}' and datUcto lt '{end_dt.date().isoformat()}')"
+    rows = []
+    for page in range(max_pages):
+        chunk = abra_records(abra_get(config, 'ucetni-denik', {
+            'detail': 'full',
+            'limit': page_size,
+            'start': page * page_size,
+            'order': 'datUcto@A',
+        }, selector=selector), 'ucetni-denik')
+        rows.extend(chunk)
+        if len(chunk) < page_size:
+            break
+    return rows
+
+
+def build_live_journal_snapshot(config, now_local):
+    current_start = month_floor(now_local)
+    month_starts = [shift_month(current_start, offset) for offset in (-2, -1, 0)]
+    monthly = []
+    current_account_totals = defaultdict(float)
+    current_account_labels = {}
+    current_class_totals = defaultdict(float)
+    recent_entries = []
+
+    for start_dt in month_starts:
+        end_dt = shift_month(start_dt, 1)
+        rows = fetch_abra_journal_rows(config, start_dt, end_dt)
+        expense_total = 0.0
+        revenue_total = 0.0
+        class_totals = defaultdict(float)
+
+        for row in rows:
+            amount = abra_money(abra_pick(row, 'sumTuz', 'sumMen', 'sumMd', 'sumDal', 'amount'))
+            if amount <= 0:
+                continue
+
+            md_code, md_label = abra_account_parts(row.get('mdUcet'), row.get('mdUcet@showAs'))
+            dal_code, dal_label = abra_account_parts(row.get('dalUcet'), row.get('dalUcet@showAs'))
+            is_expense = md_code.startswith('5')
+            is_revenue = dal_code.startswith('6')
+
+            if is_expense:
+                expense_total += amount
+                class_totals[md_code[:2]] += amount
+                if start_dt == current_start:
+                    current_account_totals[md_code] += amount
+                    current_account_labels[md_code] = md_label or md_code
+                    current_class_totals[md_code[:2]] += amount
+
+            if is_revenue:
+                revenue_total += amount
+
+            if start_dt == current_start and (is_expense or is_revenue):
+                recent_entries.append({
+                    'date': parse_dt(row.get('datUcto')).strftime('%d.%m.%Y') if parse_dt(row.get('datUcto')) else '',
+                    'document': abra_text(abra_pick(row, 'doklad', 'kod', 'idDokl')) or 'Bez dokladu',
+                    'amount': round(amount, 2),
+                    'side': 'náklad' if is_expense else 'výnos',
+                    'accountCode': md_code if is_expense else dal_code,
+                    'accountLabel': md_label if is_expense else dal_label,
+                    'counterCode': dal_code if is_expense else md_code,
+                    'counterLabel': dal_label if is_expense else md_label,
+                    'description': abra_text(abra_pick(row, 'popis', 'nazFirmy', 'firma@showAs', 'varSym')) or 'Bez popisu',
+                    'vendor': abra_text(abra_pick(row, 'nazFirmy', 'firma@showAs')),
+                    'module': abra_text(abra_pick(row, 'modulK@showAs', 'modulK')),
+                })
+
+        top_class = max(class_totals.items(), key=lambda item: item[1]) if class_totals else None
+        monthly.append({
+            'label': month_label(start_dt),
+            'expenseTotal': round(expense_total, 2),
+            'revenueTotal': round(revenue_total, 2),
+            'topExpenseClass': {
+                'code': top_class[0],
+                'label': account_class_label(top_class[0]),
+                'amount': round(top_class[1], 2),
+            } if top_class else None,
+        })
+
+    top_accounts = []
+    for code, amount in sorted(current_account_totals.items(), key=lambda item: item[1], reverse=True)[:10]:
+        top_accounts.append({
+            'code': code,
+            'label': current_account_labels.get(code) or code,
+            'amount': round(amount, 2),
+            'classCode': code[:2],
+            'classLabel': account_class_label(code),
+        })
+
+    top_classes = []
+    for code, amount in sorted(current_class_totals.items(), key=lambda item: item[1], reverse=True):
+        top_classes.append({
+            'code': code,
+            'label': account_class_label(code),
+            'amount': round(amount, 2),
+        })
+
+    recent_entries = sorted(recent_entries, key=lambda row: row['amount'], reverse=True)[:15]
+    return {
+        'source': {
+            'status': 'live',
+            'message': 'Účetní deník pro poslední 3 měsíce je tahán živě z ABRA API a agregovaný do srozumitelnějšího přehledu.',
+        },
+        'monthly': monthly,
+        'currentMonth': {
+            'label': month_label(current_start),
+            'topExpenseAccounts': top_accounts,
+            'topExpenseClasses': top_classes,
+            'recentEntries': recent_entries,
+        },
+    }
 
 
 def fetch_abra_live_snapshot(now_local):
@@ -1650,6 +1816,24 @@ def fetch_abra_live_snapshot(now_local):
             'status': abra_due_status(due_dt, amount_total, amount_due, now_local),
         })
 
+    journal = {}
+    try:
+        journal = build_live_journal_snapshot(config, now_local)
+    except Exception as exc:
+        journal = {
+            'source': {
+                'status': 'error',
+                'message': f'Live účetní deník se nepodařilo načíst ({exc}).',
+            },
+            'monthly': [],
+            'currentMonth': {
+                'label': month_label(month_floor(now_local)),
+                'topExpenseAccounts': [],
+                'topExpenseClasses': [],
+                'recentEntries': [],
+            },
+        }
+
     return {
         'source': {
             'status': 'live_payables',
@@ -1661,6 +1845,7 @@ def fetch_abra_live_snapshot(now_local):
             'overdueInvoicesAmount': round(overdue_amount, 2),
             'largestPayables': sorted(payable_rows, key=lambda row: row['amountDue'], reverse=True)[:8],
         },
+        'journal': journal,
     }
 
 
@@ -1789,11 +1974,22 @@ def build_finance_snapshot(legacy_abra_payload, live_abra_payload, generated_at)
         monthly = []
         source = {'status': 'missing', 'message': 'Legacy ABRA snapshot nebyl nalezen.'}
         cash = {}
+    journal = {
+        'source': {'status': 'missing', 'message': 'Live účetní deník zatím není k dispozici.'},
+        'monthly': [],
+        'currentMonth': {
+            'label': '',
+            'topExpenseAccounts': [],
+            'topExpenseClasses': [],
+            'recentEntries': [],
+        },
+    }
 
     if live_abra_payload:
         live_status = live_abra_payload.get('source', {}).get('status')
         if live_status == 'live_payables':
             cash.update(live_abra_payload.get('cash') or {})
+            journal = live_abra_payload.get('journal') or journal
             source = {
                 'status': 'mixed_live_legacy' if legacy_abra_payload else 'live_payables_only',
                 'message': live_abra_payload['source']['message'],
@@ -1816,6 +2012,7 @@ def build_finance_snapshot(legacy_abra_payload, live_abra_payload, generated_at)
         'currentMonth': current_month,
         'previousMonth': previous_month,
         'cash': cash,
+        'journal': journal,
     }
 
 
