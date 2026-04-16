@@ -35,8 +35,8 @@ A daily morning report delivered at 08:00 Europe/Prague with data for the previo
 - Počet zásilek celkem
 - Rozpad podle TIANDE_CZ / TIANDE_SK
 - Rozpad podle dopravce, Česká pošta / Packeta / DPD
-- Spotřeba obalového materiálu podle velikostí S, M, L, XL, XXL, OVERSIZE
-- Kritické zásoby obalového materiálu a odhad, za kolik dní dojdou
+- 5 produktů s nejbližší expirací
+- Pořadí expirací podle kombinace blízkosti data + velikosti zásoby, ne jen podle data
 - Chybějící report nebo datová anomálie, pokud něco nesedí
 
 ### 5. Dnešní priority

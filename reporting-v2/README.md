@@ -10,8 +10,9 @@ New reporting rebuild for Diamond Plus / Království TianDe.
 - `ops/` cron and operational helpers
 
 ## Current state
-- 4PX direct ingestion is wired first
-- WPJ placeholders are prepared but still need a live token / current flow trace
+- 4PX direct ingestion is live
+- WPJ GraphQL ingestion is live through `X-Access-Token`
+- each refresh now writes a previous-day morning report in both JSON and Telegram-ready text form
 - site visuals intentionally reuse the current Diamond Plus visual language, but with shared assets and cleaner structure
 
 ## Run locally
@@ -20,6 +21,13 @@ cd reporting-v2
 python3 scripts/refresh_data.py
 python3 -m http.server 8080
 ```
+
+Important outputs after refresh:
+- `data/current/portal_summary.json`
+- `data/current/wpj_orders_previous_day.json`
+- `data/current/wpj_products.json`
+- `data/current/morning_report_previous_day.json`
+- `data/current/morning_report_previous_day.txt`
 
 Open:
 - `http://localhost:8080/site/`

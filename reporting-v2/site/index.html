@@ -71,7 +71,8 @@
     DP.initThemeToggle();
     const doneItems = [
       ['4PX API napojení', 'CZ i SK připojené napřímo přes Open API.'],
-      ['Nová datová vrstva', 'Refresh skript zapisuje normalizovaná JSON data a snapshoty.'],
+      ['WPJ GraphQL napojení', 'Objednávky i skladová vrstva se tahají přímo z WPJ přes X-Access-Token.'],
+      ['Nová datová vrstva', 'Refresh skript zapisuje normalizovaná JSON data, snapshoty a ranní report.'],
       ['Nový portál', 'Sdílené assets, společný vizuální systém, bez kopírování stylů mezi HTML.'],
       ['Hodinový refresh připraven', 'Cron job je připravený pro automatický běh.']
     ];
@@ -84,8 +85,8 @@
       const kpis = [
         ['CZ sklad, dostupné kusy', DP.fmtNumber(summary.accounts.cz.inventory.availableStockTotal), `${DP.fmtNumber(summary.accounts.cz.inventory.items)} skladových řádků`, 'green'],
         ['SK sklad, dostupné kusy', DP.fmtNumber(summary.accounts.sk.inventory.availableStockTotal), `${DP.fmtNumber(summary.accounts.sk.inventory.items)} skladových řádků`, 'blue'],
-        ['CZ zásilky v posledním pullu', DP.fmtNumber(summary.accounts.cz.outbound.items), `${summary.accounts.cz.outbound.scannedPages} stránek staženo`, 'gold'],
-        ['SK zásilky v posledním pullu', DP.fmtNumber(summary.accounts.sk.outbound.items), `${summary.accounts.sk.outbound.scannedPages} stránek staženo`, 'red']
+        ['WPJ objednávky včera', DP.fmtNumber(summary.wpJ.orders || 0), `${DP.fmtNumber(Math.round(summary.wpJ.revenueWithVat || 0))} Kč`, 'gold'],
+        ['4PX zásilky včera', DP.fmtNumber(summary.report.shipments || 0), `${summary.report.date}`, 'red']
       ];
       document.getElementById('top-kpis').innerHTML = kpis.map(([label, value, sub, klass]) => `
         <div class="card kpi-card ${klass}">
@@ -99,14 +100,15 @@
         <div class="block-item"><h4>${title}</h4><p>${desc}</p></div>
       `).join('');
 
-      document.getElementById('blockers').innerHTML = (summary.warnings.length ? summary.warnings : ['Žádné zásadní blokery v 4PX vrstvě.']).map(w => `<div class="alert warn">${w}</div>`).join('');
+      document.getElementById('blockers').innerHTML = (summary.warnings.length ? summary.warnings : (summary.report.alerts || []).length ? summary.report.alerts : ['Žádné zásadní blokery v aktivní vrstvě.']).map(w => `<div class="alert warn">${w}</div>`).join('');
 
       const sourceRows = [
         ['4PX CZ inventory', 'OK', `Warehouse ${summary.config.warehouseCode}`, summary.accounts.cz.inventory.items],
         ['4PX SK inventory', 'OK', `Warehouse ${summary.config.warehouseCode}`, summary.accounts.sk.inventory.items],
         ['4PX CZ outbound', 'OK', `Recent pages: ${summary.accounts.cz.outbound.scannedPages}`, summary.accounts.cz.outbound.items],
         ['4PX SK outbound', 'OK', `Recent pages: ${summary.accounts.sk.outbound.scannedPages}`, summary.accounts.sk.outbound.items],
-        ['WPJ / GraphQL', summary.wpJ.ready ? 'OK' : 'Čeká', summary.wpJ.message, summary.wpJ.orders || 0]
+        ['WPJ / GraphQL', summary.wpJ.ready ? 'OK' : 'Čeká', summary.wpJ.message, summary.wpJ.orders || 0],
+        ['Ranní report', 'OK', `Alerty: ${(summary.report.alerts || []).length}`, summary.report.shipments || 0]
       ];
       document.getElementById('sources-table').innerHTML = sourceRows.map(row => `
         <tr>
