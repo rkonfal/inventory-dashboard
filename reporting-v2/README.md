@@ -29,6 +29,22 @@ Important outputs after refresh:
 - `data/current/morning_report_previous_day.json`
 - `data/current/morning_report_previous_day.txt`
 
+## Preview publishing
+One-command publish for the public preview repo / GitHub Pages:
+
+```bash
+cd reporting-v2
+python3 scripts/publish_preview.py
+```
+
+For unattended publishing after refresh, set:
+
+```bash
+AUTO_PUBLISH_PREVIEW=1
+```
+
+in the environment used by `scripts/hourly_refresh.sh` / launchd.
+
 Open:
 - `http://localhost:8080/site/`
 - `http://localhost:8080/site/inventory.html`
