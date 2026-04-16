@@ -1387,16 +1387,32 @@ def format_morning_report_text(report):
         sign = '+' if delta and delta > 0 else ''
         revenue_line += f' ({sign}{delta:.1f} % vs 7denní průměr {format_czk(quick["revenueWithVat"]["baseline"])})'
 
+    orders_delta = quick['orders']['deltaPct']
+    orders_delta_text = f'{orders_delta:+.1f} %' if orders_delta is not None else 'bez srovnání'
+    revenue_delta = quick['revenueWithVat']['deltaPct']
+    revenue_delta_text = f'{revenue_delta:+.1f} %' if revenue_delta is not None else 'bez srovnání'
+    compact_alerts = []
+    for alert in quick['alerts']:
+        clean_alert = alert.rstrip('.')
+        if 'problematických nebo stornovaných objednávek' in alert:
+            compact_alerts.append(clean_alert.replace('problematických nebo stornovaných objednávek', 'problematických / stornovaných'))
+        elif 'včera prodaných produktů je teď na nízkém skladu' in alert:
+            compact_alerts.append(clean_alert.replace('včera prodaných produktů je teď na nízkém skladu', 'low stock po včerejším prodeji'))
+        elif 'skladových pozic je v mínusu' in alert:
+            compact_alerts.append(clean_alert.replace('skladových pozic je v mínusu', 'pozic je v mínusu'))
+        else:
+            compact_alerts.append(clean_alert)
+    alerts_line = '; '.join(compact_alerts[:3]) if compact_alerts else 'bez zásadního varování'
+
     sections = []
     sections.append('\n'.join([
         *header,
         '',
         '**1. Rychlý souhrn**',
-        orders_line,
-        revenue_line,
-        f'• Expedice 4PX: {logistics["shipmentsTotal"]} zásilek (CZ {logistics["byAccount"].get("CZ", 0)}, SK {logistics["byAccount"].get("SK", 0)})',
-        f'• 4PX dostupná zásoba celkem: {format_units(inventory.get("availableStockTotal", 0))} (CZ {format_units((inventory.get("byAccount") or {}).get("CZ", 0))}, SK {format_units((inventory.get("byAccount") or {}).get("SK", 0))})',
-        *( [f'• Alert: {alert}' for alert in quick['alerts']] if quick['alerts'] else ['• Alerty: bez zásadního varování'] ),
+        f'• WPJShop: {eshop["orders"]} objednávek, {format_czk(eshop["revenueWithVat"])} s DPH, AOV {format_czk(eshop["averageOrderValue"])}',
+        f'• Srovnání: objednávky {orders_delta_text}, tržby {revenue_delta_text} vs 7denní průměr',
+        f'• 4PX: {logistics["shipmentsTotal"]} zásilek, sklad {format_units(inventory.get("availableStockTotal", 0))} (CZ {format_units((inventory.get("byAccount") or {}).get("CZ", 0))}, SK {format_units((inventory.get("byAccount") or {}).get("SK", 0))})',
+        f'• Rizika: {alerts_line}',
     ]))
 
     section2 = [
