@@ -1298,7 +1298,7 @@ def build_priorities(wpj_summary, stock_summary, logistics_summary):
     return priorities[:5]
 
 
-def build_morning_report(report_date, wpj_summary, baseline_orders, baseline_revenue, stock_summary, logistics_summary, alerts, priorities, warnings):
+def build_morning_report(report_date, wpj_summary, baseline_orders, baseline_revenue, stock_summary, inventory_summary, logistics_summary, alerts, priorities, warnings):
     orders_delta = pct_delta(wpj_summary['orders'], baseline_orders) if baseline_orders is not None else None
     revenue_delta = pct_delta(wpj_summary['revenueWithVat'], baseline_revenue) if baseline_revenue is not None else None
     quick = {
@@ -1328,6 +1328,7 @@ def build_morning_report(report_date, wpj_summary, baseline_orders, baseline_rev
         'quickSummary': quick,
         'eshop': wpj_summary,
         'stock': stock_summary,
+        'inventory': inventory_summary,
         'logistics': logistics_summary,
         'priorities': priorities,
     }
@@ -1357,6 +1358,7 @@ def format_morning_report_text(report):
     quick = report['quickSummary']
     eshop = report['eshop']
     stock = report['stock']
+    inventory = report.get('inventory') or {}
     logistics = report['logistics']
     warnings = report.get('warnings') or []
 
@@ -1384,6 +1386,7 @@ def format_morning_report_text(report):
         orders_line,
         revenue_line,
         f'• Expedice 4PX: {logistics["shipmentsTotal"]} zásilek (CZ {logistics["byAccount"].get("CZ", 0)}, SK {logistics["byAccount"].get("SK", 0)})',
+        f'• 4PX dostupná zásoba celkem: {format_units(inventory.get("availableStockTotal", 0))} (CZ {format_units((inventory.get("byAccount") or {}).get("CZ", 0))}, SK {format_units((inventory.get("byAccount") or {}).get("SK", 0))})',
         *( [f'• Alert: {alert}' for alert in quick['alerts']] if quick['alerts'] else ['• Alerty: bez zásadního varování'] ),
     ]))
 
@@ -1402,6 +1405,8 @@ def format_morning_report_text(report):
 
     section3 = [
         '**3. Sklad a dostupnost**',
+        f'• 4PX sklad celkem: {format_units(inventory.get("availableStockTotal", 0))} (CZ {format_units((inventory.get("byAccount") or {}).get("CZ", 0))}, SK {format_units((inventory.get("byAccount") or {}).get("SK", 0))})',
+        f'• 4PX skladových řádků: {inventory.get("itemsTotal", 0)} (CZ {(inventory.get("itemsByAccount") or {}).get("CZ", 0)}, SK {(inventory.get("itemsByAccount") or {}).get("SK", 0)})',
         '• Produkty s nízkým skladem z včera prodaných:',
     ]
     if stock['lowStockSoldYesterday']:
@@ -2297,6 +2302,18 @@ def main():
 
     cz_daily = summarize_4px_window('CZ', cz_outbound, report_start, report_end)
     sk_daily = summarize_4px_window('SK', sk_outbound, report_start, report_end)
+    inventory_summary = {
+        'availableStockTotal': round(cz_inventory['availableStockTotal'] + sk_inventory['availableStockTotal'], 2),
+        'itemsTotal': len(cz_inventory['items']) + len(sk_inventory['items']),
+        'byAccount': {
+            'CZ': round(cz_inventory['availableStockTotal'], 2),
+            'SK': round(sk_inventory['availableStockTotal'], 2),
+        },
+        'itemsByAccount': {
+            'CZ': len(cz_inventory['items']),
+            'SK': len(sk_inventory['items']),
+        },
+    }
     logistics_summary = {
         'shipmentsTotal': cz_daily['shipments'] + sk_daily['shipments'],
         'byAccount': {'CZ': cz_daily['shipments'], 'SK': sk_daily['shipments']},
@@ -2327,6 +2344,7 @@ def main():
         baseline_orders,
         baseline_revenue,
         stock_summary,
+        inventory_summary,
         logistics_summary,
         alerts,
         priorities,
