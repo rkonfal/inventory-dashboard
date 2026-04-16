@@ -859,7 +859,52 @@ pre {
     color: var(--text-faint);
   }
 
-  .journal-filter-bar {
-    grid-template-columns: 1fr;
-  }
+.journal-filter-bar {
+  grid-template-columns: 1fr;
+}
+}
+
+.leadership-note-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 22px;
+}
+
+.leadership-note {
+  position: relative;
+  overflow: hidden;
+}
+
+.leadership-note::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent), var(--brand-light));
+}
+
+.leadership-note.board::before {
+  background: linear-gradient(180deg, var(--info), var(--brand-light));
+}
+
+.leadership-note-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.leadership-note p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.leadership-note strong {
+  color: var(--text);
 }
