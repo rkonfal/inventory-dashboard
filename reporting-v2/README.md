@@ -72,3 +72,18 @@ Primary automation assets:
 Current host state:
 - cron file is prepared
 - macOS LaunchAgent fallback was installed and loaded so hourly refresh can run even while `crontab` is being uncooperative in the current exec context
+
+## ABRA Flexi live adapter
+
+Refresh script umí nově volitelně přitáhnout živé závazky z ABRA API, pokud jsou nastavené tyto proměnné:
+
+```bash
+ABRA_API_URL=https://your-instance.flexibee.eu:5434
+ABRA_COMPANY=your-company
+ABRA_USERNAME=your-user
+ABRA_PASSWORD=your-password
+```
+
+Aktuální stav adapteru:
+- živě se tahají **přijaté faktury / závazky** pro cash a otevřené payables
+- měsíční **P&L a marketing** zatím zůstávají na legacy snapshotu, takže finance vrstva běží v hybridním režimu

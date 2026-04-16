@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import base64
 import hashlib
 import html
 import json
@@ -1472,6 +1473,195 @@ def safe_ratio(value, baseline):
     return round((float(value or 0) / float(baseline or 0)) * 100, 1)
 
 
+def env_first(*keys):
+    for key in keys:
+        value = os.environ.get(key)
+        if value:
+            return value
+    return None
+
+
+def abra_config():
+    base_url = env_first('ABRA_API_URL', 'FLEXI_API_URL')
+    company = env_first('ABRA_COMPANY', 'FLEXI_COMPANY')
+    username = env_first('ABRA_USERNAME', 'FLEXI_USERNAME')
+    password = env_first('ABRA_PASSWORD', 'FLEXI_PASSWORD')
+    return {
+        'baseUrl': (base_url or '').rstrip('/'),
+        'company': company or '',
+        'username': username or '',
+        'password': password or '',
+        'enabled': all([base_url, company, username, password]),
+    }
+
+
+def abra_text(value):
+    if isinstance(value, dict):
+        for key in ('showAs', 'value', 'name', 'nazev', 'id', 'code'):
+            nested = value.get(key)
+            if nested not in (None, ''):
+                return str(nested).strip()
+        return ''
+    return str(value).strip() if value not in (None, '') else ''
+
+
+def abra_money(value):
+    if isinstance(value, dict):
+        return abra_money(value.get('value'))
+    if value in (None, ''):
+        return 0.0
+    if isinstance(value, (int, float)):
+        return round(float(value), 2)
+    text = str(value).strip().replace('Kč', '').replace(' ', '').replace('\xa0', '').replace('\u202f', '')
+    text = text.replace(',', '.')
+    if not text:
+        return 0.0
+    try:
+        return round(float(text), 2)
+    except ValueError:
+        return 0.0
+
+
+def abra_bool(value):
+    if isinstance(value, bool):
+        return value
+    text = abra_text(value).lower()
+    if not text:
+        return None
+    if text in ('true', '1', 'yes', 'ano'):
+        return True
+    if text in ('false', '0', 'no', 'ne'):
+        return False
+    return None
+
+
+def abra_pick(row, *keys):
+    for key in keys:
+        if key in row and row[key] not in (None, ''):
+            return row[key]
+    return None
+
+
+def abra_records(payload, evidence):
+    root = (payload or {}).get('winstrom') or {}
+    records = root.get(evidence)
+    if isinstance(records, list):
+        return records
+    if isinstance(records, dict):
+        return [records]
+    for value in root.values():
+        if isinstance(value, list):
+            return value
+    return []
+
+
+def abra_get(config, evidence, params=None):
+    if not config.get('enabled'):
+        raise RuntimeError('ABRA API není nakonfigurované.')
+
+    query = urlencode({'auth': 'http', **(params or {})}, doseq=True)
+    url = f"{config['baseUrl']}/c/{config['company']}/{evidence}.json"
+    if query:
+        url = f'{url}?{query}'
+
+    token = base64.b64encode(f"{config['username']}:{config['password']}".encode('utf-8')).decode('ascii')
+    request = Request(url, headers={
+        'Accept': 'application/json',
+        'Authorization': f'Basic {token}',
+    })
+    with urlopen(request, timeout=60) as response:
+        charset = response.headers.get_content_charset() or 'utf-8'
+        return json.loads(response.read().decode(charset))
+
+
+def abra_due_status(due_dt, amount_total, amount_due, now_local):
+    if not due_dt:
+        status = 'bez splatnosti'
+    else:
+        delta_days = (due_dt.date() - now_local.date()).days
+        if delta_days < 0:
+            status = f'{abs(delta_days)} dní PO SPLATNOSTI'
+        elif delta_days == 0:
+            status = 'splatné dnes'
+        else:
+            status = f'{delta_days} dní do splatnosti'
+    if amount_total and amount_due and amount_due < amount_total:
+        paid_pct = round((1 - (amount_due / amount_total)) * 100)
+        status += f' ({paid_pct}% uhrazeno)'
+    return status
+
+
+def fetch_abra_live_snapshot(now_local):
+    config = abra_config()
+    if not config.get('enabled'):
+        return None
+
+    try:
+        payload = abra_get(config, 'faktura-prijata', {
+            'detail': 'full',
+            'limit': 200,
+            'order': 'datSplat@A',
+        })
+    except Exception as exc:
+        return {
+            'source': {
+                'status': 'error',
+                'message': f'Živé ABRA API se nepodařilo načíst ({exc}).',
+            },
+            'cash': {},
+        }
+
+    payable_rows = []
+    overdue_count = 0
+    overdue_amount = 0.0
+    unpaid_total = 0.0
+
+    for row in abra_records(payload, 'faktura-prijata'):
+        amount_total = abra_money(abra_pick(row, 'sumCelkem', 'celkem', 'sumCelkemMen', 'sumOsv'))
+        amount_due = abra_money(abra_pick(row, 'zbyvaUhradit', 'sumZbyvaUhradit', 'sumUhrZbyva', 'castkaZbyva', 'amountDue'))
+        paid_flag = abra_bool(abra_pick(row, 'uhrazeno', 'zaplaceno'))
+        status_code = abra_text(abra_pick(row, 'stavUhrK', 'stavUhr'))
+        if amount_due <= 0 and paid_flag is False:
+            amount_due = amount_total
+        if amount_due <= 0:
+            continue
+        if paid_flag is True:
+            continue
+        if status_code and 'uhrazeno' in status_code and 'neuhrazeno' not in status_code and 'cast' not in status_code.lower():
+            continue
+
+        due_dt = parse_dt(abra_pick(row, 'datSplat', 'dueDate'))
+        vendor = abra_text(abra_pick(row, 'nazFirmy', 'firma@showAs', 'firma', 'supplier', 'vendor')) or 'Neznámý dodavatel'
+        code = abra_text(abra_pick(row, 'kod', 'cisDosle', 'varSym', 'id')) or 'Bez kódu'
+
+        unpaid_total += amount_due
+        if due_dt and due_dt.date() < now_local.date():
+            overdue_count += 1
+            overdue_amount += amount_due
+
+        payable_rows.append({
+            'code': code,
+            'vendor': vendor,
+            'dueDate': due_dt.strftime('%d.%m.%Y') if due_dt else '',
+            'amountTotal': round(amount_total, 2),
+            'amountDue': round(amount_due, 2),
+            'status': abra_due_status(due_dt, amount_total, amount_due, now_local),
+        })
+
+    return {
+        'source': {
+            'status': 'live_payables',
+            'message': 'Závazky z přijatých faktur jsou tahány živě z ABRA API. Měsíční P&L zatím zůstává na legacy snapshotu.',
+        },
+        'cash': {
+            'unpaidInvoices': round(unpaid_total, 2),
+            'overdueInvoicesCount': overdue_count,
+            'overdueInvoicesAmount': round(overdue_amount, 2),
+            'largestPayables': sorted(payable_rows, key=lambda row: row['amountDue'], reverse=True)[:8],
+        },
+    }
+
+
 def extract_legacy_abra_model(path: Path):
     if not path.exists():
         return None
@@ -1562,54 +1752,68 @@ def calc_legacy_finance_series(pnl):
     }
 
 
-def build_finance_snapshot(legacy_abra_payload, generated_at):
-    if not legacy_abra_payload:
-        return {
-            'generatedAt': generated_at,
-            'source': {'status': 'missing', 'message': 'Legacy ABRA snapshot nebyl nalezen.'},
-            'months': [],
-            'monthly': [],
-            'currentMonth': {},
-            'cash': {},
-        }
+def build_finance_snapshot(legacy_abra_payload, live_abra_payload, generated_at):
+    if legacy_abra_payload:
+        model = legacy_abra_payload['model']
+        series = calc_legacy_finance_series(model['pnl_all'])
+        months = model.get('months') or []
+        monthly = []
+        for i, label in enumerate(months):
+            monthly.append({
+                'label': label,
+                'revenue': round(series['revenue'][i], 2),
+                'cogsAndFees': round(series['cogsAndFees'][i], 2),
+                'logistics': round(series['logistics'][i], 2),
+                'marketing': round(series['marketing'][i], 2),
+                'opex': round(series['opex'][i], 2),
+                'depreciation': round(series['depreciation'][i], 2),
+                'other': round(series['other'][i], 2),
+                'grossMargin': round(series['grossMargin'][i], 2),
+                'afterLogistics': round(series['afterLogistics'][i], 2),
+                'afterMarketing': round(series['afterMarketing'][i], 2),
+                'operatingMargin': round(series['operatingMargin'][i], 2),
+                'ebit': round(series['ebit'][i], 2),
+                'profit': round(series['profit'][i], 2),
+                'grossMarginPct': safe_ratio(series['grossMargin'][i], series['revenue'][i]),
+                'marketingPct': safe_ratio(series['marketing'][i], series['revenue'][i]),
+                'logisticsPct': safe_ratio(series['logistics'][i], series['revenue'][i]),
+                'operatingMarginPct': safe_ratio(series['operatingMargin'][i], series['revenue'][i]),
+                'profitPct': safe_ratio(series['profit'][i], series['revenue'][i]),
+            })
+        source = dict(legacy_abra_payload['source'])
+        cash = dict(legacy_abra_payload.get('cash') or {})
+    else:
+        months = []
+        monthly = []
+        source = {'status': 'missing', 'message': 'Legacy ABRA snapshot nebyl nalezen.'}
+        cash = {}
 
-    model = legacy_abra_payload['model']
-    series = calc_legacy_finance_series(model['pnl_all'])
-    months = model.get('months') or []
-    monthly = []
-    for i, label in enumerate(months):
-        monthly.append({
-            'label': label,
-            'revenue': round(series['revenue'][i], 2),
-            'cogsAndFees': round(series['cogsAndFees'][i], 2),
-            'logistics': round(series['logistics'][i], 2),
-            'marketing': round(series['marketing'][i], 2),
-            'opex': round(series['opex'][i], 2),
-            'depreciation': round(series['depreciation'][i], 2),
-            'other': round(series['other'][i], 2),
-            'grossMargin': round(series['grossMargin'][i], 2),
-            'afterLogistics': round(series['afterLogistics'][i], 2),
-            'afterMarketing': round(series['afterMarketing'][i], 2),
-            'operatingMargin': round(series['operatingMargin'][i], 2),
-            'ebit': round(series['ebit'][i], 2),
-            'profit': round(series['profit'][i], 2),
-            'grossMarginPct': safe_ratio(series['grossMargin'][i], series['revenue'][i]),
-            'marketingPct': safe_ratio(series['marketing'][i], series['revenue'][i]),
-            'logisticsPct': safe_ratio(series['logistics'][i], series['revenue'][i]),
-            'operatingMarginPct': safe_ratio(series['operatingMargin'][i], series['revenue'][i]),
-            'profitPct': safe_ratio(series['profit'][i], series['revenue'][i]),
-        })
+    if live_abra_payload:
+        live_status = live_abra_payload.get('source', {}).get('status')
+        if live_status == 'live_payables':
+            cash.update(live_abra_payload.get('cash') or {})
+            source = {
+                'status': 'mixed_live_legacy' if legacy_abra_payload else 'live_payables_only',
+                'message': live_abra_payload['source']['message'],
+            }
+        elif live_status == 'error' and legacy_abra_payload:
+            source = {
+                'status': 'legacy_with_live_error',
+                'message': f"{legacy_abra_payload['source']['message']} Live ABRA adapter selhal: {live_abra_payload['source']['message']}",
+            }
+        elif live_status == 'error':
+            source = dict(live_abra_payload['source'])
 
     current_month = monthly[-1] if monthly else {}
     previous_month = monthly[-2] if len(monthly) > 1 else None
     return {
         'generatedAt': generated_at,
-        'source': legacy_abra_payload['source'],
+        'source': source,
         'months': months,
         'monthly': monthly,
         'currentMonth': current_month,
         'previousMonth': previous_month,
-        'cash': legacy_abra_payload.get('cash') or {},
+        'cash': cash,
     }
 
 
@@ -1799,7 +2003,8 @@ def main():
     combined_index_payload = {'generatedAt': generated_at, 'items': [], 'counts': {}}
     combined_overview_payload = {'generatedAt': generated_at, 'counts': {}}
     legacy_abra_payload = extract_legacy_abra_model(LEGACY_ABRA_HTML)
-    finance_snapshot = build_finance_snapshot(legacy_abra_payload, generated_at)
+    live_abra_payload = fetch_abra_live_snapshot(now_local)
+    finance_snapshot = build_finance_snapshot(legacy_abra_payload, live_abra_payload, generated_at)
     marketing_snapshot = build_marketing_snapshot(legacy_abra_payload, finance_snapshot, generated_at)
     baseline_orders = None
     baseline_revenue = None
@@ -1864,6 +2069,9 @@ def main():
         }
     else:
         warnings.append('WPJ část není připojená, ranní report nebude mít e-shop výkon.')
+
+    if finance_snapshot.get('source', {}).get('status') == 'legacy_with_live_error':
+        warnings.append('ABRA live adapter selhal, finance fallbacknuly na legacy snapshot.')
 
     if not expiry_overview_payload.get('topExpiring'):
         expiry_overview_payload = build_expiry_overview(generated_at, combined_index_payload, cz_expiry_summary, sk_expiry_summary)

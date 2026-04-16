@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T13:17:12.464262+02:00",
+  "generatedAt": "2026-04-16T14:51:29.335482+02:00",
   "config": {
     "warehouseCode": "CZPRGA",
     "outboundMaxPages": 20,
@@ -14,8 +14,8 @@
       "label": "CZ",
       "inventory": {
         "items": 768,
-        "availableStockTotal": 308594,
-        "pendingStockTotal": 3861,
+        "availableStockTotal": 308415,
+        "pendingStockTotal": 3032,
         "freezeStockTotal": 0,
         "lowStockItems": 100
       },
@@ -23,8 +23,8 @@
         "items": 800,
         "scannedPages": 8,
         "topLogisticsProduct": "F1401",
-        "oldestTimestamp": "2026-04-14T21:49:12+02:00",
-        "newestTimestamp": "2026-04-16T13:15:07+02:00"
+        "oldestTimestamp": "2026-04-14T22:11:38+02:00",
+        "newestTimestamp": "2026-04-16T14:38:00+02:00"
       }
     },
     "sk": {
@@ -32,7 +32,7 @@
       "inventory": {
         "items": 621,
         "availableStockTotal": 70902,
-        "pendingStockTotal": 78,
+        "pendingStockTotal": 19,
         "freezeStockTotal": 0,
         "lowStockItems": 100
       },
@@ -51,20 +51,20 @@
     "orders": 418,
     "revenueWithVat": 600410.6,
     "averageOrderValue": 1436.39,
-    "problematicOrders": 5
+    "problematicOrders": 6
   },
   "report": {
     "date": "2026-04-15",
     "shipments": 569,
     "alerts": [
-      "5 problematických nebo stornovaných objednávek.",
+      "6 problematických nebo stornovaných objednávek.",
       "2 včera prodaných produktů je teď na nízkém skladu.",
       "10 skladových pozic je v mínusu."
     ],
     "priorities": [
       "Dohlédnout POP00060 (GREPAVIT® – grep extrakt z jader, 100 ml), aktuálně 0 ks.",
       "Dohlédnout 195464 (Krémová banánová polévka se zeleninou), aktuálně 2 ks.",
-      "Projít 5 problematických nebo stornovaných objednávek z včerejška.",
+      "Projít 6 problematických nebo stornovaných objednávek z včerejška.",
       "Projít nejbližší expirace v 4PX a rozhodnout o doprodeji nebo přesunu zásoby."
     ]
   },
@@ -74,14 +74,14 @@
     "skSkuCount": 300
   },
   "pairing": {
-    "allCodes": 2890,
-    "pairedProducts": 389,
+    "allCodes": 2891,
+    "pairedProducts": 390,
     "onlyInWpj": 1435,
     "onlyIn4px": 1,
     "stockMismatch": 667,
     "lowAfterSales": 2,
     "manualMapped4pxAliases": 0,
-    "autoMapped4pxAliases": 74
+    "autoMapped4pxAliases": 73
   },
   "finance": {
     "ready": true,

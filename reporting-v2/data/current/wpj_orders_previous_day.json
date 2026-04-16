@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T09:44:57.187009+02:00",
+  "generatedAt": "2026-04-16T14:51:29.335482+02:00",
   "window": {
     "from": "2026-04-15T00:00:00+02:00",
     "to": "2026-04-15T23:59:59+02:00"
@@ -22,8 +22,8 @@
       "deliveryType": {
         "id": 120,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 4,
@@ -188,8 +188,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 1,
-        "name": "přijatá"
+        "id": 3,
+        "name": "expedováno"
       },
       "totalPrice": {
         "withVat": 35.7,
@@ -416,8 +416,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 1,
-        "name": "přijatá"
+        "id": 3,
+        "name": "expedováno"
       },
       "totalPrice": {
         "withVat": 42.9,
@@ -1766,8 +1766,8 @@
       "deliveryType": {
         "id": 120,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 4,
@@ -3884,8 +3884,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 1,
-        "name": "přijatá"
+        "id": 3,
+        "name": "expedováno"
       },
       "totalPrice": {
         "withVat": 161.55,
@@ -4340,8 +4340,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 1,
-        "name": "přijatá"
+        "id": 3,
+        "name": "expedováno"
       },
       "totalPrice": {
         "withVat": 88.95,
@@ -7249,11 +7249,11 @@
       "id": 3603233,
       "code": "261269859",
       "dateCreated": "2026-04-15T21:04:30+02:00",
-      "cancelled": false,
+      "cancelled": true,
       "isPaid": false,
       "status": {
-        "id": 0,
-        "name": "nová"
+        "id": 8,
+        "name": "chyba"
       },
       "totalPrice": {
         "withVat": 1201,
@@ -7368,8 +7368,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 1,
-        "name": "přijatá"
+        "id": 3,
+        "name": "expedováno"
       },
       "totalPrice": {
         "withVat": 123.95,
@@ -8958,8 +8958,8 @@
       "deliveryType": {
         "id": 120,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 4,
@@ -9414,8 +9414,8 @@
       "deliveryType": {
         "id": 121,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 6,
@@ -11406,8 +11406,8 @@
       "deliveryType": {
         "id": 120,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 4,
@@ -11712,7 +11712,7 @@
           "productId": 49,
           "code": "60146",
           "name": "Zubní pasta EXTRA WHITE PRO",
-          "ean": null,
+          "ean": "6921570923022",
           "pieces": 1,
           "totalPrice": {
             "withVat": 107,
@@ -12684,7 +12684,7 @@
           "productId": 49,
           "code": "60146",
           "name": "Zubní pasta EXTRA WHITE PRO",
-          "ean": null,
+          "ean": "6921570923022",
           "pieces": 1,
           "totalPrice": {
             "withVat": 107,
@@ -16604,7 +16604,7 @@
           "productId": 49,
           "code": "60146",
           "name": "Zubní pasta EXTRA WHITE PRO",
-          "ean": null,
+          "ean": "6921570923022",
           "pieces": 1,
           "totalPrice": {
             "withVat": 107,
@@ -17082,8 +17082,8 @@
       "deliveryType": {
         "id": 120,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 4,
@@ -17910,10 +17910,10 @@
       "code": "261269779",
       "dateCreated": "2026-04-15T18:40:52+02:00",
       "cancelled": false,
-      "isPaid": false,
+      "isPaid": true,
       "status": {
-        "id": 0,
-        "name": "nová"
+        "id": 1,
+        "name": "přijatá"
       },
       "totalPrice": {
         "withVat": 65.95,
@@ -17922,8 +17922,8 @@
       "deliveryType": {
         "id": 119,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 5,
@@ -18178,8 +18178,8 @@
       "deliveryType": {
         "id": 120,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 4,
@@ -21394,8 +21394,8 @@
       "deliveryType": {
         "id": 120,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 4,
@@ -21613,11 +21613,11 @@
       "id": 3603116,
       "code": "261269754",
       "dateCreated": "2026-04-15T17:48:53+02:00",
-      "cancelled": false,
+      "cancelled": true,
       "isPaid": false,
       "status": {
-        "id": 0,
-        "name": "nová"
+        "id": 8,
+        "name": "chyba"
       },
       "totalPrice": {
         "withVat": 5037,
@@ -24780,7 +24780,7 @@
           "productId": 49,
           "code": "60146",
           "name": "Zubní pasta EXTRA WHITE PRO",
-          "ean": null,
+          "ean": "6921570923022",
           "pieces": 1,
           "totalPrice": {
             "withVat": 107,
@@ -27734,8 +27734,8 @@
       "deliveryType": {
         "id": 121,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 6,
@@ -30510,8 +30510,8 @@
       "deliveryType": {
         "id": 120,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 4,
@@ -31640,7 +31640,7 @@
           "productId": 49,
           "code": "60146",
           "name": "Zubní pasta EXTRA WHITE PRO",
-          "ean": null,
+          "ean": "6921570923022",
           "pieces": 1,
           "totalPrice": {
             "withVat": 107,
@@ -32774,8 +32774,8 @@
       "deliveryType": {
         "id": 121,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 6,
@@ -33292,8 +33292,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 879,
@@ -34552,8 +34552,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 814,
@@ -34680,8 +34680,8 @@
       "cancelled": false,
       "isPaid": false,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 596,
@@ -35688,8 +35688,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 19.05,
@@ -36594,8 +36594,8 @@
       "deliveryType": {
         "id": 120,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 4,
@@ -36900,8 +36900,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 536,
@@ -37776,8 +37776,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 2876,
@@ -38268,8 +38268,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1006,
@@ -39600,8 +39600,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1708,
@@ -39716,8 +39716,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 347,
@@ -39784,8 +39784,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 5923,
@@ -39900,8 +39900,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1370,
@@ -40052,8 +40052,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1618,
@@ -40180,8 +40180,8 @@
       "cancelled": false,
       "isPaid": false,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1798,
@@ -40384,7 +40384,7 @@
           "productId": 49,
           "code": "60146",
           "name": "Zubní pasta EXTRA WHITE PRO",
-          "ean": null,
+          "ean": "6921570923022",
           "pieces": 1,
           "totalPrice": {
             "withVat": 107,
@@ -40612,8 +40612,8 @@
       "cancelled": false,
       "isPaid": false,
       "status": {
-        "id": 1,
-        "name": "přijatá"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 94.6,
@@ -40622,8 +40622,8 @@
       "deliveryType": {
         "id": 121,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 6,
@@ -40810,8 +40810,8 @@
       "deliveryType": {
         "id": 119,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 5,
@@ -41112,8 +41112,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1646,
@@ -41544,8 +41544,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 766,
@@ -41824,8 +41824,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 1,
-        "name": "přijatá"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 83.4,
@@ -41834,8 +41834,8 @@
       "deliveryType": {
         "id": 119,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 5,
@@ -41904,8 +41904,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1157,
@@ -42032,8 +42032,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 38.65,
@@ -42112,8 +42112,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 3040,
@@ -42300,8 +42300,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1663,
@@ -42864,8 +42864,8 @@
       "cancelled": false,
       "isPaid": false,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1235,
@@ -43004,8 +43004,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1513,
@@ -43508,8 +43508,8 @@
       "cancelled": false,
       "isPaid": false,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 935,
@@ -43600,8 +43600,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 67.5,
@@ -43764,8 +43764,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1175,
@@ -43936,8 +43936,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 427,
@@ -44016,8 +44016,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 2532,
@@ -44192,8 +44192,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 50.95,
@@ -44384,7 +44384,7 @@
           "productId": 49,
           "code": "60146",
           "name": "Zubní pasta EXTRA WHITE PRO",
-          "ean": null,
+          "ean": "6921570923022",
           "pieces": 1,
           "totalPrice": {
             "withVat": 107,
@@ -44424,8 +44424,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 2107,
@@ -44576,8 +44576,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1002,
@@ -44704,8 +44704,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 4,
-        "name": "připraveno k vyzvednutí"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 2217,
@@ -44832,8 +44832,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 750,
@@ -44912,8 +44912,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 738,
@@ -45040,8 +45040,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 926,
@@ -45080,7 +45080,7 @@
           "productId": 49,
           "code": "60146",
           "name": "Zubní pasta EXTRA WHITE PRO",
-          "ean": null,
+          "ean": "6921570923022",
           "pieces": 1,
           "totalPrice": {
             "withVat": 107,
@@ -45168,8 +45168,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 516,
@@ -45480,8 +45480,8 @@
       "cancelled": false,
       "isPaid": false,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1309,
@@ -45632,8 +45632,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 39.75,
@@ -45864,8 +45864,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1482,
@@ -46236,8 +46236,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1116,
@@ -46388,8 +46388,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1522,
@@ -46516,8 +46516,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 437,
@@ -46912,8 +46912,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1006,
@@ -47016,8 +47016,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 1,
-        "name": "přijatá"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 99.25,
@@ -47026,8 +47026,8 @@
       "deliveryType": {
         "id": 120,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 4,
@@ -47304,8 +47304,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 4520,
@@ -47848,7 +47848,7 @@
           "productId": 49,
           "code": "60146",
           "name": "Zubní pasta EXTRA WHITE PRO",
-          "ean": null,
+          "ean": "6921570923022",
           "pieces": 2,
           "totalPrice": {
             "withVat": 214,
@@ -47924,8 +47924,8 @@
       "cancelled": false,
       "isPaid": false,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 358,
@@ -48132,8 +48132,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1523,
@@ -48472,8 +48472,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 543,
@@ -48540,8 +48540,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 37.8,
@@ -48642,8 +48642,8 @@
       "deliveryType": {
         "id": 121,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 6,
@@ -48880,8 +48880,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1244,
@@ -49076,8 +49076,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 2032,
@@ -49428,8 +49428,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1633,
@@ -49717,11 +49717,11 @@
       "id": 3602909,
       "code": "261269553",
       "dateCreated": "2026-04-15T09:01:51+02:00",
-      "cancelled": false,
+      "cancelled": true,
       "isPaid": false,
       "status": {
-        "id": 0,
-        "name": "nová"
+        "id": 8,
+        "name": "chyba"
       },
       "totalPrice": {
         "withVat": 1171,
@@ -49884,8 +49884,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 932,
@@ -50280,8 +50280,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 765,
@@ -50396,8 +50396,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1,
@@ -50548,8 +50548,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 34.25,
@@ -50768,8 +50768,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1267,
@@ -50908,8 +50908,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1146,
@@ -51304,8 +51304,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 1,
-        "name": "přijatá"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 55.85,
@@ -51396,8 +51396,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1630,
@@ -52776,8 +52776,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 343,
@@ -52936,8 +52936,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 976,
@@ -53248,8 +53248,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 912,
@@ -53328,8 +53328,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 4,
-        "name": "připraveno k vyzvednutí"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 572,
@@ -53396,8 +53396,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1697,
@@ -53640,8 +53640,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1212,
@@ -53756,8 +53756,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1242,
@@ -53896,8 +53896,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1628,
@@ -54084,8 +54084,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1324,
@@ -54272,8 +54272,8 @@
       "cancelled": false,
       "isPaid": false,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 805,
@@ -54500,8 +54500,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1144,
@@ -54640,8 +54640,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 1,
-        "name": "přijatá"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 66.7,
@@ -54650,8 +54650,8 @@
       "deliveryType": {
         "id": 120,
         "delivery": {
-          "id": 58,
-          "name": "DPD Doručenie na adresu"
+          "id": 16,
+          "name": "GLS"
         },
         "payment": {
           "id": 4,
@@ -54932,8 +54932,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1692,
@@ -55084,8 +55084,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 828,
@@ -55224,8 +55224,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 2131,
@@ -55376,8 +55376,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 909,
@@ -56164,8 +56164,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 2136,
@@ -56304,8 +56304,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1607,
@@ -56396,8 +56396,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 970,
@@ -56780,8 +56780,8 @@
       "cancelled": false,
       "isPaid": false,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1724,
@@ -56920,8 +56920,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1613,
@@ -57012,8 +57012,8 @@
       "cancelled": false,
       "isPaid": true,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 4,
+        "name": "připraveno k vyzvednutí"
       },
       "totalPrice": {
         "withVat": 1549,
@@ -57352,8 +57352,8 @@
       "cancelled": false,
       "isPaid": false,
       "status": {
-        "id": 3,
-        "name": "expedováno"
+        "id": 5,
+        "name": "doručeno"
       },
       "totalPrice": {
         "withVat": 1462,
@@ -57702,32 +57702,32 @@
     "orders": 418,
     "revenueWithVat": 600410.6,
     "averageOrderValue": 1436.39,
-    "cancelledOrders": 3,
-    "problematicOrders": 3,
+    "cancelledOrders": 6,
+    "problematicOrders": 6,
     "statuses": [
       {
         "name": "přijatá",
-        "count": 274
-      },
-      {
-        "name": "expedováno",
-        "count": 108
-      },
-      {
-        "name": "nová",
-        "count": 16
+        "count": 265
       },
       {
         "name": "připraveno k vyzvednutí",
-        "count": 10
+        "count": 57
       },
       {
         "name": "doručeno",
-        "count": 7
+        "count": 41
+      },
+      {
+        "name": "expedováno",
+        "count": 37
+      },
+      {
+        "name": "nová",
+        "count": 12
       },
       {
         "name": "chyba",
-        "count": 3
+        "count": 6
       }
     ],
     "paymentMethods": [
@@ -57778,7 +57778,7 @@
         "count": 59
       },
       {
-        "name": "DPD Doručenie na adresu",
+        "name": "GLS",
         "count": 19
       },
       {

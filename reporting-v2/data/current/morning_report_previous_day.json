@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T13:18:41.958969+02:00",
+  "generatedAt": "2026-04-16T14:53:06.806252+02:00",
   "reportDate": "2026-04-15",
   "window": {
     "from": "2026-04-15T00:00:00+02:00",
@@ -19,7 +19,7 @@
     },
     "shipmentsTotal": 569,
     "alerts": [
-      "5 problematických nebo stornovaných objednávek.",
+      "6 problematických nebo stornovaných objednávek.",
       "2 včera prodaných produktů je teď na nízkém skladu.",
       "10 skladových pozic je v mínusu."
     ]
@@ -28,32 +28,32 @@
     "orders": 418,
     "revenueWithVat": 600410.6,
     "averageOrderValue": 1436.39,
-    "cancelledOrders": 5,
-    "problematicOrders": 5,
+    "cancelledOrders": 6,
+    "problematicOrders": 6,
     "statuses": [
       {
         "name": "přijatá",
-        "count": 270
-      },
-      {
-        "name": "expedováno",
-        "count": 56
+        "count": 265
       },
       {
         "name": "připraveno k vyzvednutí",
-        "count": 50
+        "count": 57
       },
       {
         "name": "doručeno",
-        "count": 24
+        "count": 41
+      },
+      {
+        "name": "expedováno",
+        "count": 37
       },
       {
         "name": "nová",
-        "count": 13
+        "count": 12
       },
       {
         "name": "chyba",
-        "count": 5
+        "count": 6
       }
     ],
     "paymentMethods": [
@@ -104,7 +104,7 @@
         "count": 59
       },
       {
-        "name": "DPD Doručenie na adresu",
+        "name": "GLS",
         "count": 19
       },
       {
@@ -810,74 +810,74 @@
     ],
     "largestMovesSinceLastSnapshot": [
       {
-        "code": "UA132",
-        "title": "Peeling Broskovový 1+1",
-        "currentStock": 2251.0,
-        "previousStock": 2259.0,
+        "code": "60145",
+        "title": "Denní hygienická vložka „Jemná péče“",
+        "currentStock": 6042.0,
+        "previousStock": 6050.0,
         "delta": -8.0
       },
       {
         "code": "40203",
         "title": "Peeling Broskvový",
-        "currentStock": 2261.0,
-        "previousStock": 2268.0,
-        "delta": -7.0
+        "currentStock": 2242.0,
+        "previousStock": 2250.0,
+        "delta": -8.0
       },
       {
-        "code": "44402-2",
-        "title": "Fytogel Slaviton",
-        "currentStock": 2690.0,
-        "previousStock": 2696.0,
+        "code": "UA132",
+        "title": "Peeling Broskovový 1+1",
+        "currentStock": 2232.0,
+        "previousStock": 2240.0,
+        "delta": -8.0
+      },
+      {
+        "code": "23401",
+        "title": "Šampon - aktivátor růstu vlasů",
+        "currentStock": 1005.0,
+        "previousStock": 1011.0,
+        "delta": -6.0
+      },
+      {
+        "code": "WM139",
+        "title": "Sada pro růst vlasů",
+        "currentStock": 985.0,
+        "previousStock": 991.0,
+        "delta": -6.0
+      },
+      {
+        "code": "AX659",
+        "title": "Bio rehab - pro aktivní růst vlasů silou přírody",
+        "currentStock": 985.0,
+        "previousStock": 991.0,
+        "delta": -6.0
+      },
+      {
+        "code": "JW560",
+        "title": "Kompletní systém pro aktivaci růstu vlasů",
+        "currentStock": 985.0,
+        "previousStock": 991.0,
+        "delta": -6.0
+      },
+      {
+        "code": "BM742",
+        "title": "BIO REHAB Trojice pro silné, husté a vitální vlasy",
+        "currentStock": 985.0,
+        "previousStock": 991.0,
         "delta": -6.0
       },
       {
         "code": "000075",
         "title": "Brožura Fytogely",
-        "currentStock": 3519.0,
-        "previousStock": 3522.0,
-        "delta": -3.0
+        "currentStock": 3509.0,
+        "previousStock": 3514.0,
+        "delta": -5.0
       },
       {
-        "code": "IU299",
-        "title": "Peeling Broskvový 3+3",
-        "currentStock": 750.0,
-        "previousStock": 753.0,
-        "delta": -3.0
-      },
-      {
-        "code": "TB775",
-        "title": "Balíček broskvových peelingů pro hebkou a rozzářenou pokožku",
-        "currentStock": 750.0,
-        "previousStock": 753.0,
-        "delta": -3.0
-      },
-      {
-        "code": "41105",
-        "title": "Regenerační krém na nohy s hadím olejem",
-        "currentStock": 3652.0,
-        "previousStock": 3654.0,
-        "delta": -2.0
-      },
-      {
-        "code": "61914",
-        "title": "Dámské bylinné slipové vložky Nefritová svěžest",
-        "currentStock": 704.0,
-        "previousStock": 706.0,
-        "delta": -2.0
-      },
-      {
-        "code": "61915",
-        "title": "Dámské bylinné slipové vložky s anionty Nefritová svěžest",
-        "currentStock": 788.0,
-        "previousStock": 790.0,
-        "delta": -2.0
-      },
-      {
-        "code": "30117",
-        "title": "Kosmetická fytonáplast Jian Kang",
-        "currentStock": 3797.0,
-        "previousStock": 3799.0,
-        "delta": -2.0
+        "code": "52911",
+        "title": "Obnovující maska na obličej a krk s fullereny a polypeptidy",
+        "currentStock": 1737.0,
+        "previousStock": 1742.0,
+        "delta": -5.0
       }
     ]
   },
@@ -926,15 +926,11 @@
     "statusCounts": [
       {
         "name": "C",
-        "count": 419
+        "count": 489
       },
       {
         "name": "P",
-        "count": 143
-      },
-      {
-        "name": "S",
-        "count": 7
+        "count": 80
       }
     ],
     "coverageWarnings": [],
@@ -944,10 +940,10 @@
         "sku": "40203",
         "dateExpiry": "2026-05-08",
         "daysToExpiry": 22,
-        "datedStock": 2564.0,
-        "stockAtNearestExpiry": 2564.0,
+        "datedStock": 2474.0,
+        "stockAtNearestExpiry": 2474.0,
         "batchCount": 14,
-        "riskScore": 43.52,
+        "riskScore": 41.99,
         "title": "Peeling Broskvový",
         "label": "40203 · Peeling Broskvový (CZ)"
       },
@@ -956,10 +952,10 @@
         "sku": "52902/03",
         "dateExpiry": "2026-05-07",
         "daysToExpiry": 21,
-        "datedStock": 390.0,
-        "stockAtNearestExpiry": 390.0,
+        "datedStock": 377.0,
+        "stockAtNearestExpiry": 377.0,
         "batchCount": 3,
-        "riskScore": 7.01,
+        "riskScore": 6.78,
         "title": "Revitalizační maska na obličej a krk Lingzhi - 3ks",
         "label": "52902/03 · Revitalizační maska na obličej a krk Lingzhi - 3ks (CZ)"
       },
@@ -968,10 +964,10 @@
         "sku": "PROMO74",
         "dateExpiry": "2027-02-09",
         "daysToExpiry": 299,
-        "datedStock": 9491.0,
-        "stockAtNearestExpiry": 2371.0,
+        "datedStock": 9484.0,
+        "stockAtNearestExpiry": 2364.0,
         "batchCount": 18,
-        "riskScore": 5.72,
+        "riskScore": 5.71,
         "title": "Královská bylinná směs zdravá žena ",
         "label": "PROMO74 · Královská bylinná směs zdravá žena  (CZ)"
       },
@@ -980,8 +976,8 @@
         "sku": "63601/01",
         "dateExpiry": "2026-12-31",
         "daysToExpiry": 259,
-        "datedStock": 7631.0,
-        "stockAtNearestExpiry": 7631.0,
+        "datedStock": 7629.0,
+        "stockAtNearestExpiry": 7629.0,
         "batchCount": 14,
         "riskScore": 5.53,
         "title": "Denní vložka Energie života",
@@ -1005,7 +1001,7 @@
   "priorities": [
     "Dohlédnout POP00060 (GREPAVIT® – grep extrakt z jader, 100 ml), aktuálně 0 ks.",
     "Dohlédnout 195464 (Krémová banánová polévka se zeleninou), aktuálně 2 ks.",
-    "Projít 5 problematických nebo stornovaných objednávek z včerejška.",
+    "Projít 6 problematických nebo stornovaných objednávek z včerejška.",
     "Projít nejbližší expirace v 4PX a rozhodnout o doprodeji nebo přesunu zásoby."
   ]
 }
