@@ -1,0 +1,5 @@
+{
+  "_note": "Manual read-model SKU overrides for reporting-v2. aliases maps a raw 4PX or order code to a canonical WPJ code. ignore disables automatic slash-suffix mapping for a raw code.",
+  "aliases": {},
+  "ignore": []
+}

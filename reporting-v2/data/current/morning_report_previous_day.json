@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T13:10:14.747422+02:00",
+  "generatedAt": "2026-04-16T13:18:41.958969+02:00",
   "reportDate": "2026-04-15",
   "window": {
     "from": "2026-04-15T00:00:00+02:00",
@@ -19,7 +19,7 @@
     },
     "shipmentsTotal": 569,
     "alerts": [
-      "4 problematických nebo stornovaných objednávek.",
+      "5 problematických nebo stornovaných objednávek.",
       "2 včera prodaných produktů je teď na nízkém skladu.",
       "10 skladových pozic je v mínusu."
     ]
@@ -28,8 +28,8 @@
     "orders": 418,
     "revenueWithVat": 600410.6,
     "averageOrderValue": 1436.39,
-    "cancelledOrders": 4,
-    "problematicOrders": 4,
+    "cancelledOrders": 5,
+    "problematicOrders": 5,
     "statuses": [
       {
         "name": "přijatá",
@@ -37,23 +37,23 @@
       },
       {
         "name": "expedováno",
-        "count": 59
+        "count": 56
       },
       {
         "name": "připraveno k vyzvednutí",
-        "count": 49
+        "count": 50
       },
       {
         "name": "doručeno",
-        "count": 22
+        "count": 24
       },
       {
         "name": "nová",
-        "count": 14
+        "count": 13
       },
       {
         "name": "chyba",
-        "count": 4
+        "count": 5
       }
     ],
     "paymentMethods": [
@@ -810,74 +810,74 @@
     ],
     "largestMovesSinceLastSnapshot": [
       {
-        "code": "20102",
-        "title": "Vyživující šampon s kořenem ženšenu",
-        "currentStock": 212.0,
-        "previousStock": 214.0,
-        "delta": -2.0
-      },
-      {
-        "code": "20115",
-        "title": "Balzám na vlasy s  ženšenem",
-        "currentStock": 229.0,
-        "previousStock": 231.0,
-        "delta": -2.0
-      },
-      {
-        "code": "20144",
-        "title": "Stylingový sprej na vlasy s aloe „Objem a pružnost“",
-        "currentStock": 454.0,
-        "previousStock": 456.0,
-        "delta": -2.0
-      },
-      {
-        "code": "10303",
-        "title": "Regenerační krém z ovčí placenty kosmetiky tianDe",
-        "currentStock": 358.0,
-        "previousStock": 359.0,
-        "delta": -1.0
-      },
-      {
-        "code": "15603",
-        "title": "FUCOIDAN anti-aging krém na obličej",
-        "currentStock": 349.0,
-        "previousStock": 350.0,
-        "delta": -1.0
-      },
-      {
-        "code": "000075",
-        "title": "Brožura Fytogely",
-        "currentStock": 3522.0,
-        "previousStock": 3523.0,
-        "delta": -1.0
-      },
-      {
-        "code": "12117",
-        "title": "Pleťové sérum s kordycepsem",
-        "currentStock": 437.0,
-        "previousStock": 438.0,
-        "delta": -1.0
+        "code": "UA132",
+        "title": "Peeling Broskovový 1+1",
+        "currentStock": 2251.0,
+        "previousStock": 2259.0,
+        "delta": -8.0
       },
       {
         "code": "40203",
         "title": "Peeling Broskvový",
-        "currentStock": 2268.0,
-        "previousStock": 2269.0,
-        "delta": -1.0
+        "currentStock": 2261.0,
+        "previousStock": 2268.0,
+        "delta": -7.0
       },
       {
-        "code": "PROMO56",
-        "title": "Kosmetický kufřík růžový",
-        "currentStock": 1287.0,
-        "previousStock": 1288.0,
-        "delta": -1.0
+        "code": "44402-2",
+        "title": "Fytogel Slaviton",
+        "currentStock": 2690.0,
+        "previousStock": 2696.0,
+        "delta": -6.0
       },
       {
-        "code": "34413-2",
-        "title": "Tělový krém Tekutá náplast",
-        "currentStock": 500.0,
-        "previousStock": 501.0,
-        "delta": -1.0
+        "code": "000075",
+        "title": "Brožura Fytogely",
+        "currentStock": 3519.0,
+        "previousStock": 3522.0,
+        "delta": -3.0
+      },
+      {
+        "code": "IU299",
+        "title": "Peeling Broskvový 3+3",
+        "currentStock": 750.0,
+        "previousStock": 753.0,
+        "delta": -3.0
+      },
+      {
+        "code": "TB775",
+        "title": "Balíček broskvových peelingů pro hebkou a rozzářenou pokožku",
+        "currentStock": 750.0,
+        "previousStock": 753.0,
+        "delta": -3.0
+      },
+      {
+        "code": "41105",
+        "title": "Regenerační krém na nohy s hadím olejem",
+        "currentStock": 3652.0,
+        "previousStock": 3654.0,
+        "delta": -2.0
+      },
+      {
+        "code": "61914",
+        "title": "Dámské bylinné slipové vložky Nefritová svěžest",
+        "currentStock": 704.0,
+        "previousStock": 706.0,
+        "delta": -2.0
+      },
+      {
+        "code": "61915",
+        "title": "Dámské bylinné slipové vložky s anionty Nefritová svěžest",
+        "currentStock": 788.0,
+        "previousStock": 790.0,
+        "delta": -2.0
+      },
+      {
+        "code": "30117",
+        "title": "Kosmetická fytonáplast Jian Kang",
+        "currentStock": 3797.0,
+        "previousStock": 3799.0,
+        "delta": -2.0
       }
     ]
   },
@@ -930,11 +930,11 @@
       },
       {
         "name": "P",
-        "count": 93
+        "count": 143
       },
       {
         "name": "S",
-        "count": 57
+        "count": 7
       }
     ],
     "coverageWarnings": [],
@@ -1005,7 +1005,7 @@
   "priorities": [
     "Dohlédnout POP00060 (GREPAVIT® – grep extrakt z jader, 100 ml), aktuálně 0 ks.",
     "Dohlédnout 195464 (Krémová banánová polévka se zeleninou), aktuálně 2 ks.",
-    "Projít 4 problematických nebo stornovaných objednávek z včerejška.",
+    "Projít 5 problematických nebo stornovaných objednávek z včerejška.",
     "Projít nejbližší expirace v 4PX a rozhodnout o doprodeji nebo přesunu zásoby."
   ]
 }

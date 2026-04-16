@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T13:08:58.911997+02:00",
+  "generatedAt": "2026-04-16T13:17:12.464262+02:00",
   "config": {
     "warehouseCode": "CZPRGA",
     "outboundMaxPages": 20,
@@ -14,25 +14,25 @@
       "label": "CZ",
       "inventory": {
         "items": 768,
-        "availableStockTotal": 308660,
-        "pendingStockTotal": 3795,
+        "availableStockTotal": 308594,
+        "pendingStockTotal": 3861,
         "freezeStockTotal": 0,
         "lowStockItems": 100
       },
       "outbound": {
-        "items": 700,
-        "scannedPages": 7,
+        "items": 800,
+        "scannedPages": 8,
         "topLogisticsProduct": "F1401",
-        "oldestTimestamp": "2026-04-14T23:52:12+02:00",
-        "newestTimestamp": "2026-04-16T13:00:05+02:00"
+        "oldestTimestamp": "2026-04-14T21:49:12+02:00",
+        "newestTimestamp": "2026-04-16T13:15:07+02:00"
       }
     },
     "sk": {
       "label": "SK",
       "inventory": {
         "items": 621,
-        "availableStockTotal": 70912,
-        "pendingStockTotal": 68,
+        "availableStockTotal": 70902,
+        "pendingStockTotal": 78,
         "freezeStockTotal": 0,
         "lowStockItems": 100
       },
@@ -40,8 +40,8 @@
         "items": 100,
         "scannedPages": 1,
         "topLogisticsProduct": "F1403",
-        "oldestTimestamp": "2026-04-14T20:08:20+02:00",
-        "newestTimestamp": "2026-04-16T12:50:18+02:00"
+        "oldestTimestamp": "2026-04-14T20:17:16+02:00",
+        "newestTimestamp": "2026-04-16T13:15:17+02:00"
       }
     }
   },
@@ -51,20 +51,20 @@
     "orders": 418,
     "revenueWithVat": 600410.6,
     "averageOrderValue": 1436.39,
-    "problematicOrders": 4
+    "problematicOrders": 5
   },
   "report": {
     "date": "2026-04-15",
     "shipments": 569,
     "alerts": [
-      "4 problematických nebo stornovaných objednávek.",
+      "5 problematických nebo stornovaných objednávek.",
       "2 včera prodaných produktů je teď na nízkém skladu.",
       "10 skladových pozic je v mínusu."
     ],
     "priorities": [
       "Dohlédnout POP00060 (GREPAVIT® – grep extrakt z jader, 100 ml), aktuálně 0 ks.",
       "Dohlédnout 195464 (Krémová banánová polévka se zeleninou), aktuálně 2 ks.",
-      "Projít 4 problematických nebo stornovaných objednávek z včerejška.",
+      "Projít 5 problematických nebo stornovaných objednávek z včerejška.",
       "Projít nejbližší expirace v 4PX a rozhodnout o doprodeji nebo přesunu zásoby."
     ]
   },
@@ -80,6 +80,7 @@
     "onlyIn4px": 1,
     "stockMismatch": 667,
     "lowAfterSales": 2,
+    "manualMapped4pxAliases": 0,
     "autoMapped4pxAliases": 74
   },
   "finance": {

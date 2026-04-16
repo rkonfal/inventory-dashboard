@@ -4,7 +4,7 @@
 • Objednávky: 418 (-7.4 % vs 7denní průměr 451.3)
 • Tržby s DPH: 600 411 Kč (-16.2 % vs 7denní průměr 716 192 Kč)
 • Expedice 4PX: 569 zásilek (CZ 503, SK 66)
-• Alert: 4 problematických nebo stornovaných objednávek.
+• Alert: 5 problematických nebo stornovaných objednávek.
 • Alert: 2 včera prodaných produktů je teď na nízkém skladu.
 • Alert: 10 skladových pozic je v mínusu.
 
@@ -12,7 +12,7 @@
 • Počet objednávek: 418
 • Obrat s DPH: 600 411 Kč
 • Průměrná hodnota objednávky: 1 436 Kč
-• Stornované / problematické: 4 / 4
+• Stornované / problematické: 5 / 5
 • Top 5 prodaných produktů podle kusů:
 1. 64404-2 · Jemný intimní gel: 137 ks
 2. 44402-2 · Fytogel Slaviton: 128 ks
@@ -49,11 +49,11 @@
 • 52902 · Revitalizační maska na obličej a krk Lingzhi / [FlexiBee] Sklad Měčín: -277 ks
 • 000077 · Brožura Detoxikace / [FlexiBee] Sklad Měčín: -149 ks
 • Největší pohyby od posledního snapshotu:
-• 20102 · Vyživující šampon s kořenem ženšenu: -2 ks
-• 20115 · Balzám na vlasy s  ženšenem: -2 ks
-• 20144 · Stylingový sprej na vlasy s aloe „Objem a pružnost“: -2 ks
-• 10303 · Regenerační krém z ovčí placenty kosmetiky tianDe: -1 ks
-• 15603 · FUCOIDAN anti-aging krém na obličej: -1 ks
+• UA132 · Peeling Broskovový 1+1: -8 ks
+• 40203 · Peeling Broskvový: -7 ks
+• 44402-2 · Fytogel Slaviton: -6 ks
+• 000075 · Brožura Fytogely: -3 ks
+• IU299 · Peeling Broskvový 3+3: -3 ks
 
 **4. 4PX logistika za včerejšek**
 • Počet zásilek celkem: 569
@@ -73,5 +73,5 @@
 **5. Dnešní priority**
 • Dohlédnout POP00060 (GREPAVIT® – grep extrakt z jader, 100 ml), aktuálně 0 ks.
 • Dohlédnout 195464 (Krémová banánová polévka se zeleninou), aktuálně 2 ks.
-• Projít 4 problematických nebo stornovaných objednávek z včerejška.
+• Projít 5 problematických nebo stornovaných objednávek z včerejška.
 • Projít nejbližší expirace v 4PX a rozhodnout o doprodeji nebo přesunu zásoby.

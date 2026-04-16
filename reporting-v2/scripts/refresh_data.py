@@ -15,6 +15,8 @@ from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 ENV_FILE = ROOT / '.env.local'
+CONFIG_DIR = ROOT / 'config'
+SKU_MAPPING_OVERRIDE_FILE = CONFIG_DIR / 'sku_mapping_overrides.json'
 CURRENT_DIR = ROOT / 'data' / 'current'
 SNAPSHOT_DIR = ROOT / 'data' / 'snapshots'
 BASE_URL = 'https://open.eu.4px.com/router/api/service'
@@ -125,6 +127,32 @@ def load_env_file(path: Path):
             continue
         key, value = line.split('=', 1)
         os.environ.setdefault(key.strip(), value.strip())
+
+
+def load_manual_sku_overrides(path: Path):
+    overrides = {
+        'aliases': {},
+        'ignore': set(),
+    }
+    if not path.exists():
+        return overrides
+    try:
+        payload = json.loads(path.read_text(encoding='utf-8'))
+    except Exception as exc:
+        raise RuntimeError(f'Neplatný JSON v override mapě SKU: {path}') from exc
+
+    for raw_code, canonical_code in (payload.get('aliases') or {}).items():
+        raw = normalize_product_code(raw_code)
+        canonical = normalize_product_code(canonical_code)
+        if raw and canonical:
+            overrides['aliases'][raw] = canonical
+
+    for raw_code in (payload.get('ignore') or []):
+        raw = normalize_product_code(raw_code)
+        if raw:
+            overrides['ignore'].add(raw)
+
+    return overrides
 
 
 def compact_json(data):
@@ -695,7 +723,7 @@ def summarize_stock(products, sold_product_codes, previous_products=None):
     }
 
 
-def collect_wpj_order_product_metrics(orders, wpj_by_code=None):
+def collect_wpj_order_product_metrics(orders, wpj_by_code=None, manual_overrides=None):
     wpj_by_code = wpj_by_code or {}
     metrics = {}
     for order in orders:
@@ -703,7 +731,7 @@ def collect_wpj_order_product_metrics(orders, wpj_by_code=None):
             if item.get('type') != 'product':
                 continue
             raw_code = item.get('code') or str(item.get('productId') or item.get('name') or '–')
-            code, mapping = resolve_4px_code_alias(raw_code, wpj_by_code)
+            code, mapping = resolve_4px_code_alias(raw_code, wpj_by_code, manual_overrides)
             row = metrics.setdefault(code, {
                 'code': code,
                 'name': (wpj_by_code.get(code) or {}).get('title') or item.get('name') or 'Bez názvu',
@@ -723,9 +751,22 @@ def normalize_product_code(value):
     return str(value or '').strip()
 
 
-def resolve_4px_code_alias(code, wpj_by_code):
+def resolve_4px_code_alias(code, wpj_by_code, manual_overrides=None):
+    manual_overrides = manual_overrides or {'aliases': {}, 'ignore': set()}
     code = normalize_product_code(code)
     if not code:
+        return code, None
+    manual_target = normalize_product_code((manual_overrides.get('aliases') or {}).get(code))
+    if manual_target:
+        if manual_target in wpj_by_code:
+            return manual_target, {
+                'sourceCode': code,
+                'canonicalCode': manual_target,
+                'rule': 'manual_override',
+                'confidence': 'manual',
+            }
+        return code, None
+    if code in (manual_overrides.get('ignore') or set()):
         return code, None
     if code in wpj_by_code:
         return code, None
@@ -743,18 +784,20 @@ def resolve_4px_code_alias(code, wpj_by_code):
     return code, None
 
 
-def aggregate_4px_inventory(items, wpj_by_code=None):
+def aggregate_4px_inventory(items, wpj_by_code=None, manual_overrides=None):
     wpj_by_code = wpj_by_code or {}
     grouped = {}
     for item in items or []:
         raw_code = normalize_product_code(item.get('sku_code'))
-        code, mapping = resolve_4px_code_alias(raw_code, wpj_by_code)
+        code, mapping = resolve_4px_code_alias(raw_code, wpj_by_code, manual_overrides)
         if not code:
             continue
         row = grouped.setdefault(code, {
             'code': code,
             'sourceCodes': set(),
             'mappedSourceCodes': set(),
+            'manualMappedSourceCodes': set(),
+            'autoMappedSourceCodes': set(),
             'mappingRules': set(),
             'skuIds': set(),
             'batchNos': set(),
@@ -767,6 +810,10 @@ def aggregate_4px_inventory(items, wpj_by_code=None):
         if mapping:
             row['mappedSourceCodes'].add(raw_code)
             row['mappingRules'].add(mapping['rule'])
+            if mapping['rule'] == 'manual_override':
+                row['manualMappedSourceCodes'].add(raw_code)
+            else:
+                row['autoMappedSourceCodes'].add(raw_code)
         if item.get('sku_id'):
             row['skuIds'].add(item['sku_id'])
         if item.get('batch_no'):
@@ -778,13 +825,15 @@ def aggregate_4px_inventory(items, wpj_by_code=None):
     for row in grouped.values():
         row['sourceCodes'] = sorted(row['sourceCodes'])
         row['mappedSourceCodes'] = sorted(row['mappedSourceCodes'])
+        row['manualMappedSourceCodes'] = sorted(row['manualMappedSourceCodes'])
+        row['autoMappedSourceCodes'] = sorted(row['autoMappedSourceCodes'])
         row['mappingRules'] = sorted(row['mappingRules'])
         row['skuIds'] = sorted(row['skuIds'])
         row['batchNos'] = sorted(row['batchNos'])
     return grouped
 
 
-def aggregate_4px_outbound_by_sku(outbound_payload, start_dt, end_dt, account_label, wpj_by_code=None):
+def aggregate_4px_outbound_by_sku(outbound_payload, start_dt, end_dt, account_label, wpj_by_code=None, manual_overrides=None):
     wpj_by_code = wpj_by_code or {}
     grouped = {}
     for consignment in outbound_payload.get('items') or []:
@@ -796,7 +845,7 @@ def aggregate_4px_outbound_by_sku(outbound_payload, start_dt, end_dt, account_la
         carrier = consignment.get('carrier_brand_name') or consignment.get('carrier_code') or ''
         for sku in consignment.get('outboundlist_sku') or []:
             raw_code = normalize_product_code(sku.get('sku_code'))
-            code, mapping = resolve_4px_code_alias(raw_code, wpj_by_code)
+            code, mapping = resolve_4px_code_alias(raw_code, wpj_by_code, manual_overrides)
             if not code:
                 continue
             row = grouped.setdefault(code, {
@@ -804,6 +853,8 @@ def aggregate_4px_outbound_by_sku(outbound_payload, start_dt, end_dt, account_la
                 'name': sku.get('sku_name') or 'Bez názvu',
                 'sourceCodes': set(),
                 'mappedSourceCodes': set(),
+                'manualMappedSourceCodes': set(),
+                'autoMappedSourceCodes': set(),
                 'mappingRules': set(),
                 'units': 0.0,
                 'shipments': set(),
@@ -815,6 +866,10 @@ def aggregate_4px_outbound_by_sku(outbound_payload, start_dt, end_dt, account_la
             if mapping:
                 row['mappedSourceCodes'].add(raw_code)
                 row['mappingRules'].add(mapping['rule'])
+                if mapping['rule'] == 'manual_override':
+                    row['manualMappedSourceCodes'].add(raw_code)
+                else:
+                    row['autoMappedSourceCodes'].add(raw_code)
             row['units'] += num(sku.get('qty'))
             if consignment_no:
                 row['shipments'].add(consignment_no)
@@ -826,6 +881,8 @@ def aggregate_4px_outbound_by_sku(outbound_payload, start_dt, end_dt, account_la
     for row in grouped.values():
         row['sourceCodes'] = sorted(row['sourceCodes'])
         row['mappedSourceCodes'] = sorted(row['mappedSourceCodes'])
+        row['manualMappedSourceCodes'] = sorted(row['manualMappedSourceCodes'])
+        row['autoMappedSourceCodes'] = sorted(row['autoMappedSourceCodes'])
         row['mappingRules'] = sorted(row['mappingRules'])
         row['shipments'] = sorted(row['shipments'])
         row['accounts'] = sorted(row['accounts'])
@@ -834,17 +891,18 @@ def aggregate_4px_outbound_by_sku(outbound_payload, start_dt, end_dt, account_la
     return grouped
 
 
-def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, sk_inventory, cz_outbound, sk_outbound, start_dt, end_dt, generated_at):
+def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, sk_inventory, cz_outbound, sk_outbound, start_dt, end_dt, generated_at, manual_overrides=None):
     wpj_by_code = {item.get('code'): item for item in wpj_products if item.get('code')}
-    order_metrics = collect_wpj_order_product_metrics(yesterday_orders, wpj_by_code)
-    cz_inventory_by_code = aggregate_4px_inventory(cz_inventory.get('items') or [], wpj_by_code)
-    sk_inventory_by_code = aggregate_4px_inventory(sk_inventory.get('items') or [], wpj_by_code)
-    cz_outbound_by_code = aggregate_4px_outbound_by_sku(cz_outbound, start_dt, end_dt, 'CZ', wpj_by_code)
-    sk_outbound_by_code = aggregate_4px_outbound_by_sku(sk_outbound, start_dt, end_dt, 'SK', wpj_by_code)
+    order_metrics = collect_wpj_order_product_metrics(yesterday_orders, wpj_by_code, manual_overrides)
+    cz_inventory_by_code = aggregate_4px_inventory(cz_inventory.get('items') or [], wpj_by_code, manual_overrides)
+    sk_inventory_by_code = aggregate_4px_inventory(sk_inventory.get('items') or [], wpj_by_code, manual_overrides)
+    cz_outbound_by_code = aggregate_4px_outbound_by_sku(cz_outbound, start_dt, end_dt, 'CZ', wpj_by_code, manual_overrides)
+    sk_outbound_by_code = aggregate_4px_outbound_by_sku(sk_outbound, start_dt, end_dt, 'SK', wpj_by_code, manual_overrides)
 
     all_codes = set(wpj_by_code) | set(cz_inventory_by_code) | set(sk_inventory_by_code) | set(cz_outbound_by_code) | set(sk_outbound_by_code) | set(order_metrics)
     items = []
     auto_mapped_aliases = set()
+    manual_mapped_aliases = set()
 
     for code in sorted(all_codes):
         wpj = wpj_by_code.get(code)
@@ -855,15 +913,22 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
         fourpx_sk = sk_inventory_by_code.get(code, {'availableStock': 0.0, 'pendingStock': 0.0, 'freezeStock': 0.0, 'onwayStock': 0.0, 'batchNos': [], 'skuIds': [], 'sourceCodes': [], 'mappedSourceCodes': [], 'mappingRules': []})
         outbound_cz = cz_outbound_by_code.get(code, {'units': 0.0, 'shipments': [], 'logisticsProducts': [], 'carriers': [], 'name': None, 'accounts': [], 'sourceCodes': [], 'mappedSourceCodes': [], 'mappingRules': []})
         outbound_sk = sk_outbound_by_code.get(code, {'units': 0.0, 'shipments': [], 'logisticsProducts': [], 'carriers': [], 'name': None, 'accounts': [], 'sourceCodes': [], 'mappedSourceCodes': [], 'mappingRules': []})
-        sales = order_metrics.get(code, {'units': 0.0, 'revenueWithVat': 0.0, 'name': None})
+        sales = order_metrics.get(code, {'units': 0.0, 'revenueWithVat': 0.0, 'name': None, 'sourceCodes': []})
 
         inventory_source_codes = sorted(set(fourpx_cz.get('sourceCodes') or []) | set(fourpx_sk.get('sourceCodes') or []))
         mapped_inventory_codes = sorted(set(fourpx_cz.get('mappedSourceCodes') or []) | set(fourpx_sk.get('mappedSourceCodes') or []))
+        manual_inventory_codes = sorted(set(fourpx_cz.get('manualMappedSourceCodes') or []) | set(fourpx_sk.get('manualMappedSourceCodes') or []))
+        auto_inventory_codes = sorted(set(fourpx_cz.get('autoMappedSourceCodes') or []) | set(fourpx_sk.get('autoMappedSourceCodes') or []))
         outbound_source_codes = sorted(set(outbound_cz.get('sourceCodes') or []) | set(outbound_sk.get('sourceCodes') or []))
         mapped_outbound_codes = sorted(set(outbound_cz.get('mappedSourceCodes') or []) | set(outbound_sk.get('mappedSourceCodes') or []))
+        manual_outbound_codes = sorted(set(outbound_cz.get('manualMappedSourceCodes') or []) | set(outbound_sk.get('manualMappedSourceCodes') or []))
+        auto_outbound_codes = sorted(set(outbound_cz.get('autoMappedSourceCodes') or []) | set(outbound_sk.get('autoMappedSourceCodes') or []))
         mapped_source_codes = sorted(set(mapped_inventory_codes) | set(mapped_outbound_codes))
         mapping_rules = sorted(set(fourpx_cz.get('mappingRules') or []) | set(fourpx_sk.get('mappingRules') or []) | set(outbound_cz.get('mappingRules') or []) | set(outbound_sk.get('mappingRules') or []))
-        auto_mapped_aliases.update(mapped_source_codes)
+        auto_mapped_aliases.update(auto_inventory_codes)
+        auto_mapped_aliases.update(auto_outbound_codes)
+        manual_mapped_aliases.update(manual_inventory_codes)
+        manual_mapped_aliases.update(manual_outbound_codes)
 
         fourpx_total = round(fourpx_cz['availableStock'] + fourpx_sk['availableStock'], 2)
         stock_delta = round(wpj_fourpx_total - fourpx_total, 2)
@@ -900,11 +965,14 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
                 'availableTotal': fourpx_total,
                 'sourceCodes': inventory_source_codes,
                 'mappedSourceCodes': mapped_inventory_codes,
+                'manualMappedSourceCodes': manual_inventory_codes,
+                'autoMappedSourceCodes': auto_inventory_codes,
                 'mappingRules': mapping_rules,
             },
             'yesterdaySales': {
                 'units': round(sales['units'], 2),
                 'revenueWithVat': round(sales['revenueWithVat'], 2),
+                'sourceCodes': sales.get('sourceCodes') or [],
             },
             'yesterdayOutbound': {
                 'czUnits': round(outbound_cz['units'], 2),
@@ -912,6 +980,8 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
                 'shipments': len(outbound_cz['shipments']) + len(outbound_sk['shipments']),
                 'sourceCodes': outbound_source_codes,
                 'mappedSourceCodes': mapped_outbound_codes,
+                'manualMappedSourceCodes': manual_outbound_codes,
+                'autoMappedSourceCodes': auto_outbound_codes,
             },
             'stockDelta': stock_delta,
             'flags': flags,
@@ -982,6 +1052,7 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
         })
 
         mapped_alias_codes = sorted(set(item['fourpx'].get('mappedSourceCodes') or []) | set(item['yesterdayOutbound'].get('mappedSourceCodes') or []))
+        manual_alias_codes = set(item['fourpx'].get('manualMappedSourceCodes') or []) | set(item['yesterdayOutbound'].get('manualMappedSourceCodes') or [])
         if mapped_alias_codes and wpj_by_code.get(item['code']):
             for alias_code in mapped_alias_codes:
                 mapping_suggestions.append({
@@ -990,7 +1061,7 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
                     'suggestedWpjCode': item['code'],
                     'suggestedWpjTitle': item['title'] or 'Bez názvu',
                     'confidence': 'high',
-                    'rule': 'strip_/variant_suffix',
+                    'rule': 'manual_override' if alias_code in manual_alias_codes else 'strip_/variant_suffix',
                     'applied': True,
                     'fourpxAvailable': item['fourpx']['availableTotal'],
                     'yesterdaySalesUnits': sales_units,
@@ -1014,6 +1085,7 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
             'onlyIn4px': len(only_in_4px),
             'stockMismatch': len(stock_mismatches),
             'lowAfterSales': len(low_after_sales),
+            'manualMapped4pxAliases': len(manual_mapped_aliases),
             'autoMapped4pxAliases': len(auto_mapped_aliases),
         },
         'items': items,
@@ -1025,6 +1097,7 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
         'counts': combined_index['counts'],
         'priorityShortlist': priority_shortlist[:25],
         'mappingSuggestions': mapping_suggestions[:50],
+        'manualMappedAliases': len(manual_mapped_aliases),
         'autoMappedAliases': len(auto_mapped_aliases),
         'lowAfterSales': low_after_sales[:20],
         'stockMismatches': stock_mismatches[:20],
@@ -1034,7 +1107,7 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
     return combined_index, combined_overview
 
 
-def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt, generated_at, wpj_by_code=None):
+def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None):
     wpj_by_code = wpj_by_code or {}
     metrics = {}
     for order in year_orders:
@@ -1046,7 +1119,7 @@ def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt
             if item.get('type') != 'product':
                 continue
             raw_code = item.get('code') or item.get('name') or '–'
-            code, mapping = resolve_4px_code_alias(raw_code, wpj_by_code)
+            code, mapping = resolve_4px_code_alias(raw_code, wpj_by_code, manual_overrides)
             row = metrics.setdefault(code, {
                 'code': code,
                 'name': (wpj_by_code.get(code) or {}).get('title') or item.get('name') or 'Bez názvu',
@@ -1124,6 +1197,7 @@ def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt
             'overstockedItems': len(overstocked),
             'fastLowCoverItems': len(fast_low_cover),
         },
+        'items': items,
         'topTurnover': turnover[:50],
         'deadStock': dead_stock[:100],
         'slowMovers': slow_movers[:100],
@@ -1659,6 +1733,7 @@ def load_previous_snapshot_json(name):
 
 def main():
     load_env_file(ENV_FILE)
+    manual_overrides = load_manual_sku_overrides(SKU_MAPPING_OVERRIDE_FILE)
     warehouse_code = os.environ.get('FOURPX_WAREHOUSE_CODE', 'CZPRGA')
     max_pages = int(os.environ.get('FOURPX_OUTBOUND_MAX_PAGES', '20'))
     now_local = current_local_time()
@@ -1757,12 +1832,13 @@ def main():
             report_start,
             report_end,
             generated_at,
+            manual_overrides,
         )
         expiry_overview_payload = build_expiry_overview(generated_at, combined_index_payload, cz_expiry_summary, sk_expiry_summary)
 
         analytics_cache_path = CURRENT_DIR / 'inventory_analytics_365d.json'
         inventory_analytics_payload = load_json_if_fresh(analytics_cache_path, max_age_hours=24)
-        if not inventory_analytics_payload:
+        if not inventory_analytics_payload or not inventory_analytics_payload.get('items'):
             year_orders = fetch_wpj_year_order_metrics(wpj_url, wpj_token, year_start, report_end, limit=1000)
             inventory_analytics_payload = build_inventory_analytics_365d(
                 combined_index_payload,
@@ -1771,6 +1847,7 @@ def main():
                 report_end,
                 generated_at,
                 {item.get('code'): item for item in wpj_products if item.get('code')},
+                manual_overrides,
             )
 
         wpj_orders_payload = {

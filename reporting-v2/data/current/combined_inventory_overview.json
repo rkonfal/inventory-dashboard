@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T13:08:58.911997+02:00",
+  "generatedAt": "2026-04-16T13:17:12.464262+02:00",
   "window": {
     "from": "2026-04-15T00:00:00+02:00",
     "to": "2026-04-15T23:59:59+02:00"
@@ -11,6 +11,7 @@
     "onlyIn4px": 1,
     "stockMismatch": 667,
     "lowAfterSales": 2,
+    "manualMapped4pxAliases": 0,
     "autoMapped4pxAliases": 74
   },
   "priorityShortlist": [
@@ -84,9 +85,9 @@
         "4PX available je nula"
       ],
       "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
-      "wpj4pxStock": 2027.0,
+      "wpj4pxStock": 2025.0,
       "fourpxAvailable": 0.0,
-      "stockDelta": 2027.0,
+      "stockDelta": 2025.0,
       "yesterdaySalesUnits": 0.0,
       "yesterdayOutboundUnits": 0.0,
       "flags": [
@@ -164,9 +165,9 @@
         "4PX available je nula"
       ],
       "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
-      "wpj4pxStock": 2219.0,
+      "wpj4pxStock": 2218.0,
       "fourpxAvailable": 0.0,
-      "stockDelta": 2219.0,
+      "stockDelta": 2218.0,
       "yesterdaySalesUnits": 0.0,
       "yesterdayOutboundUnits": 0.0,
       "flags": [
@@ -204,9 +205,9 @@
         "4PX available je nula"
       ],
       "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
-      "wpj4pxStock": 2219.0,
+      "wpj4pxStock": 2218.0,
       "fourpxAvailable": 0.0,
-      "stockDelta": 2219.0,
+      "stockDelta": 2218.0,
       "yesterdaySalesUnits": 0.0,
       "yesterdayOutboundUnits": 0.0,
       "flags": [
@@ -224,9 +225,9 @@
         "4PX available je nula"
       ],
       "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
-      "wpj4pxStock": 2802.0,
+      "wpj4pxStock": 2800.0,
       "fourpxAvailable": 0.0,
-      "stockDelta": 2802.0,
+      "stockDelta": 2800.0,
       "yesterdaySalesUnits": 0.0,
       "yesterdayOutboundUnits": 0.0,
       "flags": [
@@ -244,9 +245,9 @@
         "4PX available je nula"
       ],
       "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
-      "wpj4pxStock": 2259.0,
+      "wpj4pxStock": 2251.0,
       "fourpxAvailable": 0.0,
-      "stockDelta": 2259.0,
+      "stockDelta": 2251.0,
       "yesterdaySalesUnits": 0.0,
       "yesterdayOutboundUnits": 0.0,
       "flags": [
@@ -501,15 +502,15 @@
       "code": "DN402",
       "title": "Regenerační krém na nohy s hadím olejem 1+1",
       "priority": "high",
-      "score": 49.26,
+      "score": 49.24,
       "reasons": [
         "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
         "4PX available je nula"
       ],
       "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
-      "wpj4pxStock": 1463.0,
+      "wpj4pxStock": 1462.0,
       "fourpxAvailable": 0.0,
-      "stockDelta": 1463.0,
+      "stockDelta": 1462.0,
       "yesterdaySalesUnits": 0.0,
       "yesterdayOutboundUnits": 0.0,
       "flags": [
@@ -796,6 +797,7 @@
       "yesterdayOutboundUnits": 0.0
     }
   ],
+  "manualMappedAliases": 0,
   "autoMappedAliases": 74,
   "lowAfterSales": [
     {
@@ -842,18 +844,25 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 1.0,
-        "revenueWithVat": 790.0
+        "revenueWithVat": 790.0,
+        "sourceCodes": [
+          "VSTUP200526"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 200.0,
       "flags": [
@@ -897,6 +906,8 @@
             "195464"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001041502"
@@ -913,6 +924,8 @@
             "195464"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001037839"
@@ -928,11 +941,16 @@
           "195464"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 1.0,
-        "revenueWithVat": 55.0
+        "revenueWithVat": 55.0,
+        "sourceCodes": [
+          "195464"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 1.0,
@@ -941,7 +959,9 @@
         "sourceCodes": [
           "195464"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": [
@@ -1019,18 +1039,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 3137.0,
       "flags": [
@@ -1097,18 +1122,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 2954.0,
       "flags": [
@@ -1123,14 +1153,14 @@
       "url": "https://www.kralovstvi-tiande.cz/kompletni-pece-o-ruce-a-nohy-s-hadim-olejem_z8274/",
       "visible": true,
       "wpj": {
-        "inStore": 2488.0,
-        "fourpxStoreTotal": 2802.0,
+        "inStore": 2486.0,
+        "fourpxStoreTotal": 2800.0,
         "priceWithVat": 162.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 2488.0
+            "inStore": 2486.0
           },
           {
             "storeId": 7,
@@ -1175,20 +1205,25 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
-      "stockDelta": 2802.0,
+      "stockDelta": 2800.0,
       "flags": [
         "only_in_wpj_4px_context",
         "stock_mismatch"
@@ -1253,18 +1288,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 2450.0,
       "flags": [
@@ -1279,14 +1319,14 @@
       "url": "https://www.kralovstvi-tiande.cz/peeling-broskovovy-1-1_z7427/",
       "visible": false,
       "wpj": {
-        "inStore": 2259.0,
-        "fourpxStoreTotal": 2259.0,
+        "inStore": 2251.0,
+        "fourpxStoreTotal": 2251.0,
         "priceWithVat": 42.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 2259.0
+            "inStore": 2251.0
           },
           {
             "storeId": 7,
@@ -1341,20 +1381,25 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
-      "stockDelta": 2259.0,
+      "stockDelta": 2251.0,
       "flags": [
         "only_in_wpj_4px_context",
         "stock_mismatch"
@@ -1419,18 +1464,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 2232.0,
       "flags": [
@@ -1497,18 +1547,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 2232.0,
       "flags": [
@@ -1575,18 +1630,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 2229.0,
       "flags": [
@@ -1601,14 +1661,14 @@
       "url": "https://www.kralovstvi-tiande.cz/luxusni-pece-pro-hedvabne-jemne-ruce_z8070/",
       "visible": false,
       "wpj": {
-        "inStore": 1925.0,
-        "fourpxStoreTotal": 2219.0,
+        "inStore": 1924.0,
+        "fourpxStoreTotal": 2218.0,
         "priceWithVat": 177.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 1925.0
+            "inStore": 1924.0
           },
           {
             "storeId": 7,
@@ -1653,20 +1713,25 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
-      "stockDelta": 2219.0,
+      "stockDelta": 2218.0,
       "flags": [
         "only_in_wpj_4px_context",
         "stock_mismatch"
@@ -1679,14 +1744,14 @@
       "url": "https://www.kralovstvi-tiande.cz/pece-o-ruce-s-hadim-tukem_z6776/",
       "visible": false,
       "wpj": {
-        "inStore": 1925.0,
-        "fourpxStoreTotal": 2219.0,
+        "inStore": 1924.0,
+        "fourpxStoreTotal": 2218.0,
         "priceWithVat": 162.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 1925.0
+            "inStore": 1924.0
           },
           {
             "storeId": 7,
@@ -1741,20 +1806,25 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
-      "stockDelta": 2219.0,
+      "stockDelta": 2218.0,
       "flags": [
         "only_in_wpj_4px_context",
         "stock_mismatch"
@@ -1767,14 +1837,14 @@
       "url": "https://www.kralovstvi-tiande.cz/prirodni-rovnovaha-pro-aktivni-zenu-rozchodnice-bylinne-vlozky-a-fytonaplast-tiande_z8334/",
       "visible": false,
       "wpj": {
-        "inStore": 1881.0,
-        "fourpxStoreTotal": 2027.0,
+        "inStore": 1879.0,
+        "fourpxStoreTotal": 2025.0,
         "priceWithVat": 1027.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 1881.0
+            "inStore": 1879.0
           },
           {
             "storeId": 7,
@@ -1819,20 +1889,25 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
-      "stockDelta": 2027.0,
+      "stockDelta": 2025.0,
       "flags": [
         "only_in_wpj_4px_context",
         "stock_mismatch"
@@ -1897,18 +1972,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 1837.0,
       "flags": [
@@ -1975,18 +2055,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 1745.0,
       "flags": [
@@ -2053,18 +2138,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 1745.0,
       "flags": [
@@ -2141,18 +2231,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 1682.0,
       "flags": [
@@ -2219,18 +2314,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 1682.0,
       "flags": [
@@ -2307,18 +2407,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 1588.0,
       "flags": [
@@ -2395,18 +2500,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 1588.0,
       "flags": [
@@ -2449,6 +2559,8 @@
             "PROMO35"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001547300"
@@ -2465,6 +2577,8 @@
             "PROMO35"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001547313"
@@ -2480,18 +2594,23 @@
           "PROMO35"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 1579.0,
       "flags": [
@@ -2567,18 +2686,23 @@
         "availableTotal": 0.0,
         "sourceCodes": [],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 1568.0,
       "flags": [
@@ -2607,6 +2731,8 @@
             "TEST"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001028200"
@@ -2635,18 +2761,23 @@
           "TEST"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 0.0,
         "skUnits": 0.0,
         "shipments": 0,
         "sourceCodes": [],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": -10.0,
       "flags": [
@@ -2662,14 +2793,14 @@
       "url": "https://www.kralovstvi-tiande.cz/peeling-broskvovy_z5809/",
       "visible": true,
       "wpj": {
-        "inStore": 2165.0,
-        "fourpxStoreTotal": 2268.0,
+        "inStore": 2159.0,
+        "fourpxStoreTotal": 2261.0,
         "priceWithVat": 45.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 2263.0
+            "inStore": 2256.0
           },
           {
             "storeId": 7,
@@ -2695,13 +2826,15 @@
             "40203"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001041534"
           ],
           "batchNos": [],
-          "availableStock": 2264.0,
-          "pendingStock": 300.0,
+          "availableStock": 2256.0,
+          "pendingStock": 308.0,
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
@@ -2711,6 +2844,8 @@
             "40203"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001037871"
@@ -2721,16 +2856,21 @@
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
-        "availableTotal": 2269.0,
+        "availableTotal": 2261.0,
         "sourceCodes": [
           "40203"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 7.0,
-        "revenueWithVat": 167.0
+        "revenueWithVat": 167.0,
+        "sourceCodes": [
+          "40203"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 505.0,
@@ -2739,9 +2879,11 @@
         "sourceCodes": [
           "40203"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
-      "stockDelta": -1.0,
+      "stockDelta": 0.0,
       "flags": []
     },
     {
@@ -2751,14 +2893,14 @@
       "url": "https://www.kralovstvi-tiande.cz/brozura-fytogely_z4666/",
       "visible": true,
       "wpj": {
-        "inStore": 3477.0,
-        "fourpxStoreTotal": 3522.0,
+        "inStore": 3474.0,
+        "fourpxStoreTotal": 3519.0,
         "priceWithVat": 20.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 3522.0
+            "inStore": 3519.0
           },
           {
             "storeId": 7,
@@ -2784,13 +2926,15 @@
             "000075"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001041431"
           ],
           "batchNos": [],
-          "availableStock": 3523.0,
-          "pendingStock": 154.0,
+          "availableStock": 3519.0,
+          "pendingStock": 158.0,
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
@@ -2800,6 +2944,8 @@
             "000075"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001037769"
@@ -2810,16 +2956,19 @@
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
-        "availableTotal": 3523.0,
+        "availableTotal": 3519.0,
         "sourceCodes": [
           "000075"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 0.0,
-        "revenueWithVat": 0.0
+        "revenueWithVat": 0.0,
+        "sourceCodes": []
       },
       "yesterdayOutbound": {
         "czUnits": 217.0,
@@ -2828,9 +2977,11 @@
         "sourceCodes": [
           "000075"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
-      "stockDelta": -1.0,
+      "stockDelta": 0.0,
       "flags": []
     },
     {
@@ -2882,6 +3033,13 @@
             "41328/07",
             "41328/10"
           ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "41328/01",
+            "41328/05",
+            "41328/07",
+            "41328/10"
+          ],
           "mappingRules": [
             "strip_/variant_suffix"
           ],
@@ -2913,6 +3071,13 @@
             "41328/07",
             "41328/10"
           ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "41328/01",
+            "41328/05",
+            "41328/07",
+            "41328/10"
+          ],
           "mappingRules": [
             "strip_/variant_suffix"
           ],
@@ -2924,12 +3089,12 @@
             "922002034270"
           ],
           "batchNos": [],
-          "availableStock": 919.0,
-          "pendingStock": 0.0,
+          "availableStock": 918.0,
+          "pendingStock": 1.0,
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
-        "availableTotal": 2283.0,
+        "availableTotal": 2282.0,
         "sourceCodes": [
           "41328",
           "41328/01",
@@ -2943,13 +3108,25 @@
           "41328/07",
           "41328/10"
         ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "41328/01",
+          "41328/05",
+          "41328/07",
+          "41328/10"
+        ],
         "mappingRules": [
           "strip_/variant_suffix"
         ]
       },
       "yesterdaySales": {
         "units": 96.0,
-        "revenueWithVat": 9768.4
+        "revenueWithVat": 9768.4,
+        "sourceCodes": [
+          "41328/01",
+          "41328/07",
+          "41328/10"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 169.0,
@@ -2966,9 +3143,16 @@
           "41328/05",
           "41328/07",
           "41328/10"
+        ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "41328/01",
+          "41328/05",
+          "41328/07",
+          "41328/10"
         ]
       },
-      "stockDelta": 0.0,
+      "stockDelta": 1.0,
       "flags": [
         "auto_mapped_4px_alias"
       ]
@@ -2980,14 +3164,14 @@
       "url": "https://www.kralovstvi-tiande.cz/fytogel-slaviton_z8039/",
       "visible": true,
       "wpj": {
-        "inStore": 2212.0,
-        "fourpxStoreTotal": 2696.0,
+        "inStore": 2204.0,
+        "fourpxStoreTotal": 2690.0,
         "priceWithVat": 434.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 2265.0
+            "inStore": 2259.0
           },
           {
             "storeId": 7,
@@ -3013,13 +3197,15 @@
             "44402-2"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922002239194"
           ],
           "batchNos": [],
-          "availableStock": 2265.0,
-          "pendingStock": 103.0,
+          "availableStock": 2259.0,
+          "pendingStock": 109.0,
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
@@ -3029,6 +3215,8 @@
             "44402-2"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922002239201"
@@ -3039,16 +3227,21 @@
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
-        "availableTotal": 2696.0,
+        "availableTotal": 2690.0,
         "sourceCodes": [
           "44402-2"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 128.0,
-        "revenueWithVat": 35095.4
+        "revenueWithVat": 35095.4,
+        "sourceCodes": [
+          "44402-2"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 161.0,
@@ -3057,7 +3250,9 @@
         "sourceCodes": [
           "44402-2"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": []
@@ -3069,14 +3264,14 @@
       "url": "https://www.kralovstvi-tiande.cz/jemny-intimni-gel_z7619/",
       "visible": true,
       "wpj": {
-        "inStore": 1899.0,
-        "fourpxStoreTotal": 2301.0,
+        "inStore": 1895.0,
+        "fourpxStoreTotal": 2299.0,
         "priceWithVat": 385.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 1966.0
+            "inStore": 1964.0
           },
           {
             "storeId": 7,
@@ -3112,13 +3307,15 @@
             "64404-2"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001733501"
           ],
           "batchNos": [],
-          "availableStock": 1966.0,
-          "pendingStock": 107.0,
+          "availableStock": 1964.0,
+          "pendingStock": 109.0,
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
@@ -3128,6 +3325,8 @@
             "64404-2"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001733504"
@@ -3138,16 +3337,21 @@
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
-        "availableTotal": 2301.0,
+        "availableTotal": 2299.0,
         "sourceCodes": [
           "64404-2"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 137.0,
-        "revenueWithVat": 32067.8
+        "revenueWithVat": 32067.8,
+        "sourceCodes": [
+          "64404-2"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 148.0,
@@ -3156,7 +3360,9 @@
         "sourceCodes": [
           "64404-2"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": []
@@ -3168,14 +3374,14 @@
       "url": "https://www.kralovstvi-tiande.cz/damske-bylinne-slipove-vlozky-s-anionty-nefritova-svezest_z2110/",
       "visible": true,
       "wpj": {
-        "inStore": 648.0,
-        "fourpxStoreTotal": 790.0,
+        "inStore": 645.0,
+        "fourpxStoreTotal": 788.0,
         "priceWithVat": 176.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 694.0
+            "inStore": 692.0
           },
           {
             "storeId": 7,
@@ -3206,13 +3412,15 @@
             "61915"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001041143"
           ],
           "batchNos": [],
-          "availableStock": 694.0,
-          "pendingStock": 95.0,
+          "availableStock": 692.0,
+          "pendingStock": 97.0,
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
@@ -3222,6 +3430,8 @@
             "61915"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001037530"
@@ -3232,16 +3442,21 @@
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
-        "availableTotal": 790.0,
+        "availableTotal": 788.0,
         "sourceCodes": [
           "61915"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 49.0,
-        "revenueWithVat": 5430.6
+        "revenueWithVat": 5430.6,
+        "sourceCodes": [
+          "61915"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 144.0,
@@ -3250,7 +3465,9 @@
         "sourceCodes": [
           "61915"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": []
@@ -3262,14 +3479,14 @@
       "url": "https://www.kralovstvi-tiande.cz/damske-bylinne-slipove-vlozky-nefritova-svezest_z2025/",
       "visible": true,
       "wpj": {
-        "inStore": 526.0,
-        "fourpxStoreTotal": 706.0,
+        "inStore": 524.0,
+        "fourpxStoreTotal": 704.0,
         "priceWithVat": 176.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 562.0
+            "inStore": 560.0
           },
           {
             "storeId": 7,
@@ -3295,13 +3512,15 @@
             "61914"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001041131"
           ],
           "batchNos": [],
-          "availableStock": 562.0,
-          "pendingStock": 84.0,
+          "availableStock": 560.0,
+          "pendingStock": 86.0,
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
@@ -3311,26 +3530,33 @@
             "61914"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001037517"
           ],
           "batchNos": [],
-          "availableStock": 144.0,
-          "pendingStock": 1.0,
+          "availableStock": 142.0,
+          "pendingStock": 3.0,
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
-        "availableTotal": 706.0,
+        "availableTotal": 702.0,
         "sourceCodes": [
           "61914"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 114.0,
-        "revenueWithVat": 11838.9
+        "revenueWithVat": 11838.9,
+        "sourceCodes": [
+          "61914"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 120.0,
@@ -3339,9 +3565,11 @@
         "sourceCodes": [
           "61914"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
-      "stockDelta": 0.0,
+      "stockDelta": 2.0,
       "flags": []
     },
     {
@@ -3351,7 +3579,7 @@
       "url": "https://www.kralovstvi-tiande.cz/tajici-kolagenova-liftingova-pletova-maska-s-morskymi-rasami_z8125/",
       "visible": true,
       "wpj": {
-        "inStore": 803.0,
+        "inStore": 802.0,
         "fourpxStoreTotal": 1391.0,
         "priceWithVat": 114.0,
         "stores": [
@@ -3394,6 +3622,8 @@
             "56007"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922002402836"
@@ -3410,6 +3640,8 @@
             "56007"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922002402844"
@@ -3425,11 +3657,16 @@
           "56007"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 48.0,
-        "revenueWithVat": 3610.0
+        "revenueWithVat": 3610.0,
+        "sourceCodes": [
+          "56007"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 113.0,
@@ -3438,7 +3675,9 @@
         "sourceCodes": [
           "56007"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": []
@@ -3450,14 +3689,14 @@
       "url": "https://www.kralovstvi-tiande.cz/kosmeticka-fytonaplast-wutong_z3160/",
       "visible": true,
       "wpj": {
-        "inStore": 1804.0,
-        "fourpxStoreTotal": 3275.0,
+        "inStore": 1803.0,
+        "fourpxStoreTotal": 3273.0,
         "priceWithVat": 184.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 2231.0
+            "inStore": 2229.0
           },
           {
             "storeId": 7,
@@ -3495,6 +3734,12 @@
             "30118/03",
             "30118/05"
           ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "30118/01",
+            "30118/03",
+            "30118/05"
+          ],
           "mappingRules": [
             "strip_/variant_suffix"
           ],
@@ -3505,8 +3750,8 @@
             "922001433035"
           ],
           "batchNos": [],
-          "availableStock": 2231.0,
-          "pendingStock": 56.0,
+          "availableStock": 2229.0,
+          "pendingStock": 58.0,
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
@@ -3519,6 +3764,12 @@
             "30118/05"
           ],
           "mappedSourceCodes": [
+            "30118/01",
+            "30118/03",
+            "30118/05"
+          ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
             "30118/01",
             "30118/03",
             "30118/05"
@@ -3538,7 +3789,7 @@
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
-        "availableTotal": 3275.0,
+        "availableTotal": 3273.0,
         "sourceCodes": [
           "30118",
           "30118/01",
@@ -3550,13 +3801,24 @@
           "30118/03",
           "30118/05"
         ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "30118/01",
+          "30118/03",
+          "30118/05"
+        ],
         "mappingRules": [
           "strip_/variant_suffix"
         ]
       },
       "yesterdaySales": {
         "units": 90.0,
-        "revenueWithVat": 15511.4
+        "revenueWithVat": 15511.4,
+        "sourceCodes": [
+          "30118/01",
+          "30118/03",
+          "30118/05"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 112.0,
@@ -3568,6 +3830,12 @@
           "30118/05"
         ],
         "mappedSourceCodes": [
+          "30118/01",
+          "30118/03",
+          "30118/05"
+        ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
           "30118/01",
           "30118/03",
           "30118/05"
@@ -3623,6 +3891,8 @@
             "61911"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001040885"
@@ -3639,26 +3909,33 @@
             "61911"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001037056"
           ],
           "batchNos": [],
-          "availableStock": 204.0,
-          "pendingStock": 1.0,
+          "availableStock": 202.0,
+          "pendingStock": 3.0,
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
-        "availableTotal": 1054.0,
+        "availableTotal": 1052.0,
         "sourceCodes": [
           "61911"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 97.0,
-        "revenueWithVat": 9941.2
+        "revenueWithVat": 9941.2,
+        "sourceCodes": [
+          "61911"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 103.0,
@@ -3667,9 +3944,11 @@
         "sourceCodes": [
           "61911"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
-      "stockDelta": 0.0,
+      "stockDelta": 2.0,
       "flags": []
     },
     {
@@ -3679,14 +3958,14 @@
       "url": "https://www.kralovstvi-tiande.cz/povzbuzujici-krem-pro-dokonala-stehna_z7139/",
       "visible": true,
       "wpj": {
-        "inStore": 143.0,
-        "fourpxStoreTotal": 170.0,
+        "inStore": 139.0,
+        "fourpxStoreTotal": 168.0,
         "priceWithVat": 385.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 165.0
+            "inStore": 163.0
           },
           {
             "storeId": 7,
@@ -3712,13 +3991,15 @@
             "35412-02"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001439603"
           ],
           "batchNos": [],
-          "availableStock": 165.0,
-          "pendingStock": 81.0,
+          "availableStock": 163.0,
+          "pendingStock": 83.0,
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
@@ -3728,6 +4009,8 @@
             "35412-02"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001439609"
@@ -3738,16 +4021,21 @@
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
-        "availableTotal": 170.0,
+        "availableTotal": 168.0,
         "sourceCodes": [
           "35412-02"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 68.0,
-        "revenueWithVat": 10340.0
+        "revenueWithVat": 10340.0,
+        "sourceCodes": [
+          "35412-02"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 105.0,
@@ -3756,7 +4044,9 @@
         "sourceCodes": [
           "35412-02"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": []
@@ -3806,6 +4096,8 @@
             "61912"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001041129"
@@ -3822,6 +4114,8 @@
             "61912"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001037515"
@@ -3837,11 +4131,16 @@
           "61912"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 93.0,
-        "revenueWithVat": 11403.6
+        "revenueWithVat": 11403.6,
+        "sourceCodes": [
+          "61912"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 97.0,
@@ -3850,7 +4149,9 @@
         "sourceCodes": [
           "61912"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": []
@@ -3900,6 +4201,8 @@
             "52911"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001041585"
@@ -3916,6 +4219,8 @@
             "52911"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001037941"
@@ -3931,11 +4236,16 @@
           "52911"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 39.0,
-        "revenueWithVat": 1215.35
+        "revenueWithVat": 1215.35,
+        "sourceCodes": [
+          "52911"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 94.0,
@@ -3944,7 +4254,9 @@
         "sourceCodes": [
           "52911"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": []
@@ -3999,6 +4311,8 @@
             "10117"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922002618346"
@@ -4015,6 +4329,8 @@
             "10117"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922002618353"
@@ -4030,11 +4346,16 @@
           "10117"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 24.0,
-        "revenueWithVat": 13709.0
+        "revenueWithVat": 13709.0,
+        "sourceCodes": [
+          "10117"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 80.0,
@@ -4043,7 +4364,9 @@
         "sourceCodes": [
           "10117"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": []
@@ -4055,14 +4378,14 @@
       "url": "https://www.kralovstvi-tiande.cz/kosmeticka-fytonaplast-jian-kang_z3158/",
       "visible": true,
       "wpj": {
-        "inStore": 1872.0,
-        "fourpxStoreTotal": 3799.0,
+        "inStore": 1868.0,
+        "fourpxStoreTotal": 3797.0,
         "priceWithVat": 184.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 2528.0
+            "inStore": 2526.0
           },
           {
             "storeId": 7,
@@ -4105,6 +4428,12 @@
             "30117/03",
             "30117/05"
           ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "30117/01",
+            "30117/03",
+            "30117/05"
+          ],
           "mappingRules": [
             "strip_/variant_suffix"
           ],
@@ -4115,8 +4444,8 @@
             "922001433029"
           ],
           "batchNos": [],
-          "availableStock": 2528.0,
-          "pendingStock": 44.0,
+          "availableStock": 2526.0,
+          "pendingStock": 46.0,
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
@@ -4129,6 +4458,12 @@
             "30117/05"
           ],
           "mappedSourceCodes": [
+            "30117/01",
+            "30117/03",
+            "30117/05"
+          ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
             "30117/01",
             "30117/03",
             "30117/05"
@@ -4148,7 +4483,7 @@
           "freezeStock": 0.0,
           "onwayStock": 0.0
         },
-        "availableTotal": 3799.0,
+        "availableTotal": 3797.0,
         "sourceCodes": [
           "30117",
           "30117/01",
@@ -4160,13 +4495,24 @@
           "30117/03",
           "30117/05"
         ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "30117/01",
+          "30117/03",
+          "30117/05"
+        ],
         "mappingRules": [
           "strip_/variant_suffix"
         ]
       },
       "yesterdaySales": {
         "units": 63.0,
-        "revenueWithVat": 9427.2
+        "revenueWithVat": 9427.2,
+        "sourceCodes": [
+          "30117/01",
+          "30117/03",
+          "30117/05"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 69.0,
@@ -4178,6 +4524,12 @@
           "30117/05"
         ],
         "mappedSourceCodes": [
+          "30117/01",
+          "30117/03",
+          "30117/05"
+        ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
           "30117/01",
           "30117/03",
           "30117/05"
@@ -4228,6 +4580,8 @@
             "61902"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001040877"
@@ -4244,6 +4598,8 @@
             "61902"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001037048"
@@ -4259,11 +4615,16 @@
           "61902"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 76.0,
-        "revenueWithVat": 11753.4
+        "revenueWithVat": 11753.4,
+        "sourceCodes": [
+          "61902"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 72.0,
@@ -4272,7 +4633,9 @@
         "sourceCodes": [
           "61902"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": []
@@ -4327,6 +4690,8 @@
             "10118"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922002618348"
@@ -4343,6 +4708,8 @@
             "10118"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922002618355"
@@ -4358,11 +4725,16 @@
           "10118"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 26.0,
-        "revenueWithVat": 16125.95
+        "revenueWithVat": 16125.95,
+        "sourceCodes": [
+          "10118"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 68.0,
@@ -4371,7 +4743,9 @@
         "sourceCodes": [
           "10118"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": []
@@ -4421,6 +4795,8 @@
             "67007"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001041500"
@@ -4437,6 +4813,8 @@
             "67007"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001037837"
@@ -4452,11 +4830,16 @@
           "67007"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 53.0,
-        "revenueWithVat": 5947.2
+        "revenueWithVat": 5947.2,
+        "sourceCodes": [
+          "67007"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 61.0,
@@ -4465,7 +4848,9 @@
         "sourceCodes": [
           "67007"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": []
@@ -4510,6 +4895,8 @@
             "61913"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001041145"
@@ -4526,6 +4913,8 @@
             "61913"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922001037532"
@@ -4541,11 +4930,16 @@
           "61913"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 54.0,
-        "revenueWithVat": 7441.6
+        "revenueWithVat": 7441.6,
+        "sourceCodes": [
+          "61913"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 57.0,
@@ -4554,7 +4948,9 @@
         "sourceCodes": [
           "61913"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": []
@@ -4609,6 +5005,8 @@
             "20164"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922002618350"
@@ -4625,6 +5023,8 @@
             "20164"
           ],
           "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
           "mappingRules": [],
           "skuIds": [
             "922002618357"
@@ -4640,11 +5040,16 @@
           "20164"
         ],
         "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
         "mappingRules": []
       },
       "yesterdaySales": {
         "units": 12.0,
-        "revenueWithVat": 4637.1
+        "revenueWithVat": 4637.1,
+        "sourceCodes": [
+          "20164"
+        ]
       },
       "yesterdayOutbound": {
         "czUnits": 47.0,
@@ -4653,7 +5058,9 @@
         "sourceCodes": [
           "20164"
         ],
-        "mappedSourceCodes": []
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
       },
       "stockDelta": 0.0,
       "flags": []
