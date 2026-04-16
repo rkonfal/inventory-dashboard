@@ -553,6 +553,193 @@ def summarize_stock(products, sold_product_codes, previous_products=None):
     }
 
 
+def collect_wpj_order_product_metrics(orders):
+    metrics = {}
+    for order in orders:
+        for item in order.get('items') or []:
+            if item.get('type') != 'product':
+                continue
+            code = item.get('code') or str(item.get('productId') or item.get('name') or '–')
+            row = metrics.setdefault(code, {
+                'code': item.get('code') or code,
+                'name': item.get('name') or 'Bez názvu',
+                'units': 0.0,
+                'revenueWithVat': 0.0,
+            })
+            row['units'] += num(item.get('pieces'))
+            row['revenueWithVat'] += money((item.get('totalPrice') or {}).get('withVat'))
+    return metrics
+
+
+def aggregate_4px_inventory(items):
+    grouped = {}
+    for item in items or []:
+        code = (item.get('sku_code') or '').strip()
+        if not code:
+            continue
+        row = grouped.setdefault(code, {
+            'code': code,
+            'skuIds': set(),
+            'batchNos': set(),
+            'availableStock': 0.0,
+            'pendingStock': 0.0,
+            'freezeStock': 0.0,
+            'onwayStock': 0.0,
+        })
+        if item.get('sku_id'):
+            row['skuIds'].add(item['sku_id'])
+        if item.get('batch_no'):
+            row['batchNos'].add(item['batch_no'])
+        row['availableStock'] += num(item.get('available_stock'))
+        row['pendingStock'] += num(item.get('pending_stock'))
+        row['freezeStock'] += num(item.get('freeze_stock'))
+        row['onwayStock'] += num(item.get('onway_stock'))
+    for row in grouped.values():
+        row['skuIds'] = sorted(row['skuIds'])
+        row['batchNos'] = sorted(row['batchNos'])
+    return grouped
+
+
+def aggregate_4px_outbound_by_sku(outbound_payload, start_dt, end_dt, account_label):
+    grouped = {}
+    for consignment in outbound_payload.get('items') or []:
+        ts = outbound_timestamp(consignment)
+        if not ts or ts < start_dt or ts > end_dt:
+            continue
+        consignment_no = consignment.get('consignment_no') or ''
+        logistics = consignment.get('logistics_product_code') or ''
+        carrier = consignment.get('carrier_brand_name') or consignment.get('carrier_code') or ''
+        for sku in consignment.get('outboundlist_sku') or []:
+            code = (sku.get('sku_code') or '').strip()
+            if not code:
+                continue
+            row = grouped.setdefault(code, {
+                'code': code,
+                'name': sku.get('sku_name') or 'Bez názvu',
+                'units': 0.0,
+                'shipments': set(),
+                'accounts': set(),
+                'logisticsProducts': Counter(),
+                'carriers': Counter(),
+            })
+            row['units'] += num(sku.get('qty'))
+            if consignment_no:
+                row['shipments'].add(consignment_no)
+            row['accounts'].add(account_label)
+            if logistics:
+                row['logisticsProducts'][logistics] += 1
+            if carrier:
+                row['carriers'][carrier] += 1
+    for row in grouped.values():
+        row['shipments'] = sorted(row['shipments'])
+        row['accounts'] = sorted(row['accounts'])
+        row['logisticsProducts'] = [{'name': k, 'count': v} for k, v in row['logisticsProducts'].most_common(5)]
+        row['carriers'] = [{'name': k, 'count': v} for k, v in row['carriers'].most_common(5)]
+    return grouped
+
+
+def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, sk_inventory, cz_outbound, sk_outbound, start_dt, end_dt, generated_at):
+    wpj_by_code = {item.get('code'): item for item in wpj_products if item.get('code')}
+    order_metrics = collect_wpj_order_product_metrics(yesterday_orders)
+    cz_inventory_by_code = aggregate_4px_inventory(cz_inventory.get('items') or [])
+    sk_inventory_by_code = aggregate_4px_inventory(sk_inventory.get('items') or [])
+    cz_outbound_by_code = aggregate_4px_outbound_by_sku(cz_outbound, start_dt, end_dt, 'CZ')
+    sk_outbound_by_code = aggregate_4px_outbound_by_sku(sk_outbound, start_dt, end_dt, 'SK')
+
+    all_codes = set(wpj_by_code) | set(cz_inventory_by_code) | set(sk_inventory_by_code) | set(cz_outbound_by_code) | set(sk_outbound_by_code) | set(order_metrics)
+    items = []
+
+    for code in sorted(all_codes):
+        wpj = wpj_by_code.get(code)
+        stores = store_stock_breakdown(wpj) if wpj else []
+        has_wpj_4px_context = any((store.get('storeName') or '').startswith('4PX') for store in stores)
+        wpj_fourpx_total = round(sum(store['inStore'] for store in stores if (store.get('storeName') or '').startswith('4PX')), 2)
+        fourpx_cz = cz_inventory_by_code.get(code, {'availableStock': 0.0, 'pendingStock': 0.0, 'freezeStock': 0.0, 'onwayStock': 0.0, 'batchNos': [], 'skuIds': []})
+        fourpx_sk = sk_inventory_by_code.get(code, {'availableStock': 0.0, 'pendingStock': 0.0, 'freezeStock': 0.0, 'onwayStock': 0.0, 'batchNos': [], 'skuIds': []})
+        outbound_cz = cz_outbound_by_code.get(code, {'units': 0.0, 'shipments': [], 'logisticsProducts': [], 'carriers': [], 'name': None, 'accounts': []})
+        outbound_sk = sk_outbound_by_code.get(code, {'units': 0.0, 'shipments': [], 'logisticsProducts': [], 'carriers': [], 'name': None, 'accounts': []})
+        sales = order_metrics.get(code, {'units': 0.0, 'revenueWithVat': 0.0, 'name': None})
+
+        fourpx_total = round(fourpx_cz['availableStock'] + fourpx_sk['availableStock'], 2)
+        stock_delta = round(wpj_fourpx_total - fourpx_total, 2)
+        fourpx_relevant = has_wpj_4px_context or fourpx_total > 0 or outbound_cz['units'] > 0 or outbound_sk['units'] > 0
+        flags = []
+        if wpj and fourpx_total <= 0 and has_wpj_4px_context:
+            flags.append('only_in_wpj_4px_context')
+        if (not wpj) and fourpx_total > 0:
+            flags.append('only_in_4px')
+        if fourpx_relevant and wpj and abs(stock_delta) >= 5:
+            flags.append('stock_mismatch')
+        if fourpx_relevant and sales['units'] > 0 and fourpx_total <= 10:
+            flags.append('low_after_sales')
+        if (outbound_cz['units'] + outbound_sk['units']) > 0 and not wpj:
+            flags.append('shipped_without_wpj_product')
+
+        items.append({
+            'code': code,
+            'title': (wpj or {}).get('title') or sales.get('name') or outbound_cz.get('name') or outbound_sk.get('name') or 'Bez názvu',
+            'ean': (wpj or {}).get('ean'),
+            'url': (wpj or {}).get('url'),
+            'visible': bool((wpj or {}).get('visible')),
+            'wpj': {
+                'inStore': num((wpj or {}).get('inStore')),
+                'fourpxStoreTotal': wpj_fourpx_total,
+                'stores': stores,
+            },
+            'fourpx': {
+                'cz': fourpx_cz,
+                'sk': fourpx_sk,
+                'availableTotal': fourpx_total,
+            },
+            'yesterdaySales': {
+                'units': round(sales['units'], 2),
+                'revenueWithVat': round(sales['revenueWithVat'], 2),
+            },
+            'yesterdayOutbound': {
+                'czUnits': round(outbound_cz['units'], 2),
+                'skUnits': round(outbound_sk['units'], 2),
+                'shipments': len(outbound_cz['shipments']) + len(outbound_sk['shipments']),
+            },
+            'stockDelta': stock_delta,
+            'flags': flags,
+        })
+
+    low_after_sales = [item for item in items if 'low_after_sales' in item['flags']]
+    stock_mismatches = [item for item in items if 'stock_mismatch' in item['flags']]
+    only_in_4px = [item for item in items if 'only_in_4px' in item['flags']]
+    shipped_yesterday = [item for item in items if item['yesterdayOutbound']['shipments'] > 0]
+
+    low_after_sales.sort(key=lambda item: (item['fourpx']['availableTotal'], -item['yesterdaySales']['units'], item['code']))
+    stock_mismatches.sort(key=lambda item: abs(item['stockDelta']), reverse=True)
+    only_in_4px.sort(key=lambda item: item['fourpx']['availableTotal'], reverse=True)
+    shipped_yesterday.sort(key=lambda item: item['yesterdayOutbound']['czUnits'] + item['yesterdayOutbound']['skUnits'], reverse=True)
+
+    combined_index = {
+        'generatedAt': generated_at,
+        'window': {'from': start_dt.isoformat(), 'to': end_dt.isoformat()},
+        'counts': {
+            'allCodes': len(items),
+            'pairedProducts': sum(1 for item in items if item['code'] in wpj_by_code and item['fourpx']['availableTotal'] > 0),
+            'onlyInWpj': sum(1 for item in items if 'only_in_wpj_4px_context' in item['flags']),
+            'onlyIn4px': len(only_in_4px),
+            'stockMismatch': len(stock_mismatches),
+            'lowAfterSales': len(low_after_sales),
+        },
+        'items': items,
+    }
+
+    combined_overview = {
+        'generatedAt': generated_at,
+        'window': {'from': start_dt.isoformat(), 'to': end_dt.isoformat()},
+        'counts': combined_index['counts'],
+        'lowAfterSales': low_after_sales[:20],
+        'stockMismatches': stock_mismatches[:20],
+        'onlyIn4px': only_in_4px[:20],
+        'topOutboundProducts': shipped_yesterday[:20],
+    }
+    return combined_index, combined_overview
+
+
 def summarize_4px_window(label, outbound, start_dt, end_dt):
     window_items = []
     for item in outbound.get('items') or []:
@@ -868,6 +1055,8 @@ def main():
     wpj_orders_payload = {'generatedAt': generated_at, 'items': []}
     wpj_products_payload = {'generatedAt': generated_at, 'items': []}
     wpj_history_payload = {'generatedAt': generated_at, 'days': []}
+    combined_index_payload = {'generatedAt': generated_at, 'items': [], 'counts': {}}
+    combined_overview_payload = {'generatedAt': generated_at, 'counts': {}}
     baseline_orders = None
     baseline_revenue = None
     stock_summary = {
@@ -888,6 +1077,17 @@ def main():
         wpj_summary = summarize_orders(yesterday_orders)
         history_days, baseline_orders, baseline_revenue = summarize_daily_history(history_orders, report_date)
         stock_summary = summarize_stock(wpj_products, wpj_summary['soldProductCodes'], previous_products=previous_wpj_products)
+        combined_index_payload, combined_overview_payload = build_combined_product_views(
+            wpj_products,
+            yesterday_orders,
+            cz_inventory,
+            sk_inventory,
+            cz_outbound,
+            sk_outbound,
+            report_start,
+            report_end,
+            generated_at,
+        )
 
         wpj_orders_payload = {
             'generatedAt': generated_at,
@@ -952,6 +1152,8 @@ def main():
         '4px_sk_inventory.json': {'generatedAt': generated_at, **sk_inventory},
         '4px_cz_outbound_recent.json': {'generatedAt': generated_at, **cz_outbound},
         '4px_sk_outbound_recent.json': {'generatedAt': generated_at, **sk_outbound},
+        'combined_product_index.json': combined_index_payload,
+        'combined_inventory_overview.json': combined_overview_payload,
         'wpj_orders_previous_day.json': wpj_orders_payload,
         'wpj_products.json': wpj_products_payload,
         'wpj_history_8_days.json': wpj_history_payload,
@@ -994,6 +1196,7 @@ def main():
             'alerts': alerts,
             'priorities': priorities,
         },
+        'pairing': combined_overview_payload.get('counts') or {},
     }
     write_json(CURRENT_DIR / 'portal_summary.json', portal_summary)
     write_json(snapshot_path / 'portal_summary.json', portal_summary)

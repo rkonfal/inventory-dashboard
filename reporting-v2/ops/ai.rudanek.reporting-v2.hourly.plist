@@ -14,6 +14,12 @@
     <key>WorkingDirectory</key>
     <string>/Users/rudolfkonfal/.openclaw/workspace/reporting-v2</string>
 
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>AUTO_PUBLISH_PREVIEW</key>
+      <string>1</string>
+    </dict>
+
     <key>RunAtLoad</key>
     <true/>
 
