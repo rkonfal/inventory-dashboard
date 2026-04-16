@@ -1665,17 +1665,18 @@ def build_live_journal_snapshot(config, now_local):
     current_start = month_floor(now_local)
     month_starts = [shift_month(current_start, offset) for offset in (-2, -1, 0)]
     monthly = []
-    current_account_totals = defaultdict(float)
-    current_account_labels = {}
-    current_class_totals = defaultdict(float)
-    recent_entries = []
 
     for start_dt in month_starts:
         end_dt = shift_month(start_dt, 1)
         rows = fetch_abra_journal_rows(config, start_dt, end_dt)
+        label = month_label(start_dt)
         expense_total = 0.0
         revenue_total = 0.0
         class_totals = defaultdict(float)
+        account_totals = defaultdict(float)
+        account_labels = {}
+        vendor_totals = defaultdict(float)
+        month_entries = []
 
         for row in rows:
             amount = abra_money(abra_pick(row, 'sumTuz', 'sumMen', 'sumMd', 'sumDal', 'amount'))
@@ -1690,17 +1691,22 @@ def build_live_journal_snapshot(config, now_local):
             if is_expense:
                 expense_total += amount
                 class_totals[md_code[:2]] += amount
-                if start_dt == current_start:
-                    current_account_totals[md_code] += amount
-                    current_account_labels[md_code] = md_label or md_code
-                    current_class_totals[md_code[:2]] += amount
+                account_totals[md_code] += amount
+                account_labels[md_code] = md_label or md_code
 
             if is_revenue:
                 revenue_total += amount
 
-            if start_dt == current_start and (is_expense or is_revenue):
-                recent_entries.append({
-                    'date': parse_dt(row.get('datUcto')).strftime('%d.%m.%Y') if parse_dt(row.get('datUcto')) else '',
+            vendor = abra_text(abra_pick(row, 'nazFirmy', 'firma@showAs'))
+            if is_expense and vendor:
+                vendor_totals[vendor] += amount
+
+            if is_expense or is_revenue:
+                entry_dt = parse_dt(row.get('datUcto'))
+                month_entries.append({
+                    'month': label,
+                    'date': entry_dt.strftime('%d.%m.%Y') if entry_dt else '',
+                    'dateSort': entry_dt.isoformat() if entry_dt else '',
                     'document': abra_text(abra_pick(row, 'doklad', 'kod', 'idDokl')) or 'Bez dokladu',
                     'amount': round(amount, 2),
                     'side': 'náklad' if is_expense else 'výnos',
@@ -1709,13 +1715,39 @@ def build_live_journal_snapshot(config, now_local):
                     'counterCode': dal_code if is_expense else md_code,
                     'counterLabel': dal_label if is_expense else md_label,
                     'description': abra_text(abra_pick(row, 'popis', 'nazFirmy', 'firma@showAs', 'varSym')) or 'Bez popisu',
-                    'vendor': abra_text(abra_pick(row, 'nazFirmy', 'firma@showAs')),
+                    'vendor': vendor,
                     'module': abra_text(abra_pick(row, 'modulK@showAs', 'modulK')),
                 })
 
         top_class = max(class_totals.items(), key=lambda item: item[1]) if class_totals else None
+        top_accounts = []
+        for code, amount in sorted(account_totals.items(), key=lambda item: item[1], reverse=True)[:12]:
+            top_accounts.append({
+                'code': code,
+                'label': account_labels.get(code) or code,
+                'amount': round(amount, 2),
+                'classCode': code[:2],
+                'classLabel': account_class_label(code),
+            })
+
+        top_classes = []
+        for code, amount in sorted(class_totals.items(), key=lambda item: item[1], reverse=True):
+            top_classes.append({
+                'code': code,
+                'label': account_class_label(code),
+                'amount': round(amount, 2),
+            })
+
+        top_vendors = []
+        for name, amount in sorted(vendor_totals.items(), key=lambda item: item[1], reverse=True)[:12]:
+            top_vendors.append({
+                'name': name,
+                'amount': round(amount, 2),
+            })
+
+        month_entries = sorted(month_entries, key=lambda row: (row['dateSort'], row['amount']), reverse=True)[:120]
         monthly.append({
-            'label': month_label(start_dt),
+            'label': label,
             'expenseTotal': round(expense_total, 2),
             'revenueTotal': round(revenue_total, 2),
             'topExpenseClass': {
@@ -1723,39 +1755,26 @@ def build_live_journal_snapshot(config, now_local):
                 'label': account_class_label(top_class[0]),
                 'amount': round(top_class[1], 2),
             } if top_class else None,
+            'topExpenseAccounts': top_accounts,
+            'topExpenseClasses': top_classes,
+            'topVendors': top_vendors,
+            'recentEntries': month_entries,
         })
 
-    top_accounts = []
-    for code, amount in sorted(current_account_totals.items(), key=lambda item: item[1], reverse=True)[:10]:
-        top_accounts.append({
-            'code': code,
-            'label': current_account_labels.get(code) or code,
-            'amount': round(amount, 2),
-            'classCode': code[:2],
-            'classLabel': account_class_label(code),
-        })
-
-    top_classes = []
-    for code, amount in sorted(current_class_totals.items(), key=lambda item: item[1], reverse=True):
-        top_classes.append({
-            'code': code,
-            'label': account_class_label(code),
-            'amount': round(amount, 2),
-        })
-
-    recent_entries = sorted(recent_entries, key=lambda row: row['amount'], reverse=True)[:15]
+    current_month = next((row for row in monthly if row['label'] == month_label(current_start)), None) or {
+        'label': month_label(current_start),
+        'topExpenseAccounts': [],
+        'topExpenseClasses': [],
+        'topVendors': [],
+        'recentEntries': [],
+    }
     return {
         'source': {
             'status': 'live',
             'message': 'Účetní deník pro poslední 3 měsíce je tahán živě z ABRA API a agregovaný do srozumitelnějšího přehledu.',
         },
         'monthly': monthly,
-        'currentMonth': {
-            'label': month_label(current_start),
-            'topExpenseAccounts': top_accounts,
-            'topExpenseClasses': top_classes,
-            'recentEntries': recent_entries,
-        },
+        'currentMonth': current_month,
     }
 
 
@@ -1830,6 +1849,7 @@ def fetch_abra_live_snapshot(now_local):
                 'label': month_label(month_floor(now_local)),
                 'topExpenseAccounts': [],
                 'topExpenseClasses': [],
+                'topVendors': [],
                 'recentEntries': [],
             },
         }
