@@ -1391,7 +1391,7 @@ def format_morning_report_text(report):
     ]))
 
     section2 = [
-        '**2. E-shop výkon za včerejšek**',
+        '**2. E-shop výkon za včerejšek (celý WPJShop www.kralovstvi-tiande)**',
         f'• Počet objednávek: {eshop["orders"]}',
         f'• Obrat s DPH: {format_czk(eshop["revenueWithVat"])}',
         f'• Průměrná hodnota objednávky: {format_czk(eshop["averageOrderValue"])}',
