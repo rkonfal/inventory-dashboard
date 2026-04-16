@@ -1514,7 +1514,6 @@ def format_morning_report_telegram_text(report):
     report_date = parse_dt(report['window']['from']).strftime('%-d. %-m. %Y')
     quick = report['quickSummary']
     eshop = report['eshop']
-    stock = report['stock']
     inventory = report.get('inventory') or {}
     logistics = report['logistics']
     warnings = report.get('warnings') or []
@@ -1531,24 +1530,21 @@ def format_morning_report_telegram_text(report):
         f'• Expedice: {logistics["shipmentsTotal"]} (CZ {logistics["byAccount"].get("CZ", 0)} / SK {logistics["byAccount"].get("SK", 0)})',
         f'• Sklad: {format_units(inventory.get("availableStockTotal", 0))}',
         '',
-        '⚠️ Co dnes pálí',
+        '⚠️ Co dnes řešit',
     ]
     lines.extend(f'• {item}' for item in (alerts[:3] or ['Bez zásadního ranního alertu.']))
     lines.extend([
         '',
-        '🛒 E-shop',
-        f'• AOV: {format_czk(eshop["averageOrderValue"])}',
-        f'• Problematické / storno: {eshop["problematicOrders"]} / {eshop["cancelledOrders"]}',
-        f'• Tahouni: {compact_top_codes(eshop.get("topProductsByUnits"), 3)}',
-        '',
-        '📦 Sklad a logistika',
-        f'• Nízký sklad: {low_stock_line(stock.get("lowStockSoldYesterday"))}',
-        f'• Mínusové pozice: {negative_positions_line(stock.get("negativeStoreStock"))}',
-        f'• Expirace: {expiry_line(logistics.get("expiringProducts"))}',
-        '',
         '✅ Co dnes udělat',
     ])
-    lines.extend(f'• {compact_priority_text(item)}' for item in (priorities[:4] or ['Bez nové priority.']))
+    lines.extend(f'• {compact_priority_text(item)}' for item in (priorities[:3] or ['Bez nové priority.']))
+
+    top_units = compact_top_codes(eshop.get('topProductsByUnits'), 3)
+    if top_units and top_units != 'bez dat':
+        lines.extend([
+            '',
+            f'🛒 Tahouni: {top_units}',
+        ])
 
     detail_url = report.get('detailUrl')
     if detail_url:
