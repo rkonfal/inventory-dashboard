@@ -77,16 +77,29 @@ def commit_and_push():
     diff = subprocess.run(['git', 'diff', '--cached', '--quiet'], cwd=str(WORKTREE))
     if diff.returncode == 0:
         print('No preview changes to publish.')
-        return
+        return False
     stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     run('git', 'commit', '-m', f'Publish preview {stamp}', cwd=str(WORKTREE))
     run('git', 'push', 'origin', BRANCH, cwd=str(WORKTREE))
+    return True
+
+
+def hard_reset_to_remote():
+    run('git', 'fetch', 'origin', cwd=str(WORKTREE))
+    run('git', 'checkout', BRANCH, cwd=str(WORKTREE))
+    run('git', 'reset', '--hard', f'origin/{BRANCH}', cwd=str(WORKTREE))
 
 
 def main():
     ensure_clone()
     export_preview()
-    commit_and_push()
+    try:
+        commit_and_push()
+    except subprocess.CalledProcessError:
+        print('Preview push failed, retrying from fresh remote state...')
+        hard_reset_to_remote()
+        export_preview()
+        commit_and_push()
     print(f'Preview repo updated: https://github.com/{REPO}')
     print(f'Preview site: https://{REPO.split("/")[0]}.github.io/{REPO.split("/")[1]}/')
 
