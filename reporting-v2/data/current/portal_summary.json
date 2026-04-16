@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T09:44:57.187009+02:00",
+  "generatedAt": "2026-04-16T12:11:31.806122+02:00",
   "config": {
     "warehouseCode": "CZPRGA",
     "outboundMaxPages": 20,
@@ -14,25 +14,25 @@
       "label": "CZ",
       "inventory": {
         "items": 768,
-        "availableStockTotal": 309495,
-        "pendingStockTotal": 4942,
+        "availableStockTotal": 308862,
+        "pendingStockTotal": 4467,
         "freezeStockTotal": 0,
         "lowStockItems": 100
       },
       "outbound": {
-        "items": 600,
-        "scannedPages": 6,
+        "items": 700,
+        "scannedPages": 7,
         "topLogisticsProduct": "F1401",
-        "oldestTimestamp": "2026-04-14T23:24:47+02:00",
-        "newestTimestamp": "2026-04-16T09:40:06+02:00"
+        "oldestTimestamp": "2026-04-14T23:19:17+02:00",
+        "newestTimestamp": "2026-04-16T12:10:04+02:00"
       }
     },
     "sk": {
       "label": "SK",
       "inventory": {
         "items": 621,
-        "availableStockTotal": 70994,
-        "pendingStockTotal": 553,
+        "availableStockTotal": 70921,
+        "pendingStockTotal": 113,
         "freezeStockTotal": 0,
         "lowStockItems": 100
       },
@@ -40,8 +40,8 @@
         "items": 100,
         "scannedPages": 1,
         "topLogisticsProduct": "F1403",
-        "oldestTimestamp": "2026-04-14T19:23:06+02:00",
-        "newestTimestamp": "2026-04-16T07:40:17+02:00"
+        "oldestTimestamp": "2026-04-14T20:08:19+02:00",
+        "newestTimestamp": "2026-04-16T11:25:12+02:00"
       }
     }
   },
@@ -55,7 +55,7 @@
   },
   "report": {
     "date": "2026-04-15",
-    "shipments": 571,
+    "shipments": 569,
     "alerts": [
       "3 problematických nebo stornovaných objednávek.",
       "2 včera prodaných produktů je teď na nízkém skladu.",
@@ -65,7 +65,136 @@
       "Dohlédnout POP00060 (GREPAVIT® – grep extrakt z jader, 100 ml), aktuálně 0 ks.",
       "Dohlédnout 195464 (Krémová banánová polévka se zeleninou), aktuálně 2 ks.",
       "Projít 3 problematických nebo stornovaných objednávek z včerejška.",
-      "Dohledat spolehlivý zdroj expirací, 4PX inventory zatím vrací jen batch_no bez data spotřeby."
+      "Projít nejbližší expirace v 4PX a rozhodnout o doprodeji nebo přesunu zásoby."
     ]
+  },
+  "expiries": {
+    "datedSkuCount": 618,
+    "czSkuCount": 318,
+    "skSkuCount": 300
+  },
+  "pairing": {
+    "allCodes": 2964,
+    "pairedProducts": 375,
+    "onlyInWpj": 1449,
+    "onlyIn4px": 50,
+    "stockMismatch": 680,
+    "lowAfterSales": 2
+  },
+  "finance": {
+    "ready": true,
+    "mode": "legacy_snapshot",
+    "message": "Zatím čerpáno z posledního dostupného ABRA Flexi výřezu v původním dashboardu, ne z živého API.",
+    "currentMonth": {
+      "label": "3/2026",
+      "revenue": 16130000,
+      "cogsAndFees": 11566057.87,
+      "logistics": 100848.43,
+      "marketing": 245438.02,
+      "opex": 1019389.35,
+      "depreciation": 385502.0,
+      "other": -1175388.08,
+      "grossMargin": 4563942.13,
+      "afterLogistics": 4463093.7,
+      "afterMarketing": 4217655.68,
+      "operatingMargin": 3198266.33,
+      "ebit": 2812764.33,
+      "profit": 1637376.25,
+      "grossMarginPct": 28.3,
+      "marketingPct": 1.5,
+      "logisticsPct": 0.6,
+      "operatingMarginPct": 19.8,
+      "profitPct": 10.2
+    },
+    "cash": {
+      "cashOnAccounts": 10255308.0,
+      "unpaidInvoices": 1579560.0,
+      "netCashPosition": 8675748.0,
+      "overdueInvoicesCount": 4,
+      "overdueInvoicesAmount": 85645.0,
+      "largestPayables": [
+        {
+          "code": "PF0412/2026",
+          "vendor": "4PX Express CZ",
+          "dueDate": "30.04.2026",
+          "amountTotal": 706145.0,
+          "amountDue": 706145.0,
+          "status": "18 dní do splatnosti"
+        },
+        {
+          "code": "PF0446/2026",
+          "vendor": "Česká pošta, s.p.",
+          "dueDate": "24.04.2026",
+          "amountTotal": 558254.0,
+          "amountDue": 558254.0,
+          "status": "12 dní do splatnosti"
+        },
+        {
+          "code": "PF0426/2026",
+          "vendor": "wpj s.r.o.",
+          "dueDate": "22.04.2026",
+          "amountTotal": 150393.0,
+          "amountDue": 150393.0,
+          "status": "10 dní do splatnosti"
+        },
+        {
+          "code": "PF0428/2026",
+          "vendor": "ProfiSMS s.r.o.",
+          "dueDate": "09.04.2026",
+          "amountTotal": 60000.0,
+          "amountDue": 60000.0,
+          "status": "3 dny PO SPLATNOSTI"
+        },
+        {
+          "code": "PF0429/2026",
+          "vendor": "coworkers.ai s.r.o.",
+          "dueDate": "30.04.2026",
+          "amountTotal": 43560.0,
+          "amountDue": 43560.0,
+          "status": "18 dní do splatnosti"
+        },
+        {
+          "code": "PF0413/2026",
+          "vendor": "4PX Express CZ",
+          "dueDate": "30.04.2026",
+          "amountTotal": 27981.0,
+          "amountDue": 27981.0,
+          "status": "18 dní do splatnosti"
+        },
+        {
+          "code": "Z0118/2025",
+          "vendor": "Quintessence Naturprodukte GmbH",
+          "dueDate": "31.12.2025",
+          "amountTotal": 20221.0,
+          "amountDue": 20221.0,
+          "status": "102 dní PO SPLATNOSTI"
+        },
+        {
+          "code": "PF0392/2026",
+          "vendor": "O2 Czech Republic a.s.",
+          "dueDate": "23.04.2026",
+          "amountTotal": 8332.0,
+          "amountDue": 4749.0,
+          "status": "11 dní do splatnosti (43% uhrazeno)"
+        }
+      ]
+    }
+  },
+  "marketing": {
+    "ready": true,
+    "mode": "legacy_snapshot",
+    "message": "Zatím čerpáno z posledního dostupného ABRA Flexi výřezu v původním dashboardu, ne z živého API.",
+    "currentMonth": {
+      "label": "3/2026",
+      "performanceSpend": 7438.02,
+      "brandSpend": 238000.0,
+      "totalSpend": 245438.02,
+      "revenue": 16130000,
+      "spendShareOfRevenuePct": 1.5
+    },
+    "topSupplier": {
+      "name": "Selfcareacademy s.r.o.",
+      "amount": 155355.37
+    }
   }
 }

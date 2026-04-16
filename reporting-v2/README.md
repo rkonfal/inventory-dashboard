@@ -24,10 +24,23 @@ python3 -m http.server 8080
 
 Important outputs after refresh:
 - `data/current/portal_summary.json`
+- `data/current/finance_overview.json`
+- `data/current/marketing_overview.json`
 - `data/current/wpj_orders_previous_day.json`
 - `data/current/wpj_products.json`
+- `data/current/combined_inventory_overview.json`
+- `data/current/inventory_analytics_365d.json`
+- `data/current/4px_expiry_overview.json`
 - `data/current/morning_report_previous_day.json`
 - `data/current/morning_report_previous_day.txt`
+
+Main site entry points:
+- `site/index.html`
+- `site/finance.html`
+- `site/marketing.html`
+- `site/inventory.html`
+- `site/logistics.html`
+- `site/eshop.html`
 
 ## Preview publishing
 One-command publish for the public preview repo / GitHub Pages:

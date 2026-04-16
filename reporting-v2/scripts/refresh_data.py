@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import hashlib
+import html
 import json
 import os
+import re
 import sys
 import time
 from collections import Counter, defaultdict
@@ -17,6 +19,8 @@ CURRENT_DIR = ROOT / 'data' / 'current'
 SNAPSHOT_DIR = ROOT / 'data' / 'snapshots'
 BASE_URL = 'https://open.eu.4px.com/router/api/service'
 PRAGUE_TZ = ZoneInfo('Europe/Prague')
+LEGACY_ABRA_HTML = ROOT.parent / 'portals' / 'diamond-plus-report' / 'index.html'
+LEGACY_MONTH_KEYS = ['jan', 'feb', 'mar']
 
 WPJ_ORDERS_HISTORY_QUERY = '''
 query ($offset:Int,$limit:Int,$sort:OrderSortInput,$filter:OrderFilterInput){
@@ -1294,6 +1298,245 @@ def format_morning_report_text(report):
     return '\n\n'.join(sections).strip() + '\n'
 
 
+def clean_html_cell(value):
+    return html.unescape(re.sub(r'<[^>]+>', '', value or '')).replace('\xa0', ' ').strip()
+
+
+def parse_czk_text(value):
+    text = clean_html_cell(value)
+    text = text.replace('Kč', '').replace(' ', '').replace('\u202f', '').replace('\xa0', '')
+    text = text.replace(',', '.')
+    if not text:
+        return 0.0
+    try:
+        return round(float(text), 2)
+    except ValueError:
+        return 0.0
+
+
+def safe_ratio(value, baseline):
+    if not baseline:
+        return None
+    return round((float(value or 0) / float(baseline or 0)) * 100, 1)
+
+
+def extract_legacy_abra_model(path: Path):
+    if not path.exists():
+        return None
+
+    text = path.read_text(encoding='utf-8', errors='ignore')
+    start = text.find('const D = ')
+    if start == -1:
+        return None
+    start += len('const D = ')
+    end = text.find('};', start)
+    if end == -1:
+        return None
+
+    model = json.loads(text[start:end + 1])
+
+    def metric(label):
+        match = re.search(rf'{re.escape(label)}</div>\s*<div class="insight-value"[^>]*>([^<]+)</div>', text)
+        return parse_czk_text(match.group(1)) if match else 0.0
+
+    overdue_match = re.search(r'⚠\s*(\d+) faktury po splatnosti za ([^<]+)</p>', text)
+    unpaid_table_match = re.search(r'<!-- Unpaid Invoices Table -->(.*?)</table>', text, re.S)
+    unpaid_invoices = []
+    if unpaid_table_match:
+        row_pattern = re.compile(
+            r'<tr[^>]*><td class="category-name">(.*?)</td><td>(.*?)</td><td[^>]*>(.*?)</td><td[^>]*>(.*?)</td><td[^>]*>(.*?)</td><td[^>]*>(.*?)</td></tr>',
+            re.S,
+        )
+        for code, vendor, due_date, amount_total, amount_due, status in row_pattern.findall(unpaid_table_match.group(1)):
+            unpaid_invoices.append({
+                'code': clean_html_cell(code),
+                'vendor': clean_html_cell(vendor),
+                'dueDate': clean_html_cell(due_date),
+                'amountTotal': parse_czk_text(amount_total),
+                'amountDue': parse_czk_text(amount_due),
+                'status': clean_html_cell(status),
+            })
+
+    source_note = 'Zatím čerpáno z posledního dostupného ABRA Flexi výřezu v původním dashboardu, ne z živého API.'
+    return {
+        'source': {
+            'status': 'legacy_snapshot',
+            'message': source_note,
+            'file': str(path),
+        },
+        'model': model,
+        'cash': {
+            'cashOnAccounts': metric('Cash na účtech'),
+            'unpaidInvoices': metric('Neuhrazené FP'),
+            'netCashPosition': metric('Čistá cash pozice'),
+            'overdueInvoicesCount': int(overdue_match.group(1)) if overdue_match else 0,
+            'overdueInvoicesAmount': parse_czk_text(overdue_match.group(2)) if overdue_match else 0.0,
+            'largestPayables': sorted(unpaid_invoices, key=lambda row: row['amountDue'], reverse=True)[:8],
+        },
+    }
+
+
+def calc_legacy_finance_series(pnl):
+    rev = pnl['rev']
+    cogs = [pnl['cogs'][i] + pnl['bankfees'][i] for i in range(len(rev))]
+    logistics = [pnl['transport'][i] + pnl['warehouse'][i] for i in range(len(rev))]
+    marketing = [pnl['ppc'][i] + pnl['mkt'][i] for i in range(len(rev))]
+    opex = [pnl['wages'][i] + pnl['assets'][i] + pnl['overhead'][i] + pnl['software'][i] for i in range(len(rev))]
+    depreciation = pnl['depreciation']
+    other = [
+        pnl['svc_income'][i] + pnl['other_income'][i] + pnl['int_income'][i] + pnl['fx_gain'][i] - pnl['int_cost'][i] - pnl['fx_loss'][i]
+        for i in range(len(rev))
+    ]
+    gross_margin = [rev[i] - cogs[i] for i in range(len(rev))]
+    after_logistics = [gross_margin[i] - logistics[i] for i in range(len(rev))]
+    after_marketing = [after_logistics[i] - marketing[i] for i in range(len(rev))]
+    operating_margin = [after_marketing[i] - opex[i] for i in range(len(rev))]
+    ebit = [operating_margin[i] - depreciation[i] for i in range(len(rev))]
+    profit = [ebit[i] + other[i] for i in range(len(rev))]
+    return {
+        'revenue': rev,
+        'cogsAndFees': cogs,
+        'logistics': logistics,
+        'marketing': marketing,
+        'opex': opex,
+        'depreciation': depreciation,
+        'other': other,
+        'grossMargin': gross_margin,
+        'afterLogistics': after_logistics,
+        'afterMarketing': after_marketing,
+        'operatingMargin': operating_margin,
+        'ebit': ebit,
+        'profit': profit,
+    }
+
+
+def build_finance_snapshot(legacy_abra_payload, generated_at):
+    if not legacy_abra_payload:
+        return {
+            'generatedAt': generated_at,
+            'source': {'status': 'missing', 'message': 'Legacy ABRA snapshot nebyl nalezen.'},
+            'months': [],
+            'monthly': [],
+            'currentMonth': {},
+            'cash': {},
+        }
+
+    model = legacy_abra_payload['model']
+    series = calc_legacy_finance_series(model['pnl_all'])
+    months = model.get('months') or []
+    monthly = []
+    for i, label in enumerate(months):
+        monthly.append({
+            'label': label,
+            'revenue': round(series['revenue'][i], 2),
+            'cogsAndFees': round(series['cogsAndFees'][i], 2),
+            'logistics': round(series['logistics'][i], 2),
+            'marketing': round(series['marketing'][i], 2),
+            'opex': round(series['opex'][i], 2),
+            'depreciation': round(series['depreciation'][i], 2),
+            'other': round(series['other'][i], 2),
+            'grossMargin': round(series['grossMargin'][i], 2),
+            'afterLogistics': round(series['afterLogistics'][i], 2),
+            'afterMarketing': round(series['afterMarketing'][i], 2),
+            'operatingMargin': round(series['operatingMargin'][i], 2),
+            'ebit': round(series['ebit'][i], 2),
+            'profit': round(series['profit'][i], 2),
+            'grossMarginPct': safe_ratio(series['grossMargin'][i], series['revenue'][i]),
+            'marketingPct': safe_ratio(series['marketing'][i], series['revenue'][i]),
+            'logisticsPct': safe_ratio(series['logistics'][i], series['revenue'][i]),
+            'operatingMarginPct': safe_ratio(series['operatingMargin'][i], series['revenue'][i]),
+            'profitPct': safe_ratio(series['profit'][i], series['revenue'][i]),
+        })
+
+    current_month = monthly[-1] if monthly else {}
+    previous_month = monthly[-2] if len(monthly) > 1 else None
+    return {
+        'generatedAt': generated_at,
+        'source': legacy_abra_payload['source'],
+        'months': months,
+        'monthly': monthly,
+        'currentMonth': current_month,
+        'previousMonth': previous_month,
+        'cash': legacy_abra_payload.get('cash') or {},
+    }
+
+
+def build_marketing_snapshot(legacy_abra_payload, finance_snapshot, generated_at):
+    if not legacy_abra_payload:
+        return {
+            'generatedAt': generated_at,
+            'source': {'status': 'missing', 'message': 'Legacy marketing snapshot nebyl nalezen.'},
+            'monthly': [],
+            'currentMonth': {},
+            'topSuppliersCurrentMonth': [],
+            'entriesCurrentMonth': [],
+        }
+
+    model = legacy_abra_payload['model']
+    marketing_group = next((group for group in model.get('groups') or [] if group.get('id') == 'marketing'), None)
+    if not marketing_group:
+        return {
+            'generatedAt': generated_at,
+            'source': {'status': 'missing', 'message': 'Marketing skupina ve legacy ABRA modelu chybí.'},
+            'monthly': [],
+            'currentMonth': {},
+            'topSuppliersCurrentMonth': [],
+            'entriesCurrentMonth': [],
+        }
+
+    accounts = {account['acc']: account for account in marketing_group.get('accounts') or []}
+    ppc_account = accounts.get('518900', {})
+    brand_account = accounts.get('518901', {})
+    monthly = []
+    for index, month_key in enumerate(LEGACY_MONTH_KEYS, start=1):
+        revenue = ((finance_snapshot.get('monthly') or [{}] * (index + 1))[index]).get('revenue', 0)
+        performance_spend = round(sum(row['amount'] for row in ppc_account.get(month_key) or []), 2)
+        brand_spend = round(sum(row['amount'] for row in brand_account.get(month_key) or []), 2)
+        total_spend = round(performance_spend + brand_spend, 2)
+        monthly.append({
+            'label': model['months'][index] if len(model.get('months') or []) > index else month_key,
+            'performanceSpend': performance_spend,
+            'brandSpend': brand_spend,
+            'totalSpend': total_spend,
+            'revenue': revenue,
+            'spendShareOfRevenuePct': safe_ratio(total_spend, revenue),
+        })
+
+    current_month_key = LEGACY_MONTH_KEYS[-1]
+    current_entries = sorted(
+        (ppc_account.get(current_month_key) or []) + (brand_account.get(current_month_key) or []),
+        key=lambda row: row.get('amount', 0),
+        reverse=True,
+    )
+    supplier_totals = defaultdict(float)
+    for row in current_entries:
+        supplier_totals[row.get('company') or 'Neznámý dodavatel'] += float(row.get('amount') or 0)
+
+    current_month = monthly[-1] if monthly else {}
+    return {
+        'generatedAt': generated_at,
+        'source': legacy_abra_payload['source'],
+        'monthly': monthly,
+        'currentMonth': current_month,
+        'topSuppliersCurrentMonth': [
+            {'name': name, 'amount': round(amount, 2)}
+            for name, amount in sorted(supplier_totals.items(), key=lambda item: item[1], reverse=True)[:8]
+        ],
+        'entriesCurrentMonth': [
+            {
+                'date': row.get('date'),
+                'supplier': row.get('company'),
+                'description': row.get('desc'),
+                'amount': round(float(row.get('amount') or 0), 2),
+                'module': row.get('module'),
+                'account': row.get('md'),
+                'costCenter': row.get('stredisko'),
+            }
+            for row in current_entries[:20]
+        ],
+    }
+
+
 def account_payload(label, inventory, outbound):
     top_product = outbound['topLogisticsProducts'][0][0] if outbound['topLogisticsProducts'] else None
     return {
@@ -1402,6 +1645,9 @@ def main():
     expiry_overview_payload = {'generatedAt': generated_at, 'summary': {}, 'topExpiring': []}
     combined_index_payload = {'generatedAt': generated_at, 'items': [], 'counts': {}}
     combined_overview_payload = {'generatedAt': generated_at, 'counts': {}}
+    legacy_abra_payload = extract_legacy_abra_model(LEGACY_ABRA_HTML)
+    finance_snapshot = build_finance_snapshot(legacy_abra_payload, generated_at)
+    marketing_snapshot = build_marketing_snapshot(legacy_abra_payload, finance_snapshot, generated_at)
     baseline_orders = None
     baseline_revenue = None
     stock_summary = {
@@ -1520,6 +1766,8 @@ def main():
         'combined_product_index.json': combined_index_payload,
         'combined_inventory_overview.json': combined_overview_payload,
         'inventory_analytics_365d.json': inventory_analytics_payload,
+        'finance_overview.json': finance_snapshot,
+        'marketing_overview.json': marketing_snapshot,
         'wpj_orders_previous_day.json': wpj_orders_payload,
         'wpj_products.json': wpj_products_payload,
         'wpj_history_8_days.json': wpj_history_payload,
@@ -1564,6 +1812,20 @@ def main():
         },
         'expiries': expiry_overview_payload.get('summary') or {},
         'pairing': combined_overview_payload.get('counts') or {},
+        'finance': {
+            'ready': finance_snapshot.get('source', {}).get('status') != 'missing',
+            'mode': finance_snapshot.get('source', {}).get('status'),
+            'message': finance_snapshot.get('source', {}).get('message'),
+            'currentMonth': finance_snapshot.get('currentMonth') or {},
+            'cash': finance_snapshot.get('cash') or {},
+        },
+        'marketing': {
+            'ready': marketing_snapshot.get('source', {}).get('status') != 'missing',
+            'mode': marketing_snapshot.get('source', {}).get('status'),
+            'message': marketing_snapshot.get('source', {}).get('message'),
+            'currentMonth': marketing_snapshot.get('currentMonth') or {},
+            'topSupplier': (marketing_snapshot.get('topSuppliersCurrentMonth') or [None])[0],
+        },
     }
     write_json(CURRENT_DIR / 'portal_summary.json', portal_summary)
     write_json(snapshot_path / 'portal_summary.json', portal_summary)
