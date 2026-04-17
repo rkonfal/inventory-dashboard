@@ -1,0 +1,5177 @@
+{
+  "source": "/Users/rudolfkonfal/.openclaw/workspace/knowledge/mozek_eshopu.json",
+  "generatedAt": "2026-04-17T14:36:24.742Z",
+  "itemCount": 1034,
+  "items": [
+    {
+      "path": "source.pageUrl",
+      "value": "http://127.0.0.1:8765/site/index.html",
+      "valueType": "string"
+    },
+    {
+      "path": "source.htmlPath",
+      "value": "/Users/rudolfkonfal/.openclaw/workspace/reporting-v2/site/index.html",
+      "valueType": "string"
+    },
+    {
+      "path": "source.dataFiles.portalSummary",
+      "value": "/Users/rudolfkonfal/.openclaw/workspace/reporting-v2/data/current/portal_summary.json",
+      "valueType": "string"
+    },
+    {
+      "path": "source.dataFiles.morningReportPreviousDay",
+      "value": "/Users/rudolfkonfal/.openclaw/workspace/reporting-v2/data/current/morning_report_previous_day.json",
+      "valueType": "string"
+    },
+    {
+      "path": "source.capturedAt",
+      "value": "2026-04-17T14:35:24.937Z",
+      "valueType": "string"
+    },
+    {
+      "path": "pageMeta.title",
+      "value": "Diamond Plus Reporting V2",
+      "valueType": "string"
+    },
+    {
+      "path": "pageMeta.language",
+      "value": "cs",
+      "valueType": "string"
+    },
+    {
+      "path": "pageMeta.htmlLength",
+      "value": 14936,
+      "valueType": "number"
+    },
+    {
+      "path": "staticVisibleContent.sidebar.logo",
+      "value": "Diamond Plus",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.sidebar.subtitle",
+      "value": "Reporting V2, čistší a prouživatelsky vedený portál",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.sidebar.nav[0]",
+      "value": "Přehled",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.sidebar.nav[1]",
+      "value": "Finance / ABRA",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.sidebar.nav[2]",
+      "value": "Marketing",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.sidebar.nav[3]",
+      "value": "Sklad",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.sidebar.nav[4]",
+      "value": "Logistika 4PX",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.sidebar.nav[5]",
+      "value": "Expirace / promo",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.sidebar.nav[6]",
+      "value": "E-shop / WPJ",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.sidebar.footer",
+      "value": "V2 směr: méně šumu, rychlá orientace a jasné priority.",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.header.kicker",
+      "value": "Hlavní přehled • schválený směr",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.header.title",
+      "value": "Reporting portál, který se čte během minuty",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.header.subtitle",
+      "value": "První obrazovka má nově ukázat, co se stalo, co je potřeba řešit a kam má člověk kliknout dál. Až pod tím zůstává technický monitoring zdrojů a detailnější tabulky.",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.header.actions[0]",
+      "value": "Otevřít ranní report",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.header.actions[1]",
+      "value": "Přejít do skladu",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.header.actions[2]",
+      "value": "Přejít do e-shopu",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.header.dateNote",
+      "value": "objednávky a ranní report jsou za včerejšek, 4PX sklad je aktuální stav po posledním refreshi a finance s marketingem níž ukazují poslední dostupný měsíc",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.explanatoryBlocks.howToReadTitle",
+      "value": "Jak tu stránku číst",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.explanatoryBlocks.howToReadText",
+      "value": "Dva krátké bloky. První řekne, co sledovat hned, druhý kdy je potřeba jít do detailu.",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.explanatoryBlocks.watchNow",
+      "value": "Tohle je ranní rozcestník. Během minuty má ukázat, co se včera stalo, co dnes hoří a kam kliknout dál. Detail necháváme až na další stránky.",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.explanatoryBlocks.meaning",
+      "value": "Když je první obrazovka klidná, firma pravděpodobně běží normálně. Když ne, hned je vidět, jestli problém míří do e-shopu, skladu, logistiky, marketingu nebo financí.",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.doneItems[0].title",
+      "value": "4PX API napojení",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.doneItems[0].desc",
+      "value": "CZ i SK připojené napřímo přes Open API.",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.doneItems[1].title",
+      "value": "WPJ GraphQL napojení",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.doneItems[1].desc",
+      "value": "Objednávky, revenue, průměry a problémové objednávky už tečou do JSON.",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.doneItems[2].title",
+      "value": "Nová datová sada",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.doneItems[2].desc",
+      "value": "Refresh skript zapisuje normalizovaná JSON data, snapshoty a ranní report.",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.doneItems[3].title",
+      "value": "Nový portál",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.doneItems[3].desc",
+      "value": "Sdílené assets a společný vizuální systém bez kopírování stylů mezi HTML.",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.doneItems[4].title",
+      "value": "Automatické reporty",
+      "valueType": "string"
+    },
+    {
+      "path": "staticVisibleContent.doneItems[4].desc",
+      "value": "Ranní report se generuje a odesílá automaticky každý den v 8:00.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.heroMetrics[0].label",
+      "value": "Objednávky včera",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.heroMetrics[0].value",
+      "value": "410",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.heroMetrics[0].sub",
+      "value": "-13.3 % vs 7denní průměr · celý WPJShop · AOV 1 401 Kč",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.heroMetrics[0].raw.orders",
+      "value": 410,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.heroMetrics[0].raw.deltaPctVs7d",
+      "value": -13.3,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.heroMetrics[0].raw.averageOrderValue",
+      "value": 1401,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.heroMetrics[1].label",
+      "value": "Tržby s DPH",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.heroMetrics[1].value",
+      "value": "574 331 Kč",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.heroMetrics[1].sub",
+      "value": "-22.9 % vs 7denní průměr · celý WPJShop www.kralovstvi-tiande",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.heroMetrics[1].raw.revenueWithVat",
+      "value": 574331,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.heroMetrics[1].raw.deltaPctVs7d",
+      "value": -22.9,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.heroMetrics[2].label",
+      "value": "CZ + SK dohromady",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.heroMetrics[2].value",
+      "value": "377 514",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.heroMetrics[2].sub",
+      "value": "4PX sklad celkem · CZ 306 805 · SK 70 709",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.heroMetrics[2].raw.totalStock",
+      "value": 377514,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.heroMetrics[2].raw.czStock",
+      "value": 306805,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.heroMetrics[2].raw.skStock",
+      "value": 70709,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.attention.badge",
+      "value": "3 věcí k pozornosti",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.attention.alerts[0]",
+      "value": "4 problematických nebo stornovaných objednávek.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.attention.alerts[1]",
+      "value": "2 včera prodaných produktů je teď na nízkém skladu.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.attention.alerts[2]",
+      "value": "10 skladových pozic je v mínusu.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.attention.priorities[0]",
+      "value": "Dohlédnout BIOANALYZA007 (BIOREZONANČNÍ ANALÝZA ENERGETICKÉHO STAVU), aktuálně 0 ks.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.attention.priorities[1]",
+      "value": "Dohlédnout 54107 (Pleťová beauty maska \"Černý briliant\"), aktuálně 2 ks.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.attention.priorities[2]",
+      "value": "Projít 4 problematických nebo stornovaných objednávek z včerejška.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.attention.priorities[3]",
+      "value": "Projít nejbližší expirace v 4PX a rozhodnout o doprodeji nebo přesunu zásoby.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.reportMini[0].label",
+      "value": "Objednávky WPJShop",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.reportMini[0].display",
+      "value": "410",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.reportMini[0].raw",
+      "value": 410,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.reportMini[1].label",
+      "value": "Tržby WPJShop",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.reportMini[1].display",
+      "value": "574 331 Kč",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.reportMini[1].raw",
+      "value": 574331,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.reportMini[2].label",
+      "value": "4PX sklad CZ+SK",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.reportMini[2].display",
+      "value": "377 514",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.reportMini[2].raw",
+      "value": 377514,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.reportMini[3].label",
+      "value": "Expedice CZ+SK",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.reportMini[3].display",
+      "value": "408 (376/32)",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.reportMini[3].raw.total",
+      "value": 408,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.reportMini[3].raw.CZ",
+      "value": 376,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.reportMini[3].raw.SK",
+      "value": 32,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.reportMini[4].label",
+      "value": "Problematické",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.reportMini[4].display",
+      "value": "4",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.reportMini[4].raw",
+      "value": 4,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.reportMini[5].label",
+      "value": "Expirace k řešení",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.reportMini[5].display",
+      "value": "5",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.reportMini[5].raw",
+      "value": 5,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.statusList[0].title",
+      "value": "WPJ a objednávky",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.statusList[0].text",
+      "value": "Připojeno, bereme kompletní výsledek e-shopu.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.statusList[1].title",
+      "value": "4PX sklady a logistika",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.statusList[1].text",
+      "value": "CZ i SK běží živě.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.statusList[2].title",
+      "value": "Finance a marketing",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.statusList[2].text",
+      "value": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.topKpis[0].label",
+      "value": "4PX sklad CZ + SK",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.topKpis[0].display",
+      "value": "377 514",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.topKpis[0].sub",
+      "value": "CZ 306 805 · SK 70 709",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.topKpis[0].raw.total",
+      "value": 377514,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.topKpis[0].raw.cz",
+      "value": 306805,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.topKpis[0].raw.sk",
+      "value": 70709,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.topKpis[1].label",
+      "value": "4PX skladové řádky",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.topKpis[1].display",
+      "value": "1 389",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.topKpis[1].sub",
+      "value": "200 nízkých skladových řádků napříč CZ+SK",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.topKpis[1].raw.totalRows",
+      "value": 1389,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.topKpis[1].raw.lowStockRows",
+      "value": 200,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.topKpis[2].label",
+      "value": "Finance, čistá cash pozice",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.topKpis[2].display",
+      "value": "0",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.topKpis[2].sub",
+      "value": "finanční zdroj",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.topKpis[2].raw",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.topKpis[3].label",
+      "value": "Marketing, poslední měsíc",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.topKpis[3].display",
+      "value": "257 841",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.topKpis[3].sub",
+      "value": "3.2 % z výnosů",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.topKpis[3].raw.totalSpend",
+      "value": 257841,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.topKpis[3].raw.spendShareOfRevenuePct",
+      "value": 3.2,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.blockers[0]",
+      "value": "4 problematických nebo stornovaných objednávek.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.blockers[1]",
+      "value": "2 včera prodaných produktů je teď na nízkém skladu.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.blockers[2]",
+      "value": "10 skladových pozic je v mínusu.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[0].source",
+      "value": "4PX CZ inventory",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[0].state",
+      "value": "OK",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[0].whatWeSee",
+      "value": "Warehouse CZPRGA",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[0].objectsDisplay",
+      "value": "768",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[0].objectsRaw",
+      "value": 768,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.sourceRows[1].source",
+      "value": "4PX SK inventory",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[1].state",
+      "value": "OK",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[1].whatWeSee",
+      "value": "Warehouse CZPRGA",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[1].objectsDisplay",
+      "value": "621",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[1].objectsRaw",
+      "value": 621,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.sourceRows[2].source",
+      "value": "4PX CZ outbound",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[2].state",
+      "value": "OK",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[2].whatWeSee",
+      "value": "Recent pages: 6",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[2].objectsDisplay",
+      "value": "600",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[2].objectsRaw",
+      "value": 600,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.sourceRows[3].source",
+      "value": "4PX SK outbound",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[3].state",
+      "value": "OK",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[3].whatWeSee",
+      "value": "Recent pages: 1",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[3].objectsDisplay",
+      "value": "100",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[3].objectsRaw",
+      "value": 100,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.sourceRows[4].source",
+      "value": "WPJ / GraphQL",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[4].state",
+      "value": "OK",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[4].whatWeSee",
+      "value": "Kompletní výsledek www.kralovstvi-tiande",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[4].objectsDisplay",
+      "value": "410",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[4].objectsRaw",
+      "value": 410,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.sourceRows[5].source",
+      "value": "ABRA Flexi / finance",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[5].state",
+      "value": "OK",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[5].whatWeSee",
+      "value": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[5].objectsDisplay",
+      "value": "7 965 334",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[5].objectsRaw",
+      "value": 7965334,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.sourceRows[6].source",
+      "value": "Marketing",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[6].state",
+      "value": "OK",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[6].whatWeSee",
+      "value": "Marketing se skládá z live ABRA reportu a aktuálních položek z účetního deníku.",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[6].objectsDisplay",
+      "value": "257 841",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[6].objectsRaw",
+      "value": 257841,
+      "valueType": "number"
+    },
+    {
+      "path": "rendered.sourceRows[7].source",
+      "value": "Ranní report",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[7].state",
+      "value": "OK",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[7].whatWeSee",
+      "value": "Alerty: 3",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[7].objectsDisplay",
+      "value": "408",
+      "valueType": "string"
+    },
+    {
+      "path": "rendered.sourceRows[7].objectsRaw",
+      "value": 408,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.generatedAt",
+      "value": "2026-04-17T16:00:01.287284+02:00",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.config.warehouseCode",
+      "value": "CZPRGA",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.config.outboundMaxPages",
+      "value": 20,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.config.reportWindow.from",
+      "value": "2026-04-16T00:00:01+02:00",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.config.reportWindow.to",
+      "value": "2026-04-17T00:00:00+02:00",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.cz.label",
+      "value": "CZ",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.cz.inventory.items",
+      "value": 768,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.cz.inventory.availableStockTotal",
+      "value": 306805,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.cz.inventory.pendingStockTotal",
+      "value": 812,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.cz.inventory.freezeStockTotal",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.cz.inventory.lowStockItems",
+      "value": 100,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.cz.outbound.items",
+      "value": 600,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.cz.outbound.scannedPages",
+      "value": 6,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.cz.outbound.topLogisticsProduct",
+      "value": "F1401",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.cz.outbound.oldestTimestamp",
+      "value": "2026-04-15T20:10:02+02:00",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.cz.outbound.newestTimestamp",
+      "value": "2026-04-17T16:00:03+02:00",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.sk.label",
+      "value": "SK",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.sk.inventory.items",
+      "value": 621,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.sk.inventory.availableStockTotal",
+      "value": 70709,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.sk.inventory.pendingStockTotal",
+      "value": 13,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.sk.inventory.freezeStockTotal",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.sk.inventory.lowStockItems",
+      "value": 100,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.sk.outbound.items",
+      "value": 100,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.sk.outbound.scannedPages",
+      "value": 1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.sk.outbound.topLogisticsProduct",
+      "value": "F1403",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.sk.outbound.oldestTimestamp",
+      "value": "2026-04-15T10:02:43+02:00",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.accounts.sk.outbound.newestTimestamp",
+      "value": "2026-04-17T14:00:14+02:00",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.wpJ.ready",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.portal_summary.wpJ.message",
+      "value": "WPJ připojeno a ranní report je vygenerovaný.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.wpJ.orders",
+      "value": 410,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.wpJ.revenueWithVat",
+      "value": 574331.1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.wpJ.averageOrderValue",
+      "value": 1400.81,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.wpJ.problematicOrders",
+      "value": 4,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.report.date",
+      "value": "2026-04-16",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.report.shipments",
+      "value": 408,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.report.alerts[0]",
+      "value": "4 problematických nebo stornovaných objednávek.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.report.alerts[1]",
+      "value": "2 včera prodaných produktů je teď na nízkém skladu.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.report.alerts[2]",
+      "value": "10 skladových pozic je v mínusu.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.report.priorities[0]",
+      "value": "Dohlédnout BIOANALYZA007 (BIOREZONANČNÍ ANALÝZA ENERGETICKÉHO STAVU), aktuálně 0 ks.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.report.priorities[1]",
+      "value": "Dohlédnout 54107 (Pleťová beauty maska \"Černý briliant\"), aktuálně 2 ks.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.report.priorities[2]",
+      "value": "Projít 4 problematických nebo stornovaných objednávek z včerejška.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.report.priorities[3]",
+      "value": "Projít nejbližší expirace v 4PX a rozhodnout o doprodeji nebo přesunu zásoby.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.expiries.datedSkuCount",
+      "value": 618,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.expiries.czSkuCount",
+      "value": 318,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.expiries.skSkuCount",
+      "value": 300,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.pairing.allCodes",
+      "value": 2891,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.pairing.pairedProducts",
+      "value": 390,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.pairing.onlyInWpj",
+      "value": 1435,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.pairing.onlyIn4px",
+      "value": 1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.pairing.stockMismatch",
+      "value": 668,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.pairing.lowAfterSales",
+      "value": 3,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.pairing.manualMapped4pxAliases",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.pairing.autoMapped4pxAliases",
+      "value": 73,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.ready",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.portal_summary.finance.mode",
+      "value": "live_report",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.message",
+      "value": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.label",
+      "value": "4/2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.revenue",
+      "value": 7965333.96,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.cogsAndFees",
+      "value": 5745043.77,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.logistics",
+      "value": 37815.04,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.marketing",
+      "value": 257841.46,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.opex",
+      "value": 251053.68,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.depreciation",
+      "value": 385502,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.other",
+      "value": -5460.68,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.grossMargin",
+      "value": 2220290.19,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.afterLogistics",
+      "value": 2182475.15,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.afterMarketing",
+      "value": 1924633.69,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.operatingMargin",
+      "value": 1673580.01,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.ebit",
+      "value": 1288078.01,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.profit",
+      "value": 1282617.33,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.grossMarginPct",
+      "value": 27.9,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.marketingPct",
+      "value": 3.2,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.logisticsPct",
+      "value": 0.5,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.operatingMarginPct",
+      "value": 21,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.currentMonth.profitPct",
+      "value": 16.1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.unpaidInvoices",
+      "value": 3038318.85,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.overdueInvoicesCount",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.overdueInvoicesAmount",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[0].code",
+      "value": "PF0461/2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[0].vendor",
+      "value": "ISTA CORPORATION s.r.o.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[0].dueDate",
+      "value": "20.04.2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[0].amountTotal",
+      "value": 1111968.39,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[0].amountDue",
+      "value": 1111968.39,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[0].status",
+      "value": "3 dní do splatnosti",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[1].code",
+      "value": "PF0412/2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[1].vendor",
+      "value": "4PX Express CZ",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[1].dueDate",
+      "value": "30.04.2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[1].amountTotal",
+      "value": 706144.53,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[1].amountDue",
+      "value": 706144.53,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[1].status",
+      "value": "13 dní do splatnosti",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[2].code",
+      "value": "PF0446/2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[2].vendor",
+      "value": "Česká pošta, s.p., Odštěpný závod Balíkové služby",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[2].dueDate",
+      "value": "24.04.2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[2].amountTotal",
+      "value": 558253.85,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[2].amountDue",
+      "value": 558253.85,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[2].status",
+      "value": "7 dní do splatnosti",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[3].code",
+      "value": "PF0460/2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[3].vendor",
+      "value": "ISTA CORPORATION s.r.o.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[3].dueDate",
+      "value": "20.04.2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[3].amountTotal",
+      "value": 235393.78,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[3].amountDue",
+      "value": 235393.78,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[3].status",
+      "value": "3 dní do splatnosti",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[4].code",
+      "value": "PF0470/2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[4].vendor",
+      "value": "ISTA CORPORATION s.r.o.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[4].dueDate",
+      "value": "21.04.2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[4].amountTotal",
+      "value": 151560.49,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[4].amountDue",
+      "value": 151560.49,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[4].status",
+      "value": "4 dní do splatnosti",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[5].code",
+      "value": "Z0030/2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[5].vendor",
+      "value": "Effectix.com, s.r.o.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[5].dueDate",
+      "value": "26.04.2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[5].amountTotal",
+      "value": 97284,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[5].amountDue",
+      "value": 97284,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[5].status",
+      "value": "9 dní do splatnosti",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[6].code",
+      "value": "PF0429/2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[6].vendor",
+      "value": "coworkers.ai s.r.o.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[6].dueDate",
+      "value": "30.04.2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[6].amountTotal",
+      "value": 43560,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[6].amountDue",
+      "value": 43560,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[6].status",
+      "value": "13 dní do splatnosti",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[7].code",
+      "value": "PF0413/2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[7].vendor",
+      "value": "4PX Express CZ",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[7].dueDate",
+      "value": "30.04.2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[7].amountTotal",
+      "value": 27981.25,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[7].amountDue",
+      "value": 27981.25,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.largestPayables[7].status",
+      "value": "13 dní do splatnosti",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.reportExport.status",
+      "value": "live",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.reportExport.message",
+      "value": "Report Výkaz hospodaření za měsíc se tahá přímo z ABRA report endpointu.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.marketing.ready",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.portal_summary.marketing.mode",
+      "value": "live_report",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.marketing.message",
+      "value": "Marketing se skládá z live ABRA reportu a aktuálních položek z účetního deníku.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.marketing.currentMonth.label",
+      "value": "4/2026",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.marketing.currentMonth.performanceSpend",
+      "value": 6957.68,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.marketing.currentMonth.brandSpend",
+      "value": 250883.78,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.marketing.currentMonth.totalSpend",
+      "value": 257841.46,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.marketing.currentMonth.revenue",
+      "value": 7965333.96,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.marketing.currentMonth.spendShareOfRevenuePct",
+      "value": 3.2,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.marketing.topSupplier",
+      "value": null,
+      "valueType": "null"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.generatedAt",
+      "value": "2026-04-17T16:05:42.376978+02:00",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.reportDate",
+      "value": "2026-04-16",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.detailUrl",
+      "value": "https://rkonfal.github.io/diamond-plus-reporting-preview/site/index.html",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.window.from",
+      "value": "2026-04-16T00:00:01+02:00",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.window.to",
+      "value": "2026-04-16T23:59:59+02:00",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.quickSummary.orders.value",
+      "value": 410,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.quickSummary.orders.baseline",
+      "value": 472.71,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.quickSummary.orders.deltaPct",
+      "value": -13.3,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.quickSummary.revenueWithVat.value",
+      "value": 574331.1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.quickSummary.revenueWithVat.baseline",
+      "value": 744766.69,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.quickSummary.revenueWithVat.deltaPct",
+      "value": -22.9,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.quickSummary.shipmentsTotal",
+      "value": 408,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.quickSummary.alerts[0]",
+      "value": "4 problematických nebo stornovaných objednávek.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.quickSummary.alerts[1]",
+      "value": "2 včera prodaných produktů je teď na nízkém skladu.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.quickSummary.alerts[2]",
+      "value": "10 skladových pozic je v mínusu.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.orders",
+      "value": 410,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.revenueWithVat",
+      "value": 574331.1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.averageOrderValue",
+      "value": 1400.81,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.cancelledOrders",
+      "value": 4,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.problematicOrders",
+      "value": 4,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.statuses[0].name",
+      "value": "přijatá",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.statuses[0].count",
+      "value": 223,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.statuses[1].name",
+      "value": "doručeno",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.statuses[1].count",
+      "value": 79,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.statuses[2].name",
+      "value": "připraveno k vyzvednutí",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.statuses[2].count",
+      "value": 68,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.statuses[3].name",
+      "value": "expedováno",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.statuses[3].count",
+      "value": 27,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.statuses[4].name",
+      "value": "nová",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.statuses[4].count",
+      "value": 9,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.statuses[5].name",
+      "value": "chyba",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.statuses[5].count",
+      "value": 4,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.paymentMethods[0].name",
+      "value": "Bezpečná platba online",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.paymentMethods[0].count",
+      "value": 233,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.paymentMethods[1].name",
+      "value": "Platba převodem",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.paymentMethods[1].count",
+      "value": 96,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.paymentMethods[2].name",
+      "value": "Dobírkou",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.paymentMethods[2].count",
+      "value": 73,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.paymentMethods[3].name",
+      "value": "Platba kartou",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.paymentMethods[3].count",
+      "value": 5,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.paymentMethods[4].name",
+      "value": "Hotově",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.paymentMethods[4].count",
+      "value": 2,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.paymentMethods[5].name",
+      "value": "Twisto - kup teď, zaplať později",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.paymentMethods[5].count",
+      "value": 1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[0].name",
+      "value": "Balíkovna",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[0].count",
+      "value": 192,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[1].name",
+      "value": "Balíkovna na adresu",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[1].count",
+      "value": 112,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[2].name",
+      "value": "Zásilkovna",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[2].count",
+      "value": 63,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[3].name",
+      "value": "Zásielkovňa",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[3].count",
+      "value": 8,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[4].name",
+      "value": "DORUČENÍ na adresu",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[4].count",
+      "value": 7,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[5].name",
+      "value": "Osobní odběr",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[5].count",
+      "value": 7,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[6].name",
+      "value": "GLS",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[6].count",
+      "value": 6,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[7].name",
+      "value": "SK DPD pickup",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[7].count",
+      "value": 4,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[8].name",
+      "value": "DPD doručení na adresu",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[8].count",
+      "value": 3,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[9].name",
+      "value": "Packeta na adresu",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[9].count",
+      "value": 3,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[10].name",
+      "value": "Česká pošta - Balík do ruky",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[10].count",
+      "value": 2,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[11].name",
+      "value": "Balíkovňa do ČR",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[11].count",
+      "value": 1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[12].name",
+      "value": "Francie",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[12].count",
+      "value": 1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[13].name",
+      "value": "Česká pošta do ruky do ČR",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.deliveryMethods[13].count",
+      "value": 1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[0].code",
+      "value": "44402-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[0].name",
+      "value": "Fytogel Slaviton",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[0].label",
+      "value": "44402-2 · Fytogel Slaviton",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[0].value",
+      "value": 121,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[0].formatted",
+      "value": "121 ks",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[1].code",
+      "value": "61912",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[1].name",
+      "value": "Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[1].label",
+      "value": "61912 · Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[1].value",
+      "value": 109,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[1].formatted",
+      "value": "109 ks",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[2].code",
+      "value": "63601/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[2].name",
+      "value": "Denní vložka Energie života (Počet kusů: 1ks)",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[2].label",
+      "value": "63601/01 · Denní vložka Energie života (Počet kusů: 1ks)",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[2].value",
+      "value": 108,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[2].formatted",
+      "value": "108 ks",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[3].code",
+      "value": "64404-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[3].name",
+      "value": "Jemný intimní gel",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[3].label",
+      "value": "64404-2 · Jemný intimní gel",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[3].value",
+      "value": 103,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[3].formatted",
+      "value": "103 ks",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[4].code",
+      "value": "61911",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[4].name",
+      "value": "Denní vložky s extraktem aloe Nefritová svěžest",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[4].label",
+      "value": "61911 · Denní vložky s extraktem aloe Nefritová svěžest",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[4].value",
+      "value": 91,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByUnits[4].formatted",
+      "value": "91 ks",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[0].code",
+      "value": "44402-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[0].name",
+      "value": "Fytogel Slaviton",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[0].label",
+      "value": "44402-2 · Fytogel Slaviton",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[0].value",
+      "value": 31384.4,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[0].formatted",
+      "value": "31 384 Kč",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[1].code",
+      "value": "64404-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[1].name",
+      "value": "Jemný intimní gel",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[1].label",
+      "value": "64404-2 · Jemný intimní gel",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[1].value",
+      "value": 25273.4,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[1].formatted",
+      "value": "25 273 Kč",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[2].code",
+      "value": "61912",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[2].name",
+      "value": "Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[2].label",
+      "value": "61912 · Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[2].value",
+      "value": 14569.8,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[2].formatted",
+      "value": "14 570 Kč",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[3].code",
+      "value": "23401",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[3].name",
+      "value": "Šampon - aktivátor růstu vlasů",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[3].label",
+      "value": "23401 · Šampon - aktivátor růstu vlasů",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[3].value",
+      "value": 13209.04,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[3].formatted",
+      "value": "13 209 Kč",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[4].code",
+      "value": "23403",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[4].name",
+      "value": "BIO REHAB - Tonikum-aktivátor růstu vlasů",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[4].label",
+      "value": "23403 · BIO REHAB - Tonikum-aktivátor růstu vlasů",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[4].value",
+      "value": 13074.84,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.topProductsByRevenue[4].formatted",
+      "value": "13 075 Kč",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[0]",
+      "value": "000020",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[1]",
+      "value": "000074",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[2]",
+      "value": "000083",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[3]",
+      "value": "000090",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[4]",
+      "value": "000091",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[5]",
+      "value": "10101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[6]",
+      "value": "10106",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[7]",
+      "value": "10108",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[8]",
+      "value": "10110",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[9]",
+      "value": "10111",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[10]",
+      "value": "10112",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[11]",
+      "value": "10114",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[12]",
+      "value": "10115",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[13]",
+      "value": "10116",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[14]",
+      "value": "10117",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[15]",
+      "value": "10118",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[16]",
+      "value": "10131",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[17]",
+      "value": "101491",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[18]",
+      "value": "10201",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[19]",
+      "value": "10202",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[20]",
+      "value": "10206-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[21]",
+      "value": "10261",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[22]",
+      "value": "10262",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[23]",
+      "value": "10263",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[24]",
+      "value": "10302",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[25]",
+      "value": "10303",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[26]",
+      "value": "10304",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[27]",
+      "value": "10305",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[28]",
+      "value": "10305/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[29]",
+      "value": "10306",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[30]",
+      "value": "10308",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[31]",
+      "value": "113004",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[32]",
+      "value": "113011",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[33]",
+      "value": "113012",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[34]",
+      "value": "113013",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[35]",
+      "value": "11307",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[36]",
+      "value": "11317",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[37]",
+      "value": "11319",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[38]",
+      "value": "11320",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[39]",
+      "value": "11321",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[40]",
+      "value": "11323",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[41]",
+      "value": "12106",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[42]",
+      "value": "12114",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[43]",
+      "value": "12115",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[44]",
+      "value": "12116",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[45]",
+      "value": "12117",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[46]",
+      "value": "12703",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[47]",
+      "value": "12704",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[48]",
+      "value": "12705",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[49]",
+      "value": "12707",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[50]",
+      "value": "12710",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[51]",
+      "value": "12711",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[52]",
+      "value": "12712",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[53]",
+      "value": "135415-1",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[54]",
+      "value": "135456",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[55]",
+      "value": "135460",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[56]",
+      "value": "140110",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[57]",
+      "value": "140111",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[58]",
+      "value": "144313",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[59]",
+      "value": "14601",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[60]",
+      "value": "14601/1",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[61]",
+      "value": "14602",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[62]",
+      "value": "14604",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[63]",
+      "value": "147801",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[64]",
+      "value": "15102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[65]",
+      "value": "15103",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[66]",
+      "value": "15104",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[67]",
+      "value": "15601",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[68]",
+      "value": "15602",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[69]",
+      "value": "15603",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[70]",
+      "value": "16001",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[71]",
+      "value": "16002",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[72]",
+      "value": "16304",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[73]",
+      "value": "16309",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[74]",
+      "value": "16310",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[75]",
+      "value": "16312",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[76]",
+      "value": "16313",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[77]",
+      "value": "16314",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[78]",
+      "value": "17003",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[79]",
+      "value": "17101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[80]",
+      "value": "17102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[81]",
+      "value": "17103",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[82]",
+      "value": "17104",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[83]",
+      "value": "17105",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[84]",
+      "value": "191005",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[85]",
+      "value": "191006",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[86]",
+      "value": "191008",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[87]",
+      "value": "191014",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[88]",
+      "value": "195429",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[89]",
+      "value": "195431",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[90]",
+      "value": "195432",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[91]",
+      "value": "195458",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[92]",
+      "value": "195469",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[93]",
+      "value": "195926",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[94]",
+      "value": "198812",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[95]",
+      "value": "20101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[96]",
+      "value": "20102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[97]",
+      "value": "20107",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[98]",
+      "value": "20109",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[99]",
+      "value": "20115",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[100]",
+      "value": "20117",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[101]",
+      "value": "20127",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[102]",
+      "value": "20144",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[103]",
+      "value": "20151",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[104]",
+      "value": "20155",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[105]",
+      "value": "20159-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[106]",
+      "value": "20161-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[107]",
+      "value": "20163-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[108]",
+      "value": "20164",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[109]",
+      "value": "21308",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[110]",
+      "value": "21309",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[111]",
+      "value": "21310",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[112]",
+      "value": "21311",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[113]",
+      "value": "21316",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[114]",
+      "value": "23401",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[115]",
+      "value": "23402",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[116]",
+      "value": "23403",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[117]",
+      "value": "25106",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[118]",
+      "value": "27005",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[119]",
+      "value": "27006",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[120]",
+      "value": "30101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[121]",
+      "value": "30106",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[122]",
+      "value": "30111",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[123]",
+      "value": "30115",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[124]",
+      "value": "30117/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[125]",
+      "value": "30117/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[126]",
+      "value": "30117/05",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[127]",
+      "value": "30118/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[128]",
+      "value": "30118/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[129]",
+      "value": "30118/05",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[130]",
+      "value": "30126",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[131]",
+      "value": "30129",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[132]",
+      "value": "30132/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[133]",
+      "value": "30132/02",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[134]",
+      "value": "30138-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[135]",
+      "value": "30140",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[136]",
+      "value": "30158",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[137]",
+      "value": "30160-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[138]",
+      "value": "30162-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[139]",
+      "value": "30201",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[140]",
+      "value": "30203",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[141]",
+      "value": "30204",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[142]",
+      "value": "30205",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[143]",
+      "value": "30207",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[144]",
+      "value": "30213",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[145]",
+      "value": "30215",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[146]",
+      "value": "30222",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[147]",
+      "value": "30223",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[148]",
+      "value": "32602",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[149]",
+      "value": "32604",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[150]",
+      "value": "34401-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[151]",
+      "value": "34413-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[152]",
+      "value": "35412-02",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[153]",
+      "value": "36006",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[154]",
+      "value": "40101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[155]",
+      "value": "40102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[156]",
+      "value": "40104",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[157]",
+      "value": "40105",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[158]",
+      "value": "40109",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[159]",
+      "value": "40120",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[160]",
+      "value": "40203",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[161]",
+      "value": "41101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[162]",
+      "value": "41102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[163]",
+      "value": "41105/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[164]",
+      "value": "41105/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[165]",
+      "value": "41105/05",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[166]",
+      "value": "41106/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[167]",
+      "value": "41106/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[168]",
+      "value": "41314/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[169]",
+      "value": "41314/05",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[170]",
+      "value": "41314/10",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[171]",
+      "value": "41320",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[172]",
+      "value": "41328/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[173]",
+      "value": "41328/07",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[174]",
+      "value": "41328/10",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[175]",
+      "value": "44402-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[176]",
+      "value": "44605",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[177]",
+      "value": "46903-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[178]",
+      "value": "50101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[179]",
+      "value": "50104",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[180]",
+      "value": "50109",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[181]",
+      "value": "50111",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[182]",
+      "value": "50116",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[183]",
+      "value": "50120",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[184]",
+      "value": "50224",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[185]",
+      "value": "52901/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[186]",
+      "value": "52902",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[187]",
+      "value": "52902/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[188]",
+      "value": "52903",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[189]",
+      "value": "52911",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[190]",
+      "value": "52912",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[191]",
+      "value": "54104",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[192]",
+      "value": "54106",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[193]",
+      "value": "54107",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[194]",
+      "value": "54108",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[195]",
+      "value": "56005",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[196]",
+      "value": "56007",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[197]",
+      "value": "56311",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[198]",
+      "value": "57010",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[199]",
+      "value": "60140",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[200]",
+      "value": "60141",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[201]",
+      "value": "60142",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[202]",
+      "value": "60143",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[203]",
+      "value": "60144",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[204]",
+      "value": "60145/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[205]",
+      "value": "60145/05",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[206]",
+      "value": "60145/10",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[207]",
+      "value": "60146",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[208]",
+      "value": "60149-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[209]",
+      "value": "60150",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[210]",
+      "value": "60151-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[211]",
+      "value": "60152-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[212]",
+      "value": "60153-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[213]",
+      "value": "61901",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[214]",
+      "value": "61902",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[215]",
+      "value": "61903",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[216]",
+      "value": "61911",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[217]",
+      "value": "61912",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[218]",
+      "value": "61913",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[219]",
+      "value": "61914",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[220]",
+      "value": "61915",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[221]",
+      "value": "61921",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[222]",
+      "value": "61922",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[223]",
+      "value": "61923",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[224]",
+      "value": "63601/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[225]",
+      "value": "63601/05",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[226]",
+      "value": "63601/08",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[227]",
+      "value": "63601/10",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[228]",
+      "value": "640102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[229]",
+      "value": "64404-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[230]",
+      "value": "65301-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[231]",
+      "value": "65913-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[232]",
+      "value": "65914-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[233]",
+      "value": "65916-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[234]",
+      "value": "67007",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[235]",
+      "value": "67108",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[236]",
+      "value": "67109",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[237]",
+      "value": "80112/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[238]",
+      "value": "80112/07",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[239]",
+      "value": "80112/08",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[240]",
+      "value": "80145",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[241]",
+      "value": "80904/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[242]",
+      "value": "80904/02",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[243]",
+      "value": "80906/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[244]",
+      "value": "80921/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[245]",
+      "value": "80921/02",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[246]",
+      "value": "85607",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[247]",
+      "value": "86004",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[248]",
+      "value": "90141",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[249]",
+      "value": "90148/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[250]",
+      "value": "90148/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[251]",
+      "value": "90148/04",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[252]",
+      "value": "90153/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[253]",
+      "value": "90153/02",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[254]",
+      "value": "90153/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[255]",
+      "value": "90165/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[256]",
+      "value": "90175",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[257]",
+      "value": "90187",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[258]",
+      "value": "90204",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[259]",
+      "value": "980155",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[260]",
+      "value": "980156",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[261]",
+      "value": "980168",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[262]",
+      "value": "980188",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[263]",
+      "value": "980193",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[264]",
+      "value": "980201",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[265]",
+      "value": "98898",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[266]",
+      "value": "BIOANALYZA007",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[267]",
+      "value": "BIOANALYZA013",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[268]",
+      "value": "DOPL001",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[269]",
+      "value": "DP2000",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[270]",
+      "value": "IGE009",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[271]",
+      "value": "PROMO115",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[272]",
+      "value": "PROMO116",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[273]",
+      "value": "PROMO120",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[274]",
+      "value": "PROMO121",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[275]",
+      "value": "PROMO37",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[276]",
+      "value": "PROMO40",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[277]",
+      "value": "PROMO51",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[278]",
+      "value": "PROMO71",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[279]",
+      "value": "PROMO73",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[280]",
+      "value": "PROMO75",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[281]",
+      "value": "SET08",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.soldProductCodes[282]",
+      "value": "VSTUP200526",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[0].code",
+      "value": "BIOANALYZA007",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[0].title",
+      "value": "BIOREZONANČNÍ ANALÝZA ENERGETICKÉHO STAVU",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[0].stock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[0].reportedStock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[0].stores[0].storeId",
+      "value": 11,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[0].stores[0].storeName",
+      "value": "[FlexiBee] Sklad LTM",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[0].stores[0].inStore",
+      "value": -13,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[0].priceWithVat",
+      "value": 1600,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[0].visible",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].code",
+      "value": "54107",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].title",
+      "value": "Pleťová beauty maska \"Černý briliant\"",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].stock",
+      "value": 2,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].reportedStock",
+      "value": 1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].stores[0].storeId",
+      "value": 6,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].stores[0].storeName",
+      "value": "4PX CZ",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].stores[0].inStore",
+      "value": 2,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].stores[1].storeId",
+      "value": 7,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].stores[1].storeName",
+      "value": "4PX SK",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].stores[1].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].stores[2].storeId",
+      "value": 10,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].stores[2].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].stores[2].inStore",
+      "value": 6,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].stores[3].storeId",
+      "value": 11,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].stores[3].storeName",
+      "value": "[FlexiBee] Sklad LTM",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].stores[3].inStore",
+      "value": 12,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].priceWithVat",
+      "value": 74,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[1].visible",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[0].code",
+      "value": "34404-1",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[0].title",
+      "value": "...",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[0].stock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[0].reportedStock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[0].stores[0].storeId",
+      "value": 10,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[0].stores[0].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[0].stores[0].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[0].stores[1].storeId",
+      "value": 11,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[0].stores[1].storeName",
+      "value": "[FlexiBee] Sklad LTM",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[0].stores[1].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[0].priceWithVat",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[0].visible",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[1].code",
+      "value": "34413-1",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[1].title",
+      "value": "...",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[1].stock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[1].reportedStock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[1].stores[0].storeId",
+      "value": 10,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[1].stores[0].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[1].stores[0].inStore",
+      "value": 12,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[1].stores[1].storeId",
+      "value": 11,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[1].stores[1].storeName",
+      "value": "[FlexiBee] Sklad LTM",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[1].stores[1].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[1].priceWithVat",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[1].visible",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[2].code",
+      "value": "80411/1",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[2].title",
+      "value": "...",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[2].stock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[2].reportedStock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[2].stores[0].storeId",
+      "value": 10,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[2].stores[0].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[2].stores[0].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[2].stores[1].storeId",
+      "value": 11,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[2].stores[1].storeName",
+      "value": "[FlexiBee] Sklad LTM",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[2].stores[1].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[2].priceWithVat",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[2].visible",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[3].code",
+      "value": "80411/2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[3].title",
+      "value": "...",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[3].stock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[3].reportedStock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[3].stores[0].storeId",
+      "value": 10,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[3].stores[0].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[3].stores[0].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[3].stores[1].storeId",
+      "value": 11,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[3].stores[1].storeName",
+      "value": "[FlexiBee] Sklad LTM",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[3].stores[1].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[3].priceWithVat",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[3].visible",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[4].code",
+      "value": "90149",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[4].title",
+      "value": "...",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[4].stock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[4].reportedStock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[4].stores[0].storeId",
+      "value": 10,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[4].stores[0].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[4].stores[0].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[4].stores[1].storeId",
+      "value": 11,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[4].stores[1].storeName",
+      "value": "[FlexiBee] Sklad LTM",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[4].stores[1].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[4].priceWithVat",
+      "value": 4348,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[4].visible",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[5].code",
+      "value": "90159",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[5].title",
+      "value": "...",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[5].stock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[5].reportedStock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[5].stores[0].storeId",
+      "value": 10,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[5].stores[0].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[5].stores[0].inStore",
+      "value": 11,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[5].stores[1].storeId",
+      "value": 11,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[5].stores[1].storeName",
+      "value": "[FlexiBee] Sklad LTM",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[5].stores[1].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[5].priceWithVat",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[5].visible",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[6].code",
+      "value": "90165",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[6].title",
+      "value": "...",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[6].stock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[6].reportedStock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[6].stores[0].storeId",
+      "value": 10,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[6].stores[0].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[6].stores[0].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[6].stores[1].storeId",
+      "value": 11,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[6].stores[1].storeName",
+      "value": "[FlexiBee] Sklad LTM",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[6].stores[1].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[6].priceWithVat",
+      "value": 102,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[6].visible",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[7].code",
+      "value": "980148",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[7].title",
+      "value": "...",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[7].stock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[7].reportedStock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[7].stores[0].storeId",
+      "value": 10,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[7].stores[0].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[7].stores[0].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[7].stores[1].storeId",
+      "value": 11,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[7].stores[1].storeName",
+      "value": "[FlexiBee] Sklad LTM",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[7].stores[1].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[7].priceWithVat",
+      "value": 206,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[7].visible",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].code",
+      "value": "57010/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].title",
+      "value": "57010/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].stock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].reportedStock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].stores[0].storeId",
+      "value": 6,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].stores[0].storeName",
+      "value": "4PX CZ",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].stores[0].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].stores[1].storeId",
+      "value": 7,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].stores[1].storeName",
+      "value": "4PX SK",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].stores[1].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].stores[2].storeId",
+      "value": 10,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].stores[2].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].stores[2].inStore",
+      "value": 6,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].stores[3].storeId",
+      "value": 11,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].stores[3].storeName",
+      "value": "[FlexiBee] Sklad LTM",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].stores[3].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].priceWithVat",
+      "value": 261,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[8].visible",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[9].code",
+      "value": "POP00098",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[9].title",
+      "value": "Antistres, originální bylinné kapky, 50 ml",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[9].stock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[9].reportedStock",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[9].stores[0].storeId",
+      "value": 10,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[9].stores[0].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[9].stores[0].inStore",
+      "value": 0,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[9].stores[1].storeId",
+      "value": 11,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[9].stores[1].storeName",
+      "value": "[FlexiBee] Sklad LTM",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[9].stores[1].inStore",
+      "value": 5,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[9].priceWithVat",
+      "value": 149,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.lowStockOverall[9].visible",
+      "value": true,
+      "valueType": "boolean"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[0].code",
+      "value": "00102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[0].title",
+      "value": "Uvítací brožura",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[0].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[0].inStore",
+      "value": -8339,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[1].code",
+      "value": "OMA1",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[1].title",
+      "value": "Královské omalovánky",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[1].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[1].inStore",
+      "value": -723,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[2].code",
+      "value": "SET04",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[2].title",
+      "value": "SET04",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[2].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[2].inStore",
+      "value": -432,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[3].code",
+      "value": "000077",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[3].title",
+      "value": "Brožura Detoxikace",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[3].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[3].inStore",
+      "value": -149,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[4].code",
+      "value": "PROMO114",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[4].title",
+      "value": "Děkujeme za důvěru ",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[4].storeName",
+      "value": "[FlexiBee] Sklad LTM",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[4].inStore",
+      "value": -136,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[5].code",
+      "value": "PROMO114",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[5].title",
+      "value": "Děkujeme za důvěru ",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[5].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[5].inStore",
+      "value": -109,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[6].code",
+      "value": "000087",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[6].title",
+      "value": "Brožura Péče o vlasy",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[6].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[6].inStore",
+      "value": -105,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[7].code",
+      "value": "15TOP",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[7].title",
+      "value": "TOP 15 produktů",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[7].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[7].inStore",
+      "value": -100,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[8].code",
+      "value": "SET03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[8].title",
+      "value": "Zázvorový nápoj 2+1",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[8].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[8].inStore",
+      "value": -80,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[9].code",
+      "value": "000085",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[9].title",
+      "value": "Brožura Potravinové doplňky",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[9].storeName",
+      "value": "[FlexiBee] Sklad Měčín",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.negativeStoreStock[9].inStore",
+      "value": -70,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[0].code",
+      "value": "67007",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[0].title",
+      "value": "Slipové vložky se stříbrem. super tenké",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[0].currentStock",
+      "value": 1193,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[0].previousStock",
+      "value": 1203,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[0].delta",
+      "value": -10,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[1].code",
+      "value": "61913",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[1].title",
+      "value": "Dámské bylinné menstruační vložky Nefritová svěžest. noční super",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[1].currentStock",
+      "value": 577,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[1].previousStock",
+      "value": 583,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[1].delta",
+      "value": -6,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[2].code",
+      "value": "40203",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[2].title",
+      "value": "Peeling Broskvový",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[2].currentStock",
+      "value": 2006,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[2].previousStock",
+      "value": 2012,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[2].delta",
+      "value": -6,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[3].code",
+      "value": "UA132",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[3].title",
+      "value": "Peeling Broskovový 1+1",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[3].currentStock",
+      "value": 1996,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[3].previousStock",
+      "value": 2002,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[3].delta",
+      "value": -6,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[4].code",
+      "value": "44402-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[4].title",
+      "value": "Fytogel Slaviton",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[4].currentStock",
+      "value": 2566,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[4].previousStock",
+      "value": 2572,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[4].delta",
+      "value": -6,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[5].code",
+      "value": "40102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[5].title",
+      "value": "Regenerační krém na ruce Aloe Vera",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[5].currentStock",
+      "value": 438,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[5].previousStock",
+      "value": 441,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[5].delta",
+      "value": -3,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[6].code",
+      "value": "000075",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[6].title",
+      "value": "Brožura Fytogely",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[6].currentStock",
+      "value": 3368,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[6].previousStock",
+      "value": 3371,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[6].delta",
+      "value": -3,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[7].code",
+      "value": "CA873",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[7].title",
+      "value": "Balíček Regenerační rituál pro ruce",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[7].currentStock",
+      "value": 269,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[7].previousStock",
+      "value": 272,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[7].delta",
+      "value": -3,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[8].code",
+      "value": "10202",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[8].title",
+      "value": "Čistící gel na pleť Oceán krásy",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[8].currentStock",
+      "value": 525,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[8].previousStock",
+      "value": 527,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[8].delta",
+      "value": -2,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[9].code",
+      "value": "UW655",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[9].title",
+      "value": "Pro zdravou a krásnou pleť",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[9].currentStock",
+      "value": 425,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[9].previousStock",
+      "value": 427,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[9].delta",
+      "value": -2,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.inventory.availableStockTotal",
+      "value": 377514,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.inventory.itemsTotal",
+      "value": 1389,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.inventory.byAccount.CZ",
+      "value": 306805,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.inventory.byAccount.SK",
+      "value": 70709,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.inventory.itemsByAccount.CZ",
+      "value": 768,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.inventory.itemsByAccount.SK",
+      "value": 621,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.shipmentsTotal",
+      "value": 408,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.byAccount.CZ",
+      "value": 376,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.byAccount.SK",
+      "value": 32,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.carrierCounts[0].name",
+      "value": "F1401",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.carrierCounts[0].count",
+      "value": 310,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.carrierCounts[1].name",
+      "value": "F1406",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.carrierCounts[1].count",
+      "value": 74,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.carrierCounts[2].name",
+      "value": "F1403",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.carrierCounts[2].count",
+      "value": 16,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.carrierCounts[3].name",
+      "value": "F1402",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.carrierCounts[3].count",
+      "value": 8,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.logisticsCounts[0].name",
+      "value": "F1401",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.logisticsCounts[0].count",
+      "value": 310,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.logisticsCounts[1].name",
+      "value": "F1406",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.logisticsCounts[1].count",
+      "value": 74,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.logisticsCounts[2].name",
+      "value": "F1403",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.logisticsCounts[2].count",
+      "value": 16,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.logisticsCounts[3].name",
+      "value": "F1402",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.logisticsCounts[3].count",
+      "value": 8,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.statusCounts[0].name",
+      "value": "C",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.statusCounts[0].count",
+      "value": 401,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.statusCounts[1].name",
+      "value": "P",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.statusCounts[1].count",
+      "value": 7,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[0].account",
+      "value": "CZ",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[0].sku",
+      "value": "40203",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[0].dateExpiry",
+      "value": "2026-05-08",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[0].daysToExpiry",
+      "value": 21,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[0].datedStock",
+      "value": 2057,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[0].stockAtNearestExpiry",
+      "value": 2057,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[0].batchCount",
+      "value": 14,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[0].riskScore",
+      "value": 36.99,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[0].title",
+      "value": "Peeling Broskvový",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[0].label",
+      "value": "40203 · Peeling Broskvový (CZ)",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[1].account",
+      "value": "CZ",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[1].sku",
+      "value": "52902/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[1].dateExpiry",
+      "value": "2026-05-07",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[1].daysToExpiry",
+      "value": 20,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[1].datedStock",
+      "value": 324,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[1].stockAtNearestExpiry",
+      "value": 324,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[1].batchCount",
+      "value": 3,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[1].riskScore",
+      "value": 6.19,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[1].title",
+      "value": "Revitalizační maska na obličej a krk Lingzhi - 3ks",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[1].label",
+      "value": "52902/03 · Revitalizační maska na obličej a krk Lingzhi - 3ks (CZ)",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[2].account",
+      "value": "CZ",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[2].sku",
+      "value": "PROMO74",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[2].dateExpiry",
+      "value": "2027-02-09",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[2].daysToExpiry",
+      "value": 298,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[2].datedStock",
+      "value": 9461,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[2].stockAtNearestExpiry",
+      "value": 2341,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[2].batchCount",
+      "value": 18,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[2].riskScore",
+      "value": 5.72,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[2].title",
+      "value": "Královská bylinná směs zdravá žena ",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[2].label",
+      "value": "PROMO74 · Královská bylinná směs zdravá žena  (CZ)",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[3].account",
+      "value": "CZ",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[3].sku",
+      "value": "63601/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[3].dateExpiry",
+      "value": "2026-12-31",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[3].daysToExpiry",
+      "value": 258,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[3].datedStock",
+      "value": 7523,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[3].stockAtNearestExpiry",
+      "value": 7523,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[3].batchCount",
+      "value": 14,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[3].riskScore",
+      "value": 5.48,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[3].title",
+      "value": "Denní vložka Energie života",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[3].label",
+      "value": "63601/01 · Denní vložka Energie života (CZ)",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[4].account",
+      "value": "CZ",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[4].sku",
+      "value": "30111",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[4].dateExpiry",
+      "value": "2026-12-10",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[4].daysToExpiry",
+      "value": 237,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[4].datedStock",
+      "value": 6394,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[4].stockAtNearestExpiry",
+      "value": 6394,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[4].batchCount",
+      "value": 18,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[4].riskScore",
+      "value": 5.2,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[4].title",
+      "value": "Kosmetická tělová fytonáplast Yaoshen Forte",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.logistics.expiringProducts[4].label",
+      "value": "30111 · Kosmetická tělová fytonáplast Yaoshen Forte (CZ)",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.priorities[0]",
+      "value": "Dohlédnout BIOANALYZA007 (BIOREZONANČNÍ ANALÝZA ENERGETICKÉHO STAVU), aktuálně 0 ks.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.priorities[1]",
+      "value": "Dohlédnout 54107 (Pleťová beauty maska \"Černý briliant\"), aktuálně 2 ks.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.priorities[2]",
+      "value": "Projít 4 problematických nebo stornovaných objednávek z včerejška.",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.priorities[3]",
+      "value": "Projít nejbližší expirace v 4PX a rozhodnout o doprodeji nebo přesunu zásoby.",
+      "valueType": "string"
+    },
+    {
+      "path": "quickBrainSummary.ordersYesterday",
+      "value": 410,
+      "valueType": "number"
+    },
+    {
+      "path": "quickBrainSummary.revenueWithVatYesterday",
+      "value": 574331,
+      "valueType": "number"
+    },
+    {
+      "path": "quickBrainSummary.averageOrderValueYesterday",
+      "value": 1401,
+      "valueType": "number"
+    },
+    {
+      "path": "quickBrainSummary.shipmentsYesterday",
+      "value": 408,
+      "valueType": "number"
+    },
+    {
+      "path": "quickBrainSummary.problematicOrdersYesterday",
+      "value": 4,
+      "valueType": "number"
+    },
+    {
+      "path": "quickBrainSummary.expiringProductsCount",
+      "value": 5,
+      "valueType": "number"
+    },
+    {
+      "path": "quickBrainSummary.total4pxStock",
+      "value": 377514,
+      "valueType": "number"
+    },
+    {
+      "path": "quickBrainSummary.total4pxRows",
+      "value": 1389,
+      "valueType": "number"
+    },
+    {
+      "path": "quickBrainSummary.totalLowStockRows",
+      "value": 200,
+      "valueType": "number"
+    },
+    {
+      "path": "quickBrainSummary.marketingLastMonthSpend",
+      "value": 257841,
+      "valueType": "number"
+    },
+    {
+      "path": "quickBrainSummary.financeCurrentMonthRevenue",
+      "value": 7965334,
+      "valueType": "number"
+    },
+    {
+      "path": "quickBrainSummary.attentionCount",
+      "value": 3,
+      "valueType": "number"
+    }
+  ]
+}
