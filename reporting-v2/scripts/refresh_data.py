@@ -1908,14 +1908,18 @@ def fetch_abra_live_snapshot(now_local):
         amount_due = abra_money(abra_pick(row, 'zbyvaUhradit', 'sumZbyvaUhradit', 'sumUhrZbyva', 'castkaZbyva', 'amountDue'))
         paid_flag = abra_bool(abra_pick(row, 'uhrazeno', 'zaplaceno'))
         status_code = abra_text(abra_pick(row, 'stavUhrK', 'stavUhr'))
-        if amount_due <= 0 and paid_flag is False:
-            amount_due = amount_total
-        if amount_due <= 0:
-            continue
+        status_lower = status_code.lower()
+
         if paid_flag is True:
             continue
-        if status_code and 'uhrazeno' in status_code and 'neuhrazeno' not in status_code and 'cast' not in status_code.lower():
+        if status_lower and 'uhrazeno' in status_lower and 'neuhrazeno' not in status_lower and 'cast' not in status_lower and 'část' not in status_lower:
             continue
+
+        if amount_due <= 0:
+            if status_lower and ('neuhrazeno' in status_lower or 'po splatnosti' in status_lower or 'do splatnosti' in status_lower):
+                amount_due = amount_total
+            else:
+                continue
 
         due_dt = parse_dt(abra_pick(row, 'datSplat', 'dueDate'))
         vendor = abra_text(abra_pick(row, 'nazFirmy', 'firma@showAs', 'firma', 'supplier', 'vendor')) or 'Neznámý dodavatel'
