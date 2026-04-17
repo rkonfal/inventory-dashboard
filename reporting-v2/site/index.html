@@ -22,7 +22,7 @@
       <a href="expiry.html">⏳ Expirace / promo</a>
       <a href="eshop.html">🛒 E-shop / WPJ</a>
     </nav>
-    <div class="sidebar-footer">Směr V2: méně technického šumu, rychlejší orientace, jasnější priority a lepší použitelnost i pro operativu.</div>
+    <div class="sidebar-footer">V2 směr: méně šumu, rychlá orientace a jasné priority.</div>
   </aside>
 
   <main class="main page-stack">
@@ -41,7 +41,7 @@
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
       </div>
       <section class="ux-hero-metrics" id="hero-metrics"></section>
-      <div class="ux-date-note"><strong>Jak číst datumy:</strong> objednávky a ranní report jsou vždy za <strong>včerejšek</strong>, 4PX sklad je <strong>aktuální stav po posledním refreshi</strong> a finance / marketing níž ukazují <strong>poslední dostupný měsíc</strong>.</div>
+      <div class="ux-date-note"><strong>Jak číst datumy:</strong> objednávky a ranní report jsou za <strong>včerejšek</strong>, 4PX sklad je <strong>aktuální stav po posledním refreshi</strong> a finance s marketingem níž ukazují <strong>poslední dostupný měsíc</strong>.</div>
     </header>
 
     <section class="grid leadership-note-grid">
@@ -65,7 +65,7 @@
         <div class="ux-section-head">
           <div>
             <h2 class="ux-section-title">Co dnes řešit jako první</h2>
-            <p class="ux-section-subtitle">Jedna operativní plocha místo hledání v pěti různých blocích.</p>
+            <p class="ux-section-subtitle">Jedno místo pro první kontrolu.</p>
           </div>
           <span class="badge warn" id="attention-badge">Načítám priority…</span>
         </div>
@@ -76,7 +76,7 @@
         <div class="ux-section-head" style="margin-bottom:12px;">
           <div>
             <h2 class="ux-section-title" style="font-size:20px;">Dnešní priority</h2>
-            <p class="ux-section-subtitle">Navržené další kroky bez technického balastu.</p>
+            <p class="ux-section-subtitle">Další kroky bez zbytečné omáčky.</p>
           </div>
         </div>
         <div class="ux-list" id="priority-list"></div>
@@ -85,13 +85,13 @@
       <div class="ux-side-stack">
         <div class="ux-panel-card">
           <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Ranní report v jedné kartě</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Místo skákání mezi stránkami je tady krátký přehled včerejšího výkonu a okamžitý vstup do detailu.</p>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Krátký souhrn včerejška a rychlý vstup do detailu.</p>
           <div class="ux-stat-list" id="report-mini"></div>
         </div>
 
         <div class="ux-panel-card">
           <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Co běží dobře</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Pro běžné používání je důležité rychle vidět, že zdroje žijí a kde je případný problém.</p>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rychlá kontrola, že zdroje běží a kde je případný problém.</p>
           <div class="ux-side-list" id="status-list"></div>
         </div>
       </div>
@@ -101,11 +101,11 @@
 
     <section class="grid two-col">
       <div class="card">
-        <h2 class="section-title">Co už je hotové</h2>
+        <h2 class="section-title">Co už máme</h2>
         <div class="block-list" id="done-list"></div>
       </div>
       <div class="card">
-        <h2 class="section-title">Aktuální blokery</h2>
+        <h2 class="section-title">Co nás teď blokuje</h2>
         <div id="blockers"></div>
       </div>
     </section>
@@ -113,7 +113,7 @@
     <section class="card">
       <div class="ux-section-head" style="margin-bottom:0;">
         <div>
-          <h2 class="ux-section-title">Stav zdrojů, ale civilněji</h2>
+          <h2 class="ux-section-title">Stav zdrojů</h2>
           <p class="ux-section-subtitle">Technické zdroje zůstávají vidět, ale nepřekrývají hlavní sdělení stránky.</p>
         </div>
       </div>
@@ -140,9 +140,9 @@
       ['4PX API napojení', 'CZ i SK připojené napřímo přes Open API.'],
       ['WPJ GraphQL napojení', 'Objednávky i sklad se tahají přímo z WPJ přes X-Access-Token.'],
       ['Finance / ABRA bootstrap', 'Máme vytažený poslední dostupný ABRA Flexi snapshot z původního přehledu.'],
-      ['Marketing bootstrap', 'Marketingové náklady jsou rozseknuté na PPC a ostatní marketing a připravené pro další napojení.'],
+      ['Marketing bootstrap', 'Marketingové náklady jsou rozdělené na PPC a ostatní marketing a připravené na další napojení.'],
       ['Nová datová sada', 'Refresh skript zapisuje normalizovaná JSON data, snapshoty a ranní report.'],
-      ['Nový portál', 'Sdílené assets, společný vizuální systém, bez kopírování stylů mezi HTML.'],
+      ['Nový portál', 'Sdílené assets a společný vizuální systém bez kopírování stylů mezi HTML.'],
       ['Automatické reporty', 'Ranní report se generuje a odesílá automaticky každý den v 8:00.']
     ];
 
@@ -191,14 +191,14 @@
       `).join('');
 
       const alerts = report.quickSummary?.alerts || [];
-      document.getElementById('attention-badge').textContent = alerts.length ? `${alerts.length} věcí k pozornosti` : 'Bez zásadního alertu';
+      document.getElementById('attention-badge').textContent = alerts.length ? `${alerts.length} věcí k pozornosti` : 'Nic zásadního';
       document.getElementById('attention-badge').className = `badge ${alerts.length ? 'warn' : 'live'}`;
-      document.getElementById('attention-list').innerHTML = (alerts.length ? alerts : ['Bez zásadního provozního varování.']).map(item => `
+      document.getElementById('attention-list').innerHTML = (alerts.length ? alerts : ['Nic zásadního teď nehoří.']).map(item => `
         <div class="ux-item">
           <span class="ux-dot"></span>
           <div>
             <strong>${item}</strong>
-            <span>${item.includes('sklad') ? 'Vysoká relevance pro sklad a operativu.' : item.includes('objednávek') ? 'Dává smysl otevřít e-shop detail a zkontrolovat stav objednávek.' : 'Vyžaduje rychlou kontrolu v detailu.'}</span>
+            <span>${item.includes('sklad') ? 'Mrkni do skladu.' : item.includes('objednávek') ? 'Mrkni do detailu e-shopu.' : 'Mrkni do detailu.'}</span>
           </div>
         </div>
       `).join('');
@@ -208,7 +208,7 @@
           <span class="ux-dot gold"></span>
           <div>
             <strong>${item}</strong>
-            <span>Navržený další krok pro dnešní práci.</span>
+            <span>Doporučený další krok.</span>
           </div>
         </div>
       `).join('');
@@ -228,9 +228,9 @@
       `).join('');
 
       const statusRows = [
-        ['WPJ a objednávky', summary.wpJ.ready ? 'Připojeno, bere se kompletní výsledek celého www.kralovstvi-tiande.' : summary.wpJ.message],
-        ['4PX sklady a logistika', 'CZ i SK běží živě a propsaly se do přehledu.'],
-        ['Finance a marketing', summary.finance?.message || 'Zatím bez finance zprávy.']
+        ['WPJ a objednávky', summary.wpJ.ready ? 'Připojeno, bereme kompletní výsledek e-shopu.' : summary.wpJ.message],
+        ['4PX sklady a logistika', 'CZ i SK běží živě.'],
+        ['Finance a marketing', summary.finance?.message || 'Zatím bez finanční zprávy.']
       ];
       document.getElementById('status-list').innerHTML = statusRows.map(([title, text], index) => `
         <div class="ux-side-item">
@@ -245,7 +245,7 @@
       const kpis = [
         ['4PX sklad CZ + SK', DP.fmtNumber(Math.round(total4pxStock)), `CZ ${DP.fmtNumber(summary.accounts.cz.inventory.availableStockTotal)} · SK ${DP.fmtNumber(summary.accounts.sk.inventory.availableStockTotal)}`, 'green'],
         ['4PX skladové řádky', DP.fmtNumber(total4pxRows), `${DP.fmtNumber(totalLowStockRows)} nízkých skladových řádků napříč CZ+SK`, 'blue'],
-        ['Finance, čistá cash pozice', DP.fmtNumber(Math.round(summary.finance?.cash?.netCashPosition || 0)), summary.finance?.mode === 'mixed_live_legacy' ? 'live závazky + legacy P&L' : summary.finance?.mode === 'legacy_with_live_error' ? 'legacy + chyba live API' : summary.finance?.mode === 'legacy_snapshot' ? 'legacy ABRA snapshot' : 'finance zdroj', 'gold'],
+        ['Finance, čistá cash pozice', DP.fmtNumber(Math.round(summary.finance?.cash?.netCashPosition || 0)), summary.finance?.mode === 'mixed_live_legacy' ? 'živé závazky + starší P&L' : summary.finance?.mode === 'legacy_with_live_error' ? 'starší data + chyba API' : summary.finance?.mode === 'legacy_snapshot' ? 'starší ABRA snapshot' : 'finanční zdroj', 'gold'],
         ['Marketing, poslední měsíc', DP.fmtNumber(Math.round(summary.marketing?.currentMonth?.totalSpend || 0)), `${(summary.marketing?.currentMonth?.spendShareOfRevenuePct ?? 0).toFixed(1)} % z výnosů`, 'red']
       ];
       document.getElementById('top-kpis').innerHTML = kpis.map(([label, value, sub, klass]) => `
@@ -260,7 +260,7 @@
         <div class="block-item"><h4>${title}</h4><p>${desc}</p></div>
       `).join('');
 
-      document.getElementById('blockers').innerHTML = (summary.warnings.length ? summary.warnings : (summary.report.alerts || []).length ? summary.report.alerts : ['Žádné zásadní blokery v aktivní vrstvě.']).map(w => `<div class="alert warn">${w}</div>`).join('');
+      document.getElementById('blockers').innerHTML = (summary.warnings.length ? summary.warnings : (summary.report.alerts || []).length ? summary.report.alerts : ['Nic zásadního nás teď neblokuje.']).map(w => `<div class="alert warn">${w}</div>`).join('');
 
       const sourceRows = [
         ['4PX CZ inventory', 'OK', `Warehouse ${summary.config.warehouseCode}`, summary.accounts.cz.inventory.items],
