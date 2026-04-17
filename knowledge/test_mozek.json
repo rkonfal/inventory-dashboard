@@ -1,0 +1,193 @@
+{
+  "page": "http://127.0.0.1:8765/site/index.html",
+  "capturedAt": "2026-04-17T14:28:32.342Z",
+  "note": "Čísla viditelná na hlavní stránce localhost reportu, uložená po jednotlivých zobrazených polích.",
+  "staticVisibleNumbers": [
+    {
+      "context": "Diamond Plus Reporting V2",
+      "display": "V2",
+      "tokens": [
+        "2"
+      ]
+    },
+    {
+      "context": "Reporting V2, čistší a prouživatelsky vedený portál",
+      "display": "V2",
+      "tokens": [
+        "2"
+      ]
+    },
+    {
+      "context": "4PX sklad je aktuální stav po posledním refreshi",
+      "display": "4PX",
+      "tokens": [
+        "4"
+      ]
+    },
+    {
+      "context": "4PX API napojení",
+      "display": "4PX",
+      "tokens": [
+        "4"
+      ]
+    },
+    {
+      "context": "Automatické reporty se generují každý den v 8:00",
+      "display": "8:00",
+      "tokens": [
+        "8:00"
+      ]
+    }
+  ],
+  "heroMetrics": [
+    {
+      "label": "Objednávky včera",
+      "value": "410",
+      "subfields": [
+        {
+          "label": "vs 7denní průměr",
+          "value": "-13.3 % vs 7denní průměr",
+          "tokens": [
+            "-13.3",
+            "7"
+          ]
+        },
+        {
+          "label": "AOV",
+          "value": "1 401 Kč",
+          "tokens": [
+            "1 401"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Tržby s DPH",
+      "value": "574 331 Kč",
+      "subfields": [
+        {
+          "label": "vs 7denní průměr",
+          "value": "-22.9 % vs 7denní průměr",
+          "tokens": [
+            "-22.9",
+            "7"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "CZ + SK dohromady",
+      "value": "377 514",
+      "subfields": [
+        {
+          "label": "CZ",
+          "value": "306 805",
+          "tokens": [
+            "306 805"
+          ]
+        },
+        {
+          "label": "SK",
+          "value": "70 709",
+          "tokens": [
+            "70 709"
+          ]
+        }
+      ]
+    }
+  ],
+  "attentionBadge": {
+    "label": "věcí k pozornosti",
+    "value": "3"
+  },
+  "reportMini": [
+    {
+      "label": "Objednávky WPJShop",
+      "value": "410"
+    },
+    {
+      "label": "Tržby WPJShop",
+      "value": "574 331 Kč"
+    },
+    {
+      "label": "4PX sklad CZ+SK",
+      "value": "377 514"
+    },
+    {
+      "label": "Expedice CZ+SK",
+      "value": "408 (376/32)"
+    },
+    {
+      "label": "Problematické",
+      "value": "4"
+    },
+    {
+      "label": "Expirace k řešení",
+      "value": "5"
+    }
+  ],
+  "topKpis": [
+    {
+      "label": "4PX sklad CZ + SK",
+      "value": "377 514",
+      "sub": "CZ 306 805 · SK 70 709"
+    },
+    {
+      "label": "4PX skladové řádky",
+      "value": "1 389",
+      "sub": "200 nízkých skladových řádků napříč CZ+SK"
+    },
+    {
+      "label": "Finance, čistá cash pozice",
+      "value": "0",
+      "sub": "finanční zdroj"
+    },
+    {
+      "label": "Marketing, poslední měsíc",
+      "value": "257 841",
+      "sub": "3.2 % z výnosů"
+    }
+  ],
+  "sourceRows": [
+    {
+      "label": "4PX CZ inventory",
+      "detail": "Warehouse CZPRGA",
+      "objects": "768"
+    },
+    {
+      "label": "4PX SK inventory",
+      "detail": "Warehouse CZPRGA",
+      "objects": "621"
+    },
+    {
+      "label": "4PX CZ outbound",
+      "detail": "Recent pages: 6",
+      "objects": "600"
+    },
+    {
+      "label": "4PX SK outbound",
+      "detail": "Recent pages: 1",
+      "objects": "100"
+    },
+    {
+      "label": "WPJ / GraphQL",
+      "detail": "Kompletní výsledek www.kralovstvi-tiande",
+      "objects": "410"
+    },
+    {
+      "label": "ABRA Flexi / finance",
+      "detail": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API.",
+      "objects": "7 965 334"
+    },
+    {
+      "label": "Marketing",
+      "detail": "Marketing se skládá z live ABRA reportu a aktuálních položek z účetního deníku.",
+      "objects": "257 841"
+    },
+    {
+      "label": "Ranní report",
+      "detail": "Alerty: 3",
+      "objects": "408"
+    }
+  ]
+}
