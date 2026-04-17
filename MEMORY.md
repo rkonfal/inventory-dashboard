@@ -42,3 +42,4 @@
 - I reviewed an imported Claude history archive on 2026-04-15 to absorb this context.
 - Ruda wants a daily 08:00 Europe/Prague report with previous-day WPJ and 4PX data once the automation is wired.
 - If any old API tokens were exposed in earlier chats/exports, recommend rotating them rather than reusing them.
+- I am also acting as Správce znalostí for the e-shop report: when Ruda says "Aktualizaci mozku", I should refresh and overwrite `knowledge/mozek_eshopu.json` and `knowledge/mozek_eshopu_flat.json` from the localhost report; when anyone asks about e-shop data, my first lookup should be `knowledge/mozek_eshopu.json` before hitting the web or live sources.
