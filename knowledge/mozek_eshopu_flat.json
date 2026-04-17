@@ -1,8 +1,8 @@
 {
   "source": "/Users/rudolfkonfal/.openclaw/workspace/knowledge/mozek_eshopu.json",
-  "generatedAt": "2026-04-17T14:51:45.684Z",
-  "itemCount": 1035,
-  "sourceFingerprint": "1cf5284142535c1009fd316d6d0b27745e2d43f4a50f03e5440455548fd52db7",
+  "generatedAt": "2026-04-17T15:01:51.687Z",
+  "itemCount": 1037,
+  "sourceFingerprint": "541863d0f482aaa41a6d23379544435c5f4d90bbfdfedecd6bde9186686c40b7",
   "items": [
     {
       "path": "source.pageUrl",
@@ -26,12 +26,12 @@
     },
     {
       "path": "source.capturedAt",
-      "value": "2026-04-17T14:51:45.675Z",
+      "value": "2026-04-17T15:01:51.678Z",
       "valueType": "string"
     },
     {
       "path": "source.sourceFingerprint",
-      "value": "1cf5284142535c1009fd316d6d0b27745e2d43f4a50f03e5440455548fd52db7",
+      "value": "541863d0f482aaa41a6d23379544435c5f4d90bbfdfedecd6bde9186686c40b7",
       "valueType": "string"
     },
     {
@@ -456,7 +456,7 @@
     },
     {
       "path": "rendered.statusList[2].text",
-      "value": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API.",
+      "value": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Závazky jsou live z ABRA API, cash na účtech a čistá cash pozice zatím zůstávají z posledního ABRA snapshotu.",
       "valueType": "string"
     },
     {
@@ -521,17 +521,17 @@
     },
     {
       "path": "rendered.topKpis[2].display",
-      "value": "0",
+      "value": "8 675 748",
       "valueType": "string"
     },
     {
       "path": "rendered.topKpis[2].sub",
-      "value": "finanční zdroj",
+      "value": "živé závazky + starší P&L",
       "valueType": "string"
     },
     {
       "path": "rendered.topKpis[2].raw",
-      "value": 0,
+      "value": 8675748,
       "valueType": "number"
     },
     {
@@ -711,7 +711,7 @@
     },
     {
       "path": "rendered.sourceRows[5].whatWeSee",
-      "value": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API.",
+      "value": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Závazky jsou live z ABRA API, cash na účtech a čistá cash pozice zatím zůstávají z posledního ABRA snapshotu.",
       "valueType": "string"
     },
     {
@@ -1046,12 +1046,12 @@
     },
     {
       "path": "backingData.portal_summary.finance.mode",
-      "value": "live_report",
+      "value": "mixed_live_legacy",
       "valueType": "string"
     },
     {
       "path": "backingData.portal_summary.finance.message",
-      "value": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API.",
+      "value": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Závazky jsou live z ABRA API, cash na účtech a čistá cash pozice zatím zůstávají z posledního ABRA snapshotu.",
       "valueType": "string"
     },
     {
@@ -1403,6 +1403,16 @@
       "path": "backingData.portal_summary.finance.cash.largestPayables[7].status",
       "value": "13 dní do splatnosti",
       "valueType": "string"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.cashOnAccounts",
+      "value": 10255308,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.portal_summary.finance.cash.netCashPosition",
+      "value": 8675748,
+      "valueType": "number"
     },
     {
       "path": "backingData.portal_summary.finance.reportExport.status",

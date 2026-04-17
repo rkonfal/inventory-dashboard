@@ -2368,7 +2368,7 @@ def build_finance_snapshot(legacy_abra_payload, live_abra_payload, report_payloa
             'status': 'live_report',
             'message': 'Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska.',
         }
-        cash = {}
+        cash = dict(legacy_abra_payload.get('cash') or {}) if legacy_abra_payload else {}
     elif legacy_abra_payload:
         model = legacy_abra_payload['model']
         series = calc_legacy_finance_series(model['pnl_all'])
@@ -2417,13 +2417,26 @@ def build_finance_snapshot(legacy_abra_payload, live_abra_payload, report_payloa
     if live_abra_payload:
         live_status = live_abra_payload.get('source', {}).get('status')
         if live_status == 'live_payables':
-            cash.update(live_abra_payload.get('cash') or {})
+            live_cash = live_abra_payload.get('cash') or {}
+            cash.update(live_cash)
             journal = live_abra_payload.get('journal') or journal
             if report_rows:
-                source = {
-                    'status': 'live_report',
-                    'message': 'Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API.',
-                }
+                has_live_cash_position = live_cash.get('cashOnAccounts') is not None and live_cash.get('netCashPosition') is not None
+                if has_live_cash_position:
+                    source = {
+                        'status': 'live_report',
+                        'message': 'Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API.',
+                    }
+                elif cash.get('cashOnAccounts') is not None and cash.get('netCashPosition') is not None:
+                    source = {
+                        'status': 'mixed_live_legacy',
+                        'message': 'Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Závazky jsou live z ABRA API, cash na účtech a čistá cash pozice zatím zůstávají z posledního ABRA snapshotu.',
+                    }
+                else:
+                    source = {
+                        'status': 'live_report',
+                        'message': 'Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Závazky jsou live z ABRA API.',
+                    }
             else:
                 source = {
                     'status': 'mixed_live_legacy' if legacy_abra_payload else 'live_payables_only',

@@ -6,8 +6,8 @@
       "portalSummary": "/Users/rudolfkonfal/.openclaw/workspace/reporting-v2/data/current/portal_summary.json",
       "morningReportPreviousDay": "/Users/rudolfkonfal/.openclaw/workspace/reporting-v2/data/current/morning_report_previous_day.json"
     },
-    "capturedAt": "2026-04-17T14:51:45.675Z",
-    "sourceFingerprint": "1cf5284142535c1009fd316d6d0b27745e2d43f4a50f03e5440455548fd52db7"
+    "capturedAt": "2026-04-17T15:01:51.678Z",
+    "sourceFingerprint": "541863d0f482aaa41a6d23379544435c5f4d90bbfdfedecd6bde9186686c40b7"
   },
   "pageMeta": {
     "title": "Diamond Plus Reporting V2",
@@ -162,7 +162,7 @@
       },
       {
         "title": "Finance a marketing",
-        "text": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API."
+        "text": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Závazky jsou live z ABRA API, cash na účtech a čistá cash pozice zatím zůstávají z posledního ABRA snapshotu."
       }
     ],
     "topKpis": [
@@ -187,9 +187,9 @@
       },
       {
         "label": "Finance, čistá cash pozice",
-        "display": "0",
-        "sub": "finanční zdroj",
-        "raw": 0
+        "display": "8 675 748",
+        "sub": "živé závazky + starší P&L",
+        "raw": 8675748
       },
       {
         "label": "Marketing, poslední měsíc",
@@ -245,7 +245,7 @@
       {
         "source": "ABRA Flexi / finance",
         "state": "OK",
-        "whatWeSee": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API.",
+        "whatWeSee": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Závazky jsou live z ABRA API, cash na účtech a čistá cash pozice zatím zůstávají z posledního ABRA snapshotu.",
         "objectsDisplay": "7 965 334",
         "objectsRaw": 7965334
       },
@@ -353,8 +353,8 @@
       },
       "finance": {
         "ready": true,
-        "mode": "live_report",
-        "message": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API.",
+        "mode": "mixed_live_legacy",
+        "message": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Závazky jsou live z ABRA API, cash na účtech a čistá cash pozice zatím zůstávají z posledního ABRA snapshotu.",
         "currentMonth": {
           "label": "4/2026",
           "revenue": 7965333.96,
@@ -445,7 +445,9 @@
               "amountDue": 27981.25,
               "status": "13 dní do splatnosti"
             }
-          ]
+          ],
+          "cashOnAccounts": 10255308,
+          "netCashPosition": 8675748
         },
         "reportExport": {
           "status": "live",
