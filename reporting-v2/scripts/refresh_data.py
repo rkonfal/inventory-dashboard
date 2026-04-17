@@ -7,6 +7,7 @@ import os
 import re
 import sys
 import time
+import unicodedata
 from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -37,74 +38,85 @@ LIVE_FINANCE_MARKETING_ACCOUNTS = ('518900', '518901')
 LIVE_FINANCE_LOGISTICS_ACCOUNTS = ('518201', '518400')
 LIVE_FINANCE_BANKFEE_ACCOUNTS = ('568001', '568100')
 
-WPJ_ORDERS_HISTORY_QUERY = '''
-query ($offset:Int,$limit:Int,$sort:OrderSortInput,$filter:OrderFilterInput){
-  orders(offset:$offset, limit:$limit, sort:$sort, filter:$filter) {
-    items {
-      id
-      code
-      dateCreated
-      cancelled
-      isPaid
-      status { id name }
-      totalPrice { withVat withoutVat }
-    }
-    hasNextPage
-    hasPreviousPage
-  }
-}
+WPJ_ORDER_CLASSIFICATION_FIELDS = '''
+      source { name }
+      deliveryAddress {
+        city
+        country { name code }
+      }
 '''
 
-WPJ_ORDERS_DETAIL_QUERY = '''
-query ($offset:Int,$limit:Int,$sort:OrderSortInput,$filter:OrderFilterInput){
-  orders(offset:$offset, limit:$limit, sort:$sort, filter:$filter) {
-    items {
+WPJ_ORDERS_HISTORY_QUERY = f'''
+query ($offset:Int,$limit:Int,$sort:OrderSortInput,$filter:OrderFilterInput){{
+  orders(offset:$offset, limit:$limit, sort:$sort, filter:$filter) {{
+    items {{
       id
       code
       dateCreated
       cancelled
       isPaid
-      status { id name }
-      totalPrice { withVat withoutVat }
-      deliveryType {
+      status {{ id name }}
+      totalPrice {{ withVat withoutVat }}
+{WPJ_ORDER_CLASSIFICATION_FIELDS}
+    }}
+    hasNextPage
+    hasPreviousPage
+  }}
+}}
+'''
+
+WPJ_ORDERS_DETAIL_QUERY = f'''
+query ($offset:Int,$limit:Int,$sort:OrderSortInput,$filter:OrderFilterInput){{
+  orders(offset:$offset, limit:$limit, sort:$sort, filter:$filter) {{
+    items {{
+      id
+      code
+      dateCreated
+      cancelled
+      isPaid
+      status {{ id name }}
+      totalPrice {{ withVat withoutVat }}
+{WPJ_ORDER_CLASSIFICATION_FIELDS}
+      deliveryType {{
         id
-        delivery { id name }
-        payment { id name type }
-        price { withVat }
-      }
-      items {
+        delivery {{ id name }}
+        payment {{ id name type }}
+        price {{ withVat }}
+      }}
+      items {{
         type
         productId
         code
         name
         ean
         pieces
-        totalPrice { withVat withoutVat }
-      }
-    }
+        totalPrice {{ withVat withoutVat }}
+      }}
+    }}
     hasNextPage
     hasPreviousPage
-  }
-}
+  }}
+}}
 '''
 
-WPJ_ORDERS_YEAR_METRICS_QUERY = '''
-query ($offset:Int,$limit:Int,$sort:OrderSortInput,$filter:OrderFilterInput){
-  orders(offset:$offset, limit:$limit, sort:$sort, filter:$filter) {
-    items {
+WPJ_ORDERS_YEAR_METRICS_QUERY = f'''
+query ($offset:Int,$limit:Int,$sort:OrderSortInput,$filter:OrderFilterInput){{
+  orders(offset:$offset, limit:$limit, sort:$sort, filter:$filter) {{
+    items {{
       id
       dateCreated
-      items {
+{WPJ_ORDER_CLASSIFICATION_FIELDS}
+      items {{
         type
         code
         name
         pieces
-      }
-    }
+      }}
+    }}
     hasNextPage
     hasPreviousPage
-  }
-}
+  }}
+}}
 '''
 
 WPJ_PRODUCTS_QUERY = '''
@@ -744,10 +756,31 @@ def summarize_stock(products, sold_product_codes, previous_products=None):
     }
 
 
+def normalize_city_name(value):
+    text = str(value or '').strip().lower()
+    return ''.join(ch for ch in unicodedata.normalize('NFD', text) if unicodedata.category(ch) != 'Mn')
+
+
+def classify_order_view(order):
+    source_name = ((order.get('source') or {}).get('name') or '').strip().lower()
+    city = ((order.get('deliveryAddress') or {}).get('city') or '').strip().lower()
+    country = (((order.get('deliveryAddress') or {}).get('country') or {}).get('code') or '').strip().upper()
+    city_ascii = normalize_city_name(city)
+
+    if source_name == 'pokladna':
+        if 'mecin' in city_ascii:
+            return 'mecin'
+        return 'ltm'
+    if country == 'SK':
+        return 'sk'
+    return 'cz'
+
+
 def collect_wpj_order_product_metrics(orders, wpj_by_code=None, manual_overrides=None):
     wpj_by_code = wpj_by_code or {}
     metrics = {}
     for order in orders:
+        view = classify_order_view(order)
         for item in order.get('items') or []:
             if item.get('type') != 'product':
                 continue
@@ -759,12 +792,32 @@ def collect_wpj_order_product_metrics(orders, wpj_by_code=None, manual_overrides
                 'units': 0.0,
                 'revenueWithVat': 0.0,
                 'sourceCodes': set(),
+                'byView': {
+                    'complete': {'units': 0.0, 'revenueWithVat': 0.0},
+                    'cz': {'units': 0.0, 'revenueWithVat': 0.0},
+                    'sk': {'units': 0.0, 'revenueWithVat': 0.0},
+                    'ltm': {'units': 0.0, 'revenueWithVat': 0.0},
+                    'mecin': {'units': 0.0, 'revenueWithVat': 0.0},
+                },
             })
             row['sourceCodes'].add(normalize_product_code(raw_code))
-            row['units'] += num(item.get('pieces'))
-            row['revenueWithVat'] += money((item.get('totalPrice') or {}).get('withVat'))
+            units = num(item.get('pieces'))
+            revenue = money((item.get('totalPrice') or {}).get('withVat'))
+            row['units'] += units
+            row['revenueWithVat'] += revenue
+            row['byView']['complete']['units'] += units
+            row['byView']['complete']['revenueWithVat'] += revenue
+            row['byView'][view]['units'] += units
+            row['byView'][view]['revenueWithVat'] += revenue
     for row in metrics.values():
         row['sourceCodes'] = sorted(row['sourceCodes'])
+        row['byView'] = {
+            key: {
+                'units': round(value['units'], 2),
+                'revenueWithVat': round(value['revenueWithVat'], 2),
+            }
+            for key, value in row['byView'].items()
+        }
     return metrics
 
 
@@ -934,7 +987,19 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
         fourpx_sk = sk_inventory_by_code.get(code, {'availableStock': 0.0, 'pendingStock': 0.0, 'freezeStock': 0.0, 'onwayStock': 0.0, 'batchNos': [], 'skuIds': [], 'sourceCodes': [], 'mappedSourceCodes': [], 'mappingRules': []})
         outbound_cz = cz_outbound_by_code.get(code, {'units': 0.0, 'shipments': [], 'logisticsProducts': [], 'carriers': [], 'name': None, 'accounts': [], 'sourceCodes': [], 'mappedSourceCodes': [], 'mappingRules': []})
         outbound_sk = sk_outbound_by_code.get(code, {'units': 0.0, 'shipments': [], 'logisticsProducts': [], 'carriers': [], 'name': None, 'accounts': [], 'sourceCodes': [], 'mappedSourceCodes': [], 'mappingRules': []})
-        sales = order_metrics.get(code, {'units': 0.0, 'revenueWithVat': 0.0, 'name': None, 'sourceCodes': []})
+        sales = order_metrics.get(code, {
+            'units': 0.0,
+            'revenueWithVat': 0.0,
+            'name': None,
+            'sourceCodes': [],
+            'byView': {
+                'complete': {'units': 0.0, 'revenueWithVat': 0.0},
+                'cz': {'units': 0.0, 'revenueWithVat': 0.0},
+                'sk': {'units': 0.0, 'revenueWithVat': 0.0},
+                'ltm': {'units': 0.0, 'revenueWithVat': 0.0},
+                'mecin': {'units': 0.0, 'revenueWithVat': 0.0},
+            },
+        })
 
         inventory_source_codes = sorted(set(fourpx_cz.get('sourceCodes') or []) | set(fourpx_sk.get('sourceCodes') or []))
         mapped_inventory_codes = sorted(set(fourpx_cz.get('mappedSourceCodes') or []) | set(fourpx_sk.get('mappedSourceCodes') or []))
@@ -994,6 +1059,11 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
                 'units': round(sales['units'], 2),
                 'revenueWithVat': round(sales['revenueWithVat'], 2),
                 'sourceCodes': sales.get('sourceCodes') or [],
+                'czUnits': round(((sales.get('byView') or {}).get('cz') or {}).get('units', 0.0), 2),
+                'skUnits': round(((sales.get('byView') or {}).get('sk') or {}).get('units', 0.0), 2),
+                'ltmUnits': round(((sales.get('byView') or {}).get('ltm') or {}).get('units', 0.0), 2),
+                'mecinUnits': round(((sales.get('byView') or {}).get('mecin') or {}).get('units', 0.0), 2),
+                'byView': sales.get('byView') or {},
             },
             'yesterdayOutbound': {
                 'czUnits': round(outbound_cz['units'], 2),
@@ -1131,11 +1201,13 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
 def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None):
     wpj_by_code = wpj_by_code or {}
     metrics = {}
+    view_keys = ('complete', 'cz', 'sk', 'ltm', 'mecin')
     for order in year_orders:
         dt = parse_dt(order.get('dateCreated'))
         if not dt:
             continue
         days_ago = (end_dt.date() - dt.date()).days
+        view = classify_order_view(order)
         for item in order.get('items') or []:
             if item.get('type') != 'product':
                 continue
@@ -1149,15 +1221,27 @@ def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt
                 'units90d': 0.0,
                 'units30d': 0.0,
                 'lastSaleDate': None,
+                'byView': {
+                    key: {'units365d': 0.0, 'units180d': 0.0, 'units90d': 0.0, 'units30d': 0.0}
+                    for key in view_keys
+                },
             })
             units = num(item.get('pieces'))
             row['units365d'] += units
+            row['byView']['complete']['units365d'] += units
+            row['byView'][view]['units365d'] += units
             if days_ago <= 180:
                 row['units180d'] += units
+                row['byView']['complete']['units180d'] += units
+                row['byView'][view]['units180d'] += units
             if days_ago <= 90:
                 row['units90d'] += units
+                row['byView']['complete']['units90d'] += units
+                row['byView'][view]['units90d'] += units
             if days_ago <= 30:
                 row['units30d'] += units
+                row['byView']['complete']['units30d'] += units
+                row['byView'][view]['units30d'] += units
             if not row['lastSaleDate'] or dt.isoformat() > row['lastSaleDate']:
                 row['lastSaleDate'] = dt.isoformat()
 
@@ -1182,6 +1266,18 @@ def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt
         if effective_stock > 0 and days_of_cover is not None and days_of_cover <= 30 and metric['units365d'] > 0:
             tags.append('fast_mover_low_cover')
 
+        by_view = {}
+        for view_key in view_keys:
+            view_metric = (metric.get('byView') or {}).get(view_key) or {}
+            view_units_365d = round(view_metric.get('units365d', 0.0), 2)
+            by_view[view_key] = {
+                'units365d': view_units_365d,
+                'units180d': round(view_metric.get('units180d', 0.0), 2),
+                'units90d': round(view_metric.get('units90d', 0.0), 2),
+                'units30d': round(view_metric.get('units30d', 0.0), 2),
+                'avgMonthlyUnits365d': round(view_units_365d / 12, 1) if view_units_365d else 0,
+            }
+
         items.append({
             'code': code,
             'title': item['title'],
@@ -1192,6 +1288,10 @@ def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt
             'units180d': round(metric['units180d'], 2),
             'units90d': round(metric['units90d'], 2),
             'units30d': round(metric['units30d'], 2),
+            'czUnits365d': by_view['cz']['units365d'],
+            'skUnits365d': by_view['sk']['units365d'],
+            'ltmUnits365d': by_view['ltm']['units365d'],
+            'mecinUnits365d': by_view['mecin']['units365d'],
             'avgMonthlyUnits365d': round(metric['units365d'] / 12, 1) if metric['units365d'] else 0,
             'dailyRunRate365d': round(daily_run_rate, 3),
             'daysOfCover365d': days_of_cover,
@@ -1199,6 +1299,7 @@ def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt
             'daysSinceLastSale': days_since_last_sale,
             'stockValueSelling': selling_value,
             'tags': tags,
+            'byView': by_view,
         })
 
     turnover = sorted([item for item in items if item['units365d'] > 0 and item['effectiveStock'] > 0], key=lambda item: item['units365d'], reverse=True)
