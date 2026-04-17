@@ -586,7 +586,7 @@ def is_problematic_order(order):
     return any(p in name for p in patterns)
 
 
-def summarize_orders(orders):
+def summarize_orders(orders, include_views=True):
     product_units = Counter()
     product_revenue = Counter()
     payment_methods = Counter()
@@ -639,7 +639,7 @@ def summarize_orders(orders):
         return rows
 
     average_order_value = revenue / len(orders) if orders else 0
-    return {
+    summary = {
         'orders': len(orders),
         'revenueWithVat': round(revenue, 2),
         'averageOrderValue': round(average_order_value, 2),
@@ -652,6 +652,17 @@ def summarize_orders(orders):
         'topProductsByRevenue': top_products(product_revenue, formatter=lambda x: format_czk(x)),
         'soldProductCodes': sorted(sold_product_codes),
     }
+
+    if include_views:
+        summary['byView'] = {
+            'complete': summarize_orders(orders, include_views=False),
+            'cz': summarize_orders([order for order in orders if classify_order_view(order) == 'cz'], include_views=False),
+            'sk': summarize_orders([order for order in orders if classify_order_view(order) == 'sk'], include_views=False),
+            'ltm': summarize_orders([order for order in orders if classify_order_view(order) == 'ltm'], include_views=False),
+            'mecin': summarize_orders([order for order in orders if classify_order_view(order) == 'mecin'], include_views=False),
+        }
+
+    return summary
 
 
 def summarize_daily_history(orders, target_date):
