@@ -1804,8 +1804,10 @@ def fetch_abra_vykaz_hospodareni_reports(now_local):
         }
 
     exports = []
-    for offset in (-2, -1, 0):
-        target_month = shift_month(month_floor(now_local), offset)
+    current_month = month_floor(now_local)
+    target_month = datetime(current_month.year, 1, 1, tzinfo=current_month.tzinfo)
+
+    while target_month <= current_month:
         label = month_label(target_month)
         month_key = f'{target_month.month:02d}/{target_month.year}'
         file_name = f'abra_vykaz_hospodareni_{target_month.year}-{target_month.month:02d}.xls'
@@ -1835,6 +1837,8 @@ def fetch_abra_vykaz_hospodareni_reports(now_local):
                 },
                 'exports': exports,
             }
+
+        target_month = shift_month(target_month, 1)
 
     return {
         'source': {
