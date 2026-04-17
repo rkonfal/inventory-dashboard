@@ -10,11 +10,11 @@
   <aside class="sidebar">
     <div class="sidebar-logo">
       <h2>Diamond Plus</h2>
-      <span>Finance vrstva v čistším, srozumitelnějším rozhraní</span>
+      <span>Finance v přehledné stránce</span>
     </div>
     <div class="sidebar-section-label">Přehled</div>
     <nav class="sidebar-nav">
-      <a href="index.html">🏠 Portal</a>
+      <a href="index.html">🏠 Přehled</a>
       <a class="active" href="finance.html">💰 Finance / ABRA</a>
       <a href="marketing.html">📣 Marketing</a>
       <a href="inventory.html">📦 Sklad</a>
@@ -22,20 +22,20 @@
       <a href="expiry.html">⏳ Expirace / promo</a>
       <a href="eshop.html">🛒 E-shop / WPJ</a>
     </nav>
-    <div class="sidebar-footer">Finance stránka má nově vést uživatele od stavu měsíce přes cash a závazky až k hlubším tabulkám.</div>
+    <div class="sidebar-footer">Nejdřív měsíc, cash a závazky. Detailní tabulky až potom.</div>
   </aside>
 
   <main class="main page-stack">
     <header class="header">
       <div class="ux-topbar">
         <div class="ux-intro">
-          <div class="ux-kicker">Finance / ABRA • lidsky čitelné vedení</div>
+          <div class="ux-kicker">Finance / ABRA • rychlý přehled</div>
           <h1 class="ux-title">Finance, které nejdřív řeknou, co je podstatné</h1>
-          <p class="ux-subtitle">Místo tvrdého účetního dumpu jde tahle obrazovka nejdřív po aktuálním měsíci, hotovosti a otevřených závazcích. Až pod tím zůstává plný měsíční přehled a detailní tabulky.</p>
+          <p class="ux-subtitle">Nejdřív aktuální měsíc, hotovost a otevřené závazky. Detailní tabulky zůstávají až pod tím.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="../data/current/finance_overview.json" target="_blank" rel="noopener">Otevřít finance data</a>
             <a class="ux-button secondary" href="marketing.html">Na marketing</a>
-            <a class="ux-button secondary" href="index.html">Na portal</a>
+            <a class="ux-button secondary" href="index.html">Na přehled</a>
           </div>
         </div>
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
@@ -47,16 +47,16 @@
     <section class="grid leadership-note-grid">
       <div class="leadership-notes-head">
         <div class="leadership-notes-kicker">Pohled vedení</div>
-        <h2>Jak tenhle dashboard číst</h2>
-        <p>Dva krátké pohledy, které drží finance v rozhodovací rovině. První je provozní optika odpovědného ředitele, druhý pohled pro board.</p>
+        <h2>Jak tu stránku číst</h2>
+        <p>Dva krátké bloky. První řekne, co hlídat hned, druhý kdy už je potřeba zásah.</p>
       </div>
       <div class="card leadership-note director">
-        <div class="leadership-note-label">Komentář CFO</div>
-        <p><strong>Tady sledujeme, jestli se výkon firmy opravdu propisuje do cash a do zdravého výsledku.</strong> Hlavní není jednotlivý účetní řádek, ale trend měsíce, tlak závazků a moment, kdy je potřeba brzdit výdaj nebo přehodnotit investici.</p>
+        <div class="leadership-note-label">Co hlídat hned</div>
+        <p><strong>Sleduj trend měsíce, hotovost a tlak závazků.</strong> Nemusíš číst každý účetní řádek, důležité je poznat, jestli firma drží tempo bez tlaku na cash.</p>
       </div>
       <div class="card leadership-note board">
-        <div class="leadership-note-label">Komentář pro board</div>
-        <p><strong>Pro board je to pohled na finanční stabilitu firmy.</strong> Díváme se na výnosy, marži, cash a závazky, tedy na to, jestli růst stojí na pevném základu nebo už vytváří tlak na likviditu a rozhodování o prioritách.</p>
+        <div class="leadership-note-label">Co to znamená</div>
+        <p><strong>Když se horší cash nebo rostou závazky rychleji než výkon, je čas zbystřit.</strong> V tu chvíli dává smysl brzdit výdaje nebo změnit prioritu investic.</p>
       </div>
     </section>
 
@@ -67,7 +67,7 @@
         <div class="ux-section-head">
           <div>
             <h2 class="ux-section-title">Co finance říkají teď</h2>
-            <p class="ux-section-subtitle">Pohled pro rychlé rozhodnutí, ne jen účetní inventuru.</p>
+            <p class="ux-section-subtitle">Rychlý pohled pro rozhodnutí, ne jen soupis čísel.</p>
           </div>
           <span class="badge warn" id="source-mode">Načítám zdroj…</span>
         </div>
@@ -132,7 +132,7 @@
     <section class="grid two-col">
       <div class="card">
         <h2 class="section-title">Trendy z účetního deníku</h2>
-        <div class="section-subtitle">Live nákladové a výnosové zápisy za poslední 3 měsíce. Je to čitelnější mezivrstva nad surovým deníkem, ne finální účetní výkaz.</div>
+        <div class="section-subtitle">Live nákladové a výnosové zápisy za poslední 3 měsíce. Je to čitelný mezikrok nad surovým deníkem, ne finální účetní výkaz.</div>
         <div class="ux-table-wrap" style="margin-top:16px;">
           <table class="table mobile-stack">
             <thead>
@@ -196,7 +196,7 @@
     const money = value => `${DP.fmtNumber(Math.round(value || 0))} Kč`;
     const pct = value => value == null ? '–' : `${Number(value).toFixed(1)} %`;
     const sourceMeta = status => ({
-      legacy_snapshot: { label: 'legacy snapshot', tone: 'warn' },
+      legacy_snapshot: { label: 'starší uložený přehled', tone: 'warn' },
       mixed_live_legacy: { label: 'live závazky + legacy P&L', tone: 'success' },
       live_payables_only: { label: 'live závazky', tone: 'success' },
       legacy_with_live_error: { label: 'legacy + chyba live API', tone: 'danger' },

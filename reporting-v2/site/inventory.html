@@ -8,10 +8,10 @@
 </head>
 <body>
   <aside class="sidebar">
-    <div class="sidebar-logo"><h2>Diamond Plus</h2><span>Sklad v přehlednějším, operativně vedeném dashboardu</span></div>
+    <div class="sidebar-logo"><h2>Diamond Plus</h2><span>Sklad v přehlednější operativní stránce</span></div>
     <div class="sidebar-section-label">Přehled</div>
 <nav class="sidebar-nav">
-      <a href="index.html">🏠 Portal</a>
+      <a href="index.html">🏠 Přehled</a>
       <a href="finance.html">💰 Finance / ABRA</a>
       <a href="marketing.html">📣 Marketing</a>
       <a class="active" href="inventory.html">📦 Sklad</a>
@@ -32,7 +32,7 @@
           <div class="ux-actions">
             <a class="ux-button primary" href="../data/current/morning_report_previous_day.txt" target="_blank" rel="noopener">Otevřít ranní report</a>
             <a class="ux-button secondary" href="logistics.html">Na logistiku</a>
-            <a class="ux-button secondary" href="index.html">Na portal</a>
+            <a class="ux-button secondary" href="index.html">Na přehled</a>
           </div>
         </div>
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
@@ -44,16 +44,16 @@
     <section class="grid leadership-note-grid">
       <div class="leadership-notes-head">
         <div class="leadership-notes-kicker">Pohled vedení</div>
-        <h2>Jak tenhle dashboard číst</h2>
-        <p>Dva krátké pohledy, které mají udržet sklad v rovině rozhodnutí. První ukazuje provozní optiku, druhý co z těch samých dat potřebuje vidět board.</p>
+        <h2>Jak tu stránku číst</h2>
+        <p>Dva krátké bloky. První řekne, co dnes může zablokovat provoz, druhý co ten stav znamená pro firmu.</p>
       </div>
       <div class="card leadership-note director">
-        <div class="leadership-note-label">Komentář provozního ředitele</div>
-        <p><strong>Tady se díváme na to, co může dnes zablokovat expedici nebo zbytečně držet cash ve skladu.</strong> Priorita jsou kritické položky, mismatchy, nízké pokrytí a ležáky. Celkový objem zásob je až druhotná informace.</p>
+        <div class="leadership-note-label">Co hlídat dnes</div>
+        <p><strong>Hlídej kritické položky, mismatchy, nízké pokrytí a ležáky.</strong> Celkový objem zásob je až druhý krok.</p>
       </div>
       <div class="card leadership-note board">
-        <div class="leadership-note-label">Komentář pro board</div>
-        <p><strong>Pro board je to obraz zdraví zásoby.</strong> Sledujeme, jestli sklad podporuje prodej, nebo naopak váže peníze v přebytcích a chybách párování. Důležité jsou hlavně nedostupnosti na tahounech a systémové provozní slabiny.</p>
+        <div class="leadership-note-label">Co to znamená</div>
+        <p><strong>Tahle stránka ukáže, jestli sklad podporuje prodej, nebo váže peníze v přebytcích a chybách párování.</strong> Nejvíc bolí nedostupnosti na tahounech a systémové slabiny v párování.</p>
       </div>
     </section>
 
@@ -73,7 +73,7 @@
 
       <div class="ux-side-stack">
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Rychlý snapshot</h3>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Rychlý přehled</h3>
           <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Základní přehled skladu a párování bez čtení dlouhých tabulek.</p>
           <div class="ux-stat-list" id="inventory-stat-list"></div>
         </div>
@@ -182,7 +182,7 @@
 
     <section class="card" style="margin-top:20px;">
       <h2 class="section-title">Prioritní mismatch shortlist</h2>
-      <div class="section-subtitle">Ne dump, ale pořadník toho, co má největší dopad na provoz a co dává smysl řešit jako první.</div>
+      <div class="section-subtitle">Krátký pořadník toho, co má největší dopad na provoz a dává smysl řešit jako první.</div>
       <table class="table">
         <thead>
           <tr>
@@ -216,7 +216,7 @@
 
       <div class="card">
         <h2 class="section-title">Riziko nízkého pokrytí</h2>
-        <div class="section-subtitle">Rychle se točí a na skladu toho není moc, tohle je operativní watchlist.</div>
+        <div class="section-subtitle">Rychle se točí a na skladu toho není moc, tohle je operativní seznam k hlídání.</div>
         <table class="table">
           <thead>
             <tr>
@@ -299,12 +299,12 @@
     </section>
 
     <section class="card" style="margin-top:20px;">
-      <h2 class="section-title">Mapovací návrhy pro orphan SKU</h2>
+      <h2 class="section-title">Mapovací návrhy pro nepárované SKU</h2>
       <div class="section-subtitle">Zobrazuje jak auto mapování přes suffix typu <code>/01</code>, tak i případné ruční override vazby z konfigurační mapy.</div>
       <table class="table">
         <thead>
           <tr>
-            <th>4PX orphan SKU</th>
+            <th>4PX nepárované SKU</th>
             <th>Navržený WPJ produkt</th>
             <th class="num">Expedováno včera</th>
             <th class="num">4PX sklad</th>
@@ -544,7 +544,7 @@
       document.getElementById('inventory-attention-list').innerHTML = [
         lowStockRows[0] ? [`Nízký sklad po včerejším prodeji`, `${lowStockRows[0].code} · ${lowStockRows[0].title} má teď ${fmt(lowStockRows[0].fourpx?.availableTotal)} ks.`] : null,
         priorityRows[0] ? [`Prioritní mismatch`, `${priorityRows[0].code} · ${priorityRows[0].title} patří mezi nejdůležitější ke kontrole.`] : null,
-        only4pxRows[0] ? [`Položky pouze v 4PX`, `${fmt(only4pxRows.length)} orphan SKU je potřeba dopárovat nebo vědomě ignorovat.`] : null,
+        only4pxRows[0] ? [`Položky pouze v 4PX`, `${fmt(only4pxRows.length)} nepárované SKU je potřeba dopárovat nebo vědomě ignorovat.`] : null,
       ].filter(Boolean).map(([title, text], index) => `
         <div class="ux-item">
           <span class="ux-dot ${index === 1 ? 'gold' : 'blue'}"></span>
@@ -778,7 +778,7 @@
           <td class="num">${fmt(row.fourpx.availableTotal)}</td>
           <td class="num">${fmt(row.yesterdayOutbound.czUnits + row.yesterdayOutbound.skUnits)}</td>
         </tr>
-      `).join('') || '<tr><td colspan="3">Aktuálně bez orphan 4PX SKU.</td></tr>';
+      `).join('') || '<tr><td colspan="3">Aktuálně bez nepárované 4PX SKU.</td></tr>';
 
       document.getElementById('mapping-suggestions-table').innerHTML = (overview.mappingSuggestions || []).map(row => `
         <tr>

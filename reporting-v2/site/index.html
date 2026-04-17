@@ -14,7 +14,7 @@
     </div>
     <div class="sidebar-section-label">Přehled</div>
     <nav class="sidebar-nav">
-      <a class="active" href="index.html">🏠 Portal</a>
+      <a class="active" href="index.html">🏠 Přehled</a>
       <a href="finance.html">💰 Finance / ABRA</a>
       <a href="marketing.html">📣 Marketing</a>
       <a href="inventory.html">📦 Sklad</a>
@@ -29,7 +29,7 @@
     <header class="header">
       <div class="ux-topbar">
         <div class="ux-intro">
-          <div class="ux-kicker">Reporting portal • redesign schválený směr</div>
+          <div class="ux-kicker">Hlavní přehled • schválený směr</div>
           <h1 class="ux-title">Reporting portál, který se čte během minuty</h1>
           <p class="ux-subtitle">První obrazovka má nově ukázat, co se stalo, co je potřeba řešit a kam má člověk kliknout dál. Až pod tím zůstává technický monitoring zdrojů a detailnější tabulky.</p>
           <div class="ux-actions">
@@ -47,16 +47,16 @@
     <section class="grid leadership-note-grid">
       <div class="leadership-notes-head">
         <div class="leadership-notes-kicker">Pohled vedení</div>
-        <h2>Jak tenhle dashboard číst</h2>
-        <p>Dva krátké pohledy, které nastavují optiku vedení. První říká, co si z obrazovky má odnést odpovědný ředitel, druhý co z ní má číst board.</p>
+        <h2>Jak tu stránku číst</h2>
+        <p>Dva krátké bloky. První řekne, co sledovat hned, druhý kdy je potřeba jít do detailu.</p>
       </div>
       <div class="card leadership-note director">
-        <div class="leadership-note-label">Komentář CEO / COO</div>
-        <p><strong>Tahle stránka je ranní rozcestník pro vedení.</strong> Má během minuty ukázat, co se včera stalo, co dnes hoří a do kterého dashboardu má smysl jít hned. Není to místo pro detail, ale pro pořadí pozornosti.</p>
+        <div class="leadership-note-label">Co sledovat hned</div>
+        <p><strong>Tohle je ranní rozcestník.</strong> Během minuty má ukázat, co se včera stalo, co dnes hoří a kam kliknout dál. Detail necháváme až na další stránky.</p>
       </div>
       <div class="card leadership-note board">
-        <div class="leadership-note-label">Komentář pro board</div>
-        <p><strong>Pro board je to vstupní vrstva napříč firmou.</strong> Díváme se sem kvůli odchylkám, prioritám a tomu, kde je potřeba rozhodnutí nebo hlubší dohled. Pokud je první obrazovka klidná, firma je pravděpodobně pod kontrolou i níž.</p>
+        <div class="leadership-note-label">Co to znamená</div>
+        <p><strong>Když je první obrazovka klidná, firma pravděpodobně běží normálně.</strong> Když ne, hned je vidět, jestli problém míří do e-shopu, skladu, logistiky, marketingu nebo financí.</p>
       </div>
     </section>
 
@@ -85,7 +85,7 @@
       <div class="ux-side-stack">
         <div class="ux-panel-card">
           <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Ranní report v jedné kartě</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Místo skákání mezi stránkami je tady mini snapshot včerejšího výkonu a okamžitý vstup do detailu.</p>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Místo skákání mezi stránkami je tady krátký přehled včerejšího výkonu a okamžitý vstup do detailu.</p>
           <div class="ux-stat-list" id="report-mini"></div>
         </div>
 
@@ -114,7 +114,7 @@
       <div class="ux-section-head" style="margin-bottom:0;">
         <div>
           <h2 class="ux-section-title">Stav zdrojů, ale civilněji</h2>
-          <p class="ux-section-subtitle">Technická vrstva zůstává, ale už nepřebíjí první dojem z dashboardu.</p>
+          <p class="ux-section-subtitle">Technické zdroje zůstávají vidět, ale nepřekrývají hlavní sdělení stránky.</p>
         </div>
       </div>
       <div class="ux-table-wrap" style="margin-top:16px;">
@@ -138,10 +138,10 @@
     DP.initThemeToggle();
     const doneItems = [
       ['4PX API napojení', 'CZ i SK připojené napřímo přes Open API.'],
-      ['WPJ GraphQL napojení', 'Objednávky i skladová vrstva se tahají přímo z WPJ přes X-Access-Token.'],
-      ['Finance / ABRA bootstrap', 'Do nové vrstvy je vytažený poslední dostupný ABRA Flexi snapshot z původního dashboardu.'],
+      ['WPJ GraphQL napojení', 'Objednávky i sklad se tahají přímo z WPJ přes X-Access-Token.'],
+      ['Finance / ABRA bootstrap', 'Máme vytažený poslední dostupný ABRA Flexi snapshot z původního přehledu.'],
       ['Marketing bootstrap', 'Marketingové náklady jsou rozseknuté na PPC a ostatní marketing a připravené pro další napojení.'],
-      ['Nová datová vrstva', 'Refresh skript zapisuje normalizovaná JSON data, snapshoty a ranní report.'],
+      ['Nová datová sada', 'Refresh skript zapisuje normalizovaná JSON data, snapshoty a ranní report.'],
       ['Nový portál', 'Sdílené assets, společný vizuální systém, bez kopírování stylů mezi HTML.'],
       ['Automatické reporty', 'Ranní report se generuje a odesílá automaticky každý den v 8:00.']
     ];

@@ -8,10 +8,10 @@
 </head>
 <body>
   <aside class="sidebar">
-    <div class="sidebar-logo"><h2>Diamond Plus</h2><span>4PX logistika v přehlednějším provozním dashboardu</span></div>
+    <div class="sidebar-logo"><h2>Diamond Plus</h2><span>4PX logistika v přehledné stránce</span></div>
     <div class="sidebar-section-label">Přehled</div>
     <nav class="sidebar-nav">
-      <a href="index.html">🏠 Portal</a>
+      <a href="index.html">🏠 Přehled</a>
       <a href="finance.html">💰 Finance / ABRA</a>
       <a href="marketing.html">📣 Marketing</a>
       <a href="inventory.html">📦 Sklad</a>
@@ -28,32 +28,32 @@
         <div class="ux-intro">
           <div class="ux-kicker">4PX logistika • přehled pro běžný provoz</div>
           <h1 class="ux-title">Logistika, která ukáže expedice i rizika bez hledání</h1>
-          <p class="ux-subtitle">Hlavní vrstva nově ukazuje počet zásilek, expirační rizika a orphan položky dřív, než se člověk ponoří do detailních tabulek dopravců a SKU.</p>
+          <p class="ux-subtitle">Hlavní část ukáže počet zásilek, expirační rizika a nepárované položky dřív, než se člověk ponoří do detailních tabulek dopravců a SKU.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="inventory.html">Přejít do skladu</a>
             <a class="ux-button secondary" href="../data/current/4px_expiry_overview.json" target="_blank" rel="noopener">Otevřít expirační data</a>
-            <a class="ux-button secondary" href="index.html">Na portal</a>
+            <a class="ux-button secondary" href="index.html">Na přehled</a>
           </div>
         </div>
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
       </div>
       <section class="ux-hero-metrics" id="logistics-hero"></section>
-      <div class="ux-date-note"><strong>Jak číst datumy:</strong> expedice a dopravci jsou za <strong>včerejší okno 00:00:01–23:59:59</strong>, zatímco expirace a orphan SKU jsou <strong>aktuální stav posledního 4PX refreshi</strong>.</div>
+      <div class="ux-date-note"><strong>Jak číst datumy:</strong> expedice a dopravci jsou za <strong>včerejší okno 00:00:01–23:59:59</strong>, zatímco expirace a nepárované SKU jsou <strong>aktuální stav posledního 4PX refreshi</strong>.</div>
     </header>
 
     <section class="grid leadership-note-grid">
       <div class="leadership-notes-head">
         <div class="leadership-notes-kicker">Pohled vedení</div>
-        <h2>Jak tenhle dashboard číst</h2>
-        <p>Dva krátké pohledy pro rychlou orientaci v logistice. První říká, co má hlídat odpovědný ředitel, druhý jak stejné riziko číst na úrovni boardu.</p>
+        <h2>Jak tu stránku číst</h2>
+        <p>Dva krátké bloky. První řekne, co hlídat dnes, druhý kdy už je z toho systémový problém.</p>
       </div>
       <div class="card leadership-note director">
-        <div class="leadership-note-label">Komentář ředitele logistiky</div>
-        <p><strong>Tady sledujeme, jestli včerejší expedice proběhla bez tření a kde je provozní riziko.</strong> Klíčové jsou objemy, dopravci, orphan SKU a zásoba s expiračním tlakem. Smyslem je rychle poznat, co ohrožuje dnešní fulfillment.</p>
+        <div class="leadership-note-label">Co hlídat dnes</div>
+        <p><strong>Sleduj objem zásilek, dopravce, nepárované SKU a zásobu s blízkou expirací.</strong> Cílem je rychle poznat, co může zkomplikovat dnešní expedici.</p>
       </div>
       <div class="card leadership-note board">
-        <div class="leadership-note-label">Komentář pro board</div>
-        <p><strong>Pro board je to pohled na spolehlivost fulfillmentu a skryté logistické ztráty.</strong> Zajímá nás, jestli logistika drží tempo firmy, nebo jestli se v ní začínají hromadit zpoždění, nepárované položky a zásoba s rizikem expirace.</p>
+        <div class="leadership-note-label">Co to znamená</div>
+        <p><strong>Když rostou nepárované položky, zpoždění nebo expirační tlak, logistika začíná brzdit firmu.</strong> V tu chvíli už nejde jen o provozní detail, ale o reálnou ztrátu výkonu.</p>
       </div>
     </section>
 
@@ -62,7 +62,7 @@
         <div class="ux-section-head">
           <div>
             <h2 class="ux-section-title">Na co se podívat jako první</h2>
-            <p class="ux-section-subtitle">Provozní fronta pro expirace, expedice a orphan SKU.</p>
+            <p class="ux-section-subtitle">Provozní fronta pro expirace, expedice a nepárované SKU.</p>
           </div>
           <span class="badge warn" id="log-expiry">Načítám expirace…</span>
         </div>
@@ -71,7 +71,7 @@
 
       <div class="ux-side-stack">
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Rychlý snapshot</h3>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Rychlý přehled</h3>
           <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Jedna karta pro včerejší logistické okno.</p>
           <div class="ux-stat-list" id="logistics-stat-list"></div>
         </div>
@@ -104,7 +104,7 @@
       </div>
       <div class="card">
         <h2 class="section-title">Rozpad podle dopravce</h2>
-        <div class="section-subtitle">Včerejší 4PX okno přes carrier brand names.</div>
+        <div class="section-subtitle">Včerejší 4PX okno přes názvy dopravců.</div>
         <div class="ux-table-wrap" style="margin-top:16px;">
           <table class="table">
             <thead>
@@ -215,8 +215,8 @@
 
       document.getElementById('logistics-notes').innerHTML = [
         ['Expirace', 'Expirace se teď berou přes detailní 4PX inventory pull po SKU dávkách.'],
-        ['Párování SKU', 'Primárně párujeme přes kód produktu / SKU, orphany zůstávají na watchlistu.'],
-        ['Auto publish', 'Po refreshi se preview publikuje na GitHub Pages bez ručního zásahu.']
+        ['Párování SKU', 'Primárně párujeme přes kód produktu / SKU, nepárované položky zůstávají na seznamu ke kontrole.'],
+        ['Automatické publikování', 'Po refreshi se preview publikuje na GitHub Pages bez ručního zásahu.']
       ].map(([title, text], index) => `
         <div class="ux-side-item">
           <span class="ux-dot ${index === 1 ? 'gold' : index === 2 ? 'blue' : 'green'}"></span>
@@ -271,7 +271,7 @@
           <td class="num">${fmt(row.fourpx.availableTotal)}</td>
           <td class="num">${fmt(row.yesterdayOutbound.czUnits + row.yesterdayOutbound.skUnits)}</td>
         </tr>
-      `).join('') || '<tr><td colspan="3">Aktuálně bez orphan 4PX SKU.</td></tr>';
+      `).join('') || '<tr><td colspan="3">Aktuálně bez nepárované 4PX SKU.</td></tr>';
     })().catch(err => {
       document.getElementById('logistics-focus').innerHTML = `<div class="ux-item"><span class="ux-dot"></span><div><strong>Nepodařilo se načíst logistiku</strong><span>${err.message}</span></div></div>`;
     });
