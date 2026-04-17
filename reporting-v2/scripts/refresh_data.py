@@ -1531,6 +1531,17 @@ def first_method_text(rows, empty='bez dat'):
     return f'{row.get("name", "bez názvu")} ({row.get("count", 0)})'
 
 
+def source_split_lines(eshop):
+    by_view = eshop.get('byView') or {}
+    items = [
+        ('CZ e-shop', (by_view.get('cz') or {}).get('orders', 0), (by_view.get('cz') or {}).get('revenueWithVat', 0)),
+        ('SK e-shop', (by_view.get('sk') or {}).get('orders', 0), (by_view.get('sk') or {}).get('revenueWithVat', 0)),
+        ('Litoměřice', (by_view.get('ltm') or {}).get('orders', 0), (by_view.get('ltm') or {}).get('revenueWithVat', 0)),
+        ('Měčín', (by_view.get('mecin') or {}).get('orders', 0), (by_view.get('mecin') or {}).get('revenueWithVat', 0)),
+    ]
+    return [f'• {label}: {orders} objednávek, {format_czk(revenue)}' for label, orders, revenue in items]
+
+
 def low_stock_line(rows, limit=2):
     if not rows:
         return 'nic kritického po včerejším prodeji'
@@ -1614,6 +1625,8 @@ def format_morning_report_text(report):
         f'• Tahouni podle obratu: {compact_top_codes(eshop.get("topProductsByRevenue"), 3)}',
         f'• Top platba: {first_method_text(eshop.get("paymentMethods"))}',
         f'• Top doprava: {first_method_text(eshop.get("deliveryMethods"))}',
+        '• Rozpad zdrojů:',
+        *source_split_lines(eshop),
         '',
         '**4. Sklad a logistika**',
         f'• Nízký sklad po včerejším prodeji: {low_stock_line(stock.get("lowStockSoldYesterday"))}',
@@ -1674,6 +1687,12 @@ def format_morning_report_telegram_text(report):
             '',
             f'🛒 Tahouni: {top_units}',
         ])
+
+    lines.extend([
+        '',
+        '🧭 Zdroje prodeje',
+        *source_split_lines(eshop),
+    ])
 
     detail_url = report.get('detailUrl')
     if detail_url:

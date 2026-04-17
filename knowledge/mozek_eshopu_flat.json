@@ -1,8 +1,8 @@
 {
   "source": "/Users/rudolfkonfal/.openclaw/workspace/knowledge/mozek_eshopu.json",
-  "generatedAt": "2026-04-17T15:23:59.087Z",
-  "itemCount": 2052,
-  "sourceFingerprint": "01a97f3de6f58a3360f59f7b2b466851a0d071f26c80dbb09260255a62abb5fc",
+  "generatedAt": "2026-04-17T15:32:42.385Z",
+  "itemCount": 2000,
+  "sourceFingerprint": "7e537632722644d530f323d084a8ea6719903a63fdfb18969e20076605505e05",
   "items": [
     {
       "path": "source.pageUrl",
@@ -26,12 +26,12 @@
     },
     {
       "path": "source.capturedAt",
-      "value": "2026-04-17T15:23:59.077Z",
+      "value": "2026-04-17T15:32:42.376Z",
       "valueType": "string"
     },
     {
       "path": "source.sourceFingerprint",
-      "value": "01a97f3de6f58a3360f59f7b2b466851a0d071f26c80dbb09260255a62abb5fc",
+      "value": "7e537632722644d530f323d084a8ea6719903a63fdfb18969e20076605505e05",
       "valueType": "string"
     },
     {
@@ -46,7 +46,7 @@
     },
     {
       "path": "pageMeta.htmlLength",
-      "value": 14936,
+      "value": 16038,
       "valueType": "number"
     },
     {
@@ -776,7 +776,7 @@
     },
     {
       "path": "backingData.portal_summary.generatedAt",
-      "value": "2026-04-17T17:00:00.980579+02:00",
+      "value": "2026-04-17T17:18:48.976938+02:00",
       "valueType": "string"
     },
     {
@@ -816,7 +816,7 @@
     },
     {
       "path": "backingData.portal_summary.accounts.cz.inventory.pendingStockTotal",
-      "value": 687,
+      "value": 508,
       "valueType": "number"
     },
     {
@@ -1476,7 +1476,7 @@
     },
     {
       "path": "backingData.morning_report_previous_day.generatedAt",
-      "value": "2026-04-17T17:06:02.323521+02:00",
+      "value": "2026-04-17T17:24:21.947521+02:00",
       "valueType": "string"
     },
     {
@@ -1591,7 +1591,7 @@
     },
     {
       "path": "backingData.morning_report_previous_day.eshop.statuses[1].count",
-      "value": 98,
+      "value": 103,
       "valueType": "number"
     },
     {
@@ -1601,7 +1601,7 @@
     },
     {
       "path": "backingData.morning_report_previous_day.eshop.statuses[2].count",
-      "value": 58,
+      "value": 56,
       "valueType": "number"
     },
     {
@@ -1611,7 +1611,7 @@
     },
     {
       "path": "backingData.morning_report_previous_day.eshop.statuses[3].count",
-      "value": 31,
+      "value": 28,
       "valueType": "number"
     },
     {
@@ -3500,6 +3500,1956 @@
       "valueType": "string"
     },
     {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.orders",
+      "value": 410,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.revenueWithVat",
+      "value": 574331.1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.averageOrderValue",
+      "value": 1400.81,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.cancelledOrders",
+      "value": 4,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.problematicOrders",
+      "value": 4,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[0].name",
+      "value": "přijatá",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[0].count",
+      "value": 210,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[1].name",
+      "value": "doručeno",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[1].count",
+      "value": 103,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[2].name",
+      "value": "připraveno k vyzvednutí",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[2].count",
+      "value": 56,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[3].name",
+      "value": "expedováno",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[3].count",
+      "value": 28,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[4].name",
+      "value": "nová",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[4].count",
+      "value": 9,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[5].name",
+      "value": "chyba",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[5].count",
+      "value": 4,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[0].name",
+      "value": "Bezpečná platba online",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[0].count",
+      "value": 233,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[1].name",
+      "value": "Platba převodem",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[1].count",
+      "value": 96,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[2].name",
+      "value": "Dobírkou",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[2].count",
+      "value": 73,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[3].name",
+      "value": "Platba kartou",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[3].count",
+      "value": 5,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[4].name",
+      "value": "Hotově",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[4].count",
+      "value": 2,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[5].name",
+      "value": "Twisto - kup teď, zaplať později",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[5].count",
+      "value": 1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[0].name",
+      "value": "Balíkovna",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[0].count",
+      "value": 192,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[1].name",
+      "value": "Balíkovna na adresu",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[1].count",
+      "value": 112,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[2].name",
+      "value": "Zásilkovna",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[2].count",
+      "value": 63,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[3].name",
+      "value": "Zásielkovňa",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[3].count",
+      "value": 8,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[4].name",
+      "value": "DORUČENÍ na adresu",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[4].count",
+      "value": 7,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[5].name",
+      "value": "Osobní odběr",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[5].count",
+      "value": 7,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[6].name",
+      "value": "GLS",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[6].count",
+      "value": 6,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[7].name",
+      "value": "SK DPD pickup",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[7].count",
+      "value": 4,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[8].name",
+      "value": "DPD doručení na adresu",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[8].count",
+      "value": 3,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[9].name",
+      "value": "Packeta na adresu",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[9].count",
+      "value": 3,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[10].name",
+      "value": "Česká pošta - Balík do ruky",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[10].count",
+      "value": 2,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[11].name",
+      "value": "Balíkovňa do ČR",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[11].count",
+      "value": 1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[12].name",
+      "value": "Francie",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[12].count",
+      "value": 1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[13].name",
+      "value": "Česká pošta do ruky do ČR",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[13].count",
+      "value": 1,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[0].code",
+      "value": "44402-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[0].name",
+      "value": "Fytogel Slaviton",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[0].label",
+      "value": "44402-2 · Fytogel Slaviton",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[0].value",
+      "value": 121,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[0].formatted",
+      "value": "121 ks",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[1].code",
+      "value": "61912",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[1].name",
+      "value": "Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[1].label",
+      "value": "61912 · Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[1].value",
+      "value": 109,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[1].formatted",
+      "value": "109 ks",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[2].code",
+      "value": "63601/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[2].name",
+      "value": "Denní vložka Energie života (Počet kusů: 1ks)",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[2].label",
+      "value": "63601/01 · Denní vložka Energie života (Počet kusů: 1ks)",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[2].value",
+      "value": 108,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[2].formatted",
+      "value": "108 ks",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[3].code",
+      "value": "64404-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[3].name",
+      "value": "Jemný intimní gel",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[3].label",
+      "value": "64404-2 · Jemný intimní gel",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[3].value",
+      "value": 103,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[3].formatted",
+      "value": "103 ks",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[4].code",
+      "value": "61911",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[4].name",
+      "value": "Denní vložky s extraktem aloe Nefritová svěžest",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[4].label",
+      "value": "61911 · Denní vložky s extraktem aloe Nefritová svěžest",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[4].value",
+      "value": 91,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[4].formatted",
+      "value": "91 ks",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[0].code",
+      "value": "44402-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[0].name",
+      "value": "Fytogel Slaviton",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[0].label",
+      "value": "44402-2 · Fytogel Slaviton",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[0].value",
+      "value": 31384.4,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[0].formatted",
+      "value": "31 384 Kč",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[1].code",
+      "value": "64404-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[1].name",
+      "value": "Jemný intimní gel",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[1].label",
+      "value": "64404-2 · Jemný intimní gel",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[1].value",
+      "value": 25273.4,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[1].formatted",
+      "value": "25 273 Kč",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[2].code",
+      "value": "61912",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[2].name",
+      "value": "Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[2].label",
+      "value": "61912 · Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[2].value",
+      "value": 14569.8,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[2].formatted",
+      "value": "14 570 Kč",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[3].code",
+      "value": "23401",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[3].name",
+      "value": "Šampon - aktivátor růstu vlasů",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[3].label",
+      "value": "23401 · Šampon - aktivátor růstu vlasů",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[3].value",
+      "value": 13209.04,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[3].formatted",
+      "value": "13 209 Kč",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[4].code",
+      "value": "23403",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[4].name",
+      "value": "BIO REHAB - Tonikum-aktivátor růstu vlasů",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[4].label",
+      "value": "23403 · BIO REHAB - Tonikum-aktivátor růstu vlasů",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[4].value",
+      "value": 13074.84,
+      "valueType": "number"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[4].formatted",
+      "value": "13 075 Kč",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[0]",
+      "value": "000020",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[1]",
+      "value": "000074",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[2]",
+      "value": "000083",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[3]",
+      "value": "000090",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[4]",
+      "value": "000091",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[5]",
+      "value": "10101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[6]",
+      "value": "10106",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[7]",
+      "value": "10108",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[8]",
+      "value": "10110",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[9]",
+      "value": "10111",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[10]",
+      "value": "10112",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[11]",
+      "value": "10114",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[12]",
+      "value": "10115",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[13]",
+      "value": "10116",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[14]",
+      "value": "10117",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[15]",
+      "value": "10118",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[16]",
+      "value": "10131",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[17]",
+      "value": "101491",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[18]",
+      "value": "10201",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[19]",
+      "value": "10202",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[20]",
+      "value": "10206-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[21]",
+      "value": "10261",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[22]",
+      "value": "10262",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[23]",
+      "value": "10263",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[24]",
+      "value": "10302",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[25]",
+      "value": "10303",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[26]",
+      "value": "10304",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[27]",
+      "value": "10305",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[28]",
+      "value": "10305/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[29]",
+      "value": "10306",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[30]",
+      "value": "10308",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[31]",
+      "value": "113004",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[32]",
+      "value": "113011",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[33]",
+      "value": "113012",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[34]",
+      "value": "113013",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[35]",
+      "value": "11307",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[36]",
+      "value": "11317",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[37]",
+      "value": "11319",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[38]",
+      "value": "11320",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[39]",
+      "value": "11321",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[40]",
+      "value": "11323",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[41]",
+      "value": "12106",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[42]",
+      "value": "12114",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[43]",
+      "value": "12115",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[44]",
+      "value": "12116",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[45]",
+      "value": "12117",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[46]",
+      "value": "12703",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[47]",
+      "value": "12704",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[48]",
+      "value": "12705",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[49]",
+      "value": "12707",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[50]",
+      "value": "12710",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[51]",
+      "value": "12711",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[52]",
+      "value": "12712",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[53]",
+      "value": "135415-1",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[54]",
+      "value": "135456",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[55]",
+      "value": "135460",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[56]",
+      "value": "140110",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[57]",
+      "value": "140111",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[58]",
+      "value": "144313",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[59]",
+      "value": "14601",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[60]",
+      "value": "14601/1",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[61]",
+      "value": "14602",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[62]",
+      "value": "14604",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[63]",
+      "value": "147801",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[64]",
+      "value": "15102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[65]",
+      "value": "15103",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[66]",
+      "value": "15104",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[67]",
+      "value": "15601",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[68]",
+      "value": "15602",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[69]",
+      "value": "15603",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[70]",
+      "value": "16001",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[71]",
+      "value": "16002",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[72]",
+      "value": "16304",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[73]",
+      "value": "16309",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[74]",
+      "value": "16310",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[75]",
+      "value": "16312",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[76]",
+      "value": "16313",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[77]",
+      "value": "16314",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[78]",
+      "value": "17003",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[79]",
+      "value": "17101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[80]",
+      "value": "17102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[81]",
+      "value": "17103",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[82]",
+      "value": "17104",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[83]",
+      "value": "17105",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[84]",
+      "value": "191005",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[85]",
+      "value": "191006",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[86]",
+      "value": "191008",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[87]",
+      "value": "191014",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[88]",
+      "value": "195429",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[89]",
+      "value": "195431",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[90]",
+      "value": "195432",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[91]",
+      "value": "195458",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[92]",
+      "value": "195469",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[93]",
+      "value": "195926",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[94]",
+      "value": "198812",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[95]",
+      "value": "20101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[96]",
+      "value": "20102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[97]",
+      "value": "20107",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[98]",
+      "value": "20109",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[99]",
+      "value": "20115",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[100]",
+      "value": "20117",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[101]",
+      "value": "20127",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[102]",
+      "value": "20144",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[103]",
+      "value": "20151",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[104]",
+      "value": "20155",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[105]",
+      "value": "20159-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[106]",
+      "value": "20161-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[107]",
+      "value": "20163-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[108]",
+      "value": "20164",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[109]",
+      "value": "21308",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[110]",
+      "value": "21309",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[111]",
+      "value": "21310",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[112]",
+      "value": "21311",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[113]",
+      "value": "21316",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[114]",
+      "value": "23401",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[115]",
+      "value": "23402",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[116]",
+      "value": "23403",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[117]",
+      "value": "25106",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[118]",
+      "value": "27005",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[119]",
+      "value": "27006",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[120]",
+      "value": "30101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[121]",
+      "value": "30106",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[122]",
+      "value": "30111",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[123]",
+      "value": "30115",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[124]",
+      "value": "30117/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[125]",
+      "value": "30117/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[126]",
+      "value": "30117/05",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[127]",
+      "value": "30118/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[128]",
+      "value": "30118/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[129]",
+      "value": "30118/05",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[130]",
+      "value": "30126",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[131]",
+      "value": "30129",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[132]",
+      "value": "30132/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[133]",
+      "value": "30132/02",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[134]",
+      "value": "30138-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[135]",
+      "value": "30140",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[136]",
+      "value": "30158",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[137]",
+      "value": "30160-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[138]",
+      "value": "30162-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[139]",
+      "value": "30201",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[140]",
+      "value": "30203",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[141]",
+      "value": "30204",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[142]",
+      "value": "30205",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[143]",
+      "value": "30207",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[144]",
+      "value": "30213",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[145]",
+      "value": "30215",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[146]",
+      "value": "30222",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[147]",
+      "value": "30223",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[148]",
+      "value": "32602",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[149]",
+      "value": "32604",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[150]",
+      "value": "34401-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[151]",
+      "value": "34413-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[152]",
+      "value": "35412-02",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[153]",
+      "value": "36006",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[154]",
+      "value": "40101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[155]",
+      "value": "40102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[156]",
+      "value": "40104",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[157]",
+      "value": "40105",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[158]",
+      "value": "40109",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[159]",
+      "value": "40120",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[160]",
+      "value": "40203",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[161]",
+      "value": "41101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[162]",
+      "value": "41102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[163]",
+      "value": "41105/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[164]",
+      "value": "41105/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[165]",
+      "value": "41105/05",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[166]",
+      "value": "41106/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[167]",
+      "value": "41106/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[168]",
+      "value": "41314/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[169]",
+      "value": "41314/05",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[170]",
+      "value": "41314/10",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[171]",
+      "value": "41320",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[172]",
+      "value": "41328/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[173]",
+      "value": "41328/07",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[174]",
+      "value": "41328/10",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[175]",
+      "value": "44402-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[176]",
+      "value": "44605",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[177]",
+      "value": "46903-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[178]",
+      "value": "50101",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[179]",
+      "value": "50104",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[180]",
+      "value": "50109",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[181]",
+      "value": "50111",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[182]",
+      "value": "50116",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[183]",
+      "value": "50120",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[184]",
+      "value": "50224",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[185]",
+      "value": "52901/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[186]",
+      "value": "52902",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[187]",
+      "value": "52902/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[188]",
+      "value": "52903",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[189]",
+      "value": "52911",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[190]",
+      "value": "52912",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[191]",
+      "value": "54104",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[192]",
+      "value": "54106",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[193]",
+      "value": "54107",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[194]",
+      "value": "54108",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[195]",
+      "value": "56005",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[196]",
+      "value": "56007",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[197]",
+      "value": "56311",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[198]",
+      "value": "57010",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[199]",
+      "value": "60140",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[200]",
+      "value": "60141",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[201]",
+      "value": "60142",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[202]",
+      "value": "60143",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[203]",
+      "value": "60144",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[204]",
+      "value": "60145/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[205]",
+      "value": "60145/05",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[206]",
+      "value": "60145/10",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[207]",
+      "value": "60146",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[208]",
+      "value": "60149-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[209]",
+      "value": "60150",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[210]",
+      "value": "60151-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[211]",
+      "value": "60152-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[212]",
+      "value": "60153-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[213]",
+      "value": "61901",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[214]",
+      "value": "61902",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[215]",
+      "value": "61903",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[216]",
+      "value": "61911",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[217]",
+      "value": "61912",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[218]",
+      "value": "61913",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[219]",
+      "value": "61914",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[220]",
+      "value": "61915",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[221]",
+      "value": "61921",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[222]",
+      "value": "61922",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[223]",
+      "value": "61923",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[224]",
+      "value": "63601/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[225]",
+      "value": "63601/05",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[226]",
+      "value": "63601/08",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[227]",
+      "value": "63601/10",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[228]",
+      "value": "640102",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[229]",
+      "value": "64404-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[230]",
+      "value": "65301-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[231]",
+      "value": "65913-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[232]",
+      "value": "65914-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[233]",
+      "value": "65916-2",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[234]",
+      "value": "67007",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[235]",
+      "value": "67108",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[236]",
+      "value": "67109",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[237]",
+      "value": "80112/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[238]",
+      "value": "80112/07",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[239]",
+      "value": "80112/08",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[240]",
+      "value": "80145",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[241]",
+      "value": "80904/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[242]",
+      "value": "80904/02",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[243]",
+      "value": "80906/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[244]",
+      "value": "80921/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[245]",
+      "value": "80921/02",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[246]",
+      "value": "85607",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[247]",
+      "value": "86004",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[248]",
+      "value": "90141",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[249]",
+      "value": "90148/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[250]",
+      "value": "90148/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[251]",
+      "value": "90148/04",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[252]",
+      "value": "90153/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[253]",
+      "value": "90153/02",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[254]",
+      "value": "90153/03",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[255]",
+      "value": "90165/01",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[256]",
+      "value": "90175",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[257]",
+      "value": "90187",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[258]",
+      "value": "90204",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[259]",
+      "value": "980155",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[260]",
+      "value": "980156",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[261]",
+      "value": "980168",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[262]",
+      "value": "980188",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[263]",
+      "value": "980193",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[264]",
+      "value": "980201",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[265]",
+      "value": "98898",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[266]",
+      "value": "BIOANALYZA007",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[267]",
+      "value": "BIOANALYZA013",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[268]",
+      "value": "DOPL001",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[269]",
+      "value": "DP2000",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[270]",
+      "value": "IGE009",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[271]",
+      "value": "PROMO115",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[272]",
+      "value": "PROMO116",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[273]",
+      "value": "PROMO120",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[274]",
+      "value": "PROMO121",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[275]",
+      "value": "PROMO37",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[276]",
+      "value": "PROMO40",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[277]",
+      "value": "PROMO51",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[278]",
+      "value": "PROMO71",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[279]",
+      "value": "PROMO73",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[280]",
+      "value": "PROMO75",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[281]",
+      "value": "SET08",
+      "valueType": "string"
+    },
+    {
+      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[282]",
+      "value": "VSTUP200526",
+      "valueType": "string"
+    },
+    {
       "path": "backingData.morning_report_previous_day.eshop.byView.cz.orders",
       "value": 377,
       "valueType": "number"
@@ -3541,7 +5491,7 @@
     },
     {
       "path": "backingData.morning_report_previous_day.eshop.byView.cz.statuses[1].count",
-      "value": 90,
+      "value": 95,
       "valueType": "number"
     },
     {
@@ -3551,7 +5501,7 @@
     },
     {
       "path": "backingData.morning_report_previous_day.eshop.byView.cz.statuses[2].count",
-      "value": 56,
+      "value": 54,
       "valueType": "number"
     },
     {
@@ -3561,7 +5511,7 @@
     },
     {
       "path": "backingData.morning_report_previous_day.eshop.byView.cz.statuses[3].count",
-      "value": 15,
+      "value": 12,
       "valueType": "number"
     },
     {
@@ -6625,1956 +8575,6 @@
       "valueType": "number"
     },
     {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.orders",
-      "value": 410,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.revenueWithVat",
-      "value": 574331.1,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.averageOrderValue",
-      "value": 1400.81,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.cancelledOrders",
-      "value": 4,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.problematicOrders",
-      "value": 4,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[0].name",
-      "value": "přijatá",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[0].count",
-      "value": 210,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[1].name",
-      "value": "doručeno",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[1].count",
-      "value": 98,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[2].name",
-      "value": "připraveno k vyzvednutí",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[2].count",
-      "value": 58,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[3].name",
-      "value": "expedováno",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[3].count",
-      "value": 31,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[4].name",
-      "value": "nová",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[4].count",
-      "value": 9,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[5].name",
-      "value": "chyba",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.statuses[5].count",
-      "value": 4,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[0].name",
-      "value": "Bezpečná platba online",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[0].count",
-      "value": 233,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[1].name",
-      "value": "Platba převodem",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[1].count",
-      "value": 96,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[2].name",
-      "value": "Dobírkou",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[2].count",
-      "value": 73,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[3].name",
-      "value": "Platba kartou",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[3].count",
-      "value": 5,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[4].name",
-      "value": "Hotově",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[4].count",
-      "value": 2,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[5].name",
-      "value": "Twisto - kup teď, zaplať později",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.paymentMethods[5].count",
-      "value": 1,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[0].name",
-      "value": "Balíkovna",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[0].count",
-      "value": 192,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[1].name",
-      "value": "Balíkovna na adresu",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[1].count",
-      "value": 112,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[2].name",
-      "value": "Zásilkovna",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[2].count",
-      "value": 63,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[3].name",
-      "value": "Zásielkovňa",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[3].count",
-      "value": 8,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[4].name",
-      "value": "DORUČENÍ na adresu",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[4].count",
-      "value": 7,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[5].name",
-      "value": "Osobní odběr",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[5].count",
-      "value": 7,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[6].name",
-      "value": "GLS",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[6].count",
-      "value": 6,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[7].name",
-      "value": "SK DPD pickup",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[7].count",
-      "value": 4,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[8].name",
-      "value": "DPD doručení na adresu",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[8].count",
-      "value": 3,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[9].name",
-      "value": "Packeta na adresu",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[9].count",
-      "value": 3,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[10].name",
-      "value": "Česká pošta - Balík do ruky",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[10].count",
-      "value": 2,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[11].name",
-      "value": "Balíkovňa do ČR",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[11].count",
-      "value": 1,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[12].name",
-      "value": "Francie",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[12].count",
-      "value": 1,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[13].name",
-      "value": "Česká pošta do ruky do ČR",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.deliveryMethods[13].count",
-      "value": 1,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[0].code",
-      "value": "44402-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[0].name",
-      "value": "Fytogel Slaviton",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[0].label",
-      "value": "44402-2 · Fytogel Slaviton",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[0].value",
-      "value": 121,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[0].formatted",
-      "value": "121 ks",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[1].code",
-      "value": "61912",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[1].name",
-      "value": "Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[1].label",
-      "value": "61912 · Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[1].value",
-      "value": 109,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[1].formatted",
-      "value": "109 ks",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[2].code",
-      "value": "63601/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[2].name",
-      "value": "Denní vložka Energie života (Počet kusů: 1ks)",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[2].label",
-      "value": "63601/01 · Denní vložka Energie života (Počet kusů: 1ks)",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[2].value",
-      "value": 108,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[2].formatted",
-      "value": "108 ks",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[3].code",
-      "value": "64404-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[3].name",
-      "value": "Jemný intimní gel",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[3].label",
-      "value": "64404-2 · Jemný intimní gel",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[3].value",
-      "value": 103,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[3].formatted",
-      "value": "103 ks",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[4].code",
-      "value": "61911",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[4].name",
-      "value": "Denní vložky s extraktem aloe Nefritová svěžest",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[4].label",
-      "value": "61911 · Denní vložky s extraktem aloe Nefritová svěžest",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[4].value",
-      "value": 91,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByUnits[4].formatted",
-      "value": "91 ks",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[0].code",
-      "value": "44402-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[0].name",
-      "value": "Fytogel Slaviton",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[0].label",
-      "value": "44402-2 · Fytogel Slaviton",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[0].value",
-      "value": 31384.4,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[0].formatted",
-      "value": "31 384 Kč",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[1].code",
-      "value": "64404-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[1].name",
-      "value": "Jemný intimní gel",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[1].label",
-      "value": "64404-2 · Jemný intimní gel",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[1].value",
-      "value": 25273.4,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[1].formatted",
-      "value": "25 273 Kč",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[2].code",
-      "value": "61912",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[2].name",
-      "value": "Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[2].label",
-      "value": "61912 · Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[2].value",
-      "value": 14569.8,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[2].formatted",
-      "value": "14 570 Kč",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[3].code",
-      "value": "23401",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[3].name",
-      "value": "Šampon - aktivátor růstu vlasů",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[3].label",
-      "value": "23401 · Šampon - aktivátor růstu vlasů",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[3].value",
-      "value": 13209.04,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[3].formatted",
-      "value": "13 209 Kč",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[4].code",
-      "value": "23403",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[4].name",
-      "value": "BIO REHAB - Tonikum-aktivátor růstu vlasů",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[4].label",
-      "value": "23403 · BIO REHAB - Tonikum-aktivátor růstu vlasů",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[4].value",
-      "value": 13074.84,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.topProductsByRevenue[4].formatted",
-      "value": "13 075 Kč",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[0]",
-      "value": "000020",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[1]",
-      "value": "000074",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[2]",
-      "value": "000083",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[3]",
-      "value": "000090",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[4]",
-      "value": "000091",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[5]",
-      "value": "10101",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[6]",
-      "value": "10106",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[7]",
-      "value": "10108",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[8]",
-      "value": "10110",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[9]",
-      "value": "10111",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[10]",
-      "value": "10112",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[11]",
-      "value": "10114",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[12]",
-      "value": "10115",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[13]",
-      "value": "10116",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[14]",
-      "value": "10117",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[15]",
-      "value": "10118",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[16]",
-      "value": "10131",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[17]",
-      "value": "101491",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[18]",
-      "value": "10201",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[19]",
-      "value": "10202",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[20]",
-      "value": "10206-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[21]",
-      "value": "10261",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[22]",
-      "value": "10262",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[23]",
-      "value": "10263",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[24]",
-      "value": "10302",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[25]",
-      "value": "10303",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[26]",
-      "value": "10304",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[27]",
-      "value": "10305",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[28]",
-      "value": "10305/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[29]",
-      "value": "10306",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[30]",
-      "value": "10308",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[31]",
-      "value": "113004",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[32]",
-      "value": "113011",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[33]",
-      "value": "113012",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[34]",
-      "value": "113013",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[35]",
-      "value": "11307",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[36]",
-      "value": "11317",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[37]",
-      "value": "11319",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[38]",
-      "value": "11320",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[39]",
-      "value": "11321",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[40]",
-      "value": "11323",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[41]",
-      "value": "12106",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[42]",
-      "value": "12114",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[43]",
-      "value": "12115",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[44]",
-      "value": "12116",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[45]",
-      "value": "12117",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[46]",
-      "value": "12703",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[47]",
-      "value": "12704",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[48]",
-      "value": "12705",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[49]",
-      "value": "12707",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[50]",
-      "value": "12710",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[51]",
-      "value": "12711",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[52]",
-      "value": "12712",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[53]",
-      "value": "135415-1",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[54]",
-      "value": "135456",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[55]",
-      "value": "135460",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[56]",
-      "value": "140110",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[57]",
-      "value": "140111",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[58]",
-      "value": "144313",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[59]",
-      "value": "14601",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[60]",
-      "value": "14601/1",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[61]",
-      "value": "14602",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[62]",
-      "value": "14604",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[63]",
-      "value": "147801",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[64]",
-      "value": "15102",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[65]",
-      "value": "15103",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[66]",
-      "value": "15104",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[67]",
-      "value": "15601",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[68]",
-      "value": "15602",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[69]",
-      "value": "15603",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[70]",
-      "value": "16001",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[71]",
-      "value": "16002",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[72]",
-      "value": "16304",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[73]",
-      "value": "16309",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[74]",
-      "value": "16310",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[75]",
-      "value": "16312",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[76]",
-      "value": "16313",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[77]",
-      "value": "16314",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[78]",
-      "value": "17003",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[79]",
-      "value": "17101",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[80]",
-      "value": "17102",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[81]",
-      "value": "17103",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[82]",
-      "value": "17104",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[83]",
-      "value": "17105",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[84]",
-      "value": "191005",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[85]",
-      "value": "191006",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[86]",
-      "value": "191008",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[87]",
-      "value": "191014",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[88]",
-      "value": "195429",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[89]",
-      "value": "195431",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[90]",
-      "value": "195432",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[91]",
-      "value": "195458",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[92]",
-      "value": "195469",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[93]",
-      "value": "195926",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[94]",
-      "value": "198812",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[95]",
-      "value": "20101",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[96]",
-      "value": "20102",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[97]",
-      "value": "20107",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[98]",
-      "value": "20109",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[99]",
-      "value": "20115",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[100]",
-      "value": "20117",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[101]",
-      "value": "20127",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[102]",
-      "value": "20144",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[103]",
-      "value": "20151",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[104]",
-      "value": "20155",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[105]",
-      "value": "20159-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[106]",
-      "value": "20161-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[107]",
-      "value": "20163-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[108]",
-      "value": "20164",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[109]",
-      "value": "21308",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[110]",
-      "value": "21309",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[111]",
-      "value": "21310",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[112]",
-      "value": "21311",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[113]",
-      "value": "21316",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[114]",
-      "value": "23401",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[115]",
-      "value": "23402",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[116]",
-      "value": "23403",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[117]",
-      "value": "25106",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[118]",
-      "value": "27005",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[119]",
-      "value": "27006",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[120]",
-      "value": "30101",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[121]",
-      "value": "30106",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[122]",
-      "value": "30111",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[123]",
-      "value": "30115",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[124]",
-      "value": "30117/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[125]",
-      "value": "30117/03",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[126]",
-      "value": "30117/05",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[127]",
-      "value": "30118/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[128]",
-      "value": "30118/03",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[129]",
-      "value": "30118/05",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[130]",
-      "value": "30126",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[131]",
-      "value": "30129",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[132]",
-      "value": "30132/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[133]",
-      "value": "30132/02",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[134]",
-      "value": "30138-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[135]",
-      "value": "30140",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[136]",
-      "value": "30158",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[137]",
-      "value": "30160-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[138]",
-      "value": "30162-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[139]",
-      "value": "30201",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[140]",
-      "value": "30203",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[141]",
-      "value": "30204",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[142]",
-      "value": "30205",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[143]",
-      "value": "30207",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[144]",
-      "value": "30213",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[145]",
-      "value": "30215",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[146]",
-      "value": "30222",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[147]",
-      "value": "30223",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[148]",
-      "value": "32602",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[149]",
-      "value": "32604",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[150]",
-      "value": "34401-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[151]",
-      "value": "34413-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[152]",
-      "value": "35412-02",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[153]",
-      "value": "36006",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[154]",
-      "value": "40101",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[155]",
-      "value": "40102",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[156]",
-      "value": "40104",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[157]",
-      "value": "40105",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[158]",
-      "value": "40109",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[159]",
-      "value": "40120",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[160]",
-      "value": "40203",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[161]",
-      "value": "41101",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[162]",
-      "value": "41102",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[163]",
-      "value": "41105/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[164]",
-      "value": "41105/03",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[165]",
-      "value": "41105/05",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[166]",
-      "value": "41106/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[167]",
-      "value": "41106/03",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[168]",
-      "value": "41314/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[169]",
-      "value": "41314/05",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[170]",
-      "value": "41314/10",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[171]",
-      "value": "41320",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[172]",
-      "value": "41328/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[173]",
-      "value": "41328/07",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[174]",
-      "value": "41328/10",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[175]",
-      "value": "44402-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[176]",
-      "value": "44605",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[177]",
-      "value": "46903-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[178]",
-      "value": "50101",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[179]",
-      "value": "50104",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[180]",
-      "value": "50109",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[181]",
-      "value": "50111",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[182]",
-      "value": "50116",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[183]",
-      "value": "50120",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[184]",
-      "value": "50224",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[185]",
-      "value": "52901/03",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[186]",
-      "value": "52902",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[187]",
-      "value": "52902/03",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[188]",
-      "value": "52903",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[189]",
-      "value": "52911",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[190]",
-      "value": "52912",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[191]",
-      "value": "54104",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[192]",
-      "value": "54106",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[193]",
-      "value": "54107",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[194]",
-      "value": "54108",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[195]",
-      "value": "56005",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[196]",
-      "value": "56007",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[197]",
-      "value": "56311",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[198]",
-      "value": "57010",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[199]",
-      "value": "60140",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[200]",
-      "value": "60141",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[201]",
-      "value": "60142",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[202]",
-      "value": "60143",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[203]",
-      "value": "60144",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[204]",
-      "value": "60145/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[205]",
-      "value": "60145/05",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[206]",
-      "value": "60145/10",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[207]",
-      "value": "60146",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[208]",
-      "value": "60149-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[209]",
-      "value": "60150",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[210]",
-      "value": "60151-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[211]",
-      "value": "60152-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[212]",
-      "value": "60153-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[213]",
-      "value": "61901",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[214]",
-      "value": "61902",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[215]",
-      "value": "61903",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[216]",
-      "value": "61911",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[217]",
-      "value": "61912",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[218]",
-      "value": "61913",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[219]",
-      "value": "61914",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[220]",
-      "value": "61915",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[221]",
-      "value": "61921",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[222]",
-      "value": "61922",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[223]",
-      "value": "61923",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[224]",
-      "value": "63601/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[225]",
-      "value": "63601/05",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[226]",
-      "value": "63601/08",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[227]",
-      "value": "63601/10",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[228]",
-      "value": "640102",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[229]",
-      "value": "64404-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[230]",
-      "value": "65301-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[231]",
-      "value": "65913-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[232]",
-      "value": "65914-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[233]",
-      "value": "65916-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[234]",
-      "value": "67007",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[235]",
-      "value": "67108",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[236]",
-      "value": "67109",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[237]",
-      "value": "80112/03",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[238]",
-      "value": "80112/07",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[239]",
-      "value": "80112/08",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[240]",
-      "value": "80145",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[241]",
-      "value": "80904/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[242]",
-      "value": "80904/02",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[243]",
-      "value": "80906/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[244]",
-      "value": "80921/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[245]",
-      "value": "80921/02",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[246]",
-      "value": "85607",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[247]",
-      "value": "86004",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[248]",
-      "value": "90141",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[249]",
-      "value": "90148/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[250]",
-      "value": "90148/03",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[251]",
-      "value": "90148/04",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[252]",
-      "value": "90153/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[253]",
-      "value": "90153/02",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[254]",
-      "value": "90153/03",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[255]",
-      "value": "90165/01",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[256]",
-      "value": "90175",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[257]",
-      "value": "90187",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[258]",
-      "value": "90204",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[259]",
-      "value": "980155",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[260]",
-      "value": "980156",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[261]",
-      "value": "980168",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[262]",
-      "value": "980188",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[263]",
-      "value": "980193",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[264]",
-      "value": "980201",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[265]",
-      "value": "98898",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[266]",
-      "value": "BIOANALYZA007",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[267]",
-      "value": "BIOANALYZA013",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[268]",
-      "value": "DOPL001",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[269]",
-      "value": "DP2000",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[270]",
-      "value": "IGE009",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[271]",
-      "value": "PROMO115",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[272]",
-      "value": "PROMO116",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[273]",
-      "value": "PROMO120",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[274]",
-      "value": "PROMO121",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[275]",
-      "value": "PROMO37",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[276]",
-      "value": "PROMO40",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[277]",
-      "value": "PROMO51",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[278]",
-      "value": "PROMO71",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[279]",
-      "value": "PROMO73",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[280]",
-      "value": "PROMO75",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[281]",
-      "value": "SET08",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.eshop.byView.complete.soldProductCodes[282]",
-      "value": "VSTUP200526",
-      "valueType": "string"
-    },
-    {
       "path": "backingData.morning_report_previous_day.stock.lowStockSoldYesterday[0].code",
       "value": "BIOANALYZA007",
       "valueType": "string"
@@ -9540,256 +9540,6 @@
       "valueType": "number"
     },
     {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[0].code",
-      "value": "UD015",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[0].title",
-      "value": "Každodenní přírodní rovnováha pro moderní ženu",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[0].currentStock",
-      "value": 247,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[0].previousStock",
-      "value": 256,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[0].delta",
-      "value": -9,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[1].code",
-      "value": "40203",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[1].title",
-      "value": "Peeling Broskvový",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[1].currentStock",
-      "value": 1998,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[1].previousStock",
-      "value": 2006,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[1].delta",
-      "value": -8,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[2].code",
-      "value": "UA132",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[2].title",
-      "value": "Peeling Broskovový 1+1",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[2].currentStock",
-      "value": 1988,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[2].previousStock",
-      "value": 1996,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[2].delta",
-      "value": -8,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[3].code",
-      "value": "60153-2",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[3].title",
-      "value": "Kamencový deodorant s prebiotiky, květinová vůně ",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[3].currentStock",
-      "value": 312,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[3].previousStock",
-      "value": 319,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[3].delta",
-      "value": -7,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[4].code",
-      "value": "RI073",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[4].title",
-      "value": "Intimní péče – balíček od Království tianDe",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[4].currentStock",
-      "value": 527,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[4].previousStock",
-      "value": 533,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[4].delta",
-      "value": -6,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[5].code",
-      "value": "GR738",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[5].title",
-      "value": "Intimní péče – balíček od Království tianDe",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[5].currentStock",
-      "value": 527,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[5].previousStock",
-      "value": 533,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[5].delta",
-      "value": -6,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[6].code",
-      "value": "DJ334",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[6].title",
-      "value": "Balíček Zdravá žena",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[6].currentStock",
-      "value": 527,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[6].previousStock",
-      "value": 533,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[6].delta",
-      "value": -6,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[7].code",
-      "value": "QD702",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[7].title",
-      "value": "Podpora každodenní intimní péče",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[7].currentStock",
-      "value": 527,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[7].previousStock",
-      "value": 533,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[7].delta",
-      "value": -6,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[8].code",
-      "value": "HN370",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[8].title",
-      "value": "Balíček Podpora každodenní intimní péče",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[8].currentStock",
-      "value": 527,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[8].previousStock",
-      "value": 533,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[8].delta",
-      "value": -6,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[9].code",
-      "value": "GG167",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[9].title",
-      "value": "Balíček komfort",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[9].currentStock",
-      "value": 527,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[9].previousStock",
-      "value": 533,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.stock.largestMovesSinceLastSnapshot[9].delta",
-      "value": -6,
-      "valueType": "number"
-    },
-    {
       "path": "backingData.morning_report_previous_day.inventory.availableStockTotal",
       "value": 377424,
       "valueType": "number"
@@ -9921,17 +9671,7 @@
     },
     {
       "path": "backingData.morning_report_previous_day.logistics.statusCounts[0].count",
-      "value": 402,
-      "valueType": "number"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.logistics.statusCounts[1].name",
-      "value": "P",
-      "valueType": "string"
-    },
-    {
-      "path": "backingData.morning_report_previous_day.logistics.statusCounts[1].count",
-      "value": 6,
+      "value": 408,
       "valueType": "number"
     },
     {
@@ -9956,12 +9696,12 @@
     },
     {
       "path": "backingData.morning_report_previous_day.logistics.expiringProducts[0].datedStock",
-      "value": 2053,
+      "value": 2039,
       "valueType": "number"
     },
     {
       "path": "backingData.morning_report_previous_day.logistics.expiringProducts[0].stockAtNearestExpiry",
-      "value": 2053,
+      "value": 2039,
       "valueType": "number"
     },
     {
@@ -9971,7 +9711,7 @@
     },
     {
       "path": "backingData.morning_report_previous_day.logistics.expiringProducts[0].riskScore",
-      "value": 36.92,
+      "value": 36.67,
       "valueType": "number"
     },
     {
@@ -10006,12 +9746,12 @@
     },
     {
       "path": "backingData.morning_report_previous_day.logistics.expiringProducts[1].datedStock",
-      "value": 324,
+      "value": 323,
       "valueType": "number"
     },
     {
       "path": "backingData.morning_report_previous_day.logistics.expiringProducts[1].stockAtNearestExpiry",
-      "value": 324,
+      "value": 323,
       "valueType": "number"
     },
     {
@@ -10021,7 +9761,7 @@
     },
     {
       "path": "backingData.morning_report_previous_day.logistics.expiringProducts[1].riskScore",
-      "value": 6.19,
+      "value": 6.17,
       "valueType": "number"
     },
     {
@@ -10056,12 +9796,12 @@
     },
     {
       "path": "backingData.morning_report_previous_day.logistics.expiringProducts[2].datedStock",
-      "value": 9461,
+      "value": 9460,
       "valueType": "number"
     },
     {
       "path": "backingData.morning_report_previous_day.logistics.expiringProducts[2].stockAtNearestExpiry",
-      "value": 2341,
+      "value": 2340,
       "valueType": "number"
     },
     {
