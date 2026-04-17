@@ -175,6 +175,11 @@ def write_text(path: Path, text: str):
     path.write_text(text, encoding='utf-8')
 
 
+def write_bytes(path: Path, data: bytes):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(data)
+
+
 def normalize_date_string(value):
     if value is None:
         return None
@@ -1679,6 +1684,79 @@ def abra_get(config, evidence, params=None, selector=None):
         return json.loads(response.read().decode(charset))
 
 
+def abra_download(config, path, params=None, accept=None):
+    if not config.get('enabled'):
+        raise RuntimeError('ABRA API není nakonfigurované.')
+
+    query = urlencode({'auth': 'http', **(params or {})}, doseq=True)
+    url = f"{config['baseUrl']}/c/{config['company']}/{path.lstrip('/')}"
+    if query:
+        url = f'{url}?{query}'
+
+    token = base64.b64encode(f"{config['username']}:{config['password']}".encode('utf-8')).decode('ascii')
+    request = Request(url, headers={
+        'Authorization': f'Basic {token}',
+        'Accept': accept or '*/*',
+    })
+    with urlopen(request, timeout=120) as response:
+        return {
+            'url': url,
+            'contentType': response.headers.get('Content-Type', ''),
+            'body': response.read(),
+        }
+
+
+def fetch_abra_vykaz_hospodareni_reports(now_local):
+    config = abra_config()
+    if not config.get('enabled'):
+        return {
+            'source': {
+                'status': 'missing',
+                'message': 'ABRA report endpoint není nakonfigurovaný.',
+            },
+            'exports': [],
+        }
+
+    exports = []
+    for offset in (-2, -1, 0):
+        target_month = shift_month(month_floor(now_local), offset)
+        label = month_label(target_month)
+        month_key = f'{target_month.month:02d}/{target_month.year}'
+        file_name = f'abra_vykaz_hospodareni_{target_month.year}-{target_month.month:02d}.xls'
+        params = {
+            'report-name': 'vykazHospodareni',
+            'ucetniObdobi': str(target_month.year),
+            'mesicRok': month_key,
+            'mena': 'code:CZK',
+        }
+        try:
+            download = abra_download(config, 'vykaz-hospodareni.xls', params=params, accept='application/vnd.ms-excel, application/octet-stream, */*')
+            exports.append({
+                'label': label,
+                'monthKey': month_key,
+                'fileName': file_name,
+                'contentType': download.get('contentType') or '',
+                'url': download['url'],
+                'bytes': download['body'],
+            })
+        except Exception as exc:
+            return {
+                'source': {
+                    'status': 'error',
+                    'message': f'ABRA report Výkaz hospodaření za měsíc se nepodařilo stáhnout ({exc}).',
+                },
+                'exports': exports,
+            }
+
+    return {
+        'source': {
+            'status': 'live',
+            'message': 'Report Výkaz hospodaření za měsíc se tahá přímo z ABRA report endpointu.',
+        },
+        'exports': exports,
+    }
+
+
 def abra_due_status(due_dt, amount_total, amount_due, now_local):
     if not due_dt:
         status = 'bez splatnosti'
@@ -2327,6 +2405,7 @@ def main():
     combined_overview_payload = {'generatedAt': generated_at, 'counts': {}}
     legacy_abra_payload = extract_legacy_abra_model(LEGACY_ABRA_HTML)
     live_abra_payload = fetch_abra_live_snapshot(now_local)
+    abra_vykaz_hospodareni_reports = fetch_abra_vykaz_hospodareni_reports(now_local)
     finance_snapshot = build_finance_snapshot(legacy_abra_payload, live_abra_payload, generated_at)
     marketing_snapshot = build_marketing_snapshot(legacy_abra_payload, finance_snapshot, generated_at)
     baseline_orders = None
@@ -2395,6 +2474,8 @@ def main():
 
     if finance_snapshot.get('source', {}).get('status') == 'legacy_with_live_error':
         warnings.append('ABRA live adapter selhal, finance fallbacknuly na legacy snapshot.')
+    if abra_vykaz_hospodareni_reports.get('source', {}).get('status') == 'error':
+        warnings.append('ABRA report Výkaz hospodaření za měsíc se nepodařilo stáhnout.')
 
     if not expiry_overview_payload.get('topExpiring'):
         expiry_overview_payload = build_expiry_overview(generated_at, combined_index_payload, cz_expiry_summary, sk_expiry_summary)
@@ -2479,6 +2560,29 @@ def main():
         write_json(CURRENT_DIR / name, payload)
         write_json(snapshot_path / name, payload)
 
+    report_manifest = {
+        'generatedAt': generated_at,
+        'source': abra_vykaz_hospodareni_reports.get('source') or {},
+        'months': [
+            {
+                'label': row.get('label'),
+                'monthKey': row.get('monthKey'),
+                'fileName': row.get('fileName'),
+                'contentType': row.get('contentType'),
+                'url': row.get('url'),
+            }
+            for row in (abra_vykaz_hospodareni_reports.get('exports') or [])
+        ],
+    }
+    write_json(CURRENT_DIR / 'abra_vykaz_hospodareni_reports.json', report_manifest)
+    write_json(snapshot_path / 'abra_vykaz_hospodareni_reports.json', report_manifest)
+    for row in (abra_vykaz_hospodareni_reports.get('exports') or []):
+        body = row.get('bytes')
+        if not body:
+            continue
+        write_bytes(CURRENT_DIR / row['fileName'], body)
+        write_bytes(snapshot_path / row['fileName'], body)
+
     write_text(CURRENT_DIR / 'morning_report_previous_day.txt', report_text)
     write_text(snapshot_path / 'morning_report_previous_day.txt', report_text)
     write_text(CURRENT_DIR / 'morning_report_previous_day_telegram.txt', report_telegram_text)
@@ -2521,6 +2625,7 @@ def main():
             'message': finance_snapshot.get('source', {}).get('message'),
             'currentMonth': finance_snapshot.get('currentMonth') or {},
             'cash': finance_snapshot.get('cash') or {},
+            'reportExport': abra_vykaz_hospodareni_reports.get('source') or {},
         },
         'marketing': {
             'ready': marketing_snapshot.get('source', {}).get('status') != 'missing',
