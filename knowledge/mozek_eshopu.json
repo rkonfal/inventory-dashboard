@@ -6,7 +6,8 @@
       "portalSummary": "/Users/rudolfkonfal/.openclaw/workspace/reporting-v2/data/current/portal_summary.json",
       "morningReportPreviousDay": "/Users/rudolfkonfal/.openclaw/workspace/reporting-v2/data/current/morning_report_previous_day.json"
     },
-    "capturedAt": "2026-04-17T14:44:01.152Z"
+    "capturedAt": "2026-04-17T14:51:45.675Z",
+    "sourceFingerprint": "1cf5284142535c1009fd316d6d0b27745e2d43f4a50f03e5440455548fd52db7"
   },
   "pageMeta": {
     "title": "Diamond Plus Reporting V2",

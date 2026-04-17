@@ -1,7 +1,8 @@
 {
   "source": "/Users/rudolfkonfal/.openclaw/workspace/knowledge/mozek_eshopu.json",
-  "generatedAt": "2026-04-17T14:44:01.162Z",
-  "itemCount": 1034,
+  "generatedAt": "2026-04-17T14:51:45.684Z",
+  "itemCount": 1035,
+  "sourceFingerprint": "1cf5284142535c1009fd316d6d0b27745e2d43f4a50f03e5440455548fd52db7",
   "items": [
     {
       "path": "source.pageUrl",
@@ -25,7 +26,12 @@
     },
     {
       "path": "source.capturedAt",
-      "value": "2026-04-17T14:44:01.152Z",
+      "value": "2026-04-17T14:51:45.675Z",
+      "valueType": "string"
+    },
+    {
+      "path": "source.sourceFingerprint",
+      "value": "1cf5284142535c1009fd316d6d0b27745e2d43f4a50f03e5440455548fd52db7",
       "valueType": "string"
     },
     {

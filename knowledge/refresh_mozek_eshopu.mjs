@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 
 const workspace = '/Users/rudolfkonfal/.openclaw/workspace';
 const htmlPath = path.join(workspace, 'reporting-v2/site/index.html');
@@ -12,6 +13,13 @@ const flatOutputPath = path.join(workspace, 'knowledge/mozek_eshopu_flat.json');
 const html = fs.readFileSync(htmlPath, 'utf8');
 const summary = JSON.parse(fs.readFileSync(summaryPath, 'utf8'));
 const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
+
+const sourceFingerprint = crypto
+  .createHash('sha256')
+  .update(html)
+  .update(JSON.stringify(summary))
+  .update(JSON.stringify(report))
+  .digest('hex');
 
 const fmtNumber = value => new Intl.NumberFormat('cs-CZ').format(Number(value || 0));
 const fmtMoney = value => `${fmtNumber(Math.round(value || 0))} Kč`;
@@ -34,7 +42,8 @@ const brain = {
       portalSummary: summaryPath,
       morningReportPreviousDay: reportPath
     },
-    capturedAt: new Date().toISOString()
+    capturedAt: new Date().toISOString(),
+    sourceFingerprint
   },
   pageMeta: {
     title: 'Diamond Plus Reporting V2',
@@ -179,16 +188,31 @@ const flat = {
   source: outputPath,
   generatedAt: new Date().toISOString(),
   itemCount: flatItems.length,
+  sourceFingerprint,
   items: flatItems
 };
 
-fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-fs.writeFileSync(outputPath, JSON.stringify(brain, null, 2));
-fs.writeFileSync(flatOutputPath, JSON.stringify(flat, null, 2));
+let previousFingerprint = null;
+if (fs.existsSync(outputPath)) {
+  try {
+    const existing = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
+    previousFingerprint = existing?.source?.sourceFingerprint || null;
+  } catch {}
+}
+
+const changed = previousFingerprint !== sourceFingerprint;
+if (changed) {
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+  fs.writeFileSync(outputPath, JSON.stringify(brain, null, 2));
+  fs.writeFileSync(flatOutputPath, JSON.stringify(flat, null, 2));
+}
 
 console.log(JSON.stringify({
   ok: true,
-  updated: [outputPath, flatOutputPath],
+  changed,
+  sourceFingerprint,
+  previousFingerprint,
+  updated: changed ? [outputPath, flatOutputPath] : [],
   itemCount: flatItems.length,
   capturedAt: brain.source.capturedAt
 }, null, 2));

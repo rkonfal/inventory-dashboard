@@ -7,8 +7,8 @@
 
     <key>ProgramArguments</key>
     <array>
-      <string>/opt/homebrew/bin/node</string>
-      <string>/Users/rudolfkonfal/.openclaw/workspace/knowledge/refresh_mozek_eshopu.mjs</string>
+      <string>/bin/zsh</string>
+      <string>/Users/rudolfkonfal/.openclaw/workspace/knowledge/run_refresh_mozek_eshopu.sh</string>
     </array>
 
     <key>WorkingDirectory</key>
