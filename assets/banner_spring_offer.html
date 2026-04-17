@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jarní banner TianDe</title>
+  <style>
+    :root {
+      --purple: #4b2a73;
+      --purple-dark: #2f1748;
+      --gold: #c9a84c;
+      --cream: #faf6ee;
+      --sage: #dfe9d9;
+      --mint: #edf7ec;
+      --pink: #f6d9df;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Arial, sans-serif;
+      background: #ddd;
+    }
+    .banner {
+      width: 1600px;
+      height: 900px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(255,255,255,.9), rgba(255,255,255,0) 24%),
+        radial-gradient(circle at 80% 18%, rgba(246,217,223,.65), rgba(246,217,223,0) 28%),
+        radial-gradient(circle at 85% 75%, rgba(201,168,76,.18), rgba(201,168,76,0) 22%),
+        linear-gradient(135deg, #f8f4ec 0%, #eef7eb 48%, #fdf8f0 100%);
+    }
+    .leaf, .flower {
+      position: absolute;
+      border-radius: 999px;
+      opacity: .45;
+      filter: blur(0.3px);
+    }
+    .leaf {
+      background: linear-gradient(135deg, #dcebd7, #b7d5b5);
+      transform: rotate(35deg);
+    }
+    .flower {
+      width: 22px; height: 22px;
+      background: radial-gradient(circle, #fff 0 22%, #f7d5df 23% 58%, rgba(247,213,223,0) 59%);
+      box-shadow:
+        18px 0 0 0 rgba(247,213,223,.95),
+        -18px 0 0 0 rgba(247,213,223,.95),
+        0 18px 0 0 rgba(247,213,223,.95),
+        0 -18px 0 0 rgba(247,213,223,.95);
+    }
+    .content {
+      position: absolute;
+      inset: 0;
+      padding: 74px 78px;
+      display: grid;
+      grid-template-columns: 1.03fr .97fr;
+      gap: 36px;
+    }
+    .left { position: relative; z-index: 2; }
+    .eyebrow {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.82);
+      color: var(--purple);
+      font-weight: 800;
+      letter-spacing: .12em;
+      font-size: 24px;
+      box-shadow: 0 18px 50px rgba(47,23,72,.08);
+    }
+    h1 {
+      margin: 26px 0 20px;
+      font-size: 82px;
+      line-height: .95;
+      color: var(--purple-dark);
+      letter-spacing: -0.03em;
+      max-width: 720px;
+    }
+    .sub {
+      font-size: 34px;
+      line-height: 1.2;
+      color: #5f4b6f;
+      max-width: 700px;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+    .offer {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--purple) 0%, #7046a8 100%);
+      color: white;
+      padding: 24px 30px;
+      border-radius: 28px;
+      font-size: 35px;
+      line-height: 1.18;
+      font-weight: 800;
+      box-shadow: 0 28px 60px rgba(75,42,115,.22);
+      max-width: 740px;
+    }
+    .offer .small { color: #efe5ff; font-size: 28px; font-weight: 700; }
+    .badge {
+      margin-top: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,.9);
+      color: #7b6420;
+      padding: 16px 24px;
+      border-radius: 999px;
+      font-size: 28px;
+      font-weight: 800;
+      box-shadow: 0 20px 45px rgba(80,69,24,.12);
+    }
+    .badge .dot {
+      width: 16px; height: 16px; border-radius: 50%; background: var(--gold);
+      box-shadow: 0 0 0 8px rgba(201,168,76,.15);
+    }
+    .right {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 2;
+    }
+    .stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .glow {
+      position: absolute;
+      left: 52%; bottom: 110px;
+      transform: translateX(-50%);
+      width: 640px; height: 170px;
+      background: radial-gradient(ellipse at center, rgba(75,42,115,.20) 0%, rgba(75,42,115,.06) 45%, rgba(75,42,115,0) 72%);
+      filter: blur(10px);
+    }
+    .card {
+      position: absolute;
+      background: rgba(255,255,255,.93);
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 34px;
+      box-shadow: 0 26px 55px rgba(47,23,72,.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+    .card img {
+      max-width: 88%;
+      max-height: 88%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+    .p1 { left: 110px; bottom: 150px; width: 245px; height: 430px; transform: rotate(-8deg); }
+    .p2 { left: 315px; bottom: 115px; width: 285px; height: 500px; z-index: 2; }
+    .p3 { left: 565px; bottom: 145px; width: 245px; height: 430px; transform: rotate(7deg); }
+    .gift {
+      right: 10px;
+      top: 120px;
+      width: 330px;
+      height: 280px;
+      padding: 20px;
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(250,246,238,.98));
+    }
+    .gift-label {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: #ffe8a8;
+      color: #7a5b00;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      margin-bottom: 6px;
+    }
+    .gift-title {
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--purple-dark);
+      line-height: 1.05;
+    }
+    .gift img {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+    .gift-sub {
+      font-size: 20px;
+      color: #76677f;
+      font-weight: 700;
+    }
+    .footer {
+      position: absolute;
+      left: 80px;
+      bottom: 48px;
+      color: rgba(47,23,72,.72);
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <div class="leaf" style="width:220px;height:90px;left:-30px;top:90px;"></div>
+    <div class="leaf" style="width:180px;height:72px;left:90px;top:40px;transform:rotate(12deg);"></div>
+    <div class="leaf" style="width:190px;height:78px;right:30px;top:60px;transform:rotate(-28deg);"></div>
+    <div class="leaf" style="width:230px;height:95px;right:-20px;bottom:120px;transform:rotate(-18deg);"></div>
+    <div class="flower" style="left:120px;top:180px;transform:scale(1.1) rotate(14deg);"></div>
+    <div class="flower" style="right:120px;top:210px;transform:scale(.85) rotate(-9deg);"></div>
+    <div class="flower" style="left:60px;bottom:120px;transform:scale(.9) rotate(8deg);"></div>
+
+    <div class="content">
+      <div class="left">
+        <div class="eyebrow">JARNÍ AKCE</div>
+        <h1>Lehkost a komfort do každého dne</h1>
+        <div class="sub">Kup Slaviton, Orthophyt a Tekutou náplast, a jako dárek získáš Wutong.</div>
+        <div class="offer">
+          Slaviton + Orthophyt + Tekutá náplast<br />
+          <span class="small">Wutong jako dárek zdarma</span>
+        </div>
+        <div class="badge"><span class="dot"></span> časově omezená nabídka</div>
+      </div>
+
+      <div class="right">
+        <div class="stage">
+          <div class="glow"></div>
+          <div class="card p1"><img src="https://data.kralovstvi-tiande.cz/data/tmp/3/3/10633_3.jpg?1773210548_2" alt="Fytogel Slaviton" /></div>
+          <div class="card p2"><img src="https://data.kralovstvi-tiande.cz/data/tmp/3/5/8545_3.jpg?1745921001_2" alt="Orthophyt" /></div>
+          <div class="card p3"><img src="https://data.kralovstvi-tiande.cz/data/tmp/3/7/8547_3.jpg?1745922295_2" alt="Tekutá náplast" /></div>
+          <div class="card gift">
+            <div class="gift-label">DÁREK</div>
+            <div class="gift-title">Wutong</div>
+            <img src="https://data.kralovstvi-tiande.cz/data/tmp/3/7/2397_3.jpg?1699514684_2" alt="Wutong" />
+            <div class="gift-sub">k nákupu celé trojice</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">Království tianDe</div>
+  </div>
+</body>
+</html>
