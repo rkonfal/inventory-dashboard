@@ -37,6 +37,7 @@ LEGACY_MONTH_KEYS = ['jan', 'feb', 'mar']
 LIVE_FINANCE_MARKETING_ACCOUNTS = ('518900', '518901')
 LIVE_FINANCE_LOGISTICS_ACCOUNTS = ('518201', '518400')
 LIVE_FINANCE_BANKFEE_ACCOUNTS = ('568001', '568100')
+SK_EUR_TO_CZK_RATE = 27.27
 
 WPJ_ORDER_CLASSIFICATION_FIELDS = '''
       source { name }
@@ -599,7 +600,7 @@ def summarize_orders(orders, include_views=True):
     problematic = 0
 
     for order in orders:
-        revenue += money((order.get('totalPrice') or {}).get('withVat'))
+        revenue += order_total_czk(order)
         if order.get('cancelled'):
             cancelled += 1
         if is_problematic_order(order):
@@ -626,7 +627,7 @@ def summarize_orders(orders, include_views=True):
                 'label': label,
             }
             product_units[key] += num(item.get('pieces'))
-            product_revenue[key] += money((item.get('totalPrice') or {}).get('withVat'))
+            product_revenue[key] += order_item_revenue_czk(order, item)
 
     def top_products(counter, limit=5, formatter=None):
         rows = []
@@ -787,6 +788,16 @@ def classify_order_view(order):
     return 'cz'
 
 
+def order_total_czk(order):
+    total = money((order.get('totalPrice') or {}).get('withVat'))
+    return round(total * SK_EUR_TO_CZK_RATE, 2) if classify_order_view(order) == 'sk' else total
+
+
+def order_item_revenue_czk(order, item):
+    revenue = money((item.get('totalPrice') or {}).get('withVat'))
+    return round(revenue * SK_EUR_TO_CZK_RATE, 2) if classify_order_view(order) == 'sk' else revenue
+
+
 def collect_wpj_order_product_metrics(orders, wpj_by_code=None, manual_overrides=None):
     wpj_by_code = wpj_by_code or {}
     metrics = {}
@@ -813,7 +824,7 @@ def collect_wpj_order_product_metrics(orders, wpj_by_code=None, manual_overrides
             })
             row['sourceCodes'].add(normalize_product_code(raw_code))
             units = num(item.get('pieces'))
-            revenue = money((item.get('totalPrice') or {}).get('withVat'))
+            revenue = order_item_revenue_czk(order, item)
             row['units'] += units
             row['revenueWithVat'] += revenue
             row['byView']['complete']['units'] += units
