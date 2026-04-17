@@ -83,7 +83,18 @@ Produkt se hýbe, ale sklad je velký. Největší potenciál je v bundlu s osta
 
 ---
 
-## 2. Jak podporit prodej procházejícího zboží
+## 2. Obchodní limit pro dárky
+
+- **maximální hodnota dárku = 18 % z hodnoty celé akce**
+
+**Praktický dopad:**
+- dražší expirační položky nejsou vhodné jako univerzální dárek k silným bestsellerům
+- nad 18 % je lepší použít **2+1 na stejné SKU**, případně mix bundle bez označení „dárek zdarma“
+- jako dárky preferovat hlavně položky typu **PROMO74** a **63601**, případně jen nízkonákladové varianty
+
+---
+
+## 3. Jak podpořit prodej procházejícího zboží
 
 ## Doporučené promo mechanismy
 
@@ -159,13 +170,13 @@ Slaviton je silný tahoun. Peeling je přirozený doplněk a dá se přes něj o
 Všechny tři produkty sedí do jedné logiky a opírají se o silnou poptávku patch řady.
 
 ### 4. Anti-age set s maskou zdarma
-**Mechanika:** gift bundle
+**Mechanika:** gift bundle, jen pokud se vejde do 18 %
 - 10117 · Krém pro hloubkovou obnovu pleti Ženšen a orchidej
 - 10118 · Sérum pro hloubkovou obnovu pleti Ženšen a fytoextrakty
 - dárek: 52902/03 · Revitalizační maska Lingzhi - 3ks
 
 **Smysl:**
-Maska se sama prodává pomalu, ale jako bonus k séru a krému dává smysl.
+Maska se sama prodává pomalu, ale jako bonus k séru a krému dává smysl. Pokud vyjde nad 18 %, převést ji raději na samostatnou akci 2+1.
 
 ### 5. Ženská péče, 3+1 mix
 **Mechanika:** mix & match 3+1
@@ -192,7 +203,7 @@ Pomáhá odčerpat řadu 63601 a drží logiku celé kategorie.
 - dárek: 63601 nebo PROMO74 podle cíle kampaně
 
 **Smysl:**
-Intimní gel je silný tahoun a unese bonusovou mechaniku bez potřeby výrazné slevy.
+Intimní gel je silný tahoun a unese bonusovou mechaniku bez potřeby výrazné slevy. Tohle je zároveň typ nabídky, která má nejvyšší šanci vejít se do 18 %.
 
 ### 8. Ženský balíček s hidden dárkem
 **Mechanika:** gift only
@@ -221,13 +232,13 @@ PROMO74 má smysl hlavně jako hidden dárek. Není vhodné ho stavět do hero r
 
 Pokud to mám zjednodušit na minimum, doporučil bych spustit tyto 4 mechaniky:
 
-1. **40203 Peeling Broskvový** → 2+1
-2. **10117 + 10118** → dárek **52902/03**
-3. **30117 / 30118** → dárek **30111**
+1. **40203 Peeling Broskvový** → **2+1**
+2. **52902/03 Lingzhi maska** → **2+1**, případně dárek jen po kontrole 18 %
+3. **30117 / 30118** → dárek **30111** jen pokud se vejde do 18 %, jinak bundle v rámci patch řady
 4. **61911 / 61912 / 61914** → dárek **63601** nebo **PROMO74**
 
 Tohle je podle mě nejrychlejší kombinace:
-- vysoká relevance k nákupu
-- minimální tlak na zlevnění bestsellerů
-- odčerpání nejproblematičtějších expirací
-- dobrá použitelnost pro web, CRM i bannery
+- respektuje limit hodnoty dárku
+- drží cenu hlavních bestsellerů
+- odčerpává nejproblematičtější expirace
+- je dobře použitelná pro web, CRM i bannery
