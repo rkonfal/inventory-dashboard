@@ -15,6 +15,15 @@ from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
+VENDOR_PY_DIR = ROOT / 'vendor_py'
+if VENDOR_PY_DIR.exists() and str(VENDOR_PY_DIR) not in sys.path:
+    sys.path.insert(0, str(VENDOR_PY_DIR))
+
+try:
+    import xlrd
+except ImportError:
+    xlrd = None
+
 ENV_FILE = ROOT / '.env.local'
 CONFIG_DIR = ROOT / 'config'
 SKU_MAPPING_OVERRIDE_FILE = CONFIG_DIR / 'sku_mapping_overrides.json'
@@ -24,6 +33,9 @@ BASE_URL = 'https://open.eu.4px.com/router/api/service'
 PRAGUE_TZ = ZoneInfo('Europe/Prague')
 LEGACY_ABRA_HTML = ROOT.parent / 'portals' / 'diamond-plus-report' / 'index.html'
 LEGACY_MONTH_KEYS = ['jan', 'feb', 'mar']
+LIVE_FINANCE_MARKETING_ACCOUNTS = ('518900', '518901')
+LIVE_FINANCE_LOGISTICS_ACCOUNTS = ('518201', '518400')
+LIVE_FINANCE_BANKFEE_ACCOUNTS = ('568001', '568100')
 
 WPJ_ORDERS_HISTORY_QUERY = '''
 query ($offset:Int,$limit:Int,$sort:OrderSortInput,$filter:OrderFilterInput){
@@ -1706,6 +1718,80 @@ def abra_download(config, path, params=None, accept=None):
         }
 
 
+def parse_abra_vykaz_hospodareni_xls(body, label, month_key):
+    if xlrd is None:
+        raise RuntimeError('Chybí knihovna xlrd pro čtení XLS exportu.')
+
+    book = xlrd.open_workbook(file_contents=body)
+    sheet = book.sheet_by_index(0)
+    rows = {}
+
+    for idx in range(sheet.nrows):
+        values = sheet.row_values(idx)
+        code = str(values[2]).strip() if len(values) > 2 else ''
+        if not code:
+            continue
+        title = str(values[3]).strip() if len(values) > 3 else ''
+        rows[code] = {
+            'code': code,
+            'title': title,
+            'month': abra_money(values[5] if len(values) > 5 else 0),
+            'year': abra_money(values[7] if len(values) > 7 else 0),
+            'included': str(values[12]).strip() if len(values) > 12 else '',
+        }
+
+    def month_value(*codes):
+        return round(sum((rows.get(code) or {}).get('month', 0.0) for code in codes), 2)
+
+    revenue = month_value('60....')
+    marketing = month_value(*LIVE_FINANCE_MARKETING_ACCOUNTS)
+    logistics = month_value(*LIVE_FINANCE_LOGISTICS_ACCOUNTS)
+    bank_fees = month_value(*LIVE_FINANCE_BANKFEE_ACCOUNTS)
+    cogs_and_fees = round(month_value('50....') + bank_fees, 2)
+    opex = round(max(month_value('51....') - marketing - logistics, 0.0) + month_value('52....') + month_value('54....'), 2)
+    depreciation = month_value('55....')
+    profit = month_value('Zisk (+), ztráta (-)')
+    gross_margin = round(revenue - cogs_and_fees, 2)
+    after_logistics = round(gross_margin - logistics, 2)
+    after_marketing = round(after_logistics - marketing, 2)
+    operating_margin = round(after_marketing - opex, 2)
+    ebit = round(operating_margin - depreciation, 2)
+    other = round(profit - ebit, 2)
+
+    return {
+        'label': label,
+        'monthKey': month_key,
+        'reportTitle': str(sheet.cell_value(0, 0)).strip() if sheet.nrows else '',
+        'company': str(sheet.cell_value(1, 0)).strip() if sheet.nrows > 1 else '',
+        'metrics': {
+            'revenue': revenue,
+            'cogsAndFees': cogs_and_fees,
+            'marketing': marketing,
+            'logistics': logistics,
+            'opex': opex,
+            'depreciation': depreciation,
+            'other': other,
+            'grossMargin': gross_margin,
+            'afterLogistics': after_logistics,
+            'afterMarketing': after_marketing,
+            'operatingMargin': operating_margin,
+            'ebit': ebit,
+            'profit': profit,
+            'expenseTotal': month_value('5.....'),
+            'incomeTotal': month_value('6.....'),
+            'bankFees': bank_fees,
+        },
+        'accounts': {
+            code: row for code, row in rows.items()
+            if re.fullmatch(r'\d{6}', code)
+        },
+        'sections': {
+            code: row for code, row in rows.items()
+            if code.endswith('....') or code == 'Zisk (+), ztráta (-)'
+        },
+    }
+
+
 def fetch_abra_vykaz_hospodareni_reports(now_local):
     config = abra_config()
     if not config.get('enabled'):
@@ -1731,6 +1817,7 @@ def fetch_abra_vykaz_hospodareni_reports(now_local):
         }
         try:
             download = abra_download(config, 'vykaz-hospodareni.xls', params=params, accept='application/vnd.ms-excel, application/octet-stream, */*')
+            parsed = parse_abra_vykaz_hospodareni_xls(download['body'], label, month_key)
             exports.append({
                 'label': label,
                 'monthKey': month_key,
@@ -1738,6 +1825,7 @@ def fetch_abra_vykaz_hospodareni_reports(now_local):
                 'contentType': download.get('contentType') or '',
                 'url': download['url'],
                 'bytes': download['body'],
+                'parsed': parsed,
             })
         except Exception as exc:
             return {
@@ -1895,6 +1983,7 @@ def build_live_journal_snapshot(config, now_local):
                     'description': abra_text(abra_pick(row, 'popis', 'nazFirmy', 'firma@showAs', 'varSym')) or 'Bez popisu',
                     'vendor': vendor,
                     'module': abra_text(abra_pick(row, 'modulK@showAs', 'modulK')),
+                    'costCenter': abra_text(abra_pick(row, 'stredisko@showAs', 'stredisko')),
                 })
 
         top_class = max(class_totals.items(), key=lambda item: item[1]) if class_totals else None
@@ -2141,8 +2230,41 @@ def calc_legacy_finance_series(pnl):
     }
 
 
-def build_finance_snapshot(legacy_abra_payload, live_abra_payload, generated_at):
-    if legacy_abra_payload:
+def build_finance_snapshot(legacy_abra_payload, live_abra_payload, report_payload, generated_at):
+    report_rows = [row.get('parsed') for row in (report_payload or {}).get('exports') or [] if row.get('parsed')]
+    if report_rows:
+        months = [row['label'] for row in report_rows]
+        monthly = []
+        for row in report_rows:
+            metrics = row.get('metrics') or {}
+            revenue = metrics.get('revenue', 0)
+            monthly.append({
+                'label': row['label'],
+                'revenue': round(revenue, 2),
+                'cogsAndFees': round(metrics.get('cogsAndFees', 0), 2),
+                'logistics': round(metrics.get('logistics', 0), 2),
+                'marketing': round(metrics.get('marketing', 0), 2),
+                'opex': round(metrics.get('opex', 0), 2),
+                'depreciation': round(metrics.get('depreciation', 0), 2),
+                'other': round(metrics.get('other', 0), 2),
+                'grossMargin': round(metrics.get('grossMargin', 0), 2),
+                'afterLogistics': round(metrics.get('afterLogistics', 0), 2),
+                'afterMarketing': round(metrics.get('afterMarketing', 0), 2),
+                'operatingMargin': round(metrics.get('operatingMargin', 0), 2),
+                'ebit': round(metrics.get('ebit', 0), 2),
+                'profit': round(metrics.get('profit', 0), 2),
+                'grossMarginPct': safe_ratio(metrics.get('grossMargin', 0), revenue),
+                'marketingPct': safe_ratio(metrics.get('marketing', 0), revenue),
+                'logisticsPct': safe_ratio(metrics.get('logistics', 0), revenue),
+                'operatingMarginPct': safe_ratio(metrics.get('operatingMargin', 0), revenue),
+                'profitPct': safe_ratio(metrics.get('profit', 0), revenue),
+            })
+        source = {
+            'status': 'live_report',
+            'message': 'Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska.',
+        }
+        cash = {}
+    elif legacy_abra_payload:
         model = legacy_abra_payload['model']
         series = calc_legacy_finance_series(model['pnl_all'])
         months = model.get('months') or []
@@ -2174,7 +2296,7 @@ def build_finance_snapshot(legacy_abra_payload, live_abra_payload, generated_at)
     else:
         months = []
         monthly = []
-        source = {'status': 'missing', 'message': 'Legacy ABRA snapshot nebyl nalezen.'}
+        source = {'status': 'missing', 'message': 'ABRA finance report nebyl nalezen.'}
         cash = {}
     journal = {
         'source': {'status': 'missing', 'message': 'Live účetní deník zatím není k dispozici.'},
@@ -2192,10 +2314,16 @@ def build_finance_snapshot(legacy_abra_payload, live_abra_payload, generated_at)
         if live_status == 'live_payables':
             cash.update(live_abra_payload.get('cash') or {})
             journal = live_abra_payload.get('journal') or journal
-            source = {
-                'status': 'mixed_live_legacy' if legacy_abra_payload else 'live_payables_only',
-                'message': live_abra_payload['source']['message'],
-            }
+            if report_rows:
+                source = {
+                    'status': 'live_report',
+                    'message': 'Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API.',
+                }
+            else:
+                source = {
+                    'status': 'mixed_live_legacy' if legacy_abra_payload else 'live_payables_only',
+                    'message': live_abra_payload['source']['message'],
+                }
         elif live_status == 'error' and legacy_abra_payload:
             source = {
                 'status': 'legacy_with_live_error',
@@ -2218,7 +2346,57 @@ def build_finance_snapshot(legacy_abra_payload, live_abra_payload, generated_at)
     }
 
 
-def build_marketing_snapshot(legacy_abra_payload, finance_snapshot, generated_at):
+def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapshot, generated_at):
+    report_rows = [row.get('parsed') for row in (report_payload or {}).get('exports') or [] if row.get('parsed')]
+    if report_rows:
+        monthly = []
+        revenue_by_label = {row.get('label'): row for row in (finance_snapshot.get('monthly') or [])}
+        for row in report_rows:
+            accounts = row.get('accounts') or {}
+            performance_spend = round((accounts.get('518900') or {}).get('month', 0), 2)
+            brand_spend = round((accounts.get('518901') or {}).get('month', 0), 2)
+            total_spend = round(performance_spend + brand_spend, 2)
+            revenue = (revenue_by_label.get(row['label']) or {}).get('revenue', 0)
+            monthly.append({
+                'label': row['label'],
+                'performanceSpend': performance_spend,
+                'brandSpend': brand_spend,
+                'totalSpend': total_spend,
+                'revenue': revenue,
+                'spendShareOfRevenuePct': safe_ratio(total_spend, revenue),
+            })
+
+        journal_current = (finance_snapshot.get('journal') or {}).get('currentMonth') or {}
+        current_entries = [
+            {
+                'date': row.get('date'),
+                'supplier': row.get('vendor'),
+                'description': row.get('description'),
+                'amount': round(float(row.get('amount') or 0), 2),
+                'module': row.get('module'),
+                'account': row.get('accountCode'),
+                'costCenter': row.get('costCenter'),
+            }
+            for row in (journal_current.get('recentEntries') or [])
+            if row.get('accountCode') in LIVE_FINANCE_MARKETING_ACCOUNTS
+        ]
+        supplier_totals = defaultdict(float)
+        for row in current_entries:
+            supplier_totals[row.get('supplier') or 'Neznámý dodavatel'] += float(row.get('amount') or 0)
+
+        current_month = monthly[-1] if monthly else {}
+        return {
+            'generatedAt': generated_at,
+            'source': {'status': 'live_report', 'message': 'Marketing se skládá z live ABRA reportu a aktuálních položek z účetního deníku.'},
+            'monthly': monthly,
+            'currentMonth': current_month,
+            'topSuppliersCurrentMonth': [
+                {'name': name, 'amount': round(amount, 2)}
+                for name, amount in sorted(supplier_totals.items(), key=lambda item: item[1], reverse=True)[:8]
+            ],
+            'entriesCurrentMonth': current_entries[:20],
+        }
+
     if not legacy_abra_payload:
         return {
             'generatedAt': generated_at,
@@ -2406,8 +2584,8 @@ def main():
     legacy_abra_payload = extract_legacy_abra_model(LEGACY_ABRA_HTML)
     live_abra_payload = fetch_abra_live_snapshot(now_local)
     abra_vykaz_hospodareni_reports = fetch_abra_vykaz_hospodareni_reports(now_local)
-    finance_snapshot = build_finance_snapshot(legacy_abra_payload, live_abra_payload, generated_at)
-    marketing_snapshot = build_marketing_snapshot(legacy_abra_payload, finance_snapshot, generated_at)
+    finance_snapshot = build_finance_snapshot(legacy_abra_payload, live_abra_payload, abra_vykaz_hospodareni_reports, generated_at)
+    marketing_snapshot = build_marketing_snapshot(legacy_abra_payload, abra_vykaz_hospodareni_reports, finance_snapshot, generated_at)
     baseline_orders = None
     baseline_revenue = None
     stock_summary = {
@@ -2570,6 +2748,7 @@ def main():
                 'fileName': row.get('fileName'),
                 'contentType': row.get('contentType'),
                 'url': row.get('url'),
+                'parsed': (row.get('parsed') or {}).get('metrics') or {},
             }
             for row in (abra_vykaz_hospodareni_reports.get('exports') or [])
         ],
