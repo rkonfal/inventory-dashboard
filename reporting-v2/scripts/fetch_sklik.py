@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import os
 from collections import Counter
+from datetime import date, timedelta
 from pathlib import Path
 from typing import Dict, List
 from xmlrpc.client import DateTime, ServerProxy
@@ -63,6 +64,29 @@ def normalize(value):
     return value
 
 
+def xmlrpc_day(value: date) -> DateTime:
+    return DateTime(value.strftime('%Y%m%dT00:00:00'))
+
+
+def money_czk(value: int | float | None) -> float:
+    return round(float(value or 0) / 100.0, 2)
+
+
+def normalize_stat_row(row: Dict[str, object]) -> Dict[str, object]:
+    return {
+        'date': str(row.get('date') or ''),
+        'impressions': int(row.get('impressions') or 0),
+        'clicks': int(row.get('clicks') or 0),
+        'ctr': float(row.get('ctr') or 0),
+        'cpcCzk': money_czk(row.get('cpc')),
+        'priceCzk': money_czk(row.get('price') or row.get('totalMoney')),
+        'conversions': float(row.get('conversions') or 0),
+        'conversionValueCzk': money_czk(row.get('conversionValue')),
+        'transactions': int(row.get('transactions') or 0),
+        'avgPosition': float(row.get('avgPosition') or row.get('avgPos') or 0),
+    }
+
+
 def main() -> int:
     proxy = ServerProxy(RPC_URL)
     login = proxy.client.loginByToken(sklik_token())
@@ -93,6 +117,69 @@ def main() -> int:
             break
         offset += page_size
 
+    today = date.today()
+    date_from = today.replace(day=1)
+    date_to = today - timedelta(days=1)
+
+    stats_status = proxy.stats.status(user, {
+        'dateFrom': xmlrpc_day(date_from),
+        'dateTo': xmlrpc_day(date_to),
+    })
+    if str(stats_status.get('status')) != '200':
+        raise SystemExit(f"Sklik stats.status failed: {stats_status.get('status')} {stats_status.get('statusMessage')}")
+
+    client_total = proxy.client.stats(user, {
+        'dateFrom': xmlrpc_day(date_from),
+        'dateTo': xmlrpc_day(date_to),
+        'granularity': 'total',
+        'includeFulltext': True,
+        'includeContext': True,
+        'includeZbozi': True,
+    })
+    if str(client_total.get('status')) != '200':
+        raise SystemExit(f"Sklik client.stats total failed: {client_total.get('status')} {client_total.get('statusMessage')}")
+
+    client_daily = proxy.client.stats(user, {
+        'dateFrom': xmlrpc_day(date_from),
+        'dateTo': xmlrpc_day(date_to),
+        'granularity': 'daily',
+        'includeFulltext': True,
+        'includeContext': True,
+        'includeZbozi': True,
+    })
+    if str(client_daily.get('status')) != '200':
+        raise SystemExit(f"Sklik client.stats daily failed: {client_daily.get('status')} {client_daily.get('statusMessage')}")
+
+    campaign_report = proxy.campaigns.createReport(user, {
+        'dateFrom': xmlrpc_day(date_from),
+        'dateTo': xmlrpc_day(date_to),
+        'isDeleted': False,
+    }, {
+        'statGranularity': 'total',
+    })
+    if str(campaign_report.get('status')) != '200':
+        raise SystemExit(f"Sklik campaigns.createReport failed: {campaign_report.get('status')} {campaign_report.get('statusMessage')}")
+
+    campaign_rows = []
+    report_id = campaign_report.get('reportId')
+    report_offset = 0
+    report_limit = 200
+    report_columns = ['id', 'name', 'status', 'type', 'clicks', 'impressions', 'totalMoney', 'conversions', 'conversionValue']
+    while True:
+        page = proxy.campaigns.readReport(user, report_id, {
+            'offset': report_offset,
+            'limit': report_limit,
+            'displayColumns': report_columns,
+            'allowEmptyStatistics': False,
+        })
+        if str(page.get('status')) != '200':
+            raise SystemExit(f"Sklik campaigns.readReport failed: {page.get('status')} {page.get('statusMessage')}")
+        batch = page.get('report') or []
+        campaign_rows.extend(batch)
+        if len(batch) < report_limit:
+            break
+        report_offset += report_limit
+
     result = normalize({
         'source': {
             'status': 'live_api',
@@ -120,6 +207,30 @@ def main() -> int:
             'byStatus': campaign_status_summary(campaigns),
             'byType': campaign_type_summary(campaigns),
         },
+        'statsStatusCurrentMonth': [
+            {
+                'date': str(row.get('date') or ''),
+                'status': row.get('status'),
+            }
+            for row in (stats_status.get('days') or [])
+        ],
+        'currentMonth': {
+            'dateFrom': date_from.isoformat(),
+            'dateTo': date_to.isoformat(),
+            'total': normalize_stat_row(((client_total.get('report') or [{}])[0])),
+            'daily': [normalize_stat_row(row) for row in (client_daily.get('report') or [])],
+        },
+        'campaignPerformanceCurrentMonth': [
+            {
+                'id': row.get('id'),
+                'name': row.get('name'),
+                'status': row.get('status'),
+                'type': row.get('type'),
+                **(normalize_stat_row((row.get('stats') or [{}])[0]))
+            }
+            for row in campaign_rows
+            if row.get('stats')
+        ],
         'campaigns': campaigns,
     })
 
@@ -132,6 +243,8 @@ def main() -> int:
         'campaignCount': result['campaignSummary']['count'],
         'byStatus': result['campaignSummary']['byStatus'],
         'byType': result['campaignSummary']['byType'],
+        'currentMonthTotal': result['currentMonth']['total'],
+        'campaignPerformanceRows': len(result['campaignPerformanceCurrentMonth']),
     }, ensure_ascii=False, indent=2))
     return 0
 
