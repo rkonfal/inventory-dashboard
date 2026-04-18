@@ -28,6 +28,7 @@ except ImportError:
 ENV_FILE = ROOT / '.env.local'
 CONFIG_DIR = ROOT / 'config'
 SKU_MAPPING_OVERRIDE_FILE = CONFIG_DIR / 'sku_mapping_overrides.json'
+POS_ADMIN_VIEW_OVERRIDE_FILE = CONFIG_DIR / 'pos_admin_view_overrides.json'
 CURRENT_DIR = ROOT / 'data' / 'current'
 SNAPSHOT_DIR = ROOT / 'data' / 'snapshots'
 BASE_URL = 'https://open.eu.4px.com/router/api/service'
@@ -44,6 +45,13 @@ WPJ_ORDER_CLASSIFICATION_FIELDS = '''
       deliveryAddress {
         city
         country { name code }
+      }
+      invoiceAddress {
+        city
+      }
+      history {
+        adminId
+        comment
       }
 '''
 
@@ -178,6 +186,26 @@ def load_manual_sku_overrides(path: Path):
         if raw:
             overrides['ignore'].add(raw)
 
+    return overrides
+
+
+def load_pos_admin_view_overrides(path: Path):
+    overrides = {}
+    if not path.exists():
+        return overrides
+    try:
+        payload = json.loads(path.read_text(encoding='utf-8'))
+    except Exception as exc:
+        raise RuntimeError(f'Neplatný JSON v override mapě POS adminů: {path}') from exc
+
+    for view, admin_ids in (payload or {}).items():
+        if view not in {'ltm', 'mecin'}:
+            continue
+        for admin_id in admin_ids or []:
+            try:
+                overrides[int(admin_id)] = view
+            except (TypeError, ValueError):
+                continue
     return overrides
 
 
@@ -587,7 +615,7 @@ def is_problematic_order(order):
     return any(p in name for p in patterns)
 
 
-def summarize_orders(orders, include_views=True):
+def summarize_orders(orders, include_views=True, pos_admin_views=None):
     product_units = Counter()
     product_revenue = Counter()
     payment_methods = Counter()
@@ -600,7 +628,7 @@ def summarize_orders(orders, include_views=True):
     problematic = 0
 
     for order in orders:
-        revenue += order_total_czk(order)
+        revenue += order_total_czk(order, pos_admin_views)
         if order.get('cancelled'):
             cancelled += 1
         if is_problematic_order(order):
@@ -627,7 +655,7 @@ def summarize_orders(orders, include_views=True):
                 'label': label,
             }
             product_units[key] += num(item.get('pieces'))
-            product_revenue[key] += order_item_revenue_czk(order, item)
+            product_revenue[key] += order_item_revenue_czk(order, item, pos_admin_views)
 
     def top_products(counter, limit=5, formatter=None):
         rows = []
@@ -656,17 +684,17 @@ def summarize_orders(orders, include_views=True):
 
     if include_views:
         summary['byView'] = {
-            'complete': summarize_orders(orders, include_views=False),
-            'cz': summarize_orders([order for order in orders if classify_order_view(order) == 'cz'], include_views=False),
-            'sk': summarize_orders([order for order in orders if classify_order_view(order) == 'sk'], include_views=False),
-            'ltm': summarize_orders([order for order in orders if classify_order_view(order) == 'ltm'], include_views=False),
-            'mecin': summarize_orders([order for order in orders if classify_order_view(order) == 'mecin'], include_views=False),
+            'complete': summarize_orders(orders, include_views=False, pos_admin_views=pos_admin_views),
+            'cz': summarize_orders([order for order in orders if classify_order_view(order, pos_admin_views) == 'cz'], include_views=False, pos_admin_views=pos_admin_views),
+            'sk': summarize_orders([order for order in orders if classify_order_view(order, pos_admin_views) == 'sk'], include_views=False, pos_admin_views=pos_admin_views),
+            'ltm': summarize_orders([order for order in orders if classify_order_view(order, pos_admin_views) == 'ltm'], include_views=False, pos_admin_views=pos_admin_views),
+            'mecin': summarize_orders([order for order in orders if classify_order_view(order, pos_admin_views) == 'mecin'], include_views=False, pos_admin_views=pos_admin_views),
         }
 
     return summary
 
 
-def summarize_daily_history(orders, target_date):
+def summarize_daily_history(orders, target_date, pos_admin_views=None):
     by_day = defaultdict(list)
     for order in orders:
         dt = parse_dt(order.get('dateCreated'))
@@ -677,7 +705,7 @@ def summarize_daily_history(orders, target_date):
     days = []
     for index in range(7, -1, -1):
         day = target_date - timedelta(days=index)
-        summary = summarize_orders(by_day.get(day, []))
+        summary = summarize_orders(by_day.get(day, []), pos_admin_views=pos_admin_views)
         days.append({
             'date': day.isoformat(),
             'orders': summary['orders'],
@@ -773,36 +801,48 @@ def normalize_city_name(value):
     return ''.join(ch for ch in unicodedata.normalize('NFD', text) if unicodedata.category(ch) != 'Mn')
 
 
-def classify_order_view(order):
+def classify_order_view(order, pos_admin_views=None):
+    pos_admin_views = pos_admin_views or {}
     source_name = ((order.get('source') or {}).get('name') or '').strip().lower()
-    city = ((order.get('deliveryAddress') or {}).get('city') or '').strip().lower()
+    delivery_city = ((order.get('deliveryAddress') or {}).get('city') or '').strip().lower()
+    invoice_city = ((order.get('invoiceAddress') or {}).get('city') or '').strip().lower()
     country = (((order.get('deliveryAddress') or {}).get('country') or {}).get('code') or '').strip().upper()
-    city_ascii = normalize_city_name(city)
 
     if source_name == 'pokladna':
-        if 'mecin' in city_ascii:
-            return 'mecin'
+        for entry in order.get('history') or []:
+            if (entry.get('comment') or '').strip() == 'Vytvořeno v pokladně':
+                admin_id = entry.get('adminId')
+                if admin_id in pos_admin_views:
+                    return pos_admin_views[admin_id]
+                break
+
+        for city in (delivery_city, invoice_city):
+            city_ascii = normalize_city_name(city)
+            if 'mecin' in city_ascii:
+                return 'mecin'
+            if 'litomer' in city_ascii:
+                return 'ltm'
         return 'ltm'
     if country == 'SK':
         return 'sk'
     return 'cz'
 
 
-def order_total_czk(order):
+def order_total_czk(order, pos_admin_views=None):
     total = money((order.get('totalPrice') or {}).get('withVat'))
-    return round(total * SK_EUR_TO_CZK_RATE, 2) if classify_order_view(order) == 'sk' else total
+    return round(total * SK_EUR_TO_CZK_RATE, 2) if classify_order_view(order, pos_admin_views) == 'sk' else total
 
 
-def order_item_revenue_czk(order, item):
+def order_item_revenue_czk(order, item, pos_admin_views=None):
     revenue = money((item.get('totalPrice') or {}).get('withVat'))
-    return round(revenue * SK_EUR_TO_CZK_RATE, 2) if classify_order_view(order) == 'sk' else revenue
+    return round(revenue * SK_EUR_TO_CZK_RATE, 2) if classify_order_view(order, pos_admin_views) == 'sk' else revenue
 
 
-def collect_wpj_order_product_metrics(orders, wpj_by_code=None, manual_overrides=None):
+def collect_wpj_order_product_metrics(orders, wpj_by_code=None, manual_overrides=None, pos_admin_views=None):
     wpj_by_code = wpj_by_code or {}
     metrics = {}
     for order in orders:
-        view = classify_order_view(order)
+        view = classify_order_view(order, pos_admin_views)
         for item in order.get('items') or []:
             if item.get('type') != 'product':
                 continue
@@ -987,9 +1027,9 @@ def aggregate_4px_outbound_by_sku(outbound_payload, start_dt, end_dt, account_la
     return grouped
 
 
-def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, sk_inventory, cz_outbound, sk_outbound, start_dt, end_dt, generated_at, manual_overrides=None):
+def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, sk_inventory, cz_outbound, sk_outbound, start_dt, end_dt, generated_at, manual_overrides=None, pos_admin_views=None):
     wpj_by_code = {item.get('code'): item for item in wpj_products if item.get('code')}
-    order_metrics = collect_wpj_order_product_metrics(yesterday_orders, wpj_by_code, manual_overrides)
+    order_metrics = collect_wpj_order_product_metrics(yesterday_orders, wpj_by_code, manual_overrides, pos_admin_views)
     cz_inventory_by_code = aggregate_4px_inventory(cz_inventory.get('items') or [], wpj_by_code, manual_overrides)
     sk_inventory_by_code = aggregate_4px_inventory(sk_inventory.get('items') or [], wpj_by_code, manual_overrides)
     cz_outbound_by_code = aggregate_4px_outbound_by_sku(cz_outbound, start_dt, end_dt, 'CZ', wpj_by_code, manual_overrides)
@@ -1220,7 +1260,7 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
     return combined_index, combined_overview
 
 
-def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None):
+def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None, pos_admin_views=None):
     wpj_by_code = wpj_by_code or {}
     metrics = {}
     view_keys = ('complete', 'cz', 'sk', 'ltm', 'mecin')
@@ -1229,7 +1269,7 @@ def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt
         if not dt:
             continue
         days_ago = (end_dt.date() - dt.date()).days
-        view = classify_order_view(order)
+        view = classify_order_view(order, pos_admin_views)
         for item in order.get('items') or []:
             if item.get('type') != 'product':
                 continue
@@ -2676,6 +2716,7 @@ def load_previous_snapshot_json(name):
 def main():
     load_env_file(ENV_FILE)
     manual_overrides = load_manual_sku_overrides(SKU_MAPPING_OVERRIDE_FILE)
+    pos_admin_views = load_pos_admin_view_overrides(POS_ADMIN_VIEW_OVERRIDE_FILE)
     warehouse_code = os.environ.get('FOURPX_WAREHOUSE_CODE', 'CZPRGA')
     max_pages = int(os.environ.get('FOURPX_OUTBOUND_MAX_PAGES', '20'))
     now_local = current_local_time()
@@ -2763,8 +2804,8 @@ def main():
         yesterday_orders = fetch_wpj_orders(wpj_url, wpj_token, report_start, report_end, limit=250, detailed=True)
         wpj_products = fetch_wpj_products(wpj_url, wpj_token)
 
-        wpj_summary = summarize_orders(yesterday_orders)
-        history_days, baseline_orders, baseline_revenue = summarize_daily_history(history_orders, report_date)
+        wpj_summary = summarize_orders(yesterday_orders, pos_admin_views=pos_admin_views)
+        history_days, baseline_orders, baseline_revenue = summarize_daily_history(history_orders, report_date, pos_admin_views=pos_admin_views)
         stock_summary = summarize_stock(wpj_products, wpj_summary['soldProductCodes'], previous_products=previous_wpj_products)
         combined_index_payload, combined_overview_payload = build_combined_product_views(
             wpj_products,
@@ -2777,6 +2818,7 @@ def main():
             report_end,
             generated_at,
             manual_overrides,
+            pos_admin_views,
         )
         expiry_overview_payload = build_expiry_overview(generated_at, combined_index_payload, cz_expiry_summary, sk_expiry_summary)
 
@@ -2792,6 +2834,7 @@ def main():
                 generated_at,
                 {item.get('code'): item for item in wpj_products if item.get('code')},
                 manual_overrides,
+                pos_admin_views,
             )
 
         wpj_orders_payload = {
