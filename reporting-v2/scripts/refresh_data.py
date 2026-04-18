@@ -2546,6 +2546,21 @@ def build_finance_snapshot(legacy_abra_payload, live_abra_payload, report_payloa
 
 
 def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapshot, generated_at):
+    sklik_overview = load_optional_current_json('sklik_overview.json') or {}
+    sklik_current = ((sklik_overview.get('currentMonth') or {}).get('total') or {})
+    sklik_direct = {
+        'ready': bool(sklik_overview),
+        'label': 'Sklik',
+        'source': (sklik_overview.get('source') or {}).get('status'),
+        'account': sklik_overview.get('account') or {},
+        'currentMonth': sklik_overview.get('currentMonth') or {},
+        'campaignSummary': sklik_overview.get('campaignSummary') or {},
+        'topCampaigns': sorted(
+            sklik_overview.get('campaignPerformanceCurrentMonth') or [],
+            key=lambda row: float(row.get('priceCzk') or 0),
+            reverse=True,
+        )[:5],
+    }
     report_rows = [row.get('parsed') for row in (report_payload or {}).get('exports') or [] if row.get('parsed')]
     if report_rows:
         monthly = []
@@ -2584,9 +2599,22 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             supplier_totals[row.get('supplier') or 'Neznámý dodavatel'] += float(row.get('amount') or 0)
 
         current_month = monthly[-1] if monthly else {}
+        direct_sources = {'sklik': sklik_direct}
+        channel_rows = []
+        if sklik_direct['ready']:
+            channel_rows.append({
+                'name': 'Sklik',
+                'amount': round(float(sklik_current.get('priceCzk') or 0), 2),
+                'clicks': int(sklik_current.get('clicks') or 0),
+                'conversions': round(float(sklik_current.get('conversions') or 0), 2),
+                'source': 'live_api',
+            })
+        source_message = 'Marketing se skládá z live ABRA reportu a aktuálních položek z účetního deníku.'
+        if sklik_direct['ready']:
+            source_message += ' Sklik už běží napřímo přes API.'
         return {
             'generatedAt': generated_at,
-            'source': {'status': 'live_report', 'message': 'Marketing se skládá z live ABRA reportu a aktuálních položek z účetního deníku.'},
+            'source': {'status': 'live_report', 'message': source_message},
             'monthly': monthly,
             'currentMonth': current_month,
             'topSuppliersCurrentMonth': [
@@ -2594,6 +2622,8 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
                 for name, amount in sorted(supplier_totals.items(), key=lambda item: item[1], reverse=True)[:8]
             ],
             'entriesCurrentMonth': current_entries[:20],
+            'directSources': direct_sources,
+            'channelsCurrentMonth': channel_rows,
         }
 
     if not legacy_abra_payload:
@@ -2604,6 +2634,8 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'currentMonth': {},
             'topSuppliersCurrentMonth': [],
             'entriesCurrentMonth': [],
+            'directSources': {'sklik': sklik_direct},
+            'channelsCurrentMonth': [],
         }
 
     model = legacy_abra_payload['model']
@@ -2616,6 +2648,8 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'currentMonth': {},
             'topSuppliersCurrentMonth': [],
             'entriesCurrentMonth': [],
+            'directSources': {'sklik': sklik_direct},
+            'channelsCurrentMonth': [],
         }
 
     accounts = {account['acc']: account for account in marketing_group.get('accounts') or []}
@@ -2647,6 +2681,15 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
         supplier_totals[row.get('company') or 'Neznámý dodavatel'] += float(row.get('amount') or 0)
 
     current_month = monthly[-1] if monthly else {}
+    channel_rows = []
+    if sklik_direct['ready']:
+        channel_rows.append({
+            'name': 'Sklik',
+            'amount': round(float(sklik_current.get('priceCzk') or 0), 2),
+            'clicks': int(sklik_current.get('clicks') or 0),
+            'conversions': round(float(sklik_current.get('conversions') or 0), 2),
+            'source': 'live_api',
+        })
     return {
         'generatedAt': generated_at,
         'source': legacy_abra_payload['source'],
@@ -2668,6 +2711,8 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             }
             for row in current_entries[:20]
         ],
+        'directSources': {'sklik': sklik_direct},
+        'channelsCurrentMonth': channel_rows,
     }
 
 
@@ -2708,6 +2753,13 @@ def load_previous_snapshot_json(name):
     if not prev_dir:
         return None
     path = prev_dir / name
+    if not path.exists():
+        return None
+    return json.loads(path.read_text(encoding='utf-8'))
+
+
+def load_optional_current_json(name):
+    path = CURRENT_DIR / name
     if not path.exists():
         return None
     return json.loads(path.read_text(encoding='utf-8'))
