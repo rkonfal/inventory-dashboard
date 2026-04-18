@@ -5,6 +5,7 @@ import html
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 import unicodedata
@@ -2765,6 +2766,37 @@ def load_optional_current_json(name):
     return json.loads(path.read_text(encoding='utf-8'))
 
 
+def ensure_daily_sklik_snapshot(now_local):
+    token = (os.environ.get('SKLIK_API_TOKEN') or '').strip()
+    if not token:
+        return {'ready': False, 'reason': 'missing_token'}
+
+    snapshot_path = CURRENT_DIR / 'sklik_overview.json'
+    if snapshot_path.exists():
+        modified_at = datetime.fromtimestamp(snapshot_path.stat().st_mtime, PRAGUE_TZ)
+        if modified_at.date() == now_local.date():
+            return {'ready': True, 'refreshed': False, 'path': str(snapshot_path)}
+
+    script_path = ROOT / 'scripts' / 'fetch_sklik.py'
+    try:
+        result = subprocess.run(
+            [sys.executable, str(script_path)],
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            timeout=180,
+            check=False,
+        )
+    except Exception as exc:
+        return {'ready': False, 'reason': 'run_error', 'message': str(exc)}
+
+    if result.returncode != 0:
+        message = (result.stderr or result.stdout or '').strip()
+        return {'ready': False, 'reason': 'fetch_failed', 'message': message[:500]}
+
+    return {'ready': True, 'refreshed': True, 'path': str(snapshot_path)}
+
+
 def main():
     load_env_file(ENV_FILE)
     manual_overrides = load_manual_sku_overrides(SKU_MAPPING_OVERRIDE_FILE)
@@ -2836,6 +2868,7 @@ def main():
     legacy_abra_payload = extract_legacy_abra_model(LEGACY_ABRA_HTML)
     live_abra_payload = fetch_abra_live_snapshot(now_local)
     abra_vykaz_hospodareni_reports = fetch_abra_vykaz_hospodareni_reports(now_local)
+    sklik_status = ensure_daily_sklik_snapshot(now_local)
     finance_snapshot = build_finance_snapshot(legacy_abra_payload, live_abra_payload, abra_vykaz_hospodareni_reports, generated_at)
     marketing_snapshot = build_marketing_snapshot(legacy_abra_payload, abra_vykaz_hospodareni_reports, finance_snapshot, generated_at)
     baseline_orders = None
@@ -2908,6 +2941,8 @@ def main():
         warnings.append('ABRA live adapter selhal, finance fallbacknuly na legacy snapshot.')
     if abra_vykaz_hospodareni_reports.get('source', {}).get('status') == 'error':
         warnings.append('ABRA report Výkaz hospodaření za měsíc se nepodařilo stáhnout.')
+    if not sklik_status.get('ready') and sklik_status.get('reason') != 'missing_token':
+        warnings.append('Sklik denní refresh selhal, marketing používá poslední dostupný snapshot.')
 
     if not expiry_overview_payload.get('topExpiring'):
         expiry_overview_payload = build_expiry_overview(generated_at, combined_index_payload, cz_expiry_summary, sk_expiry_summary)
