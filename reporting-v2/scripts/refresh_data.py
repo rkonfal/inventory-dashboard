@@ -2556,6 +2556,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
         'account': sklik_overview.get('account') or {},
         'currentMonth': sklik_overview.get('currentMonth') or {},
         'campaignSummary': sklik_overview.get('campaignSummary') or {},
+        'campaignsCurrentMonth': sklik_overview.get('campaignPerformanceCurrentMonth') or [],
         'topCampaigns': sorted(
             sklik_overview.get('campaignPerformanceCurrentMonth') or [],
             key=lambda row: float(row.get('priceCzk') or 0),
@@ -2570,6 +2571,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
         'source': (meta_overview.get('source') or {}).get('status'),
         'accounts': meta_overview.get('accounts') or [],
         'currentMonth': meta_summary,
+        'campaignsCurrentMonth': meta_overview.get('campaignsCurrentMonth') or [],
         'topCampaigns': meta_overview.get('topCampaignsCurrentMonth') or [],
         'dailySummary': meta_overview.get('dailySummary') or [],
     }
@@ -2581,8 +2583,27 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
         'source': (google_overview.get('source') or {}).get('status'),
         'accounts': google_overview.get('accounts') or [],
         'currentMonth': google_summary,
+        'campaignsCurrentMonth': google_overview.get('campaignsCurrentMonth') or [],
         'topCampaigns': google_overview.get('topCampaignsCurrentMonth') or [],
         'dailySummary': google_overview.get('dailySummary') or [],
+    }
+
+    active_campaigns = {
+        'sklik': sorted(
+            [row for row in (sklik_direct.get('campaignsCurrentMonth') or []) if str(row.get('status') or '').lower() == 'active'],
+            key=lambda row: float(row.get('priceCzk') or 0),
+            reverse=True,
+        ),
+        'meta': sorted(
+            [row for row in (meta_direct.get('campaignsCurrentMonth') or []) if str(row.get('effectiveStatus') or row.get('status') or '').upper() == 'ACTIVE'],
+            key=lambda row: float(row.get('spendCzk') or 0),
+            reverse=True,
+        ),
+        'google': sorted(
+            [row for row in (google_direct.get('campaignsCurrentMonth') or []) if str(row.get('status') or '').upper() == 'ENABLED'],
+            key=lambda row: float(row.get('spendCzk') or 0),
+            reverse=True,
+        ),
     }
     report_rows = [row.get('parsed') for row in (report_payload or {}).get('exports') or [] if row.get('parsed')]
     if report_rows:
@@ -2673,6 +2694,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'entriesCurrentMonth': current_entries[:20],
             'directSources': direct_sources,
             'channelsCurrentMonth': channel_rows,
+            'activeCampaignsBySource': active_campaigns,
         }
 
     if not legacy_abra_payload:
@@ -2685,6 +2707,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'entriesCurrentMonth': [],
             'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct},
             'channelsCurrentMonth': [],
+            'activeCampaignsBySource': active_campaigns,
         }
 
     model = legacy_abra_payload['model']
@@ -2699,6 +2722,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'entriesCurrentMonth': [],
             'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct},
             'channelsCurrentMonth': [],
+            'activeCampaignsBySource': active_campaigns,
         }
 
     accounts = {account['acc']: account for account in marketing_group.get('accounts') or []}
@@ -2781,6 +2805,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
         ],
         'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct},
         'channelsCurrentMonth': channel_rows,
+        'activeCampaignsBySource': active_campaigns,
     }
 
 

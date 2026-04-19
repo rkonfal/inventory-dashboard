@@ -171,6 +171,22 @@ def fetch_campaign_totals(account_id: str, since: str, until: str) -> List[Dict[
     return campaigns
 
 
+def fetch_campaign_statuses(account_id: str) -> Dict[str, Dict[str, object]]:
+    rows = list(paginate(
+        f'{account_id}/campaigns',
+        fields='id,name,status,effective_status',
+        limit='200',
+    ))
+    return {
+        str(row.get('id') or ''): {
+            'status': row.get('status'),
+            'effectiveStatus': row.get('effective_status'),
+        }
+        for row in rows
+        if row.get('id')
+    }
+
+
 def main() -> int:
     load_env_local(ENV_LOCAL)
     account_ids = parse_account_ids(env_value('META_AD_ACCOUNT_IDS'))
@@ -187,6 +203,7 @@ def main() -> int:
         currency = meta['currency']
         daily = fetch_account_daily(account_id, since, until)
         campaigns = fetch_campaign_totals(account_id, since, until)
+        campaign_statuses = fetch_campaign_statuses(account_id)
 
         spend = round(sum(float(row['spend']) for row in daily), 2)
         clicks = sum(int(row['clicks']) for row in daily)
@@ -226,6 +243,8 @@ def main() -> int:
         campaigns_all.extend([
             {
                 **row,
+                'status': (campaign_statuses.get(str(row.get('campaignId'))) or {}).get('status'),
+                'effectiveStatus': (campaign_statuses.get(str(row.get('campaignId'))) or {}).get('effectiveStatus'),
                 'currency': currency,
                 'spendCzk': to_czk(float(row['spend']), currency),
                 'purchaseValueCzk': to_czk(float(row['purchaseValue']), currency),
@@ -283,6 +302,7 @@ def main() -> int:
             }
             for _, row in sorted(summary_daily.items())
         ],
+        'campaignsCurrentMonth': campaigns_all,
         'topCampaignsCurrentMonth': campaigns_top,
     }
 

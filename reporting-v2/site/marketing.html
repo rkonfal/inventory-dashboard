@@ -90,6 +90,18 @@
 
     <section class="grid kpi-grid" id="top-kpis"></section>
 
+    <section class="card">
+      <div class="ux-section-head">
+        <div>
+          <h2 class="section-title">Přímé reklamní source, aktivní kampaně</h2>
+          <div class="section-subtitle">Kompletní pohled po source. U každého kanálu jsou všechny aktivní kampaně s aktuálním výkonem za tento měsíc.</div>
+        </div>
+      </div>
+      <div class="grid kpi-grid" id="source-kpis" style="margin-top:20px;"></div>
+    </section>
+
+    <section class="grid" style="gap:20px;" id="source-campaign-sections"></section>
+
     <section class="grid two-col">
       <div class="card">
         <h2 class="section-title">Měsíční náklady</h2>
@@ -172,6 +184,72 @@
       const metaCurrent = meta.currentMonth || {};
       const google = data.directSources?.google || {};
       const googleCurrent = google.currentMonth || {};
+      const activeBySource = data.activeCampaignsBySource || {};
+      const sourceConfigs = [
+        {
+          key: 'meta',
+          ready: meta.ready,
+          label: 'Meta Ads',
+          amount: Number(metaCurrent.spendCzk || 0),
+          clicks: Number(metaCurrent.clicks || 0),
+          conversions: Number(metaCurrent.purchaseConversions || 0),
+          value: Number(metaCurrent.purchaseValueCzk || 0),
+          roas: metaCurrent.roas,
+          rows: activeBySource.meta || [],
+          columns: row => ({
+            account: row.accountName || '–',
+            name: row.campaignName || '–',
+            status: row.effectiveStatus || row.status || '–',
+            spend: Number(row.spendCzk || 0),
+            clicks: Number(row.clicks || 0),
+            conversions: Number(row.purchaseConversions || 0),
+            value: Number(row.purchaseValueCzk || 0),
+            roas: row.roas,
+          }),
+        },
+        {
+          key: 'google',
+          ready: google.ready,
+          label: 'Google Ads',
+          amount: Number(googleCurrent.spendCzk || 0),
+          clicks: Number(googleCurrent.clicks || 0),
+          conversions: Number(googleCurrent.conversions || 0),
+          value: Number(googleCurrent.conversionValueCzk || 0),
+          roas: googleCurrent.roas,
+          rows: activeBySource.google || [],
+          columns: row => ({
+            account: row.accountName || '–',
+            name: row.campaignName || '–',
+            status: row.status || '–',
+            spend: Number(row.spendCzk || 0),
+            clicks: Number(row.clicks || 0),
+            conversions: Number(row.conversions || 0),
+            value: Number(row.conversionValueCzk || 0),
+            roas: row.roas,
+          }),
+        },
+        {
+          key: 'sklik',
+          ready: sklik.ready,
+          label: 'Sklik',
+          amount: Number(sklikCurrent.priceCzk || 0),
+          clicks: Number(sklikCurrent.clicks || 0),
+          conversions: Number(sklikCurrent.conversions || 0),
+          value: Number(sklikCurrent.conversionValueCzk || 0),
+          roas: sklikCurrent.priceCzk ? Number(sklikCurrent.conversionValueCzk || 0) / Number(sklikCurrent.priceCzk || 1) : null,
+          rows: activeBySource.sklik || [],
+          columns: row => ({
+            account: 'Sklik účet',
+            name: row.name || '–',
+            status: row.status || '–',
+            spend: Number(row.priceCzk || 0),
+            clicks: Number(row.clicks || 0),
+            conversions: Number(row.conversions || 0),
+            value: Number(row.conversionValueCzk || 0),
+            roas: row.priceCzk ? Number(row.conversionValueCzk || 0) / Number(row.priceCzk || 1) : null,
+          }),
+        },
+      ].filter(source => source.ready);
       const hero = [
         ['Marketingové náklady', money(current.totalSpend), `${pct(current.spendShareOfRevenuePct)} z výnosů`, 'accent'],
         ['PPC', money(current.performanceSpend), 'výkonové kanály', ''],
@@ -237,6 +315,58 @@
           <div class="kpi-value">${value}</div>
           <div class="kpi-sub">${sub}</div>
         </div>
+      `).join('');
+
+      document.getElementById('source-kpis').innerHTML = sourceConfigs.map(source => `
+        <div class="card kpi-card ${source.key === 'meta' ? 'blue' : source.key === 'google' ? 'green' : 'gold'}">
+          <div class="kpi-label">${source.label}</div>
+          <div class="kpi-value">${money(source.amount)}</div>
+          <div class="kpi-sub">${DP.fmtNumber(Math.round(source.clicks || 0))} kliků, ${Number(source.conversions || 0).toFixed(2)} konverzí, ROAS ${source.roas == null ? '–' : Number(source.roas).toFixed(2)}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('source-campaign-sections').innerHTML = sourceConfigs.map(source => `
+        <section class="card">
+          <div class="ux-section-head">
+            <div>
+              <h2 class="section-title">${source.label}, aktivní kampaně</h2>
+              <div class="section-subtitle">${source.rows.length} aktivních kampaní, spend ${money(source.amount)}, hodnota konverzí ${money(source.value)}</div>
+            </div>
+          </div>
+          <div class="ux-table-wrap" style="margin-top:16px;">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Účet</th>
+                  <th>Kampaň</th>
+                  <th>Status</th>
+                  <th class="num">Spend</th>
+                  <th class="num">Kliky</th>
+                  <th class="num">Konverze</th>
+                  <th class="num">Hodnota</th>
+                  <th class="num">ROAS</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${source.rows.length ? source.rows.map(raw => {
+                  const row = source.columns(raw);
+                  return `
+                    <tr>
+                      <td>${row.account}</td>
+                      <td>${row.name}</td>
+                      <td>${row.status}</td>
+                      <td class="num">${money(row.spend)}</td>
+                      <td class="num">${DP.fmtNumber(Math.round(row.clicks || 0))}</td>
+                      <td class="num">${Number(row.conversions || 0).toFixed(2)}</td>
+                      <td class="num">${money(row.value)}</td>
+                      <td class="num">${row.roas == null ? '–' : Number(row.roas).toFixed(2)}</td>
+                    </tr>
+                  `;
+                }).join('') : `<tr><td colspan="8">Bez aktivních kampaní.</td></tr>`}
+              </tbody>
+            </table>
+          </div>
+        </section>
       `).join('');
 
       document.getElementById('monthly-table').innerHTML = (data.monthly || []).map(row => `

@@ -320,6 +320,7 @@ def main() -> int:
             }
             for _, row in sorted(summary_daily.items())
         ],
+        'campaignsCurrentMonth': all_campaigns,
         'topCampaignsCurrentMonth': sorted(all_campaigns, key=lambda row: float(row.get('spendCzk') or 0), reverse=True)[:15],
     }
 
