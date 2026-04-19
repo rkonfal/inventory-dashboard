@@ -2,9 +2,10 @@
 
 ## Current state in reporting-v2
 
-- `site/marketing.html` still says direct source integrations are pending for Meta, Google and other channels.
+- `site/marketing.html` now renders live Meta Ads and Sklik highlights inside the existing marketing dashboard.
 - `scripts/refresh_data.py` currently builds marketing from accounting accounts `518900` (PPC kredit) and `518901` (Reklama a marketing).
-- `data/current/marketing_overview.json` is therefore still an accounting-led view, not a live ad-platform view.
+- `scripts/fetch_meta_ads.py` now pulls live Meta Ads spend, clicks, conversions and purchase value for configured ad accounts.
+- `data/current/marketing_overview.json` is still accounting-led for monthly reconciliation, but now includes direct live platform blocks for Sklik and Meta Ads.
 
 ## What the local audit found
 
@@ -28,7 +29,10 @@ The local reporting setup already has working server-side integrations for:
 - WPJ GraphQL
 - ABRA
 
-No ad-platform API environment variables were found in the workspace config yet.
+Ad-platform API environment is now present locally for:
+
+- Meta Ads
+- Sklik
 
 ## Target architecture
 
@@ -40,17 +44,15 @@ No ad-platform API environment variables were found in the workspace config yet.
 ### 2. First-wave direct integrations
 
 #### Meta Ads
-Use:
-- Business Manager
-- System User
-- app with Marketing API access
-- long-lived or permanent system-user token
+Implemented now:
+- Business Manager system-user token
+- configured ad account list via `META_AD_ACCOUNT_IDS`
+- current-month account summary, daily summary and top campaigns
 
-Pull:
-- ad accounts under the business
-- daily spend
-- campaign / ad set / campaign metadata as optional detail
-- conversions only where attribution setup is trustworthy
+Current output:
+- `data/current/meta_ads_overview.json`
+- merged Meta block under `data/current/marketing_overview.json -> directSources.meta`
+- marketing dashboard cards showing live Meta spend, clicks and ROAS
 
 #### Google Ads
 Use:
@@ -64,13 +66,9 @@ Pull:
 - campaign detail as secondary drilldown
 
 #### Sklik
-Use:
-- Sklik API token from the central Seznam/Sklik account that manages the clients
-
-Pull:
-- client accounts
-- campaigns
-- daily spend and key performance metrics
+Already implemented:
+- daily fetch to `data/current/sklik_overview.json`
+- merged under `data/current/marketing_overview.json -> directSources.sklik`
 
 ### 3. Normalized output schema
 
@@ -115,9 +113,9 @@ Then aggregate into dashboard-ready JSONs:
 ### Phase C, reporting integration
 
 1. Extend `refresh_data.py` to load normalized ad-platform data.
-2. Update `marketing_overview.json` so direct platform data becomes the default source.
-3. Keep ABRA totals for month-level comparison and discrepancy warnings.
-4. Surface per-platform and per-account spend on the marketing dashboard and homepage summary.
+2. Keep ABRA totals for month-level comparison and discrepancy warnings.
+3. Surface per-platform and per-account spend on the marketing dashboard.
+4. Add Google Ads next into the same pattern as Meta and Sklik.
 
 ### Phase D, controls
 
@@ -144,7 +142,7 @@ Only if access is missing:
 
 ## Immediate next steps
 
-1. Map the real account landscape, Meta first.
-2. Check whether existing browser/session access is available locally.
-3. Add non-secret env documentation and platform config placeholders.
-4. Start the Meta collector first, then Google Ads, then Sklik.
+1. Stabilize the full `refresh_data.py` run so the Meta merge is always written by the main refresh, not just by the targeted collector step.
+2. Add Google Ads collector into the same `directSources` structure.
+3. Add reconciliation between platform totals and ABRA monthly totals.
+4. Surface top Meta campaigns directly on the marketing page.

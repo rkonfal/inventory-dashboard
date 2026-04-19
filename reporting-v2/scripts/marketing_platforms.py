@@ -48,9 +48,9 @@ class IntegrationStatus:
 
 INTEGRATIONS = {
     'meta': {
-        'required': ['META_APP_ID', 'META_APP_SECRET', 'META_SYSTEM_USER_ID', 'META_ACCESS_TOKEN', 'META_BUSINESS_ID'],
-        'optional': [],
-        'note': 'Meta Marketing API přes Business Manager, System User a token.',
+        'required': ['META_ACCESS_TOKEN', 'META_BUSINESS_ID', 'META_SYSTEM_USER_ID', 'META_AD_ACCOUNT_IDS'],
+        'optional': ['META_APP_ID', 'META_APP_SECRET'],
+        'note': 'Meta Marketing API přes Business Manager, System User, token a seznam reklamních účtů.',
     },
     'google_ads': {
         'required': ['GOOGLE_ADS_DEVELOPER_TOKEN', 'GOOGLE_ADS_LOGIN_CUSTOMER_ID', 'GOOGLE_ADS_JSON_KEY_FILE_PATH'],
