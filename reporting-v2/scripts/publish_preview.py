@@ -16,6 +16,9 @@ PREVIEW_FILES = [
     'dashboard-portal-preview-clean-light.png',
     'dashboard-eshop-preview-clean-light.png',
 ]
+EXCLUDED_CURRENT_FILES = {
+    'google_ads_oauth.json',
+}
 
 
 def run(*args, cwd=None):
@@ -49,6 +52,10 @@ def export_preview():
     clear_worktree()
     shutil.copytree(SITE_DIR, WORKTREE / 'site')
     shutil.copytree(CURRENT_DIR, WORKTREE / 'data' / 'current')
+    for name in EXCLUDED_CURRENT_FILES:
+        path = WORKTREE / 'data' / 'current' / name
+        if path.exists():
+            path.unlink()
     target_previews = WORKTREE / 'previews'
     target_previews.mkdir(parents=True, exist_ok=True)
     for name in PREVIEW_FILES:
