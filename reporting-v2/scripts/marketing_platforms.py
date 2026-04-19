@@ -53,9 +53,9 @@ INTEGRATIONS = {
         'note': 'Meta Marketing API přes Business Manager, System User, token a seznam reklamních účtů.',
     },
     'google_ads': {
-        'required': ['GOOGLE_ADS_DEVELOPER_TOKEN', 'GOOGLE_ADS_LOGIN_CUSTOMER_ID', 'GOOGLE_ADS_JSON_KEY_FILE_PATH'],
-        'optional': [],
-        'note': 'Google Ads API přes manager account a service account.',
+        'required': ['GOOGLE_ADS_DEVELOPER_TOKEN', 'GOOGLE_ADS_LOGIN_CUSTOMER_ID', 'GOOGLE_ADS_OAUTH_CLIENT_ID', 'GOOGLE_ADS_OAUTH_CLIENT_SECRET', 'GOOGLE_ADS_REFRESH_TOKEN'],
+        'optional': ['GOOGLE_ADS_JSON_KEY_FILE_PATH'],
+        'note': 'Google Ads API přes manager account a OAuth refresh token.',
     },
     'sklik': {
         'required': ['SKLIK_API_TOKEN'],

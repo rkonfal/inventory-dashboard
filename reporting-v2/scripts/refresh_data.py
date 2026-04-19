@@ -2573,6 +2573,17 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
         'topCampaigns': meta_overview.get('topCampaignsCurrentMonth') or [],
         'dailySummary': meta_overview.get('dailySummary') or [],
     }
+    google_overview = load_optional_current_json('google_ads_overview.json') or {}
+    google_summary = google_overview.get('summary') or {}
+    google_direct = {
+        'ready': bool(google_overview),
+        'label': 'Google Ads',
+        'source': (google_overview.get('source') or {}).get('status'),
+        'accounts': google_overview.get('accounts') or [],
+        'currentMonth': google_summary,
+        'topCampaigns': google_overview.get('topCampaignsCurrentMonth') or [],
+        'dailySummary': google_overview.get('dailySummary') or [],
+    }
     report_rows = [row.get('parsed') for row in (report_payload or {}).get('exports') or [] if row.get('parsed')]
     if report_rows:
         monthly = []
@@ -2611,7 +2622,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             supplier_totals[row.get('supplier') or 'Neznámý dodavatel'] += float(row.get('amount') or 0)
 
         current_month = monthly[-1] if monthly else {}
-        direct_sources = {'sklik': sklik_direct, 'meta': meta_direct}
+        direct_sources = {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct}
         channel_rows = []
         if sklik_direct['ready']:
             channel_rows.append({
@@ -2631,12 +2642,23 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
                 'roas': meta_summary.get('roas'),
                 'source': 'live_api',
             })
+        if google_direct['ready']:
+            channel_rows.append({
+                'name': 'Google Ads',
+                'amount': round(float(google_summary.get('spendCzk') or 0), 2),
+                'clicks': int(google_summary.get('clicks') or 0),
+                'conversions': round(float(google_summary.get('conversions') or 0), 2),
+                'roas': google_summary.get('roas'),
+                'source': 'live_api',
+            })
         source_message = 'Marketing se skládá z live ABRA reportu a aktuálních položek z účetního deníku.'
         live_labels = []
         if sklik_direct['ready']:
             live_labels.append('Sklik')
         if meta_direct['ready']:
             live_labels.append('Meta Ads')
+        if google_direct['ready']:
+            live_labels.append('Google Ads')
         if live_labels:
             source_message += ' Přímé platformy přes API: ' + ', '.join(live_labels) + '.'
         return {
@@ -2661,7 +2683,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'currentMonth': {},
             'topSuppliersCurrentMonth': [],
             'entriesCurrentMonth': [],
-            'directSources': {'sklik': sklik_direct, 'meta': meta_direct},
+            'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct},
             'channelsCurrentMonth': [],
         }
 
@@ -2675,7 +2697,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'currentMonth': {},
             'topSuppliersCurrentMonth': [],
             'entriesCurrentMonth': [],
-            'directSources': {'sklik': sklik_direct, 'meta': meta_direct},
+            'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct},
             'channelsCurrentMonth': [],
         }
 
@@ -2727,6 +2749,15 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'roas': meta_summary.get('roas'),
             'source': 'live_api',
         })
+    if google_direct['ready']:
+        channel_rows.append({
+            'name': 'Google Ads',
+            'amount': round(float(google_summary.get('spendCzk') or 0), 2),
+            'clicks': int(google_summary.get('clicks') or 0),
+            'conversions': round(float(google_summary.get('conversions') or 0), 2),
+            'roas': google_summary.get('roas'),
+            'source': 'live_api',
+        })
     return {
         'generatedAt': generated_at,
         'source': legacy_abra_payload['source'],
@@ -2748,7 +2779,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             }
             for row in current_entries[:20]
         ],
-        'directSources': {'sklik': sklik_direct, 'meta': meta_direct},
+        'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct},
         'channelsCurrentMonth': channel_rows,
     }
 
@@ -2865,6 +2896,43 @@ def ensure_daily_meta_snapshot(now_local):
     return {'ready': True, 'refreshed': True, 'path': str(snapshot_path)}
 
 
+def ensure_daily_google_snapshot(now_local):
+    required = [
+        (os.environ.get('GOOGLE_ADS_DEVELOPER_TOKEN') or '').strip(),
+        (os.environ.get('GOOGLE_ADS_LOGIN_CUSTOMER_ID') or '').strip(),
+        (os.environ.get('GOOGLE_ADS_OAUTH_CLIENT_ID') or '').strip(),
+        (os.environ.get('GOOGLE_ADS_OAUTH_CLIENT_SECRET') or '').strip(),
+        (os.environ.get('GOOGLE_ADS_REFRESH_TOKEN') or '').strip(),
+    ]
+    if not all(required):
+        return {'ready': False, 'reason': 'missing_token'}
+
+    snapshot_path = CURRENT_DIR / 'google_ads_overview.json'
+    if snapshot_path.exists():
+        modified_at = datetime.fromtimestamp(snapshot_path.stat().st_mtime, PRAGUE_TZ)
+        if modified_at.date() == now_local.date():
+            return {'ready': True, 'refreshed': False, 'path': str(snapshot_path)}
+
+    script_path = ROOT / 'scripts' / 'fetch_google_ads.py'
+    try:
+        result = subprocess.run(
+            [sys.executable, str(script_path)],
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            timeout=180,
+            check=False,
+        )
+    except Exception as exc:
+        return {'ready': False, 'reason': 'run_error', 'message': str(exc)}
+
+    if result.returncode != 0:
+        message = (result.stderr or result.stdout or '').strip()
+        return {'ready': False, 'reason': 'fetch_failed', 'message': message[:500]}
+
+    return {'ready': True, 'refreshed': True, 'path': str(snapshot_path)}
+
+
 def main():
     load_env_file(ENV_FILE)
     manual_overrides = load_manual_sku_overrides(SKU_MAPPING_OVERRIDE_FILE)
@@ -2938,6 +3006,7 @@ def main():
     abra_vykaz_hospodareni_reports = fetch_abra_vykaz_hospodareni_reports(now_local)
     sklik_status = ensure_daily_sklik_snapshot(now_local)
     meta_status = ensure_daily_meta_snapshot(now_local)
+    google_status = ensure_daily_google_snapshot(now_local)
     finance_snapshot = build_finance_snapshot(legacy_abra_payload, live_abra_payload, abra_vykaz_hospodareni_reports, generated_at)
     marketing_snapshot = build_marketing_snapshot(legacy_abra_payload, abra_vykaz_hospodareni_reports, finance_snapshot, generated_at)
     baseline_orders = None
@@ -3014,6 +3083,8 @@ def main():
         warnings.append('Sklik denní refresh selhal, marketing používá poslední dostupný snapshot.')
     if not meta_status.get('ready') and meta_status.get('reason') != 'missing_token':
         warnings.append('Meta Ads denní refresh selhal, marketing používá poslední dostupný snapshot.')
+    if not google_status.get('ready') and google_status.get('reason') != 'missing_token':
+        warnings.append('Google Ads denní refresh selhal, marketing používá poslední dostupný snapshot.')
 
     if not expiry_overview_payload.get('topExpiring'):
         expiry_overview_payload = build_expiry_overview(generated_at, combined_index_payload, cz_expiry_summary, sk_expiry_summary)

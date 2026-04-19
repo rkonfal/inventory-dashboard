@@ -170,6 +170,8 @@
       const sklikCurrent = sklik.currentMonth?.total || {};
       const meta = data.directSources?.meta || {};
       const metaCurrent = meta.currentMonth || {};
+      const google = data.directSources?.google || {};
+      const googleCurrent = google.currentMonth || {};
       const hero = [
         ['Marketingové náklady', money(current.totalSpend), `${pct(current.spendShareOfRevenuePct)} z výnosů`, 'accent'],
         ['PPC', money(current.performanceSpend), 'výkonové kanály', ''],
@@ -187,6 +189,7 @@
         [`Aktuální měsíc: ${current.label || '–'}`, `Celkem ${money(current.totalSpend)}, tedy ${pct(current.spendShareOfRevenuePct)} z výnosů.`],
         [`PPC vs ostatní marketing`, `PPC ${money(current.performanceSpend)} oproti ostatnímu marketingu ${money(current.brandSpend)}.`],
         meta.ready ? [`Meta Ads live`, `${money(metaCurrent.spendCzk)} spend, ${DP.fmtNumber(Math.round(metaCurrent.clicks || 0))} kliků, ROAS ${metaCurrent.roas ?? '–'}.`] : null,
+        google.ready ? [`Google Ads live`, `${money(googleCurrent.spendCzk)} spend, ${DP.fmtNumber(Math.round(googleCurrent.clicks || 0))} kliků, ROAS ${googleCurrent.roas ?? '–'}.`] : null,
         sklik.ready ? [`Sklik live`, `${money(sklikCurrent.priceCzk)} spend, ${DP.fmtNumber(Math.round(sklikCurrent.clicks || 0))} kliků a ${DP.fmtNumber(Math.round(sklikCurrent.conversions || 0))} konverzí.`] : null,
         topSupplier ? [`Největší dodavatel: ${topSupplier.name}`, `Aktuálně ${money(topSupplier.amount)} v tomto měsíci.`] : null,
       ].filter(Boolean).map(([title, text], index) => `
@@ -205,6 +208,7 @@
         ['Celkem', money(current.totalSpend)],
         ['Podíl z výnosů', pct(current.spendShareOfRevenuePct)],
         meta.ready ? ['Meta Ads live', money(metaCurrent.spendCzk)] : null,
+        google.ready ? ['Google Ads live', money(googleCurrent.spendCzk)] : null,
         sklik.ready ? ['Sklik live', money(sklikCurrent.priceCzk)] : null,
       ].filter(Boolean).map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
 
@@ -223,6 +227,7 @@
         ['PPC', money(current.performanceSpend), 'výkonové kanály', 'blue'],
         ['Ostatní marketing', money(current.brandSpend), 'produkce, SMS, služby', 'green'],
         meta.ready ? ['Meta Ads live', money(metaCurrent.spendCzk), `${DP.fmtNumber(Math.round(metaCurrent.clicks || 0))} kliků, ROAS ${metaCurrent.roas ?? '–'}`, 'blue'] : null,
+        google.ready ? ['Google Ads live', money(googleCurrent.spendCzk), `${DP.fmtNumber(Math.round(googleCurrent.clicks || 0))} kliků, ROAS ${googleCurrent.roas ?? '–'}`, 'green'] : null,
         sklik.ready ? ['Sklik live', money(sklikCurrent.priceCzk), `${DP.fmtNumber(Math.round(sklikCurrent.clicks || 0))} kliků, ${DP.fmtNumber(Math.round(sklikCurrent.conversions || 0))} konverzí`, 'blue'] : null,
         ['Největší dodavatel', topSupplier ? money(topSupplier.amount) : '0 Kč', topSupplier ? topSupplier.name : 'bez dat', 'red']
       ].filter(Boolean);
