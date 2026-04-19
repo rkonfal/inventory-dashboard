@@ -7,18 +7,24 @@ const workspace = '/Users/rudolfkonfal/.openclaw/workspace';
 const htmlPath = path.join(workspace, 'reporting-v2/site/index.html');
 const summaryPath = path.join(workspace, 'reporting-v2/data/current/portal_summary.json');
 const reportPath = path.join(workspace, 'reporting-v2/data/current/morning_report_previous_day.json');
+const marketingPath = path.join(workspace, 'reporting-v2/data/current/marketing_overview.json');
+const klaviyoPath = path.join(workspace, 'reporting-v2/data/current/klaviyo_overview.json');
 const outputPath = path.join(workspace, 'knowledge/mozek_eshopu.json');
 const flatOutputPath = path.join(workspace, 'knowledge/mozek_eshopu_flat.json');
 
 const html = fs.readFileSync(htmlPath, 'utf8');
 const summary = JSON.parse(fs.readFileSync(summaryPath, 'utf8'));
 const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
+const marketing = JSON.parse(fs.readFileSync(marketingPath, 'utf8'));
+const klaviyo = JSON.parse(fs.readFileSync(klaviyoPath, 'utf8'));
 
 const sourceFingerprint = crypto
   .createHash('sha256')
   .update(html)
   .update(JSON.stringify(summary))
   .update(JSON.stringify(report))
+  .update(JSON.stringify(marketing))
+  .update(JSON.stringify(klaviyo))
   .digest('hex');
 
 const fmtNumber = value => new Intl.NumberFormat('cs-CZ').format(Number(value || 0));
@@ -40,7 +46,9 @@ const brain = {
     htmlPath,
     dataFiles: {
       portalSummary: summaryPath,
-      morningReportPreviousDay: reportPath
+      morningReportPreviousDay: reportPath,
+      marketingOverview: marketingPath,
+      klaviyoOverview: klaviyoPath
     },
     capturedAt: new Date().toISOString(),
     sourceFingerprint
@@ -148,7 +156,9 @@ const brain = {
   },
   backingData: {
     portal_summary: summary,
-    morning_report_previous_day: report
+    morning_report_previous_day: report,
+    marketing_overview: marketing,
+    klaviyo_overview: klaviyo
   },
   quickBrainSummary: {
     ordersYesterday: report.eshop.orders || 0,
@@ -161,6 +171,8 @@ const brain = {
     total4pxRows,
     totalLowStockRows,
     marketingLastMonthSpend: Math.round(summary.marketing?.currentMonth?.totalSpend || 0),
+    klaviyoAttributedRevenueMonth: Math.round(klaviyo.currentMonth?.totalAttributedRevenueCzk || 0),
+    klaviyoAttributedOrdersMonth: Math.round(klaviyo.currentMonth?.totalAttributedOrders || 0),
     financeCurrentMonthRevenue: Math.round(summary.finance?.currentMonth?.revenue || 0),
     attentionCount: alerts.length
   }
