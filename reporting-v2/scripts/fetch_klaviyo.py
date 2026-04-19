@@ -32,6 +32,7 @@ CHANNEL_LABELS = {
 METRIC_CANDIDATES = {
     'placed_order': ['Placed Order', 'TianDe Placed Order', 'Placed Order 2'],
     'received_email': ['Received Email'],
+    'opened_email': ['Opened Email'],
     'clicked_email': ['Clicked Email'],
     'received_sms': ['Received SMS'],
     'clicked_sms': ['Clicked SMS'],
@@ -322,11 +323,122 @@ def top_flows(placed_order_metric_id: str, since: str, until_exclusive: str, flo
     return rows
 
 
+def aggregate_month_by_dimension(metric_id: str, measurements: list[str], dimension: str, since: str, until_exclusive: str, extra_filters: list[str] | None = None) -> dict[str, dict[str, float]]:
+    payload = metric_aggregate(
+        metric_id,
+        measurements=measurements,
+        since=since,
+        until_exclusive=until_exclusive,
+        interval='month',
+        by=[dimension],
+        extra_filters=extra_filters,
+    )
+    rows = {}
+    for bucket in ((payload.get('data') or {}).get('attributes') or {}).get('data') or []:
+        dimensions = bucket.get('dimensions') or ['']
+        key = dimensions[0] if dimensions else ''
+        if not key:
+            continue
+        measures = bucket.get('measurements') or {}
+        rows[key] = {
+            name: round(float((values or [0])[0] or 0), 2)
+            for name, values in measures.items()
+        }
+    return rows
+
+
+def safe_ratio(numerator: float, denominator: float) -> float | None:
+    if not denominator:
+        return None
+    return round(float(numerator or 0) / float(denominator or 0), 4)
+
+
+def fetch_flow_message_ids(flow_id: str) -> list[dict]:
+    actions = paginate(f'flows/{flow_id}/flow-actions/')
+    messages = []
+    for action in actions:
+        definition = ((action.get('attributes') or {}).get('definition') or {})
+        data = definition.get('data') or {}
+        message = data.get('message') or {}
+        message_id = (message.get('id') or '').strip()
+        if not message_id:
+            continue
+        channel = 'email' if definition.get('type') == 'send-email' else 'sms' if definition.get('type') == 'send-sms' else ''
+        messages.append({
+            'messageId': message_id,
+            'channel': channel or dimension_channel(message.get('channel') or ''),
+            'name': (message.get('name') or message.get('subject_line') or message_id).strip(),
+        })
+    return messages
+
+
+def enrich_flow_rows(flow_rows: list[dict], month_metrics: dict[str, dict[str, dict[str, float]]]) -> list[dict]:
+    received_by_message = month_metrics.get('receivedByMessage') or {}
+    opened_by_message = month_metrics.get('openedByMessage') or {}
+    clicked_by_message = month_metrics.get('clickedByMessage') or {}
+    attributed_by_message = month_metrics.get('attributedByMessage') or {}
+
+    enriched = []
+    for row in flow_rows:
+        messages = fetch_flow_message_ids(row.get('flowId') or '')
+        if row.get('channel'):
+            messages = [item for item in messages if item.get('channel') == row['channel']] or messages
+        recipients = sum(float((received_by_message.get(item['messageId']) or {}).get('count') or 0) for item in messages)
+        opens = sum(float((opened_by_message.get(item['messageId']) or {}).get('count') or 0) for item in messages)
+        clicks = sum(float((clicked_by_message.get(item['messageId']) or {}).get('count') or 0) for item in messages)
+        attributed_orders = sum(float((attributed_by_message.get(item['messageId']) or {}).get('count') or 0) for item in messages)
+        attributed_revenue = sum(float((attributed_by_message.get(item['messageId']) or {}).get('sum_value') or 0) for item in messages)
+        enriched.append({
+            **row,
+            'messageCount': len(messages),
+            'messageNames': [item['name'] for item in messages[:5]],
+            'recipients': round(recipients, 2),
+            'opens': round(opens, 2),
+            'clicks': round(clicks, 2),
+            'openRate': safe_ratio(opens, recipients) if row.get('channel') == 'email' else None,
+            'clickRate': safe_ratio(clicks, recipients),
+            'conversionRate': safe_ratio(attributed_orders, recipients),
+            'attributedOrders': round(attributed_orders or float(row.get('attributedOrders') or 0), 2),
+            'attributedRevenueCzk': round(attributed_revenue or float(row.get('attributedRevenueCzk') or 0), 2),
+        })
+    enriched.sort(key=lambda item: item.get('attributedRevenueCzk') or 0, reverse=True)
+    return enriched
+
+
+def enrich_recent_campaigns(campaign_rows: list[dict], month_metrics: dict[str, dict[str, dict[str, float]]]) -> list[dict]:
+    received_by_message = month_metrics.get('receivedByMessage') or {}
+    opened_by_message = month_metrics.get('openedByMessage') or {}
+    clicked_by_message = month_metrics.get('clickedByMessage') or {}
+    attributed_by_message = month_metrics.get('attributedByMessage') or {}
+
+    output = []
+    for row in campaign_rows:
+        campaign_id = row.get('id') or ''
+        recipients = float((received_by_message.get(campaign_id) or {}).get('count') or 0)
+        opens = float((opened_by_message.get(campaign_id) or {}).get('count') or 0)
+        clicks = float((clicked_by_message.get(campaign_id) or {}).get('count') or 0)
+        attributed = attributed_by_message.get(campaign_id) or {}
+        orders = float(attributed.get('count') or 0)
+        revenue = float(attributed.get('sum_value') or 0)
+        output.append({
+            **row,
+            'recipients': round(recipients, 2),
+            'opens': round(opens, 2),
+            'clicks': round(clicks, 2),
+            'attributedOrders': round(orders, 2),
+            'attributedRevenueCzk': round(revenue, 2),
+            'openRate': safe_ratio(opens, recipients) if row.get('channel') == 'email' else None,
+            'clickRate': safe_ratio(clicks, recipients),
+            'conversionRate': safe_ratio(orders, recipients),
+        })
+    return output
+
+
 def main() -> int:
     load_env_local(ENV_LOCAL)
     account = fetch_account()
     metrics = metric_lookup()
-    missing_metrics = [key for key in ('placed_order', 'received_email', 'clicked_email') if key not in metrics]
+    missing_metrics = [key for key in ('placed_order', 'received_email', 'opened_email', 'clicked_email') if key not in metrics]
     if missing_metrics:
         raise SystemExit('Missing required Klaviyo metrics: ' + ', '.join(missing_metrics))
 
@@ -427,7 +539,18 @@ def main() -> int:
     current['totalClicks'] = round(current['emailClicks'] + current['smsClicks'], 2)
     current['clickRate'] = round(current['totalClicks'] / current['totalRecipients'], 4) if current['totalRecipients'] else None
 
-    flows_current_month = top_flows(metrics['placed_order']['id'], since, until_exclusive, flows_map)
+    month_metrics = {
+        'receivedByMessage': aggregate_month_by_dimension(metrics['received_email']['id'], ['count'], '$message', since, until_exclusive),
+        'openedByMessage': aggregate_month_by_dimension(metrics['opened_email']['id'], ['count'], '$message', since, until_exclusive),
+        'clickedByMessage': aggregate_month_by_dimension(metrics['clicked_email']['id'], ['count'], '$message', since, until_exclusive),
+        'attributedByMessage': aggregate_month_by_dimension(metrics['placed_order']['id'], ['count', 'sum_value'], '$attributed_message', since, until_exclusive, extra_filters=['not(equals($attributed_message,""))']),
+    }
+
+    flows_current_month = enrich_flow_rows(
+        top_flows(metrics['placed_order']['id'], since, until_exclusive, flows_map),
+        month_metrics,
+    )
+    recent_campaigns = enrich_recent_campaigns(fetch_recent_campaigns(), month_metrics)
     result = {
         'source': {
             'status': 'live_api',
@@ -441,7 +564,7 @@ def main() -> int:
         'dailySummary': daily_summary,
         'flowsCurrentMonth': flows_current_month,
         'topFlowsCurrentMonth': flows_current_month[:10],
-        'recentCampaigns': fetch_recent_campaigns(),
+        'recentCampaigns': recent_campaigns,
     }
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
