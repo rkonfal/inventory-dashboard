@@ -2587,6 +2587,19 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
         'topCampaigns': google_overview.get('topCampaignsCurrentMonth') or [],
         'dailySummary': google_overview.get('dailySummary') or [],
     }
+    klaviyo_overview = load_optional_current_json('klaviyo_overview.json') or {}
+    klaviyo_current = klaviyo_overview.get('currentMonth') or {}
+    klaviyo_direct = {
+        'ready': bool(klaviyo_overview),
+        'label': 'Klaviyo',
+        'source': (klaviyo_overview.get('source') or {}).get('status'),
+        'account': klaviyo_overview.get('account') or {},
+        'currentMonth': klaviyo_current,
+        'dailySummary': klaviyo_overview.get('dailySummary') or [],
+        'flowsCurrentMonth': klaviyo_overview.get('flowsCurrentMonth') or [],
+        'topFlows': klaviyo_overview.get('topFlowsCurrentMonth') or [],
+        'recentCampaigns': klaviyo_overview.get('recentCampaigns') or [],
+    }
 
     active_campaigns = {
         'sklik': sorted(
@@ -2643,7 +2656,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             supplier_totals[row.get('supplier') or 'Neznámý dodavatel'] += float(row.get('amount') or 0)
 
         current_month = monthly[-1] if monthly else {}
-        direct_sources = {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct}
+        direct_sources = {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct}
         channel_rows = []
         if sklik_direct['ready']:
             channel_rows.append({
@@ -2672,6 +2685,15 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
                 'roas': google_summary.get('roas'),
                 'source': 'live_api',
             })
+        if klaviyo_direct['ready']:
+            channel_rows.append({
+                'name': 'Klaviyo',
+                'amount': round(float(klaviyo_current.get('totalAttributedRevenueCzk') or 0), 2),
+                'clicks': int(klaviyo_current.get('totalClicks') or 0),
+                'conversions': round(float(klaviyo_current.get('totalAttributedOrders') or 0), 2),
+                'roas': None,
+                'source': 'live_api',
+            })
         source_message = 'Marketing se skládá z live ABRA reportu a aktuálních položek z účetního deníku.'
         live_labels = []
         if sklik_direct['ready']:
@@ -2680,6 +2702,8 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             live_labels.append('Meta Ads')
         if google_direct['ready']:
             live_labels.append('Google Ads')
+        if klaviyo_direct['ready']:
+            live_labels.append('Klaviyo')
         if live_labels:
             source_message += ' Přímé platformy přes API: ' + ', '.join(live_labels) + '.'
         return {
@@ -2705,7 +2729,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'currentMonth': {},
             'topSuppliersCurrentMonth': [],
             'entriesCurrentMonth': [],
-            'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct},
+            'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct},
             'channelsCurrentMonth': [],
             'activeCampaignsBySource': active_campaigns,
         }
@@ -2720,7 +2744,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'currentMonth': {},
             'topSuppliersCurrentMonth': [],
             'entriesCurrentMonth': [],
-            'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct},
+            'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct},
             'channelsCurrentMonth': [],
             'activeCampaignsBySource': active_campaigns,
         }
@@ -2782,6 +2806,15 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'roas': google_summary.get('roas'),
             'source': 'live_api',
         })
+    if klaviyo_direct['ready']:
+        channel_rows.append({
+            'name': 'Klaviyo',
+            'amount': round(float(klaviyo_current.get('totalAttributedRevenueCzk') or 0), 2),
+            'clicks': int(klaviyo_current.get('totalClicks') or 0),
+            'conversions': round(float(klaviyo_current.get('totalAttributedOrders') or 0), 2),
+            'roas': None,
+            'source': 'live_api',
+        })
     return {
         'generatedAt': generated_at,
         'source': legacy_abra_payload['source'],
@@ -2803,7 +2836,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             }
             for row in current_entries[:20]
         ],
-        'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct},
+        'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct},
         'channelsCurrentMonth': channel_rows,
         'activeCampaignsBySource': active_campaigns,
     }
@@ -2958,6 +2991,37 @@ def ensure_daily_google_snapshot(now_local):
     return {'ready': True, 'refreshed': True, 'path': str(snapshot_path)}
 
 
+def ensure_daily_klaviyo_snapshot(now_local):
+    token = (os.environ.get('KLAVIYO_PRIVATE_API_KEY') or '').strip()
+    if not token:
+        return {'ready': False, 'reason': 'missing_token'}
+
+    snapshot_path = CURRENT_DIR / 'klaviyo_overview.json'
+    if snapshot_path.exists():
+        modified_at = datetime.fromtimestamp(snapshot_path.stat().st_mtime, PRAGUE_TZ)
+        if modified_at.date() == now_local.date():
+            return {'ready': True, 'refreshed': False, 'path': str(snapshot_path)}
+
+    script_path = ROOT / 'scripts' / 'fetch_klaviyo.py'
+    try:
+        result = subprocess.run(
+            [sys.executable, str(script_path)],
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            timeout=180,
+            check=False,
+        )
+    except Exception as exc:
+        return {'ready': False, 'reason': 'run_error', 'message': str(exc)}
+
+    if result.returncode != 0:
+        message = (result.stderr or result.stdout or '').strip()
+        return {'ready': False, 'reason': 'fetch_failed', 'message': message[:500]}
+
+    return {'ready': True, 'refreshed': True, 'path': str(snapshot_path)}
+
+
 def main():
     load_env_file(ENV_FILE)
     manual_overrides = load_manual_sku_overrides(SKU_MAPPING_OVERRIDE_FILE)
@@ -3032,6 +3096,7 @@ def main():
     sklik_status = ensure_daily_sklik_snapshot(now_local)
     meta_status = ensure_daily_meta_snapshot(now_local)
     google_status = ensure_daily_google_snapshot(now_local)
+    klaviyo_status = ensure_daily_klaviyo_snapshot(now_local)
     finance_snapshot = build_finance_snapshot(legacy_abra_payload, live_abra_payload, abra_vykaz_hospodareni_reports, generated_at)
     marketing_snapshot = build_marketing_snapshot(legacy_abra_payload, abra_vykaz_hospodareni_reports, finance_snapshot, generated_at)
     baseline_orders = None
@@ -3110,6 +3175,8 @@ def main():
         warnings.append('Meta Ads denní refresh selhal, marketing používá poslední dostupný snapshot.')
     if not google_status.get('ready') and google_status.get('reason') != 'missing_token':
         warnings.append('Google Ads denní refresh selhal, marketing používá poslední dostupný snapshot.')
+    if not klaviyo_status.get('ready') and klaviyo_status.get('reason') != 'missing_token':
+        warnings.append('Klaviyo denní refresh selhal, marketing používá poslední dostupný snapshot.')
 
     if not expiry_overview_payload.get('topExpiring'):
         expiry_overview_payload = build_expiry_overview(generated_at, combined_index_payload, cz_expiry_summary, sk_expiry_summary)
