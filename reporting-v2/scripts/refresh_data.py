@@ -3,6 +3,7 @@ import base64
 import hashlib
 import html
 import json
+import math
 import os
 import re
 import subprocess
@@ -31,6 +32,7 @@ CONFIG_DIR = ROOT / 'config'
 SKU_MAPPING_OVERRIDE_FILE = CONFIG_DIR / 'sku_mapping_overrides.json'
 POS_ADMIN_VIEW_OVERRIDE_FILE = CONFIG_DIR / 'pos_admin_view_overrides.json'
 ORDERING_REFERENCE_OVERRIDE_FILE = CONFIG_DIR / 'ordering_reference_overrides.json'
+ORDERING_PACKAGING_MATCH_FILE = ROOT.parent / 'knowledge' / 'tiande_order_packaging_catalog_match.json'
 CURRENT_DIR = ROOT / 'data' / 'current'
 SNAPSHOT_DIR = ROOT / 'data' / 'snapshots'
 BASE_URL = 'https://open.eu.4px.com/router/api/service'
@@ -245,6 +247,134 @@ def load_ordering_reference_overrides(path: Path):
         if needle and meta:
             payload['titleContains'].append({'needle': needle, 'meta': dict(meta)})
 
+    return payload
+
+
+def normalize_supplier_sku(value):
+    text = normalize_product_code(value)
+    return text.upper()
+
+
+def supplier_sku_aliases(value):
+    sku = normalize_supplier_sku(value)
+    aliases = []
+    for candidate in (
+        sku,
+        sku[:-2] if sku.endswith('HM') else None,
+        sku[:-2] if sku.endswith('-2') else None,
+        sku.split('/', 1)[0] if '/' in sku else None,
+    ):
+        candidate = normalize_supplier_sku(candidate)
+        if candidate and candidate not in aliases:
+            aliases.append(candidate)
+    return aliases
+
+
+def packaging_confidence_rank(status):
+    ranks = {
+        'exact_code': 4,
+        'base_code': 3,
+        'exact_title': 2,
+        'ambiguous_title': 1,
+        'fuzzy_title': 1,
+        'missing': 0,
+    }
+    return ranks.get(status, 0)
+
+
+def merge_packaging_entry(base, row):
+    supplier_sku = normalize_supplier_sku(row.get('sku'))
+    if supplier_sku and supplier_sku not in base['supplierSkus']:
+        base['supplierSkus'].append(supplier_sku)
+
+    packaging_raw = str(row.get('packaging_raw') or '').strip()
+    if packaging_raw and packaging_raw not in base['packagingRawValues']:
+        base['packagingRawValues'].append(packaging_raw)
+
+    for option in row.get('order_options') or []:
+        try:
+            option_int = int(option)
+        except (TypeError, ValueError):
+            continue
+        if option_int > 0 and option_int not in base['orderPackOptions']:
+            base['orderPackOptions'].append(option_int)
+
+    status = row.get('match_status') or 'missing'
+    if packaging_confidence_rank(status) > packaging_confidence_rank(base.get('matchStatus')):
+        base['matchStatus'] = status
+
+    recommended = row.get('recommended_order_qty')
+    try:
+        recommended_int = int(recommended)
+    except (TypeError, ValueError):
+        recommended_int = None
+    if recommended_int and recommended_int > (base.get('recommendedOrderStep') or 0):
+        base['recommendedOrderStep'] = recommended_int
+
+    catalog_title = row.get('catalog_title') or row.get('name')
+    if catalog_title and not base.get('catalogTitle'):
+        base['catalogTitle'] = catalog_title
+
+
+def finalize_packaging_entry(entry):
+    options = sorted({int(option) for option in (entry.get('orderPackOptions') or []) if int(option) > 0})
+    entry['orderPackOptions'] = options
+    entry['supplierSkus'] = sorted(set(entry.get('supplierSkus') or []))
+    entry['packagingRawValues'] = sorted(set(entry.get('packagingRawValues') or []))
+    if options and not entry.get('recommendedOrderStep'):
+        entry['recommendedOrderStep'] = options[-1]
+    entry['packagingRaw'] = ' | '.join(entry.get('packagingRawValues') or []) or None
+    return entry
+
+
+def load_ordering_packaging_map(path: Path):
+    payload = {
+        'byCatalogCode': {},
+        'bySupplierSku': {},
+        'summary': {'entries': 0, 'matchedEntries': 0, 'catalogCodes': 0, 'supplierSkus': 0},
+    }
+    if not path.exists():
+        return payload
+    try:
+        raw = json.loads(path.read_text(encoding='utf-8'))
+    except Exception as exc:
+        raise RuntimeError(f'Neplatný JSON v mapě balení objednávek: {path}') from exc
+
+    items = raw.get('items') or []
+    payload['summary']['entries'] = len(items)
+    for row in items:
+        supplier_sku = normalize_supplier_sku(row.get('sku'))
+        catalog_code = normalize_product_code(row.get('catalog_code'))
+        match_status = row.get('match_status') or 'missing'
+        if supplier_sku:
+            payload['bySupplierSku'][supplier_sku] = {
+                'catalogCode': catalog_code or None,
+                'matchStatus': match_status,
+                'packagingRaw': row.get('packaging_raw'),
+                'orderPackOptions': [int(option) for option in (row.get('order_options') or []) if str(option).strip()],
+                'recommendedOrderStep': int(row.get('recommended_order_qty') or 0) or None,
+                'name': row.get('name'),
+                'catalogTitle': row.get('catalog_title'),
+            }
+        if not catalog_code:
+            continue
+        payload['summary']['matchedEntries'] += 1
+        entry = payload['byCatalogCode'].setdefault(catalog_code, {
+            'catalogCode': catalog_code,
+            'catalogTitle': None,
+            'supplierSkus': [],
+            'packagingRawValues': [],
+            'orderPackOptions': [],
+            'recommendedOrderStep': None,
+            'matchStatus': 'missing',
+        })
+        merge_packaging_entry(entry, row)
+
+    for code, entry in list(payload['byCatalogCode'].items()):
+        payload['byCatalogCode'][code] = finalize_packaging_entry(entry)
+
+    payload['summary']['catalogCodes'] = len(payload['byCatalogCode'])
+    payload['summary']['supplierSkus'] = len(payload['bySupplierSku'])
     return payload
 
 
@@ -1086,6 +1216,22 @@ def reapply_ordering_reference_to_analytics(payload, overrides):
     return payload, changed
 
 
+def reapply_ordering_packaging_to_analytics(payload, ordering_packaging_map):
+    if not payload or not payload.get('items'):
+        return payload, False
+
+    changed = False
+    next_items = []
+    for item in payload.get('items') or []:
+        next_item = enrich_item_with_packaging(item, ordering_packaging_map)
+        if next_item != item:
+            changed = True
+        next_items.append(next_item)
+    if changed:
+        payload['items'] = next_items
+    return payload, changed
+
+
 def resolve_4px_code_alias(code, wpj_by_code, manual_overrides=None):
     manual_overrides = manual_overrides or {'aliases': {}, 'ignore': set()}
     code = normalize_product_code(code)
@@ -1459,7 +1605,7 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
     return combined_index, combined_overview
 
 
-def build_inventory_analytics_window(combined_index, orders, start_dt, end_dt, generated_at, window_days=365, wpj_by_code=None, manual_overrides=None, pos_admin_views=None, ordering_reference_overrides=None):
+def build_inventory_analytics_window(combined_index, orders, start_dt, end_dt, generated_at, window_days=365, wpj_by_code=None, manual_overrides=None, pos_admin_views=None, ordering_reference_overrides=None, ordering_packaging_map=None):
     wpj_by_code = wpj_by_code or {}
     metrics = {}
     view_keys = ('complete', 'cz', 'sk', 'ltm', 'mecin')
@@ -1593,7 +1739,7 @@ def build_inventory_analytics_window(combined_index, orders, start_dt, end_dt, g
             ordering_reference_overrides or {},
         )
 
-        items.append({
+        analytics_item = {
             'code': code,
             'title': item['title'],
             'effectiveStock': round(effective_stock, 2),
@@ -1642,7 +1788,8 @@ def build_inventory_analytics_window(combined_index, orders, start_dt, end_dt, g
             'excludeFromOrderingReason': reference_meta.get('excludeFromOrderingReason'),
             'referenceSource': reference_meta.get('referenceSource'),
             'referenceFlags': sorted(set(reference_meta.get('referenceFlags') or [])),
-        })
+        }
+        items.append(enrich_item_with_packaging(analytics_item, ordering_packaging_map))
 
     turnover = sorted([item for item in items if item['units365d'] > 0 and item['effectiveStock'] > 0], key=lambda item: item['units365d'], reverse=True)
     dead_stock = sorted([item for item in items if 'dead_stock' in item['tags']], key=lambda item: item['effectiveStock'], reverse=True)
@@ -1675,7 +1822,7 @@ def build_inventory_analytics_window(combined_index, orders, start_dt, end_dt, g
     }
 
 
-def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None, pos_admin_views=None, ordering_reference_overrides=None):
+def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None, pos_admin_views=None, ordering_reference_overrides=None, ordering_packaging_map=None):
     return build_inventory_analytics_window(
         combined_index,
         year_orders,
@@ -1687,10 +1834,11 @@ def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt
         manual_overrides=manual_overrides,
         pos_admin_views=pos_admin_views,
         ordering_reference_overrides=ordering_reference_overrides,
+        ordering_packaging_map=ordering_packaging_map,
     )
 
 
-def build_inventory_analytics_730d(combined_index, orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None, pos_admin_views=None, ordering_reference_overrides=None):
+def build_inventory_analytics_730d(combined_index, orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None, pos_admin_views=None, ordering_reference_overrides=None, ordering_packaging_map=None):
     return build_inventory_analytics_window(
         combined_index,
         orders,
@@ -1702,6 +1850,7 @@ def build_inventory_analytics_730d(combined_index, orders, start_dt, end_dt, gen
         manual_overrides=manual_overrides,
         pos_admin_views=pos_admin_views,
         ordering_reference_overrides=ordering_reference_overrides,
+        ordering_packaging_map=ordering_packaging_map,
     )
 
 
@@ -1718,6 +1867,112 @@ def enrich_inventory_analytics_prices(payload, wpj_by_code):
             item['unitSellingPrice'] = next_price
             changed = True
     return payload, changed
+
+
+def classify_ordering_role(item):
+    if not item.get('orderable', True):
+        return 'excluded'
+    if item.get('turnoverZone') == 'green' and (item.get('units365d') or 0) > 0 and (item.get('recommendedOrderUnits') or 0) > 0:
+        return 'fill_up'
+    if item.get('reorderRisk') in {'critical', 'soon'} or item.get('strategicPriority') == 'risky':
+        return 'top_sku'
+    return 'standard'
+
+
+def enrich_item_with_packaging(item, ordering_packaging_map=None):
+    item = dict(item or {})
+    packaging = ((ordering_packaging_map or {}).get('byCatalogCode') or {}).get(normalize_product_code(item.get('code')))
+    options = sorted({int(option) for option in (packaging.get('orderPackOptions') if packaging else []) if int(option) > 0}) if packaging else []
+    recommended_step = int(packaging.get('recommendedOrderStep') or 0) if packaging else 0
+    if not recommended_step and options:
+        recommended_step = options[-1]
+    item.update({
+        'supplierSkus': packaging.get('supplierSkus') if packaging else [],
+        'packagingRaw': packaging.get('packagingRaw') if packaging else None,
+        'orderPackOptions': options,
+        'recommendedOrderStep': recommended_step or None,
+        'packagingMatchStatus': packaging.get('matchStatus') if packaging else 'missing',
+    })
+    item['orderingRole'] = classify_ordering_role(item)
+    return item
+
+
+def round_to_multiple(units, step):
+    step = max(1, int(step or 1))
+    units = max(0, float(units or 0))
+    if units <= 0:
+        return 0
+    return int(math.ceil(units / step) * step)
+
+
+def packaging_step_kind(options, step):
+    clean = sorted({int(option) for option in (options or []) if int(option) > 0})
+    if not clean or step <= 1:
+        return 'unit'
+    if len(clean) == 1:
+        return 'pack'
+    if step == clean[-1]:
+        return 'carton'
+    if step == clean[0]:
+        return 'unit'
+    return 'pack'
+
+
+def packaging_step_label(kind):
+    labels = {
+        'unit': 'kus',
+        'pack': 'balení',
+        'carton': 'karton',
+    }
+    return labels.get(kind, 'bez balení')
+
+
+def choose_packaging_step(item, raw_units, scenario_type='balanced'):
+    options = sorted({int(option) for option in (item.get('orderPackOptions') or []) if int(option) > 0})
+    if not options:
+        return 1
+
+    raw_units = max(0, float(raw_units or 0))
+    role = item.get('orderingRole') or 'standard'
+    if raw_units <= 0:
+        return options[0]
+
+    if role == 'fill_up' or scenario_type == 'capacity':
+        for step in sorted(options, reverse=True):
+            rounded = round_to_multiple(raw_units, step)
+            overshoot = (rounded - raw_units) / max(raw_units, 1)
+            if raw_units >= step * 0.6 or overshoot <= 0.35:
+                return step
+        return options[-1]
+
+    for step in sorted(options, reverse=True):
+        rounded = round_to_multiple(raw_units, step)
+        overshoot = (rounded - raw_units) / max(raw_units, 1)
+        if overshoot <= 0.25:
+            return step
+    return options[0]
+
+
+def round_to_allowed_pack_sizes(item, raw_units, scenario_type='balanced'):
+    raw_units = max(0, int(round(raw_units or 0)))
+    step = choose_packaging_step(item, raw_units, scenario_type=scenario_type)
+    rounded_units = round_to_multiple(raw_units, step)
+    step_kind = packaging_step_kind(item.get('orderPackOptions') or [], step)
+    options = item.get('orderPackOptions') or []
+    if not options:
+        rounding_mode = 'bez omezení balení'
+    elif rounded_units == raw_units:
+        rounding_mode = f'přesně na {packaging_step_label(step_kind)}'
+    else:
+        rounding_mode = f'zaokrouhleno nahoru na {packaging_step_label(step_kind)}'
+    return {
+        'rawUnits': raw_units,
+        'orderStepUnits': step,
+        'orderStepKind': step_kind,
+        'orderStepLabel': packaging_step_label(step_kind),
+        'roundedUnits': rounded_units,
+        'roundingMode': rounding_mode,
+    }
 
 
 ORDERING_CAPACITY_PROFILES = {
@@ -1807,6 +2062,9 @@ def build_ordering_recommendation_rows(items, lead_days=21, use_praha=True):
         source_meta = recommendation_source_meta(item, lead_days, use_praha)
         recommended_min = int(item.get('recommendedMinUnits') or 0)
         optimum = max(int(item.get('recommendedOrderUnits') or 0), recommended_min)
+        rounded_min = round_to_allowed_pack_sizes(item, recommended_min, scenario_type='minimum')
+        rounded_optimum = round_to_allowed_pack_sizes(item, optimum, scenario_type='balanced')
+        rounded_max = round_to_allowed_pack_sizes(item, max_units_for_ordering(item, lead_days), scenario_type='capacity')
         row = dict(item)
         row.update({
             'forecast30': forecast_ordering_units(item, 30),
@@ -1814,7 +2072,17 @@ def build_ordering_recommendation_rows(items, lead_days=21, use_praha=True):
             'forecast90': forecast_ordering_units(item, 90),
             'safetyStockUnits': safety_units_for_ordering(item, lead_days),
             'optimumUnits': optimum,
-            'maxUnits': max_units_for_ordering(item, lead_days),
+            'maxUnits': rounded_max['rawUnits'],
+            'roundedMinUnits': rounded_min['roundedUnits'],
+            'roundedOptimumUnits': rounded_optimum['roundedUnits'],
+            'roundedMaxUnits': rounded_max['roundedUnits'],
+            'idealUnits': rounded_optimum['rawUnits'],
+            'finalOrderUnits': rounded_optimum['roundedUnits'],
+            'orderStepUnits': rounded_optimum['orderStepUnits'],
+            'orderStepKind': rounded_optimum['orderStepKind'],
+            'orderStepLabel': rounded_optimum['orderStepLabel'],
+            'roundingMode': rounded_optimum['roundingMode'],
+            'packagingOptionsLabel': ' / '.join(str(option) for option in (item.get('orderPackOptions') or [])) if item.get('orderPackOptions') else '1',
             'source': source_meta['source'],
             'reason': source_meta['reason'],
         })
@@ -1837,7 +2105,7 @@ def build_ordering_scenario_rows(scenario_type, rows, profile):
         units = 0
         optimum = int(item.get('optimumUnits') or 0)
         recommended_min = int(item.get('recommendedMinUnits') or 0)
-        max_units = int(item.get('maxUnits') or optimum)
+        max_units = int(item.get('roundedMaxUnits') or item.get('maxUnits') or optimum)
         reorder_risk = item.get('reorderRisk')
 
         if scenario_type == 'conservative':
@@ -1864,7 +2132,8 @@ def build_ordering_scenario_rows(scenario_type, rows, profile):
             elif item.get('turnoverZone') == 'green':
                 units = round(optimum * (0.55 + float(profile.get('fillerShare') or 0)))
 
-        units = max(0, min(units, max_units or units))
+        rounded_plan = round_to_allowed_pack_sizes(item, units, scenario_type=scenario_type)
+        units = max(0, min(int(rounded_plan['roundedUnits'] or 0), max_units or int(rounded_plan['roundedUnits'] or 0)))
         if not units:
             continue
         if scenario_type != 'capacity' and target_left <= 0 and reorder_risk != 'critical':
@@ -1872,6 +2141,11 @@ def build_ordering_scenario_rows(scenario_type, rows, profile):
 
         selected_row = dict(item)
         selected_row['plannedUnits'] = units
+        selected_row['plannedRawUnits'] = int(rounded_plan['rawUnits'] or 0)
+        selected_row['plannedOrderStepUnits'] = int(rounded_plan['orderStepUnits'] or 1)
+        selected_row['plannedOrderStepKind'] = rounded_plan['orderStepKind']
+        selected_row['plannedOrderStepLabel'] = rounded_plan['orderStepLabel']
+        selected_row['plannedRoundingMode'] = rounded_plan['roundingMode']
         selected.append(selected_row)
         target_left -= units
     return selected
@@ -1964,12 +2238,14 @@ def build_ordering_planning(items, lead_days=21, capacity_key='half', use_praha=
 def build_ordering_core(analytics_payload, generated_at):
     items = analytics_payload.get('items') or []
     orderable_items = [item for item in items if item.get('orderable', True)]
+    top_sku_items = [item for item in orderable_items if item.get('orderingRole') == 'top_sku']
+    fill_up_items = [item for item in orderable_items if item.get('orderingRole') == 'fill_up']
     critical_reorder = sorted(
-        [item for item in orderable_items if item.get('reorderRisk') == 'critical'],
+        [item for item in top_sku_items if item.get('reorderRisk') == 'critical'],
         key=lambda item: ((item.get('daysOfCover90d') if item.get('daysOfCover90d') is not None else 999), -item.get('recommendedOrderUnits', 0), -item.get('units90d', 0)),
     )
     reorder_watch = sorted(
-        [item for item in orderable_items if item.get('reorderRisk') in {'critical', 'soon', 'watch'}],
+        [item for item in top_sku_items if item.get('reorderRisk') in {'critical', 'soon', 'watch'}],
         key=lambda item: (0 if item.get('reorderRisk') == 'critical' else 1 if item.get('reorderRisk') == 'soon' else 2, (item.get('daysOfCover90d') if item.get('daysOfCover90d') is not None else 999), -item.get('units90d', 0)),
     )
     overstock_risks = sorted(
@@ -1982,7 +2258,7 @@ def build_ordering_core(analytics_payload, generated_at):
         reverse=True,
     )
     suggested_fillers = sorted(
-        [item for item in orderable_items if item.get('turnoverZone') == 'green' and (item.get('daysOfCover90d') or 999) <= 90 and item.get('recommendedOrderUnits', 0) > 0],
+        [item for item in fill_up_items if item.get('turnoverZone') == 'green' and (item.get('daysOfCover90d') or 999) <= 90 and item.get('recommendedOrderUnits', 0) > 0],
         key=lambda item: (-item.get('units365d', 0), item.get('daysOfCover90d') or 999),
     )
 
@@ -2007,6 +2283,8 @@ def build_ordering_core(analytics_payload, generated_at):
             'trackedItems': len(items),
             'orderableItems': len(orderable_items),
             'excludedItems': len(items) - len(orderable_items),
+            'topSkuItems': len(top_sku_items),
+            'fillUpItems': len(fill_up_items),
             'criticalReorderItems': len(critical_reorder),
             'watchReorderItems': len(reorder_watch),
             'redTurnoverItems': len([item for item in orderable_items if item.get('turnoverZone') == 'red']),
@@ -2029,14 +2307,20 @@ def build_ordering_reference_data(analytics_payload, generated_at):
         items.append({
             'code': item.get('code'),
             'title': item.get('title'),
+            'supplierSkus': item.get('supplierSkus') or [],
             'itemType': item.get('itemType') or 'product',
             'orderable': bool(item.get('orderable', True)),
             'sourceChannel': item.get('sourceChannel') or 'unknown',
             'strategicPriority': item.get('strategicPriority') or 'standard',
+            'orderingRole': item.get('orderingRole') or classify_ordering_role(item),
             'giftCandidate': bool(item.get('giftCandidate')),
             'excludeFromOrderingReason': item.get('excludeFromOrderingReason'),
             'referenceSource': item.get('referenceSource') or 'default',
             'referenceFlags': item.get('referenceFlags') or [],
+            'packagingMatchStatus': item.get('packagingMatchStatus') or 'missing',
+            'packagingRaw': item.get('packagingRaw'),
+            'orderPackOptions': item.get('orderPackOptions') or [],
+            'recommendedOrderStep': item.get('recommendedOrderStep'),
             'recommendedOrderUnits': item.get('recommendedOrderUnits') or 0,
             'recommendedMinUnits': item.get('recommendedMinUnits') or 0,
             'effectiveStock': item.get('effectiveStock') or 0,
@@ -2049,6 +2333,8 @@ def build_ordering_reference_data(analytics_payload, generated_at):
     excluded = [row for row in items if not row['orderable']]
     by_type = Counter(row['itemType'] or 'unknown' for row in items)
     by_source = Counter(row['sourceChannel'] or 'unknown' for row in items)
+    by_role = Counter(row['orderingRole'] or 'unknown' for row in items)
+    by_packaging = Counter(row['packagingMatchStatus'] or 'missing' for row in items)
 
     return {
         'generatedAt': generated_at,
@@ -2058,6 +2344,8 @@ def build_ordering_reference_data(analytics_payload, generated_at):
             'excludedItems': len(excluded),
             'byItemType': dict(sorted(by_type.items())),
             'bySourceChannel': dict(sorted(by_source.items())),
+            'byOrderingRole': dict(sorted(by_role.items())),
+            'byPackagingMatchStatus': dict(sorted(by_packaging.items())),
         },
         'excludedTop': excluded[:150],
         'items': items,
@@ -3700,6 +3988,7 @@ def main():
     manual_overrides = load_manual_sku_overrides(SKU_MAPPING_OVERRIDE_FILE)
     pos_admin_views = load_pos_admin_view_overrides(POS_ADMIN_VIEW_OVERRIDE_FILE)
     ordering_reference_overrides = load_ordering_reference_overrides(ORDERING_REFERENCE_OVERRIDE_FILE)
+    ordering_packaging_map = load_ordering_packaging_map(ORDERING_PACKAGING_MATCH_FILE)
     warehouse_code = os.environ.get('FOURPX_WAREHOUSE_CODE', 'CZPRGA')
     max_pages = int(os.environ.get('FOURPX_OUTBOUND_MAX_PAGES', '20'))
     now_local = current_local_time()
@@ -3825,10 +4114,12 @@ def main():
         inventory_analytics_730_payload, analytics_730_prices_changed = enrich_inventory_analytics_prices(inventory_analytics_730_payload, wpj_by_code)
         inventory_analytics_payload, analytics_reference_changed = reapply_ordering_reference_to_analytics(inventory_analytics_payload, ordering_reference_overrides)
         inventory_analytics_730_payload, analytics_730_reference_changed = reapply_ordering_reference_to_analytics(inventory_analytics_730_payload, ordering_reference_overrides)
+        inventory_analytics_payload, analytics_packaging_changed = reapply_ordering_packaging_to_analytics(inventory_analytics_payload, ordering_packaging_map)
+        inventory_analytics_730_payload, analytics_730_packaging_changed = reapply_ordering_packaging_to_analytics(inventory_analytics_730_payload, ordering_packaging_map)
 
-        if (analytics_prices_changed or analytics_reference_changed) and inventory_analytics_payload:
+        if (analytics_prices_changed or analytics_reference_changed or analytics_packaging_changed) and inventory_analytics_payload:
             write_json(analytics_cache_path, inventory_analytics_payload)
-        if (analytics_730_prices_changed or analytics_730_reference_changed) and inventory_analytics_730_payload:
+        if (analytics_730_prices_changed or analytics_730_reference_changed or analytics_730_packaging_changed) and inventory_analytics_730_payload:
             write_json(analytics_730_cache_path, inventory_analytics_730_payload)
 
         if (
@@ -3847,6 +4138,7 @@ def main():
                 manual_overrides,
                 pos_admin_views,
                 ordering_reference_overrides,
+                ordering_packaging_map,
             )
             inventory_analytics_730_payload = build_inventory_analytics_730d(
                 combined_index_payload,
@@ -3858,9 +4150,10 @@ def main():
                 manual_overrides,
                 pos_admin_views,
                 ordering_reference_overrides,
+                ordering_packaging_map,
             )
             ordering_core_payload = build_ordering_core(inventory_analytics_730_payload, generated_at)
-        elif analytics_730_prices_changed or analytics_730_reference_changed:
+        elif analytics_730_prices_changed or analytics_730_reference_changed or analytics_730_packaging_changed:
             ordering_core_payload = build_ordering_core(inventory_analytics_730_payload, generated_at)
 
         ordering_reference_payload = build_ordering_reference_data(inventory_analytics_730_payload, generated_at)

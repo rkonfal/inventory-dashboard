@@ -206,8 +206,10 @@
             <th class="num">Forecast 30 / 60 / 90</th>
             <th class="num">Safety</th>
             <th class="num">Minimum</th>
-            <th class="num">Optimum</th>
-            <th class="num">Maximum</th>
+            <th class="num">Ideál</th>
+            <th class="num">Objednat po</th>
+            <th class="num">Finální objednávka</th>
+            <th>Typ zaokrouhlení</th>
           </tr>
         </thead>
         <tbody id="planning-table"></tbody>
@@ -261,7 +263,10 @@
             <th class="num">Prodej v okně</th>
             <th class="num">Prodej 90d</th>
             <th class="num">Pokrytí 90d</th>
-            <th class="num">Objednat</th>
+            <th class="num">Ideál</th>
+            <th class="num">Objednat po</th>
+            <th class="num">Finál</th>
+            <th>Zaokrouhlení</th>
           </tr>
         </thead>
         <tbody id="ordering-explorer-table"></tbody>
@@ -328,6 +333,76 @@
           unknown: 'zdroj nejasný',
         };
         return `<span class="badge">${labels[row.sourceChannel] || (row.sourceChannel || 'zdroj neznámý')}</span>`;
+      };
+
+      const roleBadge = row => {
+        if (row.orderingRole === 'top_sku') return '<span class="badge success">top SKU</span>';
+        if (row.orderingRole === 'fill_up') return '<span class="badge warn">fill-up</span>';
+        if (row.orderingRole === 'excluded') return '<span class="badge">excluded</span>';
+        return '<span class="badge">standard</span>';
+      };
+
+      const packStepLabel = kind => {
+        if (kind === 'carton') return 'karton';
+        if (kind === 'pack') return 'balení';
+        return 'kus';
+      };
+
+      const packStepKind = (options, step) => {
+        const clean = [...new Set((options || []).map(v => Number(v || 0)).filter(v => v > 0))].sort((a, b) => a - b);
+        if (!clean.length || step <= 1) return 'unit';
+        if (clean.length === 1) return 'pack';
+        if (step === clean[clean.length - 1]) return 'carton';
+        if (step === clean[0]) return 'unit';
+        return 'pack';
+      };
+
+      const roundToMultiple = (units, step) => {
+        const safeStep = Math.max(1, Number(step || 1));
+        const safeUnits = Math.max(0, Number(units || 0));
+        if (!safeUnits) return 0;
+        return Math.ceil(safeUnits / safeStep) * safeStep;
+      };
+
+      const choosePackagingStep = (row, rawUnits, scenarioType = 'balanced') => {
+        const options = [...new Set((row.orderPackOptions || []).map(v => Number(v || 0)).filter(v => v > 0))].sort((a, b) => a - b);
+        if (!options.length) return 1;
+        const safeRaw = Math.max(0, Number(rawUnits || 0));
+        if (!safeRaw) return options[0];
+
+        if (row.orderingRole === 'fill_up' || scenarioType === 'capacity') {
+          for (const step of [...options].sort((a, b) => b - a)) {
+            const rounded = roundToMultiple(safeRaw, step);
+            const overshoot = (rounded - safeRaw) / Math.max(safeRaw, 1);
+            if (safeRaw >= step * 0.6 || overshoot <= 0.35) return step;
+          }
+          return options[options.length - 1];
+        }
+
+        for (const step of [...options].sort((a, b) => b - a)) {
+          const rounded = roundToMultiple(safeRaw, step);
+          const overshoot = (rounded - safeRaw) / Math.max(safeRaw, 1);
+          if (overshoot <= 0.25) return step;
+        }
+        return options[0];
+      };
+
+      const roundToAllowedPackSizes = (row, rawUnits, scenarioType = 'balanced') => {
+        const safeRaw = Math.max(0, Math.round(Number(rawUnits || 0)));
+        const step = choosePackagingStep(row, safeRaw, scenarioType);
+        const rounded = roundToMultiple(safeRaw, step);
+        const kind = packStepKind(row.orderPackOptions || [], step);
+        let roundingMode = 'bez omezení balení';
+        if ((row.orderPackOptions || []).length) {
+          roundingMode = rounded === safeRaw ? `přesně na ${packStepLabel(kind)}` : `zaokrouhleno nahoru na ${packStepLabel(kind)}`;
+        }
+        return {
+          rawUnits: safeRaw,
+          orderStepUnits: step,
+          orderStepKind: kind,
+          roundedUnits: rounded,
+          roundingMode,
+        };
       };
 
       const hero = document.getElementById('ordering-hero');
@@ -428,6 +503,9 @@
         }).map(row => {
           const sourceMeta = rowReason(row, leadDays, usePraha);
           const optimum = Math.max(row.recommendedOrderUnits || 0, row.recommendedMinUnits || 0);
+          const roundedMin = roundToAllowedPackSizes(row, row.recommendedMinUnits || 0, 'minimum');
+          const roundedOptimum = roundToAllowedPackSizes(row, optimum, 'balanced');
+          const roundedMax = roundToAllowedPackSizes(row, maxUnits(row, leadDays), 'capacity');
           const recommendation = {
             ...row,
             forecast30: forecastUnits(row, 30),
@@ -435,7 +513,15 @@
             forecast90: forecastUnits(row, 90),
             safetyStockUnits: safetyUnits(row, leadDays),
             optimumUnits: optimum,
-            maxUnits: maxUnits(row, leadDays),
+            maxUnits: roundedMax.rawUnits,
+            roundedMinUnits: roundedMin.roundedUnits,
+            roundedOptimumUnits: roundedOptimum.roundedUnits,
+            roundedMaxUnits: roundedMax.roundedUnits,
+            idealUnits: roundedOptimum.rawUnits,
+            finalOrderUnits: roundedOptimum.roundedUnits,
+            orderStepUnits: roundedOptimum.orderStepUnits,
+            orderStepKind: roundedOptimum.orderStepKind,
+            roundingMode: roundedOptimum.roundingMode,
             source: sourceMeta.source,
             reason: sourceMeta.reason,
           };
@@ -472,11 +558,19 @@
             else if (row.turnoverZone === 'green') units = Math.round(row.optimumUnits * (0.55 + profile.fillerShare));
           }
 
-          units = Math.max(0, Math.min(units, row.maxUnits || units));
+          const roundedPlan = roundToAllowedPackSizes(row, units, type);
+          units = Math.max(0, Math.min(roundedPlan.roundedUnits || 0, row.roundedMaxUnits || row.maxUnits || roundedPlan.roundedUnits || 0));
           if (!units) continue;
           if (type !== 'full' && targetLeft <= 0 && row.reorderRisk !== 'critical') continue;
 
-          selected.push({ ...row, plannedUnits: units });
+          selected.push({
+            ...row,
+            plannedUnits: units,
+            plannedRawUnits: roundedPlan.rawUnits,
+            plannedOrderStepUnits: roundedPlan.orderStepUnits,
+            plannedOrderStepKind: roundedPlan.orderStepKind,
+            plannedRoundingMode: roundedPlan.roundingMode,
+          });
           targetLeft -= units;
         }
         return selected;
@@ -518,6 +612,7 @@
             <td>
               <div><strong>${row.code} · ${row.title}</strong></div>
               <div class="muted small" style="margin-top:6px;">Sklad ${fmt(row.effectiveStock)} ks · pokrytí ${cover(row.daysOfCover90d)} · trend ${pct(row.trend90v365Pct)}</div>
+              <div class="muted small" style="margin-top:6px;">Balení ${row.packagingRaw || 'bez mapy'} · role ${row.orderingRole === 'top_sku' ? 'top SKU' : row.orderingRole === 'fill_up' ? 'fill-up' : 'standard'}</div>
             </td>
             <td>
               <div><strong>${row.source}</strong></div>
@@ -525,11 +620,13 @@
             </td>
             <td class="num">${fmt(row.forecast30)} / ${fmt(row.forecast60)} / ${fmt(row.forecast90)}</td>
             <td class="num">${fmt(row.safetyStockUnits)} ks</td>
-            <td class="num">${fmt(row.recommendedMinUnits || 0)} ks</td>
-            <td class="num">${fmt(row.optimumUnits || 0)} ks</td>
-            <td class="num">${fmt(row.maxUnits || 0)} ks</td>
+            <td class="num">${fmt((row.roundedMinUnits ?? row.recommendedMinUnits) || 0)} ks</td>
+            <td class="num">${fmt((row.idealUnits ?? row.optimumUnits) || 0)} ks</td>
+            <td class="num">${fmt(row.orderStepUnits || 1)} ks</td>
+            <td class="num">${fmt((row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits) || 0)} ks</td>
+            <td>${row.roundingMode || 'bez omezení'}</td>
           </tr>
-        `).join('') || '<tr><td colspan="7">Zatím bez doporučených položek.</td></tr>';
+        `).join('') || '<tr><td colspan="9">Zatím bez doporučených položek.</td></tr>';
       }
 
       function renderPlanning() {
@@ -588,6 +685,7 @@
             <td>
               <div><strong>${row.code} · ${row.title}</strong></div>
               <div class="muted small" style="margin-top:6px;">Sklad ${fmt(row.effectiveStock)} ks · pokrytí ${cover(row.daysOfCover90d)} · trend ${pct(row.trend90v365Pct)}</div>
+              <div class="muted small" style="margin-top:6px;">Balení ${row.packagingRaw || 'bez mapy'} · role ${row.orderingRole === 'top_sku' ? 'top SKU' : row.orderingRole === 'fill_up' ? 'fill-up' : 'standard'}</div>
             </td>
             <td>
               <div><strong>${row.source}</strong></div>
@@ -595,11 +693,13 @@
             </td>
             <td class="num">${fmt(row.forecast30)} / ${fmt(row.forecast60)} / ${fmt(row.forecast90)}</td>
             <td class="num">${fmt(row.safetyStockUnits)} ks</td>
-            <td class="num">${fmt(row.recommendedMinUnits || 0)} ks</td>
-            <td class="num">${fmt(row.optimumUnits || 0)} ks</td>
-            <td class="num">${fmt(row.maxUnits || 0)} ks</td>
+            <td class="num">${fmt((row.roundedMinUnits ?? row.recommendedMinUnits) || 0)} ks</td>
+            <td class="num">${fmt((row.idealUnits ?? row.optimumUnits) || 0)} ks</td>
+            <td class="num">${fmt(row.orderStepUnits || 1)} ks</td>
+            <td class="num">${fmt((row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits) || 0)} ks</td>
+            <td>${row.roundingMode || 'bez omezení'}</td>
           </tr>
-        `).join('') || '<tr><td colspan="7">Zatím bez doporučených položek.</td></tr>';
+        `).join('') || '<tr><td colspan="9">Zatím bez doporučených položek.</td></tr>';
       }
 
       function renderShortTable(targetId, rows, mapper, emptyText, colspan) {
@@ -623,6 +723,8 @@
       function renderKpis() {
         kpis.innerHTML = [
           ['SKU v analytice', fmt(analytics.summary.trackedItems || 0)],
+          ['Top SKU', fmt(ordering.summary.topSkuItems || 0)],
+          ['Fill-up SKU', fmt(ordering.summary.fillUpItems || 0)],
           ['Zelená obrátkovost', fmt(analytics.summary.greenTurnoverItems || 0)],
           ['Oranžová obrátkovost', fmt(analytics.summary.orangeTurnoverItems || 0)],
           ['Fast low cover', fmt(analytics.summary.fastLowCoverItems || 0)],
@@ -679,6 +781,16 @@
           if (filter === 'green') return row.turnoverZone === 'green';
           if (filter === 'accelerating') return (row.trend90v365Pct || 0) >= 25;
           return true;
+        }).map(row => {
+          const ideal = Math.max(row.recommendedOrderUnits || 0, row.recommendedMinUnits || 0);
+          const rounded = roundToAllowedPackSizes(row, ideal, 'balanced');
+          return {
+            ...row,
+            idealUnits: rounded.rawUnits,
+            finalOrderUnits: rounded.roundedUnits,
+            orderStepUnits: rounded.orderStepUnits,
+            roundingMode: rounded.roundingMode,
+          };
         });
 
         rows.sort((a, b) => {
@@ -696,22 +808,26 @@
       function renderExplorer() {
         const rows = getExplorerRows();
         const excludedCount = rows.filter(row => row.orderable === false).length;
-        explorerSummary.textContent = `Zobrazeno ${fmt(rows.length)} SKU, z toho ${fmt(excludedCount)} vyloučených z objednávání. Explorer ukazuje analytické okno, 90d pokrytí, doporučené množství a důvod případného vyloučení.`;
+        explorerSummary.textContent = `Zobrazeno ${fmt(rows.length)} SKU, z toho ${fmt(excludedCount)} vyloučených z objednávání. Explorer nově ukazuje ideál, balicí krok, finální objednávku a typ zaokrouhlení.`;
         explorerTable.innerHTML = rows.slice(0, 150).map(row => `
           <tr>
             <td>
               <div><strong>${row.code} · ${row.title}</strong></div>
               <div class="muted small" style="margin-top:6px;">YoY ${pct(row.seasonalityYoYPct)} · poslední prodej ${row.daysSinceLastSale == null ? '–' : `${fmt(row.daysSinceLastSale)} dnů zpět`}</div>
               <div class="muted small" style="margin-top:6px;">${row.excludeFromOrderingReason || 'Bez důvodu vyloučení, SKU je v objednávacím engine povolené.'}</div>
+              <div class="muted small" style="margin-top:6px;">Balení ${row.packagingRaw || 'bez mapy'} · match ${row.packagingMatchStatus || 'missing'}</div>
             </td>
-            <td>${orderableBadge(row)} ${typeBadge(row)} ${sourceChannelBadge(row)} ${riskBadge(row)} ${zoneBadge(row)} ${trendBadge(row)}</td>
+            <td>${orderableBadge(row)} ${typeBadge(row)} ${roleBadge(row)} ${sourceChannelBadge(row)} ${riskBadge(row)} ${zoneBadge(row)} ${trendBadge(row)}</td>
             <td class="num">${fmt(row.effectiveStock)}</td>
             <td class="num">${fmt(row.unitsWindow ?? row.units730d)}</td>
             <td class="num">${fmt(row.units90d)}</td>
             <td class="num">${cover(row.daysOfCover90d)}</td>
-            <td class="num">${fmt(row.recommendedOrderUnits || 0)} ks</td>
+            <td class="num">${fmt((row.idealUnits ?? row.recommendedOrderUnits) || 0)} ks</td>
+            <td class="num">${fmt(row.orderStepUnits || row.recommendedOrderStep || 1)} ks</td>
+            <td class="num">${fmt((row.finalOrderUnits ?? row.recommendedOrderUnits) || 0)} ks</td>
+            <td>${row.roundingMode || 'bez omezení'}</td>
           </tr>
-        `).join('') || '<tr><td colspan="7">Nic neodpovídá aktuálnímu filtru.</td></tr>';
+        `).join('') || '<tr><td colspan="10">Nic neodpovídá aktuálnímu filtru.</td></tr>';
       }
 
       Promise.all([
