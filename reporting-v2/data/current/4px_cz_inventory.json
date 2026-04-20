@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T15:29:03.033844+02:00",
+  "generatedAt": "2026-04-20T20:52:51.825790+02:00",
   "items": [
     {
       "customer_code": "14940063",
@@ -20,7 +20,7 @@
       "sku_id": "922001029162",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "45",
+      "available_stock": "38",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -56,8 +56,8 @@
       "sku_id": "922001040770",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "215",
-      "pending_stock": "4",
+      "available_stock": "201",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -80,8 +80,8 @@
       "sku_id": "922001040772",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "368",
-      "pending_stock": "1",
+      "available_stock": "357",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -92,8 +92,8 @@
       "sku_id": "922001040774",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "215",
-      "pending_stock": "10",
+      "available_stock": "188",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -104,8 +104,8 @@
       "sku_id": "922001040776",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "249",
-      "pending_stock": "13",
+      "available_stock": "210",
+      "pending_stock": "12",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -116,7 +116,7 @@
       "sku_id": "922001040780",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "53",
+      "available_stock": "47",
       "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -140,8 +140,8 @@
       "sku_id": "922001040782",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "100",
-      "pending_stock": "4",
+      "available_stock": "83",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -164,9 +164,9 @@
       "sku_id": "922001040786",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "828",
-      "pending_stock": "11",
-      "onway_stock": "2",
+      "available_stock": "767",
+      "pending_stock": "6",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -176,9 +176,9 @@
       "sku_id": "922001040788",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "57",
-      "pending_stock": "6",
-      "onway_stock": "3",
+      "available_stock": "24",
+      "pending_stock": "3",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -200,8 +200,8 @@
       "sku_id": "922001040792",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "238",
-      "pending_stock": "11",
+      "available_stock": "202",
+      "pending_stock": "6",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -248,9 +248,9 @@
       "sku_id": "922001040798",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "442",
-      "pending_stock": "14",
-      "onway_stock": "6",
+      "available_stock": "386",
+      "pending_stock": "9",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -272,8 +272,8 @@
       "sku_id": "922001040800",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "534",
-      "pending_stock": "5",
+      "available_stock": "505",
+      "pending_stock": "4",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -308,9 +308,9 @@
       "sku_id": "922001040806",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "112",
-      "pending_stock": "3",
-      "onway_stock": "3",
+      "available_stock": "97",
+      "pending_stock": "5",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -332,9 +332,9 @@
       "sku_id": "922001040808",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "332",
-      "pending_stock": "24",
-      "onway_stock": "6",
+      "available_stock": "233",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -368,9 +368,9 @@
       "sku_id": "922001040812",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "426",
-      "pending_stock": "7",
-      "onway_stock": "1",
+      "available_stock": "376",
+      "pending_stock": "6",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -380,8 +380,8 @@
       "sku_id": "922001040814",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "297",
-      "pending_stock": "6",
+      "available_stock": "256",
+      "pending_stock": "5",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -392,8 +392,8 @@
       "sku_id": "922001040816",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "309",
-      "pending_stock": "7",
+      "available_stock": "225",
+      "pending_stock": "11",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -404,9 +404,9 @@
       "sku_id": "922001040818",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "28",
-      "pending_stock": "3",
-      "onway_stock": "4",
+      "available_stock": "4",
+      "pending_stock": "0",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -416,7 +416,7 @@
       "sku_id": "922001040820",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1490",
+      "available_stock": "1468",
       "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -620,8 +620,8 @@
       "sku_id": "922001040840",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "150",
-      "pending_stock": "3",
+      "available_stock": "130",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -644,8 +644,8 @@
       "sku_id": "922001040844",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "81",
-      "pending_stock": "15",
+      "available_stock": "46",
+      "pending_stock": "6",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -668,7 +668,7 @@
       "sku_id": "922001040846",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "99",
+      "available_stock": "83",
       "pending_stock": "5",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -680,8 +680,8 @@
       "sku_id": "922001040848",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "132",
-      "pending_stock": "14",
+      "available_stock": "70",
+      "pending_stock": "8",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -692,8 +692,8 @@
       "sku_id": "922001040851",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "762",
-      "pending_stock": "39",
+      "available_stock": "613",
+      "pending_stock": "11",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -704,8 +704,8 @@
       "sku_id": "922001040853",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1015",
-      "pending_stock": "23",
+      "available_stock": "921",
+      "pending_stock": "5",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -728,8 +728,8 @@
       "sku_id": "922001040855",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1082",
-      "pending_stock": "24",
+      "available_stock": "990",
+      "pending_stock": "6",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -740,9 +740,9 @@
       "sku_id": "922001040857",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "60",
-      "pending_stock": "5",
-      "onway_stock": "3",
+      "available_stock": "39",
+      "pending_stock": "8",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -764,9 +764,9 @@
       "sku_id": "922001040859",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "230",
-      "pending_stock": "0",
-      "onway_stock": "2",
+      "available_stock": "221",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -788,8 +788,8 @@
       "sku_id": "922001040861",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "77",
-      "pending_stock": "2",
+      "available_stock": "74",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -800,7 +800,7 @@
       "sku_id": "922001040863",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "80",
+      "available_stock": "75",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -812,8 +812,8 @@
       "sku_id": "922001040865",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "18",
-      "pending_stock": "6",
+      "available_stock": "0",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -824,37 +824,37 @@
       "sku_id": "922001040867",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "102",
-      "pending_stock": "8",
-      "onway_stock": "6",
-      "freeze_stock": "0"
-    },
-    {
-      "customer_code": "14940063",
-      "sku_code": "21311",
-      "warehouse_code": "CZPRGA",
-      "sku_id": "922001040869",
-      "batch_no": "",
-      "stock_quality": "E",
-      "available_stock": "0",
-      "pending_stock": "0",
-      "onway_stock": "0",
-      "freeze_stock": "0"
-    },
-    {
-      "customer_code": "14940063",
-      "sku_code": "21311",
-      "warehouse_code": "CZPRGA",
-      "sku_id": "922001040869",
-      "batch_no": "",
-      "stock_quality": "G",
-      "available_stock": "48",
+      "available_stock": "83",
       "pending_stock": "4",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
       "customer_code": "14940063",
+      "sku_code": "21311",
+      "warehouse_code": "CZPRGA",
+      "sku_id": "922001040869",
+      "batch_no": "",
+      "stock_quality": "E",
+      "available_stock": "0",
+      "pending_stock": "0",
+      "onway_stock": "0",
+      "freeze_stock": "0"
+    },
+    {
+      "customer_code": "14940063",
+      "sku_code": "21311",
+      "warehouse_code": "CZPRGA",
+      "sku_id": "922001040869",
+      "batch_no": "",
+      "stock_quality": "G",
+      "available_stock": "40",
+      "pending_stock": "2",
+      "onway_stock": "0",
+      "freeze_stock": "0"
+    },
+    {
+      "customer_code": "14940063",
       "sku_code": "20107",
       "warehouse_code": "CZPRGA",
       "sku_id": "922001040871",
@@ -872,8 +872,8 @@
       "sku_id": "922001040871",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "426",
-      "pending_stock": "8",
+      "available_stock": "377",
+      "pending_stock": "6",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -884,8 +884,8 @@
       "sku_id": "922001040873",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "171",
-      "pending_stock": "9",
+      "available_stock": "145",
+      "pending_stock": "6",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -896,8 +896,8 @@
       "sku_id": "922001040875",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "137",
-      "pending_stock": "8",
+      "available_stock": "115",
+      "pending_stock": "6",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -908,8 +908,8 @@
       "sku_id": "922001040877",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "639",
-      "pending_stock": "49",
+      "available_stock": "499",
+      "pending_stock": "17",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -920,8 +920,8 @@
       "sku_id": "922001040879",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "735",
-      "pending_stock": "27",
+      "available_stock": "635",
+      "pending_stock": "20",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -932,8 +932,8 @@
       "sku_id": "922001040881",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "247",
-      "pending_stock": "19",
+      "available_stock": "166",
+      "pending_stock": "11",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -968,8 +968,8 @@
       "sku_id": "922001040885",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "845",
-      "pending_stock": "51",
+      "available_stock": "626",
+      "pending_stock": "41",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -980,9 +980,9 @@
       "sku_id": "922001040887",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "376",
-      "pending_stock": "0",
-      "onway_stock": "1",
+      "available_stock": "349",
+      "pending_stock": "9",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1040,8 +1040,8 @@
       "sku_id": "922001040893",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "104",
-      "pending_stock": "3",
+      "available_stock": "80",
+      "pending_stock": "6",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1052,8 +1052,8 @@
       "sku_id": "922001040895",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "137",
-      "pending_stock": "8",
+      "available_stock": "108",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1076,9 +1076,9 @@
       "sku_id": "922001040901",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "366",
-      "pending_stock": "0",
-      "onway_stock": "3",
+      "available_stock": "361",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1112,8 +1112,8 @@
       "sku_id": "922001040905",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "97",
-      "pending_stock": "2",
+      "available_stock": "93",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1148,7 +1148,7 @@
       "sku_id": "922001040909",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "264",
+      "available_stock": "260",
       "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -1184,9 +1184,9 @@
       "sku_id": "922001040913",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "562",
-      "pending_stock": "1",
-      "onway_stock": "1",
+      "available_stock": "543",
+      "pending_stock": "4",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1196,9 +1196,9 @@
       "sku_id": "922001040915",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "350",
-      "pending_stock": "3",
-      "onway_stock": "1",
+      "available_stock": "330",
+      "pending_stock": "4",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1208,7 +1208,7 @@
       "sku_id": "922001040917",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "419",
+      "available_stock": "404",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -1220,8 +1220,8 @@
       "sku_id": "922001040919",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "331",
-      "pending_stock": "1",
+      "available_stock": "328",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1244,9 +1244,9 @@
       "sku_id": "922001040921",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2681",
-      "pending_stock": "18",
-      "onway_stock": "5",
+      "available_stock": "2630",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1268,9 +1268,9 @@
       "sku_id": "922001040925",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "45",
-      "pending_stock": "3",
-      "onway_stock": "1",
+      "available_stock": "21",
+      "pending_stock": "4",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1280,9 +1280,9 @@
       "sku_id": "922001040927",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "91",
-      "pending_stock": "4",
-      "onway_stock": "1",
+      "available_stock": "67",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1292,9 +1292,9 @@
       "sku_id": "922001040929",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "192",
-      "pending_stock": "0",
-      "onway_stock": "1",
+      "available_stock": "172",
+      "pending_stock": "3",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1304,8 +1304,8 @@
       "sku_id": "922001040931",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "16",
-      "pending_stock": "1",
+      "available_stock": "8",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1316,56 +1316,56 @@
       "sku_id": "922001040933",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "44",
+      "available_stock": "34",
+      "pending_stock": "2",
+      "onway_stock": "0",
+      "freeze_stock": "0"
+    },
+    {
+      "customer_code": "14940063",
+      "sku_code": "11307",
+      "warehouse_code": "CZPRGA",
+      "sku_id": "922001040935",
+      "batch_no": "",
+      "stock_quality": "E",
+      "available_stock": "0",
+      "pending_stock": "0",
+      "onway_stock": "0",
+      "freeze_stock": "0"
+    },
+    {
+      "customer_code": "14940063",
+      "sku_code": "11307",
+      "warehouse_code": "CZPRGA",
+      "sku_id": "922001040935",
+      "batch_no": "",
+      "stock_quality": "G",
+      "available_stock": "316",
+      "pending_stock": "2",
+      "onway_stock": "0",
+      "freeze_stock": "0"
+    },
+    {
+      "customer_code": "14940063",
+      "sku_code": "12114",
+      "warehouse_code": "CZPRGA",
+      "sku_id": "922001040937",
+      "batch_no": "",
+      "stock_quality": "E",
+      "available_stock": "0",
+      "pending_stock": "0",
+      "onway_stock": "0",
+      "freeze_stock": "0"
+    },
+    {
+      "customer_code": "14940063",
+      "sku_code": "12114",
+      "warehouse_code": "CZPRGA",
+      "sku_id": "922001040937",
+      "batch_no": "",
+      "stock_quality": "G",
+      "available_stock": "392",
       "pending_stock": "1",
-      "onway_stock": "0",
-      "freeze_stock": "0"
-    },
-    {
-      "customer_code": "14940063",
-      "sku_code": "11307",
-      "warehouse_code": "CZPRGA",
-      "sku_id": "922001040935",
-      "batch_no": "",
-      "stock_quality": "E",
-      "available_stock": "0",
-      "pending_stock": "0",
-      "onway_stock": "0",
-      "freeze_stock": "0"
-    },
-    {
-      "customer_code": "14940063",
-      "sku_code": "11307",
-      "warehouse_code": "CZPRGA",
-      "sku_id": "922001040935",
-      "batch_no": "",
-      "stock_quality": "G",
-      "available_stock": "326",
-      "pending_stock": "10",
-      "onway_stock": "1",
-      "freeze_stock": "0"
-    },
-    {
-      "customer_code": "14940063",
-      "sku_code": "12114",
-      "warehouse_code": "CZPRGA",
-      "sku_id": "922001040937",
-      "batch_no": "",
-      "stock_quality": "E",
-      "available_stock": "0",
-      "pending_stock": "0",
-      "onway_stock": "0",
-      "freeze_stock": "0"
-    },
-    {
-      "customer_code": "14940063",
-      "sku_code": "12114",
-      "warehouse_code": "CZPRGA",
-      "sku_id": "922001040937",
-      "batch_no": "",
-      "stock_quality": "G",
-      "available_stock": "419",
-      "pending_stock": "6",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1376,8 +1376,8 @@
       "sku_id": "922001040939",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "922",
-      "pending_stock": "6",
+      "available_stock": "891",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1388,8 +1388,8 @@
       "sku_id": "922001040941",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "299",
-      "pending_stock": "15",
+      "available_stock": "245",
+      "pending_stock": "6",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1400,7 +1400,7 @@
       "sku_id": "922001040943",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "440",
+      "available_stock": "439",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -1412,8 +1412,8 @@
       "sku_id": "922001040945",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "270",
-      "pending_stock": "17",
+      "available_stock": "202",
+      "pending_stock": "11",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1436,8 +1436,8 @@
       "sku_id": "922001040947",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "172",
-      "pending_stock": "4",
+      "available_stock": "143",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1460,8 +1460,8 @@
       "sku_id": "922001040949",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "78",
-      "pending_stock": "4",
+      "available_stock": "39",
+      "pending_stock": "5",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1496,9 +1496,9 @@
       "sku_id": "922001040953",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "392",
-      "pending_stock": "5",
-      "onway_stock": "17",
+      "available_stock": "355",
+      "pending_stock": "3",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1520,8 +1520,8 @@
       "sku_id": "922001040957",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "383",
-      "pending_stock": "15",
+      "available_stock": "302",
+      "pending_stock": "7",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1532,8 +1532,8 @@
       "sku_id": "922001040959",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "317",
-      "pending_stock": "3",
+      "available_stock": "296",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1544,7 +1544,7 @@
       "sku_id": "922001040961",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "397",
+      "available_stock": "382",
       "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -1556,7 +1556,7 @@
       "sku_id": "922001040963",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "404",
+      "available_stock": "402",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -1568,8 +1568,8 @@
       "sku_id": "922001040965",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "229",
-      "pending_stock": "0",
+      "available_stock": "219",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1582,7 +1582,7 @@
       "stock_quality": "G",
       "available_stock": "207",
       "pending_stock": "0",
-      "onway_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1604,9 +1604,9 @@
       "sku_id": "922001040975",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "64",
-      "pending_stock": "5",
-      "onway_stock": "5",
+      "available_stock": "42",
+      "pending_stock": "3",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1616,9 +1616,9 @@
       "sku_id": "922001040977",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "706",
-      "pending_stock": "5",
-      "onway_stock": "4",
+      "available_stock": "685",
+      "pending_stock": "6",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1700,9 +1700,9 @@
       "sku_id": "922001040994",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "86",
-      "pending_stock": "3",
-      "onway_stock": "9",
+      "available_stock": "61",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1724,8 +1724,8 @@
       "sku_id": "922001040996",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "85",
-      "pending_stock": "4",
+      "available_stock": "52",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1736,8 +1736,8 @@
       "sku_id": "922001040998",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "137",
-      "pending_stock": "14",
+      "available_stock": "102",
+      "pending_stock": "5",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1748,8 +1748,8 @@
       "sku_id": "922001041000",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "73",
-      "pending_stock": "4",
+      "available_stock": "52",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1760,33 +1760,33 @@
       "sku_id": "922001041002",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1922",
-      "pending_stock": "4",
-      "onway_stock": "0",
-      "freeze_stock": "0"
-    },
-    {
-      "customer_code": "14940063",
-      "sku_code": "41320",
-      "warehouse_code": "CZPRGA",
-      "sku_id": "922001041004",
-      "batch_no": "",
-      "stock_quality": "E",
-      "available_stock": "0",
-      "pending_stock": "0",
-      "onway_stock": "0",
-      "freeze_stock": "0"
-    },
-    {
-      "customer_code": "14940063",
-      "sku_code": "41320",
-      "warehouse_code": "CZPRGA",
-      "sku_id": "922001041004",
-      "batch_no": "",
-      "stock_quality": "G",
-      "available_stock": "4442",
+      "available_stock": "1895",
       "pending_stock": "6",
-      "onway_stock": "9",
+      "onway_stock": "0",
+      "freeze_stock": "0"
+    },
+    {
+      "customer_code": "14940063",
+      "sku_code": "41320",
+      "warehouse_code": "CZPRGA",
+      "sku_id": "922001041004",
+      "batch_no": "",
+      "stock_quality": "E",
+      "available_stock": "0",
+      "pending_stock": "0",
+      "onway_stock": "0",
+      "freeze_stock": "0"
+    },
+    {
+      "customer_code": "14940063",
+      "sku_code": "41320",
+      "warehouse_code": "CZPRGA",
+      "sku_id": "922001041004",
+      "batch_no": "",
+      "stock_quality": "G",
+      "available_stock": "4340",
+      "pending_stock": "6",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1808,33 +1808,33 @@
       "sku_id": "922001041006",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1030",
+      "available_stock": "1017",
+      "pending_stock": "0",
+      "onway_stock": "0",
+      "freeze_stock": "0"
+    },
+    {
+      "customer_code": "14940063",
+      "sku_code": "50111",
+      "warehouse_code": "CZPRGA",
+      "sku_id": "922001041008",
+      "batch_no": "",
+      "stock_quality": "E",
+      "available_stock": "0",
+      "pending_stock": "0",
+      "onway_stock": "0",
+      "freeze_stock": "0"
+    },
+    {
+      "customer_code": "14940063",
+      "sku_code": "50111",
+      "warehouse_code": "CZPRGA",
+      "sku_id": "922001041008",
+      "batch_no": "",
+      "stock_quality": "G",
+      "available_stock": "798",
       "pending_stock": "1",
-      "onway_stock": "2",
-      "freeze_stock": "0"
-    },
-    {
-      "customer_code": "14940063",
-      "sku_code": "50111",
-      "warehouse_code": "CZPRGA",
-      "sku_id": "922001041008",
-      "batch_no": "",
-      "stock_quality": "E",
-      "available_stock": "0",
-      "pending_stock": "0",
       "onway_stock": "0",
-      "freeze_stock": "0"
-    },
-    {
-      "customer_code": "14940063",
-      "sku_code": "50111",
-      "warehouse_code": "CZPRGA",
-      "sku_id": "922001041008",
-      "batch_no": "",
-      "stock_quality": "G",
-      "available_stock": "804",
-      "pending_stock": "6",
-      "onway_stock": "2",
       "freeze_stock": "0"
     },
     {
@@ -1856,7 +1856,7 @@
       "sku_id": "922001041012",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "315",
+      "available_stock": "309",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -1880,9 +1880,9 @@
       "sku_id": "922001041016",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "389",
-      "pending_stock": "16",
-      "onway_stock": "3",
+      "available_stock": "341",
+      "pending_stock": "8",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1892,8 +1892,8 @@
       "sku_id": "922001041018",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "366",
-      "pending_stock": "13",
+      "available_stock": "311",
+      "pending_stock": "5",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -1928,9 +1928,9 @@
       "sku_id": "922001041023",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "323",
-      "pending_stock": "9",
-      "onway_stock": "5",
+      "available_stock": "307",
+      "pending_stock": "0",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1952,9 +1952,9 @@
       "sku_id": "922001041025",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "388",
-      "pending_stock": "4",
-      "onway_stock": "2",
+      "available_stock": "387",
+      "pending_stock": "0",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -1988,9 +1988,9 @@
       "sku_id": "922001041031",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "417",
-      "pending_stock": "6",
-      "onway_stock": "9",
+      "available_stock": "353",
+      "pending_stock": "9",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2000,8 +2000,8 @@
       "sku_id": "922001041033",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "244",
-      "pending_stock": "0",
+      "available_stock": "240",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -2012,9 +2012,9 @@
       "sku_id": "922001041035",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "307",
-      "pending_stock": "1",
-      "onway_stock": "4",
+      "available_stock": "300",
+      "pending_stock": "0",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2024,9 +2024,9 @@
       "sku_id": "922001041037",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "151",
-      "pending_stock": "3",
-      "onway_stock": "4",
+      "available_stock": "141",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2048,7 +2048,7 @@
       "sku_id": "922001041039",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "674",
+      "available_stock": "673",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -2072,9 +2072,9 @@
       "sku_id": "922001041043",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "396",
+      "available_stock": "378",
       "pending_stock": "3",
-      "onway_stock": "5",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2096,9 +2096,9 @@
       "sku_id": "922001041047",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "313",
-      "pending_stock": "0",
-      "onway_stock": "3",
+      "available_stock": "311",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2108,8 +2108,8 @@
       "sku_id": "922001041049",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "120",
-      "pending_stock": "2",
+      "available_stock": "119",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -2120,9 +2120,9 @@
       "sku_id": "922001041051",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1599",
-      "pending_stock": "5",
-      "onway_stock": "4",
+      "available_stock": "1596",
+      "pending_stock": "0",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2132,9 +2132,9 @@
       "sku_id": "922001041053",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "20",
-      "pending_stock": "11",
-      "onway_stock": "8",
+      "available_stock": "4",
+      "pending_stock": "0",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2144,8 +2144,8 @@
       "sku_id": "922001041055",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2142",
-      "pending_stock": "9",
+      "available_stock": "2103",
+      "pending_stock": "12",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -2156,9 +2156,9 @@
       "sku_id": "922001041057",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "392",
-      "pending_stock": "5",
-      "onway_stock": "16",
+      "available_stock": "347",
+      "pending_stock": "7",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2180,9 +2180,9 @@
       "sku_id": "922001041063",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "214",
+      "available_stock": "187",
       "pending_stock": "2",
-      "onway_stock": "11",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2240,9 +2240,9 @@
       "sku_id": "922001041071",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "256",
-      "pending_stock": "8",
-      "onway_stock": "6",
+      "available_stock": "218",
+      "pending_stock": "9",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2264,9 +2264,9 @@
       "sku_id": "922001041073",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "277",
-      "pending_stock": "12",
-      "onway_stock": "2",
+      "available_stock": "207",
+      "pending_stock": "9",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2288,8 +2288,8 @@
       "sku_id": "922001041077",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "222",
-      "pending_stock": "3",
+      "available_stock": "209",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -2312,8 +2312,8 @@
       "sku_id": "922001041081",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "793",
-      "pending_stock": "8",
+      "available_stock": "756",
+      "pending_stock": "6",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -2324,7 +2324,7 @@
       "sku_id": "922001041083",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "84",
+      "available_stock": "80",
       "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -2336,7 +2336,7 @@
       "sku_id": "922001041085",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "377",
+      "available_stock": "375",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -2396,7 +2396,7 @@
       "sku_id": "922001041097",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "497",
+      "available_stock": "496",
       "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -2408,7 +2408,7 @@
       "sku_id": "922001041099",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "341",
+      "available_stock": "339",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -2422,7 +2422,7 @@
       "stock_quality": "G",
       "available_stock": "279",
       "pending_stock": "0",
-      "onway_stock": "3",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2480,9 +2480,9 @@
       "sku_id": "922001041109",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "513",
-      "pending_stock": "2",
-      "onway_stock": "6",
+      "available_stock": "460",
+      "pending_stock": "19",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2528,7 +2528,7 @@
       "sku_id": "922001041115",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "45",
+      "available_stock": "40",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -2564,8 +2564,8 @@
       "sku_id": "922001041129",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "432",
-      "pending_stock": "54",
+      "available_stock": "157",
+      "pending_stock": "58",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -2588,8 +2588,8 @@
       "sku_id": "922001041131",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "558",
-      "pending_stock": "47",
+      "available_stock": "311",
+      "pending_stock": "24",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -2648,9 +2648,9 @@
       "sku_id": "922001041141",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "174",
-      "pending_stock": "0",
-      "onway_stock": "4",
+      "available_stock": "169",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2660,8 +2660,8 @@
       "sku_id": "922001041143",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "684",
-      "pending_stock": "80",
+      "available_stock": "325",
+      "pending_stock": "52",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -2672,8 +2672,8 @@
       "sku_id": "922001041145",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "496",
-      "pending_stock": "35",
+      "available_stock": "318",
+      "pending_stock": "40",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -2732,7 +2732,7 @@
       "sku_id": "922001041153",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "350",
+      "available_stock": "344",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -2780,9 +2780,9 @@
       "sku_id": "922001041159",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "899",
+      "available_stock": "887",
       "pending_stock": "1",
-      "onway_stock": "5",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2792,9 +2792,9 @@
       "sku_id": "922001041161",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "774",
-      "pending_stock": "7",
-      "onway_stock": "1",
+      "available_stock": "763",
+      "pending_stock": "6",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2828,9 +2828,9 @@
       "sku_id": "922001041165",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "4",
+      "available_stock": "1",
       "pending_stock": "0",
-      "onway_stock": "4",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -2840,8 +2840,8 @@
       "sku_id": "922001041167",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "597",
-      "pending_stock": "34",
+      "available_stock": "448",
+      "pending_stock": "26",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -2888,7 +2888,7 @@
       "sku_id": "922001041180",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "22",
+      "available_stock": "20",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -2912,7 +2912,7 @@
       "sku_id": "922001041182",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "453",
+      "available_stock": "405",
       "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -2924,8 +2924,8 @@
       "sku_id": "922001041186",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "557",
-      "pending_stock": "0",
+      "available_stock": "547",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -2936,8 +2936,8 @@
       "sku_id": "922001041188",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "500",
-      "pending_stock": "10",
+      "available_stock": "467",
+      "pending_stock": "9",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -2984,8 +2984,8 @@
       "sku_id": "922001041194",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "310",
-      "pending_stock": "3",
+      "available_stock": "296",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -2996,8 +2996,8 @@
       "sku_id": "922001041196",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "658",
-      "pending_stock": "12",
+      "available_stock": "586",
+      "pending_stock": "11",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -3008,9 +3008,9 @@
       "sku_id": "922001041198",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "420",
-      "pending_stock": "1",
-      "onway_stock": "1",
+      "available_stock": "418",
+      "pending_stock": "0",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3032,9 +3032,9 @@
       "sku_id": "922001041200",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "6400",
-      "pending_stock": "8",
-      "onway_stock": "1",
+      "available_stock": "6372",
+      "pending_stock": "9",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3056,9 +3056,9 @@
       "sku_id": "922001041204",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "186",
-      "pending_stock": "4",
-      "onway_stock": "8",
+      "available_stock": "175",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3104,9 +3104,9 @@
       "sku_id": "922001041212",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "423",
-      "pending_stock": "0",
-      "onway_stock": "4",
+      "available_stock": "415",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3140,8 +3140,8 @@
       "sku_id": "922001041219",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "257",
-      "pending_stock": "4",
+      "available_stock": "247",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -3164,7 +3164,7 @@
       "sku_id": "922001041227",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "3302",
+      "available_stock": "3275",
       "pending_stock": "5",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -3224,9 +3224,9 @@
       "sku_id": "922001041237",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "58",
-      "pending_stock": "3",
-      "onway_stock": "5",
+      "available_stock": "50",
+      "pending_stock": "0",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3248,8 +3248,8 @@
       "sku_id": "922001041240",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "910",
-      "pending_stock": "0",
+      "available_stock": "854",
+      "pending_stock": "30",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -3260,8 +3260,8 @@
       "sku_id": "922001041242",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "516",
-      "pending_stock": "1",
+      "available_stock": "497",
+      "pending_stock": "8",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -3284,7 +3284,7 @@
       "sku_id": "922001041246",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1",
+      "available_stock": "0",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -3344,9 +3344,9 @@
       "sku_id": "922001041260",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "90",
-      "pending_stock": "4",
-      "onway_stock": "8",
+      "available_stock": "60",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3404,7 +3404,7 @@
       "sku_id": "922001041272",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "154",
+      "available_stock": "140",
       "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -3500,7 +3500,7 @@
       "sku_id": "922001041288",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "5",
+      "available_stock": "3",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -3512,8 +3512,8 @@
       "sku_id": "922001041290",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "34",
-      "pending_stock": "1",
+      "available_stock": "31",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -3524,9 +3524,9 @@
       "sku_id": "922001041292",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1011",
-      "pending_stock": "0",
-      "onway_stock": "2",
+      "available_stock": "1003",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3548,9 +3548,9 @@
       "sku_id": "922001041300",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "356",
-      "pending_stock": "6",
-      "onway_stock": "2",
+      "available_stock": "341",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3560,7 +3560,7 @@
       "sku_id": "922001041302",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "161",
+      "available_stock": "134",
       "pending_stock": "5",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -3572,9 +3572,9 @@
       "sku_id": "922001041304",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1515",
-      "pending_stock": "7",
-      "onway_stock": "2",
+      "available_stock": "1499",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3596,8 +3596,8 @@
       "sku_id": "922001041308",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1139",
-      "pending_stock": "4",
+      "available_stock": "1100",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -3668,8 +3668,8 @@
       "sku_id": "922001041318",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "440",
-      "pending_stock": "4",
+      "available_stock": "425",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -3680,9 +3680,9 @@
       "sku_id": "922001041320",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "143",
-      "pending_stock": "6",
-      "onway_stock": "17",
+      "available_stock": "111",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3716,9 +3716,9 @@
       "sku_id": "922001041330",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2295",
-      "pending_stock": "0",
-      "onway_stock": "2",
+      "available_stock": "2290",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3730,7 +3730,7 @@
       "stock_quality": "G",
       "available_stock": "169",
       "pending_stock": "0",
-      "onway_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3740,8 +3740,8 @@
       "sku_id": "922001041381",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "189",
-      "pending_stock": "0",
+      "available_stock": "187",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -3788,7 +3788,7 @@
       "sku_id": "922001041387",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "309",
+      "available_stock": "303",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -3800,7 +3800,7 @@
       "sku_id": "922001041389",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "405",
+      "available_stock": "403",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -3848,9 +3848,9 @@
       "sku_id": "922001041401",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "961",
-      "pending_stock": "39",
-      "onway_stock": "10",
+      "available_stock": "943",
+      "pending_stock": "30",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3896,9 +3896,9 @@
       "sku_id": "922001041407",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "226",
-      "pending_stock": "1",
-      "onway_stock": "1",
+      "available_stock": "224",
+      "pending_stock": "0",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3920,8 +3920,8 @@
       "sku_id": "922001041409",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "9",
-      "pending_stock": "3",
+      "available_stock": "7",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -3932,9 +3932,9 @@
       "sku_id": "922001041411",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "142",
-      "pending_stock": "10",
-      "onway_stock": "14",
+      "available_stock": "121",
+      "pending_stock": "0",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3956,9 +3956,9 @@
       "sku_id": "922001041413",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "82",
+      "available_stock": "74",
       "pending_stock": "3",
-      "onway_stock": "4",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -3992,9 +3992,9 @@
       "sku_id": "922001041417",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "109",
-      "pending_stock": "4",
-      "onway_stock": "2",
+      "available_stock": "106",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -4052,8 +4052,8 @@
       "sku_id": "922001041425",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2631",
-      "pending_stock": "4",
+      "available_stock": "2627",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -4100,8 +4100,8 @@
       "sku_id": "922001041431",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "3502",
-      "pending_stock": "101",
+      "available_stock": "3034",
+      "pending_stock": "62",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -4148,7 +4148,7 @@
       "sku_id": "922001041439",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "68",
+      "available_stock": "59",
       "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -4208,8 +4208,8 @@
       "sku_id": "922001041451",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "53",
-      "pending_stock": "2",
+      "available_stock": "36",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -4244,9 +4244,9 @@
       "sku_id": "922001041455",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "96",
-      "pending_stock": "3",
-      "onway_stock": "3",
+      "available_stock": "86",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -4268,9 +4268,9 @@
       "sku_id": "922001041457",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "151",
-      "pending_stock": "0",
-      "onway_stock": "2",
+      "available_stock": "140",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -4304,7 +4304,7 @@
       "sku_id": "922001041461",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "111",
+      "available_stock": "112",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -4316,9 +4316,9 @@
       "sku_id": "922001041463",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "18",
-      "pending_stock": "5",
-      "onway_stock": "7",
+      "available_stock": "16",
+      "pending_stock": "0",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -4352,8 +4352,8 @@
       "sku_id": "922001041470",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "7",
-      "pending_stock": "7",
+      "available_stock": "4",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -4412,7 +4412,7 @@
       "sku_id": "922001041476",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "55",
+      "available_stock": "52",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -4460,8 +4460,8 @@
       "sku_id": "922001041482",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "309",
-      "pending_stock": "8",
+      "available_stock": "252",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -4510,7 +4510,7 @@
       "stock_quality": "G",
       "available_stock": "65",
       "pending_stock": "0",
-      "onway_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -4520,9 +4520,9 @@
       "sku_id": "922001041488",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "177",
-      "pending_stock": "1",
-      "onway_stock": "3",
+      "available_stock": "173",
+      "pending_stock": "0",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -4604,8 +4604,8 @@
       "sku_id": "922001041500",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "887",
-      "pending_stock": "29",
+      "available_stock": "765",
+      "pending_stock": "13",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -4724,9 +4724,9 @@
       "sku_id": "922001041514",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "137",
-      "pending_stock": "6",
-      "onway_stock": "2",
+      "available_stock": "114",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -4820,7 +4820,7 @@
       "sku_id": "922001041526",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "328",
+      "available_stock": "327",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -4856,8 +4856,8 @@
       "sku_id": "922001041534",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2225",
-      "pending_stock": "198",
+      "available_stock": "1318",
+      "pending_stock": "116",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -4880,9 +4880,9 @@
       "sku_id": "922001041538",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "820",
-      "pending_stock": "1",
-      "onway_stock": "1",
+      "available_stock": "813",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -4892,9 +4892,9 @@
       "sku_id": "922001041540",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "366",
+      "available_stock": "360",
       "pending_stock": "0",
-      "onway_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -4904,9 +4904,9 @@
       "sku_id": "922001041572",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "72",
+      "available_stock": "58",
       "pending_stock": "1",
-      "onway_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -4916,8 +4916,8 @@
       "sku_id": "922001041575",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "48",
-      "pending_stock": "4",
+      "available_stock": "31",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -4928,9 +4928,9 @@
       "sku_id": "922001041577",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "5",
-      "pending_stock": "4",
-      "onway_stock": "2",
+      "available_stock": "3",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -4952,8 +4952,8 @@
       "sku_id": "922001041579",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "699",
-      "pending_stock": "3",
+      "available_stock": "691",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -4976,9 +4976,9 @@
       "sku_id": "922001041583",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1939",
-      "pending_stock": "0",
-      "onway_stock": "12",
+      "available_stock": "1908",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -4988,9 +4988,9 @@
       "sku_id": "922001041585",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1448",
-      "pending_stock": "24",
-      "onway_stock": "9",
+      "available_stock": "1303",
+      "pending_stock": "20",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -5012,9 +5012,9 @@
       "sku_id": "922001041589",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "92",
+      "available_stock": "58",
       "pending_stock": "5",
-      "onway_stock": "6",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -5072,7 +5072,7 @@
       "sku_id": "922001041599",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "15",
+      "available_stock": "11",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -5312,9 +5312,9 @@
       "sku_id": "922001041635",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "286",
-      "pending_stock": "1",
-      "onway_stock": "6",
+      "available_stock": "272",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -5360,7 +5360,7 @@
       "sku_id": "922001041643",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "45",
+      "available_stock": "41",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -5696,8 +5696,8 @@
       "sku_id": "922001041697",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "25",
-      "pending_stock": "2",
+      "available_stock": "23",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -5708,7 +5708,7 @@
       "sku_id": "922001041699",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "103",
+      "available_stock": "101",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -5756,8 +5756,8 @@
       "sku_id": "922001041715",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "72",
-      "pending_stock": "0",
+      "available_stock": "69",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -5948,7 +5948,7 @@
       "sku_id": "922001041747",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "127",
+      "available_stock": "125",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -5960,8 +5960,8 @@
       "sku_id": "922001041749",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "129",
-      "pending_stock": "0",
+      "available_stock": "126",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -5972,7 +5972,7 @@
       "sku_id": "922001041751",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "121",
+      "available_stock": "118",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -5984,8 +5984,8 @@
       "sku_id": "922001041753",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "28",
-      "pending_stock": "0",
+      "available_stock": "23",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -5996,8 +5996,8 @@
       "sku_id": "922001041755",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "470",
-      "pending_stock": "2",
+      "available_stock": "469",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6008,8 +6008,8 @@
       "sku_id": "922001041757",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "117",
-      "pending_stock": "1",
+      "available_stock": "110",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6020,7 +6020,7 @@
       "sku_id": "922001041759",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "215",
+      "available_stock": "213",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -6080,8 +6080,8 @@
       "sku_id": "922001041779",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "418",
-      "pending_stock": "2",
+      "available_stock": "404",
+      "pending_stock": "4",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6092,8 +6092,8 @@
       "sku_id": "922001041781",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "192",
-      "pending_stock": "2",
+      "available_stock": "177",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6116,8 +6116,8 @@
       "sku_id": "922001041783",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "85",
-      "pending_stock": "1",
+      "available_stock": "78",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6140,7 +6140,7 @@
       "sku_id": "922001041787",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "203",
+      "available_stock": "200",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -6152,8 +6152,8 @@
       "sku_id": "922001041789",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "187",
-      "pending_stock": "0",
+      "available_stock": "175",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6200,8 +6200,8 @@
       "sku_id": "922001041839",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "712",
-      "pending_stock": "6",
+      "available_stock": "668",
+      "pending_stock": "5",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6212,7 +6212,7 @@
       "sku_id": "922001041841",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1597",
+      "available_stock": "1596",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -6260,8 +6260,8 @@
       "sku_id": "922001041904",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "56",
-      "pending_stock": "3",
+      "available_stock": "51",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6296,8 +6296,8 @@
       "sku_id": "922001041965",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "567",
-      "pending_stock": "24",
+      "available_stock": "503",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6332,9 +6332,9 @@
       "sku_id": "922001041969",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "283",
-      "pending_stock": "2",
-      "onway_stock": "5",
+      "available_stock": "277",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -6356,8 +6356,8 @@
       "sku_id": "922001042108",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1664",
-      "pending_stock": "2",
+      "available_stock": "1661",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6440,8 +6440,8 @@
       "sku_id": "922001060951",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "755",
-      "pending_stock": "6",
+      "available_stock": "733",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6452,8 +6452,8 @@
       "sku_id": "922001060953",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "170",
-      "pending_stock": "10",
+      "available_stock": "152",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6464,7 +6464,7 @@
       "sku_id": "922001060955",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "176",
+      "available_stock": "150",
       "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -6476,8 +6476,8 @@
       "sku_id": "922001060957",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "180",
-      "pending_stock": "0",
+      "available_stock": "168",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6512,7 +6512,7 @@
       "sku_id": "922001060963",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "195",
+      "available_stock": "194",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -6524,8 +6524,8 @@
       "sku_id": "922001060965",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2712",
-      "pending_stock": "3",
+      "available_stock": "2704",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6536,9 +6536,9 @@
       "sku_id": "922001079892",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "167",
-      "pending_stock": "9",
-      "onway_stock": "10",
+      "available_stock": "158",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -6560,9 +6560,9 @@
       "sku_id": "922001079913",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "349",
+      "available_stock": "342",
       "pending_stock": "0",
-      "onway_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -6572,9 +6572,9 @@
       "sku_id": "922001099465",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "525",
-      "pending_stock": "11",
-      "onway_stock": "12",
+      "available_stock": "473",
+      "pending_stock": "14",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -6584,9 +6584,9 @@
       "sku_id": "922001099467",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1070",
-      "pending_stock": "21",
-      "onway_stock": "8",
+      "available_stock": "1006",
+      "pending_stock": "11",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -6752,9 +6752,9 @@
       "sku_id": "922001155974",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "406",
-      "pending_stock": "13",
-      "onway_stock": "1",
+      "available_stock": "342",
+      "pending_stock": "12",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -6764,9 +6764,9 @@
       "sku_id": "922001156143",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "651",
-      "pending_stock": "21",
-      "onway_stock": "8",
+      "available_stock": "581",
+      "pending_stock": "6",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -6944,8 +6944,8 @@
       "sku_id": "922001236591",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "101",
-      "pending_stock": "2",
+      "available_stock": "85",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -6980,8 +6980,8 @@
       "sku_id": "922001244432",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "7567",
-      "pending_stock": "8",
+      "available_stock": "7337",
+      "pending_stock": "40",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7004,7 +7004,7 @@
       "sku_id": "922001247918",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "490",
+      "available_stock": "464",
       "pending_stock": "5",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -7040,9 +7040,9 @@
       "sku_id": "922001257407",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2098",
-      "pending_stock": "4",
-      "onway_stock": "3",
+      "available_stock": "2090",
+      "pending_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -7148,8 +7148,8 @@
       "sku_id": "922001302795",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "990",
-      "pending_stock": "16",
+      "available_stock": "961",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7160,8 +7160,8 @@
       "sku_id": "922001302797",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "222",
-      "pending_stock": "3",
+      "available_stock": "216",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7280,8 +7280,8 @@
       "sku_id": "922001331743",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "3330",
-      "pending_stock": "21",
+      "available_stock": "3127",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7304,8 +7304,8 @@
       "sku_id": "922001331745",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "4270",
-      "pending_stock": "5",
+      "available_stock": "4183",
+      "pending_stock": "7",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7316,7 +7316,7 @@
       "sku_id": "922001331790",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "10",
+      "available_stock": "2",
       "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -7328,7 +7328,7 @@
       "sku_id": "922001333593",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "873",
+      "available_stock": "672",
       "pending_stock": "31",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -7472,8 +7472,8 @@
       "sku_id": "922001390147",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1619",
-      "pending_stock": "5",
+      "available_stock": "1614",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7568,8 +7568,8 @@
       "sku_id": "922001402467",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "20890",
-      "pending_stock": "5",
+      "available_stock": "20875",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7580,9 +7580,9 @@
       "sku_id": "922001402501",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "205",
+      "available_stock": "200",
       "pending_stock": "1",
-      "onway_stock": "18",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -7604,7 +7604,7 @@
       "sku_id": "922001402515",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "96",
+      "available_stock": "89",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -7616,8 +7616,8 @@
       "sku_id": "922001402517",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "54",
-      "pending_stock": "7",
+      "available_stock": "40",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7628,8 +7628,8 @@
       "sku_id": "922001402519",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "169",
-      "pending_stock": "2",
+      "available_stock": "161",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7640,7 +7640,7 @@
       "sku_id": "922001402521",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "694",
+      "available_stock": "690",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -7652,9 +7652,9 @@
       "sku_id": "922001402523",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "3020",
-      "pending_stock": "3",
-      "onway_stock": "2",
+      "available_stock": "3000",
+      "pending_stock": "2",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -7676,9 +7676,9 @@
       "sku_id": "922001402554",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "178",
+      "available_stock": "173",
       "pending_stock": "0",
-      "onway_stock": "3",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -7700,8 +7700,8 @@
       "sku_id": "922001402617",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2492",
-      "pending_stock": "14",
+      "available_stock": "2388",
+      "pending_stock": "19",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7712,8 +7712,8 @@
       "sku_id": "922001402630",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "118",
-      "pending_stock": "1",
+      "available_stock": "107",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7724,8 +7724,8 @@
       "sku_id": "922001402632",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "94",
-      "pending_stock": "6",
+      "available_stock": "74",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7736,8 +7736,8 @@
       "sku_id": "922001403601",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "30929",
-      "pending_stock": "4",
+      "available_stock": "30926",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7748,7 +7748,7 @@
       "sku_id": "922001403987",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "119",
+      "available_stock": "99",
       "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -7760,8 +7760,8 @@
       "sku_id": "922001403990",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "853",
-      "pending_stock": "4",
+      "available_stock": "851",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7784,8 +7784,8 @@
       "sku_id": "922001423291",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "495",
-      "pending_stock": "4",
+      "available_stock": "470",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7796,8 +7796,8 @@
       "sku_id": "922001423320",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "142",
-      "pending_stock": "2",
+      "available_stock": "127",
+      "pending_stock": "6",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7820,7 +7820,7 @@
       "sku_id": "922001431504",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "983",
+      "available_stock": "980",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -7856,8 +7856,8 @@
       "sku_id": "922001433029",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1888",
-      "pending_stock": "28",
+      "available_stock": "1688",
+      "pending_stock": "36",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7868,8 +7868,8 @@
       "sku_id": "922001433031",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1812",
-      "pending_stock": "27",
+      "available_stock": "1552",
+      "pending_stock": "44",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7880,8 +7880,8 @@
       "sku_id": "922001433033",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "171",
-      "pending_stock": "6",
+      "available_stock": "135",
+      "pending_stock": "8",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7892,8 +7892,8 @@
       "sku_id": "922001433035",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "241",
-      "pending_stock": "5",
+      "available_stock": "219",
+      "pending_stock": "12",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7904,8 +7904,8 @@
       "sku_id": "922001433037",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2635",
-      "pending_stock": "29",
+      "available_stock": "2580",
+      "pending_stock": "6",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7916,8 +7916,8 @@
       "sku_id": "922001433039",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "333",
-      "pending_stock": "2",
+      "available_stock": "321",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -7928,7 +7928,7 @@
       "sku_id": "922001433041",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "317",
+      "available_stock": "316",
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -7988,8 +7988,8 @@
       "sku_id": "922001439603",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "156",
-      "pending_stock": "50",
+      "available_stock": "23",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8012,8 +8012,8 @@
       "sku_id": "922001455972",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2175",
-      "pending_stock": "4",
+      "available_stock": "2173",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8096,8 +8096,8 @@
       "sku_id": "922001509109",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "5269",
-      "pending_stock": "1",
+      "available_stock": "5268",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8108,8 +8108,8 @@
       "sku_id": "922001509111",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "9470",
-      "pending_stock": "10",
+      "available_stock": "9414",
+      "pending_stock": "15",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8120,8 +8120,8 @@
       "sku_id": "922001509113",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "6941",
-      "pending_stock": "21",
+      "available_stock": "6864",
+      "pending_stock": "16",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8144,8 +8144,8 @@
       "sku_id": "922001515303",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1021",
-      "pending_stock": "2",
+      "available_stock": "1007",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8156,8 +8156,8 @@
       "sku_id": "922001515307",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1027",
-      "pending_stock": "4",
+      "available_stock": "998",
+      "pending_stock": "5",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8228,8 +8228,8 @@
       "sku_id": "922001547306",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "280",
-      "pending_stock": "1",
+      "available_stock": "268",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8276,8 +8276,8 @@
       "sku_id": "922001591180",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "382",
-      "pending_stock": "2",
+      "available_stock": "370",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8288,8 +8288,8 @@
       "sku_id": "922001591182",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "341",
-      "pending_stock": "30",
+      "available_stock": "232",
+      "pending_stock": "17",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8324,9 +8324,9 @@
       "sku_id": "922001591193",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1",
+      "available_stock": "811",
       "pending_stock": "0",
-      "onway_stock": "819",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -8336,9 +8336,9 @@
       "sku_id": "922001591195",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "51",
+      "available_stock": "569",
       "pending_stock": "0",
-      "onway_stock": "518",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -8360,8 +8360,8 @@
       "sku_id": "922001635674",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "678",
-      "pending_stock": "7",
+      "available_stock": "659",
+      "pending_stock": "6",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8432,8 +8432,8 @@
       "sku_id": "922001696079",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "516",
-      "pending_stock": "1",
+      "available_stock": "509",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8444,9 +8444,9 @@
       "sku_id": "922001696081",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "167",
+      "available_stock": "159",
       "pending_stock": "0",
-      "onway_stock": "1",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -8468,8 +8468,8 @@
       "sku_id": "922001733501",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1957",
-      "pending_stock": "72",
+      "available_stock": "1676",
+      "pending_stock": "40",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8480,8 +8480,8 @@
       "sku_id": "922001755239",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1433",
-      "pending_stock": "2",
+      "available_stock": "1432",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8504,8 +8504,8 @@
       "sku_id": "922001841713",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "861",
-      "pending_stock": "20",
+      "available_stock": "741",
+      "pending_stock": "28",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8516,8 +8516,8 @@
       "sku_id": "922001841715",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "443",
-      "pending_stock": "8",
+      "available_stock": "401",
+      "pending_stock": "10",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8528,8 +8528,8 @@
       "sku_id": "922001841717",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "642",
-      "pending_stock": "9",
+      "available_stock": "606",
+      "pending_stock": "7",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8552,8 +8552,8 @@
       "sku_id": "922001844334",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "187",
-      "pending_stock": "2",
+      "available_stock": "184",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8564,8 +8564,8 @@
       "sku_id": "922001895393",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "325",
-      "pending_stock": "2",
+      "available_stock": "320",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8601,7 +8601,7 @@
       "batch_no": "",
       "stock_quality": "G",
       "available_stock": "1",
-      "pending_stock": "1",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8612,8 +8612,8 @@
       "sku_id": "922002034256",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "361",
-      "pending_stock": "2",
+      "available_stock": "351",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8624,8 +8624,8 @@
       "sku_id": "922002078903",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "289",
-      "pending_stock": "3",
+      "available_stock": "279",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8636,8 +8636,8 @@
       "sku_id": "922002117596",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "597",
-      "pending_stock": "0",
+      "available_stock": "586",
+      "pending_stock": "4",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8648,8 +8648,8 @@
       "sku_id": "922002134602",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "214",
-      "pending_stock": "6",
+      "available_stock": "186",
+      "pending_stock": "10",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8660,8 +8660,8 @@
       "sku_id": "922002134654",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "170",
-      "pending_stock": "4",
+      "available_stock": "156",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8672,8 +8672,8 @@
       "sku_id": "922002153214",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "251",
-      "pending_stock": "15",
+      "available_stock": "166",
+      "pending_stock": "7",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8684,8 +8684,8 @@
       "sku_id": "922002153241",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "115",
-      "pending_stock": "5",
+      "available_stock": "87",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8696,8 +8696,8 @@
       "sku_id": "922002153243",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "233",
-      "pending_stock": "11",
+      "available_stock": "192",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8708,8 +8708,8 @@
       "sku_id": "922002153245",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "443",
-      "pending_stock": "10",
+      "available_stock": "395",
+      "pending_stock": "9",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8732,8 +8732,8 @@
       "sku_id": "922002202852",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "192",
-      "pending_stock": "1",
+      "available_stock": "179",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8744,8 +8744,8 @@
       "sku_id": "922002216065",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "490",
-      "pending_stock": "5",
+      "available_stock": "483",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8756,8 +8756,8 @@
       "sku_id": "922002239194",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2251",
-      "pending_stock": "63",
+      "available_stock": "1894",
+      "pending_stock": "48",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8768,8 +8768,8 @@
       "sku_id": "922002251665",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "206",
-      "pending_stock": "1",
+      "available_stock": "205",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8780,8 +8780,8 @@
       "sku_id": "922002251726",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "56",
-      "pending_stock": "1",
+      "available_stock": "36",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8792,8 +8792,8 @@
       "sku_id": "922002360237",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "3642",
-      "pending_stock": "2",
+      "available_stock": "3615",
+      "pending_stock": "8",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8804,8 +8804,8 @@
       "sku_id": "922002374090",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "200",
-      "pending_stock": "3",
+      "available_stock": "177",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8816,8 +8816,8 @@
       "sku_id": "922002402834",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "175",
-      "pending_stock": "10",
+      "available_stock": "153",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8828,8 +8828,8 @@
       "sku_id": "922002402836",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "798",
-      "pending_stock": "48",
+      "available_stock": "661",
+      "pending_stock": "28",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8840,8 +8840,8 @@
       "sku_id": "922002402838",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "996",
-      "pending_stock": "3",
+      "available_stock": "987",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8852,8 +8852,8 @@
       "sku_id": "922002402846",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "1034",
-      "pending_stock": "0",
+      "available_stock": "1024",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8864,7 +8864,7 @@
       "sku_id": "922002402848",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "180",
+      "available_stock": "166",
       "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -8876,7 +8876,7 @@
       "sku_id": "922002402850",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "162",
+      "available_stock": "150",
       "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -8936,8 +8936,8 @@
       "sku_id": "922002500806",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "982",
-      "pending_stock": "1",
+      "available_stock": "979",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8948,8 +8948,8 @@
       "sku_id": "922002500808",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "950",
-      "pending_stock": "1",
+      "available_stock": "946",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8972,8 +8972,8 @@
       "sku_id": "922002510107",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2247",
-      "pending_stock": "4",
+      "available_stock": "2227",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8984,8 +8984,8 @@
       "sku_id": "922002533472",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "447",
-      "pending_stock": "5",
+      "available_stock": "442",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -8996,8 +8996,8 @@
       "sku_id": "922002550618",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "216",
-      "pending_stock": "9",
+      "available_stock": "180",
+      "pending_stock": "4",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9008,7 +9008,7 @@
       "sku_id": "922002563199",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2563",
+      "available_stock": "2561",
       "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
@@ -9020,8 +9020,8 @@
       "sku_id": "922002563201",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "755",
-      "pending_stock": "1",
+      "available_stock": "754",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9032,8 +9032,8 @@
       "sku_id": "922002563215",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "622",
-      "pending_stock": "1",
+      "available_stock": "618",
+      "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9044,9 +9044,9 @@
       "sku_id": "922002578369",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "786",
-      "pending_stock": "2",
-      "onway_stock": "203",
+      "available_stock": "966",
+      "pending_stock": "4",
+      "onway_stock": "0",
       "freeze_stock": "0"
     },
     {
@@ -9068,8 +9068,8 @@
       "sku_id": "922002584936",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "52",
-      "pending_stock": "13",
+      "available_stock": "3",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9080,8 +9080,8 @@
       "sku_id": "922002585218",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "437",
-      "pending_stock": "11",
+      "available_stock": "413",
+      "pending_stock": "4",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9092,8 +9092,8 @@
       "sku_id": "922002589394",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "2",
-      "pending_stock": "5",
+      "available_stock": "1",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9104,8 +9104,8 @@
       "sku_id": "922002596112",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "395",
-      "pending_stock": "6",
+      "available_stock": "363",
+      "pending_stock": "5",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9116,8 +9116,8 @@
       "sku_id": "922002618321",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "484",
-      "pending_stock": "0",
+      "available_stock": "475",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9128,8 +9128,8 @@
       "sku_id": "922002618323",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "487",
-      "pending_stock": "0",
+      "available_stock": "480",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9140,8 +9140,8 @@
       "sku_id": "922002618331",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "442",
-      "pending_stock": "3",
+      "available_stock": "418",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9152,8 +9152,8 @@
       "sku_id": "922002618346",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "414",
-      "pending_stock": "7",
+      "available_stock": "382",
+      "pending_stock": "3",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9164,8 +9164,8 @@
       "sku_id": "922002618348",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "426",
-      "pending_stock": "5",
+      "available_stock": "400",
+      "pending_stock": "2",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9176,8 +9176,8 @@
       "sku_id": "922002618350",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "446",
-      "pending_stock": "13",
+      "available_stock": "425",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9188,8 +9188,8 @@
       "sku_id": "922002618374",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "480",
-      "pending_stock": "3",
+      "available_stock": "471",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9200,8 +9200,8 @@
       "sku_id": "922002619288",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "143",
-      "pending_stock": "4",
+      "available_stock": "141",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     },
@@ -9212,8 +9212,8 @@
       "sku_id": "922002619298",
       "batch_no": "",
       "stock_quality": "G",
-      "available_stock": "143",
-      "pending_stock": "4",
+      "available_stock": "141",
+      "pending_stock": "1",
       "onway_stock": "0",
       "freeze_stock": "0"
     }
@@ -9605,6 +9605,18 @@
     },
     {
       "customer_code": "14940063",
+      "sku_code": "21310",
+      "warehouse_code": "CZPRGA",
+      "sku_id": "922001040865",
+      "batch_no": "",
+      "stock_quality": "G",
+      "available_stock": "0",
+      "pending_stock": "2",
+      "onway_stock": "0",
+      "freeze_stock": "0"
+    },
+    {
+      "customer_code": "14940063",
       "sku_code": "21311",
       "warehouse_code": "CZPRGA",
       "sku_id": "922001040869",
@@ -10406,22 +10418,10 @@
       "pending_stock": "0",
       "onway_stock": "0",
       "freeze_stock": "0"
-    },
-    {
-      "customer_code": "14940063",
-      "sku_code": "50114",
-      "warehouse_code": "CZPRGA",
-      "sku_id": "922001041137",
-      "batch_no": "",
-      "stock_quality": "G",
-      "available_stock": "0",
-      "pending_stock": "0",
-      "onway_stock": "0",
-      "freeze_stock": "0"
     }
   ],
   "total": 768,
-  "availableStockTotal": 308184.0,
-  "pendingStockTotal": 2523.0,
+  "availableStockTotal": 297988.0,
+  "pendingStockTotal": 1683.0,
   "freezeStockTotal": 0.0
 }

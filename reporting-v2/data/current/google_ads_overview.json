@@ -6,17 +6,17 @@
   },
   "window": {
     "dateFrom": "2026-04-01",
-    "dateTo": "2026-04-18"
+    "dateTo": "2026-04-19"
   },
   "summary": {
     "dateFrom": "2026-04-01",
-    "dateTo": "2026-04-18",
-    "spendCzk": 41946.27,
-    "impressions": 134985,
-    "clicks": 10256,
-    "conversions": 1777.26,
-    "conversionValueCzk": 2326427.72,
-    "roas": 55.46
+    "dateTo": "2026-04-19",
+    "spendCzk": 43969.73,
+    "impressions": 142400,
+    "clicks": 10745,
+    "conversions": 1855.25,
+    "conversionValueCzk": 2435433.85,
+    "roas": 55.39
   },
   "accounts": [
     {
@@ -25,15 +25,15 @@
       "currency": "CZK",
       "currentMonth": {
         "dateFrom": "2026-04-01",
-        "dateTo": "2026-04-18",
-        "spend": 28903.99,
-        "spendCzk": 28903.99,
-        "impressions": 91079,
-        "clicks": 8144,
-        "conversions": 1535.55,
-        "conversionValue": 1981327.83,
-        "conversionValueCzk": 1981327.83,
-        "roas": 68.55
+        "dateTo": "2026-04-19",
+        "spend": 30097.4,
+        "spendCzk": 30097.4,
+        "impressions": 95572,
+        "clicks": 8532,
+        "conversions": 1605.55,
+        "conversionValue": 2076491.65,
+        "conversionValueCzk": 2076491.65,
+        "roas": 68.99
       },
       "daily": [
         {
@@ -201,9 +201,9 @@
           "spendCzk": 1878.69,
           "impressions": 3354,
           "clicks": 701,
-          "conversions": 168.42,
-          "conversionValue": 232919.12,
-          "conversionValueCzk": 232919.12
+          "conversions": 169.42,
+          "conversionValue": 237898.12,
+          "conversionValueCzk": 237898.12
         },
         {
           "date": "2026-04-14",
@@ -214,9 +214,9 @@
           "spendCzk": 1727.86,
           "impressions": 3461,
           "clicks": 624,
-          "conversions": 134.7,
-          "conversionValue": 194579.59,
-          "conversionValueCzk": 194579.59
+          "conversions": 137.7,
+          "conversionValue": 198074.57,
+          "conversionValueCzk": 198074.57
         },
         {
           "date": "2026-04-15",
@@ -227,22 +227,22 @@
           "spendCzk": 1382.04,
           "impressions": 4226,
           "clicks": 580,
-          "conversions": 91.14,
-          "conversionValue": 103826.08,
-          "conversionValueCzk": 103826.08
+          "conversions": 93.64,
+          "conversionValue": 106251.4,
+          "conversionValueCzk": 106251.4
         },
         {
           "date": "2026-04-16",
           "accountId": "9119204286",
           "accountName": "Království tianDe CZ",
           "currency": "CZK",
-          "spend": 1980.83,
-          "spendCzk": 1980.83,
+          "spend": 1980.76,
+          "spendCzk": 1980.76,
           "impressions": 5920,
-          "clicks": 515,
-          "conversions": 101.76,
-          "conversionValue": 109934.78,
-          "conversionValueCzk": 109934.78
+          "clicks": 514,
+          "conversions": 108.33,
+          "conversionValue": 117848.4,
+          "conversionValueCzk": 117848.4
         },
         {
           "date": "2026-04-17",
@@ -253,9 +253,9 @@
           "spendCzk": 1320.11,
           "impressions": 4539,
           "clicks": 348,
-          "conversions": 24.76,
-          "conversionValue": 35695.31,
-          "conversionValueCzk": 35695.31
+          "conversions": 31.94,
+          "conversionValue": 48068.28,
+          "conversionValueCzk": 48068.28
         },
         {
           "date": "2026-04-18",
@@ -266,9 +266,22 @@
           "spendCzk": 1287.78,
           "impressions": 4744,
           "clicks": 320,
-          "conversions": 29.06,
-          "conversionValue": 39898.07,
-          "conversionValueCzk": 39898.07
+          "conversions": 35.47,
+          "conversionValue": 47652.84,
+          "conversionValueCzk": 47652.84
+        },
+        {
+          "date": "2026-04-19",
+          "accountId": "9119204286",
+          "accountName": "Království tianDe CZ",
+          "currency": "CZK",
+          "spend": 1193.48,
+          "spendCzk": 1193.48,
+          "impressions": 4493,
+          "clicks": 389,
+          "conversions": 43.34,
+          "conversionValue": 56223.16,
+          "conversionValueCzk": 56223.16
         }
       ]
     },
@@ -278,15 +291,15 @@
       "currency": "CZK",
       "currentMonth": {
         "dateFrom": "2026-04-01",
-        "dateTo": "2026-04-18",
-        "spend": 13042.28,
-        "spendCzk": 13042.28,
-        "impressions": 43906,
-        "clicks": 2112,
-        "conversions": 241.71,
-        "conversionValue": 345099.89,
-        "conversionValueCzk": 345099.89,
-        "roas": 26.46
+        "dateTo": "2026-04-19",
+        "spend": 13872.33,
+        "spendCzk": 13872.33,
+        "impressions": 46828,
+        "clicks": 2213,
+        "conversions": 249.7,
+        "conversionValue": 358942.2,
+        "conversionValueCzk": 358942.2,
+        "roas": 25.87
       },
       "daily": [
         {
@@ -493,9 +506,9 @@
           "spendCzk": 1279.98,
           "impressions": 3629,
           "clicks": 159,
-          "conversions": 10.73,
-          "conversionValue": 13616.57,
-          "conversionValueCzk": 13616.57
+          "conversions": 13.12,
+          "conversionValue": 18519.29,
+          "conversionValueCzk": 18519.29
         },
         {
           "date": "2026-04-17",
@@ -506,9 +519,9 @@
           "spendCzk": 858.16,
           "impressions": 2819,
           "clicks": 116,
-          "conversions": 7.25,
-          "conversionValue": 9206.29,
-          "conversionValueCzk": 9206.29
+          "conversions": 7.59,
+          "conversionValue": 10258.9,
+          "conversionValueCzk": 10258.9
         },
         {
           "date": "2026-04-18",
@@ -519,9 +532,22 @@
           "spendCzk": 627.35,
           "impressions": 2671,
           "clicks": 80,
-          "conversions": 8.39,
-          "conversionValue": 14219.11,
-          "conversionValueCzk": 14219.11
+          "conversions": 9.06,
+          "conversionValue": 15213.41,
+          "conversionValueCzk": 15213.41
+        },
+        {
+          "date": "2026-04-19",
+          "accountId": "3600677296",
+          "accountName": "Království tianDe SK",
+          "currency": "CZK",
+          "spend": 830.05,
+          "spendCzk": 830.05,
+          "impressions": 2922,
+          "clicks": 101,
+          "conversions": 4.59,
+          "conversionValue": 6892.68,
+          "conversionValueCzk": 6892.68
         }
       ]
     },
@@ -531,7 +557,7 @@
       "currency": "EUR",
       "currentMonth": {
         "dateFrom": "2026-04-01",
-        "dateTo": "2026-04-18",
+        "dateTo": "2026-04-19",
         "spend": 0,
         "spendCzk": 0,
         "impressions": 0,
@@ -658,54 +684,63 @@
       "spendCzk": 2861.04,
       "impressions": 6339,
       "clicks": 882,
-      "conversions": 190.92,
-      "conversionValueCzk": 271808.46,
-      "roas": 95.0
+      "conversions": 191.92,
+      "conversionValueCzk": 276787.46,
+      "roas": 96.74
     },
     {
       "date": "2026-04-14",
       "spendCzk": 2589.16,
       "impressions": 6723,
       "clicks": 797,
-      "conversions": 165.7,
-      "conversionValueCzk": 242075.68,
-      "roas": 93.5
+      "conversions": 168.7,
+      "conversionValueCzk": 245570.66,
+      "roas": 94.85
     },
     {
       "date": "2026-04-15",
       "spendCzk": 2283.28,
       "impressions": 7246,
       "clicks": 736,
-      "conversions": 103.87,
-      "conversionValueCzk": 118534.35,
-      "roas": 51.91
+      "conversions": 106.37,
+      "conversionValueCzk": 120959.67,
+      "roas": 52.98
     },
     {
       "date": "2026-04-16",
-      "spendCzk": 3260.81,
+      "spendCzk": 3260.74,
       "impressions": 9549,
-      "clicks": 674,
-      "conversions": 112.49,
-      "conversionValueCzk": 123551.35,
-      "roas": 37.89
+      "clicks": 673,
+      "conversions": 121.45,
+      "conversionValueCzk": 136367.69,
+      "roas": 41.82
     },
     {
       "date": "2026-04-17",
       "spendCzk": 2178.27,
       "impressions": 7358,
       "clicks": 464,
-      "conversions": 32.01,
-      "conversionValueCzk": 44901.6,
-      "roas": 20.61
+      "conversions": 39.53,
+      "conversionValueCzk": 58327.18,
+      "roas": 26.78
     },
     {
       "date": "2026-04-18",
       "spendCzk": 1915.13,
       "impressions": 7415,
       "clicks": 400,
-      "conversions": 37.45,
-      "conversionValueCzk": 54117.18,
-      "roas": 28.26
+      "conversions": 44.53,
+      "conversionValueCzk": 62866.25,
+      "roas": 32.83
+    },
+    {
+      "date": "2026-04-19",
+      "spendCzk": 2023.53,
+      "impressions": 7415,
+      "clicks": 490,
+      "conversions": 47.93,
+      "conversionValueCzk": 63115.84,
+      "roas": 31.19
     }
   ],
   "campaignsCurrentMonth": [
@@ -2172,14 +2207,14 @@
       "campaignId": "20689750777",
       "campaignName": "CZ-Pmax-Kategorie-tianDe",
       "status": "ENABLED",
-      "spend": 10023.13,
-      "spendCzk": 10023.13,
-      "impressions": 50291,
-      "clicks": 2096,
-      "conversions": 429.75,
-      "conversionValue": 589113.13,
-      "conversionValueCzk": 589113.13,
-      "roas": 58.78
+      "spend": 10421.58,
+      "spendCzk": 10421.58,
+      "impressions": 52339,
+      "clicks": 2197,
+      "conversions": 449.21,
+      "conversionValue": 617800.89,
+      "conversionValueCzk": 617800.89,
+      "roas": 59.28
     },
     {
       "accountId": "9119204286",
@@ -2268,14 +2303,14 @@
       "campaignId": "22937164471",
       "campaignName": "CZ-SEA-Brand-kralovstvi-tiande",
       "status": "ENABLED",
-      "spend": 14851.4,
-      "spendCzk": 14851.4,
-      "impressions": 11697,
-      "clicks": 5448,
-      "conversions": 992.72,
-      "conversionValue": 1245268.1,
-      "conversionValueCzk": 1245268.1,
-      "roas": 83.85
+      "spend": 15459.0,
+      "spendCzk": 15459.0,
+      "impressions": 12340,
+      "clicks": 5691,
+      "conversions": 1041.72,
+      "conversionValue": 1310509.33,
+      "conversionValueCzk": 1310509.33,
+      "roas": 84.77
     },
     {
       "accountId": "9119204286",
@@ -2300,14 +2335,14 @@
       "campaignId": "23582871351",
       "campaignName": "CZ-SEA-Competitors",
       "status": "ENABLED",
-      "spend": 1102.89,
-      "spendCzk": 1102.89,
-      "impressions": 1071,
-      "clicks": 146,
-      "conversions": 20.5,
-      "conversionValue": 24560.67,
-      "conversionValueCzk": 24560.67,
-      "roas": 22.27
+      "spend": 1150.46,
+      "spendCzk": 1150.46,
+      "impressions": 1129,
+      "clicks": 156,
+      "conversions": 21.0,
+      "conversionValue": 24720.81,
+      "conversionValueCzk": 24720.81,
+      "roas": 21.49
     },
     {
       "accountId": "9119204286",
@@ -2316,14 +2351,14 @@
       "campaignId": "23595356591",
       "campaignName": "CZ-PMax-Naked",
       "status": "ENABLED",
-      "spend": 2822.74,
-      "spendCzk": 2822.74,
-      "impressions": 22903,
-      "clicks": 310,
-      "conversions": 83.58,
-      "conversionValue": 115119.75,
-      "conversionValueCzk": 115119.75,
-      "roas": 40.78
+      "spend": 2953.82,
+      "spendCzk": 2953.82,
+      "impressions": 24274,
+      "clicks": 332,
+      "conversions": 84.61,
+      "conversionValue": 116194.45,
+      "conversionValueCzk": 116194.45,
+      "roas": 39.34
     },
     {
       "accountId": "9119204286",
@@ -2332,14 +2367,14 @@
       "campaignId": "23623919231",
       "campaignName": "CZ-Shopping-low-cpc",
       "status": "ENABLED",
-      "spend": 103.84,
-      "spendCzk": 103.84,
-      "impressions": 5117,
-      "clicks": 144,
+      "spend": 112.55,
+      "spendCzk": 112.55,
+      "impressions": 5490,
+      "clicks": 156,
       "conversions": 9.0,
       "conversionValue": 7266.18,
       "conversionValueCzk": 7266.18,
-      "roas": 69.97
+      "roas": 64.56
     },
     {
       "accountId": "3600677296",
@@ -2380,14 +2415,14 @@
       "campaignId": "20972172956",
       "campaignName": "SK-Brand-kralovstvi-tiande",
       "status": "ENABLED",
-      "spend": 3755.97,
-      "spendCzk": 3755.97,
-      "impressions": 2193,
-      "clicks": 464,
-      "conversions": 57.48,
-      "conversionValue": 72747.33,
-      "conversionValueCzk": 72747.33,
-      "roas": 19.37
+      "spend": 4071.6,
+      "spendCzk": 4071.6,
+      "impressions": 2375,
+      "clicks": 490,
+      "conversions": 57.89,
+      "conversionValue": 73405.13,
+      "conversionValueCzk": 73405.13,
+      "roas": 18.03
     },
     {
       "accountId": "3600677296",
@@ -2412,14 +2447,14 @@
       "campaignId": "20975314516",
       "campaignName": "SK-Pmax-Kategorie-tianDe",
       "status": "ENABLED",
-      "spend": 7674.19,
-      "spendCzk": 7674.19,
-      "impressions": 33519,
-      "clicks": 1402,
-      "conversions": 168.66,
-      "conversionValue": 253966.35,
-      "conversionValueCzk": 253966.35,
-      "roas": 33.09
+      "spend": 8130.79,
+      "spendCzk": 8130.79,
+      "impressions": 35333,
+      "clicks": 1462,
+      "conversions": 176.25,
+      "conversionValue": 267150.86,
+      "conversionValueCzk": 267150.86,
+      "roas": 32.86
     },
     {
       "accountId": "3600677296",
@@ -2524,14 +2559,14 @@
       "campaignId": "23582997486",
       "campaignName": "SK-SEA-Competitors",
       "status": "ENABLED",
-      "spend": 1307.56,
-      "spendCzk": 1307.56,
-      "impressions": 882,
-      "clicks": 151,
+      "spend": 1316.55,
+      "spendCzk": 1316.55,
+      "impressions": 898,
+      "clicks": 152,
       "conversions": 8.55,
       "conversionValue": 8707.59,
       "conversionValueCzk": 8707.59,
-      "roas": 6.66
+      "roas": 6.61
     },
     {
       "accountId": "3600677296",
@@ -2540,14 +2575,14 @@
       "campaignId": "23595607898",
       "campaignName": "SK-PMax-Naked",
       "status": "ENABLED",
-      "spend": 304.55,
-      "spendCzk": 304.55,
-      "impressions": 7312,
-      "clicks": 95,
+      "spend": 353.38,
+      "spendCzk": 353.38,
+      "impressions": 8222,
+      "clicks": 109,
       "conversions": 7.0,
       "conversionValue": 9678.62,
       "conversionValueCzk": 9678.62,
-      "roas": 31.78
+      "roas": 27.39
     }
   ],
   "topCampaignsCurrentMonth": [
@@ -2558,14 +2593,14 @@
       "campaignId": "22937164471",
       "campaignName": "CZ-SEA-Brand-kralovstvi-tiande",
       "status": "ENABLED",
-      "spend": 14851.4,
-      "spendCzk": 14851.4,
-      "impressions": 11697,
-      "clicks": 5448,
-      "conversions": 992.72,
-      "conversionValue": 1245268.1,
-      "conversionValueCzk": 1245268.1,
-      "roas": 83.85
+      "spend": 15459.0,
+      "spendCzk": 15459.0,
+      "impressions": 12340,
+      "clicks": 5691,
+      "conversions": 1041.72,
+      "conversionValue": 1310509.33,
+      "conversionValueCzk": 1310509.33,
+      "roas": 84.77
     },
     {
       "accountId": "9119204286",
@@ -2574,14 +2609,14 @@
       "campaignId": "20689750777",
       "campaignName": "CZ-Pmax-Kategorie-tianDe",
       "status": "ENABLED",
-      "spend": 10023.13,
-      "spendCzk": 10023.13,
-      "impressions": 50291,
-      "clicks": 2096,
-      "conversions": 429.75,
-      "conversionValue": 589113.13,
-      "conversionValueCzk": 589113.13,
-      "roas": 58.78
+      "spend": 10421.58,
+      "spendCzk": 10421.58,
+      "impressions": 52339,
+      "clicks": 2197,
+      "conversions": 449.21,
+      "conversionValue": 617800.89,
+      "conversionValueCzk": 617800.89,
+      "roas": 59.28
     },
     {
       "accountId": "3600677296",
@@ -2590,14 +2625,14 @@
       "campaignId": "20975314516",
       "campaignName": "SK-Pmax-Kategorie-tianDe",
       "status": "ENABLED",
-      "spend": 7674.19,
-      "spendCzk": 7674.19,
-      "impressions": 33519,
-      "clicks": 1402,
-      "conversions": 168.66,
-      "conversionValue": 253966.35,
-      "conversionValueCzk": 253966.35,
-      "roas": 33.09
+      "spend": 8130.79,
+      "spendCzk": 8130.79,
+      "impressions": 35333,
+      "clicks": 1462,
+      "conversions": 176.25,
+      "conversionValue": 267150.86,
+      "conversionValueCzk": 267150.86,
+      "roas": 32.86
     },
     {
       "accountId": "3600677296",
@@ -2606,14 +2641,14 @@
       "campaignId": "20972172956",
       "campaignName": "SK-Brand-kralovstvi-tiande",
       "status": "ENABLED",
-      "spend": 3755.97,
-      "spendCzk": 3755.97,
-      "impressions": 2193,
-      "clicks": 464,
-      "conversions": 57.48,
-      "conversionValue": 72747.33,
-      "conversionValueCzk": 72747.33,
-      "roas": 19.37
+      "spend": 4071.6,
+      "spendCzk": 4071.6,
+      "impressions": 2375,
+      "clicks": 490,
+      "conversions": 57.89,
+      "conversionValue": 73405.13,
+      "conversionValueCzk": 73405.13,
+      "roas": 18.03
     },
     {
       "accountId": "9119204286",
@@ -2622,14 +2657,14 @@
       "campaignId": "23595356591",
       "campaignName": "CZ-PMax-Naked",
       "status": "ENABLED",
-      "spend": 2822.74,
-      "spendCzk": 2822.74,
-      "impressions": 22903,
-      "clicks": 310,
-      "conversions": 83.58,
-      "conversionValue": 115119.75,
-      "conversionValueCzk": 115119.75,
-      "roas": 40.78
+      "spend": 2953.82,
+      "spendCzk": 2953.82,
+      "impressions": 24274,
+      "clicks": 332,
+      "conversions": 84.61,
+      "conversionValue": 116194.45,
+      "conversionValueCzk": 116194.45,
+      "roas": 39.34
     },
     {
       "accountId": "3600677296",
@@ -2638,14 +2673,14 @@
       "campaignId": "23582997486",
       "campaignName": "SK-SEA-Competitors",
       "status": "ENABLED",
-      "spend": 1307.56,
-      "spendCzk": 1307.56,
-      "impressions": 882,
-      "clicks": 151,
+      "spend": 1316.55,
+      "spendCzk": 1316.55,
+      "impressions": 898,
+      "clicks": 152,
       "conversions": 8.55,
       "conversionValue": 8707.59,
       "conversionValueCzk": 8707.59,
-      "roas": 6.66
+      "roas": 6.61
     },
     {
       "accountId": "9119204286",
@@ -2654,14 +2689,14 @@
       "campaignId": "23582871351",
       "campaignName": "CZ-SEA-Competitors",
       "status": "ENABLED",
-      "spend": 1102.89,
-      "spendCzk": 1102.89,
-      "impressions": 1071,
-      "clicks": 146,
-      "conversions": 20.5,
-      "conversionValue": 24560.67,
-      "conversionValueCzk": 24560.67,
-      "roas": 22.27
+      "spend": 1150.46,
+      "spendCzk": 1150.46,
+      "impressions": 1129,
+      "clicks": 156,
+      "conversions": 21.0,
+      "conversionValue": 24720.81,
+      "conversionValueCzk": 24720.81,
+      "roas": 21.49
     },
     {
       "accountId": "3600677296",
@@ -2670,14 +2705,14 @@
       "campaignId": "23595607898",
       "campaignName": "SK-PMax-Naked",
       "status": "ENABLED",
-      "spend": 304.55,
-      "spendCzk": 304.55,
-      "impressions": 7312,
-      "clicks": 95,
+      "spend": 353.38,
+      "spendCzk": 353.38,
+      "impressions": 8222,
+      "clicks": 109,
       "conversions": 7.0,
       "conversionValue": 9678.62,
       "conversionValueCzk": 9678.62,
-      "roas": 31.78
+      "roas": 27.39
     },
     {
       "accountId": "9119204286",
@@ -2686,14 +2721,14 @@
       "campaignId": "23623919231",
       "campaignName": "CZ-Shopping-low-cpc",
       "status": "ENABLED",
-      "spend": 103.84,
-      "spendCzk": 103.84,
-      "impressions": 5117,
-      "clicks": 144,
+      "spend": 112.55,
+      "spendCzk": 112.55,
+      "impressions": 5490,
+      "clicks": 156,
       "conversions": 9.0,
       "conversionValue": 7266.18,
       "conversionValueCzk": 7266.18,
-      "roas": 69.97
+      "roas": 64.56
     },
     {
       "accountId": "9119204286",

@@ -1,28 +1,28 @@
-Ranní report, včerejšek (17. 4. 2026)
+Ranní report, včerejšek (19. 4. 2026)
 ✅ WPJ + 4PX kompletní
 
 📌 Přehled
-• Objednávky: 213 (-55,8 % vs 7D)
-• Tržby: 347 409 Kč (-58,3 % vs 7D)
-• Expedice: 212 (CZ 196 / SK 16)
-• Sklad: 376 918 ks
+• Objednávky: 363 (-22,7 % vs 7D)
+• Tržby: 634 158 Kč (-21,2 % vs 7D)
+• Expedice: 343 (CZ 318 / SK 25)
+• Sklad: 367 879 ks
 
 ⚠️ Co dnes řešit
-• 3 problematických / stornovaných objednávek
+• 2 problematických / stornovaných objednávek
 • 3 včera prodané produkty jsou teď na nízkém skladu
 • 10 skladových pozic je v mínusu
 
 ✅ Co dnes udělat
-• Dohlédnout POP00067 (Ashwagandha (Vitánie snodárná), originální bylinné kapky, 50 ml), aktuálně 0 ks.
-• Dohlédnout 54107, aktuálně 1 ks.
-• Projít 3 problematických nebo stornovaných objednávek z včerejška.
+• Dohlédnout 45915-1, aktuálně 3 ks.
+• Dohlédnout 101491, aktuálně 3 ks.
+• Projít 2 problematických nebo stornovaných objednávek z včerejška.
 
-🛒 Tahouni: 44402-2 71 ks, 64404-2 59 ks, 61912 47 ks
+🛒 Tahouni: 60145/01 184 ks, 44402-2 134 ks, 63601/01 128 ks
 
 🧭 Zdroje prodeje
-• CZ e-shop: 191 objednávek, 302 779 Kč
-• SK e-shop: 18 objednávek, 31 054 Kč
-• Litoměřice: 3 objednávek, 13 039 Kč
-• Měčín: 1 objednávek, 537 Kč
+• CZ e-shop: 339 objednávek, 584 580 Kč
+• SK e-shop: 24 objednávek, 49 578 Kč
+• Litoměřice: 0 objednávek, 0 Kč
+• Měčín: 0 objednávek, 0 Kč
 
 Detail: https://rkonfal.github.io/diamond-plus-reporting-preview/site/index.html

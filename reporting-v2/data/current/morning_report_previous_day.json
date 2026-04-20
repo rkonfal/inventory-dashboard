@@ -1,95 +1,95 @@
 {
-  "generatedAt": "2026-04-18T08:35:34.612552+02:00",
-  "reportDate": "2026-04-17",
+  "generatedAt": "2026-04-20T21:00:29.058178+02:00",
+  "reportDate": "2026-04-19",
   "detailUrl": "https://rkonfal.github.io/diamond-plus-reporting-preview/site/index.html",
   "window": {
-    "from": "2026-04-17T00:00:01+02:00",
-    "to": "2026-04-17T23:59:59+02:00"
+    "from": "2026-04-19T00:00:01+02:00",
+    "to": "2026-04-19T23:59:59+02:00"
   },
   "warnings": [],
   "quickSummary": {
     "orders": {
-      "value": 213,
-      "baseline": 481.71,
-      "deltaPct": -55.8
+      "value": 363,
+      "baseline": 469.86,
+      "deltaPct": -22.7
     },
     "revenueWithVat": {
-      "value": 347408.71,
-      "baseline": 833230.28,
-      "deltaPct": -58.3
+      "value": 634158.23,
+      "baseline": 804662.88,
+      "deltaPct": -21.2
     },
-    "shipmentsTotal": 212,
+    "shipmentsTotal": 343,
     "alerts": [
-      "3 problematických nebo stornovaných objednávek.",
+      "2 problematických nebo stornovaných objednávek.",
       "3 včera prodaných produktů je teď na nízkém skladu.",
       "10 skladových pozic je v mínusu."
     ]
   },
   "eshop": {
-    "orders": 213,
-    "revenueWithVat": 347408.71,
-    "averageOrderValue": 1631.03,
-    "cancelledOrders": 3,
-    "problematicOrders": 3,
+    "orders": 363,
+    "revenueWithVat": 634158.23,
+    "averageOrderValue": 1746.99,
+    "cancelledOrders": 2,
+    "problematicOrders": 2,
     "statuses": [
       {
-        "name": "přijatá",
-        "count": 103
-      },
-      {
         "name": "expedováno",
-        "count": 91
+        "count": 330
       },
       {
         "name": "nová",
-        "count": 13
+        "count": 17
+      },
+      {
+        "name": "přijatá",
+        "count": 14
       },
       {
         "name": "chyba",
-        "count": 3
-      },
-      {
-        "name": "doručeno",
-        "count": 3
+        "count": 2
       }
     ],
     "paymentMethods": [
       {
         "name": "Bezpečná platba online",
-        "count": 94
+        "count": 179
       },
       {
         "name": "Platba převodem",
-        "count": 74
+        "count": 122
       },
       {
         "name": "Dobírkou",
-        "count": 41
+        "count": 60
       },
       {
-        "name": "Platba kartou",
-        "count": 2
+        "name": "Twisto - kup teď, zaplať na třetiny",
+        "count": 1
       },
       {
-        "name": "Hotově",
-        "count": 2
+        "name": "Twisto - kup teď, zaplať později",
+        "count": 1
       }
     ],
     "deliveryMethods": [
       {
         "name": "Balíkovna",
-        "count": 84
+        "count": 157
       },
       {
         "name": "Balíkovna na adresu",
-        "count": 73
+        "count": 127
       },
       {
         "name": "Zásilkovna",
-        "count": 25
+        "count": 49
       },
       {
-        "name": "DPD doručení na adresu",
+        "name": "DORUČENÍ na adresu",
+        "count": 8
+      },
+      {
+        "name": "SK DPD pickup",
         "count": 7
       },
       {
@@ -97,69 +97,57 @@
         "count": 6
       },
       {
-        "name": "Osobní odběr",
+        "name": "DPD výdejní místo",
         "count": 4
       },
       {
         "name": "Packeta na adresu",
-        "count": 3
-      },
-      {
-        "name": "DORUČENÍ na adresu",
-        "count": 3
+        "count": 2
       },
       {
         "name": "GLS",
-        "count": 3
+        "count": 2
       },
       {
-        "name": "SK DPD pickup",
-        "count": 3
-      },
-      {
-        "name": "DPD výdejní místo",
-        "count": 1
-      },
-      {
-        "name": "Česká pošta - Balík do ruky",
+        "name": "DPD doručení na adresu",
         "count": 1
       }
     ],
     "topProductsByUnits": [
       {
+        "code": "60145/01",
+        "name": "Denní hygienická vložka „Jemná péče“ (Počet kusů: 1ks)",
+        "label": "60145/01 · Denní hygienická vložka „Jemná péče“ (Počet kusů: 1ks)",
+        "value": 184.0,
+        "formatted": "184 ks"
+      },
+      {
         "code": "44402-2",
         "name": "Fytogel Slaviton",
         "label": "44402-2 · Fytogel Slaviton",
-        "value": 71.0,
-        "formatted": "71 ks"
+        "value": 134.0,
+        "formatted": "134 ks"
+      },
+      {
+        "code": "63601/01",
+        "name": "Denní vložka Energie života (Počet kusů: 1ks)",
+        "label": "63601/01 · Denní vložka Energie života (Počet kusů: 1ks)",
+        "value": 128.0,
+        "formatted": "128 ks"
+      },
+      {
+        "code": "30118/01",
+        "name": "Kosmetická fytonáplast Wutong (Počet kusů: 1ks)",
+        "label": "30118/01 · Kosmetická fytonáplast Wutong (Počet kusů: 1ks)",
+        "value": 117.0,
+        "formatted": "117 ks"
       },
       {
         "code": "64404-2",
         "name": "Jemný intimní gel",
         "label": "64404-2 · Jemný intimní gel",
-        "value": 59.0,
-        "formatted": "59 ks"
-      },
-      {
-        "code": "61912",
-        "name": "Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
-        "label": "61912 · Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
-        "value": 47.0,
-        "formatted": "47 ks"
-      },
-      {
-        "code": "61914",
-        "name": "Dámské bylinné slipové vložky Nefritová svěžest",
-        "label": "61914 · Dámské bylinné slipové vložky Nefritová svěžest",
-        "value": 45.0,
-        "formatted": "45 ks"
-      },
-      {
-        "code": "67007",
-        "name": "Slipové vložky se stříbrem. super tenké",
-        "label": "67007 · Slipové vložky se stříbrem. super tenké",
-        "value": 40.0,
-        "formatted": "40 ks"
+        "value": 106.0,
+        "formatted": "106 ks"
       }
     ],
     "topProductsByRevenue": [
@@ -167,43 +155,46 @@
         "code": "44402-2",
         "name": "Fytogel Slaviton",
         "label": "44402-2 · Fytogel Slaviton",
-        "value": 21200.82,
-        "formatted": "21 201 Kč"
+        "value": 38273.79,
+        "formatted": "38 274 Kč"
       },
       {
         "code": "64404-2",
         "name": "Jemný intimní gel",
         "label": "64404-2 · Jemný intimní gel",
-        "value": 14314.41,
-        "formatted": "14 314 Kč"
-      },
-      {
-        "code": "BIOANALYZA013",
-        "name": "Následná HARMONIZACE ENERGETICKÉHO STAVU vč. nahrání čipu (Kód: BIOANALYZA013)",
-        "label": "BIOANALYZA013 · Následná HARMONIZACE ENERGETICKÉHO STAVU vč. nahrání čipu (Kód: BIOANALYZA013)",
-        "value": 10500.0,
-        "formatted": "10 500 Kč"
+        "value": 27065.29,
+        "formatted": "27 065 Kč"
       },
       {
         "code": "23401",
         "name": "Šampon - aktivátor růstu vlasů",
         "label": "23401 · Šampon - aktivátor růstu vlasů",
-        "value": 8287.45,
-        "formatted": "8 287 Kč"
+        "value": 21696.49,
+        "formatted": "21 696 Kč"
       },
       {
         "code": "23403",
         "name": "BIO REHAB - Tonikum-aktivátor růstu vlasů",
         "label": "23403 · BIO REHAB - Tonikum-aktivátor růstu vlasů",
-        "value": 8267.11,
-        "formatted": "8 267 Kč"
+        "value": 20224.18,
+        "formatted": "20 224 Kč"
+      },
+      {
+        "code": "23402",
+        "name": "BIO REHAB Maska-aktivátor růstu vlasů",
+        "label": "23402 · BIO REHAB Maska-aktivátor růstu vlasů",
+        "value": 16258.49,
+        "formatted": "16 258 Kč"
       }
     ],
     "soldProductCodes": [
+      "000020",
+      "000074",
+      "000083",
       "000090",
       "10101",
       "10106",
-      "10110",
+      "10108",
       "10111",
       "10112",
       "10114",
@@ -218,18 +209,23 @@
       "10261",
       "10262",
       "10263",
-      "10301",
       "10302",
       "10303",
       "10304",
       "10305",
-      "10305/01",
       "10306",
       "10308",
       "113004",
+      "113007",
+      "113011",
+      "113012",
+      "113013",
+      "11307",
       "11317",
+      "11317-01",
       "11319",
       "11320",
+      "11321",
       "11323",
       "120105",
       "12106",
@@ -244,43 +240,52 @@
       "12710",
       "12711",
       "12712",
+      "135415-1",
       "135456",
-      "135460",
       "140110",
+      "140111",
       "144313",
       "14601",
       "14601/1",
+      "14602",
       "14604",
       "147801",
+      "14802",
       "15102",
       "15103",
       "15104",
+      "15105",
       "15601",
+      "15602",
       "15603",
+      "15604",
       "16001",
       "16002",
       "16304",
+      "16309",
+      "16310",
       "16312",
       "16313",
       "16314",
       "17003",
       "17101",
       "17102",
-      "17104",
+      "17103",
       "17105",
       "191005",
+      "191006",
       "191014",
       "195429",
       "195431",
-      "195432",
       "195453",
-      "195458",
-      "195466",
       "195469",
+      "195926",
       "198812",
+      "20101",
       "20102",
       "20107",
       "20109",
+      "20115",
       "20117",
       "20127",
       "20144",
@@ -292,12 +297,14 @@
       "21308",
       "21309",
       "21310",
+      "21311",
       "21315",
       "23401",
       "23402",
       "23403",
       "25106",
       "27005",
+      "27006",
       "30101",
       "30106",
       "30111",
@@ -308,16 +315,18 @@
       "30118/01",
       "30118/03",
       "30118/05",
-      "30126",
-      "30132/01",
+      "30129",
+      "30132/02",
+      "30138-2",
       "30140",
       "30158",
       "30160-2",
       "30162-2",
       "30201",
-      "30204",
       "30205",
+      "30207",
       "30213",
+      "30215",
       "30222",
       "30223",
       "32602",
@@ -330,8 +339,8 @@
       "40102",
       "40104",
       "40105",
-      "40106",
       "40109",
+      "40120",
       "40203",
       "41101",
       "41102",
@@ -340,7 +349,6 @@
       "41105/05",
       "41106/01",
       "41106/03",
-      "41106/05",
       "41314/01",
       "41314/05",
       "41314/10",
@@ -351,11 +359,14 @@
       "41328/10",
       "44402-2",
       "44605",
+      "45915-1",
       "46903-2",
+      "50101",
+      "50104",
       "50109",
       "50111",
-      "50116",
       "50120",
+      "50224",
       "52901/03",
       "52902",
       "52902/03",
@@ -363,9 +374,8 @@
       "52911",
       "52912",
       "54103",
-      "54104",
-      "54107",
-      "54108",
+      "54105",
+      "54106",
       "56005",
       "56007",
       "56311",
@@ -377,6 +387,7 @@
       "60144",
       "60145/01",
       "60145/05",
+      "60145/10",
       "60146",
       "60149-2",
       "60150",
@@ -396,7 +407,6 @@
       "61923",
       "63601/01",
       "63601/05",
-      "63601/08",
       "63601/10",
       "640102",
       "64404-2",
@@ -408,105 +418,104 @@
       "67108",
       "67109",
       "80112/03",
-      "80112/05",
       "80112/07",
       "80112/08",
-      "80112/09",
-      "80904/03",
+      "80145",
+      "80906/01",
       "80921/01",
       "80921/02",
       "85607",
       "86004",
+      "90141",
       "90148/01",
       "90148/02",
-      "90148/04",
-      "90153/01",
-      "90153/02",
-      "90153/03",
+      "90148/03",
+      "90165/01",
       "90165/02",
       "90175",
       "90187",
       "90200",
+      "90204",
       "980155",
       "980156",
       "980168",
-      "980192",
+      "980188",
       "980193",
+      "980199",
       "980201",
       "98898",
-      "BIO011",
-      "BIO014",
-      "BIOANALYZA013",
-      "POP00067",
+      "DP2000",
+      "IGE009",
       "PROMO116",
-      "VSTUP200526"
+      "PROMO71",
+      "PROMO75"
     ],
     "byView": {
       "complete": {
-        "orders": 213,
-        "revenueWithVat": 347408.71,
-        "averageOrderValue": 1631.03,
-        "cancelledOrders": 3,
-        "problematicOrders": 3,
+        "orders": 363,
+        "revenueWithVat": 634158.23,
+        "averageOrderValue": 1746.99,
+        "cancelledOrders": 2,
+        "problematicOrders": 2,
         "statuses": [
           {
-            "name": "přijatá",
-            "count": 103
-          },
-          {
             "name": "expedováno",
-            "count": 91
+            "count": 330
           },
           {
             "name": "nová",
-            "count": 13
+            "count": 17
+          },
+          {
+            "name": "přijatá",
+            "count": 14
           },
           {
             "name": "chyba",
-            "count": 3
-          },
-          {
-            "name": "doručeno",
-            "count": 3
+            "count": 2
           }
         ],
         "paymentMethods": [
           {
             "name": "Bezpečná platba online",
-            "count": 94
+            "count": 179
           },
           {
             "name": "Platba převodem",
-            "count": 74
+            "count": 122
           },
           {
             "name": "Dobírkou",
-            "count": 41
+            "count": 60
           },
           {
-            "name": "Platba kartou",
-            "count": 2
+            "name": "Twisto - kup teď, zaplať na třetiny",
+            "count": 1
           },
           {
-            "name": "Hotově",
-            "count": 2
+            "name": "Twisto - kup teď, zaplať později",
+            "count": 1
           }
         ],
         "deliveryMethods": [
           {
             "name": "Balíkovna",
-            "count": 84
+            "count": 157
           },
           {
             "name": "Balíkovna na adresu",
-            "count": 73
+            "count": 127
           },
           {
             "name": "Zásilkovna",
-            "count": 25
+            "count": 49
           },
           {
-            "name": "DPD doručení na adresu",
+            "name": "DORUČENÍ na adresu",
+            "count": 8
+          },
+          {
+            "name": "SK DPD pickup",
             "count": 7
           },
           {
@@ -514,69 +523,57 @@
             "count": 6
           },
           {
-            "name": "Osobní odběr",
+            "name": "DPD výdejní místo",
             "count": 4
           },
           {
             "name": "Packeta na adresu",
-            "count": 3
-          },
-          {
-            "name": "DORUČENÍ na adresu",
-            "count": 3
+            "count": 2
           },
           {
             "name": "GLS",
-            "count": 3
+            "count": 2
           },
           {
-            "name": "SK DPD pickup",
-            "count": 3
-          },
-          {
-            "name": "DPD výdejní místo",
-            "count": 1
-          },
-          {
-            "name": "Česká pošta - Balík do ruky",
+            "name": "DPD doručení na adresu",
             "count": 1
           }
         ],
         "topProductsByUnits": [
           {
+            "code": "60145/01",
+            "name": "Denní hygienická vložka „Jemná péče“ (Počet kusů: 1ks)",
+            "label": "60145/01 · Denní hygienická vložka „Jemná péče“ (Počet kusů: 1ks)",
+            "value": 184.0,
+            "formatted": "184 ks"
+          },
+          {
             "code": "44402-2",
             "name": "Fytogel Slaviton",
             "label": "44402-2 · Fytogel Slaviton",
-            "value": 71.0,
-            "formatted": "71 ks"
+            "value": 134.0,
+            "formatted": "134 ks"
+          },
+          {
+            "code": "63601/01",
+            "name": "Denní vložka Energie života (Počet kusů: 1ks)",
+            "label": "63601/01 · Denní vložka Energie života (Počet kusů: 1ks)",
+            "value": 128.0,
+            "formatted": "128 ks"
+          },
+          {
+            "code": "30118/01",
+            "name": "Kosmetická fytonáplast Wutong (Počet kusů: 1ks)",
+            "label": "30118/01 · Kosmetická fytonáplast Wutong (Počet kusů: 1ks)",
+            "value": 117.0,
+            "formatted": "117 ks"
           },
           {
             "code": "64404-2",
             "name": "Jemný intimní gel",
             "label": "64404-2 · Jemný intimní gel",
-            "value": 59.0,
-            "formatted": "59 ks"
-          },
-          {
-            "code": "61912",
-            "name": "Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
-            "label": "61912 · Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
-            "value": 47.0,
-            "formatted": "47 ks"
-          },
-          {
-            "code": "61914",
-            "name": "Dámské bylinné slipové vložky Nefritová svěžest",
-            "label": "61914 · Dámské bylinné slipové vložky Nefritová svěžest",
-            "value": 45.0,
-            "formatted": "45 ks"
-          },
-          {
-            "code": "67007",
-            "name": "Slipové vložky se stříbrem. super tenké",
-            "label": "67007 · Slipové vložky se stříbrem. super tenké",
-            "value": 40.0,
-            "formatted": "40 ks"
+            "value": 106.0,
+            "formatted": "106 ks"
           }
         ],
         "topProductsByRevenue": [
@@ -584,43 +581,46 @@
             "code": "44402-2",
             "name": "Fytogel Slaviton",
             "label": "44402-2 · Fytogel Slaviton",
-            "value": 21200.82,
-            "formatted": "21 201 Kč"
+            "value": 38273.79,
+            "formatted": "38 274 Kč"
           },
           {
             "code": "64404-2",
             "name": "Jemný intimní gel",
             "label": "64404-2 · Jemný intimní gel",
-            "value": 14314.41,
-            "formatted": "14 314 Kč"
-          },
-          {
-            "code": "BIOANALYZA013",
-            "name": "Následná HARMONIZACE ENERGETICKÉHO STAVU vč. nahrání čipu (Kód: BIOANALYZA013)",
-            "label": "BIOANALYZA013 · Následná HARMONIZACE ENERGETICKÉHO STAVU vč. nahrání čipu (Kód: BIOANALYZA013)",
-            "value": 10500.0,
-            "formatted": "10 500 Kč"
+            "value": 27065.29,
+            "formatted": "27 065 Kč"
           },
           {
             "code": "23401",
             "name": "Šampon - aktivátor růstu vlasů",
             "label": "23401 · Šampon - aktivátor růstu vlasů",
-            "value": 8287.45,
-            "formatted": "8 287 Kč"
+            "value": 21696.49,
+            "formatted": "21 696 Kč"
           },
           {
             "code": "23403",
             "name": "BIO REHAB - Tonikum-aktivátor růstu vlasů",
             "label": "23403 · BIO REHAB - Tonikum-aktivátor růstu vlasů",
-            "value": 8267.11,
-            "formatted": "8 267 Kč"
+            "value": 20224.18,
+            "formatted": "20 224 Kč"
+          },
+          {
+            "code": "23402",
+            "name": "BIO REHAB Maska-aktivátor růstu vlasů",
+            "label": "23402 · BIO REHAB Maska-aktivátor růstu vlasů",
+            "value": 16258.49,
+            "formatted": "16 258 Kč"
           }
         ],
         "soldProductCodes": [
+          "000020",
+          "000074",
+          "000083",
           "000090",
           "10101",
           "10106",
-          "10110",
+          "10108",
           "10111",
           "10112",
           "10114",
@@ -635,18 +635,23 @@
           "10261",
           "10262",
           "10263",
-          "10301",
           "10302",
           "10303",
           "10304",
           "10305",
-          "10305/01",
           "10306",
           "10308",
           "113004",
+          "113007",
+          "113011",
+          "113012",
+          "113013",
+          "11307",
           "11317",
+          "11317-01",
           "11319",
           "11320",
+          "11321",
           "11323",
           "120105",
           "12106",
@@ -661,43 +666,52 @@
           "12710",
           "12711",
           "12712",
+          "135415-1",
           "135456",
-          "135460",
           "140110",
+          "140111",
           "144313",
           "14601",
           "14601/1",
+          "14602",
           "14604",
           "147801",
+          "14802",
           "15102",
           "15103",
           "15104",
+          "15105",
           "15601",
+          "15602",
           "15603",
+          "15604",
           "16001",
           "16002",
           "16304",
+          "16309",
+          "16310",
           "16312",
           "16313",
           "16314",
           "17003",
           "17101",
           "17102",
-          "17104",
+          "17103",
           "17105",
           "191005",
+          "191006",
           "191014",
           "195429",
           "195431",
-          "195432",
           "195453",
-          "195458",
-          "195466",
           "195469",
+          "195926",
           "198812",
+          "20101",
           "20102",
           "20107",
           "20109",
+          "20115",
           "20117",
           "20127",
           "20144",
@@ -709,12 +723,14 @@
           "21308",
           "21309",
           "21310",
+          "21311",
           "21315",
           "23401",
           "23402",
           "23403",
           "25106",
           "27005",
+          "27006",
           "30101",
           "30106",
           "30111",
@@ -725,16 +741,18 @@
           "30118/01",
           "30118/03",
           "30118/05",
-          "30126",
-          "30132/01",
+          "30129",
+          "30132/02",
+          "30138-2",
           "30140",
           "30158",
           "30160-2",
           "30162-2",
           "30201",
-          "30204",
           "30205",
+          "30207",
           "30213",
+          "30215",
           "30222",
           "30223",
           "32602",
@@ -747,8 +765,8 @@
           "40102",
           "40104",
           "40105",
-          "40106",
           "40109",
+          "40120",
           "40203",
           "41101",
           "41102",
@@ -757,7 +775,6 @@
           "41105/05",
           "41106/01",
           "41106/03",
-          "41106/05",
           "41314/01",
           "41314/05",
           "41314/10",
@@ -768,11 +785,14 @@
           "41328/10",
           "44402-2",
           "44605",
+          "45915-1",
           "46903-2",
+          "50101",
+          "50104",
           "50109",
           "50111",
-          "50116",
           "50120",
+          "50224",
           "52901/03",
           "52902",
           "52902/03",
@@ -780,9 +800,8 @@
           "52911",
           "52912",
           "54103",
-          "54104",
-          "54107",
-          "54108",
+          "54105",
+          "54106",
           "56005",
           "56007",
           "56311",
@@ -794,6 +813,7 @@
           "60144",
           "60145/01",
           "60145/05",
+          "60145/10",
           "60146",
           "60149-2",
           "60150",
@@ -813,7 +833,6 @@
           "61923",
           "63601/01",
           "63601/05",
-          "63601/08",
           "63601/10",
           "640102",
           "64404-2",
@@ -825,139 +844,146 @@
           "67108",
           "67109",
           "80112/03",
-          "80112/05",
           "80112/07",
           "80112/08",
-          "80112/09",
-          "80904/03",
+          "80145",
+          "80906/01",
           "80921/01",
           "80921/02",
           "85607",
           "86004",
+          "90141",
           "90148/01",
           "90148/02",
-          "90148/04",
-          "90153/01",
-          "90153/02",
-          "90153/03",
+          "90148/03",
+          "90165/01",
           "90165/02",
           "90175",
           "90187",
           "90200",
+          "90204",
           "980155",
           "980156",
           "980168",
-          "980192",
+          "980188",
           "980193",
+          "980199",
           "980201",
           "98898",
-          "BIO011",
-          "BIO014",
-          "BIOANALYZA013",
-          "POP00067",
+          "DP2000",
+          "IGE009",
           "PROMO116",
-          "VSTUP200526"
+          "PROMO71",
+          "PROMO75"
         ]
       },
       "cz": {
-        "orders": 191,
-        "revenueWithVat": 302779.0,
-        "averageOrderValue": 1585.23,
-        "cancelledOrders": 3,
-        "problematicOrders": 3,
+        "orders": 339,
+        "revenueWithVat": 584580.0,
+        "averageOrderValue": 1724.42,
+        "cancelledOrders": 1,
+        "problematicOrders": 1,
         "statuses": [
           {
-            "name": "přijatá",
-            "count": 96
-          },
-          {
             "name": "expedováno",
-            "count": 82
+            "count": 308
           },
           {
             "name": "nová",
-            "count": 10
+            "count": 16
+          },
+          {
+            "name": "přijatá",
+            "count": 14
           },
           {
             "name": "chyba",
-            "count": 3
+            "count": 1
           }
         ],
         "paymentMethods": [
           {
             "name": "Bezpečná platba online",
-            "count": 82
+            "count": 164
           },
           {
             "name": "Platba převodem",
-            "count": 71
+            "count": 119
           },
           {
             "name": "Dobírkou",
-            "count": 38
+            "count": 54
+          },
+          {
+            "name": "Twisto - kup teď, zaplať na třetiny",
+            "count": 1
+          },
+          {
+            "name": "Twisto - kup teď, zaplať později",
+            "count": 1
           }
         ],
         "deliveryMethods": [
           {
             "name": "Balíkovna",
-            "count": 84
+            "count": 157
           },
           {
             "name": "Balíkovna na adresu",
-            "count": 73
+            "count": 127
           },
           {
             "name": "Zásilkovna",
-            "count": 25
-          },
-          {
-            "name": "DPD doručení na adresu",
-            "count": 7
+            "count": 49
           },
           {
             "name": "DPD výdejní místo",
+            "count": 4
+          },
+          {
+            "name": "DPD doručení na adresu",
             "count": 1
           },
           {
-            "name": "Česká pošta - Balík do ruky",
+            "name": "Packeta na adresu",
             "count": 1
           }
         ],
         "topProductsByUnits": [
           {
+            "code": "60145/01",
+            "name": "Denní hygienická vložka „Jemná péče“ (Počet kusů: 1ks)",
+            "label": "60145/01 · Denní hygienická vložka „Jemná péče“ (Počet kusů: 1ks)",
+            "value": 181.0,
+            "formatted": "181 ks"
+          },
+          {
+            "code": "63601/01",
+            "name": "Denní vložka Energie života (Počet kusů: 1ks)",
+            "label": "63601/01 · Denní vložka Energie života (Počet kusů: 1ks)",
+            "value": 128.0,
+            "formatted": "128 ks"
+          },
+          {
             "code": "44402-2",
             "name": "Fytogel Slaviton",
             "label": "44402-2 · Fytogel Slaviton",
-            "value": 60.0,
-            "formatted": "60 ks"
+            "value": 124.0,
+            "formatted": "124 ks"
+          },
+          {
+            "code": "30118/01",
+            "name": "Kosmetická fytonáplast Wutong (Počet kusů: 1ks)",
+            "label": "30118/01 · Kosmetická fytonáplast Wutong (Počet kusů: 1ks)",
+            "value": 113.0,
+            "formatted": "113 ks"
           },
           {
             "code": "64404-2",
             "name": "Jemný intimní gel",
             "label": "64404-2 · Jemný intimní gel",
-            "value": 54.0,
-            "formatted": "54 ks"
-          },
-          {
-            "code": "61912",
-            "name": "Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
-            "label": "61912 · Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
-            "value": 47.0,
-            "formatted": "47 ks"
-          },
-          {
-            "code": "61914",
-            "name": "Dámské bylinné slipové vložky Nefritová svěžest",
-            "label": "61914 · Dámské bylinné slipové vložky Nefritová svěžest",
-            "value": 44.0,
-            "formatted": "44 ks"
-          },
-          {
-            "code": "67007",
-            "name": "Slipové vložky se stříbrem. super tenké",
-            "label": "67007 · Slipové vložky se stříbrem. super tenké",
-            "value": 40.0,
-            "formatted": "40 ks"
+            "value": 103.0,
+            "formatted": "103 ks"
           }
         ],
         "topProductsByRevenue": [
@@ -965,43 +991,46 @@
             "code": "44402-2",
             "name": "Fytogel Slaviton",
             "label": "44402-2 · Fytogel Slaviton",
-            "value": 17376.0,
-            "formatted": "17 376 Kč"
+            "value": 35165.0,
+            "formatted": "35 165 Kč"
           },
           {
             "code": "64404-2",
             "name": "Jemný intimní gel",
             "label": "64404-2 · Jemný intimní gel",
-            "value": 12790.0,
-            "formatted": "12 790 Kč"
+            "value": 26239.0,
+            "formatted": "26 239 Kč"
           },
           {
             "code": "23401",
             "name": "Šampon - aktivátor růstu vlasů",
             "label": "23401 · Šampon - aktivátor růstu vlasů",
-            "value": 7753.78,
-            "formatted": "7 754 Kč"
-          },
-          {
-            "code": "61912",
-            "name": "Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
-            "label": "61912 · Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
-            "value": 7522.0,
-            "formatted": "7 522 Kč"
+            "value": 20398.17,
+            "formatted": "20 398 Kč"
           },
           {
             "code": "23403",
             "name": "BIO REHAB - Tonikum-aktivátor růstu vlasů",
             "label": "23403 · BIO REHAB - Tonikum-aktivátor růstu vlasů",
-            "value": 7503.55,
-            "formatted": "7 504 Kč"
+            "value": 17583.89,
+            "formatted": "17 584 Kč"
+          },
+          {
+            "code": "23402",
+            "name": "BIO REHAB Maska-aktivátor růstu vlasů",
+            "label": "23402 · BIO REHAB Maska-aktivátor růstu vlasů",
+            "value": 14960.17,
+            "formatted": "14 960 Kč"
           }
         ],
         "soldProductCodes": [
+          "000020",
+          "000074",
+          "000083",
           "000090",
           "10101",
           "10106",
-          "10110",
+          "10108",
           "10111",
           "10112",
           "10114",
@@ -1016,18 +1045,23 @@
           "10261",
           "10262",
           "10263",
-          "10301",
           "10302",
           "10303",
           "10304",
           "10305",
-          "10305/01",
           "10306",
           "10308",
           "113004",
+          "113007",
+          "113011",
+          "113012",
+          "113013",
+          "11307",
           "11317",
+          "11317-01",
           "11319",
           "11320",
+          "11321",
           "11323",
           "120105",
           "12106",
@@ -1043,38 +1077,47 @@
           "12711",
           "12712",
           "135456",
-          "135460",
-          "140110",
+          "140111",
           "144313",
           "14601",
           "14601/1",
+          "14602",
           "14604",
           "147801",
           "15102",
           "15103",
           "15104",
+          "15105",
           "15601",
+          "15602",
           "15603",
+          "15604",
           "16001",
           "16002",
           "16304",
+          "16309",
+          "16310",
+          "16312",
+          "16313",
+          "16314",
           "17003",
           "17101",
           "17102",
-          "17104",
           "17105",
           "191005",
+          "191006",
           "191014",
           "195429",
           "195431",
-          "195432",
-          "195458",
-          "195466",
+          "195453",
           "195469",
+          "195926",
           "198812",
+          "20101",
           "20102",
           "20107",
           "20109",
+          "20115",
           "20117",
           "20127",
           "20144",
@@ -1086,12 +1129,14 @@
           "21308",
           "21309",
           "21310",
+          "21311",
           "21315",
           "23401",
           "23402",
           "23403",
           "25106",
           "27005",
+          "27006",
           "30101",
           "30106",
           "30111",
@@ -1102,16 +1147,17 @@
           "30118/01",
           "30118/03",
           "30118/05",
-          "30126",
-          "30132/01",
+          "30132/02",
+          "30138-2",
           "30140",
           "30158",
           "30160-2",
           "30162-2",
           "30201",
-          "30204",
           "30205",
+          "30207",
           "30213",
+          "30215",
           "30222",
           "30223",
           "32602",
@@ -1124,8 +1170,8 @@
           "40102",
           "40104",
           "40105",
-          "40106",
           "40109",
+          "40120",
           "40203",
           "41101",
           "41102",
@@ -1134,7 +1180,6 @@
           "41105/05",
           "41106/01",
           "41106/03",
-          "41106/05",
           "41314/01",
           "41314/05",
           "41314/10",
@@ -1146,10 +1191,12 @@
           "44402-2",
           "44605",
           "46903-2",
+          "50101",
+          "50104",
           "50109",
           "50111",
-          "50116",
           "50120",
+          "50224",
           "52901/03",
           "52902",
           "52902/03",
@@ -1157,9 +1204,8 @@
           "52911",
           "52912",
           "54103",
-          "54104",
-          "54107",
-          "54108",
+          "54105",
+          "54106",
           "56005",
           "56007",
           "56311",
@@ -1171,6 +1217,7 @@
           "60144",
           "60145/01",
           "60145/05",
+          "60145/10",
           "60146",
           "60149-2",
           "60150",
@@ -1190,9 +1237,7 @@
           "61923",
           "63601/01",
           "63601/05",
-          "63601/08",
           "63601/10",
-          "640102",
           "64404-2",
           "65301-2",
           "65913-2",
@@ -1202,61 +1247,66 @@
           "67108",
           "67109",
           "80112/03",
-          "80112/05",
           "80112/07",
           "80112/08",
-          "80112/09",
-          "80904/03",
+          "80145",
           "80921/01",
           "80921/02",
           "85607",
           "86004",
+          "90141",
           "90148/01",
           "90148/02",
-          "90153/01",
-          "90153/02",
-          "90153/03",
+          "90148/03",
+          "90165/01",
           "90165/02",
           "90175",
+          "90187",
           "90200",
+          "90204",
           "980155",
           "980156",
           "980168",
-          "980192",
+          "980188",
           "980193",
+          "980199",
           "980201",
           "98898",
-          "PROMO116"
+          "DP2000",
+          "IGE009",
+          "PROMO116",
+          "PROMO71",
+          "PROMO75"
         ]
       },
       "sk": {
-        "orders": 18,
-        "revenueWithVat": 31053.71,
-        "averageOrderValue": 1725.21,
-        "cancelledOrders": 0,
-        "problematicOrders": 0,
+        "orders": 24,
+        "revenueWithVat": 49578.23,
+        "averageOrderValue": 2065.76,
+        "cancelledOrders": 1,
+        "problematicOrders": 1,
         "statuses": [
           {
             "name": "expedováno",
-            "count": 9
+            "count": 22
           },
           {
-            "name": "přijatá",
-            "count": 7
+            "name": "chyba",
+            "count": 1
           },
           {
             "name": "nová",
-            "count": 2
+            "count": 1
           }
         ],
         "paymentMethods": [
           {
             "name": "Bezpečná platba online",
-            "count": 12
+            "count": 15
           },
           {
             "name": "Dobírkou",
-            "count": 3
+            "count": 6
           },
           {
             "name": "Platba převodem",
@@ -1265,33 +1315,33 @@
         ],
         "deliveryMethods": [
           {
+            "name": "DORUČENÍ na adresu",
+            "count": 8
+          },
+          {
+            "name": "SK DPD pickup",
+            "count": 7
+          },
+          {
             "name": "Zásielkovňa",
             "count": 6
           },
           {
-            "name": "Packeta na adresu",
-            "count": 3
-          },
-          {
-            "name": "DORUČENÍ na adresu",
-            "count": 3
-          },
-          {
             "name": "GLS",
-            "count": 3
+            "count": 2
           },
           {
-            "name": "SK DPD pickup",
-            "count": 3
+            "name": "Packeta na adresu",
+            "count": 1
           }
         ],
         "topProductsByUnits": [
           {
-            "code": "30106",
-            "name": "Zhui Feng Forte kozmetická náplasť na telo Phyton",
-            "label": "30106 · Zhui Feng Forte kozmetická náplasť na telo Phyton",
-            "value": 11.0,
-            "formatted": "11 ks"
+            "code": "61912",
+            "name": "Dámske bylinné menštruačné vložky Nefritová sviežosť. denný super",
+            "label": "61912 · Dámske bylinné menštruačné vložky Nefritová sviežosť. denný super",
+            "value": 16.0,
+            "formatted": "16 ks"
           },
           {
             "code": "44402-2",
@@ -1301,25 +1351,25 @@
             "formatted": "10 ks"
           },
           {
-            "code": "64404-2",
-            "name": "Jemný intímny gél",
-            "label": "64404-2 · Jemný intímny gél",
-            "value": 5.0,
-            "formatted": "5 ks"
-          },
-          {
-            "code": "195453",
-            "name": "Proteínový koktail s karobom a ľanovým semienkom",
-            "label": "195453 · Proteínový koktail s karobom a ľanovým semienkom",
-            "value": 5.0,
-            "formatted": "5 ks"
-          },
-          {
             "code": "61911",
-            "name": "Denné vložky s výťažkom z aloe Nefritová sviežosť (2 ks)",
-            "label": "61911 · Denné vložky s výťažkom z aloe Nefritová sviežosť (2 ks)",
-            "value": 4.0,
-            "formatted": "4 ks"
+            "name": "Denné vložky s výťažkom z aloe Nefritová sviežosť",
+            "label": "61911 · Denné vložky s výťažkom z aloe Nefritová sviežosť",
+            "value": 10.0,
+            "formatted": "10 ks"
+          },
+          {
+            "code": "30106",
+            "name": "Zhui Feng Forte kozmetická náplasť na telo Phyton",
+            "label": "30106 · Zhui Feng Forte kozmetická náplasť na telo Phyton",
+            "value": 10.0,
+            "formatted": "10 ks"
+          },
+          {
+            "code": "23403",
+            "name": "BIO REHAB - Tonikum - aktivátor rastu vlasov",
+            "label": "23403 · BIO REHAB - Tonikum - aktivátor rastu vlasov",
+            "value": 7.0,
+            "formatted": "7 ks"
           }
         ],
         "topProductsByRevenue": [
@@ -1327,320 +1377,254 @@
             "code": "44402-2",
             "name": "Fytogel Slaviton",
             "label": "44402-2 · Fytogel Slaviton",
-            "value": 3607.82,
-            "formatted": "3 608 Kč"
+            "value": 3108.79,
+            "formatted": "3 109 Kč"
           },
           {
-            "code": "195429",
-            "name": "Kolagén so šťavou z čerešní a granátového jablka",
-            "label": "195429 · Kolagén so šťavou z čerešní a granátového jablka",
-            "value": 3016.06,
-            "formatted": "3 016 Kč"
+            "code": "135415-1",
+            "name": "Zlatý amarantový olej",
+            "label": "135415-1 · Zlatý amarantový olej",
+            "value": 2642.46,
+            "formatted": "2 642 Kč"
           },
           {
-            "code": "30117/05",
-            "name": "Kozmetický fytonaplast Jian Kang (Ks: 5)",
-            "label": "30117/05 · Kozmetický fytonaplast Jian Kang (Ks: 5)",
-            "value": 1967.53,
-            "formatted": "1 968 Kč"
+            "code": "23403",
+            "name": "BIO REHAB - Tonikum - aktivátor rastu vlasov",
+            "label": "23403 · BIO REHAB - Tonikum - aktivátor rastu vlasov",
+            "value": 2640.29,
+            "formatted": "2 640 Kč"
           },
           {
-            "code": "64404-2",
-            "name": "Jemný intímny gél",
-            "label": "64404-2 · Jemný intímny gél",
-            "value": 1524.41,
-            "formatted": "1 524 Kč"
+            "code": "61912",
+            "name": "Dámske bylinné menštruačné vložky Nefritová sviežosť. denný super",
+            "label": "61912 · Dámske bylinné menštruačné vložky Nefritová sviežosť. denný super",
+            "value": 2356.14,
+            "formatted": "2 356 Kč"
           },
           {
-            "code": "30126",
-            "name": "Opasok s turmalínovou bodovou vrstvou",
-            "label": "30126 · Opasok s turmalínovou bodovou vrstvou",
-            "value": 1467.13,
-            "formatted": "1 467 Kč"
+            "code": "30129",
+            "name": "Nákolenníky s turmalínovou bodovou vrstvou",
+            "label": "30129 · Nákolenníky s turmalínovou bodovou vrstvou",
+            "value": 1340.32,
+            "formatted": "1 340 Kč"
           }
         ],
         "soldProductCodes": [
+          "10106",
           "10115",
+          "10117",
+          "10118",
+          "10201",
+          "10206-2",
+          "113004",
+          "113012",
+          "11307",
+          "11317-01",
           "12106",
-          "12115",
+          "12114",
+          "12116",
           "12117",
+          "12704",
           "12705",
           "12707",
+          "12710",
           "12711",
-          "15601",
-          "16312",
-          "16313",
+          "12712",
+          "135415-1",
+          "135456",
+          "140110",
+          "14604",
+          "14802",
           "16314",
-          "195429",
-          "195453",
-          "20107",
-          "20109",
+          "17102",
+          "17103",
+          "191006",
+          "195926",
+          "20101",
+          "20102",
+          "20115",
           "20127",
-          "20163-2",
           "20164",
-          "21308",
-          "21309",
+          "21315",
           "23401",
           "23402",
           "23403",
           "25106",
           "30101",
           "30106",
-          "30115",
           "30117/01",
           "30117/05",
           "30118/01",
-          "30126",
-          "30223",
+          "30118/05",
+          "30129",
+          "30205",
+          "30222",
           "34401-2",
-          "41314/01",
+          "34413-2",
+          "36006",
+          "40102",
+          "41101",
+          "41102",
+          "41106/01",
+          "41328/01",
+          "41328/05",
           "44402-2",
+          "45915-1",
+          "50120",
+          "52911",
+          "52912",
           "56007",
-          "60142",
+          "60143",
+          "60145/01",
+          "60145/10",
+          "60146",
+          "60149-2",
+          "60151-2",
+          "60152-2",
+          "60153-2",
           "61901",
           "61902",
           "61903",
           "61911",
+          "61912",
           "61913",
           "61914",
           "61915",
           "61921",
           "61922",
-          "63601/05",
+          "61923",
+          "640102",
           "64404-2",
           "65301-2",
-          "90148/04",
-          "90187",
-          "90200",
+          "65913-2",
+          "67007",
+          "67109",
+          "80906/01",
+          "80921/01",
+          "90175",
           "980168",
-          "PROMO116",
-          "VSTUP200526"
+          "PROMO116"
         ]
       },
       "ltm": {
-        "orders": 3,
-        "revenueWithVat": 13039.0,
-        "averageOrderValue": 4346.33,
+        "orders": 0,
+        "revenueWithVat": 0.0,
+        "averageOrderValue": 0,
         "cancelledOrders": 0,
         "problematicOrders": 0,
-        "statuses": [
-          {
-            "name": "doručeno",
-            "count": 3
-          }
-        ],
-        "paymentMethods": [
-          {
-            "name": "Hotově",
-            "count": 2
-          },
-          {
-            "name": "Platba kartou",
-            "count": 1
-          }
-        ],
-        "deliveryMethods": [
-          {
-            "name": "Osobní odběr",
-            "count": 3
-          }
-        ],
-        "topProductsByUnits": [
-          {
-            "code": "BIOANALYZA013",
-            "name": "Následná HARMONIZACE ENERGETICKÉHO STAVU vč. nahrání čipu (Kód: BIOANALYZA013)",
-            "label": "BIOANALYZA013 · Následná HARMONIZACE ENERGETICKÉHO STAVU vč. nahrání čipu (Kód: BIOANALYZA013)",
-            "value": 5.0,
-            "formatted": "5 ks"
-          },
-          {
-            "code": "POP00067",
-            "name": "Ashwagandha (Vitánie snodárná), originální bylinné kapky, 50 ml (Kód: POP00067)",
-            "label": "POP00067 · Ashwagandha (Vitánie snodárná), originální bylinné kapky, 50 ml (Kód: POP00067)",
-            "value": 1.0,
-            "formatted": "1 ks"
-          },
-          {
-            "code": "BIO011",
-            "name": "Masticha 240tbl. (Kód: BIO011)",
-            "label": "BIO011 · Masticha 240tbl. (Kód: BIO011)",
-            "value": 1.0,
-            "formatted": "1 ks"
-          },
-          {
-            "code": "BIO014",
-            "name": "Homocystein (Kód: BIO014)",
-            "label": "BIO014 · Homocystein (Kód: BIO014)",
-            "value": 1.0,
-            "formatted": "1 ks"
-          }
-        ],
-        "topProductsByRevenue": [
-          {
-            "code": "BIOANALYZA013",
-            "name": "Následná HARMONIZACE ENERGETICKÉHO STAVU vč. nahrání čipu (Kód: BIOANALYZA013)",
-            "label": "BIOANALYZA013 · Následná HARMONIZACE ENERGETICKÉHO STAVU vč. nahrání čipu (Kód: BIOANALYZA013)",
-            "value": 10500.0,
-            "formatted": "10 500 Kč"
-          },
-          {
-            "code": "BIO011",
-            "name": "Masticha 240tbl. (Kód: BIO011)",
-            "label": "BIO011 · Masticha 240tbl. (Kód: BIO011)",
-            "value": 1800.0,
-            "formatted": "1 800 Kč"
-          },
-          {
-            "code": "BIO014",
-            "name": "Homocystein (Kód: BIO014)",
-            "label": "BIO014 · Homocystein (Kód: BIO014)",
-            "value": 590.0,
-            "formatted": "590 Kč"
-          },
-          {
-            "code": "POP00067",
-            "name": "Ashwagandha (Vitánie snodárná), originální bylinné kapky, 50 ml (Kód: POP00067)",
-            "label": "POP00067 · Ashwagandha (Vitánie snodárná), originální bylinné kapky, 50 ml (Kód: POP00067)",
-            "value": 149.0,
-            "formatted": "149 Kč"
-          }
-        ],
-        "soldProductCodes": [
-          "BIO011",
-          "BIO014",
-          "BIOANALYZA013",
-          "POP00067"
-        ]
+        "statuses": [],
+        "paymentMethods": [],
+        "deliveryMethods": [],
+        "topProductsByUnits": [],
+        "topProductsByRevenue": [],
+        "soldProductCodes": []
       },
       "mecin": {
-        "orders": 1,
-        "revenueWithVat": 537.0,
-        "averageOrderValue": 537.0,
+        "orders": 0,
+        "revenueWithVat": 0.0,
+        "averageOrderValue": 0,
         "cancelledOrders": 0,
         "problematicOrders": 0,
-        "statuses": [
-          {
-            "name": "nová",
-            "count": 1
-          }
-        ],
-        "paymentMethods": [
-          {
-            "name": "Platba kartou",
-            "count": 1
-          }
-        ],
-        "deliveryMethods": [
-          {
-            "name": "Osobní odběr",
-            "count": 1
-          }
-        ],
-        "topProductsByUnits": [
-          {
-            "code": "20161-2",
-            "name": "Revitalizační šampon Oliva a Marakuja, 370 g (Kód: 20161-2)",
-            "label": "20161-2 · Revitalizační šampon Oliva a Marakuja, 370 g (Kód: 20161-2)",
-            "value": 1.0,
-            "formatted": "1 ks"
-          },
-          {
-            "code": "10302",
-            "name": "Vyhlazují krém na vrásky z ovčí placenty kosmetiky tianDe (Kód: 10302)",
-            "label": "10302 · Vyhlazují krém na vrásky z ovčí placenty kosmetiky tianDe (Kód: 10302)",
-            "value": 1.0,
-            "formatted": "1 ks"
-          },
-          {
-            "code": "60144",
-            "name": "Zubní pasta Zelený čaj a ženšen Sanchi (Kód: 60144)",
-            "label": "60144 · Zubní pasta Zelený čaj a ženšen Sanchi (Kód: 60144)",
-            "value": 1.0,
-            "formatted": "1 ks"
-          },
-          {
-            "code": "44402-2",
-            "name": "Fytogel Slaviton (Kód: 44402-2)",
-            "label": "44402-2 · Fytogel Slaviton (Kód: 44402-2)",
-            "value": 1.0,
-            "formatted": "1 ks"
-          }
-        ],
-        "topProductsByRevenue": [
-          {
-            "code": "44402-2",
-            "name": "Fytogel Slaviton (Kód: 44402-2)",
-            "label": "44402-2 · Fytogel Slaviton (Kód: 44402-2)",
-            "value": 217.0,
-            "formatted": "217 Kč"
-          },
-          {
-            "code": "20161-2",
-            "name": "Revitalizační šampon Oliva a Marakuja, 370 g (Kód: 20161-2)",
-            "label": "20161-2 · Revitalizační šampon Oliva a Marakuja, 370 g (Kód: 20161-2)",
-            "value": 172.0,
-            "formatted": "172 Kč"
-          },
-          {
-            "code": "10302",
-            "name": "Vyhlazují krém na vrásky z ovčí placenty kosmetiky tianDe (Kód: 10302)",
-            "label": "10302 · Vyhlazují krém na vrásky z ovčí placenty kosmetiky tianDe (Kód: 10302)",
-            "value": 127.0,
-            "formatted": "127 Kč"
-          },
-          {
-            "code": "60144",
-            "name": "Zubní pasta Zelený čaj a ženšen Sanchi (Kód: 60144)",
-            "label": "60144 · Zubní pasta Zelený čaj a ženšen Sanchi (Kód: 60144)",
-            "value": 103.0,
-            "formatted": "103 Kč"
-          }
-        ],
-        "soldProductCodes": [
-          "10302",
-          "20161-2",
-          "44402-2",
-          "60144"
-        ]
+        "statuses": [],
+        "paymentMethods": [],
+        "deliveryMethods": [],
+        "topProductsByUnits": [],
+        "topProductsByRevenue": [],
+        "soldProductCodes": []
       }
     }
   },
   "stock": {
     "lowStockSoldYesterday": [
       {
-        "code": "POP00067",
-        "title": "Ashwagandha (Vitánie snodárná), originální bylinné kapky, 50 ml",
-        "stock": 0.0,
-        "reportedStock": 0.0,
-        "stores": [
-          {
-            "storeId": 10,
-            "storeName": "[FlexiBee] Sklad Měčín",
-            "inStore": 0.0
-          },
-          {
-            "storeId": 11,
-            "storeName": "[FlexiBee] Sklad LTM",
-            "inStore": 8.0
-          }
-        ],
-        "priceWithVat": 149.0,
-        "visible": true
-      },
-      {
-        "code": "54107",
-        "title": "Pleťová beauty maska \"Černý briliant\"",
-        "stock": 1.0,
+        "code": "45915-1",
+        "title": "Emulze na nohy Lesní talisman",
+        "stock": 3.0,
         "reportedStock": 0.0,
         "stores": [
           {
             "storeId": 6,
             "storeName": "4PX CZ",
-            "inStore": 1.0
+            "inStore": 0.0
           },
           {
             "storeId": 7,
             "storeName": "4PX SK",
+            "inStore": 3.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 14.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 14.0
+          }
+        ],
+        "priceWithVat": 407.0,
+        "visible": true
+      },
+      {
+        "code": "101491",
+        "title": "Katalog tianDe 2026",
+        "stock": 3.0,
+        "reportedStock": 0.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 3.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 50.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 50.0
+          }
+        ],
+        "priceWithVat": 35.0,
+        "visible": true
+      },
+      {
+        "code": "40120",
+        "title": "Pečující krém na popraskané paty",
+        "stock": 9.0,
+        "reportedStock": 0.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 4.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 5.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 9,
+            "storeName": "Fiktivní SK",
             "inStore": 0.0
           },
           {
@@ -1651,25 +1635,10 @@
           {
             "storeId": 11,
             "storeName": "[FlexiBee] Sklad LTM",
-            "inStore": 12.0
+            "inStore": 7.0
           }
         ],
-        "priceWithVat": 74.0,
-        "visible": true
-      },
-      {
-        "code": "BIO011",
-        "title": "Masticha 240tbl.",
-        "stock": 2.0,
-        "reportedStock": 2.0,
-        "stores": [
-          {
-            "storeId": 11,
-            "storeName": "[FlexiBee] Sklad LTM",
-            "inStore": 2.0
-          }
-        ],
-        "priceWithVat": 1800.0,
+        "priceWithVat": 256.0,
         "visible": true
       }
     ],
@@ -1905,6 +1874,12 @@
         "inStore": -432.0
       },
       {
+        "code": "41314",
+        "title": "Náplast na nohy",
+        "storeName": "[FlexiBee] Sklad Měčín",
+        "inStore": -164.0
+      },
+      {
         "code": "000077",
         "title": "Brožura Detoxikace",
         "storeName": "[FlexiBee] Sklad Měčín",
@@ -1914,13 +1889,13 @@
         "code": "PROMO114",
         "title": "Děkujeme za důvěru ",
         "storeName": "[FlexiBee] Sklad LTM",
-        "inStore": -136.0
+        "inStore": -140.0
       },
       {
         "code": "PROMO114",
         "title": "Děkujeme za důvěru ",
         "storeName": "[FlexiBee] Sklad Měčín",
-        "inStore": -109.0
+        "inStore": -110.0
       },
       {
         "code": "000087",
@@ -1939,93 +1914,87 @@
         "title": "Zázvorový nápoj 2+1",
         "storeName": "[FlexiBee] Sklad Měčín",
         "inStore": -80.0
-      },
-      {
-        "code": "000085",
-        "title": "Brožura Potravinové doplňky",
-        "storeName": "[FlexiBee] Sklad Měčín",
-        "inStore": -70.0
       }
     ],
     "largestMovesSinceLastSnapshot": [
       {
-        "code": "64404-2",
-        "title": "Jemný intimní gel",
-        "currentStock": 2192.0,
-        "previousStock": 2199.0,
-        "delta": -7.0
+        "code": "34401-2",
+        "title": "Masážní gel Orthophyt",
+        "currentStock": 978.0,
+        "previousStock": 984.0,
+        "delta": -6.0
+      },
+      {
+        "code": "TR433",
+        "title": "STOP nepohodlí zad a kloubů",
+        "currentStock": 972.0,
+        "previousStock": 978.0,
+        "delta": -6.0
+      },
+      {
+        "code": "ZG095",
+        "title": "Balíček Aktivní pohyb",
+        "currentStock": 972.0,
+        "previousStock": 978.0,
+        "delta": -6.0
+      },
+      {
+        "code": "EC212",
+        "title": "Péče o pohodlí při pohybu",
+        "currentStock": 972.0,
+        "previousStock": 978.0,
+        "delta": -6.0
       },
       {
         "code": "40203",
         "title": "Peeling Broskvový",
-        "currentStock": 1942.0,
-        "previousStock": 1947.0,
+        "currentStock": 1321.0,
+        "previousStock": 1326.0,
         "delta": -5.0
+      },
+      {
+        "code": "OL388",
+        "title": "Balíček na bolavé klouby",
+        "currentStock": 736.0,
+        "previousStock": 741.0,
+        "delta": -5.0
+      },
+      {
+        "code": "41328",
+        "title": "Levandulová náplast na nohy",
+        "currentStock": 2032.0,
+        "previousStock": 2036.0,
+        "delta": -4.0
       },
       {
         "code": "UA132",
         "title": "Peeling Broskovový 1+1",
-        "currentStock": 1932.0,
-        "previousStock": 1937.0,
-        "delta": -5.0
-      },
-      {
-        "code": "41105",
-        "title": "Regenerační krém na nohy s hadím olejem",
-        "currentStock": 3597.0,
-        "previousStock": 3601.0,
+        "currentStock": 1313.0,
+        "previousStock": 1317.0,
         "delta": -4.0
       },
       {
-        "code": "000075",
-        "title": "Brožura Fytogely",
-        "currentStock": 3343.0,
-        "previousStock": 3347.0,
+        "code": "AE596",
+        "title": "Detoxikační balíček pro nohy s bylinným bonusem",
+        "currentStock": 811.0,
+        "previousStock": 815.0,
         "delta": -4.0
       },
       {
-        "code": "63601",
-        "title": "Denní vložka Energie života",
-        "currentStock": 12342.0,
-        "previousStock": 12345.0,
-        "delta": -3.0
-      },
-      {
-        "code": "30118",
-        "title": "Kosmetická fytonáplast Wutong",
-        "currentStock": 3181.0,
-        "previousStock": 3184.0,
-        "delta": -3.0
-      },
-      {
-        "code": "23401",
-        "title": "Šampon - aktivátor růstu vlasů",
-        "currentStock": 956.0,
-        "previousStock": 958.0,
-        "delta": -2.0
-      },
-      {
-        "code": "12114",
-        "title": "Lotion na obličej multifunkční",
-        "currentStock": 529.0,
-        "previousStock": 531.0,
-        "delta": -2.0
-      },
-      {
-        "code": "61912",
-        "title": "Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
-        "currentStock": 603.0,
-        "previousStock": 605.0,
-        "delta": -2.0
+        "code": "44402-2",
+        "title": "Fytogel Slaviton",
+        "currentStock": 2279.0,
+        "previousStock": 2283.0,
+        "delta": -4.0
       }
     ]
   },
   "inventory": {
-    "availableStockTotal": 376918.0,
+    "availableStockTotal": 367879.0,
     "itemsTotal": 1389,
     "byAccount": {
-      "CZ": 306217.0,
-      "SK": 70701.0
+      "CZ": 297988.0,
+      "SK": 69891.0
     },
     "itemsByAccount": {
       "CZ": 768,
@@ -2033,55 +2002,51 @@
     }
   },
   "logistics": {
-    "shipmentsTotal": 212,
+    "shipmentsTotal": 343,
     "byAccount": {
-      "CZ": 196,
-      "SK": 16
+      "CZ": 318,
+      "SK": 25
     },
     "carrierCounts": [
       {
         "name": "F1401",
-        "count": 162
+        "count": 265
       },
       {
         "name": "F1406",
-        "count": 34
+        "count": 56
       },
       {
         "name": "F1402",
-        "count": 10
+        "count": 12
       },
       {
         "name": "F1403",
-        "count": 6
+        "count": 10
       }
     ],
     "logisticsCounts": [
       {
         "name": "F1401",
-        "count": 162
+        "count": 265
       },
       {
         "name": "F1406",
-        "count": 34
+        "count": 56
       },
       {
         "name": "F1402",
-        "count": 10
+        "count": 12
       },
       {
         "name": "F1403",
-        "count": 6
+        "count": 10
       }
     ],
     "statusCounts": [
       {
-        "name": "S",
-        "count": 107
-      },
-      {
         "name": "C",
-        "count": 105
+        "count": 343
       }
     ],
     "coverageWarnings": [],
@@ -2090,11 +2055,11 @@
         "account": "CZ",
         "sku": "40203",
         "dateExpiry": "2026-05-08",
-        "daysToExpiry": 20,
-        "datedStock": 2041.0,
-        "stockAtNearestExpiry": 2041.0,
+        "daysToExpiry": 18,
+        "datedStock": 1434.0,
+        "stockAtNearestExpiry": 1434.0,
         "batchCount": 15,
-        "riskScore": 38.99,
+        "riskScore": 31.2,
         "title": "Peeling Broskvový",
         "label": "40203 · Peeling Broskvový (CZ)"
       },
@@ -2102,11 +2067,11 @@
         "account": "CZ",
         "sku": "52902/03",
         "dateExpiry": "2026-05-07",
-        "daysToExpiry": 19,
-        "datedStock": 323.0,
-        "stockAtNearestExpiry": 323.0,
-        "batchCount": 3,
-        "riskScore": 6.57,
+        "daysToExpiry": 17,
+        "datedStock": 249.0,
+        "stockAtNearestExpiry": 249.0,
+        "batchCount": 2,
+        "riskScore": 5.81,
         "title": "Revitalizační maska na obličej a krk Lingzhi - 3ks",
         "label": "52902/03 · Revitalizační maska na obličej a krk Lingzhi - 3ks (CZ)"
       },
@@ -2114,11 +2079,11 @@
         "account": "CZ",
         "sku": "PROMO74",
         "dateExpiry": "2027-02-09",
-        "daysToExpiry": 297,
-        "datedStock": 9460.0,
-        "stockAtNearestExpiry": 2340.0,
+        "daysToExpiry": 295,
+        "datedStock": 9429.0,
+        "stockAtNearestExpiry": 2309.0,
         "batchCount": 18,
-        "riskScore": 5.75,
+        "riskScore": 5.78,
         "title": "Královská bylinná směs zdravá žena ",
         "label": "PROMO74 · Královská bylinná směs zdravá žena  (CZ)"
       },
@@ -2126,11 +2091,11 @@
         "account": "CZ",
         "sku": "63601/01",
         "dateExpiry": "2026-12-31",
-        "daysToExpiry": 257,
-        "datedStock": 7496.0,
-        "stockAtNearestExpiry": 7496.0,
+        "daysToExpiry": 255,
+        "datedStock": 7349.0,
+        "stockAtNearestExpiry": 7349.0,
         "batchCount": 15,
-        "riskScore": 5.49,
+        "riskScore": 5.44,
         "title": "Denní vložka Energie života",
         "label": "63601/01 · Denní vložka Energie života (CZ)"
       },
@@ -2138,11 +2103,11 @@
         "account": "CZ",
         "sku": "30111",
         "dateExpiry": "2026-12-10",
-        "daysToExpiry": 236,
-        "datedStock": 6394.0,
-        "stockAtNearestExpiry": 6394.0,
+        "daysToExpiry": 234,
+        "datedStock": 6377.0,
+        "stockAtNearestExpiry": 6377.0,
         "batchCount": 18,
-        "riskScore": 5.23,
+        "riskScore": 5.28,
         "title": "Kosmetická tělová fytonáplast Yaoshen Forte",
         "label": "30111 · Kosmetická tělová fytonáplast Yaoshen Forte (CZ)"
       }
@@ -2150,9 +2115,9 @@
     "notes": []
   },
   "priorities": [
-    "Dohlédnout POP00067 (Ashwagandha (Vitánie snodárná), originální bylinné kapky, 50 ml), aktuálně 0 ks.",
-    "Dohlédnout 54107 (Pleťová beauty maska \"Černý briliant\"), aktuálně 1 ks.",
-    "Projít 3 problematických nebo stornovaných objednávek z včerejška.",
+    "Dohlédnout 45915-1 (Emulze na nohy Lesní talisman), aktuálně 3 ks.",
+    "Dohlédnout 101491 (Katalog tianDe 2026), aktuálně 3 ks.",
+    "Projít 2 problematických nebo stornovaných objednávek z včerejška.",
     "Projít nejbližší expirace v 4PX a rozhodnout o doprodeji nebo přesunu zásoby."
   ]
 }

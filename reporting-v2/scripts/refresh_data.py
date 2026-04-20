@@ -3852,18 +3852,20 @@ def load_optional_current_json(name):
     return json.loads(path.read_text(encoding='utf-8'))
 
 
-def ensure_daily_sklik_snapshot(now_local):
-    token = (os.environ.get('SKLIK_API_TOKEN') or '').strip()
-    if not token:
-        return {'ready': False, 'reason': 'missing_token'}
+def snapshot_is_fresh(snapshot_path, now_local, max_age_minutes):
+    if not snapshot_path.exists():
+        return False
+    modified_at = datetime.fromtimestamp(snapshot_path.stat().st_mtime, PRAGUE_TZ)
+    age_seconds = (now_local - modified_at).total_seconds()
+    return age_seconds <= max_age_minutes * 60
 
-    snapshot_path = CURRENT_DIR / 'sklik_overview.json'
-    if snapshot_path.exists():
-        modified_at = datetime.fromtimestamp(snapshot_path.stat().st_mtime, PRAGUE_TZ)
-        if modified_at.date() == now_local.date():
-            return {'ready': True, 'refreshed': False, 'path': str(snapshot_path)}
 
-    script_path = ROOT / 'scripts' / 'fetch_sklik.py'
+def run_optional_snapshot_fetch(script_name, snapshot_name, now_local, max_age_minutes):
+    snapshot_path = CURRENT_DIR / snapshot_name
+    if snapshot_is_fresh(snapshot_path, now_local, max_age_minutes):
+        return {'ready': True, 'refreshed': False, 'path': str(snapshot_path)}
+
+    script_path = ROOT / 'scripts' / script_name
     try:
         result = subprocess.run(
             [sys.executable, str(script_path)],
@@ -3881,6 +3883,14 @@ def ensure_daily_sklik_snapshot(now_local):
         return {'ready': False, 'reason': 'fetch_failed', 'message': message[:500]}
 
     return {'ready': True, 'refreshed': True, 'path': str(snapshot_path)}
+
+
+def ensure_daily_sklik_snapshot(now_local):
+    token = (os.environ.get('SKLIK_API_TOKEN') or '').strip()
+    if not token:
+        return {'ready': False, 'reason': 'missing_token'}
+    max_age_minutes = int(os.environ.get('SKLIK_MAX_AGE_MINUTES', '120'))
+    return run_optional_snapshot_fetch('fetch_sklik.py', 'sklik_overview.json', now_local, max_age_minutes)
 
 
 def ensure_daily_meta_snapshot(now_local):
@@ -3888,31 +3898,8 @@ def ensure_daily_meta_snapshot(now_local):
     account_ids = (os.environ.get('META_AD_ACCOUNT_IDS') or '').strip()
     if not token or not account_ids:
         return {'ready': False, 'reason': 'missing_token'}
-
-    snapshot_path = CURRENT_DIR / 'meta_ads_overview.json'
-    if snapshot_path.exists():
-        modified_at = datetime.fromtimestamp(snapshot_path.stat().st_mtime, PRAGUE_TZ)
-        if modified_at.date() == now_local.date():
-            return {'ready': True, 'refreshed': False, 'path': str(snapshot_path)}
-
-    script_path = ROOT / 'scripts' / 'fetch_meta_ads.py'
-    try:
-        result = subprocess.run(
-            [sys.executable, str(script_path)],
-            cwd=str(ROOT),
-            capture_output=True,
-            text=True,
-            timeout=180,
-            check=False,
-        )
-    except Exception as exc:
-        return {'ready': False, 'reason': 'run_error', 'message': str(exc)}
-
-    if result.returncode != 0:
-        message = (result.stderr or result.stdout or '').strip()
-        return {'ready': False, 'reason': 'fetch_failed', 'message': message[:500]}
-
-    return {'ready': True, 'refreshed': True, 'path': str(snapshot_path)}
+    max_age_minutes = int(os.environ.get('META_ADS_MAX_AGE_MINUTES', '120'))
+    return run_optional_snapshot_fetch('fetch_meta_ads.py', 'meta_ads_overview.json', now_local, max_age_minutes)
 
 
 def ensure_daily_google_snapshot(now_local):
@@ -3925,62 +3912,16 @@ def ensure_daily_google_snapshot(now_local):
     ]
     if not all(required):
         return {'ready': False, 'reason': 'missing_token'}
-
-    snapshot_path = CURRENT_DIR / 'google_ads_overview.json'
-    if snapshot_path.exists():
-        modified_at = datetime.fromtimestamp(snapshot_path.stat().st_mtime, PRAGUE_TZ)
-        if modified_at.date() == now_local.date():
-            return {'ready': True, 'refreshed': False, 'path': str(snapshot_path)}
-
-    script_path = ROOT / 'scripts' / 'fetch_google_ads.py'
-    try:
-        result = subprocess.run(
-            [sys.executable, str(script_path)],
-            cwd=str(ROOT),
-            capture_output=True,
-            text=True,
-            timeout=180,
-            check=False,
-        )
-    except Exception as exc:
-        return {'ready': False, 'reason': 'run_error', 'message': str(exc)}
-
-    if result.returncode != 0:
-        message = (result.stderr or result.stdout or '').strip()
-        return {'ready': False, 'reason': 'fetch_failed', 'message': message[:500]}
-
-    return {'ready': True, 'refreshed': True, 'path': str(snapshot_path)}
+    max_age_minutes = int(os.environ.get('GOOGLE_ADS_MAX_AGE_MINUTES', '120'))
+    return run_optional_snapshot_fetch('fetch_google_ads.py', 'google_ads_overview.json', now_local, max_age_minutes)
 
 
 def ensure_daily_klaviyo_snapshot(now_local):
     token = (os.environ.get('KLAVIYO_PRIVATE_API_KEY') or '').strip()
     if not token:
         return {'ready': False, 'reason': 'missing_token'}
-
-    snapshot_path = CURRENT_DIR / 'klaviyo_overview.json'
-    if snapshot_path.exists():
-        modified_at = datetime.fromtimestamp(snapshot_path.stat().st_mtime, PRAGUE_TZ)
-        if modified_at.date() == now_local.date():
-            return {'ready': True, 'refreshed': False, 'path': str(snapshot_path)}
-
-    script_path = ROOT / 'scripts' / 'fetch_klaviyo.py'
-    try:
-        result = subprocess.run(
-            [sys.executable, str(script_path)],
-            cwd=str(ROOT),
-            capture_output=True,
-            text=True,
-            timeout=180,
-            check=False,
-        )
-    except Exception as exc:
-        return {'ready': False, 'reason': 'run_error', 'message': str(exc)}
-
-    if result.returncode != 0:
-        message = (result.stderr or result.stdout or '').strip()
-        return {'ready': False, 'reason': 'fetch_failed', 'message': message[:500]}
-
-    return {'ready': True, 'refreshed': True, 'path': str(snapshot_path)}
+    max_age_minutes = int(os.environ.get('KLAVIYO_MAX_AGE_MINUTES', '120'))
+    return run_optional_snapshot_fetch('fetch_klaviyo.py', 'klaviyo_overview.json', now_local, max_age_minutes)
 
 
 def main():
