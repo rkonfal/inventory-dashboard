@@ -1,0 +1,278 @@
+sku,name,packaging_raw,recommended_order_qty,match_status,catalog_code,catalog_title,catalog_ean,catalog_visible,match_reason
+101015,"Nálepka ""Život dětem"" (CZ), 1 ks",1,1,missing,,,,,
+100264,"Brožura ""Altai Sacral"" (CZ), 1 ks",1,1,missing,,,,,
+100323/02,"Brožura ""ECO mycí prostředek TianDe""  PL (polský jazyk)",1,1,missing,,,,,
+100284,"Brožura ""Fucoidan"" (CZ), 1 ks",1,1,exact_code,100284,Brožura Fucoidan,4601002752544,True,Exact shoda SKU v katalogu.
+100289,"Brožura ""Marketingový plán TianDe 2020"" (CZ)",1,1,exact_code,100289,"Brožura ""Marketingový plán tianDe""",0745604816380,True,Exact shoda SKU v katalogu.
+100263/01,"Brožura ""Master Herb""  (RO rumusnký jazyk)",1,1,missing,,,,,
+100281,"Franchising TianDe - Příručka pro vedoucí Servisních center (CZ), 1 ks",1,1,missing,,,,,
+101806,Pracovní sešit TianDe   (PL  polský jazyk),1,1,missing,,,,,
+101488,1+1Katalog Tiande 2025 (RO),1,1,missing,,,,,
+101491,Katalog TianDe 2026 (CZ),1,1,exact_code,101491,Katalog tianDe 2026,0745604816786,True,Exact shoda SKU v katalogu.
+101460,Katalog TianDe 2020/2021 (EN),1,1,missing,,,,,
+101479,Katalog TianDe 2024 (CZ),1,1,exact_code,101479,Katalog tianDe 2024,1548965847596,False,Exact shoda SKU v katalogu.
+101484,Katalog TianDe 2024 (DE),1,1,fuzzy_title,101479,Katalog tianDe 2024,1548965847596,False,"Silná podobnost názvu (0.927), doporučeno ověřit ručně."
+101483,Katalog Tiande 2024 (RO),1,1,fuzzy_title,101479,Katalog tianDe 2024,1548965847596,False,"Silná podobnost názvu (0.927), doporučeno ověřit ručně."
+100056/10,Akční leták (RO),1,1,missing,,,,,
+100051/01,Akční leták KATALOG (CZ),1,1,missing,,,,,
+100051/02,Akční leták KATALOG (SK),1,1,missing,,,,,
+100716,Papírová dárková taška (zlata Tiande) 250x90x250 mm,1,1,missing,,,,,
+100712,Papírová taška (fialová)  280*100*230,1,1,missing,,,,,
+100644/24,Taška kraftový papír Tiande 24x11x33 cm  (hnědá barva),1,1,missing,,,,,
+80112/09HM,"Ovocný balzám na rty „Broskev“, 3,5 g",1 / 24 / 720,720,base_code,80112,Ovocný balzám na rty,,True,Shoda po odvození základního SKU z 80112/09HM na 80112.
+80112/07,"Ovocný balzám na rty „Jahoda“, 3,5 g",1 / 24 / 720,720,base_code,80112,Ovocný balzám na rty,,True,Shoda po odvození základního SKU z 80112/07 na 80112.
+80112/08HM,"Ovocný balzám na rty „Malina“, 3,5 g",1 / 24 / 720,720,base_code,80112,Ovocný balzám na rty,,True,Shoda po odvození základního SKU z 80112/08HM na 80112.
+80112/03,"Ovocný balzám na rty „Vanilka“, 3,5 g",1 / 24 / 720,720,base_code,80112,Ovocný balzám na rty,,True,Shoda po odvození základního SKU z 80112/03 na 80112.
+80112/05,"Ovocný balzám na rty „Višeň“, 3,5 g",1 / 24 / 720,720,base_code,80112,Ovocný balzám na rty,,True,Shoda po odvození základního SKU z 80112/05 na 80112.
+80411/02,"Oční stíny Nápady líčení, 9 g",1 / 144,144,exact_code,80411/02,Oční stíny Nápady líčení,6972527291305,False,Exact shoda SKU v katalogu.
+80904/01,"Tužka na rty a oči, ton 01 ""Black"",1 ks",1 / 12 / 2880,2880,base_code,80904,Tužka na rty a oči,,True,Shoda po odvození základního SKU z 80904/01 na 80904.
+80904/02,"Tužka na rty a oči, ton 02 ""Dark Brown"",1 ks",1 / 12 / 2880,2880,base_code,80904,Tužka na rty a oči,,True,Shoda po odvození základního SKU z 80904/02 na 80904.
+80904/03,"Tužka na rty a oči, ton 03 ""Gray"",1 ks",1 / 12 / 2880,2880,base_code,80904,Tužka na rty a oči,,True,Shoda po odvození základního SKU z 80904/03 na 80904.
+80921/01,"Sametový pleťový pudr Duo (odstín 01), 10 g",1 / 240,240,base_code,80921,Sametový pleťový pudr Duo,,True,Shoda po odvození základního SKU z 80921/01 na 80921.
+80921/02,"Sametový pleťový pudr Duo (odstín 02), 10 g",1 / 240,240,base_code,80921,Sametový pleťový pudr Duo,,True,Shoda po odvození základního SKU z 80921/02 na 80921.
+10114,"AKCE březen - duben!  CC pleťový krém s blur efektem SPF 20, 50 g",1 / 120,120,exact_code,10114,CC pleťový krém s blur efektem SPF 20,6974255486107,True,Exact shoda SKU v katalogu.
+10115HM,"AKCE březen - duben!  Krém s válečkem na tvarování kontur brady a krku, 120 g",1 / 70,70,base_code,10115,"Krém s válečkem na tvarování kontur brady a krku, 120 g	",6925466272003,True,Shoda po odvození základního SKU z 10115HM na 10115.
+140110HM,"Kapsle na hygienické praní, 52 ks х 8 g",1 / 36,36,base_code,140110,Kapsle na hygienické praní,6974942740512,True,Shoda po odvození základního SKU z 140110HM na 140110.
+147801,"Tablety do myčky s aktivním kyslíkem, 8 g х 35 ks",1 / 24,24,exact_code,147801,Tablety do myčky s aktivním kyslíkem,6974942740536,True,Exact shoda SKU v katalogu.
+30115HM,"Dop.sleva 15% Tělový deodorant-spray „Přírodní alunit a šalvěj"", 100 ml",1 / 20,20,base_code,30115,"Tělový deodorant-spray „Přírodní alunit a šalvěj""",4810304015367,True,Shoda po odvození základního SKU z 30115HM na 30115.
+60151-2,"Kamencový deodorant s prebiotiky Men's Choice, svěžest, 50 g",1 / 96,96,exact_code,60151-2,"Kamencový deodorant s prebiotiky, Men´s Choice ",6922782629566,True,Exact shoda SKU v katalogu.
+60153-2,"Kamencový deodorant s prebiotiky, květinová vůně, 50 g",1 / 96,96,exact_code,60153-2,"Kamencový deodorant s prebiotiky, květinová vůně ",6922782629580,True,Exact shoda SKU v katalogu.
+60152-2,"Kamencový deodorant s prebiotiky, svěží vůně, 50 g",1 / 96,96,exact_code,60152-2,"Kamencový deodorant s prebiotiky, svěží vůně",6922782629573,True,Exact shoda SKU v katalogu.
+30101,"Krystalový tělový deodorant Natural Veil, 60 g",1 / 12 / 144,144,exact_code,30101,Krystalový tělový deodorant Natural Veil,6921301012544,True,Exact shoda SKU v katalogu.
+30117,"Kosmetická fytonáplast Jian Kang, 5 ks",1 / 400,400,exact_code,30117,Kosmetická fytonáplast Jian Kang,,True,Exact shoda SKU v katalogu.
+30118,"Kosmetická fytonáplast Wutong, 5 ks",1 / 400,400,exact_code,30118,Kosmetická fytonáplast Wutong,,True,Exact shoda SKU v katalogu.
+30111,"Kosmetická tělová fytonáplast Yaoshen Forte, 2 ks",1 / 1500,1500,exact_code,30111,Kosmetická tělová fytonáplast Yaoshen Forte,6921049796515,True,Exact shoda SKU v katalogu.
+30106,"Kosmetická tělová fytonáplast Zhui Feng Forte, 4 ks",1 / 120 / 720,720,exact_code,30106,Kosmetická tělová fytonáplast Zhui Feng Forte,6921049796027,True,Exact shoda SKU v katalogu.
+10112,"Kolagenová pleťová esence na vrásky, 50 ml",1 / 100,100,exact_code,10112,Kolagenová pleťová esence na vrásky,6976625350421,True,Exact shoda SKU v katalogu.
+10108HM,"Multipeptidové pleťové sérum, 30 ml",1 / 12 / 96,96,base_code,10108,Multipeptidové pleťové sérum,6922782627913,True,Shoda po odvození základního SKU z 10108HM na 10108.
+20155,"Olejová esence na vlasy vkapslích, 20 ks x 1 g",1 / 150,150,exact_code,20155,Olejová esence na vlasy v kapslích,6970885984754,True,Exact shoda SKU v katalogu.
+10110HM,"Peptidový krém na oční víčka na vrásky, 30 g",1 / 100,100,base_code,10110,Peptidový krém na oční víčka na vrásky,6976625350438,True,Shoda po odvození základního SKU z 10110HM na 10110.
+10106,"Pleťová esence s kolagenem a mořskými řasami, 30 ml",1 / 144,144,exact_code,10106,Pleťová esence s kolagenem a mořskými řasami,6922782627081,True,Exact shoda SKU v katalogu.
+10111HM,"Polypeptidový pleťový krém s kolagenem na vrásky, 50 ml",1 / 100,100,base_code,10111,Polypeptidový pleťový krém s kolagenem na vrásky,6976625350445,True,Shoda po odvození základního SKU z 10111HM na 10111.
+10101,"Regenerační sérum v kapslích, 36 ks x 0,7 g",1 / 300,300,exact_code,10101,Regenerační sérum v kapslích,6947372749998,True,Exact shoda SKU v katalogu.
+41101HM,"De-expert!!! Krém na nohy s hadím tukem, 80 ml",1 / 1 / 12 / 12 / 144 / 144,144,base_code,41101,Krém na nohy s hadím tukem,6921570917083,True,Shoda po odvození základního SKU z 41101HM na 41101.
+41102HM,"De-expert!!! Krém na ruce shadím tukem, 80 ml",1 / 1 / 1 / 12 / 12 / 144 / 144,144,base_code,41102,Krém na ruce s hadím tukem,6921570917076,True,Shoda po odvození základního SKU z 41102HM na 41102.
+40109HM,"Krém na ruce Slunečné olivy, 80 g",1 / 1 / 12 / 144,144,base_code,40109,Krém na ruce Slunečné olivy,6921570932208,True,Shoda po odvození základního SKU z 40109HM na 40109.
+40106,"Omlazující krém na ruce Lingzhi, 80 ml",1 / 12 / 144,144,exact_code,40106,Omlazující krém na ruce Lingzhi,6921570917212,True,Exact shoda SKU v katalogu.
+41106,"Preventivní krém na nohy s hadím olejem, 30 g",1 / 60 / 480,480,exact_code,41106,Preventivní krém na nohy s hadím olejem,,True,Exact shoda SKU v katalogu.
+41105HM,"Regenerační krém na nohy s hadím olejem, 30 g",1 / 60 / 480,480,base_code,41105,Regenerační krém na nohy s hadím olejem,,True,Shoda po odvození základního SKU z 41105HM na 41105.
+40104,"Sleva březen - duben!!! Krém na ruce s placentou a perlovým práškem, 80 ml",1 / 12 / 144,144,exact_code,40104,Krém na ruce s placentou a perlovým práškem,6921570917052,True,Exact shoda SKU v katalogu.
+40101HM,"Sleva březen - duben!!! Mléčný krém na ruce, 80 ml",1 / 1 / 1 / 12 / 12 / 144 / 144,144,base_code,40101,Mléčný krém na ruce,6921570917014,True,Shoda po odvození základního SKU z 40101HM na 40101.
+40102HM,"Sleva březen - duben!!! Regenerační krém na ruce Aloe Vera, 80 ml",1 / 1 / 1 / 12 / 12 / 144 / 144,144,base_code,40102,Regenerační krém na ruce Aloe Vera,6921570917021,True,Shoda po odvození základního SKU z 40102HM na 40102.
+40105HM,"Sleva březen - duben!!! Vyživující hydratační krém na ruce Ovčí mléko, 80 ml",1 / 1 / 1 / 12 / 12 / 144 / 144,144,base_code,40105,Vyživující hydratační krém na ruce Ovčí mléko,6921570917038,True,Shoda po odvození základního SKU z 40105HM na 40105.
+50120,"AKCE březen - duben!  Hydrogelové polštářky na pleť s ceramidy, 4 ks x 3 g",1 / 720,720,exact_code,50120,Hydrogelové polštářky na pleť s ceramidy,6925466296108,True,Exact shoda SKU v katalogu.
+80145HM,"AKCE leden-unor! Peptidová maska na rty s arganovým olejem, 13 g",1 / 160,160,base_code,80145,Peptidová maska na rty s arganovým olejem,6925466296085,True,Shoda po odvození základního SKU z 80145HM na 80145.
+50116,"Čisticí zlatá slupovací pleťová maska, 130 ml",1 / 144,144,exact_code,50116,Čisticí zlatá slupovací pleťová maska,6928001836579,True,Exact shoda SKU v katalogu.
+50109,"Hydratační krémová maska na obličej Aloe, 35 g",1 / 1 / 1 / 100 / 100 / 400 / 400,400,exact_code,50109,Hydratační krémová maska na obličej Aloe,6925466294241,True,Exact shoda SKU v katalogu.
+50104,"Noční krémová maska na obličej s hroznovým vínem, 18 g",1 / 1 / 1 / 10 / 10 / 600 / 600,600,exact_code,50104,Noční krémová maska na obličej s hroznovým vínem,6925466289834,True,Exact shoda SKU v katalogu.
+50101,"Noční krémová maska na obličej se zeleným čajem, 18 g",1 / 1 / 1 / 10 / 10 / 600 / 600,600,exact_code,50101,Noční krémová maska na obličej se zeleným čajem,6925466289803,True,Exact shoda SKU v katalogu.
+50111,"Regenarační krémová maska na obličej Mořský elixír, 35 g",1 / 1 / 1 / 100 / 100 / 400 / 400,400,exact_code,50111,Regenerační krémová maska na obličej Mořský elixír,6925466294418,True,Exact shoda SKU v katalogu.
+52912,"AKCE březen - duben!  Hydratační spa rukavice s argininem a vitamínem B3, 1 pár",1 / 300,300,exact_code,52912,Hydratační spa rukavice s argininem a vitamínem B3,6925466296092,True,Exact shoda SKU v katalogu.
+52901HM,"Intenzivní hydratační maska na obličej a krk Hyaluronová kyselina, 35 g",1 / 1 / 1 / 40 / 40 / 480 / 480,480,base_code,52901,Intenzivní hydratační maska na obličej a krk Hyaluronová kyselina,6936217708313,False,Shoda po odvození základního SKU z 52901HM na 52901.
+52903,"Intenzivní omlazující maska na obličej a krk Q10, 35 g",1 / 40 / 480,480,exact_code,52903,Intenzivní omlazující maska na obličej a krk Q10,6936217708290,True,Exact shoda SKU v katalogu.
+52911HM,"Obnovující maska na obličej a krk s fullereny a polypeptidy, 1 ks",1 / 480,480,base_code,52911,Obnovující maska na obličej a krk s fullereny a polypeptidy,6950079111838,True,Shoda po odvození základního SKU z 52911HM na 52911.
+52902,"Revitalizační  maska na obličej a krk Lingzhi, 35 g",1 / 40 / 480,480,exact_code,52902,Revitalizační maska na obličej a krk Lingzhi,6936217708306,True,Exact shoda SKU v katalogu.
+54106HM,"Pleťová beauty-maska „Amino-koktejl”, 1 ks",1 / 360,360,base_code,54106,"Pleťová beauty maska ""Amino-koktejl""",6925466286598,True,Shoda po odvození základního SKU z 54106HM na 54106.
+54107,"Pleťová beauty-maska „Černý briliant”, 1 ks",1 / 360,360,exact_code,54107,"Pleťová beauty maska ""Černý briliant""",6925466286604,True,Exact shoda SKU v katalogu.
+54108,"Pleťová beauty-maska „Levandulová Provence”, 1 ks",1 / 360,360,exact_code,54108,"Pleťová beauty maska ""levandulová provence""",6925466286611,True,Exact shoda SKU v katalogu.
+54103HM,"Pleťová beauty-maska „Vinná terapie“, 1 ks",1 / 360,360,base_code,54103,"Pleťová beauty maska ""Vinná terapie""",6925466285676,True,Shoda po odvození základního SKU z 54103HM na 54103.
+54105,"Pleťová beauty-maska s granátovým jablkem,1 ks",1 / 360,360,exact_code,54105,Pleťová beauty maska s granátovým jablkem,6925466285690,True,Exact shoda SKU v katalogu.
+54104,"Pleťová beauty-maska s mořskými řasami, 1 ks",1 / 360,360,exact_code,54104,Pleťová beauty maska s mořskými řasami,6925466285683,True,Exact shoda SKU v katalogu.
+10131,"Regenerační balzám po holení, 170 ml",1 / 60,60,exact_code,10131,Regenerační balzám po holení,6912841617009,True,Exact shoda SKU v katalogu.
+40120HM,Pečující krém na popraskané paty 40 g,1 / 144,144,base_code,40120,Pečující krém na popraskané paty,6924444233036,True,Shoda po odvození základního SKU z 40120HM na 40120.
+41320HM,"Solná koupel na nohy Čajovníkový strom, 50 g",1 / 1 / 100 / 100 / 400 / 400,400,base_code,41320,Solná koupel na nohy Čajovníkový strom,6924444229930,True,Shoda po odvození základního SKU z 41320HM na 41320.
+60149-2,"AKCE březen - duben!  Gel pro intimní péči s bylinnými extrakty, 360 g",1 / 48,48,exact_code,60149-2,Jemný ženský intimní bylinný extraktový gel,6922782629535,True,Exact shoda SKU v katalogu.
+30162-2,"AKCE březen - duben!  Revitalizační sprchový gel Oliva a maracuja, 470 g",1 / 15,15,exact_code,30162-2,"Revitalizační sprchový gel Oliva a Marakuja, 470 g	",6921570905851,True,Exact shoda SKU v katalogu.
+30160-2,"AKCE březen - duben! Hydratační sprchový gel Vodní meloun a hrozny, 470 g",1 / 15,15,exact_code,30160-2,"Hydratační sprchový gel Vodní meloun a Hrozny, 470 g	",6921570905844,True,Exact shoda SKU v katalogu.
+30138-2,"Balzám „Talisman“, 50 g",1 / 96,96,exact_code,30138-2,Balzám Talisman,6922782629627,True,Exact shoda SKU v katalogu.
+36006,"Hyaluronový gel-lotion na obličej a tělo s mořskými řasami, 220 ml",1 / 12 / 48,48,exact_code,36006,"Hyaluronový gel-lotion na obličej a tělo s mořskými řasami, 220 ml",6922782629672,True,Exact shoda SKU v katalogu.
+46903-2,"Krém na nohy s 30 % močoviny na pokožku s prasklinami a otlaky, 80 g",1 / 96,96,exact_code,46903-2, Krém na nohy s 30 % močoviny na pokožku s prasklinami a otlaky,6922782629726,True,Exact shoda SKU v katalogu.
+140111HM,"Tělové mýdlo s ženšenem, 100 g",1 / 120,120,base_code,140111,Tělové mýdlo s ženšenem,6970784797295,True,Shoda po odvození základního SKU z 140111HM na 140111.
+20159-2,"AKCE březen - duben!  Hydratační šampon Vodní meloun a hrozny, 370 g",1 / 24,24,exact_code,20159-2,"Hydratační šampon Vodní meloun a Hrozny, 370 g	",6921570905820,True,Exact shoda SKU v katalogu.
+20161-2,"AKCE březen - duben! Revitalizační šampon Oliva a maracuja, 370 g",1 / 24,24,exact_code,20161-2,"Revitalizační šampon Oliva a Marakuja, 370 g",6921570905837,True,Exact shoda SKU v katalogu.
+30158HM,"Fluid na vlasy s arganovým olejem a aminokyselinami, 50 ml",1 / 150,150,base_code,30158,Fluid na vlasy s arganovým olejem a aminokyselinami,6974255484165,True,Shoda po odvození základního SKU z 30158HM na 30158.
+20127HM,"De-expert!!! Posilující maska na vlasy Hadí olej , 500 g",1 / 12 / 24,24,base_code,20127,Posilující maska na vlasy Hadí olej,6926244125580,True,Shoda po odvození základního SKU z 20127HM na 20127.
+20109HM,"AKCE březen - duben!  Balzám na vlasy na zpevnění vlasových kořenů s extraktem Ling Zhi, 220 g",1 / 24 / 48,48,base_code,20109,Balzám na vlasy na zpevnění vlasových kořínků s extraktem Lingzhi,6921570931195,True,Shoda po odvození základního SKU z 20109HM na 20109.
+20107,"AKCE březen-duben!!! Šampon pro posílení vlasů s extraktem Ling Zhi, 220 g",1 / 24 / 48,48,exact_code,20107,Šampon pro posílení vlasů s extraktem Ling Zhi,6921570931171,True,Exact shoda SKU v katalogu.
+21309HM,"Balzám na vlasy Zlatý zázvor, 300 ml",1 / 1 / 1 / 48 / 48,48,base_code,21309,Balzám na vlasy Zlatý zázvor,6935513903200,True,Shoda po odvození základního SKU z 21309HM na 21309.
+21308,"Šampón na vlasy „Zlatý zázvor“, 300 ml",1 / 1 / 1 / 48 / 48,48,exact_code,21308,Šampón na vlasy „Zlatý zázvor“,6935513903194,True,Exact shoda SKU v katalogu.
+23402,"Maska-aktivátor růstu vlasů, 250 g",1 / 48,48,exact_code,23402,BIO REHAB Maska-aktivátor růstu vlasů,6935513906812,True,Exact shoda SKU v katalogu.
+23401HM,"Šampon - aktivátor růstu vlasů, 250 g",1 / 1 / 1 / 48 / 48,48,base_code,23401,Šampon - aktivátor růstu vlasů,6935513904559,True,Shoda po odvození základního SKU z 23401HM na 23401.
+23403,"Tonikum na podporu růstu vlasů, 50 g",1 / 72,72,exact_code,23403,BIO REHAB - Tonikum-aktivátor růstu vlasů,6935513903712,True,Exact shoda SKU v katalogu.
+21316,"Balzám na poškozené vlasy, 500 g",1 / 1 / 1 / 1 / 12 / 36 / 36,36,exact_code,21316,Balzám na poškozené vlasy,6932088869115,True,Exact shoda SKU v katalogu.
+21311,"Krém - balzám na padající vlasy, 500 g",1 / 12 / 36,36,exact_code,21311,Krémový balzám na padající vlasy,6932088867678,True,Exact shoda SKU v katalogu.
+21310HM,"Šampón na padající vlasy, 420 ml",1 / 24,24,base_code,21310,Šampon na padající vlasy,6932088867661,True,Shoda po odvození základního SKU z 21310HM na 21310.
+21315HM,"Šampón na šedivějící vlasy, 420 ml",1 / 24,24,base_code,21315,Šampon proti šedivým vlasům,6932088869108,True,Shoda po odvození základního SKU z 21315HM na 21315.
+20115HM,"Obnovující balzám na vlasy sextraktem ženšenu, 500 g",1 / 15 / 30,30,base_code,20115,Balzám na vlasy s  ženšenem,6921570931270,True,Shoda po odvození základního SKU z 20115HM na 20115.
+20101HM,"Sada s extraktem ženšenu: šampon a maska na vlasy, 220 g + 100 g",1 / 24 / 48,48,base_code,20101,Sada s extraktem ženšenu: šampon a maska na vlasy,6921570917007,True,Shoda po odvození základního SKU z 20101HM na 20101.
+20151,Sleva březen - duben!!! Regenerační šampon s kořenem ženšenu,1 / 48,48,exact_code,20151,Regenerační šampon s kořenem ženšenu,6928001840958,True,Exact shoda SKU v katalogu.
+20102,"Vyživující šampón s kořenem ženšenu, 450 ml",1 / 1 / 1 / 36 / 36,36,exact_code,20102,Vyživující šampon s kořenem ženšenu,6928001880411,True,Exact shoda SKU v katalogu.
+10304HM,"Hydratační vyživující krém na obličej, 50 g",1 / 12 / 96,96,base_code,10304,Hydratační krém z ovčí placenty kosmetiky tianDe,6922782606536,True,Shoda po odvození základního SKU z 10304HM na 10304.
+10306,"Krém na vrásky na oční víčka, 50 g",1 / 12 / 96,96,exact_code,10306,Krém na oční okolí z ovčí placenty,6922782613404,True,Exact shoda SKU v katalogu.
+10301,"Peeling na obličej, 80 g",1 / 12 / 96,96,exact_code,10301,Peeling na obličej,6922782606505,True,Exact shoda SKU v katalogu.
+10308,"Pleťové tonikum, 100 ml",1 / 96,96,exact_code,10308,Pleťové ovčí tonikum,6922782616993,True,Exact shoda SKU v katalogu.
+10303HM,"Regenerační krém na obličej na vrásky, 50 g",1 / 12 / 96,96,base_code,10303,Regenerační krém z ovčí placenty kosmetiky tianDe,6922782606529,True,Shoda po odvození základního SKU z 10303HM na 10303.
+10305,"Tónovací krém na obličej, 50 g",1 / 12 / 96,96,exact_code,10305,Tónovací krém z ovčí placenty - tmavý,6922782606543,True,Exact shoda SKU v katalogu.
+10305/01HM,"Tónovací krém na obličej, tón 01, 50 g",1 / 12 / 12 / 12 / 96 / 96 / 96,96,base_code,10305/01,Tónovací krém na obličej - světlý,0745604816359,True,Shoda po odvození základního SKU z 10305/01HM na 10305/01.
+10302HM,"Vyhlazující krém na obličej, 50 g",1 / 12 / 96,96,base_code,10302,Vyhlazují krém na vrásky z ovčí placenty kosmetiky tianDe,6922782606512,True,Shoda po odvození základního SKU z 10302HM na 10302.
+44402-2,"Fytogel na nohy Slaviton, 125 g",1 / 96,96,exact_code,44402-2,Fytogel Slaviton,6922782629528,True,Exact shoda SKU v katalogu.
+64404-2,"Jemný gel pro intimní péči, 360 ml",1 / 48,48,exact_code,64404-2,Jemný intimní gel,6922782629542,True,Exact shoda SKU v katalogu.
+34413-2,"Tělový krém „Tekutá náplast“, 125 g",1 / 96,96,exact_code,34413-2,Tělový krém Tekutá náplast,6922782629511,True,Exact shoda SKU v katalogu.
+34401-2,"Tělový masážní gel Orthophyt, 125 g",1 / 96,96,exact_code,34401-2,Masážní gel Orthophyt,6922782629504,True,Exact shoda SKU v katalogu.
+144313,"Mycí prostředek na nádobí na bázi plodů Mýdelníku, 500 ml",1 / 25,25,exact_code,144313,Mycí prostředek na nádobí na bázi plodů Mýdelníku,6971110680106,True,Exact shoda SKU v katalogu.
+980201,"Přírodní houba „Konjac“, 1 ks (ТМ EcoDeViva)",1 / 288,288,exact_code,980201,Přírodní houba „Konjac“,6950266691242,True,Exact shoda SKU v katalogu.
+41328HM,"AKCE březen-duben! Levandulová náplast na nohy, 2 ks",1 / 440,440,base_code,41328,Levandulová náplast na nohy,6970757000353,True,Shoda po odvození základního SKU z 41328HM na 41328.
+11307,"Čistící maska na obličej s projevy akné a jizvami, 35 g",1 / 1 / 1 / 10 / 10 / 360 / 360,360,exact_code,11307,Čistící maska na obličej s projevy akné a jizvami,6925466290069,True,Exact shoda SKU v katalogu.
+11317,"Čistící náplast na nos Čisté póry, 1 ks",1 / 10 / 1440,1440,exact_code,11317,Čistící náplast na nos Čisté póry 10ks,6936217719418,True,Exact shoda SKU v katalogu.
+41314HM,"Náplast na nohy, 2 ks",1 / 1 / 1 / 100 / 400 / 400,400,base_code,41314,Náplast na nohy,6925466291868,True,Shoda po odvození základního SKU z 41314HM na 41314.
+90175,"Zubní kartáček „Bambusové uhlí“, 1 ks",1 / 300,300,exact_code,90175,Zubní kartáček Bambusové uhlí,6972677226929,True,Exact shoda SKU v katalogu.
+90198/04,"Zubní kartáček „ProDental Junior“, fialový, 1 ks",1 / 300,300,missing,,,,,
+90198/02,"Zubní kartáček „ProDental Junior“, růžový, 1 ks",1 / 300,300,missing,,,,,
+980148/03,"Zubní kartáček „ProDental“, zelený, 1 ks (ТМ EcoDeViva)",1 / 300,300,exact_code,980148/03,Zubní kartáček ProDental - zelený,0745604816021,False,Exact shoda SKU v katalogu.
+90153/03,"Zubní kartáček ProDental Junior, modrý, 1 ks",1 / 300,300,base_code,90153,Dětský zubní kartáček ,,True,Shoda po odvození základního SKU z 90153/03 na 90153.
+90153/01,"Zubní kartáček ProDental Junior, zelený, 1 ks",1 / 300,300,base_code,90153,Dětský zubní kartáček ,,True,Shoda po odvození základního SKU z 90153/01 na 90153.
+90148/02,"Zubní kartáček""ProDental"" modrý, 1 ks",1 / 30 / 300,300,base_code,90148,Zubní kartáček ProDental,,True,Shoda po odvození základního SKU z 90148/02 na 90148.
+90148/04,"Zubní kartáček""ProDental"",oranžový,1ks",1 / 30 / 300,300,base_code,90148,Zubní kartáček ProDental,,True,Shoda po odvození základního SKU z 90148/04 na 90148.
+60143,"Zubní pasta ProDental, 120 g",1 / 12 / 72,72,exact_code,60143,Zubní pasta ProDental,6921570932581,True,Exact shoda SKU v katalogu.
+44605,"De-expert!!!  Omlazující krém-booster na ruce s mucinem hlemýžďů, 60 g",1 / 144,144,exact_code,44605,Omlazující krém-booster na ruce s mucinem hlemýžďů,6921570922032,True,Exact shoda SKU v katalogu.
+14604,"De-expert!!!  Regenerační tonikum s mucinem hlemýžďů, 80 ml",1 / 48,48,exact_code,14604,Regenerační tonikum s mucínem hlemýžďů,6921570931683,True,Exact shoda SKU v katalogu.
+14601,"De-expert!!! Vícefunkční krém na obličej s mucinem hlemýžďů, 5 ks x 10 ml",1 / 250,250,exact_code,14601,Vícefunkční krém na obličej s mucinem hlemýžďů,6946379389510,True,Exact shoda SKU v katalogu.
+14602,"De-expert!!! Vícefunkční krém na oči s mucinem hlemýžďů, 5 ks x 10 ml",1 / 250,250,exact_code,14602,Krém na oči s mucinem hlemýžďů,6946379389411,True,Exact shoda SKU v katalogu.
+65301-2,"Volupta+ pro ženy, 15 g",1 / 192,192,exact_code,65301-2,Volupta + pro ženy ,6922782629597,True,Exact shoda SKU v katalogu.
+20117HM,"Šampon sextraktem aloe, 200 g",1 / 1 / 1 / 12 / 12 / 48 / 48,48,base_code,20117,Šampon s extraktem aloe,6928146332035,True,Shoda po odvození základního SKU z 20117HM na 20117.
+20144HM,"Stylingový sprej na vlasy s Aloe „Objem a pružnost“, 200 ml",1 / 60,60,base_code,20144,Stylingový sprej na vlasy s aloe „Objem a pružnost“,6922782622383,True,Shoda po odvození základního SKU z 20144HM na 20144.
+12712,"AKCE březen - duben!  Jemné hydratační tonikum, 150 g",1 / 12 / 96,96,exact_code,12712,Collagen active -  jemné hydratační tonikum z kolagenu,6921570932031,True,Exact shoda SKU v katalogu.
+12707,"AKCE březen - duben! Modelující gel na tvar obličeje, 150 g",1 / 48,48,exact_code,12707,Modelující gel na tvar obličeje,6921570931775,True,Exact shoda SKU v katalogu.
+12705,"AKCE březen - duben! Zpevňující a liftingová emulze na obličej a krk, 100 g",1 / 48,48,exact_code,12705,Zpevňující a liftingová emulze na obličej a krk,6921570931751,True,Exact shoda SKU v katalogu.
+12703HM,"Intenzivní liftingový krém na obličej, 50 g",1 / 48,48,base_code,12703,Intenzivní liftingový krém na obličej,6921570931737,True,Shoda po odvození základního SKU z 12703HM na 12703.
+12711,"Korigující maska na obličej Intenzivní lifting, 1 ks",1 / 1 / 400 / 400,400,exact_code,12711,Korigující maska na obličej Intenzivní lifting,6925466294173,True,Exact shoda SKU v katalogu.
+12710,"Křišťálová kolagenová maska na oční víčka, 1 ks",1 / 1 / 1 / 1000 / 1000,1000,exact_code,12710,Křišťálová kolagenová maska na oční víčka,6925466291875,True,Exact shoda SKU v katalogu.
+12704,"Liftingový krém na kontury očí, 15 g",1 / 48,48,exact_code,12704,Liftingový krém na kontury očí,6921570931744,True,Exact shoda SKU v katalogu.
+32604,"Krémové tělové mléko „Slunečné olivy“, 350 g",1 / 1 / 1 / 36 / 36,36,exact_code,32604,Krémové tělové mléko „Slunečné olivy“,6928146332325,True,Exact shoda SKU v katalogu.
+32602,"Krémový sprchový gel „Slunečné olivy“, 350 g",1 / 1 / 1 / 36 / 36,36,exact_code,32602,Krémový sprchový gel „Slunečné olivy“,6928146332028,True,Exact shoda SKU v katalogu.
+11319HM,"Čistící gel na obličej, 100 g",1 / 144,144,base_code,11319,Čistící gel proti akné a na mastnou pleť,6921570931560,True,Shoda po odvození základního SKU z 11319HM na 11319.
+11321,"Gel na obličej s projevy akné BioComplex, 25 g",1 / 120,120,exact_code,11321,Gel na obličej s projevy akné BioComplex,6928146332356,True,Exact shoda SKU v katalogu.
+11323HM,"Krém na obličej s projevy akné a jizvami, 20 ml",1 / 120,120,base_code,11323,Krém na obličej s projevy akné a jizvami,6928146332349,True,Shoda po odvození základního SKU z 11323HM na 11323.
+11320,"Pleťová voda na aknózní pleť, 60 ml",1 / 96,96,exact_code,11320,Pleťová voda na aknózní pleť,6928146332004,True,Exact shoda SKU v katalogu.
+15102,"De-expert!!!  Regenerační pleťové tonikum, 100 ml",1 / 96,96,exact_code,15102,Pleťové tonikum z hadího tuku,6922782616719,True,Exact shoda SKU v katalogu.
+15105,"De-expert!!! Gel-aktiv proti vráskám na pleť kolem očí, 25 g",1 / 96,96,exact_code,15105,Oční gel na vrásky z hadího tuku,6922782616740,True,Exact shoda SKU v katalogu.
+15103,"De-expert!!! Krém na zpevnění obličeje a vyhlazení vrásek,  55 g",1 / 96,96,exact_code,15103,Krém na vrásky Hadí tuk,6922782616726,True,Exact shoda SKU v katalogu.
+15104,"De-expert!!! Krém pro komplexní obnovu pleti obličeje,  55 g",1 / 96,96,exact_code,15104,Krém pro obnovu pleti hadí tuk,6922782616733,True,Exact shoda SKU v katalogu.
+25106,"De-expert!!! Šampon na vlasy “Snake Factor”, 200 ml",1 / 48,48,exact_code,25106,ŠAMPON NA VLASY “SNAKE FACTOR”,6921570948667,True,Exact shoda SKU v katalogu.
+12114,"30% SLEVA!! Lotion na obličej multifunkční, 120 ml",1 / 72,72,exact_code,12114,Lotion na obličej multifunkční,6922782616245,True,Exact shoda SKU v katalogu.
+12106HM,"Intenzivní komplex na pokožku kolem očí, 100 ks + 10 ml",1 / 60,60,base_code,12106,Intenzivní komplex na pokožku kolem očí,6925466294166,True,Shoda po odvození základního SKU z 12106HM na 12106.
+12117,"Pleťové sérum s kordycepsem, 30 ml",1 / 144,144,exact_code,12117,Pleťové sérum s kordycepsem,6922782626268,True,Exact shoda SKU v katalogu.
+12116HM,"Vysoce účinný hydratační krém na obličej, 50 g",1 / 96,96,base_code,12116,Vysoce účinný hydratační krém na obličej,6922782616252,True,Shoda po odvození základního SKU z 12116HM na 12116.
+12115HM,"Vyživující krém na obličej na vrásky, 50 g",1 / 96,96,base_code,12115,Vyživující krém na obličej na vrásky,6922782616504,True,Shoda po odvození základního SKU z 12115HM na 12115.
+60145,"Denní hygienická vložka „Jemná péče“, 1 ks",1 / 1350,1350,exact_code,60145,Denní hygienická vložka „Jemná péče“,,True,Exact shoda SKU v katalogu.
+61902,"Denní menstruační vložky s fytomembránou „Energie bylin“, 8 ks",1 / 30,30,exact_code,61902,Denní menstruační vložky s fytomembránou „Energie bylin“,6921336301019,True,Exact shoda SKU v katalogu.
+61901,"Denní vložky s fytomembránou „Energie bylin“, 20 ks",1 / 48,48,exact_code,61901,Denní vložky s fytomembránou „Energie bylin“,6921336301033,True,Exact shoda SKU v katalogu.
+61903,"Noční menstruační vložky s fytomembránou „Energie bylin“, 8 ks",1 / 30,30,exact_code,61903,Noční menstruační vložky s fytomembránou „Energie bylin“,6921336301026,True,Exact shoda SKU v katalogu.
+61914,"Dámské bylinné slipové vložky Nefritová svěžest, 20 ks",1 / 48,48,exact_code,61914,Dámské bylinné slipové vložky Nefritová svěžest,6921336330781,True,Exact shoda SKU v katalogu.
+61915,"Dámské bylinné slipové vložky s anionty Nefritová svěžest, 20 ks",1 / 48,48,exact_code,61915,Dámské bylinné slipové vložky s anionty Nefritová svěžest,6921336330798,True,Exact shoda SKU v katalogu.
+61912,"Dámské bylinné vložky Nefritová svěžest, denní super, 10 ks",1 / 30,30,exact_code,61912,Dámské bylinné menstruační vložky Nefritová svěžest. denní super,6921336330767,True,Exact shoda SKU v katalogu.
+61913,"Dámské bylinné vložky Nefritová svěžest, noční super, 10 ks",1 / 30,30,exact_code,61913,Dámské bylinné menstruační vložky Nefritová svěžest. noční super,6921336330774,True,Exact shoda SKU v katalogu.
+61921,"Dámské bylinné vložky Nefritová svěžest, super tenké, 25 ks",1 / 48,48,exact_code,61921,Dámské bylinné slipové vložky Nefritová svěžest - super tenké,6921336330804,True,Exact shoda SKU v katalogu.
+61911,"Denní vložky s extraktem aloe Nefritová svěžest, 20 ks",1 / 48,48,exact_code,61911,Denní vložky s extraktem aloe Nefritová svěžest,6921336301057,True,Exact shoda SKU v katalogu.
+63601,"Denní vložka Energie bylin, 1 ks",1 / 1 / 1250 / 1250,1250,exact_code,63601,Denní vložka Energie života,,True,Exact shoda SKU v katalogu.
+61922,"AKCE březen - duben! Ultra tenké dámské denní menstruační vložky Nebeská bavlna, 8 ks",1 / 30,30,exact_code,61922,"Ultra tenké dámské denní menstruační vložky Nebeská bavlna, 8 ks",6921336331337,True,Exact shoda SKU v katalogu.
+61923,"Ultra tenké slipové vložky Nebeská bavlna, 20 ks",1 / 48,48,exact_code,61923,"Ultra tenké slipové vložky Nebeská bavlna, 20 ks",6972325311687,True,Exact shoda SKU v katalogu.
+67109,"AKCE březen - duben! Super tenké menstruační vložky s bylinným komplexem Artemisia, 8 ks",1 / 48,48,exact_code,67109,"Super tenké menstruační vložky s bylinným komplexem Artemisia, 8 ks",6972325311588,True,Exact shoda SKU v katalogu.
+67108,"Super tenké slipové vložky s bylinným komplexem Artemisia, 20 ks",1 / 48,48,exact_code,67108,"Super tenké slipové vložky s bylinným komplexem Artemisia, 20 ks",6972325311571,True,Exact shoda SKU v katalogu.
+60141,"Zubní gel Přírodní bambusová sůl, 120 g",1 / 12 / 72,72,exact_code,60141,Zubní gel Přírodní bambusová sůl,6921570931300,True,Exact shoda SKU v katalogu.
+60140HM,"Zubní gel Tekutý vápník, 120 g",1 / 12 / 72,72,base_code,60140,Zubní gel Tekutý vápník,6921570931294,True,Shoda po odvození základního SKU z 60140HM na 60140.
+60144,"Zubní pasta ""Zelený čaj a ženšen Sanchi"", 120 g",1 / 72,72,exact_code,60144,Zubní pasta Zelený čaj a ženšen Sanchi,6921570923015,True,Exact shoda SKU v katalogu.
+60146,"Zubní pasta Extra White PRO, 60 g",1 / 144,144,exact_code,60146,Zubní pasta EXTRA WHITE PRO,6921570923022,True,Exact shoda SKU v katalogu.
+60142,"Zubní pasta Přírodní mořské perly,120 g",1 / 12 / 72,72,exact_code,60142,Zubní pasta Přírodní mořské perly,6921570931317,True,Exact shoda SKU v katalogu.
+30140,"Nosní masážní olej Tajemství energie Čchi, 10 ml",1 / 200,200,exact_code,30140,Nosní masážní olej Tajemství energie Čchi,6926568309901,True,Exact shoda SKU v katalogu.
+191006,"Extrakt z jedlového jehličí s šípkovou a rybízovou šťávou, 100 g (10 kusů po 10 g)",1 / 72,72,exact_code,191006,Extrakt z jedlového jehličí s šípkovou a rybízovou šťávou,4650061393588,True,Exact shoda SKU v katalogu.
+65916-2,"Hygienický sprej Fytoncidy tajgy a mořská sůl, 35 g",1 / 96,96,exact_code,65916-2,Hygienický sprej Fytoncidy tajgy a mořská sůl	,6922782629610,True,Exact shoda SKU v katalogu.
+65914-2,"Hygienický ústní sprej Jedlový esenciální olej a propolis, 35 g",1 / 96,96,exact_code,65914-2,Hygienický ústní sprej Jedlový esenciální olej a propolis,6922782629603,True,Exact shoda SKU v katalogu.
+198812,"Rozpustný čekankový nápoj s extrakty parchy saflorové a rezavce šikmého, sáček 3 g",1 / 200,200,exact_code,198812,Rozpustný čekankový nápoj s extrakty parchy saflorové a rezavce šikmého,4650061392475,True,Exact shoda SKU v katalogu.
+195926,"Tekutá bylinná sezónní směs s extraktem jedlového jehličí, 100 g (10 kusů po 10 g)",1 / 72,72,exact_code,195926,Tekutá bylinná sezónní směs s extraktem jedlového jehličí,4650061393472,True,Exact shoda SKU v katalogu.
+65913-2,"Zubní fytopasta na obnovu skloviny Skytský kořen, 80 g",1 / 96,96,exact_code,65913-2,Zubní fytopasta na obnovu skloviny Skytský kořen,6921570905905,True,Exact shoda SKU v katalogu.
+57010,"AKCE březen - duben!  Sleva leden-unor! Hydratační pleťová PGA-maska s pivoňkou a pupečníkem asijským, 1 ks",1 / 480,480,exact_code,57010,Hydratační pleťová PGA-maska s pivoňkou a pupečníkem asijským,6950079111845,True,Exact shoda SKU v katalogu.
+17003HM,"Aquagel na oči a obličej, 65 g",1 / 96,96,base_code,17003,Aquagel na oči a obličej,6922782627807,True,Shoda po odvození základního SKU z 17003HM na 17003.
+27006,"Kondicionér na vlasy Efekt bio-laminace, 250 ml",1 / 48,48,exact_code,27006,Kondicionér na vlasy Efekt bio-laminace,6921570931966,True,Exact shoda SKU v katalogu.
+27005HM,"Šampon pro hloubkové čištění vlasů, 250 ml",1 / 48,48,base_code,27005,Šampon pro hloubkové čištění vlasů,6921570931935,True,Shoda po odvození základního SKU z 27005HM na 27005.
+67007,"Slipové vložky se stříbrem, super tenké, 20 ks",1 / 48,48,exact_code,67007,Slipové vložky se stříbrem. super tenké,6921336331108,True,Exact shoda SKU v katalogu.
+15601,"Čisticí mléko na obličej a dekolt, 100 g",1 / 96,96,exact_code,15601,Fucoidan čistící mléko na obličej a dekolt,6922782622314,True,Exact shoda SKU v katalogu.
+15602,"Čisticí pleťová voda, 100 ml",1 / 96,96,exact_code,15602,Fucoidan pleťová voda,6922782622321,True,Exact shoda SKU v katalogu.
+15604,"Koncentrovaný oční gel na vrásky, 25 g",1 / 96,96,exact_code,15604,Fucoidan - oční krém,6922782622345,True,Exact shoda SKU v katalogu.
+55605,"Krémová omlazující maska na obličej, krk a dekolt, 80 g",1 / 96,96,exact_code,55605,Krémová omlazující maska na obličej. krk a dekolt,6922782622352,True,Exact shoda SKU v katalogu.
+15603,"Revitalizační anti-aging krém na obličej, 55 g",1 / 96,96,exact_code,15603,FUCOIDAN anti-aging krém na obličej,6922782622338,True,Exact shoda SKU v katalogu.
+85607HM,"Zjemňující balzám na rty, 10 g",1 / 192,192,base_code,85607,Zjemňující balzám na rty,6922782622376,True,Shoda po odvození základního SKU z 85607HM na 85607.
+17105,"Antioxidační pleťový peeling, 120 g",1 / 96,96,exact_code,17105,Antioxidační pleťový peeling,6921570932000,True,Exact shoda SKU v katalogu.
+17101,"Pleťový krém s bílým čajem, 50 g",1 / 96,96,exact_code,17101,Pleťový krém s bílým čajem,6922782627579,True,Exact shoda SKU v katalogu.
+17103,"Pleťový krém s cordycepsem a šalvějí, 50 g",1 / 96,96,exact_code,17103,Pleťový krém s cordycepsem a šalvějí,6922782627593,True,Exact shoda SKU v katalogu.
+17104HM,"Ultra-jemný čistící gel, 120 g",1 / 96,96,base_code,17104,Ultra-jemný čistící gel,6921570931997,True,Shoda po odvození základního SKU z 17104HM na 17104.
+56007,"DOP.AKCE! Tající kolagenová liftingová pleťová maska s mořskými řasami, 1 ks",1 / 400,400,exact_code,56007,Tající kolagenová liftingová pleťová maska s mořskými řasami	,6925466272010,True,Exact shoda SKU v katalogu.
+16002HM,"Fluid na oční víčka, 25 ml",1 / 12 / 96,96,base_code,16002,Fluid na oční víčka Ocean Riches,6922782622949,True,Shoda po odvození základního SKU z 16002HM na 16002.
+16001,"Hyaluronové sérum na pleť, 25 ml",1 / 96,96,exact_code,16001,Hyaluronové sérum na pleť,6922782622857,True,Exact shoda SKU v katalogu.
+86004,"Hydratační báze pod make-up, 40 ml",1 / 96,96,exact_code,86004,Hydratační báze pod make-up,6922782622864,True,Exact shoda SKU v katalogu.
+56005,"Hydrogelové polštářky na oční víčka s červenými mořskými řasami a yuzu, 60 ks",1 / 96,96,exact_code,56005,Hydrogelové polštářky na oční víčka s červenými mořskými řasami a yuzu,6973098899525,True,Exact shoda SKU v katalogu.
+30201,"AKCE březen - duben!  Peeling Citrónový, 120 g",1 / 24 / 96,96,exact_code,30201,Peeling Citrónový,6921570917175,True,Exact shoda SKU v katalogu.
+30205,"AKCE březen - duben!  Peeling Hroznový, 120 g",1 / 24 / 96,96,exact_code,30205,Peeling Hroznový,6921570932093,True,Exact shoda SKU v katalogu.
+30203,"AKCE březen - duben!  Peeling Mléčný, 120 g",1 / 24 / 96,96,exact_code,30203,Peeling Mléčný,6921570917199,True,Exact shoda SKU v katalogu.
+30204HM,"AKCE březen - duben!  Peeling Okurkový, 120 g",1 / 24 / 96,96,base_code,30204,Peeling Okurkový,6921570917205,True,Shoda po odvození základního SKU z 30204HM na 30204.
+30207,"AKCE březen - duben! Peeling Olivový, 120 g",1 / 24 / 96,96,exact_code,30207,Peeling Olivový,6921570932116,True,Exact shoda SKU v katalogu.
+50224HM,"Vodou rozpustná maska na obličej Perlový pudr, 100 g",1 / 1 / 1 / 120 / 120,120,base_code,50224,Vodou rozpustná maska na obličej  Perlový pudr,6925466289889,True,Shoda po odvození základního SKU z 50224HM na 50224.
+30213,"Tělová sůl ""Medová broskev"", 380 g",1 / 1 / 1 / 12 / 12 / 48 / 48,48,exact_code,30213,Tělová sůl „Medová broskev“,6924444207198,True,Exact shoda SKU v katalogu.
+30223HM,"Tělová sůl “Krystaly z Mrtvého moře”, 330 g",1 / 48,48,base_code,30223,Tělová sůl “Krystaly z Mrtvého moře”,6924444232350,True,Shoda po odvození základního SKU z 30223HM na 30223.
+30222,"Tělová sůl „Grapefruit“, 380 g",1 / 48,48,exact_code,30222,Tělová sůl „Grapefruit“,6924444232237,True,Exact shoda SKU v katalogu.
+30215,"Tělová sůl „Zelený čaj“, 380 g",1 / 1 / 1 / 12 / 12 / 48 / 48,48,exact_code,30215,Tělová sůl „Zelený čaj“,6924444207181,True,Exact shoda SKU v katalogu.
+10206-2,"AKCE březen - duben!  Micelární voda s fytokomplexem, 200 g",1 / 48,48,exact_code,10206-2,Micelární voda s fytokomplexem,6922782629641,True,Exact shoda SKU v katalogu.
+10263,"AKCE březen - duben! Peelingové tampony na obličej s obsahem kyselin AHA a PHA, 50 ks",1 / 24,24,exact_code,10263,Peelingové tampony na obličej s obsahem kyselin AHA a PHA,4813409001389,True,Exact shoda SKU v katalogu.
+10201HM,"Čistící gel ""Zelený čaj"", 150 g",1 / 1 / 1 / 24 / 24 / 96 / 96 / 96,96,base_code,10201,Čistící gel na pleť Zelený čaj,6921570917144,True,Shoda po odvození základního SKU z 10201HM na 10201.
+10202HM,"Čistící gel „Oceán krásy“, 150 g",1 / 24 / 96,96,base_code,10202,Čistící gel na pleť Oceán krásy,6921570917151,True,Shoda po odvození základního SKU z 10202HM na 10202.
+10261,"Enzymový pudr na mytí obličeje, 70 g",1 / 20,20,exact_code,10261,Enzymový pudr na mytí obličeje,4813409000627,True,Exact shoda SKU v katalogu.
+10262,"Hydrofilní odličovací máslo, 75 g",1 / 24,24,exact_code,10262,Hydrofilní butter,4813409001082,True,Exact shoda SKU v katalogu.
+56311,"Pleťová maska Kyselina azelaová a vitamín C, 1 ks",1 / 400,400,exact_code,56311,Pleťová maska s kyselinou azelaovou a vitamínem C,6925466299048,True,Exact shoda SKU v katalogu.
+16310HM,"Revitalizační noční pleťová krémová maska Biotics, 50 g",1 / 96,96,base_code,16310,Revitalizační noční pleťová krémová maska Biotics,6922782628798,True,Shoda po odvození základního SKU z 16310HM na 16310.
+16309HM,"Revitalizační pleťová esence ve spreji Biotics, 100 ml",1 / 96,96,base_code,16309,Revitalizační pleťová esence ve spreji Biotics,6922782628781,True,Shoda po odvození základního SKU z 16309HM na 16309.
+16304HM,"Zklidňující čistící pleťová pěna, 160 ml",1 / 96,96,base_code,16304,Pleťová čistící pěna Vita Derm,6922782625452,True,Shoda po odvození základního SKU z 16304HM na 16304.
+195429,"Kolagen s višňovou a granátovou šťávou, 21 sáčků po 12 g",1 / 27,27,exact_code,195429,Kolagen s višňovou a granátovou šťávou,4650061391430,True,Exact shoda SKU v katalogu.
+195458,"Nápoj s extraktem z pomerančovníku a šťávou z malin, 8 g",1 / 200,200,exact_code,195458,"Nápoj s extraktem z pomerančovníku a šťávou z malin, 8 g",4650061393236,True,Exact shoda SKU v katalogu.
+195431,"Pektinový kysel s rakytníkem a jablkem, 15 g",1 / 200,200,exact_code,195431,Pektinový kysel s rakytníkem a jablkem,4650061391553,True,Exact shoda SKU v katalogu.
+195432,"Pektinový kysel s vlochyní a borůvkou, 15 g",1 / 200,200,exact_code,195432,Pektinový kysel  s vlochyní a borůvkou,4650061391560,True,Exact shoda SKU v katalogu.
+195469,"Sleva březen - duben!!! Nápoj s glycinem a tryptofanem, 7 g",1 / 200,200,exact_code,195469,Nápoj s glycinem a tryptofanem,4650061393243,True,Exact shoda SKU v katalogu.
+195466,"Čaga s mumiem, 16,44 mg/30 kapslí po 548 mg",1 / 60,60,exact_code,195466,Čaga s mumiem,4650001881298,True,Exact shoda SKU v katalogu.
+135449,"Geroproline, 15,9 g / 30 kapslí po 530 mg",1 / 60,60,exact_code,135449,Geroproline,4650001881182,True,Exact shoda SKU v katalogu.
+135456,"Glutatione complex, 11,70 g (30 kapslí po 390 mg)",1 / 60,60,exact_code,135456,Glutatione complex,4650001881199,True,Exact shoda SKU v katalogu.
+135455,"Zlatophyt, 11,70 g/30 kapslí po 390 mg",1 / 60,60,exact_code,135455,Zlatophyt,4650001881205,True,Exact shoda SKU v katalogu.
+120105,"AKCE březen-duben!  Zázvorový nápoj, 1 sáček, 18 g",1 / 240,240,exact_code,120105,Zázvorový nápoj,6921876800027,True,Exact shoda SKU v katalogu.
+120109,"Kávový nápoj „Čínská kávová zrna“ (plody Sénna alexandrína), 10 g",1 / 600,600,missing,,,,,
+90101,"Čelenka na vlasy, 1 ks",1 / 500,500,exact_code,90101,Čelenka na vlasy,6929010116898,False,Exact shoda SKU v katalogu.
+90165/01,"Houba na mytí a masáž obličeje, 1 ks (barva fialová)",1 / 300,300,exact_code,90165/01,Houba na mytí a masáž obličeje - šeříková barva,6901459016557,True,Exact shoda SKU v katalogu.
+90165/02,"Houba na mytí a masáž obličeje, 1 ks (barva tyrkysová)",1 / 300,300,exact_code,90165/02,Houba na mytí a masáž obličeje - tyrkysová barva,0745604816007,True,Exact shoda SKU v katalogu.
+90186,"Kosmetická špachtle na krém, 1 ks",1 / 10000,10000,exact_code,90186,Kosmetická špachtle na krém,6901459018667,True,Exact shoda SKU v katalogu.
+90200,"Lešticí pilník na nehty, 1 ks",1 / 10 / 400,400,exact_code,90200,Leštící pilník na nehty,6921459020002,True,Exact shoda SKU v katalogu.
+90204,"Lešticí pilník na pedikúru, 1 ks",1 / 10 / 360,360,exact_code,90204,Lešticí pilník na pedikúru,6921459020408,True,Exact shoda SKU v katalogu.
+90151,"Masážní váleček na obličej, 1 ks",1 / 120,120,exact_code,90151,Masážní váleček na obličej,6901459015185,True,Exact shoda SKU v katalogu.
+90141,"Mezoroller (masážní váleček), 1 ks",1 / 200,200,exact_code,90141,Mezoroller (masážní váleček),6901259014173,True,Exact shoda SKU v katalogu.
+90187,"Sleva březen - duben!!! 3D masážní pomůcka pro lifting pokožky obličeje a těla, 1 ks",1 / 60,60,exact_code,90187,3D masážní pomůcka pro lifting pokožky obličeje a těla,4650061391478,True,Exact shoda SKU v katalogu.
+90178,"Vibrační masážní pomůcka na oči, 1 ks",1 / 24,24,exact_code,90178,Vibrační pomůcka na oči,,False,Exact shoda SKU v katalogu.
+30129,"Nákoleníky s bodovou turmalínovou vrstvou, 2 ks",1 / 36,36,exact_code,30129,Nákoleníky s bodovou turmalínovou vrstvou,6950432872888,True,Exact shoda SKU v katalogu.
+30132/01,"Pánské spodní prádlo s bodovou turmalínovou vrstvou, 1 ks (vel. L)",1 / 120,120,exact_code,30132/01,Pánské spodní prádlo s bodovou turmalínovou vrstvou. -velikost L,0745604816533,True,Exact shoda SKU v katalogu.
+30132/02,"Pánské spodní prádlo s bodovou turmalínovou vrstvou, 1 ks (vel. XXL)",1 / 120,120,exact_code,30132/02,Pánské spodní prádlo s bodovou turmalínovou vrstvou - velikost XXL,0745604816540,True,Exact shoda SKU v katalogu.
+30126,"Pás s bodovou turmalínovou vrstvou, 1 ks",1 / 36,36,exact_code,30126,Pás s bodovou turmalínovou vrstvou,6950432872857,True,Exact shoda SKU v katalogu.
+980156,"Japonský exfoliační ručník pro celé tělo (středně hrubý), 1 ks",1 / 300,300,exact_code,980156,Japonský exfoliační ručník pro celé tělo (středně hrubý),6901459801566,True,Exact shoda SKU v katalogu.
+980155,"Spa rukavice, 1 ks (ТМ EcoDeViva)",1 / 300,300,exact_code,980155,Spa rukavice,6901459801559,True,Exact shoda SKU v katalogu.
+980168,"Vatové tyčinky z bambusu, 100 ks (ТМ EcoDeViva)",1 / 480,480,exact_code,980168,Vatové tyčinky z bambusu,6938056262308,True,Exact shoda SKU v katalogu.
+135467,"40% SLEVA!!! Ženšen a mateří kašička, 50,1 g (30 kapslí po 1,67 g)",1 / 100,100,exact_code,135467,Ženšen a mateří kašička,6972865178061,False,Exact shoda SKU v katalogu.
+113004,"Citrokalcevit, 30 g (60 tablet po 500 mg)",1 / 40,40,exact_code,113004,Funkční komplex Citrokalcevit,4607078690292,True,Exact shoda SKU v katalogu.
+113007,"Pjaoljan, 16,8 g/13,5 g (30 kapslí á 560 mg/brutto; 450 mg/netto)",1 / 60,60,exact_code,113007,Funkční komplex Piaoliang,4650001880635,True,Exact shoda SKU v katalogu.
+113011,Sleva březen - duben!!! Extrakt z listu ořešáku královského,1 / 20,20,exact_code,113011,Funkční komplex s vlašským ořechem se sladidlem,4627156634031,True,Exact shoda SKU v katalogu.
+113012,Sleva březen - duben!!! Extrakt z plodu ostropestřce mariánského s riboflavinem,1 / 20,20,exact_code,113012,Extrakt z plodu ostropestřce mariánského s riboflavinem,4607078690308,True,Exact shoda SKU v katalogu.
+113013,Sleva březen - duben!!! Tablety s extraktem z jader vinné révy,1 / 20,20,exact_code,113013,Tablety s extraktem z jader vinné révy se sladidlem,4607078690278,True,Exact shoda SKU v katalogu.
+191014,"Fytoformule s rozchodnicí, 180 g (15 kusů po 12 g)",1 / 34,34,exact_code,191014,Fytoformula s rozhodnicí,4650061393663,True,Exact shoda SKU v katalogu.
+191005,"Fytokoncentrát s hruštičkou okrouhlolistou a tryptofanem pro ženy, 120 g",1 / 66,66,exact_code,191005,Fytokoncentrát s hruštičkou okrouhlolistou a tryprofanem pro ženy ,4650061393489,True,Exact shoda SKU v katalogu.
+191008,Jablečná vláknina a prášek dýně,1 / 200,200,exact_code,191008,Jablečná vláknina a prášek dýně,4650061393496,True,Exact shoda SKU v katalogu.
+980193,"Expres utěrka na čištění skla, 1 ks (ТМ EcoDeViva)",1 / 192,192,exact_code,980193,Expres utěrka na čištění skla,6901459801931,True,Exact shoda SKU v katalogu.
+980199,"Hadřík na nádobí, 1 ks (EcoDeViva)",1 / 24 / 192,192,exact_code,980199,Hadřík na nádobí,6901459801993,True,Exact shoda SKU v katalogu.
+98898,"Hadřík na optiku a obrazovky, 1 ks",1 / 1200,1200,exact_code,98898,Hadřík na optiku a obrazovky,6901459889885,True,Exact shoda SKU v katalogu.
+980198,"Oboustranný hadr na podlahu, 1 ks (ТМ EcoDeViva)",1 / 24 / 96,96,exact_code,980198,Oboustranný hadr na podlahu,6901459801986,True,Exact shoda SKU v katalogu.
+980192,"PROFI utěrka na komplexní čištění, 1 ks (ТМ EcoDeViva)",1 / 192,192,exact_code,980192,PROFI utěrka na komplexní čištění,6901459801924,True,Exact shoda SKU v katalogu.
+980188,"Utěrka-skraber na úklid 2 v 1, 1 ks",1 / 192,192,exact_code,980188,"Utěrka-skraber na úklid „2v1“, 1 ks",6901459801887,True,Exact shoda SKU v katalogu.
+640102,"Sirupy s ovocnými šťávami a vitamíny, 21 sáčků po 10 g",1 / 32,32,exact_code,640102,Sirupy s ovocnými šťávami a vitamíny,4650061391799,True,Exact shoda SKU v katalogu.
+60150,"Aroma-tyčinka s vůní višní a máty, 1 ks (ТМ TianDe)",1 / 540,540,exact_code,60150,Aroma-tyčinka s vůní višní a máty,6901456015003,True,Exact shoda SKU v katalogu.
