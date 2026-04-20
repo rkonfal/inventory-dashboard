@@ -121,7 +121,7 @@
 
     <section class="grid two-col" style="margin-top:20px;">
       <div class="card">
-        <h2 class="section-title">Trend watch</h2>
+        <h2 class="section-title">Položky k prověření</h2>
         <div class="section-subtitle">Produkty s největší odchylkou 90d tempa proti ročnímu průměru.</div>
         <table class="table">
           <thead>
@@ -177,7 +177,7 @@
             </select>
           </label>
           <label class="control-group">
-            <span class="control-label">Praha fallback</span>
+            <span class="control-label">Pražská výpomoc</span>
             <select id="planning-praha" class="select">
               <option value="on" selected>Zapnuto</option>
               <option value="off">Vypnuto</option>
@@ -203,7 +203,7 @@
               <option value="all">Všechno</option>
               <option value="must">Nutné objednat</option>
               <option value="recommended">Jen doporučené doplnění</option>
-              <option value="fillers">Jen fill-up</option>
+              <option value="fillers">Jen doplněk do objednávky</option>
             </select>
           </label>
           <button class="ux-button secondary" id="export-planning-csv" type="button">Export CSV</button>
@@ -498,11 +498,11 @@
       function rowReason(row, leadDays, usePraha) {
         if (usePraha && ((row.daysOfCover90d ?? 999) <= Math.max(7, Math.round(leadDays * 0.35)) || row.effectiveStock <= 0)) {
           return {
-            source: 'Praha fallback',
-            reason: row.reorderRisk === 'critical' ? 'kritické pokrytí před doručením' : 'nízké pokrytí před doručením',
+            source: 'Pražská výpomoc',
+            reason: row.reorderRisk === 'critical' ? 'bez doplnění hrozí výpadek před doručením' : 'zásoba je nízká ještě před doručením',
           };
         }
-        if (row.turnoverZone === 'green') return { source: 'Riga', reason: 'zelená obrátkovost, vhodné do doplnění' };
+        if (row.turnoverZone === 'green') return { source: 'Riga', reason: 'zdravá obrátka, vhodné přihodit do objednávky' };
         if ((row.trend90v365Pct || 0) >= 25) return { source: 'Riga', reason: 'zrychlující prodej proti ročnímu průměru' };
         return { source: 'Riga', reason: row.reorderRisk === 'critical' ? 'doplnit kvůli pokrytí 90d' : 'doplnit kvůli průběžnému pokrytí' };
       }
@@ -518,8 +518,8 @@
         if (row.turnoverZone === 'green') {
           return {
             key: row.orderingRole === 'fill_up' ? 'fillers' : 'recommended',
-            label: row.orderingRole === 'fill_up' ? 'Fill-up' : 'Doporučené doplnění',
-            hint: 'volitelně při volné kapacitě a zdravé obrátkovosti',
+            label: row.orderingRole === 'fill_up' ? 'Doplněk do objednávky' : 'Doporučené doplnění',
+            hint: 'volitelně, když zbývá kapacita a položka se zdravě točí',
           };
         }
         return {
@@ -687,7 +687,7 @@
       function renderPlanningPayload(planning, leadDays, usePraha, profile) {
         const scenarios = planning.scenarios || [];
         const filteredRows = filterPlanningRows(planning.recommendationRows || []);
-        planningSummary.innerHTML = `<strong>Simulace:</strong> lead time ${fmt(leadDays)} dní, kapacita ${profile.label}, Praha fallback ${usePraha ? 'zapnutý' : 'vypnutý'}. Varianty jsou spočítané v refreshi nad forecastem a selling-price proxy.`;
+        planningSummary.innerHTML = `<strong>Simulace:</strong> lead time ${fmt(leadDays)} dní, kapacita ${profile.label}, pražská výpomoc ${usePraha ? 'zapnutá' : 'vypnutá'}. Varianty jsou spočítané z aktuálního odhadu prodeje a orientační hodnoty zásoby.`;
 
         planningVariants.innerHTML = scenarios.map(variant => `
           <article class="metric-card ${variant.key === 'B' ? 'accent' : variant.key === 'C' ? 'warn' : ''}">
@@ -698,7 +698,7 @@
               Hodnota proxy ${money(variant.proxyValue)}<br>
               Využití kapacity ${fmt(variant.capacityUsagePct || 0)} %<br>
               Kritické SKU po doplnění ${fmt(variant.criticalLeft || 0)}<br>
-              Praha fallback riziko ${fmt(variant.prahaFallbackRisk || 0)} SKU<br>
+              Riziko pražské výpomoci ${fmt(variant.prahaFallbackRisk || 0)} SKU<br>
               Červená po 1 / 2 / 3 / 4 měsících: ${fmt(variant.redRiskAfterMonths?.m1 || 0)} / ${fmt(variant.redRiskAfterMonths?.m2 || 0)} / ${fmt(variant.redRiskAfterMonths?.m3 || 0)} / ${fmt(variant.redRiskAfterMonths?.m4 || 0)}
             </div>
           </article>
@@ -756,16 +756,16 @@
         const variants = [
           { key: 'A', title: 'Varianta A, konzervativní', tone: '', rows: conservative, subtitle: 'Jen nejnutnější doplnění, minimální riziko přebytku.' },
           { key: 'B', title: 'Varianta B, vyvážená', tone: 'accent', rows: balanced, subtitle: 'Standardní doporučení a rozumný kompromis cash / zásoba.' },
-          { key: 'C', title: 'Varianta C, kapacitní', tone: 'warn', rows: full, subtitle: 'Víc doplnění i fillerů se zelenou obrátkovostí.' },
+          { key: 'C', title: 'Varianta C, kapacitní', tone: 'warn', rows: full, subtitle: 'Víc doplnění i doplňků do objednávky se zdravou obrátkou.' },
         ];
 
-        planningSummary.innerHTML = `<strong>Simulace:</strong> lead time ${fmt(leadDays)} dní, kapacita ${profile.label}, Praha fallback ${usePraha ? 'zapnutý' : 'vypnutý'}. Varianty zatím počítají s heuristikou nad forecastem a selling-price proxy.`;
+        planningSummary.innerHTML = `<strong>Simulace:</strong> lead time ${fmt(leadDays)} dní, kapacita ${profile.label}, pražská výpomoc ${usePraha ? 'zapnutá' : 'vypnutá'}. Varianty zatím počítají s odhadem prodeje a orientační hodnotou zásoby.`;
 
         planningVariants.innerHTML = variants.map(variant => {
           const units = variant.rows.reduce((sum, row) => sum + (row.plannedUnits || 0), 0);
           const value = variant.rows.reduce((sum, row) => sum + ((row.unitSellingPrice || 0) * (row.plannedUnits || 0)), 0);
           const criticalLeft = variant.rows.filter(row => row.reorderRisk === 'critical' && (((row.effectiveStock || 0) + (row.plannedUnits || 0) - forecastUnits(row, leadDays)) / Math.max(estimateDailyDemand(row), 0.01)) < 30).length;
-          const prahaRisk = variant.rows.filter(row => row.source === 'Praha fallback').length;
+          const prahaRisk = variant.rows.filter(row => row.source === 'Pražská výpomoc').length;
           const usage = profile.targetUnits ? Math.min(999, Math.round((units / profile.targetUnits) * 100)) : 0;
           return `
             <article class="metric-card ${variant.tone}">
@@ -776,7 +776,7 @@
                 Hodnota proxy ${money(value)}<br>
                 Využití kapacity ${fmt(usage)} %<br>
                 Kritické SKU po doplnění ${fmt(criticalLeft)}<br>
-                Praha fallback riziko ${fmt(prahaRisk)} SKU<br>
+                Riziko pražské výpomoci ${fmt(prahaRisk)} SKU<br>
                 Červená po 1 / 2 / 3 / 4 měsících: ${fmt(redRiskAfterMonths(variant.rows, 1))} / ${fmt(redRiskAfterMonths(variant.rows, 2))} / ${fmt(redRiskAfterMonths(variant.rows, 3))} / ${fmt(redRiskAfterMonths(variant.rows, 4))}
               </div>
             </article>
@@ -784,7 +784,7 @@
         }).join('');
 
         const visibleRows = filterPlanningRows(rows.slice(0, 120));
-        planningTableSummary.textContent = `Zobrazeno ${fmt(visibleRows.length)} položek z celkem ${fmt(Math.min(rows.length, 120))} doporučených. Forecast je dopočítaný z 90d tempa, 365d tempa a trendu proti ročnímu průměru.`;
+        planningTableSummary.textContent = `Zobrazeno ${fmt(visibleRows.length)} položek z celkem ${fmt(Math.min(rows.length, 120))} doporučených. Odhad vychází z tempa posledních 90 dní, delší historie a aktuálního trendu.`;
         planningTable.innerHTML = visibleRows.map(row => {
           const urgency = recommendationUrgency(row);
           return `
@@ -792,7 +792,7 @@
             <td>
               <div><strong>${row.code} · ${row.title}</strong></div>
               <div class="muted small" style="margin-top:6px;">Sklad ${fmt(row.effectiveStock)} ks · pokrytí ${cover(row.daysOfCover90d)} · trend ${pct(row.trend90v365Pct)}</div>
-              <div class="muted small" style="margin-top:6px;">Balení ${row.packagingRaw || 'bez mapy'} · role ${row.orderingRole === 'top_sku' ? 'top SKU' : row.orderingRole === 'fill_up' ? 'fill-up' : 'standard'}</div>
+              <div class="muted small" style="margin-top:6px;">Balení ${row.packagingRaw || 'bez mapy'} · role ${row.orderingRole === 'top_sku' ? 'top SKU' : row.orderingRole === 'fill_up' ? 'doplněk do objednávky' : 'běžná položka'}</div>
             </td>
             <td>
               <div><strong>${urgency.label}</strong></div>
@@ -819,8 +819,8 @@
 
       function renderHero() {
         hero.innerHTML = [
-          { label: 'Kritické doplnění', value: fmt(ordering.summary.criticalReorderItems || 0), tone: 'danger' },
-          { label: 'Sledovat doplnění', value: fmt(ordering.summary.watchReorderItems || 0), tone: 'warn' },
+          { label: 'Objednat hned', value: fmt(ordering.summary.criticalReorderItems || 0), tone: 'danger' },
+          { label: 'Prověřit / brzy doobjednat', value: fmt(ordering.summary.watchReorderItems || 0), tone: 'warn' },
           { label: 'Červená obrátkovost', value: fmt(ordering.summary.redTurnoverItems || 0), tone: 'warn' },
           { label: 'Vázaná hodnota v červené', value: money(ordering.summary.cashInRedTurnover), tone: 'danger' },
         ].map(card => `
@@ -838,7 +838,7 @@
           ['Fill-up SKU', fmt(ordering.summary.fillUpItems || 0)],
           ['Zelená obrátkovost', fmt(analytics.summary.greenTurnoverItems || 0)],
           ['Oranžová obrátkovost', fmt(analytics.summary.orangeTurnoverItems || 0)],
-          ['Fast low cover', fmt(analytics.summary.fastLowCoverItems || 0)],
+          ['Rychle rotující s nízkým pokrytím', fmt(analytics.summary.fastLowCoverItems || 0)],
         ].map(([label, value]) => `
           <div class="card compact-card">
             <div class="kpi-label">${label}</div>
@@ -855,18 +855,18 @@
 
       function renderSidebars() {
         usageList.innerHTML = [
-          'Začni kritickým doplněním, to je operativní priorita.',
+          'Začni položkami objednat hned, to je operativní priorita.',
           'Pak zkontroluj červenou obrátkovost, kde leží peníze.',
-          'Trend watch ber jako signál, ne automatické rozhodnutí.',
-          'Explorer už je detail pro jemné doladění objednávky.',
+          'Položky k prověření ber jako signál, ne automatické rozhodnutí.',
+          'Explorer je detail pro jemné doladění objednávky.',
         ].map(text => `<div class="ux-side-list-item">${text}</div>`).join('');
 
         statList.innerHTML = [
           ['Historie objednávání', '1,5 roku'],
           ['Model doplnění', 'tempo 90d + safety'],
           ['Obrátkovost', 'zelená / oranžová / červená'],
-          ['Objednatelné SKU', fmt(ordering.summary.orderableItems || 0)],
-          ['Vyloučené SKU', fmt(ordering.summary.excludedItems || 0)],
+          ['SKU pro nákup', fmt(ordering.summary.orderableItems || 0)],
+          ['SKU mimo nákup', fmt(ordering.summary.excludedItems || 0)],
           ['Reference vrstva', fmt(orderingReference.summary.trackedItems || 0)],
         ].map(([label, value]) => `
           <div class="ux-stat-row">
@@ -952,7 +952,7 @@
         analytics = analyticsPayload || analytics;
         ordering = orderingPayload || ordering;
         orderingReference = orderingReferencePayload || orderingReference;
-        document.getElementById('ordering-window').innerHTML = `<strong>Okno analytiky:</strong> ${analytics.window?.days || 548} dní · data do ${DP.fmtDateTime(analytics.generatedAt)} · reference vrstva ${fmt(orderingReference.summary?.trackedItems || 0)} SKU (${DP.fmtDateTime(orderingReference.generatedAt)}).`;
+        document.getElementById('ordering-window').innerHTML = `<strong>Okno analytiky:</strong> ${analytics.window?.days || 548} dní · data do ${DP.fmtDateTime(analytics.generatedAt)} · referenční vrstva ${fmt(orderingReference.summary?.trackedItems || 0)} SKU (${DP.fmtDateTime(orderingReference.generatedAt)}).`;
 
         const defaultOrderDate = new Date();
         const defaultLeadDays = ordering.planning?.defaults?.leadDays || 21;
@@ -992,7 +992,7 @@
             <td class="num">${fmt(row.units90d)}</td>
             <td class="num">${cover(row.daysOfCover90d)}</td>
           </tr>
-        `, 'Trend watch je zatím prázdný.', 4);
+        `, 'Zatím bez položek k prověření.', 4);
 
         renderShortTable('fillers-table', (ordering.suggestedFillers || []).slice(0, 20), row => `
           <tr>
