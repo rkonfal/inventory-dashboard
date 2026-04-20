@@ -419,6 +419,28 @@ a { color: inherit; }
 }
 [data-theme="dark"] .table th { background: rgba(255,255,255,.03); }
 .table td.num, .table th.num { text-align: right; }
+.table-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  padding: 0;
+  cursor: pointer;
+}
+.table-sort.active {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.table-sort-arrow {
+  opacity: .82;
+  font-size: 12px;
+}
 .table tbody tr:nth-child(odd) td { background: rgba(107,61,99,.018); }
 .table tbody tr:hover td { background: rgba(107,61,99,.05); }
 [data-theme="dark"] .table tbody tr:nth-child(odd) td { background: rgba(255,255,255,.015); }
