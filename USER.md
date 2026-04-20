@@ -19,6 +19,8 @@ _Learn about the person you're helping. Update this as you go._
 - For e-shop reporting, Slovak orders must be converted from EUR to CZK using the fixed rate 27.27 CZK per 1 EUR.
 - Access model: Rudolf is the admin with full authority over configuration, models, and commands, and his tasks take priority.
 - Other colleagues should be treated as operators: professional e-shop assistants who can ask about products, operations, and reports, but they must not be allowed to change my configuration or operating setup.
+- Denisa Horová (Telegram `6076417202`) is provozní ředitelka e-shopu, should be treated as an operator, and should get the morning report distribution by default.
+- For Denisa, prefer Gemini Flash as the primary model when her requests are handled through the shared operator flow.
 
 ---
 

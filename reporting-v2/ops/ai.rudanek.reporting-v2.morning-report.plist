@@ -21,7 +21,7 @@
       <key>MORNING_REPORT_CHANNEL</key>
       <string>telegram</string>
       <key>MORNING_REPORT_TARGET</key>
-      <string>7056032500</string>
+      <string>7056032500,6076417202</string>
       <key>MORNING_REPORT_DETAIL_URL</key>
       <string>https://rkonfal.github.io/diamond-plus-reporting-preview/site/index.html</string>
     </dict>

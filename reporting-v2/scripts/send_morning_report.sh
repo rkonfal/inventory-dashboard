@@ -10,7 +10,7 @@ LOG_FILE="$LOG_DIR/morning-report.log"
 mkdir -p "$LOG_DIR"
 
 CHANNEL="${MORNING_REPORT_CHANNEL:-telegram}"
-TARGET="${MORNING_REPORT_TARGET:-7056032500}"
+TARGETS_RAW="${MORNING_REPORT_TARGET:-7056032500}"
 DETAIL_URL="${MORNING_REPORT_DETAIL_URL:-https://rkonfal.github.io/diamond-plus-reporting-preview/site/index.html}"
 AUTO_PUBLISH="${AUTO_PUBLISH_PREVIEW:-1}"
 DRY_RUN="${MORNING_REPORT_DRY_RUN:-0}"
@@ -62,9 +62,15 @@ if [[ -z "$NODE_BIN" || ! -x "$NODE_BIN" ]]; then
   log "Node binary not found in PATH"
   exit 1
 fi
-CMD=("$NODE_BIN" "$OPENCLAW_ROOT/openclaw.mjs" message send --channel "$CHANNEL" --target "$TARGET" --message "$MESSAGE")
-if [[ "$DRY_RUN" == "1" ]]; then
-  CMD+=(--dry-run)
-fi
-"${CMD[@]}" >> "$LOG_FILE" 2>&1
-log "Morning report delivered"
+
+set -A TARGET_LIST ${(s:,:)TARGETS_RAW}
+for TARGET in "${TARGET_LIST[@]}"; do
+  TARGET="${TARGET//[[:space:]]/}"
+  [[ -z "$TARGET" ]] && continue
+  CMD=("$NODE_BIN" "$OPENCLAW_ROOT/openclaw.mjs" message send --channel "$CHANNEL" --target "$TARGET" --message "$MESSAGE")
+  if [[ "$DRY_RUN" == "1" ]]; then
+    CMD+=(--dry-run)
+  fi
+  "${CMD[@]}" >> "$LOG_FILE" 2>&1
+  log "Morning report delivered to $TARGET"
+done
