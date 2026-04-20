@@ -171,13 +171,13 @@
     <section class="card" style="margin-top:20px;">
       <h2 class="section-title">Prioritní mismatch shortlist</h2>
       <div class="section-subtitle">Pořadník věcí s největším dopadem na provoz.</div>
-      <table class="table">
+      <table class="table" data-sortable-table="priority-shortlist">
         <thead>
           <tr>
-            <th>Priorita / produkt</th>
-            <th class="num">Score</th>
-            <th class="num">WPJ 4PX</th>
-            <th class="num">4PX available</th>
+            <th><button type="button" class="table-sort" data-sort-table="priority-shortlist" data-sort-key="product">Priorita / produkt <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="priority-shortlist" data-sort-key="score">Score <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="priority-shortlist" data-sort-key="wpj4pxStock">WPJ 4PX <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="priority-shortlist" data-sort-key="fourpxAvailable">4PX available <span class="table-sort-arrow">↕</span></button></th>
             <th>Důvod / doporučení</th>
           </tr>
         </thead>
@@ -189,13 +189,13 @@
       <div class="card">
         <h2 class="section-title">Obrátkovost, nejprodávanější produkty za 365 dní</h2>
       <div class="section-subtitle">Nejtočivější produkty za poslední rok a orientační pokrytí zásob.</div>
-        <table class="table">
+        <table class="table" data-sortable-table="turnover">
           <thead>
             <tr>
-              <th>Kód / produkt</th>
-              <th class="num">Prodej 365d</th>
-              <th class="num">Aktuální sklad</th>
-              <th class="num">Dny pokrytí</th>
+              <th><button type="button" class="table-sort" data-sort-table="turnover" data-sort-key="product">Kód / produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="turnover" data-sort-key="units365d">Prodej 365d <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="turnover" data-sort-key="effectiveStock">Aktuální sklad <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="turnover" data-sort-key="daysOfCover365d">Dny pokrytí <span class="table-sort-arrow">↕</span></button></th>
             </tr>
           </thead>
           <tbody id="turnover-table"></tbody>
@@ -205,13 +205,13 @@
       <div class="card">
         <h2 class="section-title">Riziko nízkého pokrytí</h2>
       <div class="section-subtitle">Rychle se prodávají a zásoba je nízko.</div>
-        <table class="table">
+        <table class="table" data-sortable-table="fast-low-cover">
           <thead>
             <tr>
-              <th>Kód / produkt</th>
-              <th class="num">Prodej 365d</th>
-              <th class="num">Aktuální sklad</th>
-              <th class="num">Dny pokrytí</th>
+              <th><button type="button" class="table-sort" data-sort-table="fast-low-cover" data-sort-key="product">Kód / produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="fast-low-cover" data-sort-key="units365d">Prodej 365d <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="fast-low-cover" data-sort-key="effectiveStock">Aktuální sklad <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="fast-low-cover" data-sort-key="daysOfCover365d">Dny pokrytí <span class="table-sort-arrow">↕</span></button></th>
             </tr>
           </thead>
           <tbody id="fast-low-cover-table"></tbody>
@@ -223,13 +223,13 @@
       <div class="card">
         <h2 class="section-title">Ležáky</h2>
       <div class="section-subtitle">Zásoba leží dlouho bez pohybu nebo má extrémně dlouhé pokrytí.</div>
-        <table class="table">
+        <table class="table" data-sortable-table="slow-movers">
           <thead>
             <tr>
-              <th>Kód / produkt</th>
-              <th class="num">Aktuální sklad</th>
-              <th class="num">Bez prodeje dnů</th>
-              <th class="num">Dny pokrytí</th>
+              <th><button type="button" class="table-sort" data-sort-table="slow-movers" data-sort-key="product">Kód / produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="slow-movers" data-sort-key="effectiveStock">Aktuální sklad <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="slow-movers" data-sort-key="daysSinceLastSale">Bez prodeje dnů <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="slow-movers" data-sort-key="daysOfCover365d">Dny pokrytí <span class="table-sort-arrow">↕</span></button></th>
             </tr>
           </thead>
           <tbody id="slow-movers-table"></tbody>
@@ -239,13 +239,13 @@
       <div class="card">
       <h2 class="section-title">Mrtvý sklad</h2>
         <div class="section-subtitle">Zboží na skladu bez prodeje za posledních 365 dní.</div>
-        <table class="table">
+        <table class="table" data-sortable-table="dead-stock">
           <thead>
             <tr>
-              <th>Kód / produkt</th>
-              <th class="num">Aktuální sklad</th>
-              <th class="num">Prodej 365d</th>
-              <th class="num">Prodejní hodnota skladu</th>
+              <th><button type="button" class="table-sort" data-sort-table="dead-stock" data-sort-key="product">Kód / produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="dead-stock" data-sort-key="effectiveStock">Aktuální sklad <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="dead-stock" data-sort-key="units365d">Prodej 365d <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="dead-stock" data-sort-key="stockValueSelling">Prodejní hodnota skladu <span class="table-sort-arrow">↕</span></button></th>
             </tr>
           </thead>
           <tbody id="dead-stock-table"></tbody>
@@ -257,13 +257,13 @@
       <div class="card">
         <h2 class="section-title">Nízký sklad po včerejším prodeji</h2>
         <div class="section-subtitle">Produkty, které se včera prodaly a dnes jsou už na hraně.</div>
-        <table class="table">
+        <table class="table" data-sortable-table="low-stock">
           <thead>
             <tr>
-              <th>Kód / produkt</th>
-              <th class="num">Prodáno včera</th>
-              <th class="num">4PX sklad</th>
-              <th class="num">Delta WPJ vs 4PX</th>
+              <th><button type="button" class="table-sort" data-sort-table="low-stock" data-sort-key="product">Kód / produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="low-stock" data-sort-key="soldYesterday">Prodáno včera <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="low-stock" data-sort-key="fourpxAvailable">4PX sklad <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="low-stock" data-sort-key="stockDelta">Delta WPJ vs 4PX <span class="table-sort-arrow">↕</span></button></th>
             </tr>
           </thead>
           <tbody id="low-stock-table"></tbody>
@@ -273,12 +273,12 @@
       <div class="card">
         <h2 class="section-title">Pouze v 4PX</h2>
         <div class="section-subtitle">Produkty, které jsou fyzicky v 4PX, ale ve WPJ zatím nemají správnou vazbu.</div>
-        <table class="table">
+        <table class="table" data-sortable-table="only-4px">
           <thead>
             <tr>
-              <th>Kód / produkt</th>
-              <th class="num">4PX sklad</th>
-              <th class="num">Včerejší expedice</th>
+              <th><button type="button" class="table-sort" data-sort-table="only-4px" data-sort-key="product">Kód / produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="only-4px" data-sort-key="fourpxAvailable">4PX sklad <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="only-4px" data-sort-key="outboundYesterday">Včerejší expedice <span class="table-sort-arrow">↕</span></button></th>
             </tr>
           </thead>
           <tbody id="only-4px-table"></tbody>
@@ -289,14 +289,14 @@
     <section class="card" style="margin-top:20px;">
       <h2 class="section-title">Mapovací návrhy pro nepárované SKU</h2>
       <div class="section-subtitle">Ukazuje auto mapování přes suffix typu <code>/01</code> i ruční vazby z konfigurační mapy.</div>
-      <table class="table">
+      <table class="table" data-sortable-table="mapping-suggestions">
         <thead>
           <tr>
-            <th>4PX nepárované SKU</th>
-            <th>Navržený WPJ produkt</th>
-            <th class="num">Expedováno včera</th>
-            <th class="num">4PX sklad</th>
-            <th>Pravidlo</th>
+            <th><button type="button" class="table-sort" data-sort-table="mapping-suggestions" data-sort-key="orphanProduct">4PX nepárované SKU <span class="table-sort-arrow">↕</span></button></th>
+            <th><button type="button" class="table-sort" data-sort-table="mapping-suggestions" data-sort-key="suggestedProduct">Navržený WPJ produkt <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="mapping-suggestions" data-sort-key="yesterdayOutboundUnits">Expedováno včera <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="mapping-suggestions" data-sort-key="fourpxAvailable">4PX sklad <span class="table-sort-arrow">↕</span></button></th>
+            <th><button type="button" class="table-sort" data-sort-table="mapping-suggestions" data-sort-key="rule">Pravidlo <span class="table-sort-arrow">↕</span></button></th>
           </tr>
         </thead>
         <tbody id="mapping-suggestions-table"></tbody>
@@ -306,13 +306,13 @@
     <section class="card" style="margin-top:20px;">
       <h2 class="section-title">Největší rozdíly skladu</h2>
       <div class="section-subtitle">Porovnání stavu ve WPJ a reálného 4PX skladu.</div>
-      <table class="table">
+      <table class="table" data-sortable-table="mismatch">
         <thead>
           <tr>
-            <th>Kód / produkt</th>
-            <th class="num">WPJ 4PX sklady</th>
-            <th class="num">4PX available</th>
-            <th class="num">Delta</th>
+            <th><button type="button" class="table-sort" data-sort-table="mismatch" data-sort-key="product">Kód / produkt <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="mismatch" data-sort-key="wpj4pxStoreTotal">WPJ 4PX sklady <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="mismatch" data-sort-key="fourpxAvailable">4PX available <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="mismatch" data-sort-key="stockDelta">Delta <span class="table-sort-arrow">↕</span></button></th>
             <th>Flagy</th>
           </tr>
         </thead>
@@ -953,91 +953,314 @@
       syncViewButtons();
       renderExplorer();
 
-      document.getElementById('priority-shortlist-table').innerHTML = (overview.priorityShortlist || []).map(row => `
-        <tr>
-          <td>${priorityPill(row.priority)}<div style="margin-top:8px;">${row.code} · ${row.title}</div></td>
-          <td class="num">${fmt(row.score)}</td>
-          <td class="num">${fmt(row.wpj4pxStock)}</td>
-          <td class="num">${fmt(row.fourpxAvailable)}</td>
-          <td>
-            <div>${(row.reasons || []).join(', ')}</div>
-            <div class="muted small" style="margin-top:6px;">${row.recommendedAction}</div>
-          </td>
-        </tr>
-      `).join('') || '<tr><td colspan="5">Zatím bez prioritního shortlistu.</td></tr>';
+      const SORT_PRIORITY_RANK = { critical: 3, high: 2, medium: 1, low: 0 };
+      const sortableTableStates = {
+        'priority-shortlist': { key: 'score', direction: 'desc' },
+        'turnover': { key: 'units365d', direction: 'desc' },
+        'fast-low-cover': { key: 'daysOfCover365d', direction: 'asc' },
+        'slow-movers': { key: 'daysSinceLastSale', direction: 'desc' },
+        'dead-stock': { key: 'stockValueSelling', direction: 'desc' },
+        'low-stock': { key: 'soldYesterday', direction: 'desc' },
+        'only-4px': { key: 'fourpxAvailable', direction: 'desc' },
+        'mapping-suggestions': { key: 'yesterdayOutboundUnits', direction: 'desc' },
+        'mismatch': { key: 'stockDelta', direction: 'desc' },
+      };
 
-      document.getElementById('turnover-table').innerHTML = (analytics.topTurnover || []).slice(0, 20).map(row => `
-        <tr>
-          <td>${row.code} · ${row.title}</td>
-          <td class="num">${fmt(row.units365d)}</td>
-          <td class="num">${fmt(row.effectiveStock)}</td>
-          <td class="num">${row.daysOfCover365d ?? '–'}</td>
-        </tr>
-      `).join('') || '<tr><td colspan="4">Zatím bez roční analytiky.</td></tr>';
+      function sortableText(value) {
+        return String(value || '').toLocaleLowerCase('cs');
+      }
 
-      document.getElementById('fast-low-cover-table').innerHTML = (analytics.fastLowCover || []).slice(0, 20).map(row => `
-        <tr>
-          <td>${row.code} · ${row.title}</td>
-          <td class="num">${fmt(row.units365d)}</td>
-          <td class="num">${fmt(row.effectiveStock)}</td>
-          <td class="num">${row.daysOfCover365d ?? '–'}</td>
-        </tr>
-      `).join('') || '<tr><td colspan="4">Aktuálně bez low-cover shortlistu.</td></tr>';
+      function compareSortableValues(aValue, bValue, direction = 'asc', type = 'text') {
+        if (type === 'number') {
+          return compareNullableNumber(aValue, bValue, direction, true);
+        }
+        const compare = sortableText(aValue).localeCompare(sortableText(bValue), 'cs');
+        return direction === 'asc' ? compare : -compare;
+      }
 
-      document.getElementById('slow-movers-table').innerHTML = (analytics.slowMovers || []).slice(0, 20).map(row => `
-        <tr>
-          <td>${row.code} · ${row.title}</td>
-          <td class="num">${fmt(row.effectiveStock)}</td>
-          <td class="num">${row.daysSinceLastSale ?? '–'}</td>
-          <td class="num">${row.daysOfCover365d ?? '–'}</td>
-        </tr>
-      `).join('') || '<tr><td colspan="4">Aktuálně bez ležáků.</td></tr>';
+      function getSortableRows(config) {
+        const state = sortableTableStates[config.id] || { key: config.defaultSortKey, direction: config.defaultDirection || 'desc' };
+        const rows = [...config.rows];
+        const column = config.columns[state.key] || config.columns[config.defaultSortKey];
+        rows.sort((a, b) => {
+          const primary = compareSortableValues(column.value(a), column.value(b), state.direction, column.type);
+          if (primary) return primary;
+          const fallback = config.fallbackKey && config.columns[config.fallbackKey]
+            ? config.columns[config.fallbackKey]
+            : null;
+          if (fallback && fallback !== column) {
+            return compareSortableValues(fallback.value(a), fallback.value(b), fallback.defaultDirection || 'asc', fallback.type);
+          }
+          return 0;
+        });
+        return rows;
+      }
 
-      document.getElementById('dead-stock-table').innerHTML = (analytics.deadStock || []).slice(0, 20).map(row => `
-        <tr>
-          <td>${row.code} · ${row.title}</td>
-          <td class="num">${fmt(row.effectiveStock)}</td>
-          <td class="num">${fmt(row.units365d)}</td>
-          <td class="num">${row.stockValueSelling ? `${fmt(row.stockValueSelling)} Kč` : '–'}</td>
-        </tr>
-      `).join('') || '<tr><td colspan="4">Aktuálně bez mrtvého skladu.</td></tr>';
+      function updateSortableTableHead(config) {
+        document.querySelectorAll(`[data-sort-table="${config.id}"]`).forEach(button => {
+          const active = sortableTableStates[config.id]?.key === button.dataset.sortKey;
+          const direction = active ? sortableTableStates[config.id].direction : null;
+          const arrow = active ? (direction === 'asc' ? '↑' : '↓') : '↕';
+          button.classList.toggle('active', active);
+          const arrowEl = button.querySelector('.table-sort-arrow');
+          if (arrowEl) arrowEl.textContent = arrow;
+        });
+      }
 
-      document.getElementById('low-stock-table').innerHTML = (overview.lowAfterSales || []).map(row => `
-        <tr>
-          <td>${productLabel(row)}</td>
-          <td class="num">${fmt(row.yesterdaySales.units)}</td>
-          <td class="num">${fmt(row.fourpx.availableTotal)}</td>
-          <td class="num">${fmt(row.stockDelta)}</td>
-        </tr>
-      `).join('') || '<tr><td colspan="4">Aktuálně bez kritického shortlistu.</td></tr>';
+      function renderSortableTable(config) {
+        const rows = getSortableRows(config);
+        const tbody = document.getElementById(config.bodyId);
+        tbody.innerHTML = rows.length
+          ? rows.map(config.renderRow).join('')
+          : `<tr><td colspan="${config.colspan}">${config.emptyMessage}</td></tr>`;
+        updateSortableTableHead(config);
+      }
 
-      document.getElementById('only-4px-table').innerHTML = (overview.onlyIn4px || []).map(row => `
-        <tr>
-          <td>${productLabel(row)}</td>
-          <td class="num">${fmt(row.fourpx.availableTotal)}</td>
-          <td class="num">${fmt(row.yesterdayOutbound.czUnits + row.yesterdayOutbound.skUnits)}</td>
-        </tr>
-      `).join('') || '<tr><td colspan="3">Aktuálně bez nepárované 4PX SKU.</td></tr>';
+      const sortableTableConfigs = [
+        {
+          id: 'priority-shortlist',
+          bodyId: 'priority-shortlist-table',
+          rows: overview.priorityShortlist || [],
+          defaultSortKey: 'score',
+          defaultDirection: 'desc',
+          fallbackKey: 'product',
+          colspan: 5,
+          emptyMessage: 'Zatím bez prioritního shortlistu.',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            score: { type: 'number', defaultDirection: 'desc', value: row => row.score },
+            wpj4pxStock: { type: 'number', defaultDirection: 'desc', value: row => row.wpj4pxStock },
+            fourpxAvailable: { type: 'number', defaultDirection: 'desc', value: row => row.fourpxAvailable },
+            priority: { type: 'number', defaultDirection: 'desc', value: row => SORT_PRIORITY_RANK[row.priority] ?? -1 },
+          },
+          renderRow: row => `
+            <tr>
+              <td>${priorityPill(row.priority)}<div style="margin-top:8px;">${row.code} · ${row.title}</div></td>
+              <td class="num">${fmt(row.score)}</td>
+              <td class="num">${fmt(row.wpj4pxStock)}</td>
+              <td class="num">${fmt(row.fourpxAvailable)}</td>
+              <td>
+                <div>${(row.reasons || []).join(', ')}</div>
+                <div class="muted small" style="margin-top:6px;">${row.recommendedAction}</div>
+              </td>
+            </tr>
+          `,
+        },
+        {
+          id: 'turnover',
+          bodyId: 'turnover-table',
+          rows: (analytics.topTurnover || []).slice(0, 20),
+          defaultSortKey: 'units365d',
+          defaultDirection: 'desc',
+          fallbackKey: 'product',
+          colspan: 4,
+          emptyMessage: 'Zatím bez roční analytiky.',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            units365d: { type: 'number', defaultDirection: 'desc', value: row => row.units365d },
+            effectiveStock: { type: 'number', defaultDirection: 'desc', value: row => row.effectiveStock },
+            daysOfCover365d: { type: 'number', defaultDirection: 'asc', value: row => row.daysOfCover365d },
+          },
+          renderRow: row => `
+            <tr>
+              <td>${row.code} · ${row.title}</td>
+              <td class="num">${fmt(row.units365d)}</td>
+              <td class="num">${fmt(row.effectiveStock)}</td>
+              <td class="num">${row.daysOfCover365d ?? '–'}</td>
+            </tr>
+          `,
+        },
+        {
+          id: 'fast-low-cover',
+          bodyId: 'fast-low-cover-table',
+          rows: (analytics.fastLowCover || []).slice(0, 20),
+          defaultSortKey: 'daysOfCover365d',
+          defaultDirection: 'asc',
+          fallbackKey: 'product',
+          colspan: 4,
+          emptyMessage: 'Aktuálně bez low-cover shortlistu.',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            units365d: { type: 'number', defaultDirection: 'desc', value: row => row.units365d },
+            effectiveStock: { type: 'number', defaultDirection: 'desc', value: row => row.effectiveStock },
+            daysOfCover365d: { type: 'number', defaultDirection: 'asc', value: row => row.daysOfCover365d },
+          },
+          renderRow: row => `
+            <tr>
+              <td>${row.code} · ${row.title}</td>
+              <td class="num">${fmt(row.units365d)}</td>
+              <td class="num">${fmt(row.effectiveStock)}</td>
+              <td class="num">${row.daysOfCover365d ?? '–'}</td>
+            </tr>
+          `,
+        },
+        {
+          id: 'slow-movers',
+          bodyId: 'slow-movers-table',
+          rows: (analytics.slowMovers || []).slice(0, 20),
+          defaultSortKey: 'daysSinceLastSale',
+          defaultDirection: 'desc',
+          fallbackKey: 'product',
+          colspan: 4,
+          emptyMessage: 'Aktuálně bez ležáků.',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            effectiveStock: { type: 'number', defaultDirection: 'desc', value: row => row.effectiveStock },
+            daysSinceLastSale: { type: 'number', defaultDirection: 'desc', value: row => row.daysSinceLastSale },
+            daysOfCover365d: { type: 'number', defaultDirection: 'desc', value: row => row.daysOfCover365d },
+          },
+          renderRow: row => `
+            <tr>
+              <td>${row.code} · ${row.title}</td>
+              <td class="num">${fmt(row.effectiveStock)}</td>
+              <td class="num">${row.daysSinceLastSale ?? '–'}</td>
+              <td class="num">${row.daysOfCover365d ?? '–'}</td>
+            </tr>
+          `,
+        },
+        {
+          id: 'dead-stock',
+          bodyId: 'dead-stock-table',
+          rows: (analytics.deadStock || []).slice(0, 20),
+          defaultSortKey: 'stockValueSelling',
+          defaultDirection: 'desc',
+          fallbackKey: 'product',
+          colspan: 4,
+          emptyMessage: 'Aktuálně bez mrtvého skladu.',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            effectiveStock: { type: 'number', defaultDirection: 'desc', value: row => row.effectiveStock },
+            units365d: { type: 'number', defaultDirection: 'desc', value: row => row.units365d },
+            stockValueSelling: { type: 'number', defaultDirection: 'desc', value: row => row.stockValueSelling },
+          },
+          renderRow: row => `
+            <tr>
+              <td>${row.code} · ${row.title}</td>
+              <td class="num">${fmt(row.effectiveStock)}</td>
+              <td class="num">${fmt(row.units365d)}</td>
+              <td class="num">${row.stockValueSelling ? `${fmt(row.stockValueSelling)} Kč` : '–'}</td>
+            </tr>
+          `,
+        },
+        {
+          id: 'low-stock',
+          bodyId: 'low-stock-table',
+          rows: overview.lowAfterSales || [],
+          defaultSortKey: 'soldYesterday',
+          defaultDirection: 'desc',
+          fallbackKey: 'product',
+          colspan: 4,
+          emptyMessage: 'Aktuálně bez kritického shortlistu.',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            soldYesterday: { type: 'number', defaultDirection: 'desc', value: row => row.yesterdaySales?.units },
+            fourpxAvailable: { type: 'number', defaultDirection: 'desc', value: row => row.fourpx?.availableTotal },
+            stockDelta: { type: 'number', defaultDirection: 'desc', value: row => row.stockDelta },
+          },
+          renderRow: row => `
+            <tr>
+              <td>${productLabel(row)}</td>
+              <td class="num">${fmt(row.yesterdaySales.units)}</td>
+              <td class="num">${fmt(row.fourpx.availableTotal)}</td>
+              <td class="num">${fmt(row.stockDelta)}</td>
+            </tr>
+          `,
+        },
+        {
+          id: 'only-4px',
+          bodyId: 'only-4px-table',
+          rows: overview.onlyIn4px || [],
+          defaultSortKey: 'fourpxAvailable',
+          defaultDirection: 'desc',
+          fallbackKey: 'product',
+          colspan: 3,
+          emptyMessage: 'Aktuálně bez nepárované 4PX SKU.',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            fourpxAvailable: { type: 'number', defaultDirection: 'desc', value: row => row.fourpx?.availableTotal },
+            outboundYesterday: { type: 'number', defaultDirection: 'desc', value: row => Number(row.yesterdayOutbound?.czUnits || 0) + Number(row.yesterdayOutbound?.skUnits || 0) },
+          },
+          renderRow: row => `
+            <tr>
+              <td>${productLabel(row)}</td>
+              <td class="num">${fmt(row.fourpx.availableTotal)}</td>
+              <td class="num">${fmt(row.yesterdayOutbound.czUnits + row.yesterdayOutbound.skUnits)}</td>
+            </tr>
+          `,
+        },
+        {
+          id: 'mapping-suggestions',
+          bodyId: 'mapping-suggestions-table',
+          rows: overview.mappingSuggestions || [],
+          defaultSortKey: 'yesterdayOutboundUnits',
+          defaultDirection: 'desc',
+          fallbackKey: 'orphanProduct',
+          colspan: 5,
+          emptyMessage: 'Zatím bez mapovacích návrhů.',
+          columns: {
+            orphanProduct: { type: 'text', defaultDirection: 'asc', value: row => `${row.orphanCode || ''} ${row.orphanTitle || ''}` },
+            suggestedProduct: { type: 'text', defaultDirection: 'asc', value: row => `${row.suggestedWpjCode || ''} ${row.suggestedWpjTitle || ''}` },
+            yesterdayOutboundUnits: { type: 'number', defaultDirection: 'desc', value: row => row.yesterdayOutboundUnits },
+            fourpxAvailable: { type: 'number', defaultDirection: 'desc', value: row => row.fourpxAvailable },
+            rule: { type: 'text', defaultDirection: 'asc', value: row => row.rule },
+          },
+          renderRow: row => `
+            <tr>
+              <td>${row.orphanCode} · ${row.orphanTitle}</td>
+              <td>${row.suggestedWpjCode} · ${row.suggestedWpjTitle}</td>
+              <td class="num">${fmt(row.yesterdayOutboundUnits)}</td>
+              <td class="num">${fmt(row.fourpxAvailable)}</td>
+              <td>${row.rule}${row.applied ? ' • applied' : ''}</td>
+            </tr>
+          `,
+        },
+        {
+          id: 'mismatch',
+          bodyId: 'mismatch-table',
+          rows: overview.stockMismatches || [],
+          defaultSortKey: 'stockDelta',
+          defaultDirection: 'desc',
+          fallbackKey: 'product',
+          colspan: 5,
+          emptyMessage: 'Žádné mismatchy.',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            wpj4pxStoreTotal: { type: 'number', defaultDirection: 'desc', value: row => row.wpj?.fourpxStoreTotal },
+            fourpxAvailable: { type: 'number', defaultDirection: 'desc', value: row => row.fourpx?.availableTotal },
+            stockDelta: { type: 'number', defaultDirection: 'desc', value: row => row.stockDelta },
+          },
+          renderRow: row => `
+            <tr>
+              <td>${productLabel(row)}</td>
+              <td class="num">${fmt(row.wpj.fourpxStoreTotal)}</td>
+              <td class="num">${fmt(row.fourpx.availableTotal)}</td>
+              <td class="num">${fmt(row.stockDelta)}</td>
+              <td>${flagsHtml(row.flags)}</td>
+            </tr>
+          `,
+        },
+      ];
 
-      document.getElementById('mapping-suggestions-table').innerHTML = (overview.mappingSuggestions || []).map(row => `
-        <tr>
-          <td>${row.orphanCode} · ${row.orphanTitle}</td>
-          <td>${row.suggestedWpjCode} · ${row.suggestedWpjTitle}</td>
-          <td class="num">${fmt(row.yesterdayOutboundUnits)}</td>
-          <td class="num">${fmt(row.fourpxAvailable)}</td>
-          <td>${row.rule}${row.applied ? ' • applied' : ''}</td>
-        </tr>
-      `).join('') || '<tr><td colspan="5">Zatím bez mapovacích návrhů.</td></tr>';
+      document.addEventListener('click', event => {
+        const button = event.target.closest('[data-sort-table]');
+        if (!button) return;
+        const tableId = button.dataset.sortTable;
+        const config = sortableTableConfigs.find(item => item.id === tableId);
+        if (!config) return;
+        const key = button.dataset.sortKey;
+        const column = config.columns[key];
+        if (!column) return;
+        const state = sortableTableStates[tableId];
+        sortableTableStates[tableId] = {
+          key,
+          direction: state.key === key
+            ? (state.direction === 'desc' ? 'asc' : 'desc')
+            : (column.defaultDirection || 'desc'),
+        };
+        renderSortableTable(config);
+      });
 
-      document.getElementById('mismatch-table').innerHTML = (overview.stockMismatches || []).map(row => `
-        <tr>
-          <td>${productLabel(row)}</td>
-          <td class="num">${fmt(row.wpj.fourpxStoreTotal)}</td>
-          <td class="num">${fmt(row.fourpx.availableTotal)}</td>
-          <td class="num">${fmt(row.stockDelta)}</td>
-          <td>${flagsHtml(row.flags)}</td>
-        </tr>
-      `).join('') || '<tr><td colspan="5">Žádné mismatchy.</td></tr>';
+      sortableTableConfigs.forEach(renderSortableTable);
     })().catch(err => {
       document.getElementById('inventory-window').textContent = `Nepodařilo se načíst data: ${err.message}`;
     });
