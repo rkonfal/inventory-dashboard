@@ -33,6 +33,7 @@
           <div class="ux-actions">
             <a class="ux-button primary" href="inventory.html">Původní SKLAD</a>
             <a class="ux-button secondary" href="../data/current/ordering_core.json" target="_blank" rel="noopener">Otevřít ordering_core.json</a>
+            <a class="ux-button secondary" href="../data/current/ordering_reference_data.json" target="_blank" rel="noopener">Otevřít ordering_reference_data.json</a>
             <a class="ux-button secondary" href="../data/current/inventory_analytics_730d.json" target="_blank" rel="noopener">Otevřít analytiku objednávání</a>
           </div>
         </div>
@@ -228,6 +229,8 @@
             <span class="control-label">Filtr</span>
             <select id="ordering-filter" class="select">
               <option value="all">Všechno</option>
+              <option value="orderable">Jen objednatelné</option>
+              <option value="excluded">Jen vyloučené</option>
               <option value="critical">Jen kritické doplnění</option>
               <option value="watch">Jen sledovat doplnění</option>
               <option value="red">Jen červená obrátkovost</option>
@@ -297,6 +300,34 @@
         if (row.trend90v365Pct >= 25) return `<span class="badge success">zrychluje ${pct(row.trend90v365Pct)}</span>`;
         if (row.trend90v365Pct <= -25) return `<span class="badge warn">zpomaluje ${pct(row.trend90v365Pct)}</span>`;
         return `<span class="badge">stabilní ${pct(row.trend90v365Pct)}</span>`;
+      };
+
+      const typeBadge = row => {
+        const labels = {
+          product: 'produkt',
+          gift: 'dárek',
+          service: 'služba',
+          print: 'tiskovina',
+          internal: 'interní',
+          promo: 'promo',
+        };
+        const label = labels[row.itemType] || (row.itemType || 'typ neznámý');
+        const tone = row.orderable ? 'success' : (row.itemType === 'service' || row.itemType === 'internal' ? 'danger' : 'warn');
+        return `<span class="badge ${tone}">${label}</span>`;
+      };
+
+      const orderableBadge = row => row.orderable
+        ? '<span class="badge success">objednatelné</span>'
+        : `<span class="badge warn">vyloučeno</span>`;
+
+      const sourceChannelBadge = row => {
+        const labels = {
+          both: 'Riga + Praha',
+          riga: 'Riga only',
+          praha: 'Praha only',
+          unknown: 'zdroj nejasný',
+        };
+        return `<span class="badge">${labels[row.sourceChannel] || (row.sourceChannel || 'zdroj neznámý')}</span>`;
       };
 
       const hero = document.getElementById('ordering-hero');
@@ -621,7 +652,8 @@
           ['Historie objednávání', '1,5 roku'],
           ['Model doplnění', 'tempo 90d + safety'],
           ['Obrátkovost', 'zelená / oranžová / červená'],
-          ['Promo modul', 'zatím mimo V1'],
+          ['Objednatelné SKU', fmt(ordering.summary.orderableItems || 0)],
+          ['Vyloučené SKU', fmt(ordering.summary.excludedItems || 0)],
         ].map(([label, value]) => `
           <div class="ux-stat-row">
             <span>${label}</span>
@@ -639,6 +671,8 @@
             const hay = `${row.code || ''} ${row.title || ''}`.toLowerCase();
             if (!hay.includes(term)) return false;
           }
+          if (filter === 'orderable') return row.orderable !== false;
+          if (filter === 'excluded') return row.orderable === false;
           if (filter === 'critical') return row.reorderRisk === 'critical';
           if (filter === 'watch') return ['critical', 'soon', 'watch'].includes(row.reorderRisk);
           if (filter === 'red') return row.turnoverZone === 'red';
@@ -661,14 +695,16 @@
 
       function renderExplorer() {
         const rows = getExplorerRows();
-        explorerSummary.textContent = `Zobrazeno ${fmt(rows.length)} SKU. Explorer ukazuje analytické okno objednávání, 90d pokrytí a doporučené množství.`;
+        const excludedCount = rows.filter(row => row.orderable === false).length;
+        explorerSummary.textContent = `Zobrazeno ${fmt(rows.length)} SKU, z toho ${fmt(excludedCount)} vyloučených z objednávání. Explorer ukazuje analytické okno, 90d pokrytí, doporučené množství a důvod případného vyloučení.`;
         explorerTable.innerHTML = rows.slice(0, 150).map(row => `
           <tr>
             <td>
               <div><strong>${row.code} · ${row.title}</strong></div>
               <div class="muted small" style="margin-top:6px;">YoY ${pct(row.seasonalityYoYPct)} · poslední prodej ${row.daysSinceLastSale == null ? '–' : `${fmt(row.daysSinceLastSale)} dnů zpět`}</div>
+              <div class="muted small" style="margin-top:6px;">${row.excludeFromOrderingReason || 'Bez důvodu vyloučení, SKU je v objednávacím engine povolené.'}</div>
             </td>
-            <td>${riskBadge(row)} ${zoneBadge(row)} ${trendBadge(row)}</td>
+            <td>${orderableBadge(row)} ${typeBadge(row)} ${sourceChannelBadge(row)} ${riskBadge(row)} ${zoneBadge(row)} ${trendBadge(row)}</td>
             <td class="num">${fmt(row.effectiveStock)}</td>
             <td class="num">${fmt(row.unitsWindow ?? row.units730d)}</td>
             <td class="num">${fmt(row.units90d)}</td>

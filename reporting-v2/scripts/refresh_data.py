@@ -30,6 +30,7 @@ ENV_FILE = ROOT / '.env.local'
 CONFIG_DIR = ROOT / 'config'
 SKU_MAPPING_OVERRIDE_FILE = CONFIG_DIR / 'sku_mapping_overrides.json'
 POS_ADMIN_VIEW_OVERRIDE_FILE = CONFIG_DIR / 'pos_admin_view_overrides.json'
+ORDERING_REFERENCE_OVERRIDE_FILE = CONFIG_DIR / 'ordering_reference_overrides.json'
 CURRENT_DIR = ROOT / 'data' / 'current'
 SNAPSHOT_DIR = ROOT / 'data' / 'snapshots'
 BASE_URL = 'https://open.eu.4px.com/router/api/service'
@@ -208,6 +209,43 @@ def load_pos_admin_view_overrides(path: Path):
             except (TypeError, ValueError):
                 continue
     return overrides
+
+
+def load_ordering_reference_overrides(path: Path):
+    payload = {
+        'skus': {},
+        'prefixes': [],
+        'titleContains': [],
+    }
+    if not path.exists():
+        return payload
+    try:
+        raw = json.loads(path.read_text(encoding='utf-8'))
+    except Exception as exc:
+        raise RuntimeError(f'Neplatný JSON v ordering reference override mapě: {path}') from exc
+
+    for raw_code, meta in (raw.get('skus') or {}).items():
+        code = normalize_product_code(raw_code)
+        if code and isinstance(meta, dict):
+            payload['skus'][code] = dict(meta)
+
+    for entry in (raw.get('prefixes') or []):
+        if not isinstance(entry, dict):
+            continue
+        prefix = normalize_product_code(entry.get('prefix'))
+        meta = entry.get('meta') if isinstance(entry.get('meta'), dict) else {}
+        if prefix and meta:
+            payload['prefixes'].append({'prefix': prefix, 'meta': dict(meta)})
+
+    for entry in (raw.get('titleContains') or []):
+        if not isinstance(entry, dict):
+            continue
+        needle = str(entry.get('needle') or '').strip().lower()
+        meta = entry.get('meta') if isinstance(entry.get('meta'), dict) else {}
+        if needle and meta:
+            payload['titleContains'].append({'needle': needle, 'meta': dict(meta)})
+
+    return payload
 
 
 def compact_json(data):
@@ -891,6 +929,132 @@ def normalize_product_code(value):
     return str(value or '').strip()
 
 
+def merge_reference_meta(base, override):
+    merged = dict(base or {})
+    for key, value in (override or {}).items():
+        if value is None:
+            continue
+        merged[key] = value
+    return merged
+
+
+def infer_ordering_reference(code, title, unit_price=None):
+    title_text = str(title or '')
+    title_lower = title_text.lower()
+    code_text = normalize_product_code(code)
+
+    meta = {
+        'itemType': 'product',
+        'orderable': True,
+        'sourceChannel': 'unknown',
+        'strategicPriority': 'standard',
+        'giftCandidate': False,
+        'excludeFromOrderingReason': None,
+        'referenceSource': 'default',
+        'referenceFlags': [],
+    }
+
+    def mark(update, source, flag=None):
+        nonlocal meta
+        meta = merge_reference_meta(meta, update)
+        meta['referenceSource'] = source
+        if flag and flag not in meta['referenceFlags']:
+            meta['referenceFlags'].append(flag)
+
+    if code_text.startswith('BIOANALYZA'):
+        mark({
+            'itemType': 'service',
+            'orderable': False,
+            'sourceChannel': 'praha',
+            'strategicPriority': 'risky',
+            'excludeFromOrderingReason': 'servisní položka / biorezonance',
+        }, 'heuristic:prefix', 'service_prefix')
+
+    if code_text.startswith('DOPL'):
+        mark({
+            'itemType': 'internal',
+            'orderable': False,
+            'sourceChannel': 'praha',
+            'strategicPriority': 'risky',
+            'excludeFromOrderingReason': 'interní nebo doplňková položka',
+        }, 'heuristic:prefix', 'internal_prefix')
+
+    if code_text.startswith('SET'):
+        mark({
+            'itemType': 'promo',
+            'orderable': False,
+            'sourceChannel': 'unknown',
+            'strategicPriority': 'supplement',
+            'excludeFromOrderingReason': 'promo / set candidate k ruční revizi',
+        }, 'heuristic:prefix', 'set_prefix')
+
+    if any(token in title_lower for token in ('brož', 'leták', 'katalog', 'diář', 'lexikon', 'zpravodaj', 'tiskovin', 'pexeso')):
+        mark({
+            'itemType': 'print',
+            'orderable': False,
+            'sourceChannel': 'praha',
+            'strategicPriority': 'supplement',
+            'excludeFromOrderingReason': 'tiskovina / katalog / brožura',
+        }, 'heuristic:title', 'print_title')
+
+    if any(token in title_lower for token in ('dárek', 'zdarma', 'překvapení')):
+        mark({
+            'itemType': 'gift',
+            'orderable': False,
+            'sourceChannel': 'praha',
+            'strategicPriority': 'supplement',
+            'giftCandidate': True,
+            'excludeFromOrderingReason': 'dárková nebo bonusová položka',
+        }, 'heuristic:title', 'gift_title')
+
+    if any(token in title_lower for token in ('tester', 'testerů', 'vzorek')):
+        mark({
+            'itemType': 'promo',
+            'orderable': False,
+            'sourceChannel': 'praha',
+            'strategicPriority': 'supplement',
+            'excludeFromOrderingReason': 'tester / vzorek / promo materiál',
+        }, 'heuristic:title', 'promo_title')
+
+    if meta['itemType'] == 'product':
+        if unit_price is not None and float(unit_price or 0) <= 0:
+            meta['referenceFlags'].append('nonpositive_price')
+            meta['strategicPriority'] = 'risky'
+            meta['referenceSource'] = 'heuristic:price'
+        if meta['sourceChannel'] == 'unknown':
+            meta['sourceChannel'] = 'both'
+
+    return meta
+
+
+def apply_ordering_reference_overrides(reference_meta, code, title, overrides):
+    meta = dict(reference_meta or {})
+    code_text = normalize_product_code(code)
+    title_lower = str(title or '').lower()
+
+    sku_override = (overrides.get('skus') or {}).get(code_text)
+    if sku_override:
+        meta = merge_reference_meta(meta, sku_override)
+        meta['referenceSource'] = 'override:sku'
+
+    for entry in (overrides.get('prefixes') or []):
+        prefix = entry.get('prefix')
+        if prefix and code_text.startswith(prefix):
+            meta = merge_reference_meta(meta, entry.get('meta'))
+            meta['referenceSource'] = 'override:prefix'
+
+    for entry in (overrides.get('titleContains') or []):
+        needle = entry.get('needle')
+        if needle and needle in title_lower:
+            meta = merge_reference_meta(meta, entry.get('meta'))
+            meta['referenceSource'] = 'override:title'
+
+    if not meta.get('orderable') and not meta.get('excludeFromOrderingReason'):
+        meta['excludeFromOrderingReason'] = 'ručně vyloučeno z objednávání'
+
+    return meta
+
+
 def resolve_4px_code_alias(code, wpj_by_code, manual_overrides=None):
     manual_overrides = manual_overrides or {'aliases': {}, 'ignore': set()}
     code = normalize_product_code(code)
@@ -1264,7 +1428,7 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
     return combined_index, combined_overview
 
 
-def build_inventory_analytics_window(combined_index, orders, start_dt, end_dt, generated_at, window_days=365, wpj_by_code=None, manual_overrides=None, pos_admin_views=None):
+def build_inventory_analytics_window(combined_index, orders, start_dt, end_dt, generated_at, window_days=365, wpj_by_code=None, manual_overrides=None, pos_admin_views=None, ordering_reference_overrides=None):
     wpj_by_code = wpj_by_code or {}
     metrics = {}
     view_keys = ('complete', 'cz', 'sk', 'ltm', 'mecin')
@@ -1391,6 +1555,13 @@ def build_inventory_analytics_window(combined_index, orders, start_dt, end_dt, g
                 'avgMonthlyUnits730d': round(view_units_730d / 24, 1) if view_units_730d else 0,
             }
 
+        reference_meta = apply_ordering_reference_overrides(
+            infer_ordering_reference(code, item['title'], item.get('wpj', {}).get('priceWithVat')),
+            code,
+            item['title'],
+            ordering_reference_overrides or {},
+        )
+
         items.append({
             'code': code,
             'title': item['title'],
@@ -1432,6 +1603,14 @@ def build_inventory_analytics_window(combined_index, orders, start_dt, end_dt, g
             'stockValueSelling': selling_value,
             'tags': tags,
             'byView': by_view,
+            'itemType': reference_meta.get('itemType'),
+            'orderable': bool(reference_meta.get('orderable')),
+            'sourceChannel': reference_meta.get('sourceChannel'),
+            'strategicPriority': reference_meta.get('strategicPriority'),
+            'giftCandidate': bool(reference_meta.get('giftCandidate')),
+            'excludeFromOrderingReason': reference_meta.get('excludeFromOrderingReason'),
+            'referenceSource': reference_meta.get('referenceSource'),
+            'referenceFlags': sorted(set(reference_meta.get('referenceFlags') or [])),
         })
 
     turnover = sorted([item for item in items if item['units365d'] > 0 and item['effectiveStock'] > 0], key=lambda item: item['units365d'], reverse=True)
@@ -1465,7 +1644,7 @@ def build_inventory_analytics_window(combined_index, orders, start_dt, end_dt, g
     }
 
 
-def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None, pos_admin_views=None):
+def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None, pos_admin_views=None, ordering_reference_overrides=None):
     return build_inventory_analytics_window(
         combined_index,
         year_orders,
@@ -1476,10 +1655,11 @@ def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt
         wpj_by_code=wpj_by_code,
         manual_overrides=manual_overrides,
         pos_admin_views=pos_admin_views,
+        ordering_reference_overrides=ordering_reference_overrides,
     )
 
 
-def build_inventory_analytics_730d(combined_index, orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None, pos_admin_views=None):
+def build_inventory_analytics_730d(combined_index, orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None, pos_admin_views=None, ordering_reference_overrides=None):
     return build_inventory_analytics_window(
         combined_index,
         orders,
@@ -1490,6 +1670,7 @@ def build_inventory_analytics_730d(combined_index, orders, start_dt, end_dt, gen
         wpj_by_code=wpj_by_code,
         manual_overrides=manual_overrides,
         pos_admin_views=pos_admin_views,
+        ordering_reference_overrides=ordering_reference_overrides,
     )
 
 
@@ -1551,6 +1732,18 @@ def max_units_for_ordering(item, lead_days):
 
 
 def recommendation_source_meta(item, lead_days, use_praha):
+    source_channel = item.get('sourceChannel') or 'unknown'
+    if source_channel == 'praha':
+        return {
+            'source': 'Praha',
+            'reason': 'referenčně vedené jako Praha-only SKU',
+        }
+    if source_channel == 'riga':
+        return {
+            'source': 'Riga',
+            'reason': 'referenčně vedené jako Riga-only SKU',
+        }
+
     cover_90d = item.get('daysOfCover90d')
     if use_praha and ((cover_90d if cover_90d is not None else 999) <= max(7, round(lead_days * 0.35)) or float(item.get('effectiveStock') or 0) <= 0):
         return {
@@ -1570,6 +1763,8 @@ def recommendation_source_meta(item, lead_days, use_praha):
 def build_ordering_recommendation_rows(items, lead_days=21, use_praha=True):
     rows = []
     for item in items or []:
+        if not item.get('orderable', True):
+            continue
         if not ((item.get('recommendedOrderUnits') or 0) > 0 or (item.get('recommendedMinUnits') or 0) > 0):
             continue
         if not (
@@ -1737,25 +1932,26 @@ def build_ordering_planning(items, lead_days=21, capacity_key='half', use_praha=
 
 def build_ordering_core(analytics_payload, generated_at):
     items = analytics_payload.get('items') or []
+    orderable_items = [item for item in items if item.get('orderable', True)]
     critical_reorder = sorted(
-        [item for item in items if item.get('reorderRisk') == 'critical'],
+        [item for item in orderable_items if item.get('reorderRisk') == 'critical'],
         key=lambda item: ((item.get('daysOfCover90d') if item.get('daysOfCover90d') is not None else 999), -item.get('recommendedOrderUnits', 0), -item.get('units90d', 0)),
     )
     reorder_watch = sorted(
-        [item for item in items if item.get('reorderRisk') in {'critical', 'soon', 'watch'}],
+        [item for item in orderable_items if item.get('reorderRisk') in {'critical', 'soon', 'watch'}],
         key=lambda item: (0 if item.get('reorderRisk') == 'critical' else 1 if item.get('reorderRisk') == 'soon' else 2, (item.get('daysOfCover90d') if item.get('daysOfCover90d') is not None else 999), -item.get('units90d', 0)),
     )
     overstock_risks = sorted(
-        [item for item in items if item.get('turnoverZone') == 'red' and item.get('effectiveStock', 0) > 0],
+        [item for item in orderable_items if item.get('turnoverZone') == 'red' and item.get('effectiveStock', 0) > 0],
         key=lambda item: (-(item.get('stockValueSelling') or 0), -(item.get('daysOfCover365d') or 0), -(item.get('effectiveStock') or 0)),
     )
     trend_watch = sorted(
-        [item for item in items if item.get('trend90v365Pct') is not None and item.get('units90d', 0) > 0],
+        [item for item in orderable_items if item.get('trend90v365Pct') is not None and item.get('units90d', 0) > 0],
         key=lambda item: abs(item.get('trend90v365Pct') or 0),
         reverse=True,
     )
     suggested_fillers = sorted(
-        [item for item in items if item.get('turnoverZone') == 'green' and (item.get('daysOfCover90d') or 999) <= 90 and item.get('recommendedOrderUnits', 0) > 0],
+        [item for item in orderable_items if item.get('turnoverZone') == 'green' and (item.get('daysOfCover90d') or 999) <= 90 and item.get('recommendedOrderUnits', 0) > 0],
         key=lambda item: (-item.get('units365d', 0), item.get('daysOfCover90d') or 999),
     )
 
@@ -1775,14 +1971,16 @@ def build_ordering_core(analytics_payload, generated_at):
     return {
         'generatedAt': generated_at,
         'window': analytics_payload.get('window') or {},
-        'planning': build_ordering_planning(items, lead_days=21, capacity_key='half', use_praha=True),
+        'planning': build_ordering_planning(orderable_items, lead_days=21, capacity_key='half', use_praha=True),
         'summary': {
             'trackedItems': len(items),
+            'orderableItems': len(orderable_items),
+            'excludedItems': len(items) - len(orderable_items),
             'criticalReorderItems': len(critical_reorder),
             'watchReorderItems': len(reorder_watch),
-            'redTurnoverItems': len([item for item in items if item.get('turnoverZone') == 'red']),
-            'orangeTurnoverItems': len([item for item in items if item.get('turnoverZone') == 'orange']),
-            'greenTurnoverItems': len([item for item in items if item.get('turnoverZone') == 'green']),
+            'redTurnoverItems': len([item for item in orderable_items if item.get('turnoverZone') == 'red']),
+            'orangeTurnoverItems': len([item for item in orderable_items if item.get('turnoverZone') == 'orange']),
+            'greenTurnoverItems': len([item for item in orderable_items if item.get('turnoverZone') == 'green']),
             'cashInRedTurnover': cash_in_red,
         },
         'alerts': alerts[:6],
@@ -1791,6 +1989,47 @@ def build_ordering_core(analytics_payload, generated_at):
         'overstockRisks': overstock_risks[:100],
         'trendWatch': trend_watch[:100],
         'suggestedFillers': suggested_fillers[:50],
+    }
+
+
+def build_ordering_reference_data(analytics_payload, generated_at):
+    items = []
+    for item in (analytics_payload.get('items') or []):
+        items.append({
+            'code': item.get('code'),
+            'title': item.get('title'),
+            'itemType': item.get('itemType') or 'product',
+            'orderable': bool(item.get('orderable', True)),
+            'sourceChannel': item.get('sourceChannel') or 'unknown',
+            'strategicPriority': item.get('strategicPriority') or 'standard',
+            'giftCandidate': bool(item.get('giftCandidate')),
+            'excludeFromOrderingReason': item.get('excludeFromOrderingReason'),
+            'referenceSource': item.get('referenceSource') or 'default',
+            'referenceFlags': item.get('referenceFlags') or [],
+            'recommendedOrderUnits': item.get('recommendedOrderUnits') or 0,
+            'recommendedMinUnits': item.get('recommendedMinUnits') or 0,
+            'effectiveStock': item.get('effectiveStock') or 0,
+            'units365d': item.get('units365d') or 0,
+            'daysOfCover90d': item.get('daysOfCover90d'),
+        })
+
+    items.sort(key=lambda row: (row['orderable'], row['itemType'], -(row.get('recommendedOrderUnits') or 0), row.get('code') or ''))
+
+    excluded = [row for row in items if not row['orderable']]
+    by_type = Counter(row['itemType'] or 'unknown' for row in items)
+    by_source = Counter(row['sourceChannel'] or 'unknown' for row in items)
+
+    return {
+        'generatedAt': generated_at,
+        'summary': {
+            'trackedItems': len(items),
+            'orderableItems': len([row for row in items if row['orderable']]),
+            'excludedItems': len(excluded),
+            'byItemType': dict(sorted(by_type.items())),
+            'bySourceChannel': dict(sorted(by_source.items())),
+        },
+        'excludedTop': excluded[:150],
+        'items': items,
     }
 
 
@@ -3429,6 +3668,7 @@ def main():
     load_env_file(ENV_FILE)
     manual_overrides = load_manual_sku_overrides(SKU_MAPPING_OVERRIDE_FILE)
     pos_admin_views = load_pos_admin_view_overrides(POS_ADMIN_VIEW_OVERRIDE_FILE)
+    ordering_reference_overrides = load_ordering_reference_overrides(ORDERING_REFERENCE_OVERRIDE_FILE)
     warehouse_code = os.environ.get('FOURPX_WAREHOUSE_CODE', 'CZPRGA')
     max_pages = int(os.environ.get('FOURPX_OUTBOUND_MAX_PAGES', '20'))
     now_local = current_local_time()
@@ -3492,6 +3732,7 @@ def main():
     inventory_analytics_payload = {'generatedAt': generated_at, 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': []}
     inventory_analytics_730_payload = {'generatedAt': generated_at, 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': [], 'items': []}
     ordering_core_payload = {'generatedAt': generated_at, 'summary': {}, 'alerts': [], 'criticalReorder': [], 'reorderWatch': [], 'overstockRisks': [], 'trendWatch': [], 'suggestedFillers': []}
+    ordering_reference_payload = {'generatedAt': generated_at, 'summary': {}, 'items': [], 'excludedTop': []}
     expiry_overview_payload = {'generatedAt': generated_at, 'summary': {}, 'topExpiring': []}
     combined_index_payload = {'generatedAt': generated_at, 'items': [], 'counts': {}}
     combined_overview_payload = {'generatedAt': generated_at, 'counts': {}}
@@ -3572,6 +3813,7 @@ def main():
                 wpj_by_code,
                 manual_overrides,
                 pos_admin_views,
+                ordering_reference_overrides,
             )
             inventory_analytics_730_payload = build_inventory_analytics_730d(
                 combined_index_payload,
@@ -3582,8 +3824,11 @@ def main():
                 wpj_by_code,
                 manual_overrides,
                 pos_admin_views,
+                ordering_reference_overrides,
             )
             ordering_core_payload = build_ordering_core(inventory_analytics_730_payload, generated_at)
+
+        ordering_reference_payload = build_ordering_reference_data(inventory_analytics_730_payload, generated_at)
 
         wpj_orders_payload = {
             'generatedAt': generated_at,
@@ -3686,6 +3931,7 @@ def main():
         'inventory_analytics_365d.json': inventory_analytics_payload,
         'inventory_analytics_730d.json': inventory_analytics_730_payload,
         'ordering_core.json': ordering_core_payload,
+        'ordering_reference_data.json': ordering_reference_payload,
         'finance_overview.json': finance_snapshot,
         'marketing_overview.json': marketing_snapshot,
         'wpj_orders_previous_day.json': wpj_orders_payload,

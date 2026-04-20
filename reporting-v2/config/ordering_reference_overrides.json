@@ -1,0 +1,139 @@
+{
+  "_note": "Fáze 2 referenční metadata pro objednávací engine. SKU overrides mají přednost před prefix/title pravidly.",
+  "skus": {
+    "101491": {
+      "itemType": "print",
+      "orderable": false,
+      "sourceChannel": "praha",
+      "strategicPriority": "supplement",
+      "excludeFromOrderingReason": "roční katalog, ne standardní objednávací SKU"
+    },
+    "101485": {
+      "itemType": "print",
+      "orderable": false,
+      "sourceChannel": "praha",
+      "strategicPriority": "supplement",
+      "excludeFromOrderingReason": "roční katalog, ne standardní objednávací SKU"
+    },
+    "000070": {
+      "itemType": "print",
+      "orderable": false,
+      "sourceChannel": "praha",
+      "strategicPriority": "supplement",
+      "excludeFromOrderingReason": "brožura, ne standardní produkt pro objednávání"
+    },
+    "000077": {
+      "itemType": "print",
+      "orderable": false,
+      "sourceChannel": "praha",
+      "strategicPriority": "supplement",
+      "excludeFromOrderingReason": "brožura, ne standardní produkt pro objednávání"
+    }
+  },
+  "prefixes": [
+    {
+      "prefix": "BIOANALYZA",
+      "meta": {
+        "itemType": "service",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "risky",
+        "excludeFromOrderingReason": "servisní biorezonanční položka"
+      }
+    },
+    {
+      "prefix": "SET",
+      "meta": {
+        "itemType": "promo",
+        "orderable": false,
+        "sourceChannel": "unknown",
+        "strategicPriority": "supplement",
+        "excludeFromOrderingReason": "promo set, potřebuje ruční revizi"
+      }
+    },
+    {
+      "prefix": "DOPL",
+      "meta": {
+        "itemType": "internal",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "risky",
+        "excludeFromOrderingReason": "interní nebo doplňková položka"
+      }
+    }
+  ],
+  "titleContains": [
+    {
+      "needle": "brož",
+      "meta": {
+        "itemType": "print",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "supplement",
+        "excludeFromOrderingReason": "brožura nebo tiskovina"
+      }
+    },
+    {
+      "needle": "katalog",
+      "meta": {
+        "itemType": "print",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "supplement",
+        "excludeFromOrderingReason": "katalog nebo tiskovina"
+      }
+    },
+    {
+      "needle": "leták",
+      "meta": {
+        "itemType": "print",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "supplement",
+        "excludeFromOrderingReason": "leták nebo tiskovina"
+      }
+    },
+    {
+      "needle": "dárek",
+      "meta": {
+        "itemType": "gift",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "supplement",
+        "giftCandidate": true,
+        "excludeFromOrderingReason": "dárková nebo bonusová položka"
+      }
+    },
+    {
+      "needle": "překvapení",
+      "meta": {
+        "itemType": "gift",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "supplement",
+        "giftCandidate": true,
+        "excludeFromOrderingReason": "dárková nebo bonusová položka"
+      }
+    },
+    {
+      "needle": "tester",
+      "meta": {
+        "itemType": "promo",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "supplement",
+        "excludeFromOrderingReason": "tester nebo promo materiál"
+      }
+    },
+    {
+      "needle": "vzorek",
+      "meta": {
+        "itemType": "promo",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "supplement",
+        "excludeFromOrderingReason": "vzorek nebo promo materiál"
+      }
+    }
+  ]
+}
