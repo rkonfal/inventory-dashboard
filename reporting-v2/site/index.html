@@ -10,28 +10,28 @@
   <aside class="sidebar">
     <div class="sidebar-logo">
       <h2>Diamond Plus</h2>
-      <span>Reporting V2, čistší a prouživatelsky vedený portál</span>
+      <span>Přehled firmy bez zbytečné složitosti</span>
     </div>
     <div class="sidebar-section-label">Přehled</div>
     <nav class="sidebar-nav">
       <a class="active" href="index.html">🏠 Přehled</a>
-      <a href="finance.html">💰 Finance / ABRA</a>
-      <a href="marketing.html">📣 Marketing</a>
+      <a href="finance.html">💰 Finance</a>
+      <a href="marketing.html">📣 Reklama</a>
       <a href="inventory.html">📦 Sklad</a>
-      <a href="logistics.html">🚚 Logistika 4PX</a>
-      <a href="expiry.html">⏳ Expirace / promo</a>
-      <a href="eshop.html">🛒 E-shop / WPJ</a>
+      <a href="logistics.html">🚚 Expedice 4PX</a>
+      <a href="expiry.html">⏳ Akce a expirace</a>
+      <a href="eshop.html">🛒 E-shop</a>
     </nav>
-    <div class="sidebar-footer">V2 směr: méně šumu, rychlá orientace a jasné priority.</div>
+    <div class="sidebar-footer">Přehled pro běžný provoz. Méně techniky, víc jasných kroků.</div>
   </aside>
 
   <main class="main page-stack">
     <header class="header">
       <div class="ux-topbar">
         <div class="ux-intro">
-          <div class="ux-kicker">Hlavní přehled • schválený směr</div>
-          <h1 class="ux-title">Reporting portál, který se čte během minuty</h1>
-          <p class="ux-subtitle">První obrazovka má nově ukázat, co se stalo, co je potřeba řešit a kam má člověk kliknout dál. Až pod tím zůstává technický monitoring zdrojů a detailnější tabulky.</p>
+          <div class="ux-kicker">Hlavní přehled • rychlá orientace</div>
+          <h1 class="ux-title">Přehled firmy, ve kterém se neztratíš</h1>
+          <p class="ux-subtitle">Na první obrazovce má být hned jasné, co se stalo, co potřebuje pozornost a kam kliknout dál. Technické detaily zůstávají níž, až když jsou opravdu potřeba.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="../data/current/morning_report_previous_day.txt" target="_blank" rel="noopener">Otevřít ranní report</a>
             <a class="ux-button secondary" href="inventory.html">Přejít do skladu</a>
@@ -46,9 +46,9 @@
 
     <section class="grid leadership-note-grid">
       <div class="leadership-notes-head">
-        <div class="leadership-notes-kicker">Pohled vedení</div>
-        <h2>Jak tu stránku číst</h2>
-        <p>Dva krátké bloky. První řekne, co sledovat hned, druhý kdy je potřeba jít do detailu.</p>
+        <div class="leadership-notes-kicker">Jak se v tom vyznat</div>
+        <h2>Jak ten přehled používat</h2>
+        <p>Dole jsou jen dvě krátké nápovědy. První ukáže, co zkontrolovat hned, druhá kdy má smysl jít do detailu.</p>
       </div>
       <div class="card leadership-note director">
         <div class="leadership-note-label">Co sledovat hned</div>
@@ -65,9 +65,9 @@
         <div class="ux-section-head">
           <div>
             <h2 class="ux-section-title">Co dnes řešit jako první</h2>
-            <p class="ux-section-subtitle">Jedno místo pro první kontrolu.</p>
+            <p class="ux-section-subtitle">To nejdůležitější na jednom místě.</p>
           </div>
-          <span class="badge warn" id="attention-badge">Načítám priority…</span>
+          <span class="badge warn" id="attention-badge">Načítám důležité body…</span>
         </div>
         <div class="ux-list" id="attention-list"></div>
 
@@ -76,7 +76,7 @@
         <div class="ux-section-head" style="margin-bottom:12px;">
           <div>
             <h2 class="ux-section-title" style="font-size:20px;">Dnešní priority</h2>
-            <p class="ux-section-subtitle">Další kroky bez zbytečné omáčky.</p>
+            <p class="ux-section-subtitle">Krátce a jasně, co udělat dál.</p>
           </div>
         </div>
         <div class="ux-list" id="priority-list"></div>
@@ -84,19 +84,19 @@
 
       <div class="ux-side-stack">
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Ranní report v jedné kartě</h3>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Včerejšek jedním pohledem</h3>
           <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Krátký souhrn včerejška a rychlý vstup do detailu.</p>
           <div class="ux-stat-list" id="report-mini"></div>
         </div>
 
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Rozpad e-shop zdrojů</h3>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Odkud přišly objednávky</h3>
           <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Včerejší výkon podle CZ, SK a kamenných prodejen.</p>
           <div class="ux-stat-list" id="eshop-source-split"></div>
         </div>
 
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Co běží dobře</h3>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Co je v pořádku</h3>
           <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rychlá kontrola, že zdroje běží a kde je případný problém.</p>
           <div class="ux-side-list" id="status-list"></div>
         </div>
@@ -107,11 +107,11 @@
 
     <section class="grid two-col">
       <div class="card">
-        <h2 class="section-title">Co už máme</h2>
+        <h2 class="section-title">Co už funguje</h2>
         <div class="block-list" id="done-list"></div>
       </div>
       <div class="card">
-        <h2 class="section-title">Co nás teď blokuje</h2>
+        <h2 class="section-title">Co teď brzdí provoz</h2>
         <div id="blockers"></div>
       </div>
     </section>
@@ -119,8 +119,8 @@
     <section class="card">
       <div class="ux-section-head" style="margin-bottom:0;">
         <div>
-          <h2 class="ux-section-title">Stav zdrojů</h2>
-          <p class="ux-section-subtitle">Technické zdroje zůstávají vidět, ale nepřekrývají hlavní sdělení stránky.</p>
+          <h2 class="ux-section-title">Stav napojení</h2>
+          <p class="ux-section-subtitle">Napojení a datové zdroje tu zůstávají pro kontrolu, ale nejsou na prvním místě.</p>
         </div>
       </div>
       <div class="ux-table-wrap" style="margin-top:16px;">
@@ -145,7 +145,7 @@
     const doneItems = [
       ['4PX API napojení', 'CZ i SK připojené napřímo přes Open API.'],
       ['WPJ GraphQL napojení', 'Objednávky i sklad se tahají přímo z WPJ přes X-Access-Token.'],
-      ['Finance / ABRA bootstrap', 'Máme vytažený poslední dostupný ABRA Flexi snapshot z původního přehledu.'],
+      ['Finance připravené', 'Máme vytažený poslední dostupný ABRA Flexi snapshot z původního přehledu.'],
       ['Marketing bootstrap', 'Marketingové náklady jsou rozdělené na PPC a ostatní marketing a připravené na další napojení.'],
       ['Nová datová sada', 'Refresh skript zapisuje normalizovaná JSON data, snapshoty a ranní report.'],
       ['Nový portál', 'Sdílené assets a společný vizuální systém bez kopírování stylů mezi HTML.'],

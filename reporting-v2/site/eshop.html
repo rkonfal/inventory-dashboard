@@ -8,27 +8,27 @@
 </head>
 <body>
   <aside class="sidebar">
-    <div class="sidebar-logo"><h2>Diamond Plus</h2><span>WPJ výkon v přehlednější stránce</span></div>
+    <div class="sidebar-logo"><h2>Diamond Plus</h2><span>Výkon e-shopu pro běžný provoz</span></div>
     <div class="sidebar-section-label">Přehled</div>
     <nav class="sidebar-nav">
       <a href="index.html">🏠 Přehled</a>
-      <a href="finance.html">💰 Finance / ABRA</a>
-      <a href="marketing.html">📣 Marketing</a>
+      <a href="finance.html">💰 Finance</a>
+      <a href="marketing.html">📣 Reklama</a>
       <a href="inventory.html">📦 Sklad</a>
-      <a href="logistics.html">🚚 Logistika 4PX</a>
-      <a href="expiry.html">⏳ Expirace / promo</a>
-      <a class="active" href="eshop.html">🛒 E-shop / WPJ</a>
+      <a href="logistics.html">🚚 Expedice 4PX</a>
+      <a href="expiry.html">⏳ Akce a expirace</a>
+      <a class="active" href="eshop.html">🛒 E-shop</a>
     </nav>
-    <div class="sidebar-footer">E-shop začíná výkonem a problémy, detail je až potom.</div>
+    <div class="sidebar-footer">Nejdřív výkon a problémy, detail až potom.</div>
   </aside>
 
   <main class="main page-stack">
     <header class="header">
       <div class="ux-topbar">
         <div class="ux-intro">
-          <div class="ux-kicker">E-shop / WPJ • výkon bez přetížení</div>
-          <h1 class="ux-title">E-shop výkon, který řekne co se stalo a co s tím</h1>
-          <p class="ux-subtitle">Přednost dostávají objednávky, obrat, AOV a problémové případy. Teprve potom přichází rozpad podle plateb, dopravy a produktů. Čísla bereme jako kompletní výsledek celého WPJShopu www.kralovstvi-tiande.</p>
+          <div class="ux-kicker">E-shop • rychlá orientace</div>
+          <h1 class="ux-title">Výkon e-shopu, ze kterého je hned jasné co se stalo</h1>
+          <p class="ux-subtitle">Nejdřív jsou objednávky, obrat, průměrná objednávka a problémové případy. Teprve potom rozpad podle plateb, dopravy a produktů.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="../data/current/morning_report_previous_day.txt" target="_blank" rel="noopener">Otevřít ranní report</a>
             <a class="ux-button secondary" href="inventory.html">Na sklad</a>
@@ -43,8 +43,8 @@
 
     <section class="grid leadership-note-grid">
       <div class="leadership-notes-head">
-        <div class="leadership-notes-kicker">Pohled vedení</div>
-        <h2>Jak tu stránku číst</h2>
+        <div class="leadership-notes-kicker">Jak číst e-shop</div>
+        <h2>Jak ten přehled používat</h2>
         <p>Dva krátké bloky. První řekne, co zkontrolovat hned, druhý kdy už je v datech skutečný problém.</p>
       </div>
       <div class="card leadership-note director">
@@ -62,21 +62,21 @@
         <div class="ux-section-head">
           <div>
             <h2 class="ux-section-title">Co je dnes důležité</h2>
-            <p class="ux-section-subtitle">Rychlý pohled na výkon a rizika.</p>
+            <p class="ux-section-subtitle">Krátký pohled na výkon a rizika.</p>
           </div>
-          <span class="badge live" id="wpj-state">Načítám WPJ…</span>
+          <span class="badge live" id="wpj-state">Načítám e-shop…</span>
         </div>
         <div class="ux-list" id="eshop-focus"></div>
       </div>
 
       <div class="ux-side-stack">
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Včerejší přehled</h3>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Včerejšek stručně</h3>
           <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Základ bez čtení celého ranního reportu.</p>
           <div class="ux-stat-list" id="eshop-stat-list"></div>
         </div>
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Náhled ranního reportu</h3>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Ranní report v kostce</h3>
           <p id="wpj-message" style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Načítám krátký text reportu…</p>
           <pre id="report-preview" style="white-space:pre-wrap; font:inherit; margin:16px 0 0; max-height:340px; overflow:auto;"></pre>
         </div>
@@ -88,8 +88,8 @@
     <section class="card" style="margin-bottom:20px;">
       <div class="ux-section-head" style="margin-bottom:12px;">
         <div>
-          <h2 class="ux-section-title">Pohled podle zdroje prodeje</h2>
-          <p class="ux-section-subtitle">Stejný způsob přepínání jako ve skladu, jen nad výkonem e-shopu.</p>
+          <h2 class="ux-section-title">Pohled podle typu prodeje</h2>
+          <p class="ux-section-subtitle">Stejné jednoduché přepínání jako ve skladu, jen nad výkonem e-shopu.</p>
         </div>
       </div>
       <div class="quick-filters" id="eshop-view-tabs">
@@ -99,7 +99,7 @@
         <button class="quick-filter" type="button" data-view="ltm">LITOMĚŘICE</button>
         <button class="quick-filter" type="button" data-view="mecin">MĚČÍN</button>
       </div>
-      <div class="section-subtitle" id="eshop-view-summary">Načítám rozdělení zdrojů…</div>
+      <div class="section-subtitle" id="eshop-view-summary">Načítám rozdělení prodeje…</div>
     </section>
 
     <section class="grid two-col">

@@ -8,27 +8,27 @@
 </head>
 <body>
   <aside class="sidebar">
-    <div class="sidebar-logo"><h2>Diamond Plus</h2><span>4PX logistika v přehledné stránce</span></div>
+    <div class="sidebar-logo"><h2>Diamond Plus</h2><span>Expedice 4PX pro běžný provoz</span></div>
     <div class="sidebar-section-label">Přehled</div>
     <nav class="sidebar-nav">
       <a href="index.html">🏠 Přehled</a>
-      <a href="finance.html">💰 Finance / ABRA</a>
-      <a href="marketing.html">📣 Marketing</a>
+      <a href="finance.html">💰 Finance</a>
+      <a href="marketing.html">📣 Reklama</a>
       <a href="inventory.html">📦 Sklad</a>
-      <a class="active" href="logistics.html">🚚 Logistika 4PX</a>
-      <a href="expiry.html">⏳ Expirace / promo</a>
-      <a href="eshop.html">🛒 E-shop / WPJ</a>
+      <a class="active" href="logistics.html">🚚 Expedice 4PX</a>
+      <a href="expiry.html">⏳ Akce a expirace</a>
+      <a href="eshop.html">🛒 E-shop</a>
     </nav>
-    <div class="sidebar-footer">Logistika začíná tím, co řešit hned. Detailní tabulky až potom.</div>
+    <div class="sidebar-footer">Nejdřív expedice a rizika, detail až potom.</div>
   </aside>
 
   <main class="main page-stack">
     <header class="header">
       <div class="ux-topbar">
         <div class="ux-intro">
-          <div class="ux-kicker">4PX logistika • přehled pro běžný provoz</div>
-          <h1 class="ux-title">Logistika, která ukáže expedice i rizika bez hledání</h1>
-          <p class="ux-subtitle">Hlavní část ukáže počet zásilek, expirační rizika a nepárované položky dřív, než se člověk ponoří do detailních tabulek dopravců a SKU.</p>
+          <div class="ux-kicker">Expedice 4PX • rychlá orientace</div>
+          <h1 class="ux-title">Expedice, kde hned vidíš zásilky i rizika</h1>
+          <p class="ux-subtitle">Hlavní část hned ukáže počet zásilek, expirační rizika a nespárované položky. Detail dopravců a kódů je až pod tím.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="inventory.html">Přejít do skladu</a>
             <a class="ux-button secondary" href="../data/current/4px_expiry_overview.json" target="_blank" rel="noopener">Otevřít expirační data</a>
@@ -43,8 +43,8 @@
 
     <section class="grid leadership-note-grid">
       <div class="leadership-notes-head">
-        <div class="leadership-notes-kicker">Pohled vedení</div>
-        <h2>Jak tu stránku číst</h2>
+        <div class="leadership-notes-kicker">Jak číst expedici</div>
+        <h2>Jak ten přehled používat</h2>
         <p>Dva krátké bloky. První řekne, co hlídat dnes, druhý kdy už je z toho systémový problém.</p>
       </div>
       <div class="card leadership-note director">
@@ -62,21 +62,21 @@
         <div class="ux-section-head">
           <div>
             <h2 class="ux-section-title">Na co se podívat jako první</h2>
-            <p class="ux-section-subtitle">Krátký seznam pro expedici, expirace a nepárované SKU.</p>
+            <p class="ux-section-subtitle">Krátký seznam pro expedici, expirace a nespárované položky.</p>
           </div>
-          <span class="badge warn" id="log-expiry">Načítám expirace…</span>
+          <span class="badge warn" id="log-expiry">Načítám rizika…</span>
         </div>
         <div class="ux-list" id="logistics-focus"></div>
       </div>
 
       <div class="ux-side-stack">
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Rychlý přehled</h3>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Expedice stručně</h3>
           <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Jedna karta pro včerejší logistiku.</p>
           <div class="ux-stat-list" id="logistics-stat-list"></div>
         </div>
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Data a poznámky</h3>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Poznámky k datům</h3>
           <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Co víme jistě a co ještě držet s kontextem.</p>
           <div class="ux-side-list" id="logistics-notes"></div>
         </div>
@@ -103,7 +103,7 @@
         </div>
       </div>
       <div class="card">
-        <h2 class="section-title">Rozpad podle dopravce</h2>
+        <h2 class="section-title">Zásilky podle dopravce</h2>
         <div class="section-subtitle">Kolik zásilek šlo přes kterého dopravce.</div>
         <div class="ux-table-wrap" style="margin-top:16px;">
           <table class="table">
@@ -139,8 +139,8 @@
         </div>
       </div>
       <div class="card">
-        <h2 class="section-title">SKU pouze v 4PX</h2>
-        <div class="section-subtitle">Položky, které ve 4PX jsou, ale ve WPJ je ještě nevidíme správně.</div>
+        <h2 class="section-title">Položky jen ve 4PX</h2>
+        <div class="section-subtitle">Položky, které ve 4PX jsou, ale ve WPJ ještě nejsou správně napojené.</div>
         <div class="ux-table-wrap" style="margin-top:16px;">
           <table class="table">
             <thead>

@@ -61,28 +61,28 @@
   <aside class="sidebar">
     <div class="sidebar-logo">
       <h2>Diamond Plus</h2>
-      <span>Marketing v přehledné stránce</span>
+      <span>Reklama bez zbytečné složitosti</span>
     </div>
     <div class="sidebar-section-label">Přehled</div>
     <nav class="sidebar-nav">
       <a href="index.html">🏠 Přehled</a>
-      <a href="finance.html">💰 Finance / ABRA</a>
-      <a class="active" href="marketing.html">📣 Marketing</a>
+      <a href="finance.html">💰 Finance</a>
+      <a class="active" href="marketing.html">📣 Reklama</a>
       <a href="inventory.html">📦 Sklad</a>
-      <a href="logistics.html">🚚 Logistika 4PX</a>
-      <a href="expiry.html">⏳ Expirace / promo</a>
-      <a href="eshop.html">🛒 E-shop / WPJ</a>
+      <a href="logistics.html">🚚 Expedice 4PX</a>
+      <a href="expiry.html">⏳ Akce a expirace</a>
+      <a href="eshop.html">🛒 E-shop</a>
     </nav>
-    <div class="sidebar-footer">Marketing rychle ukáže, kolik utrácíme, kde je koncentrace a co z toho plyne.</div>
+    <div class="sidebar-footer">Rychle ukáže, kolik dáváme do reklamy a co z toho jde zpátky.</div>
   </aside>
 
   <main class="main page-stack">
     <header class="header">
       <div class="ux-topbar">
         <div class="ux-intro">
-          <div class="ux-kicker">Marketing • méně účetního šumu, víc kontextu</div>
-          <h1 class="ux-title">Marketingové náklady, které jdou rychle přečíst</h1>
-          <p class="ux-subtitle">Nejdřív celkové náklady, poměr výkonu a ostatních nákladů a koncentrace u dodavatelů. Detailní položky jsou až níž.</p>
+          <div class="ux-kicker">Reklama • rychlá orientace</div>
+          <h1 class="ux-title">Reklama, které rozumí i člověk mimo performance tým</h1>
+          <p class="ux-subtitle">Nejdřív celkové náklady, výkon kanálů a místa, kde se utrácí nejvíc. Detailní položky jsou až níž.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="../data/current/marketing_overview.json" target="_blank" rel="noopener">Otevřít marketing data</a>
             <a class="ux-button secondary" href="finance.html">Na finance</a>
@@ -97,12 +97,12 @@
 
     <section class="grid leadership-note-grid">
       <div class="leadership-notes-head">
-        <div class="leadership-notes-kicker">Pohled vedení</div>
-        <h2>Jak tu stránku číst</h2>
+        <div class="leadership-notes-kicker">Jak číst reklamu</div>
+        <h2>Jak ten přehled používat</h2>
         <p>Dva krátké bloky. První řekne, co kontrolovat hned, druhý kdy už jsou náklady rizikové.</p>
       </div>
       <div class="card leadership-note director">
-        <div class="leadership-note-label">Co kontrolovat hned</div>
+        <div class="leadership-note-label">Co zkontrolovat hned</div>
         <p><strong>Sleduj celkové náklady, podíl výkonu versus ostatních nákladů a závislost na největších dodavatelích.</strong> To stačí pro první orientaci.</p>
       </div>
       <div class="card leadership-note board">
@@ -117,22 +117,22 @@
       <div class="ux-focus-card">
         <div class="ux-section-head">
           <div>
-            <h2 class="ux-section-title">Co je v marketingu důležité</h2>
-            <p class="ux-section-subtitle">Rychlý kontext k nákladům bez účetního výpisu.</p>
+            <h2 class="ux-section-title">Co je v reklamě důležité</h2>
+            <p class="ux-section-subtitle">Rychlý kontext bez zbytečně technických detailů.</p>
           </div>
-          <span class="badge warn" id="source-mode">Načítám zdroj…</span>
+          <span class="badge warn" id="source-mode">Načítám přehled…</span>
         </div>
         <div class="ux-list" id="marketing-focus"></div>
       </div>
 
       <div class="ux-side-stack">
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Aktuální měsíc</h3>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Tento měsíc</h3>
           <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Kolik jde do výkonu a kolik do širšího marketingu.</p>
           <div class="ux-stat-list" id="marketing-current"></div>
         </div>
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Komentář k dashboardu</h3>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Co z toho plyne</h3>
           <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Krátké čtení toho, co je teď důležité vidět hned.</p>
           <div class="ux-list" id="dashboard-commentary" style="margin-top:16px;"></div>
         </div>
@@ -144,8 +144,8 @@
     <section class="card">
       <div class="ux-section-head">
         <div>
-          <h2 class="section-title">Přímé reklamní source, aktivní kampaně</h2>
-          <div class="section-subtitle">Kompletní pohled po source. U každého kanálu jsou všechny aktivní kampaně s aktuálním výkonem za tento měsíc.</div>
+          <h2 class="section-title">Placené kanály, aktivní kampaně</h2>
+          <div class="section-subtitle">Přehled podle kanálu. U každého vidíš všechny aktivní kampaně a jejich aktuální výkon za tento měsíc.</div>
         </div>
       </div>
       <div class="grid kpi-grid" id="ppc-total-kpis" style="margin-top:20px;"></div>
@@ -155,8 +155,8 @@
     <section class="card">
       <div class="ux-section-head">
         <div>
-          <h2 class="section-title">Trend po dnech, všechny PPC source</h2>
-          <div class="section-subtitle">Denní souhrn spendu, kliků, konverzí, hodnoty a ROAS přes Meta Ads, Google Ads a Sklik.</div>
+          <h2 class="section-title">Denní trend všech placených kanálů</h2>
+          <div class="section-subtitle">Denní souhrn útraty, kliků, objednávek a návratnosti přes Meta Ads, Google Ads a Sklik.</div>
         </div>
       </div>
       <div class="ux-table-wrap desktop-only" style="margin-top:16px;">
@@ -164,13 +164,13 @@
           <thead>
             <tr>
               <th>Den</th>
-              <th class="num">Meta spend</th>
-              <th class="num">Google spend</th>
-              <th class="num">Sklik spend</th>
-              <th class="num">Celkem spend</th>
+              <th class="num">Meta útrata</th>
+              <th class="num">Google útrata</th>
+              <th class="num">Sklik útrata</th>
+              <th class="num">Celkem útrata</th>
               <th class="num">Kliky</th>
               <th class="num">Konverze</th>
-              <th class="num">Hodnota</th>
+              <th class="num">Hodnota objednávek</th>
               <th class="num">ROAS</th>
             </tr>
           </thead>
@@ -183,8 +183,8 @@
     <section class="card" id="klaviyo-section" style="display:none;">
       <div class="ux-section-head">
         <div>
-          <h2 class="section-title">Klaviyo, email a SMS</h2>
-          <div class="section-subtitle">Atribuované objednávky a obrat z Klaviyo, plus top flow a poslední kampaně.</div>
+          <h2 class="section-title">Klaviyo, e-mail a SMS</h2>
+          <div class="section-subtitle">Objednávky a obrat připsané Klaviyu, plus nejsilnější flow a poslední kampaně.</div>
         </div>
       </div>
       <div class="grid kpi-grid" id="klaviyo-kpis" style="margin-top:20px;"></div>
@@ -208,7 +208,7 @@
           <div class="mobile-only mobile-campaign-list" id="klaviyo-flow-mobile"></div>
         </div>
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Poslední kampaně</h3>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Naposledy odeslané kampaně</h3>
           <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rychlý přehled toho, co se v Klaviyo naposledy měnilo nebo plánovalo.</p>
           <div class="ux-list" id="klaviyo-campaign-list" style="margin-top:16px;"></div>
         </div>
@@ -368,17 +368,17 @@
           const day = row.date;
           dailyMap[day] ||= {
             date: day,
-            metaSpend: 0,
-            googleSpend: 0,
-            sklikSpend: 0,
+            metaÚtrata: 0,
+            googleÚtrata: 0,
+            sklikÚtrata: 0,
             clicks: 0,
             conversions: 0,
             value: 0,
           };
           const bucket = dailyMap[day];
-          if (source.key === 'meta') bucket.metaSpend += row.spend;
-          if (source.key === 'google') bucket.googleSpend += row.spend;
-          if (source.key === 'sklik') bucket.sklikSpend += row.spend;
+          if (source.key === 'meta') bucket.metaÚtrata += row.spend;
+          if (source.key === 'google') bucket.googleÚtrata += row.spend;
+          if (source.key === 'sklik') bucket.sklikÚtrata += row.spend;
           bucket.clicks += row.clicks || 0;
           bucket.conversions += row.conversions || 0;
           bucket.value += row.value || 0;
@@ -388,13 +388,13 @@
         .sort((a, b) => a.date.localeCompare(b.date))
         .map(row => ({
           ...row,
-          totalSpend: row.metaSpend + row.googleSpend + row.sklikSpend,
-          roas: (row.metaSpend + row.googleSpend + row.sklikSpend) ? row.value / (row.metaSpend + row.googleSpend + row.sklikSpend) : null,
+          totalÚtrata: row.metaÚtrata + row.googleÚtrata + row.sklikÚtrata,
+          roas: (row.metaÚtrata + row.googleÚtrata + row.sklikÚtrata) ? row.value / (row.metaÚtrata + row.googleÚtrata + row.sklikÚtrata) : null,
         }));
       const hero = [
-        ['Marketingové náklady', money(current.totalSpend), `${pct(current.spendShareOfRevenuePct)} z výnosů`, 'accent'],
-        ['PPC', money(current.performanceSpend), 'výkonové kanály', ''],
-        ['Ostatní marketing', money(current.brandSpend), 'produkce, SMS, služby', '']
+        ['Marketingové náklady', money(current.totalÚtrata), `${pct(current.spendShareOfRevenuePct)} z výnosů`, 'accent'],
+        ['PPC', money(current.performanceÚtrata), 'výkonové kanály', ''],
+        ['Ostatní marketing', money(current.brandÚtrata), 'produkce, SMS, služby', '']
       ];
       document.getElementById('marketing-hero').innerHTML = hero.map(([label, value, sub, klass]) => `
         <div class="ux-hero-metric ${klass}">
@@ -405,11 +405,11 @@
       `).join('');
 
       document.getElementById('marketing-focus').innerHTML = [
-        [`Aktuální měsíc: ${current.label || '–'}`, `Celkem ${money(current.totalSpend)}, tedy ${pct(current.spendShareOfRevenuePct)} z výnosů.`],
-        [`PPC vs ostatní marketing`, `PPC ${money(current.performanceSpend)} oproti ostatnímu marketingu ${money(current.brandSpend)}.`],
-        meta.ready ? [`Meta Ads live`, `${money(metaCurrent.spendCzk)} spend, ${DP.fmtNumber(Math.round(metaCurrent.clicks || 0))} kliků, ROAS ${metaCurrent.roas ?? '–'}.`] : null,
-        google.ready ? [`Google Ads live`, `${money(googleCurrent.spendCzk)} spend, ${DP.fmtNumber(Math.round(googleCurrent.clicks || 0))} kliků, ROAS ${googleCurrent.roas ?? '–'}.`] : null,
-        sklik.ready ? [`Sklik live`, `${money(sklikCurrent.priceCzk)} spend, ${DP.fmtNumber(Math.round(sklikCurrent.clicks || 0))} kliků a ${DP.fmtNumber(Math.round(sklikCurrent.conversions || 0))} konverzí.`] : null,
+        [`Tento měsíc: ${current.label || '–'}`, `Celkem ${money(current.totalÚtrata)}, tedy ${pct(current.spendShareOfRevenuePct)} z výnosů.`],
+        [`PPC vs ostatní marketing`, `PPC ${money(current.performanceÚtrata)} oproti ostatnímu marketingu ${money(current.brandÚtrata)}.`],
+        meta.ready ? [`Meta Ads live`, `${money(metaCurrent.spendCzk)} útrata, ${DP.fmtNumber(Math.round(metaCurrent.clicks || 0))} kliků, ROAS ${metaCurrent.roas ?? '–'}.`] : null,
+        google.ready ? [`Google Ads live`, `${money(googleCurrent.spendCzk)} útrata, ${DP.fmtNumber(Math.round(googleCurrent.clicks || 0))} kliků, ROAS ${googleCurrent.roas ?? '–'}.`] : null,
+        sklik.ready ? [`Sklik live`, `${money(sklikCurrent.priceCzk)} útrata, ${DP.fmtNumber(Math.round(sklikCurrent.clicks || 0))} kliků a ${DP.fmtNumber(Math.round(sklikCurrent.conversions || 0))} konverzí.`] : null,
         klaviyo.ready ? [`Klaviyo live`, `${money(klaviyoCurrent.totalAttributedRevenueCzk)} atribuovaný obrat, ${Number(klaviyoCurrent.totalAttributedOrders || 0).toFixed(2)} objednávek, ${DP.fmtNumber(Math.round(klaviyoCurrent.totalRecipients || 0))} příjemců.`] : null,
       ].filter(Boolean).map(([title, text], index) => `
         <div class="ux-item">
@@ -422,9 +422,9 @@
       `).join('');
 
       document.getElementById('marketing-current').innerHTML = [
-        ['PPC', money(current.performanceSpend)],
-        ['Ostatní marketing', money(current.brandSpend)],
-        ['Celkem', money(current.totalSpend)],
+        ['PPC', money(current.performanceÚtrata)],
+        ['Ostatní marketing', money(current.brandÚtrata)],
+        ['Celkem', money(current.totalÚtrata)],
         ['Podíl z výnosů', pct(current.spendShareOfRevenuePct)],
         meta.ready ? ['Meta Ads live', money(metaCurrent.spendCzk)] : null,
         google.ready ? ['Google Ads live', money(googleCurrent.spendCzk)] : null,
@@ -436,10 +436,10 @@
       const bestRoasSource = [...sourceConfigs].filter(source => source.roas != null).sort((a, b) => (b.roas || 0) - (a.roas || 0))[0];
       document.getElementById('dashboard-commentary').innerHTML = [
         [`PPC celkem`, `Do PPC teď jde ${money(ppcTotal.amount)} a celkový PPC ROAS je ${ppcTotal.roas == null ? '–' : Number(ppcTotal.roas).toFixed(2)}.`],
-        strongestSource ? [`Největší source`, `${strongestSource.label} má nejvyšší spend ${money(strongestSource.amount)}.`] : null,
+        strongestSource ? [`Nejsilnější kanál`, `${strongestSource.label} má nejvyšší útratu ${money(strongestSource.amount)}.`] : null,
         bestRoasSource ? [`Nejlepší efektivita`, `${bestRoasSource.label} má nejvyšší ROAS ${Number(bestRoasSource.roas).toFixed(2)}.`] : null,
         klaviyo.ready ? [`Klaviyo dopad`, `Email + SMS teď připisují ${money(klaviyoCurrent.totalAttributedRevenueCzk)} a ${Number(klaviyoCurrent.totalAttributedOrders || 0).toFixed(2)} objednávek.`] : null,
-        [`Čtení trendu`, `Denní trend níž rychle ukáže, jestli některý source roste ve spendu bez růstu hodnoty.`],
+        [`Čtení trendu`, `Denní trend níž rychle ukáže, jestli některý kanál roste v útratě bez růstu hodnoty.`],
       ].filter(Boolean).map(([title, text], index) => `
         <div class="ux-item">
           <span class="ux-dot ${index % 2 ? 'blue' : 'gold'}"></span>
@@ -451,9 +451,9 @@
       `).join('');
 
       const kpis = [
-        ['Marketingové náklady', money(current.totalSpend), `${pct(current.spendShareOfRevenuePct)} z výnosů`, 'gold'],
-        ['PPC', money(current.performanceSpend), 'výkonové kanály', 'blue'],
-        ['Ostatní marketing', money(current.brandSpend), 'produkce, SMS, služby', 'green'],
+        ['Marketingové náklady', money(current.totalÚtrata), `${pct(current.spendShareOfRevenuePct)} z výnosů`, 'gold'],
+        ['PPC', money(current.performanceÚtrata), 'výkonové kanály', 'blue'],
+        ['Ostatní marketing', money(current.brandÚtrata), 'produkce, SMS, služby', 'green'],
         meta.ready ? ['Meta Ads live', money(metaCurrent.spendCzk), `${DP.fmtNumber(Math.round(metaCurrent.clicks || 0))} kliků, ROAS ${metaCurrent.roas ?? '–'}`, 'blue'] : null,
         google.ready ? ['Google Ads live', money(googleCurrent.spendCzk), `${DP.fmtNumber(Math.round(googleCurrent.clicks || 0))} kliků, ROAS ${googleCurrent.roas ?? '–'}`, 'green'] : null,
         sklik.ready ? ['Sklik live', money(sklikCurrent.priceCzk), `${DP.fmtNumber(Math.round(sklikCurrent.clicks || 0))} kliků, ${DP.fmtNumber(Math.round(sklikCurrent.conversions || 0))} konverzí`, 'blue'] : null,
@@ -472,7 +472,7 @@
         ['PPC celkem', money(ppcTotal.amount), `${sourceConfigs.length} source aktivně zapojené`, 'gold'],
         ['Kliky celkem', DP.fmtNumber(Math.round(ppcTotal.clicks || 0)), 'součet Meta + Google + Sklik', 'blue'],
         ['Konverze celkem', Number(ppcTotal.conversions || 0).toFixed(2), 'součet napříč source', 'green'],
-        ['Hodnota celkem', money(ppcTotal.value), `ROAS ${ppcTotal.roas == null ? '–' : Number(ppcTotal.roas).toFixed(2)}`, 'red'],
+        ['Hodnota objednávek celkem', money(ppcTotal.value), `ROAS ${ppcTotal.roas == null ? '–' : Number(ppcTotal.roas).toFixed(2)}`, 'red'],
       ].map(([label, value, sub, klass]) => `
         <div class="card kpi-card ${klass}">
           <div class="kpi-label">${label}</div>
@@ -493,10 +493,10 @@
       document.getElementById('daily-trend-table').innerHTML = dailyRows.map(row => `
         <tr>
           <td>${row.date}</td>
-          <td class="num">${money(row.metaSpend)}</td>
-          <td class="num">${money(row.googleSpend)}</td>
-          <td class="num">${money(row.sklikSpend)}</td>
-          <td class="num">${money(row.totalSpend)}</td>
+          <td class="num">${money(row.metaÚtrata)}</td>
+          <td class="num">${money(row.googleÚtrata)}</td>
+          <td class="num">${money(row.sklikÚtrata)}</td>
+          <td class="num">${money(row.totalÚtrata)}</td>
           <td class="num">${DP.fmtNumber(Math.round(row.clicks || 0))}</td>
           <td class="num">${Number(row.conversions || 0).toFixed(2)}</td>
           <td class="num">${money(row.value)}</td>
@@ -508,9 +508,9 @@
         const bestDay = [...(source.daily || [])].sort((a, b) => (b.spend || 0) - (a.spend || 0))[0];
         return `
           <div class="card kpi-card ${source.key === 'meta' ? 'blue' : source.key === 'google' ? 'green' : 'gold'} ${cardTone(bestDay && bestDay.spend ? (bestDay.value || 0) / bestDay.spend : null)}">
-            <div class="kpi-label">${source.label}, nejlepší spend den</div>
+            <div class="kpi-label">${source.label}, nejsilnější den podle útraty</div>
             <div class="kpi-value">${bestDay ? bestDay.date : '–'}</div>
-            <div class="kpi-sub">${bestDay ? `${money(bestDay.spend)}, ${DP.fmtNumber(Math.round(bestDay.clicks || 0))} kliků, ROAS <span class="${roasTone(bestDay.spend ? (bestDay.value || 0) / bestDay.spend : null)}">${bestDay.spend ? Number((bestDay.value || 0) / bestDay.spend).toFixed(2) : '–'}</span>` : 'Bez denních dat'}</div>
+            <div class="kpi-sub">${bestDay ? `${money(bestDay.spend)}, ${DP.fmtNumber(Math.round(bestDay.clicks || 0))} kliků, ROAS <span class="${roasTone(bestDay.spend ? (bestDay.value || 0) / bestDay.spend : null)}">${bestDay.spend ? Number((bestDay.value || 0) / bestDay.spend).toFixed(2) : '–'}</span>` : 'Denní data zatím nejsou'}</div>
             ${sparkline((source.daily || []).map(row => row.spend))}
           </div>
         `;
@@ -521,7 +521,7 @@
           <div class="card kpi-card green">
             <div class="kpi-label">Klaviyo, nejsilnější den</div>
             <div class="kpi-value">${bestRevenueDay ? bestRevenueDay.date : '–'}</div>
-            <div class="kpi-sub">${bestRevenueDay ? `${money(bestRevenueDay.totalAttributedRevenueCzk)} atribuovaný obrat, ${Number(bestRevenueDay.totalAttributedOrders || 0).toFixed(2)} objednávek, CTR ${pctFromRate(bestRevenueDay.clickRate)}` : 'Bez denních dat'}</div>
+            <div class="kpi-sub">${bestRevenueDay ? `${money(bestRevenueDay.totalAttributedRevenueCzk)} atribuovaný obrat, ${Number(bestRevenueDay.totalAttributedOrders || 0).toFixed(2)} objednávek, CTR ${pctFromRate(bestRevenueDay.clickRate)}` : 'Denní data zatím nejsou'}</div>
             ${sparkline((klaviyo.dailySummary || []).map(row => Number(row.totalAttributedRevenueCzk || 0)))}
           </div>
         `);
@@ -533,7 +533,7 @@
           <div class="ux-section-head">
             <div>
               <h2 class="section-title">${source.label}, aktivní kampaně</h2>
-              <div class="section-subtitle">${source.rows.length} aktivních kampaní, spend ${money(source.amount)}, hodnota konverzí ${money(source.value)}</div>
+              <div class="section-subtitle">${source.rows.length}  aktivních kampaní, útrata ${money(source.amount)}, hodnota objednávek ${money(source.value)}</div>
             </div>
           </div>
           <div class="ux-table-wrap" style="margin-top:16px;">
@@ -543,10 +543,10 @@
                   <th>Účet</th>
                   <th>Kampaň</th>
                   <th>Status</th>
-                  <th class="num">Spend</th>
+                  <th class="num">Útrata</th>
                   <th class="num">Kliky</th>
                   <th class="num">Konverze</th>
-                  <th class="num">Hodnota</th>
+                  <th class="num">Hodnota objednávek</th>
                   <th class="num">ROAS</th>
                 </tr>
               </thead>
@@ -576,10 +576,10 @@
                     <strong>${row.name}</strong>
                     <div style="margin-bottom:8px; color:var(--text-muted); font-size:13px;">${row.account} • ${row.status}</div>
                     <div class="mobile-metric-grid">
-                      <div><span>Spend</span><br>${money(row.spend)}</div>
+                      <div><span>Útrata</span><br>${money(row.spend)}</div>
                       <div><span>Kliky</span><br>${DP.fmtNumber(Math.round(row.clicks || 0))}</div>
                       <div><span>Konverze</span><br>${Number(row.conversions || 0).toFixed(2)}</div>
-                      <div><span>Hodnota</span><br>${money(row.value)}</div>
+                      <div><span>Hodnota objednávek</span><br>${money(row.value)}</div>
                       <div><span>ROAS</span><br><span class="${roasTone(row.roas)}">${row.roas == null ? '–' : Number(row.roas).toFixed(2)}</span></div>
                     </div>
                   </div>
@@ -596,13 +596,13 @@
             <div class="mobile-trend-card">
               <strong>${row.date}</strong>
               <div class="mobile-metric-grid">
-                <div><span>Meta</span><br>${money(row.metaSpend)}</div>
-                <div><span>Google</span><br>${money(row.googleSpend)}</div>
-                <div><span>Sklik</span><br>${money(row.sklikSpend)}</div>
-                <div><span>Celkem</span><br>${money(row.totalSpend)}</div>
+                <div><span>Meta</span><br>${money(row.metaÚtrata)}</div>
+                <div><span>Google</span><br>${money(row.googleÚtrata)}</div>
+                <div><span>Sklik</span><br>${money(row.sklikÚtrata)}</div>
+                <div><span>Celkem</span><br>${money(row.totalÚtrata)}</div>
                 <div><span>Kliky</span><br>${DP.fmtNumber(Math.round(row.clicks || 0))}</div>
                 <div><span>Konverze</span><br>${Number(row.conversions || 0).toFixed(2)}</div>
-                <div><span>Hodnota</span><br>${money(row.value)}</div>
+                <div><span>Hodnota objednávek</span><br>${money(row.value)}</div>
                 <div><span>ROAS</span><br><span class="${roasTone(row.roas)}">${row.roas == null ? '–' : Number(row.roas).toFixed(2)}</span></div>
               </div>
             </div>

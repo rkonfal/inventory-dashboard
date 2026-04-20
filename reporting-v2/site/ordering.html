@@ -8,28 +8,28 @@
 </head>
 <body>
   <aside class="sidebar">
-    <div class="sidebar-logo"><h2>Diamond Plus</h2><span>Objednávání zboží nad jádrem skladu</span></div>
+    <div class="sidebar-logo"><h2>Diamond Plus</h2><span>Objednávání zboží pro běžnou praxi</span></div>
     <div class="sidebar-section-label">Přehled</div>
     <nav class="sidebar-nav">
       <a href="index.html">🏠 Přehled</a>
-      <a href="finance.html">💰 Finance / ABRA</a>
-      <a href="marketing.html">📣 Marketing</a>
+      <a href="finance.html">💰 Finance</a>
+      <a href="marketing.html">📣 Reklama</a>
       <a href="inventory.html">📦 Sklad</a>
       <a class="active" href="ordering.html">🧠 Objednávání zboží</a>
-      <a href="logistics.html">🚚 Logistika 4PX</a>
-      <a href="expiry.html">⏳ Expirace / promo</a>
-      <a href="eshop.html">🛒 E-shop / WPJ</a>
+      <a href="logistics.html">🚚 Expedice 4PX</a>
+      <a href="expiry.html">⏳ Akce a expirace</a>
+      <a href="eshop.html">🛒 E-shop</a>
     </nav>
-    <div class="sidebar-footer">První vrstva objednávání, 1,5 roku historie, rizika, obrátkovost a shortlist pro doplnění.</div>
+    <div class="sidebar-footer">Pomáhá rychle poznat, co objednat hned a co raději nechat být.</div>
   </aside>
 
   <main class="main page-stack">
     <header class="header">
       <div class="ux-topbar">
         <div class="ux-intro">
-          <div class="ux-kicker">Objednávání zboží • první implementovaná vrstva</div>
-          <h1 class="ux-title">Jádro pro nákup a obrátkovost</h1>
-          <p class="ux-subtitle">Kopie logiky SKLADu rozšířená o 1,5 roku historie. Neřeší ještě promo optimalizace, ale už ukazuje co hrozí dojít, co váže peníze a co dává smysl doplnit.</p>
+          <div class="ux-kicker">Objednávání zboží • pracovní přehled</div>
+          <h1 class="ux-title">Co objednat a co raději ne</h1>
+          <p class="ux-subtitle">Přehled ukazuje, co hrozí dojít, co zbytečně váže peníze a co dává smysl doplnit. Je to pracovní vrstva pro rychlé rozhodnutí.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="inventory.html">Původní SKLAD</a>
             <a class="ux-button secondary" href="../data/current/ordering_core.json" target="_blank" rel="noopener">Otevřít ordering_core.json</a>
@@ -46,7 +46,7 @@
     <section class="grid leadership-note-grid">
       <div class="leadership-notes-head">
         <div class="leadership-notes-kicker">Jak to číst</div>
-        <h2>První jádro pro objednávání</h2>
+        <h2>Jak ten přehled používat</h2>
         <p>Nejdřív rizika vyprodání a červená obrátkovost, potom shortlist doplnění a detailní explorer.</p>
       </div>
       <div class="card leadership-note director">
@@ -65,17 +65,17 @@
       <div class="ux-focus-card">
         <div class="ux-section-head">
           <div>
-            <h2 class="ux-section-title">Aktivní alerty</h2>
-            <p class="ux-section-subtitle">Co dnes z objednávacího pohledu vystupuje nejvýš.</p>
+            <h2 class="ux-section-title">Co teď svítí nejvíc</h2>
+            <p class="ux-section-subtitle">Nejdůležitější signály pro dnešní objednávku.</p>
           </div>
-          <span class="badge warn" id="ordering-alert-badge">Načítám…</span>
+          <span class="badge warn" id="ordering-alert-badge">Načítám důležité body…</span>
         </div>
         <div class="ux-list" id="ordering-alert-list"></div>
       </div>
 
       <div class="ux-side-stack">
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Doporučení pro první použití</h3>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Jak začít</h3>
           <div class="ux-side-list" id="ordering-usage-list"></div>
         </div>
         <div class="ux-panel-card">
@@ -87,8 +87,8 @@
 
     <section class="grid two-col" style="margin-top:20px;">
       <div class="card">
-        <h2 class="section-title">Kritické doplnění</h2>
-        <div class="section-subtitle">Produkty, které podle 90denní rychlosti potřebují řešit objednávku jako první.</div>
+        <h2 class="section-title">Co objednat hned</h2>
+        <div class="section-subtitle">Produkty, které podle posledních 90 dní potřebují řešit objednávku jako první.</div>
         <table class="table">
           <thead>
             <tr>
@@ -103,8 +103,8 @@
       </div>
 
       <div class="card">
-        <h2 class="section-title">Červená obrátkovost</h2>
-        <div class="section-subtitle">Produkty, které už drží příliš mnoho zásoby proti tempu prodeje.</div>
+        <h2 class="section-title">Příliš vysoká zásoba</h2>
+        <div class="section-subtitle">Produkty, u kterých už držíme zbytečně moc zásoby.</div>
         <table class="table">
           <thead>
             <tr>
@@ -121,8 +121,8 @@
 
     <section class="grid two-col" style="margin-top:20px;">
       <div class="card">
-        <h2 class="section-title">Položky k prověření</h2>
-        <div class="section-subtitle">Produkty s největší odchylkou 90d tempa proti ročnímu průměru.</div>
+        <h2 class="section-title">Položky k ověření</h2>
+        <div class="section-subtitle">Produkty s největší změnou proti ročnímu průměru.</div>
         <table class="table">
           <thead>
             <tr>
@@ -137,8 +137,8 @@
       </div>
 
       <div class="card">
-        <h2 class="section-title">Vhodné doplnění při volné kapacitě</h2>
-        <div class="section-subtitle">Zelená obrátkovost a rozumné doplnění, když je potřeba něco přidat do objednávky.</div>
+        <h2 class="section-title">Co přidat při volné kapacitě</h2>
+        <div class="section-subtitle">Rozumné doplnění, když je v objednávce ještě místo.</div>
         <table class="table">
           <thead>
             <tr>
@@ -156,8 +156,8 @@
     <section class="card" style="margin-top:20px;">
       <div class="toolbar">
         <div>
-          <h2 class="section-title">Předobjednávkový režim</h2>
-          <div class="section-subtitle">První pracovní simulace variant objednávky nad aktuálním jádrem. Kapacita je zatím heuristika podle objemu doplnění, ne přesná logistická kapacita kamionu.</div>
+          <h2 class="section-title">Návrhy variant objednávky</h2>
+          <div class="section-subtitle">První pracovní simulace variant objednávky. Kapacita je zatím orientační podle objemu doplnění, ne přesná logistická kapacita kamionu.</div>
         </div>
         <div class="toolbar-controls">
           <label class="control-group">
@@ -193,8 +193,8 @@
     <section class="card" style="margin-top:20px;">
       <div class="toolbar">
         <div>
-          <h2 class="section-title">Doporučené položky do objednávky</h2>
-          <div class="section-subtitle">Forecast, safety stock a doporučení minimum / optimum / maximum pro první ostré rozhodování.</div>
+          <h2 class="section-title">Doporučené položky</h2>
+          <div class="section-subtitle">Odhad spotřeby a doporučení minimum, optimum a maximum pro první rozhodování.</div>
         </div>
         <div class="toolbar-controls">
           <label class="control-group">
@@ -232,8 +232,8 @@
     <section class="card" style="margin-top:20px;">
       <div class="toolbar">
         <div>
-          <h2 class="section-title">Objednávací explorer</h2>
-          <div class="section-subtitle">Detailní seznam SKU s 2letou analytikou, trendem a doporučeným množstvím.</div>
+          <h2 class="section-title">Detailní přehled položek</h2>
+          <div class="section-subtitle">Detailní seznam položek s historií, trendem a doporučeným množstvím.</div>
         </div>
         <div class="toolbar-controls">
           <label class="control-group">
@@ -267,7 +267,7 @@
         </div>
       </div>
 
-      <div class="section-subtitle" id="ordering-explorer-summary">Načítám explorer…</div>
+      <div class="section-subtitle" id="ordering-explorer-summary">Načítám seznam položek…</div>
       <table class="table">
         <thead>
           <tr>
@@ -301,17 +301,17 @@
       const months = value => value == null ? '–' : `${one(value)} měs.`;
 
       const riskBadge = row => {
-        if (row.reorderRisk === 'critical') return '<span class="badge danger">objednat hned</span>';
-        if (row.reorderRisk === 'soon') return '<span class="badge warn">objednat brzy</span>';
-        if (row.reorderRisk === 'watch') return '<span class="badge">prověřit</span>';
+        if (row.reorderRisk === 'critical') return '<span class="badge danger">řešit hned</span>'; 
+        if (row.reorderRisk === 'soon') return '<span class="badge warn">řešit brzy</span>'; 
+        if (row.reorderRisk === 'watch') return '<span class="badge">ověřit</span>'; 
         return '';
       };
 
       const zoneBadge = row => {
-        if (row.turnoverZone === 'red') return '<span class="badge danger">červená obrátkovost</span>';
-        if (row.turnoverZone === 'orange') return '<span class="badge warn">oranžová obrátkovost</span>';
-        if (row.turnoverZone === 'green') return '<span class="badge success">zelená obrátkovost</span>';
-        return '<span class="badge">bez prodeje</span>';
+        if (row.turnoverZone === 'red') return '<span class="badge danger">zásoba je moc vysoká</span>'; 
+        if (row.turnoverZone === 'orange') return '<span class="badge warn">zásoba je vyšší</span>'; 
+        if (row.turnoverZone === 'green') return '<span class="badge success">zásoba dává smysl</span>'; 
+        return '<span class="badge">bez prodeje</span>'; 
       };
 
       const trendBadge = row => {
@@ -350,9 +350,9 @@
       };
 
       const roleBadge = row => {
-        if (row.orderingRole === 'top_sku') return '<span class="badge success">top SKU</span>';
-        if (row.orderingRole === 'fill_up') return '<span class="badge warn">doplněk do objednávky</span>';
-        if (row.orderingRole === 'excluded') return '<span class="badge">mimo nákup</span>';
+        if (row.orderingRole === 'top_sku') return '<span class="badge success">silná položka</span>';
+        if (row.orderingRole === 'fill_up') return '<span class="badge warn">vhodný doplněk</span>';
+        if (row.orderingRole === 'excluded') return '<span class="badge">teď neobjednávat</span>';
         return '<span class="badge">běžná položka</span>';
       };
 
@@ -754,9 +754,9 @@
         const full = buildScenarioRows('full', rows, profile);
 
         const variants = [
-          { key: 'A', title: 'Varianta A, konzervativní', tone: '', rows: conservative, subtitle: 'Jen nejnutnější doplnění, minimální riziko přebytku.' },
-          { key: 'B', title: 'Varianta B, vyvážená', tone: 'accent', rows: balanced, subtitle: 'Standardní doporučení a rozumný kompromis cash / zásoba.' },
-          { key: 'C', title: 'Varianta C, kapacitní', tone: 'warn', rows: full, subtitle: 'Víc doplnění i doplňků do objednávky se zdravou obrátkou.' },
+          { key: 'A', title: 'Varianta A, opatrná', tone: '', rows: conservative, subtitle: 'Jen nejnutnější doplnění, minimální riziko přebytku.' },
+          { key: 'B', title: 'Varianta B, vyvážená', tone: 'accent', rows: balanced, subtitle: 'Standardní doporučení a rozumný kompromis mezi hotovostí a zásobou.' },
+          { key: 'C', title: 'Varianta C, větší doplnění', tone: 'warn', rows: full, subtitle: 'Víc doplnění i doplňků do objednávky se zdravou obrátkou.' },
         ];
 
         planningSummary.innerHTML = `<strong>Simulace:</strong> lead time ${fmt(leadDays)} dní, kapacita ${profile.label}, pražská výpomoc ${usePraha ? 'zapnutá' : 'vypnutá'}. Varianty zatím počítají s odhadem prodeje a orientační hodnotou zásoby.`;
@@ -821,7 +821,7 @@
         hero.innerHTML = [
           { label: 'Objednat hned', value: fmt(ordering.summary.criticalReorderItems || 0), tone: 'danger' },
           { label: 'Prověřit / brzy doobjednat', value: fmt(ordering.summary.watchReorderItems || 0), tone: 'warn' },
-          { label: 'Červená obrátkovost', value: fmt(ordering.summary.redTurnoverItems || 0), tone: 'warn' },
+          { label: 'Příliš vysoká zásoba', value: fmt(ordering.summary.redTurnoverItems || 0), tone: 'warn' },
           { label: 'Vázaná hodnota v červené', value: money(ordering.summary.cashInRedTurnover), tone: 'danger' },
         ].map(card => `
           <article class="metric-card ${card.tone || ''}">
@@ -857,7 +857,7 @@
         usageList.innerHTML = [
           'Začni položkami objednat hned, to je operativní priorita.',
           'Pak zkontroluj červenou obrátkovost, kde leží peníze.',
-          'Položky k prověření ber jako signál, ne automatické rozhodnutí.',
+          'Položky k ověření ber jako signál, ne automatické rozhodnutí.',
           'Explorer je detail pro jemné doladění objednávky.',
         ].map(text => `<div class="ux-side-list-item">${text}</div>`).join('');
 
