@@ -415,14 +415,17 @@ a { color: inherit; }
   text-transform: uppercase;
   letter-spacing: .8px;
   color: var(--text-faint);
-  background: rgba(107,61,99,.03);
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(244,237,228,.90));
   position: sticky;
   top: 0;
   z-index: 2;
   backdrop-filter: blur(14px);
-  box-shadow: inset 0 -1px 0 var(--border);
+  box-shadow: inset 0 -1px 0 var(--border), inset 0 1px 0 rgba(200,162,75,.28), 0 8px 18px rgba(63,47,36,.06);
 }
-[data-theme="dark"] .table th { background: rgba(255,255,255,.03); }
+[data-theme="dark"] .table th {
+  background: linear-gradient(180deg, rgba(27,24,39,.94), rgba(20,19,32,.92));
+  box-shadow: inset 0 -1px 0 var(--border), inset 0 1px 0 rgba(200,162,75,.20), 0 10px 22px rgba(0,0,0,.18);
+}
 .table td.num, .table th.num { text-align: right; }
 .table-sort {
   display: inline-flex;
