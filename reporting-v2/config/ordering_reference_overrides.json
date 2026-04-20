@@ -28,6 +28,48 @@
       "sourceChannel": "praha",
       "strategicPriority": "supplement",
       "excludeFromOrderingReason": "brožura, ne standardní produkt pro objednávání"
+    },
+    "15TOP": {
+      "itemType": "internal",
+      "orderable": false,
+      "sourceChannel": "praha",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "interní promo přehled, ne fyzické objednatelné SKU"
+    },
+    "KNIHA01": {
+      "itemType": "print",
+      "orderable": false,
+      "sourceChannel": "praha",
+      "strategicPriority": "supplement",
+      "excludeFromOrderingReason": "kniha nebo příručka, ne standardní produkt pro doskladnění"
+    },
+    "IGE009": {
+      "itemType": "promo",
+      "orderable": false,
+      "sourceChannel": "praha",
+      "strategicPriority": "supplement",
+      "excludeFromOrderingReason": "papírová taška, promo nebo obalový materiál"
+    },
+    "000059": {
+      "itemType": "print",
+      "orderable": false,
+      "sourceChannel": "praha",
+      "strategicPriority": "supplement",
+      "excludeFromOrderingReason": "kniha nebo podnikatelská příručka, ne standardní produkt pro doskladnění"
+    },
+    "000040": {
+      "itemType": "promo",
+      "orderable": false,
+      "sourceChannel": "praha",
+      "strategicPriority": "supplement",
+      "excludeFromOrderingReason": "reklamní taška, promo materiál"
+    },
+    "000086": {
+      "itemType": "promo",
+      "orderable": false,
+      "sourceChannel": "praha",
+      "strategicPriority": "supplement",
+      "excludeFromOrderingReason": "látková taška, promo nebo merch položka"
     }
   },
   "prefixes": [
@@ -59,6 +101,48 @@
         "sourceChannel": "praha",
         "strategicPriority": "risky",
         "excludeFromOrderingReason": "interní nebo doplňková položka"
+      }
+    },
+    {
+      "prefix": "PROMO",
+      "meta": {
+        "itemType": "promo",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "supplement",
+        "excludeFromOrderingReason": "promo nebo merch položka, ne standardní SKU pro doskladnění"
+      }
+    },
+    {
+      "prefix": "DP",
+      "meta": {
+        "itemType": "gift",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "supplement",
+        "giftCandidate": true,
+        "excludeFromOrderingReason": "dárkový poukaz, ne fyzické skladové SKU pro objednání"
+      }
+    },
+    {
+      "prefix": "VAN",
+      "meta": {
+        "itemType": "gift",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "supplement",
+        "giftCandidate": true,
+        "excludeFromOrderingReason": "sezónní dárkový poukaz, ne fyzické skladové SKU pro objednání"
+      }
+    },
+    {
+      "prefix": "VSTUP",
+      "meta": {
+        "itemType": "service",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "risky",
+        "excludeFromOrderingReason": "vstupenka nebo eventová položka, ne skladové SKU"
       }
     }
   ],

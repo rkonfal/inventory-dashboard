@@ -1055,6 +1055,37 @@ def apply_ordering_reference_overrides(reference_meta, code, title, overrides):
     return meta
 
 
+def reapply_ordering_reference_to_analytics(payload, overrides):
+    if not payload or not payload.get('items'):
+        return payload, False
+
+    changed = False
+    for item in payload.get('items') or []:
+        next_meta = apply_ordering_reference_overrides(
+            infer_ordering_reference(item.get('code'), item.get('title'), item.get('unitSellingPrice')),
+            item.get('code'),
+            item.get('title'),
+            overrides or {},
+        )
+        next_flags = sorted(set(next_meta.get('referenceFlags') or []))
+        fields = {
+            'itemType': next_meta.get('itemType'),
+            'orderable': bool(next_meta.get('orderable')),
+            'sourceChannel': next_meta.get('sourceChannel'),
+            'strategicPriority': next_meta.get('strategicPriority'),
+            'giftCandidate': bool(next_meta.get('giftCandidate')),
+            'excludeFromOrderingReason': next_meta.get('excludeFromOrderingReason'),
+            'referenceSource': next_meta.get('referenceSource'),
+            'referenceFlags': next_flags,
+        }
+        for key, value in fields.items():
+            if item.get(key) != value:
+                item[key] = value
+                changed = True
+
+    return payload, changed
+
+
 def resolve_4px_code_alias(code, wpj_by_code, manual_overrides=None):
     manual_overrides = manual_overrides or {'aliases': {}, 'ignore': set()}
     code = normalize_product_code(code)
@@ -3792,10 +3823,12 @@ def main():
 
         inventory_analytics_payload, analytics_prices_changed = enrich_inventory_analytics_prices(inventory_analytics_payload, wpj_by_code)
         inventory_analytics_730_payload, analytics_730_prices_changed = enrich_inventory_analytics_prices(inventory_analytics_730_payload, wpj_by_code)
+        inventory_analytics_payload, analytics_reference_changed = reapply_ordering_reference_to_analytics(inventory_analytics_payload, ordering_reference_overrides)
+        inventory_analytics_730_payload, analytics_730_reference_changed = reapply_ordering_reference_to_analytics(inventory_analytics_730_payload, ordering_reference_overrides)
 
-        if analytics_prices_changed and inventory_analytics_payload:
+        if (analytics_prices_changed or analytics_reference_changed) and inventory_analytics_payload:
             write_json(analytics_cache_path, inventory_analytics_payload)
-        if analytics_730_prices_changed and inventory_analytics_730_payload:
+        if (analytics_730_prices_changed or analytics_730_reference_changed) and inventory_analytics_730_payload:
             write_json(analytics_730_cache_path, inventory_analytics_730_payload)
 
         if (
@@ -3826,6 +3859,8 @@ def main():
                 pos_admin_views,
                 ordering_reference_overrides,
             )
+            ordering_core_payload = build_ordering_core(inventory_analytics_730_payload, generated_at)
+        elif analytics_730_prices_changed or analytics_730_reference_changed:
             ordering_core_payload = build_ordering_core(inventory_analytics_730_payload, generated_at)
 
         ordering_reference_payload = build_ordering_reference_data(inventory_analytics_730_payload, generated_at)
