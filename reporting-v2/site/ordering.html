@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Objednávání zboží / Reporting V2</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo"><h2>Diamond Plus</h2><span>Objednávání zboží nad jádrem skladu</span></div>
+    <div class="sidebar-section-label">Přehled</div>
+    <nav class="sidebar-nav">
+      <a href="index.html">🏠 Přehled</a>
+      <a href="finance.html">💰 Finance / ABRA</a>
+      <a href="marketing.html">📣 Marketing</a>
+      <a href="inventory.html">📦 Sklad</a>
+      <a class="active" href="ordering.html">🧠 Objednávání zboží</a>
+      <a href="logistics.html">🚚 Logistika 4PX</a>
+      <a href="expiry.html">⏳ Expirace / promo</a>
+      <a href="eshop.html">🛒 E-shop / WPJ</a>
+    </nav>
+    <div class="sidebar-footer">První vrstva objednávání, 1,5 roku historie, rizika, obrátkovost a shortlist pro doplnění.</div>
+  </aside>
+
+  <main class="main page-stack">
+    <header class="header">
+      <div class="ux-topbar">
+        <div class="ux-intro">
+          <div class="ux-kicker">Objednávání zboží • první implementovaná vrstva</div>
+          <h1 class="ux-title">Jádro pro nákup a obrátkovost</h1>
+          <p class="ux-subtitle">Kopie logiky SKLADu rozšířená o 1,5 roku historie. Neřeší ještě promo optimalizace, ale už ukazuje co hrozí dojít, co váže peníze a co dává smysl doplnit.</p>
+          <div class="ux-actions">
+            <a class="ux-button primary" href="inventory.html">Původní SKLAD</a>
+            <a class="ux-button secondary" href="../data/current/ordering_core.json" target="_blank" rel="noopener">Otevřít ordering_core.json</a>
+            <a class="ux-button secondary" href="../data/current/inventory_analytics_730d.json" target="_blank" rel="noopener">Otevřít analytiku objednávání</a>
+          </div>
+        </div>
+        <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
+      </div>
+      <section class="ux-hero-metrics" id="ordering-hero"></section>
+      <div class="ux-date-note" id="ordering-window">Načítám analytiku objednávání…</div>
+    </header>
+
+    <section class="grid leadership-note-grid">
+      <div class="leadership-notes-head">
+        <div class="leadership-notes-kicker">Jak to číst</div>
+        <h2>První jádro pro objednávání</h2>
+        <p>Nejdřív rizika vyprodání a červená obrátkovost, potom shortlist doplnění a detailní explorer.</p>
+      </div>
+      <div class="card leadership-note director">
+        <div class="leadership-note-label">Co hlídat hned</div>
+        <p><strong>Kritické pokrytí podle 90denního tempa, produkty s doporučeným doplněním a zboží v červené obrátkovosti.</strong></p>
+      </div>
+      <div class="card leadership-note board">
+        <div class="leadership-note-label">Co zatím umí</div>
+        <p><strong>Aktuální sklad + 1,5 roku prodejů + trend + doporučené množství.</strong> Promo akce a plná optimalizace kamionu přijdou až v další vrstvě.</p>
+      </div>
+    </section>
+
+    <section class="grid kpi-grid" id="ordering-kpis"></section>
+
+    <section class="ux-grid">
+      <div class="ux-focus-card">
+        <div class="ux-section-head">
+          <div>
+            <h2 class="ux-section-title">Aktivní alerty</h2>
+            <p class="ux-section-subtitle">Co dnes z objednávacího pohledu vystupuje nejvýš.</p>
+          </div>
+          <span class="badge warn" id="ordering-alert-badge">Načítám…</span>
+        </div>
+        <div class="ux-list" id="ordering-alert-list"></div>
+      </div>
+
+      <div class="ux-side-stack">
+        <div class="ux-panel-card">
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Doporučení pro první použití</h3>
+          <div class="ux-side-list" id="ordering-usage-list"></div>
+        </div>
+        <div class="ux-panel-card">
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Rychlý souhrn</h3>
+          <div class="ux-stat-list" id="ordering-stat-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid two-col" style="margin-top:20px;">
+      <div class="card">
+        <h2 class="section-title">Kritické doplnění</h2>
+        <div class="section-subtitle">Produkty, které podle 90denní rychlosti potřebují řešit objednávku jako první.</div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Produkt</th>
+              <th class="num">Sklad</th>
+              <th class="num">Pokrytí 90d</th>
+              <th class="num">Doporučit objednat</th>
+            </tr>
+          </thead>
+          <tbody id="critical-reorder-table"></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">Červená obrátkovost</h2>
+        <div class="section-subtitle">Produkty, které už drží příliš mnoho zásoby proti tempu prodeje.</div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Produkt</th>
+              <th class="num">Sklad</th>
+              <th class="num">Měsíce zásoby</th>
+              <th class="num">Vázaná hodnota</th>
+            </tr>
+          </thead>
+          <tbody id="overstock-table"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="grid two-col" style="margin-top:20px;">
+      <div class="card">
+        <h2 class="section-title">Trend watch</h2>
+        <div class="section-subtitle">Produkty s největší odchylkou 90d tempa proti ročnímu průměru.</div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Produkt</th>
+              <th class="num">Trend 90d vs 365d</th>
+              <th class="num">Prodej 90d</th>
+              <th class="num">Pokrytí 90d</th>
+            </tr>
+          </thead>
+          <tbody id="trend-watch-table"></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">Vhodné doplnění při volné kapacitě</h2>
+        <div class="section-subtitle">Zelená obrátkovost a rozumné doplnění, když je potřeba něco přidat do objednávky.</div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Produkt</th>
+              <th class="num">Prodej 365d</th>
+              <th class="num">Pokrytí 90d</th>
+              <th class="num">Doporučit přidat</th>
+            </tr>
+          </thead>
+          <tbody id="fillers-table"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:20px;">
+      <div class="toolbar">
+        <div>
+          <h2 class="section-title">Předobjednávkový režim</h2>
+          <div class="section-subtitle">První pracovní simulace variant objednávky nad aktuálním jádrem. Kapacita je zatím heuristika podle objemu doplnění, ne přesná logistická kapacita kamionu.</div>
+        </div>
+        <div class="toolbar-controls">
+          <label class="control-group">
+            <span class="control-label">Plán objednávky</span>
+            <input id="planning-order-date" class="input" type="date" />
+          </label>
+          <label class="control-group">
+            <span class="control-label">Oček. doručení</span>
+            <input id="planning-arrival-date" class="input" type="date" />
+          </label>
+          <label class="control-group">
+            <span class="control-label">Kapacita</span>
+            <select id="planning-capacity" class="select">
+              <option value="small">Menší doplnění</option>
+              <option value="half" selected>Půl kamionu</option>
+              <option value="full">Celý kamion</option>
+            </select>
+          </label>
+          <label class="control-group">
+            <span class="control-label">Praha fallback</span>
+            <select id="planning-praha" class="select">
+              <option value="on" selected>Zapnuto</option>
+              <option value="off">Vypnuto</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="ux-date-note" id="planning-summary">Načítám varianty objednávky…</div>
+      <section class="ux-hero-metrics" id="planning-variants"></section>
+    </section>
+
+    <section class="card" style="margin-top:20px;">
+      <div class="toolbar">
+        <div>
+          <h2 class="section-title">Doporučené položky do objednávky</h2>
+          <div class="section-subtitle">Forecast, safety stock a doporučení minimum / optimum / maximum pro první ostré rozhodování.</div>
+        </div>
+      </div>
+      <div class="section-subtitle" id="planning-table-summary">Načítám doporučené položky…</div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Produkt</th>
+            <th>Zdroj / důvod</th>
+            <th class="num">Forecast 30 / 60 / 90</th>
+            <th class="num">Safety</th>
+            <th class="num">Minimum</th>
+            <th class="num">Optimum</th>
+            <th class="num">Maximum</th>
+          </tr>
+        </thead>
+        <tbody id="planning-table"></tbody>
+      </table>
+    </section>
+
+    <section class="card" style="margin-top:20px;">
+      <div class="toolbar">
+        <div>
+          <h2 class="section-title">Objednávací explorer</h2>
+          <div class="section-subtitle">Detailní seznam SKU s 2letou analytikou, trendem a doporučeným množstvím.</div>
+        </div>
+        <div class="toolbar-controls">
+          <label class="control-group">
+            <span class="control-label">Hledat</span>
+            <input id="ordering-search" class="input" type="search" placeholder="Kód, název" />
+          </label>
+          <label class="control-group">
+            <span class="control-label">Filtr</span>
+            <select id="ordering-filter" class="select">
+              <option value="all">Všechno</option>
+              <option value="critical">Jen kritické doplnění</option>
+              <option value="watch">Jen sledovat doplnění</option>
+              <option value="red">Jen červená obrátkovost</option>
+              <option value="green">Jen zelená obrátkovost</option>
+              <option value="accelerating">Jen zrychlující</option>
+            </select>
+          </label>
+          <label class="control-group">
+            <span class="control-label">Řadit</span>
+            <select id="ordering-sort" class="select">
+              <option value="priority">Priorita objednávky</option>
+              <option value="recommended">Doporučené množství</option>
+              <option value="coverAsc">Nejnižší pokrytí</option>
+              <option value="stockValue">Největší vázaná hodnota</option>
+              <option value="code">Kód A–Z</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="section-subtitle" id="ordering-explorer-summary">Načítám explorer…</div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Produkt</th>
+            <th>Stav</th>
+            <th class="num">Sklad</th>
+            <th class="num">Prodej v okně</th>
+            <th class="num">Prodej 90d</th>
+            <th class="num">Pokrytí 90d</th>
+            <th class="num">Objednat</th>
+          </tr>
+        </thead>
+        <tbody id="ordering-explorer-table"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="assets/app.js"></script>
+  <script>
+    (() => {
+      DP.initThemeToggle();
+
+      const fmt = DP.fmtNumber;
+      const money = value => value == null ? '–' : `${fmt(Math.round(Number(value || 0)))} Kč`;
+      const one = value => Number(value || 0).toFixed(1).replace('.', ',');
+      const pct = value => value == null ? '–' : `${value > 0 ? '+' : ''}${one(value)} %`;
+      const cover = value => value == null ? 'bez prodeje' : `${one(value)} dnů`;
+      const months = value => value == null ? '–' : `${one(value)} měs.`;
+
+      const riskBadge = row => {
+        if (row.reorderRisk === 'critical') return '<span class="badge danger">kritické doplnění</span>';
+        if (row.reorderRisk === 'soon') return '<span class="badge warn">doplnit brzy</span>';
+        if (row.reorderRisk === 'watch') return '<span class="badge">sledovat</span>';
+        return '';
+      };
+
+      const zoneBadge = row => {
+        if (row.turnoverZone === 'red') return '<span class="badge danger">červená obrátkovost</span>';
+        if (row.turnoverZone === 'orange') return '<span class="badge warn">oranžová obrátkovost</span>';
+        if (row.turnoverZone === 'green') return '<span class="badge success">zelená obrátkovost</span>';
+        return '<span class="badge">bez prodeje</span>';
+      };
+
+      const trendBadge = row => {
+        if (row.trend90v365Pct == null) return '<span class="badge">bez trendu</span>';
+        if (row.trend90v365Pct >= 25) return `<span class="badge success">zrychluje ${pct(row.trend90v365Pct)}</span>`;
+        if (row.trend90v365Pct <= -25) return `<span class="badge warn">zpomaluje ${pct(row.trend90v365Pct)}</span>`;
+        return `<span class="badge">stabilní ${pct(row.trend90v365Pct)}</span>`;
+      };
+
+      const hero = document.getElementById('ordering-hero');
+      const kpis = document.getElementById('ordering-kpis');
+      const alertList = document.getElementById('ordering-alert-list');
+      const alertBadge = document.getElementById('ordering-alert-badge');
+      const usageList = document.getElementById('ordering-usage-list');
+      const statList = document.getElementById('ordering-stat-list');
+      const explorerTable = document.getElementById('ordering-explorer-table');
+      const explorerSummary = document.getElementById('ordering-explorer-summary');
+      const searchInput = document.getElementById('ordering-search');
+      const filterSelect = document.getElementById('ordering-filter');
+      const sortSelect = document.getElementById('ordering-sort');
+      const planningOrderDate = document.getElementById('planning-order-date');
+      const planningArrivalDate = document.getElementById('planning-arrival-date');
+      const planningCapacity = document.getElementById('planning-capacity');
+      const planningPraha = document.getElementById('planning-praha');
+      const planningSummary = document.getElementById('planning-summary');
+      const planningVariants = document.getElementById('planning-variants');
+      const planningTable = document.getElementById('planning-table');
+      const planningTableSummary = document.getElementById('planning-table-summary');
+
+      let analytics = { items: [], summary: {} };
+      let ordering = { summary: {}, alerts: [] };
+
+      const capacityProfiles = {
+        small: { label: 'menší doplnění', targetUnits: 1200, fillerShare: 0.15 },
+        half: { label: 'půl kamionu', targetUnits: 2800, fillerShare: 0.35 },
+        full: { label: 'celý kamion', targetUnits: 5200, fillerShare: 0.65 },
+      };
+
+      function asDateInputValue(value) {
+        if (!value) return '';
+        const d = new Date(value);
+        if (Number.isNaN(d.getTime())) return '';
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      }
+
+      function parseDateInput(value) {
+        if (!value) return null;
+        const d = new Date(`${value}T12:00:00`);
+        return Number.isNaN(d.getTime()) ? null : d;
+      }
+
+      function daysBetween(a, b) {
+        if (!a || !b) return 0;
+        return Math.max(0, Math.round((b.getTime() - a.getTime()) / 86400000));
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+      }
+
+      function estimateDailyDemand(row) {
+        const base = Math.max(Number(row.dailyRunRate90d || 0), Number(row.dailyRunRate365d || 0) * 0.9, Number(row.dailyRunRate730d || 0) * 0.85);
+        const trendFactor = clamp(1 + Number(row.trend90v365Pct || 0) / 250, 0.6, 1.6);
+        return Math.max(0, base * trendFactor);
+      }
+
+      function forecastUnits(row, days) {
+        return Math.round(estimateDailyDemand(row) * days);
+      }
+
+      function safetyUnits(row, leadDays) {
+        const base = estimateDailyDemand(row);
+        const trendBonus = Math.max(0, Number(row.trend90v365Pct || 0)) / 100;
+        return Math.max(1, Math.round(base * Math.max(14, leadDays * 0.5) * (1 + trendBonus * 0.2)));
+      }
+
+      function maxUnits(row, leadDays) {
+        const ninety = forecastUnits(row, 90);
+        const max = Math.max(row.recommendedOrderUnits || 0, Math.round((row.recommendedOrderUnits || 0) * 1.35), Math.round(ninety + safetyUnits(row, leadDays) * 0.7));
+        return Math.max(row.recommendedOrderUnits || 0, max);
+      }
+
+      function rowReason(row, leadDays, usePraha) {
+        if (usePraha && ((row.daysOfCover90d ?? 999) <= Math.max(7, Math.round(leadDays * 0.35)) || row.effectiveStock <= 0)) {
+          return {
+            source: 'Praha fallback',
+            reason: row.reorderRisk === 'critical' ? 'kritické pokrytí před doručením' : 'nízké pokrytí před doručením',
+          };
+        }
+        if (row.turnoverZone === 'green') return { source: 'Riga', reason: 'zelená obrátkovost, vhodné do doplnění' };
+        if ((row.trend90v365Pct || 0) >= 25) return { source: 'Riga', reason: 'zrychlující prodej proti ročnímu průměru' };
+        return { source: 'Riga', reason: row.reorderRisk === 'critical' ? 'doplnit kvůli pokrytí 90d' : 'doplnit kvůli průběžnému pokrytí' };
+      }
+
+      function buildRecommendationRows() {
+        const orderDate = parseDateInput(planningOrderDate.value) || new Date();
+        const arrivalDate = parseDateInput(planningArrivalDate.value) || orderDate;
+        const leadDays = Math.max(1, daysBetween(orderDate, arrivalDate));
+        const usePraha = planningPraha.value === 'on';
+        const rows = (analytics.items || []).filter(row => {
+          if (!(row.recommendedOrderUnits > 0 || row.recommendedMinUnits > 0)) return false;
+          if (row.reorderRisk === 'critical' || row.reorderRisk === 'soon' || row.reorderRisk === 'watch') return true;
+          if (row.turnoverZone === 'green' && (row.daysOfCover90d || 999) <= 120 && (row.units365d || 0) > 0) return true;
+          return false;
+        }).map(row => {
+          const sourceMeta = rowReason(row, leadDays, usePraha);
+          const optimum = Math.max(row.recommendedOrderUnits || 0, row.recommendedMinUnits || 0);
+          const recommendation = {
+            ...row,
+            forecast30: forecastUnits(row, 30),
+            forecast60: forecastUnits(row, 60),
+            forecast90: forecastUnits(row, 90),
+            safetyStockUnits: safetyUnits(row, leadDays),
+            optimumUnits: optimum,
+            maxUnits: maxUnits(row, leadDays),
+            source: sourceMeta.source,
+            reason: sourceMeta.reason,
+          };
+          recommendation.priorityScore =
+            (row.reorderRisk === 'critical' ? 5000 : row.reorderRisk === 'soon' ? 3000 : row.reorderRisk === 'watch' ? 1500 : 400)
+            + Math.max(0, 120 - (row.daysOfCover90d ?? 120)) * 10
+            + (row.trend90v365Pct || 0)
+            + Math.min((row.units90d || 0), 1000);
+          return recommendation;
+        });
+
+        rows.sort((a, b) => b.priorityScore - a.priorityScore || (b.optimumUnits || 0) - (a.optimumUnits || 0));
+        return { rows, leadDays, usePraha };
+      }
+
+      function buildScenarioRows(type, rows, profile) {
+        let targetLeft = profile.targetUnits;
+        const selected = [];
+
+        for (const row of rows) {
+          let units = 0;
+          if (type === 'conservative') {
+            if (row.reorderRisk === 'critical') units = Math.max(row.recommendedMinUnits || 0, Math.round(row.optimumUnits * 0.7));
+            else if (row.reorderRisk === 'soon') units = Math.max(0, Math.round((row.recommendedMinUnits || 0) * 0.8));
+          } else if (type === 'balanced') {
+            if (row.reorderRisk === 'critical') units = row.optimumUnits;
+            else if (row.reorderRisk === 'soon') units = Math.max(row.recommendedMinUnits || 0, Math.round(row.optimumUnits * 0.9));
+            else if (row.reorderRisk === 'watch') units = Math.round(row.optimumUnits * 0.55);
+            else if (row.turnoverZone === 'green') units = Math.round(row.optimumUnits * profile.fillerShare);
+          } else {
+            if (row.reorderRisk === 'critical') units = Math.min(row.maxUnits, Math.round(row.optimumUnits * 1.15));
+            else if (row.reorderRisk === 'soon') units = Math.min(row.maxUnits, Math.round(row.optimumUnits * 1.05));
+            else if (row.reorderRisk === 'watch') units = Math.round(row.optimumUnits * 0.85);
+            else if (row.turnoverZone === 'green') units = Math.round(row.optimumUnits * (0.55 + profile.fillerShare));
+          }
+
+          units = Math.max(0, Math.min(units, row.maxUnits || units));
+          if (!units) continue;
+          if (type !== 'full' && targetLeft <= 0 && row.reorderRisk !== 'critical') continue;
+
+          selected.push({ ...row, plannedUnits: units });
+          targetLeft -= units;
+        }
+        return selected;
+      }
+
+      function redRiskAfterMonths(rows, months) {
+        const days = months * 30;
+        return rows.filter(row => {
+          const futureStock = (row.effectiveStock || 0) + (row.plannedUnits || 0) - forecastUnits(row, days);
+          const futureDaily = estimateDailyDemand(row);
+          if (futureStock <= 0 || futureDaily <= 0) return false;
+          const futureCover = futureStock / futureDaily;
+          return futureCover >= 365;
+        }).length;
+      }
+
+      function renderPlanning() {
+        const profile = capacityProfiles[planningCapacity.value] || capacityProfiles.half;
+        const { rows, leadDays, usePraha } = buildRecommendationRows();
+        const conservative = buildScenarioRows('conservative', rows, profile);
+        const balanced = buildScenarioRows('balanced', rows, profile);
+        const full = buildScenarioRows('full', rows, profile);
+
+        const variants = [
+          { key: 'A', title: 'Varianta A, konzervativní', tone: '', rows: conservative, subtitle: 'Jen nejnutnější doplnění, minimální riziko přebytku.' },
+          { key: 'B', title: 'Varianta B, vyvážená', tone: 'accent', rows: balanced, subtitle: 'Standardní doporučení a rozumný kompromis cash / zásoba.' },
+          { key: 'C', title: 'Varianta C, kapacitní', tone: 'warn', rows: full, subtitle: 'Víc doplnění i fillerů se zelenou obrátkovostí.' },
+        ];
+
+        planningSummary.innerHTML = `<strong>Simulace:</strong> lead time ${fmt(leadDays)} dní, kapacita ${profile.label}, Praha fallback ${usePraha ? 'zapnutý' : 'vypnutý'}. Varianty zatím počítají s heuristikou nad forecastem a selling-price proxy.`;
+
+        planningVariants.innerHTML = variants.map(variant => {
+          const units = variant.rows.reduce((sum, row) => sum + (row.plannedUnits || 0), 0);
+          const value = variant.rows.reduce((sum, row) => sum + ((row.unitSellingPrice || 0) * (row.plannedUnits || 0)), 0);
+          const criticalLeft = variant.rows.filter(row => row.reorderRisk === 'critical' && (((row.effectiveStock || 0) + (row.plannedUnits || 0) - forecastUnits(row, leadDays)) / Math.max(estimateDailyDemand(row), 0.01)) < 30).length;
+          const prahaRisk = variant.rows.filter(row => row.source === 'Praha fallback').length;
+          const usage = profile.targetUnits ? Math.min(999, Math.round((units / profile.targetUnits) * 100)) : 0;
+          return `
+            <article class="metric-card ${variant.tone}">
+              <div class="metric-label">${variant.key} · ${variant.title}</div>
+              <div class="metric-value">${fmt(units)} ks</div>
+              <div class="metric-sub">${variant.subtitle}</div>
+              <div class="muted small" style="margin-top:10px; line-height:1.6;">
+                Hodnota proxy ${money(value)}<br>
+                Využití kapacity ${fmt(usage)} %<br>
+                Kritické SKU po doplnění ${fmt(criticalLeft)}<br>
+                Praha fallback riziko ${fmt(prahaRisk)} SKU<br>
+                Červená po 1 / 2 / 3 / 4 měsících: ${fmt(redRiskAfterMonths(variant.rows, 1))} / ${fmt(redRiskAfterMonths(variant.rows, 2))} / ${fmt(redRiskAfterMonths(variant.rows, 3))} / ${fmt(redRiskAfterMonths(variant.rows, 4))}
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        planningTableSummary.textContent = `Zobrazeno ${fmt(Math.min(rows.length, 120))} doporučených položek. Forecast je dopočítaný z 90d tempa, 365d tempa a trendu proti ročnímu průměru.`;
+        planningTable.innerHTML = rows.slice(0, 120).map(row => `
+          <tr>
+            <td>
+              <div><strong>${row.code} · ${row.title}</strong></div>
+              <div class="muted small" style="margin-top:6px;">Sklad ${fmt(row.effectiveStock)} ks · pokrytí ${cover(row.daysOfCover90d)} · trend ${pct(row.trend90v365Pct)}</div>
+            </td>
+            <td>
+              <div><strong>${row.source}</strong></div>
+              <div class="muted small" style="margin-top:6px;">${row.reason}</div>
+            </td>
+            <td class="num">${fmt(row.forecast30)} / ${fmt(row.forecast60)} / ${fmt(row.forecast90)}</td>
+            <td class="num">${fmt(row.safetyStockUnits)} ks</td>
+            <td class="num">${fmt(row.recommendedMinUnits || 0)} ks</td>
+            <td class="num">${fmt(row.optimumUnits || 0)} ks</td>
+            <td class="num">${fmt(row.maxUnits || 0)} ks</td>
+          </tr>
+        `).join('') || '<tr><td colspan="7">Zatím bez doporučených položek.</td></tr>';
+      }
+
+      function renderShortTable(targetId, rows, mapper, emptyText, colspan) {
+        document.getElementById(targetId).innerHTML = rows.map(mapper).join('') || `<tr><td colspan="${colspan}">${emptyText}</td></tr>`;
+      }
+
+      function renderHero() {
+        hero.innerHTML = [
+          { label: 'Kritické doplnění', value: fmt(ordering.summary.criticalReorderItems || 0), tone: 'danger' },
+          { label: 'Sledovat doplnění', value: fmt(ordering.summary.watchReorderItems || 0), tone: 'warn' },
+          { label: 'Červená obrátkovost', value: fmt(ordering.summary.redTurnoverItems || 0), tone: 'warn' },
+          { label: 'Vázaná hodnota v červené', value: money(ordering.summary.cashInRedTurnover), tone: 'danger' },
+        ].map(card => `
+          <article class="metric-card ${card.tone || ''}">
+            <div class="metric-label">${card.label}</div>
+            <div class="metric-value">${card.value}</div>
+          </article>
+        `).join('');
+      }
+
+      function renderKpis() {
+        kpis.innerHTML = [
+          ['SKU v analytice', fmt(analytics.summary.trackedItems || 0)],
+          ['Zelená obrátkovost', fmt(analytics.summary.greenTurnoverItems || 0)],
+          ['Oranžová obrátkovost', fmt(analytics.summary.orangeTurnoverItems || 0)],
+          ['Fast low cover', fmt(analytics.summary.fastLowCoverItems || 0)],
+        ].map(([label, value]) => `
+          <div class="card compact-card">
+            <div class="kpi-label">${label}</div>
+            <div class="kpi-value">${value}</div>
+          </div>
+        `).join('');
+      }
+
+      function renderAlerts() {
+        const alerts = ordering.alerts || [];
+        alertBadge.textContent = alerts.length ? `${fmt(alerts.length)} aktivních signálů` : 'Bez aktivních alertů';
+        alertList.innerHTML = alerts.map(text => `<div class="ux-list-row"><strong>${text}</strong></div>`).join('') || '<div class="ux-list-row">Žádný výrazný alert, základ je stabilní.</div>';
+      }
+
+      function renderSidebars() {
+        usageList.innerHTML = [
+          'Začni kritickým doplněním, to je operativní priorita.',
+          'Pak zkontroluj červenou obrátkovost, kde leží peníze.',
+          'Trend watch ber jako signál, ne automatické rozhodnutí.',
+          'Explorer už je detail pro jemné doladění objednávky.',
+        ].map(text => `<div class="ux-side-list-item">${text}</div>`).join('');
+
+        statList.innerHTML = [
+          ['Historie objednávání', '1,5 roku'],
+          ['Model doplnění', 'tempo 90d + safety'],
+          ['Obrátkovost', 'zelená / oranžová / červená'],
+          ['Promo modul', 'zatím mimo V1'],
+        ].map(([label, value]) => `
+          <div class="ux-stat-row">
+            <span>${label}</span>
+            <strong>${value}</strong>
+          </div>
+        `).join('');
+      }
+
+      function getExplorerRows() {
+        const term = (searchInput.value || '').trim().toLowerCase();
+        const filter = filterSelect.value;
+        const sort = sortSelect.value;
+        let rows = (analytics.items || []).filter(row => {
+          if (term) {
+            const hay = `${row.code || ''} ${row.title || ''}`.toLowerCase();
+            if (!hay.includes(term)) return false;
+          }
+          if (filter === 'critical') return row.reorderRisk === 'critical';
+          if (filter === 'watch') return ['critical', 'soon', 'watch'].includes(row.reorderRisk);
+          if (filter === 'red') return row.turnoverZone === 'red';
+          if (filter === 'green') return row.turnoverZone === 'green';
+          if (filter === 'accelerating') return (row.trend90v365Pct || 0) >= 25;
+          return true;
+        });
+
+        rows.sort((a, b) => {
+          if (sort === 'recommended') return (b.recommendedOrderUnits || 0) - (a.recommendedOrderUnits || 0);
+          if (sort === 'coverAsc') return (a.daysOfCover90d ?? 99999) - (b.daysOfCover90d ?? 99999);
+          if (sort === 'stockValue') return (b.stockValueSelling || 0) - (a.stockValueSelling || 0);
+          if (sort === 'code') return String(a.code || '').localeCompare(String(b.code || ''), 'cs');
+          return (b.recommendedOrderUnits || 0) - (a.recommendedOrderUnits || 0)
+            || (a.daysOfCover90d ?? 99999) - (b.daysOfCover90d ?? 99999)
+            || (b.units90d || 0) - (a.units90d || 0);
+        });
+        return rows;
+      }
+
+      function renderExplorer() {
+        const rows = getExplorerRows();
+        explorerSummary.textContent = `Zobrazeno ${fmt(rows.length)} SKU. Explorer ukazuje analytické okno objednávání, 90d pokrytí a doporučené množství.`;
+        explorerTable.innerHTML = rows.slice(0, 150).map(row => `
+          <tr>
+            <td>
+              <div><strong>${row.code} · ${row.title}</strong></div>
+              <div class="muted small" style="margin-top:6px;">YoY ${pct(row.seasonalityYoYPct)} · poslední prodej ${row.daysSinceLastSale == null ? '–' : `${fmt(row.daysSinceLastSale)} dnů zpět`}</div>
+            </td>
+            <td>${riskBadge(row)} ${zoneBadge(row)} ${trendBadge(row)}</td>
+            <td class="num">${fmt(row.effectiveStock)}</td>
+            <td class="num">${fmt(row.unitsWindow ?? row.units730d)}</td>
+            <td class="num">${fmt(row.units90d)}</td>
+            <td class="num">${cover(row.daysOfCover90d)}</td>
+            <td class="num">${fmt(row.recommendedOrderUnits || 0)} ks</td>
+          </tr>
+        `).join('') || '<tr><td colspan="7">Nic neodpovídá aktuálnímu filtru.</td></tr>';
+      }
+
+      Promise.all([
+        DP.loadJson('../data/current/inventory_analytics_730d.json'),
+        DP.loadJson('../data/current/ordering_core.json'),
+      ]).then(([analyticsPayload, orderingPayload]) => {
+        analytics = analyticsPayload || analytics;
+        ordering = orderingPayload || ordering;
+        document.getElementById('ordering-window').innerHTML = `<strong>Okno analytiky:</strong> ${analytics.window?.days || 548} dní · data do ${DP.fmtDateTime(analytics.generatedAt)}.`;
+
+        const defaultOrderDate = new Date();
+        const defaultArrivalDate = new Date(defaultOrderDate.getTime() + 21 * 86400000);
+        planningOrderDate.value = asDateInputValue(defaultOrderDate);
+        planningArrivalDate.value = asDateInputValue(defaultArrivalDate);
+
+        renderHero();
+        renderKpis();
+        renderAlerts();
+        renderSidebars();
+
+        renderShortTable('critical-reorder-table', (ordering.criticalReorder || []).slice(0, 20), row => `
+          <tr>
+            <td>${row.code} · ${row.title}</td>
+            <td class="num">${fmt(row.effectiveStock)}</td>
+            <td class="num">${cover(row.daysOfCover90d)}</td>
+            <td class="num">${fmt(row.recommendedOrderUnits || 0)} ks</td>
+          </tr>
+        `, 'Aktuálně bez kritických kandidátů na doplnění.', 4);
+
+        renderShortTable('overstock-table', (ordering.overstockRisks || []).slice(0, 20), row => `
+          <tr>
+            <td>${row.code} · ${row.title}</td>
+            <td class="num">${fmt(row.effectiveStock)}</td>
+            <td class="num">${months(row.stockMonthsOnHand)}</td>
+            <td class="num">${money(row.stockValueSelling)}</td>
+          </tr>
+        `, 'Aktuálně bez červené obrátkovosti.', 4);
+
+        renderShortTable('trend-watch-table', (ordering.trendWatch || []).slice(0, 20), row => `
+          <tr>
+            <td>${row.code} · ${row.title}</td>
+            <td class="num">${pct(row.trend90v365Pct)}</td>
+            <td class="num">${fmt(row.units90d)}</td>
+            <td class="num">${cover(row.daysOfCover90d)}</td>
+          </tr>
+        `, 'Trend watch je zatím prázdný.', 4);
+
+        renderShortTable('fillers-table', (ordering.suggestedFillers || []).slice(0, 20), row => `
+          <tr>
+            <td>${row.code} · ${row.title}</td>
+            <td class="num">${fmt(row.units365d)}</td>
+            <td class="num">${cover(row.daysOfCover90d)}</td>
+            <td class="num">${fmt(row.recommendedOrderUnits || 0)} ks</td>
+          </tr>
+        `, 'Zatím bez vhodných filler položek.', 4);
+
+        renderPlanning();
+        renderExplorer();
+      }).catch(err => {
+        document.getElementById('ordering-window').textContent = `Nepodařilo se načíst data: ${err.message}`;
+      });
+
+      searchInput.addEventListener('input', renderExplorer);
+      filterSelect.addEventListener('change', renderExplorer);
+      sortSelect.addEventListener('change', renderExplorer);
+      planningOrderDate.addEventListener('change', renderPlanning);
+      planningArrivalDate.addEventListener('change', renderPlanning);
+      planningCapacity.addEventListener('change', renderPlanning);
+      planningPraha.addEventListener('change', renderPlanning);
+    })();
+  </script>
+</body>
+</html>
