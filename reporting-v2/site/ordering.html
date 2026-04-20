@@ -246,8 +246,9 @@
               <option value="all">Všechno</option>
               <option value="orderable">Jen objednatelné</option>
               <option value="excluded">Jen vyloučené</option>
-              <option value="critical">Jen kritické doplnění</option>
-              <option value="watch">Jen sledovat doplnění</option>
+              <option value="critical">Jen objednat hned</option>
+              <option value="urgent">Jen kritické + brzy</option>
+              <option value="watch">Jen prověřit</option>
               <option value="red">Jen červená obrátkovost</option>
               <option value="green">Jen zelená obrátkovost</option>
               <option value="accelerating">Jen zrychlující</option>
@@ -271,15 +272,15 @@
         <thead>
           <tr>
             <th>Produkt</th>
-            <th>Stav</th>
+            <th>Nákupní signály</th>
             <th class="num">Sklad</th>
-            <th class="num">Prodej v okně</th>
+            <th class="num">Prodej v období</th>
             <th class="num">Prodej 90d</th>
             <th class="num">Pokrytí 90d</th>
-            <th class="num">Ideál</th>
-            <th class="num">Objednat po</th>
-            <th class="num">Finál</th>
-            <th>Zaokrouhlení</th>
+            <th class="num">Cíl</th>
+            <th class="num">Krok balení</th>
+            <th class="num">Objednat</th>
+            <th>Balicí pravidlo</th>
           </tr>
         </thead>
         <tbody id="ordering-explorer-table"></tbody>
@@ -300,9 +301,9 @@
       const months = value => value == null ? '–' : `${one(value)} měs.`;
 
       const riskBadge = row => {
-        if (row.reorderRisk === 'critical') return '<span class="badge danger">kritické doplnění</span>';
-        if (row.reorderRisk === 'soon') return '<span class="badge warn">doplnit brzy</span>';
-        if (row.reorderRisk === 'watch') return '<span class="badge">sledovat</span>';
+        if (row.reorderRisk === 'critical') return '<span class="badge danger">objednat hned</span>';
+        if (row.reorderRisk === 'soon') return '<span class="badge warn">objednat brzy</span>';
+        if (row.reorderRisk === 'watch') return '<span class="badge">prověřit</span>';
         return '';
       };
 
@@ -315,9 +316,9 @@
 
       const trendBadge = row => {
         if (row.trend90v365Pct == null) return '<span class="badge">bez trendu</span>';
-        if (row.trend90v365Pct >= 25) return `<span class="badge success">zrychluje ${pct(row.trend90v365Pct)}</span>`;
-        if (row.trend90v365Pct <= -25) return `<span class="badge warn">zpomaluje ${pct(row.trend90v365Pct)}</span>`;
-        return `<span class="badge">stabilní ${pct(row.trend90v365Pct)}</span>`;
+        if (row.trend90v365Pct >= 25) return `<span class="badge success">prodej roste ${pct(row.trend90v365Pct)}</span>`;
+        if (row.trend90v365Pct <= -25) return `<span class="badge warn">prodej slábne ${pct(row.trend90v365Pct)}</span>`;
+        return `<span class="badge">prodej stabilní ${pct(row.trend90v365Pct)}</span>`;
       };
 
       const typeBadge = row => {
@@ -335,14 +336,14 @@
       };
 
       const orderableBadge = row => row.orderable
-        ? '<span class="badge success">objednatelné</span>'
-        : `<span class="badge warn">vyloučeno</span>`;
+        ? '<span class="badge success">lze objednat</span>'
+        : `<span class="badge warn">neobjednávat</span>`;
 
       const sourceChannelBadge = row => {
         const labels = {
           both: 'Riga + Praha',
-          riga: 'Riga only',
-          praha: 'Praha only',
+          riga: 'jen Riga',
+          praha: 'jen Praha',
           unknown: 'zdroj nejasný',
         };
         return `<span class="badge">${labels[row.sourceChannel] || (row.sourceChannel || 'zdroj neznámý')}</span>`;
@@ -350,9 +351,9 @@
 
       const roleBadge = row => {
         if (row.orderingRole === 'top_sku') return '<span class="badge success">top SKU</span>';
-        if (row.orderingRole === 'fill_up') return '<span class="badge warn">fill-up</span>';
-        if (row.orderingRole === 'excluded') return '<span class="badge">excluded</span>';
-        return '<span class="badge">standard</span>';
+        if (row.orderingRole === 'fill_up') return '<span class="badge warn">doplněk do objednávky</span>';
+        if (row.orderingRole === 'excluded') return '<span class="badge">mimo nákup</span>';
+        return '<span class="badge">běžná položka</span>';
       };
 
       const packStepLabel = kind => {
@@ -887,6 +888,7 @@
           if (filter === 'orderable') return row.orderable !== false;
           if (filter === 'excluded') return row.orderable === false;
           if (filter === 'critical') return row.reorderRisk === 'critical';
+          if (filter === 'urgent') return ['critical', 'soon'].includes(row.reorderRisk);
           if (filter === 'watch') return ['critical', 'soon', 'watch'].includes(row.reorderRisk);
           if (filter === 'red') return row.turnoverZone === 'red';
           if (filter === 'green') return row.turnoverZone === 'green';
@@ -920,14 +922,14 @@
         const rows = getExplorerRows();
         const excludedCount = rows.filter(row => row.orderable === false).length;
         const packagingMatched = orderingReference.summary.byPackagingMatchStatus?.matched || 0;
-        explorerSummary.textContent = `Zobrazeno ${fmt(rows.length)} SKU, z toho ${fmt(excludedCount)} vyloučených z objednávání. Reference vrstva načtena pro ${fmt(orderingReference.summary.trackedItems || 0)} SKU, packaging match hotový u ${fmt(packagingMatched)} SKU.`;
+        explorerSummary.textContent = `Zobrazeno ${fmt(rows.length)} SKU, z toho ${fmt(excludedCount)} mimo nákup. Referenční vrstva je načtená pro ${fmt(orderingReference.summary.trackedItems || 0)} SKU, balení spárované u ${fmt(packagingMatched)} SKU.`;
         explorerTable.innerHTML = rows.slice(0, 150).map(row => `
           <tr>
             <td>
               <div><strong>${row.code} · ${row.title}</strong></div>
               <div class="muted small" style="margin-top:6px;">YoY ${pct(row.seasonalityYoYPct)} · poslední prodej ${row.daysSinceLastSale == null ? '–' : `${fmt(row.daysSinceLastSale)} dnů zpět`}</div>
-              <div class="muted small" style="margin-top:6px;">${row.excludeFromOrderingReason || 'Bez důvodu vyloučení, SKU je v objednávacím engine povolené.'}</div>
-              <div class="muted small" style="margin-top:6px;">Balení ${row.packagingRaw || 'bez mapy'} · match ${row.packagingMatchStatus || 'missing'}</div>
+              <div class="muted small" style="margin-top:6px;">${row.excludeFromOrderingReason || 'Položka je pro nákup povolená a bez blokace.'}</div>
+              <div class="muted small" style="margin-top:6px;">Balení ${row.packagingRaw || 'bez mapy'} · stav párování ${row.packagingMatchStatus || 'chybí'}</div>
             </td>
             <td>${orderableBadge(row)} ${typeBadge(row)} ${roleBadge(row)} ${sourceChannelBadge(row)} ${riskBadge(row)} ${zoneBadge(row)} ${trendBadge(row)}</td>
             <td class="num">${fmt(row.effectiveStock)}</td>
