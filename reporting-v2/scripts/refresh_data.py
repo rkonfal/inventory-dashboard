@@ -1508,6 +1508,233 @@ def enrich_inventory_analytics_prices(payload, wpj_by_code):
     return payload, changed
 
 
+ORDERING_CAPACITY_PROFILES = {
+    'small': {'label': 'menší doplnění', 'targetUnits': 1200, 'fillerShare': 0.15},
+    'half': {'label': 'půl kamionu', 'targetUnits': 2800, 'fillerShare': 0.35},
+    'full': {'label': 'celý kamion', 'targetUnits': 5200, 'fillerShare': 0.65},
+}
+
+
+def clamp_number(value, minimum, maximum):
+    return min(max(value, minimum), maximum)
+
+
+def estimate_ordering_daily_demand(item):
+    base = max(
+        float(item.get('dailyRunRate90d') or 0),
+        float(item.get('dailyRunRate365d') or 0) * 0.9,
+        float(item.get('dailyRunRate730d') or 0) * 0.85,
+    )
+    trend_factor = clamp_number(1 + float(item.get('trend90v365Pct') or 0) / 250, 0.6, 1.6)
+    return max(0, base * trend_factor)
+
+
+def forecast_ordering_units(item, days):
+    return max(0, round(estimate_ordering_daily_demand(item) * max(0, days)))
+
+
+def safety_units_for_ordering(item, lead_days):
+    base = estimate_ordering_daily_demand(item)
+    trend_bonus = max(0, float(item.get('trend90v365Pct') or 0)) / 100
+    return max(1, round(base * max(14, lead_days * 0.5) * (1 + trend_bonus * 0.2)))
+
+
+def max_units_for_ordering(item, lead_days):
+    ninety = forecast_ordering_units(item, 90)
+    recommended = int(item.get('recommendedOrderUnits') or 0)
+    computed = max(
+        recommended,
+        round(recommended * 1.35),
+        round(ninety + safety_units_for_ordering(item, lead_days) * 0.7),
+    )
+    return max(recommended, computed)
+
+
+def recommendation_source_meta(item, lead_days, use_praha):
+    cover_90d = item.get('daysOfCover90d')
+    if use_praha and ((cover_90d if cover_90d is not None else 999) <= max(7, round(lead_days * 0.35)) or float(item.get('effectiveStock') or 0) <= 0):
+        return {
+            'source': 'Praha fallback',
+            'reason': 'kritické pokrytí před doručením' if item.get('reorderRisk') == 'critical' else 'nízké pokrytí před doručením',
+        }
+    if item.get('turnoverZone') == 'green':
+        return {'source': 'Riga', 'reason': 'zelená obrátkovost, vhodné do doplnění'}
+    if float(item.get('trend90v365Pct') or 0) >= 25:
+        return {'source': 'Riga', 'reason': 'zrychlující prodej proti ročnímu průměru'}
+    return {
+        'source': 'Riga',
+        'reason': 'doplnit kvůli pokrytí 90d' if item.get('reorderRisk') == 'critical' else 'doplnit kvůli průběžnému pokrytí',
+    }
+
+
+def build_ordering_recommendation_rows(items, lead_days=21, use_praha=True):
+    rows = []
+    for item in items or []:
+        if not ((item.get('recommendedOrderUnits') or 0) > 0 or (item.get('recommendedMinUnits') or 0) > 0):
+            continue
+        if not (
+            item.get('reorderRisk') in {'critical', 'soon', 'watch'}
+            or (item.get('turnoverZone') == 'green' and (item.get('daysOfCover90d') or 999) <= 120 and (item.get('units365d') or 0) > 0)
+        ):
+            continue
+
+        source_meta = recommendation_source_meta(item, lead_days, use_praha)
+        recommended_min = int(item.get('recommendedMinUnits') or 0)
+        optimum = max(int(item.get('recommendedOrderUnits') or 0), recommended_min)
+        row = dict(item)
+        row.update({
+            'forecast30': forecast_ordering_units(item, 30),
+            'forecast60': forecast_ordering_units(item, 60),
+            'forecast90': forecast_ordering_units(item, 90),
+            'safetyStockUnits': safety_units_for_ordering(item, lead_days),
+            'optimumUnits': optimum,
+            'maxUnits': max_units_for_ordering(item, lead_days),
+            'source': source_meta['source'],
+            'reason': source_meta['reason'],
+        })
+        row['priorityScore'] = (
+            (5000 if item.get('reorderRisk') == 'critical' else 3000 if item.get('reorderRisk') == 'soon' else 1500 if item.get('reorderRisk') == 'watch' else 400)
+            + max(0, 120 - int(item.get('daysOfCover90d') if item.get('daysOfCover90d') is not None else 120)) * 10
+            + float(item.get('trend90v365Pct') or 0)
+            + min(float(item.get('units90d') or 0), 1000)
+        )
+        rows.append(row)
+
+    rows.sort(key=lambda item: (-item.get('priorityScore', 0), -item.get('optimumUnits', 0), item.get('code') or ''))
+    return rows
+
+
+def build_ordering_scenario_rows(scenario_type, rows, profile):
+    target_left = int(profile.get('targetUnits') or 0)
+    selected = []
+    for item in rows or []:
+        units = 0
+        optimum = int(item.get('optimumUnits') or 0)
+        recommended_min = int(item.get('recommendedMinUnits') or 0)
+        max_units = int(item.get('maxUnits') or optimum)
+        reorder_risk = item.get('reorderRisk')
+
+        if scenario_type == 'conservative':
+            if reorder_risk == 'critical':
+                units = max(recommended_min, round(optimum * 0.7))
+            elif reorder_risk == 'soon':
+                units = max(0, round(recommended_min * 0.8))
+        elif scenario_type == 'balanced':
+            if reorder_risk == 'critical':
+                units = optimum
+            elif reorder_risk == 'soon':
+                units = max(recommended_min, round(optimum * 0.9))
+            elif reorder_risk == 'watch':
+                units = round(optimum * 0.55)
+            elif item.get('turnoverZone') == 'green':
+                units = round(optimum * float(profile.get('fillerShare') or 0))
+        elif scenario_type == 'capacity':
+            if reorder_risk == 'critical':
+                units = min(max_units, round(optimum * 1.15))
+            elif reorder_risk == 'soon':
+                units = min(max_units, round(optimum * 1.05))
+            elif reorder_risk == 'watch':
+                units = round(optimum * 0.85)
+            elif item.get('turnoverZone') == 'green':
+                units = round(optimum * (0.55 + float(profile.get('fillerShare') or 0)))
+
+        units = max(0, min(units, max_units or units))
+        if not units:
+            continue
+        if scenario_type != 'capacity' and target_left <= 0 and reorder_risk != 'critical':
+            continue
+
+        selected_row = dict(item)
+        selected_row['plannedUnits'] = units
+        selected.append(selected_row)
+        target_left -= units
+    return selected
+
+
+def ordering_future_red_risk_count(rows, months):
+    days = months * 30
+    count = 0
+    for item in rows or []:
+        future_stock = float(item.get('effectiveStock') or 0) + float(item.get('plannedUnits') or 0) - forecast_ordering_units(item, days)
+        future_daily = estimate_ordering_daily_demand(item)
+        if future_stock <= 0 or future_daily <= 0:
+            continue
+        future_cover = future_stock / future_daily
+        if future_cover >= 365:
+            count += 1
+    return count
+
+
+def build_ordering_planning(items, lead_days=21, capacity_key='half', use_praha=True):
+    profile = ORDERING_CAPACITY_PROFILES.get(capacity_key) or ORDERING_CAPACITY_PROFILES['half']
+    rows = build_ordering_recommendation_rows(items, lead_days=lead_days, use_praha=use_praha)
+    scenarios = {
+        'A': {
+            'key': 'A',
+            'title': 'Varianta A, konzervativní',
+            'subtitle': 'Jen nejnutnější doplnění, minimální riziko přebytku.',
+            'rows': build_ordering_scenario_rows('conservative', rows, profile),
+        },
+        'B': {
+            'key': 'B',
+            'title': 'Varianta B, vyvážená',
+            'subtitle': 'Standardní doporučení a rozumný kompromis cash / zásoba.',
+            'rows': build_ordering_scenario_rows('balanced', rows, profile),
+        },
+        'C': {
+            'key': 'C',
+            'title': 'Varianta C, kapacitní',
+            'subtitle': 'Víc doplnění i fillerů se zelenou obrátkovostí.',
+            'rows': build_ordering_scenario_rows('capacity', rows, profile),
+        },
+    }
+
+    scenario_cards = []
+    for scenario in scenarios.values():
+        scenario_rows = scenario['rows']
+        units = sum(int(item.get('plannedUnits') or 0) for item in scenario_rows)
+        value = round(sum(float(item.get('unitSellingPrice') or 0) * float(item.get('plannedUnits') or 0) for item in scenario_rows), 2)
+        critical_left = 0
+        praha_risk = 0
+        for item in scenario_rows:
+            daily_demand = max(estimate_ordering_daily_demand(item), 0.01)
+            future_cover = (float(item.get('effectiveStock') or 0) + float(item.get('plannedUnits') or 0) - forecast_ordering_units(item, lead_days)) / daily_demand
+            if item.get('reorderRisk') == 'critical' and future_cover < 30:
+                critical_left += 1
+            if item.get('source') == 'Praha fallback':
+                praha_risk += 1
+        usage = min(999, round((units / int(profile.get('targetUnits') or 1)) * 100)) if profile.get('targetUnits') else 0
+        scenario_cards.append({
+            'key': scenario['key'],
+            'title': scenario['title'],
+            'subtitle': scenario['subtitle'],
+            'plannedUnits': units,
+            'proxyValue': value,
+            'capacityUsagePct': usage,
+            'criticalLeft': critical_left,
+            'prahaFallbackRisk': praha_risk,
+            'redRiskAfterMonths': {
+                'm1': ordering_future_red_risk_count(scenario_rows, 1),
+                'm2': ordering_future_red_risk_count(scenario_rows, 2),
+                'm3': ordering_future_red_risk_count(scenario_rows, 3),
+                'm4': ordering_future_red_risk_count(scenario_rows, 4),
+            },
+        })
+
+    return {
+        'defaults': {
+            'leadDays': lead_days,
+            'capacity': capacity_key,
+            'prahaFallback': use_praha,
+        },
+        'capacityProfiles': ORDERING_CAPACITY_PROFILES,
+        'summary': f'Simulace: lead time {lead_days} dní, kapacita {profile.get("label")}, Praha fallback {"zapnutý" if use_praha else "vypnutý"}. Varianty jsou spočítané v refreshi nad forecastem a selling-price proxy.',
+        'recommendationSummary': f'Zobrazeno {len(rows[:120])} doporučených položek. Forecast je dopočítaný z 90d tempa, 365d tempa a trendu proti ročnímu průměru.',
+        'recommendationRows': rows[:120],
+        'scenarios': scenario_cards,
+    }
+
+
 def build_ordering_core(analytics_payload, generated_at):
     items = analytics_payload.get('items') or []
     critical_reorder = sorted(
@@ -1548,6 +1775,7 @@ def build_ordering_core(analytics_payload, generated_at):
     return {
         'generatedAt': generated_at,
         'window': analytics_payload.get('window') or {},
+        'planning': build_ordering_planning(items, lead_days=21, capacity_key='half', use_praha=True),
         'summary': {
             'trackedItems': len(items),
             'criticalReorderItems': len(critical_reorder),

@@ -462,8 +462,60 @@
         }).length;
       }
 
+      function renderPlanningPayload(planning, leadDays, usePraha, profile) {
+        const scenarios = planning.scenarios || [];
+        planningSummary.innerHTML = `<strong>Simulace:</strong> lead time ${fmt(leadDays)} dní, kapacita ${profile.label}, Praha fallback ${usePraha ? 'zapnutý' : 'vypnutý'}. Varianty jsou spočítané v refreshi nad forecastem a selling-price proxy.`;
+
+        planningVariants.innerHTML = scenarios.map(variant => `
+          <article class="metric-card ${variant.key === 'B' ? 'accent' : variant.key === 'C' ? 'warn' : ''}">
+            <div class="metric-label">${variant.key} · ${variant.title}</div>
+            <div class="metric-value">${fmt(variant.plannedUnits || 0)} ks</div>
+            <div class="metric-sub">${variant.subtitle}</div>
+            <div class="muted small" style="margin-top:10px; line-height:1.6;">
+              Hodnota proxy ${money(variant.proxyValue)}<br>
+              Využití kapacity ${fmt(variant.capacityUsagePct || 0)} %<br>
+              Kritické SKU po doplnění ${fmt(variant.criticalLeft || 0)}<br>
+              Praha fallback riziko ${fmt(variant.prahaFallbackRisk || 0)} SKU<br>
+              Červená po 1 / 2 / 3 / 4 měsících: ${fmt(variant.redRiskAfterMonths?.m1 || 0)} / ${fmt(variant.redRiskAfterMonths?.m2 || 0)} / ${fmt(variant.redRiskAfterMonths?.m3 || 0)} / ${fmt(variant.redRiskAfterMonths?.m4 || 0)}
+            </div>
+          </article>
+        `).join('');
+
+        planningTableSummary.textContent = planning.recommendationSummary || `Zobrazeno ${fmt((planning.recommendationRows || []).length)} doporučených položek.`;
+        planningTable.innerHTML = (planning.recommendationRows || []).map(row => `
+          <tr>
+            <td>
+              <div><strong>${row.code} · ${row.title}</strong></div>
+              <div class="muted small" style="margin-top:6px;">Sklad ${fmt(row.effectiveStock)} ks · pokrytí ${cover(row.daysOfCover90d)} · trend ${pct(row.trend90v365Pct)}</div>
+            </td>
+            <td>
+              <div><strong>${row.source}</strong></div>
+              <div class="muted small" style="margin-top:6px;">${row.reason}</div>
+            </td>
+            <td class="num">${fmt(row.forecast30)} / ${fmt(row.forecast60)} / ${fmt(row.forecast90)}</td>
+            <td class="num">${fmt(row.safetyStockUnits)} ks</td>
+            <td class="num">${fmt(row.recommendedMinUnits || 0)} ks</td>
+            <td class="num">${fmt(row.optimumUnits || 0)} ks</td>
+            <td class="num">${fmt(row.maxUnits || 0)} ks</td>
+          </tr>
+        `).join('') || '<tr><td colspan="7">Zatím bez doporučených položek.</td></tr>';
+      }
+
       function renderPlanning() {
         const profile = capacityProfiles[planningCapacity.value] || capacityProfiles.half;
+        const defaults = ordering.planning?.defaults || {};
+        const selectedLeadDays = Math.max(1, daysBetween(parseDateInput(planningOrderDate.value) || new Date(), parseDateInput(planningArrivalDate.value) || new Date()));
+        const selectedUsePraha = planningPraha.value === 'on';
+        const useBackendPlanning = ordering.planning
+          && selectedLeadDays === (defaults.leadDays || 21)
+          && planningCapacity.value === (defaults.capacity || 'half')
+          && selectedUsePraha === Boolean(defaults.prahaFallback);
+
+        if (useBackendPlanning) {
+          renderPlanningPayload(ordering.planning, selectedLeadDays, selectedUsePraha, profile);
+          return;
+        }
+
         const { rows, leadDays, usePraha } = buildRecommendationRows();
         const conservative = buildScenarioRows('conservative', rows, profile);
         const balanced = buildScenarioRows('balanced', rows, profile);
@@ -635,9 +687,12 @@
         document.getElementById('ordering-window').innerHTML = `<strong>Okno analytiky:</strong> ${analytics.window?.days || 548} dní · data do ${DP.fmtDateTime(analytics.generatedAt)}.`;
 
         const defaultOrderDate = new Date();
-        const defaultArrivalDate = new Date(defaultOrderDate.getTime() + 21 * 86400000);
+        const defaultLeadDays = ordering.planning?.defaults?.leadDays || 21;
+        const defaultArrivalDate = new Date(defaultOrderDate.getTime() + defaultLeadDays * 86400000);
         planningOrderDate.value = asDateInputValue(defaultOrderDate);
         planningArrivalDate.value = asDateInputValue(defaultArrivalDate);
+        planningCapacity.value = ordering.planning?.defaults?.capacity || 'half';
+        planningPraha.value = ordering.planning?.defaults?.prahaFallback ? 'on' : 'off';
 
         renderHero();
         renderKpis();
