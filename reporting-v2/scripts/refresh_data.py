@@ -485,6 +485,9 @@ def wpj_endpoint():
     return os.environ.get('WPJ_GRAPHQL_URL') or os.environ.get('WPJ_PROXY_URL')
 
 
+ORDERING_ANALYTICS_DAYS = 548
+
+
 def call_wpj(query, variables, url, access_token):
     payload = {'query': query, 'variables': variables or {}}
     req = Request(
@@ -1261,103 +1264,169 @@ def build_combined_product_views(wpj_products, yesterday_orders, cz_inventory, s
     return combined_index, combined_overview
 
 
-def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None, pos_admin_views=None):
+def build_inventory_analytics_window(combined_index, orders, start_dt, end_dt, generated_at, window_days=365, wpj_by_code=None, manual_overrides=None, pos_admin_views=None):
     wpj_by_code = wpj_by_code or {}
     metrics = {}
     view_keys = ('complete', 'cz', 'sk', 'ltm', 'mecin')
-    for order in year_orders:
+    metric_windows = tuple(dict.fromkeys((window_days, 365, 180, 90, 30, 14)))
+
+    for order in orders:
         dt = parse_dt(order.get('dateCreated'))
         if not dt:
             continue
         days_ago = (end_dt.date() - dt.date()).days
+        if days_ago < 0 or days_ago > max(metric_windows) - 1:
+            continue
         view = classify_order_view(order, pos_admin_views)
         for item in order.get('items') or []:
             if item.get('type') != 'product':
                 continue
             raw_code = item.get('code') or item.get('name') or '–'
-            code, mapping = resolve_4px_code_alias(raw_code, wpj_by_code, manual_overrides)
+            code, _mapping = resolve_4px_code_alias(raw_code, wpj_by_code, manual_overrides)
             row = metrics.setdefault(code, {
                 'code': code,
                 'name': (wpj_by_code.get(code) or {}).get('title') or item.get('name') or 'Bez názvu',
-                'units365d': 0.0,
-                'units180d': 0.0,
-                'units90d': 0.0,
-                'units30d': 0.0,
                 'lastSaleDate': None,
                 'byView': {
-                    key: {'units365d': 0.0, 'units180d': 0.0, 'units90d': 0.0, 'units30d': 0.0}
+                    key: {f'units{days}d': 0.0 for days in metric_windows}
                     for key in view_keys
                 },
+                **{f'units{days}d': 0.0 for days in metric_windows},
             })
             units = num(item.get('pieces'))
-            row['units365d'] += units
-            row['byView']['complete']['units365d'] += units
-            row['byView'][view]['units365d'] += units
-            if days_ago <= 180:
-                row['units180d'] += units
-                row['byView']['complete']['units180d'] += units
-                row['byView'][view]['units180d'] += units
-            if days_ago <= 90:
-                row['units90d'] += units
-                row['byView']['complete']['units90d'] += units
-                row['byView'][view]['units90d'] += units
-            if days_ago <= 30:
-                row['units30d'] += units
-                row['byView']['complete']['units30d'] += units
-                row['byView'][view]['units30d'] += units
+            for days in metric_windows:
+                if days_ago <= days - 1:
+                    row[f'units{days}d'] += units
+                    row['byView']['complete'][f'units{days}d'] += units
+                    row['byView'][view][f'units{days}d'] += units
             if not row['lastSaleDate'] or dt.isoformat() > row['lastSaleDate']:
                 row['lastSaleDate'] = dt.isoformat()
 
     items = []
     for item in combined_index.get('items') or []:
         code = item['code']
-        metric = metrics.get(code, {'units365d': 0.0, 'units180d': 0.0, 'units90d': 0.0, 'units30d': 0.0, 'lastSaleDate': None, 'name': item['title']})
+        metric = metrics.get(code, {
+            **{f'units{days}d': 0.0 for days in metric_windows},
+            'lastSaleDate': None,
+            'name': item['title'],
+            'byView': {key: {f'units{days}d': 0.0 for days in metric_windows} for key in view_keys},
+        })
         effective_stock = item['fourpx']['availableTotal'] if item['fourpx']['availableTotal'] > 0 else item['wpj']['fourpxStoreTotal']
-        daily_run_rate = metric['units365d'] / 365 if metric['units365d'] else 0.0
-        days_of_cover = round(effective_stock / daily_run_rate, 1) if daily_run_rate > 0 else None
+        units_window = round(metric.get(f'units{window_days}d', 0.0), 2)
+        units730d = units_window
+        units365d = round(metric.get('units365d', 0.0), 2)
+        units180d = round(metric.get('units180d', 0.0), 2)
+        units90d = round(metric.get('units90d', 0.0), 2)
+        units30d = round(metric.get('units30d', 0.0), 2)
+        units14d = round(metric.get('units14d', 0.0), 2)
+        prev365d = round(max(units730d - units365d, 0), 2)
+
+        daily_run_rate_730 = units_window / window_days if units_window else 0.0
+        daily_run_rate_365 = units365d / 365 if units365d else 0.0
+        daily_run_rate_90 = units90d / 90 if units90d else 0.0
+        days_of_cover_730 = round(effective_stock / daily_run_rate_730, 1) if daily_run_rate_730 > 0 else None
+        days_of_cover_365 = round(effective_stock / daily_run_rate_365, 1) if daily_run_rate_365 > 0 else None
+        days_of_cover_90 = round(effective_stock / daily_run_rate_90, 1) if daily_run_rate_90 > 0 else None
+        stock_months_on_hand = round((days_of_cover_90 or days_of_cover_365 or 0) / 30.4, 1) if (days_of_cover_90 or days_of_cover_365) else None
+
         last_sale_dt = parse_dt(metric.get('lastSaleDate'))
         days_since_last_sale = (end_dt.date() - last_sale_dt.date()).days if last_sale_dt else None
         selling_value = round(effective_stock * money(item.get('wpj', {}).get('priceWithVat')), 2) if item.get('wpj', {}).get('priceWithVat') else None
 
+        trend_pct = pct_delta(daily_run_rate_90, daily_run_rate_365) if daily_run_rate_365 else None
+        yoy_pct = pct_delta(units365d, prev365d) if prev365d else None
+        if stock_months_on_hand is None:
+            turnover_zone = 'no_sales'
+        elif stock_months_on_hand <= 1:
+            turnover_zone = 'green'
+        elif stock_months_on_hand <= 4:
+            turnover_zone = 'orange'
+        else:
+            turnover_zone = 'red'
+
+        reorder_target_days = 60
+        safety_days = 14 if units90d > 0 else 0
+        recommended_min_units = max(0, round(daily_run_rate_90 * 30 - effective_stock)) if daily_run_rate_90 else 0
+        recommended_order_units = max(0, round(daily_run_rate_90 * (reorder_target_days + safety_days) - effective_stock)) if daily_run_rate_90 else 0
+        reorder_risk = 'none'
+        if units90d > 0:
+            if days_of_cover_90 is None or days_of_cover_90 <= 14:
+                reorder_risk = 'critical'
+            elif days_of_cover_90 <= 30:
+                reorder_risk = 'soon'
+            elif days_of_cover_90 <= 60:
+                reorder_risk = 'watch'
+
         tags = []
-        if effective_stock > 0 and metric['units365d'] == 0:
+        if effective_stock > 0 and units365d == 0:
             tags.append('dead_stock')
         if effective_stock > 0 and days_since_last_sale is not None and days_since_last_sale >= 90:
             tags.append('slow_mover')
-        if effective_stock > 0 and days_of_cover is not None and days_of_cover >= 365:
+        if effective_stock > 0 and days_of_cover_365 is not None and days_of_cover_365 >= 365:
             tags.append('overstocked')
-        if effective_stock > 0 and days_of_cover is not None and days_of_cover <= 30 and metric['units365d'] > 0:
+        if effective_stock > 0 and days_of_cover_365 is not None and days_of_cover_365 <= 30 and units365d > 0:
             tags.append('fast_mover_low_cover')
+        if reorder_risk in {'critical', 'soon'}:
+            tags.append('reorder_candidate')
+        if turnover_zone == 'red':
+            tags.append('turnover_red')
+        elif turnover_zone == 'orange':
+            tags.append('turnover_orange')
+        elif turnover_zone == 'green':
+            tags.append('turnover_green')
 
         by_view = {}
         for view_key in view_keys:
             view_metric = (metric.get('byView') or {}).get(view_key) or {}
+            view_units_730d = round(view_metric.get(f'units{window_days}d', 0.0), 2)
             view_units_365d = round(view_metric.get('units365d', 0.0), 2)
             by_view[view_key] = {
+                'units730d': view_units_730d,
                 'units365d': view_units_365d,
                 'units180d': round(view_metric.get('units180d', 0.0), 2),
                 'units90d': round(view_metric.get('units90d', 0.0), 2),
                 'units30d': round(view_metric.get('units30d', 0.0), 2),
+                'units14d': round(view_metric.get('units14d', 0.0), 2),
                 'avgMonthlyUnits365d': round(view_units_365d / 12, 1) if view_units_365d else 0,
+                'avgMonthlyUnits730d': round(view_units_730d / 24, 1) if view_units_730d else 0,
             }
 
         items.append({
             'code': code,
             'title': item['title'],
             'effectiveStock': round(effective_stock, 2),
+            'unitSellingPrice': money(item.get('wpj', {}).get('priceWithVat')) if item.get('wpj', {}).get('priceWithVat') else None,
             'fourpxAvailable': item['fourpx']['availableTotal'],
             'wpj4pxStoreTotal': item['wpj']['fourpxStoreTotal'],
-            'units365d': round(metric['units365d'], 2),
-            'units180d': round(metric['units180d'], 2),
-            'units90d': round(metric['units90d'], 2),
-            'units30d': round(metric['units30d'], 2),
+            'units730d': units730d,
+            'unitsWindow': units_window,
+            'units365d': units365d,
+            'units180d': units180d,
+            'units90d': units90d,
+            'units30d': units30d,
+            'units14d': units14d,
+            'prev365d': prev365d,
             'czUnits365d': by_view['cz']['units365d'],
             'skUnits365d': by_view['sk']['units365d'],
             'ltmUnits365d': by_view['ltm']['units365d'],
             'mecinUnits365d': by_view['mecin']['units365d'],
-            'avgMonthlyUnits365d': round(metric['units365d'] / 12, 1) if metric['units365d'] else 0,
-            'dailyRunRate365d': round(daily_run_rate, 3),
-            'daysOfCover365d': days_of_cover,
+            'avgMonthlyUnits365d': round(units365d / 12, 1) if units365d else 0,
+            'avgMonthlyUnits730d': round(units730d / 24, 1) if units730d else 0,
+            'avgMonthlyUnitsWindow': round(units_window / max(window_days / 30.4167, 1), 1) if units_window else 0,
+            'dailyRunRate730d': round(daily_run_rate_730, 3),
+            'dailyRunRate365d': round(daily_run_rate_365, 3),
+            'dailyRunRate90d': round(daily_run_rate_90, 3),
+            'daysOfCover730d': days_of_cover_730,
+            'daysOfCoverWindow': days_of_cover_730,
+            'daysOfCover365d': days_of_cover_365,
+            'daysOfCover90d': days_of_cover_90,
+            'stockMonthsOnHand': stock_months_on_hand,
+            'turnoverZone': turnover_zone,
+            'reorderRisk': reorder_risk,
+            'recommendedMinUnits': recommended_min_units,
+            'recommendedOrderUnits': recommended_order_units,
+            'trend90v365Pct': trend_pct,
+            'seasonalityYoYPct': yoy_pct,
             'lastSaleDate': metric['lastSaleDate'],
             'daysSinceLastSale': days_since_last_sale,
             'stockValueSelling': selling_value,
@@ -1373,7 +1442,7 @@ def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt
 
     return {
         'generatedAt': generated_at,
-        'window': {'from': start_dt.isoformat(), 'to': end_dt.isoformat()},
+        'window': {'from': start_dt.isoformat(), 'to': end_dt.isoformat(), 'days': window_days},
         'summary': {
             'trackedItems': len(items),
             'turnoverItems': len(turnover),
@@ -1381,6 +1450,11 @@ def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt
             'slowMoverItems': len(slow_movers),
             'overstockedItems': len(overstocked),
             'fastLowCoverItems': len(fast_low_cover),
+            'criticalReorderItems': len([item for item in items if item['reorderRisk'] == 'critical']),
+            'reorderSoonItems': len([item for item in items if item['reorderRisk'] == 'soon']),
+            'redTurnoverItems': len([item for item in items if item['turnoverZone'] == 'red']),
+            'orangeTurnoverItems': len([item for item in items if item['turnoverZone'] == 'orange']),
+            'greenTurnoverItems': len([item for item in items if item['turnoverZone'] == 'green']),
         },
         'items': items,
         'topTurnover': turnover[:50],
@@ -1388,6 +1462,107 @@ def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt
         'slowMovers': slow_movers[:100],
         'overstocked': overstocked[:100],
         'fastLowCover': fast_low_cover[:100],
+    }
+
+
+def build_inventory_analytics_365d(combined_index, year_orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None, pos_admin_views=None):
+    return build_inventory_analytics_window(
+        combined_index,
+        year_orders,
+        start_dt,
+        end_dt,
+        generated_at,
+        window_days=365,
+        wpj_by_code=wpj_by_code,
+        manual_overrides=manual_overrides,
+        pos_admin_views=pos_admin_views,
+    )
+
+
+def build_inventory_analytics_730d(combined_index, orders, start_dt, end_dt, generated_at, wpj_by_code=None, manual_overrides=None, pos_admin_views=None):
+    return build_inventory_analytics_window(
+        combined_index,
+        orders,
+        start_dt,
+        end_dt,
+        generated_at,
+        window_days=ORDERING_ANALYTICS_DAYS,
+        wpj_by_code=wpj_by_code,
+        manual_overrides=manual_overrides,
+        pos_admin_views=pos_admin_views,
+    )
+
+
+def enrich_inventory_analytics_prices(payload, wpj_by_code):
+    if not payload or not payload.get('items'):
+        return payload, False
+
+    changed = False
+    for item in payload.get('items') or []:
+        code = item.get('code')
+        wpj_item = (wpj_by_code or {}).get(code) or {}
+        next_price = money((wpj_item.get('price') or {}).get('withVat')) if (wpj_item.get('price') or {}).get('withVat') else None
+        if item.get('unitSellingPrice') != next_price:
+            item['unitSellingPrice'] = next_price
+            changed = True
+    return payload, changed
+
+
+def build_ordering_core(analytics_payload, generated_at):
+    items = analytics_payload.get('items') or []
+    critical_reorder = sorted(
+        [item for item in items if item.get('reorderRisk') == 'critical'],
+        key=lambda item: ((item.get('daysOfCover90d') if item.get('daysOfCover90d') is not None else 999), -item.get('recommendedOrderUnits', 0), -item.get('units90d', 0)),
+    )
+    reorder_watch = sorted(
+        [item for item in items if item.get('reorderRisk') in {'critical', 'soon', 'watch'}],
+        key=lambda item: (0 if item.get('reorderRisk') == 'critical' else 1 if item.get('reorderRisk') == 'soon' else 2, (item.get('daysOfCover90d') if item.get('daysOfCover90d') is not None else 999), -item.get('units90d', 0)),
+    )
+    overstock_risks = sorted(
+        [item for item in items if item.get('turnoverZone') == 'red' and item.get('effectiveStock', 0) > 0],
+        key=lambda item: (-(item.get('stockValueSelling') or 0), -(item.get('daysOfCover365d') or 0), -(item.get('effectiveStock') or 0)),
+    )
+    trend_watch = sorted(
+        [item for item in items if item.get('trend90v365Pct') is not None and item.get('units90d', 0) > 0],
+        key=lambda item: abs(item.get('trend90v365Pct') or 0),
+        reverse=True,
+    )
+    suggested_fillers = sorted(
+        [item for item in items if item.get('turnoverZone') == 'green' and (item.get('daysOfCover90d') or 999) <= 90 and item.get('recommendedOrderUnits', 0) > 0],
+        key=lambda item: (-item.get('units365d', 0), item.get('daysOfCover90d') or 999),
+    )
+
+    cash_in_red = round(sum(item.get('stockValueSelling') or 0 for item in overstock_risks[:100]), 2)
+    alerts = []
+    if critical_reorder:
+        alerts.append(f'{len(critical_reorder)} SKU mají kritické pokrytí podle 90denní rychlosti prodeje.')
+    if overstock_risks:
+        alerts.append(f'{len(overstock_risks)} SKU jsou v červené obrátkovosti a vážou zásobu přibližně za {format_czk(cash_in_red)}.')
+    accelerating = [item for item in trend_watch if (item.get('trend90v365Pct') or 0) >= 25]
+    slowing = [item for item in trend_watch if (item.get('trend90v365Pct') or 0) <= -25]
+    if accelerating:
+        alerts.append(f'{len(accelerating)} SKU zrychlují o 25 % a víc proti ročnímu tempu.')
+    if slowing:
+        alerts.append(f'{len(slowing)} SKU zpomalují o 25 % a víc proti ročnímu tempu.')
+
+    return {
+        'generatedAt': generated_at,
+        'window': analytics_payload.get('window') or {},
+        'summary': {
+            'trackedItems': len(items),
+            'criticalReorderItems': len(critical_reorder),
+            'watchReorderItems': len(reorder_watch),
+            'redTurnoverItems': len([item for item in items if item.get('turnoverZone') == 'red']),
+            'orangeTurnoverItems': len([item for item in items if item.get('turnoverZone') == 'orange']),
+            'greenTurnoverItems': len([item for item in items if item.get('turnoverZone') == 'green']),
+            'cashInRedTurnover': cash_in_red,
+        },
+        'alerts': alerts[:6],
+        'criticalReorder': critical_reorder[:50],
+        'reorderWatch': reorder_watch[:100],
+        'overstockRisks': overstock_risks[:100],
+        'trendWatch': trend_watch[:100],
+        'suggestedFillers': suggested_fillers[:50],
     }
 
 
@@ -3087,6 +3262,8 @@ def main():
     wpj_products_payload = {'generatedAt': generated_at, 'items': []}
     wpj_history_payload = {'generatedAt': generated_at, 'days': []}
     inventory_analytics_payload = {'generatedAt': generated_at, 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': []}
+    inventory_analytics_730_payload = {'generatedAt': generated_at, 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': [], 'items': []}
+    ordering_core_payload = {'generatedAt': generated_at, 'summary': {}, 'alerts': [], 'criticalReorder': [], 'reorderWatch': [], 'overstockRisks': [], 'trendWatch': [], 'suggestedFillers': []}
     expiry_overview_payload = {'generatedAt': generated_at, 'summary': {}, 'topExpiring': []}
     combined_index_payload = {'generatedAt': generated_at, 'items': [], 'counts': {}}
     combined_overview_payload = {'generatedAt': generated_at, 'counts': {}}
@@ -3113,6 +3290,7 @@ def main():
         wpj_token = os.environ['WPJ_ACCESS_TOKEN']
         history_start = report_start - timedelta(days=7)
         year_start = report_start - timedelta(days=364)
+        two_year_start = report_start - timedelta(days=ORDERING_ANALYTICS_DAYS - 1)
         history_orders = fetch_wpj_orders(wpj_url, wpj_token, history_start, report_end, limit=1000, detailed=False)
         yesterday_orders = fetch_wpj_orders(wpj_url, wpj_token, report_start, report_end, limit=250, detailed=True)
         wpj_products = fetch_wpj_products(wpj_url, wpj_token)
@@ -3136,19 +3314,48 @@ def main():
         expiry_overview_payload = build_expiry_overview(generated_at, combined_index_payload, cz_expiry_summary, sk_expiry_summary)
 
         analytics_cache_path = CURRENT_DIR / 'inventory_analytics_365d.json'
+        analytics_730_cache_path = CURRENT_DIR / 'inventory_analytics_730d.json'
+        ordering_core_cache_path = CURRENT_DIR / 'ordering_core.json'
         inventory_analytics_payload = load_json_if_fresh(analytics_cache_path, max_age_hours=24)
-        if not inventory_analytics_payload or not inventory_analytics_payload.get('items'):
-            year_orders = fetch_wpj_year_order_metrics(wpj_url, wpj_token, year_start, report_end, limit=1000)
+        inventory_analytics_730_payload = load_json_if_fresh(analytics_730_cache_path, max_age_hours=24)
+        ordering_core_payload = load_json_if_fresh(ordering_core_cache_path, max_age_hours=24)
+        wpj_by_code = {item.get('code'): item for item in wpj_products if item.get('code')}
+
+        inventory_analytics_payload, analytics_prices_changed = enrich_inventory_analytics_prices(inventory_analytics_payload, wpj_by_code)
+        inventory_analytics_730_payload, analytics_730_prices_changed = enrich_inventory_analytics_prices(inventory_analytics_730_payload, wpj_by_code)
+
+        if analytics_prices_changed and inventory_analytics_payload:
+            write_json(analytics_cache_path, inventory_analytics_payload)
+        if analytics_730_prices_changed and inventory_analytics_730_payload:
+            write_json(analytics_730_cache_path, inventory_analytics_730_payload)
+
+        if (
+            not inventory_analytics_payload or not inventory_analytics_payload.get('items')
+            or not inventory_analytics_730_payload or not inventory_analytics_730_payload.get('items')
+            or not ordering_core_payload or not ordering_core_payload.get('summary')
+        ):
+            analytics_orders = fetch_wpj_year_order_metrics(wpj_url, wpj_token, two_year_start, report_end, limit=1000)
             inventory_analytics_payload = build_inventory_analytics_365d(
                 combined_index_payload,
-                year_orders,
+                analytics_orders,
                 year_start,
                 report_end,
                 generated_at,
-                {item.get('code'): item for item in wpj_products if item.get('code')},
+                wpj_by_code,
                 manual_overrides,
                 pos_admin_views,
             )
+            inventory_analytics_730_payload = build_inventory_analytics_730d(
+                combined_index_payload,
+                analytics_orders,
+                two_year_start,
+                report_end,
+                generated_at,
+                wpj_by_code,
+                manual_overrides,
+                pos_admin_views,
+            )
+            ordering_core_payload = build_ordering_core(inventory_analytics_730_payload, generated_at)
 
         wpj_orders_payload = {
             'generatedAt': generated_at,
@@ -3249,6 +3456,8 @@ def main():
         'combined_product_index.json': combined_index_payload,
         'combined_inventory_overview.json': combined_overview_payload,
         'inventory_analytics_365d.json': inventory_analytics_payload,
+        'inventory_analytics_730d.json': inventory_analytics_730_payload,
+        'ordering_core.json': ordering_core_payload,
         'finance_overview.json': finance_snapshot,
         'marketing_overview.json': marketing_snapshot,
         'wpj_orders_previous_day.json': wpj_orders_payload,
