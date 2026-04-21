@@ -433,7 +433,9 @@
       ].filter(Boolean).map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
 
       document.getElementById('marketing-klaviyo-current').innerHTML = klaviyo.ready ? `
-        <div style="margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Klaviyo atribuce</div>
+        <div style="margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Klaviyo</div>
+        <div class="ux-stat-row"><span>Spend</span><strong>–</strong></div>
+        <div style="margin:12px 0 8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Atribuce</div>
         <div class="ux-stat-row"><span>Atribuovaný obrat</span><strong>${money(klaviyoCurrent.totalAttributedRevenueCzk)}</strong></div>
         <div class="ux-stat-row"><span>Atribuované objednávky</span><strong>${Number(klaviyoCurrent.totalAttributedOrders || 0).toFixed(2)}</strong></div>
         <div class="ux-stat-row"><span>Příjemci</span><strong>${DP.fmtNumber(Math.round(klaviyoCurrent.totalRecipients || 0))}</strong></div>
@@ -632,6 +634,7 @@
         const klaviyoFlows = klaviyo.topFlows || [];
         const klaviyoCampaigns = klaviyo.recentCampaigns || [];
         document.getElementById('klaviyo-kpis').innerHTML = [
+          ['Spend', '–', 'Klaviyo spend v tomto dashboardu teď nesledujeme', 'gold'],
           ['Atribuovaný obrat', money(klaviyoCurrent.totalAttributedRevenueCzk), `email ${money(klaviyoCurrent.emailAttributedRevenueCzk)} • sms ${money(klaviyoCurrent.smsAttributedRevenueCzk)}`, 'green'],
           ['Atribuované objednávky', Number(klaviyoCurrent.totalAttributedOrders || 0).toFixed(2), `email ${Number(klaviyoCurrent.emailAttributedOrders || 0).toFixed(2)} • sms ${Number(klaviyoCurrent.smsAttributedOrders || 0).toFixed(2)}`, 'blue'],
           ['Příjemci', DP.fmtNumber(Math.round(klaviyoCurrent.totalRecipients || 0)), `email ${DP.fmtNumber(Math.round(klaviyoCurrent.emailRecipients || 0))} • sms ${DP.fmtNumber(Math.round(klaviyoCurrent.smsRecipients || 0))}`, 'gold'],
