@@ -306,7 +306,7 @@
           conversions: Number(googleCurrent.conversions || 0),
           value: Number(googleCurrent.conversionValueCzk || 0),
           roas: googleCurrent.roas,
-          rows: activeBySource.google || [],
+          rows: (activeBySource.google || []).length ? (activeBySource.google || []) : (google.topCampaigns || []),
           daily: (google.dailySummary || []).map(row => ({
             date: normalizeDate(row.date),
             spend: Number(row.spendCzk || 0),

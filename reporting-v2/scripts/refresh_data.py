@@ -3544,8 +3544,8 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
         'source': (google_overview.get('source') or {}).get('status'),
         'accounts': google_overview.get('accounts') or [],
         'currentMonth': google_summary,
-        'campaignsCurrentMonth': google_overview.get('campaignsCurrentMonth') or [],
-        'topCampaigns': google_overview.get('topCampaignsCurrentMonth') or [],
+        'campaignsCurrentMonth': google_overview.get('campaignsCurrentMonth') or google_overview.get('topCampaignsCurrentMonth') or [],
+        'topCampaigns': google_overview.get('topCampaignsCurrentMonth') or google_overview.get('campaignsCurrentMonth') or [],
         'dailySummary': google_overview.get('dailySummary') or [],
     }
     klaviyo_overview = load_optional_current_json('klaviyo_overview.json') or {}
