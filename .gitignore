@@ -1,0 +1,14 @@
+# Local OpenClaw/runtime workspace files
+.openclaw/
+tmp/
+knowledge/cron_mozek_eshopu.log
+
+# Local preview/export workspaces
+portals/
+
+# Reporting V2 local environment and caches
+reporting-v2/.env.local
+reporting-v2/data/snapshots/
+reporting-v2/logs/
+reporting-v2/vendor_py/
+reporting-v2/scripts/__pycache__/
