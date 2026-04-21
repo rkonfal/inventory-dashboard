@@ -197,12 +197,14 @@
             </select>
           </label>
           <button class="ux-button secondary" id="export-planning-csv" type="button">Export CSV</button>
+          <button class="ux-button primary" id="export-planning-xlsx" type="button">Export XLSX</button>
         </div>
       </div>
       <div class="section-subtitle" id="planning-table-summary">Načítám doporučené položky…</div>
       <table class="table">
         <thead>
           <tr>
+            <th>Do exportu</th>
             <th>Produkt</th>
             <th>Priorita</th>
             <th>Zdroj / důvod</th>
@@ -212,11 +214,13 @@
             <th class="num">Ideál</th>
             <th class="num">Objednat po</th>
             <th class="num">Finální objednávka</th>
+            <th class="num">Export ks</th>
             <th>Typ zaokrouhlení</th>
           </tr>
         </thead>
         <tbody id="planning-table"></tbody>
       </table>
+      <div class="ux-date-note" id="planning-export-summary" style="margin-top:16px;">Připravuji export…</div>
     </section>
 
     <section class="card" style="margin-top:20px;">
@@ -278,6 +282,7 @@
     </section>
   </main>
 
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="assets/app.js"></script>
   <script>
     (() => {
@@ -429,11 +434,15 @@
       const planningVariants = document.getElementById('planning-variants');
       const planningTable = document.getElementById('planning-table');
       const planningTableSummary = document.getElementById('planning-table-summary');
+      const planningExportSummary = document.getElementById('planning-export-summary');
       const exportPlanningCsvButton = document.getElementById('export-planning-csv');
+      const exportPlanningXlsxButton = document.getElementById('export-planning-xlsx');
 
       let analytics = { items: [], summary: {} };
       let ordering = { summary: {}, alerts: [] };
       let orderingReference = { summary: {}, items: [] };
+      let currentPlanningRows = [];
+      const planningExportState = new Map();
 
       const capacityProfiles = {
         small: { label: 'menší doplnění', targetUnits: 1200, fillerShare: 0.15 },
@@ -577,6 +586,97 @@
         ]);
       }
 
+      function ensurePlanningExportState(rows) {
+        (rows || []).forEach(row => {
+          if (!row?.code) return;
+          const existing = planningExportState.get(row.code);
+          const fallbackQty = Math.max(0, Number(row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? 0));
+          if (!existing) {
+            planningExportState.set(row.code, {
+              selected: fallbackQty > 0,
+              quantity: fallbackQty,
+            });
+            return;
+          }
+          if (!(existing.quantity > 0) && fallbackQty > 0) {
+            existing.quantity = fallbackQty;
+          }
+        });
+      }
+
+      function getPlanningExportSelection(rows) {
+        ensurePlanningExportState(rows);
+        return (rows || []).map(row => {
+          const state = planningExportState.get(row.code) || { selected: false, quantity: 0 };
+          return {
+            ...row,
+            exportSelected: Boolean(state.selected),
+            exportQuantity: Math.max(0, Math.round(Number(state.quantity || 0))),
+          };
+        });
+      }
+
+      function renderPlanningExportSummary(rows) {
+        const selectedRows = getPlanningExportSelection(rows).filter(row => row.exportSelected && row.exportQuantity > 0);
+        const units = selectedRows.reduce((sum, row) => sum + (row.exportQuantity || 0), 0);
+        planningExportSummary.innerHTML = `<strong>XLSX export:</strong> vybráno ${fmt(selectedRows.length)} položek, celkem ${fmt(units)} ks. Kolegyně může libovolně odškrtnout položky a upravit exportované množství.`;
+      }
+
+      function exportPlanningXlsx(rows) {
+        if (!window.XLSX) {
+          planningExportSummary.innerHTML = '<strong>XLSX export:</strong> knihovna pro XLSX se nenačetla. Zkus prosím obnovit stránku, případně použij dočasně CSV export.';
+          return;
+        }
+
+        const selectedRows = getPlanningExportSelection(rows).filter(row => row.exportSelected && row.exportQuantity > 0);
+        if (!selectedRows.length) {
+          planningExportSummary.innerHTML = '<strong>XLSX export:</strong> není vybraná žádná položka. Zaškrtni aspoň jednu položku a zadej množství.';
+          return;
+        }
+
+        const data = selectedRows.map(row => {
+          const urgency = recommendationUrgency(row);
+          return {
+            Kód: row.code || '',
+            Produkt: row.title || '',
+            Priorita: urgency.label,
+            Zdroj: row.source || '',
+            Důvod: row.reason || '',
+            'Sklad ks': Number(row.effectiveStock || 0),
+            'Pokrytí 90d (dny)': row.daysOfCover90d == null ? '' : Number(one(row.daysOfCover90d).replace(',', '.')),
+            'Forecast 30': Number(row.forecast30 || 0),
+            'Forecast 60': Number(row.forecast60 || 0),
+            'Forecast 90': Number(row.forecast90 || 0),
+            'Safety ks': Number(row.safetyStockUnits || 0),
+            'Minimum ks': Number((row.roundedMinUnits ?? row.recommendedMinUnits) || 0),
+            'Ideál ks': Number((row.idealUnits ?? row.optimumUnits) || 0),
+            'Finální doporučení ks': Number((row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits) || 0),
+            'Export ks': Number(row.exportQuantity || 0),
+            'Krok objednání ks': Number(row.orderStepUnits || 1),
+            'Typ zaokrouhlení': row.roundingMode || '',
+            'Balení': row.packagingRaw || '',
+          };
+        });
+
+        const workbook = XLSX.utils.book_new();
+        const worksheet = XLSX.utils.json_to_sheet(data);
+        const range = XLSX.utils.decode_range(worksheet['!ref'] || 'A1');
+        worksheet['!autofilter'] = { ref: worksheet['!ref'] || 'A1' };
+        worksheet['!cols'] = [
+          { wch: 14 }, { wch: 42 }, { wch: 18 }, { wch: 18 }, { wch: 42 },
+          { wch: 12 }, { wch: 18 }, { wch: 12 }, { wch: 12 }, { wch: 12 },
+          { wch: 12 }, { wch: 12 }, { wch: 12 }, { wch: 18 }, { wch: 12 },
+          { wch: 14 }, { wch: 24 }, { wch: 18 },
+        ];
+        for (let col = range.s.c; col <= range.e.c; col += 1) {
+          const cellRef = XLSX.utils.encode_cell({ r: 0, c: col });
+          if (worksheet[cellRef]) worksheet[cellRef].s = { font: { bold: true } };
+        }
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Objednávka');
+        XLSX.writeFile(workbook, `ordering_recommendations_${new Date().toISOString().slice(0, 10)}.xlsx`);
+        planningExportSummary.innerHTML = `<strong>XLSX export:</strong> hotovo, exportoval jsem ${fmt(selectedRows.length)} položek a ${fmt(selectedRows.reduce((sum, row) => sum + (row.exportQuantity || 0), 0))} ks.`;
+      }
+
       function buildRecommendationRows() {
         const orderDate = parseDateInput(planningOrderDate.value) || new Date();
         const arrivalDate = parseDateInput(planningArrivalDate.value) || orderDate;
@@ -677,6 +777,8 @@
       function renderPlanningPayload(planning, leadDays, usePraha, profile) {
         const scenarios = planning.scenarios || [];
         const filteredRows = filterPlanningRows(planning.recommendationRows || []);
+        currentPlanningRows = filteredRows;
+        ensurePlanningExportState(filteredRows);
         planningSummary.innerHTML = `<strong>Simulace:</strong> lead time ${fmt(leadDays)} dní, kapacita ${profile.label}, pražská výpomoc ${usePraha ? 'zapnutá' : 'vypnutá'}. Varianty jsou spočítané z aktuálního odhadu prodeje a orientační hodnoty zásoby.`;
 
         planningVariants.innerHTML = scenarios.map(variant => `
@@ -697,8 +799,14 @@
         planningTableSummary.textContent = `Zobrazeno ${fmt(filteredRows.length)} položek z celkem ${fmt((planning.recommendationRows || []).length)} doporučených. Rozlišení: nutné objednat vs doporučené doplnění.`;
         planningTable.innerHTML = filteredRows.map(row => {
           const urgency = recommendationUrgency(row);
+          const exportState = planningExportState.get(row.code) || { selected: true, quantity: Math.max(0, Number(row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? 0)) };
           return `
           <tr>
+            <td>
+              <label style="display:flex; justify-content:center; align-items:center;">
+                <input type="checkbox" data-planning-export-select="${row.code}" ${exportState.selected ? 'checked' : ''} />
+              </label>
+            </td>
             <td>
               <div><strong>${row.code} · ${row.title}</strong></div>
               <div class="muted small" style="margin-top:6px;">Sklad ${fmt(row.effectiveStock)} ks · pokrytí ${cover(row.daysOfCover90d)} · trend ${pct(row.trend90v365Pct)}</div>
@@ -718,9 +826,11 @@
             <td class="num">${fmt((row.idealUnits ?? row.optimumUnits) || 0)} ks</td>
             <td class="num">${fmt(row.orderStepUnits || 1)} ks</td>
             <td class="num">${fmt((row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits) || 0)} ks</td>
+            <td class="num"><input class="input" type="number" min="0" step="1" inputmode="numeric" data-planning-export-qty="${row.code}" value="${Math.max(0, Number(exportState.quantity || 0))}" style="width:110px; text-align:right;" /></td>
             <td>${row.roundingMode || 'bez omezení'}</td>
           </tr>`;
-        }).join('') || '<tr><td colspan="10">Zatím bez doporučených položek.</td></tr>';
+        }).join('') || '<tr><td colspan="12">Zatím bez doporučených položek.</td></tr>';
+        renderPlanningExportSummary(filteredRows);
       }
 
       function renderPlanning() {
@@ -774,11 +884,19 @@
         }).join('');
 
         const visibleRows = filterPlanningRows(rows.slice(0, 120));
+        currentPlanningRows = visibleRows;
+        ensurePlanningExportState(visibleRows);
         planningTableSummary.textContent = `Zobrazeno ${fmt(visibleRows.length)} položek z celkem ${fmt(Math.min(rows.length, 120))} doporučených. Odhad vychází z tempa posledních 90 dní, delší historie a aktuálního trendu.`;
         planningTable.innerHTML = visibleRows.map(row => {
           const urgency = recommendationUrgency(row);
+          const exportState = planningExportState.get(row.code) || { selected: true, quantity: Math.max(0, Number(row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? 0)) };
           return `
           <tr>
+            <td>
+              <label style="display:flex; justify-content:center; align-items:center;">
+                <input type="checkbox" data-planning-export-select="${row.code}" ${exportState.selected ? 'checked' : ''} />
+              </label>
+            </td>
             <td>
               <div><strong>${row.code} · ${row.title}</strong></div>
               <div class="muted small" style="margin-top:6px;">Sklad ${fmt(row.effectiveStock)} ks · pokrytí ${cover(row.daysOfCover90d)} · trend ${pct(row.trend90v365Pct)}</div>
@@ -798,9 +916,11 @@
             <td class="num">${fmt((row.idealUnits ?? row.optimumUnits) || 0)} ks</td>
             <td class="num">${fmt(row.orderStepUnits || 1)} ks</td>
             <td class="num">${fmt((row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits) || 0)} ks</td>
+            <td class="num"><input class="input" type="number" min="0" step="1" inputmode="numeric" data-planning-export-qty="${row.code}" value="${Math.max(0, Number(exportState.quantity || 0))}" style="width:110px; text-align:right;" /></td>
             <td>${row.roundingMode || 'bez omezení'}</td>
           </tr>`;
-        }).join('') || '<tr><td colspan="10">Zatím bez doporučených položek.</td></tr>';
+        }).join('') || '<tr><td colspan="12">Zatím bez doporučených položek.</td></tr>';
+        renderPlanningExportSummary(visibleRows);
       }
 
       function renderShortTable(targetId, rows, mapper, emptyText, colspan) {
@@ -1007,6 +1127,23 @@
       planningCapacity.addEventListener('change', renderPlanning);
       planningPraha.addEventListener('change', renderPlanning);
       planningTypeFilter.addEventListener('change', renderPlanning);
+      planningTable.addEventListener('input', event => {
+        const qtyCode = event.target?.dataset?.planningExportQty;
+        if (!qtyCode) return;
+        const current = planningExportState.get(qtyCode) || { selected: true, quantity: 0 };
+        current.quantity = Math.max(0, Math.round(Number(event.target.value || 0)));
+        if (current.quantity > 0) current.selected = true;
+        planningExportState.set(qtyCode, current);
+        renderPlanningExportSummary(currentPlanningRows);
+      });
+      planningTable.addEventListener('change', event => {
+        const selectCode = event.target?.dataset?.planningExportSelect;
+        if (!selectCode) return;
+        const current = planningExportState.get(selectCode) || { selected: false, quantity: 0 };
+        current.selected = Boolean(event.target.checked);
+        planningExportState.set(selectCode, current);
+        renderPlanningExportSummary(currentPlanningRows);
+      });
       exportPlanningCsvButton.addEventListener('click', () => {
         const defaults = ordering.planning?.defaults || {};
         const selectedLeadDays = Math.max(1, daysBetween(parseDateInput(planningOrderDate.value) || new Date(), parseDateInput(planningArrivalDate.value) || new Date()));
@@ -1022,6 +1159,7 @@
         }
         exportPlanningRows(buildRecommendationRows().rows.slice(0, 120));
       });
+      exportPlanningXlsxButton.addEventListener('click', () => exportPlanningXlsx(currentPlanningRows));
     })();
   </script>
 </body>
