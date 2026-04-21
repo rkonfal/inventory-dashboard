@@ -1,0 +1,208 @@
+{
+  "generatedAt": "2026-04-21T11:15:07.888301+02:00",
+  "config": {
+    "warehouseCode": "CZPRGA",
+    "outboundMaxPages": 20,
+    "reportWindow": {
+      "from": "2026-04-20T00:00:01+02:00",
+      "to": "2026-04-21T00:00:00+02:00"
+    }
+  },
+  "warnings": [
+    "ABRA report Výkaz hospodaření za měsíc se nepodařilo stáhnout."
+  ],
+  "accounts": {
+    "cz": {
+      "label": "CZ",
+      "inventory": {
+        "items": 768,
+        "availableStockTotal": 296395,
+        "pendingStockTotal": 1162,
+        "freezeStockTotal": 0,
+        "lowStockItems": 100
+      },
+      "outbound": {
+        "items": 500,
+        "scannedPages": 5,
+        "topLogisticsProduct": "F1401",
+        "oldestTimestamp": "2026-04-19T20:20:05+02:00",
+        "newestTimestamp": "2026-04-21T11:13:45+02:00"
+      }
+    },
+    "sk": {
+      "label": "SK",
+      "inventory": {
+        "items": 621,
+        "availableStockTotal": 69755,
+        "pendingStockTotal": 26,
+        "freezeStockTotal": 0,
+        "lowStockItems": 100
+      },
+      "outbound": {
+        "items": 100,
+        "scannedPages": 1,
+        "topLogisticsProduct": "F1403",
+        "oldestTimestamp": "2026-04-17T06:00:38+02:00",
+        "newestTimestamp": "2026-04-21T10:53:48+02:00"
+      }
+    }
+  },
+  "wpJ": {
+    "ready": true,
+    "message": "WPJ připojeno a ranní report je vygenerovaný.",
+    "orders": 405,
+    "revenueWithVat": 673375.3,
+    "averageOrderValue": 1662.66,
+    "problematicOrders": 3
+  },
+  "report": {
+    "date": "2026-04-20",
+    "shipments": 342,
+    "alerts": [
+      "3 problematických nebo stornovaných objednávek.",
+      "5 včera prodaných produktů je teď na nízkém skladu.",
+      "10 skladových pozic je v mínusu."
+    ],
+    "priorities": [
+      "Dohlédnout BIOANALYZA001 (BIOREZONANČNÍ ANALÝZA ENERGETICKÉHO STAVU + Následná HARMONIZACE ENERGETICKÉHO STAVU vč. nahrání čip), aktuálně 0 ks.",
+      "Dohlédnout BIOANALYZA012 (Kouření - záloha), aktuálně 0 ks.",
+      "Projít 3 problematických nebo stornovaných objednávek z včerejška.",
+      "Projít nejbližší expirace v 4PX a rozhodnout o doprodeji nebo přesunu zásoby."
+    ]
+  },
+  "expiries": {
+    "datedSkuCount": 615,
+    "czSkuCount": 316,
+    "skSkuCount": 299
+  },
+  "pairing": {
+    "allCodes": 2905,
+    "pairedProducts": 390,
+    "onlyInWpj": 1449,
+    "onlyIn4px": 1,
+    "stockMismatch": 698,
+    "lowAfterSales": 8,
+    "manualMapped4pxAliases": 0,
+    "autoMapped4pxAliases": 73
+  },
+  "finance": {
+    "ready": true,
+    "mode": "mixed_live_legacy",
+    "message": "Závazky z přijatých faktur jsou tahány živě z ABRA API. Měsíční P&L zatím zůstává na legacy snapshotu.",
+    "currentMonth": {
+      "label": "3/2026",
+      "revenue": 16130000,
+      "cogsAndFees": 11566057.87,
+      "logistics": 100848.43,
+      "marketing": 245438.02,
+      "opex": 1019389.35,
+      "depreciation": 385502.0,
+      "other": -1175388.08,
+      "grossMargin": 4563942.13,
+      "afterLogistics": 4463093.7,
+      "afterMarketing": 4217655.68,
+      "operatingMargin": 3198266.33,
+      "ebit": 2812764.33,
+      "profit": 1637376.25,
+      "grossMarginPct": 28.3,
+      "marketingPct": 1.5,
+      "logisticsPct": 0.6,
+      "operatingMarginPct": 19.8,
+      "profitPct": 10.2
+    },
+    "cash": {
+      "cashOnAccounts": 10255308.0,
+      "unpaidInvoices": 2385880.41,
+      "netCashPosition": 8675748.0,
+      "overdueInvoicesCount": 0,
+      "overdueInvoicesAmount": 0.0,
+      "largestPayables": [
+        {
+          "code": "PF0478/2026",
+          "vendor": "ISTA CORPORATION s.r.o.",
+          "dueDate": "24.04.2026",
+          "amountTotal": 777797.95,
+          "amountDue": 777797.95,
+          "status": "3 dní do splatnosti"
+        },
+        {
+          "code": "PF0412/2026",
+          "vendor": "4PX Express CZ",
+          "dueDate": "30.04.2026",
+          "amountTotal": 706144.53,
+          "amountDue": 706144.53,
+          "status": "9 dní do splatnosti"
+        },
+        {
+          "code": "PF0446/2026",
+          "vendor": "Česká pošta, s.p., Odštěpný závod Balíkové služby",
+          "dueDate": "24.04.2026",
+          "amountTotal": 558253.85,
+          "amountDue": 558253.85,
+          "status": "3 dní do splatnosti"
+        },
+        {
+          "code": "PF0477/2026",
+          "vendor": "ISTA CORPORATION s.r.o.",
+          "dueDate": "24.04.2026",
+          "amountTotal": 110825.34,
+          "amountDue": 110825.34,
+          "status": "3 dní do splatnosti"
+        },
+        {
+          "code": "Z0030/2026",
+          "vendor": "Effectix.com, s.r.o.",
+          "dueDate": "26.04.2026",
+          "amountTotal": 97284.0,
+          "amountDue": 97284.0,
+          "status": "5 dní do splatnosti"
+        },
+        {
+          "code": "PF0429/2026",
+          "vendor": "coworkers.ai s.r.o.",
+          "dueDate": "30.04.2026",
+          "amountTotal": 43560.0,
+          "amountDue": 43560.0,
+          "status": "9 dní do splatnosti"
+        },
+        {
+          "code": "PF0413/2026",
+          "vendor": "4PX Express CZ",
+          "dueDate": "30.04.2026",
+          "amountTotal": 27981.25,
+          "amountDue": 27981.25,
+          "status": "9 dní do splatnosti"
+        },
+        {
+          "code": "Z0033/2026",
+          "vendor": "ORLEN Unipetrol RPA s.r.o.",
+          "dueDate": "29.04.2026",
+          "amountTotal": 20625.3,
+          "amountDue": 20625.3,
+          "status": "8 dní do splatnosti"
+        }
+      ]
+    },
+    "reportExport": {
+      "status": "error",
+      "message": "ABRA report Výkaz hospodaření za měsíc se nepodařilo stáhnout (module 'xlrd' has no attribute 'open_workbook')."
+    }
+  },
+  "marketing": {
+    "ready": true,
+    "mode": "legacy_snapshot",
+    "message": "Zatím čerpáno z posledního dostupného ABRA Flexi výřezu v původním dashboardu, ne z živého API.",
+    "currentMonth": {
+      "label": "3/2026",
+      "performanceSpend": 7438.02,
+      "brandSpend": 238000.0,
+      "totalSpend": 245438.02,
+      "revenue": 16130000,
+      "spendShareOfRevenuePct": 1.5
+    },
+    "topSupplier": {
+      "name": "Selfcareacademy s.r.o.",
+      "amount": 155355.37
+    }
+  }
+}

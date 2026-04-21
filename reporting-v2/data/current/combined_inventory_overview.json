@@ -1,0 +1,7108 @@
+{
+  "generatedAt": "2026-04-21T11:15:07.888301+02:00",
+  "window": {
+    "from": "2026-04-20T00:00:01+02:00",
+    "to": "2026-04-21T00:00:00+02:00"
+  },
+  "counts": {
+    "allCodes": 2905,
+    "pairedProducts": 390,
+    "onlyInWpj": 1449,
+    "onlyIn4px": 1,
+    "stockMismatch": 698,
+    "lowAfterSales": 8,
+    "manualMapped4pxAliases": 0,
+    "autoMapped4pxAliases": 73
+  },
+  "priorityShortlist": [
+    {
+      "code": "DP2000",
+      "title": "Dárkový poukaz 2000 Kč",
+      "priority": "critical",
+      "score": 70.5,
+      "reasons": [
+        "včera se prodalo 1 ks",
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "po včerejším prodeji je na nízkém skladu",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 1000.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 1000.0,
+      "yesterdaySalesUnits": 1.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch",
+        "low_after_sales"
+      ]
+    },
+    {
+      "code": "VSTUP200526",
+      "title": "Margit Slimáková v Praze",
+      "priority": "high",
+      "score": 62.0,
+      "reasons": [
+        "včera se prodalo 6 ks",
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "po včerejším prodeji je na nízkém skladu",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 200.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 200.0,
+      "yesterdaySalesUnits": 6.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch",
+        "low_after_sales"
+      ]
+    },
+    {
+      "code": "CU462",
+      "title": "Omlazující duo pro unavenou pleť",
+      "priority": "high",
+      "score": 60,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 2192.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 2192.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "CZ385",
+      "title": "Křišťálová kolagenová maska 1=2",
+      "priority": "high",
+      "score": 60,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 3073.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 3073.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "GD574",
+      "title": "Regenerační SPA balíček pro dokonalé ruce a nohy",
+      "priority": "high",
+      "score": 60,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 2872.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 2872.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "KE276",
+      "title": "Hadřík na nádobí, 1 ks (EcoDeViva)",
+      "priority": "high",
+      "score": 60,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 2445.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 2445.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "LZ772",
+      "title": "Hydratační pleťová PGA-maska s pivoňkou a pupečníkem asijským",
+      "priority": "high",
+      "score": 60,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 2188.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 2188.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "MZ984",
+      "title": "Luxusní péče pro hedvábně jemné ruce",
+      "priority": "high",
+      "score": 60,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 2177.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 2177.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "PW005",
+      "title": "Dvojitá hydratační síla PGA-masek pro dokonalou pleť 1+1",
+      "priority": "high",
+      "score": 60,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 2188.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 2188.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "TW154",
+      "title": "Péče o ruce s hadím tukem",
+      "priority": "high",
+      "score": 60,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 2177.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 2177.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "TW935",
+      "title": "Kompletní péče o ruce a nohy s hadím olejem",
+      "priority": "high",
+      "score": 60,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 2670.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 2670.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "UX966",
+      "title": "Pleťová beuty maska s granátovým jablkem v akci 1+1",
+      "priority": "high",
+      "score": 60,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 2239.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 2239.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "10102",
+      "title": "Regenerační sérum v kapslích na pokožku kolem očí",
+      "priority": "high",
+      "score": 58.0,
+      "reasons": [
+        "včera se prodalo 122 ks",
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "po včerejším prodeji je na nízkém skladu",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 0.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 0.0,
+      "yesterdaySalesUnits": 122.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "low_after_sales"
+      ]
+    },
+    {
+      "code": "UL375",
+      "title": "Nápoj s extraktem z pomerančovníku a šťávou z malin 1+1",
+      "priority": "high",
+      "score": 56.56,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 1828.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 1828.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "DB290",
+      "title": "Přírodní rovnováha pro aktivní ženu – rozchodnice, bylinné vložky a fytonáplast tianDe",
+      "priority": "high",
+      "score": 55.94,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 1797.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 1797.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "52901",
+      "title": "Intenzivní hydratační maska na obličej a krk Hyaluronová kyselina",
+      "priority": "high",
+      "score": 53.78,
+      "reasons": [
+        "včera se prodalo 1 ks",
+        "včera se expedovalo 1 ks"
+      ],
+      "recommendedAction": "Prověřit rozdíl mezi WPJ store stavem a 4PX inventory pull em.",
+      "wpj4pxStock": 834.0,
+      "fourpxAvailable": 1708.0,
+      "stockDelta": -874.0,
+      "yesterdaySalesUnits": 1.0,
+      "yesterdayOutboundUnits": 1.0,
+      "flags": [
+        "stock_mismatch",
+        "auto_mapped_4px_alias"
+      ]
+    },
+    {
+      "code": "BIOANALYZA012",
+      "title": "Kouření - záloha",
+      "priority": "high",
+      "score": 53.0,
+      "reasons": [
+        "včera se prodalo 2 ks",
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "po včerejším prodeji je na nízkém skladu",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 0.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 0.0,
+      "yesterdaySalesUnits": 2.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "low_after_sales"
+      ]
+    },
+    {
+      "code": "DZ077",
+      "title": "Péče o nohy s hadím tukem",
+      "priority": "high",
+      "score": 52.88,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 1644.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 1644.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "OB737",
+      "title": "Balíček pro hebké nohy i ruce",
+      "priority": "high",
+      "score": 52.88,
+      "reasons": [
+        "WPJ ukazuje 4PX kontext, ale 4PX inventory nesedí",
+        "4PX available je nula"
+      ],
+      "recommendedAction": "Zkontrolovat, jestli WPJ 4PX store stav není historický nebo špatně mapovaný.",
+      "wpj4pxStock": 1644.0,
+      "fourpxAvailable": 0.0,
+      "stockDelta": 1644.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "61912",
+      "title": "Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
+      "priority": "high",
+      "score": 52.6,
+      "reasons": [
+        "včera se prodalo 109 ks",
+        "včera se expedovalo 100 ks"
+      ],
+      "recommendedAction": "Prověřit rozdíl mezi WPJ store stavem a 4PX inventory pull em.",
+      "wpj4pxStock": 319.0,
+      "fourpxAvailable": 349.0,
+      "stockDelta": -30.0,
+      "yesterdaySalesUnits": 109.0,
+      "yesterdayOutboundUnits": 100.0,
+      "flags": [
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "60145",
+      "title": "Denní hygienická vložka „Jemná péče“",
+      "priority": "high",
+      "score": 52.4,
+      "reasons": [
+        "včera se prodalo 20 ks",
+        "včera se expedovalo 21 ks"
+      ],
+      "recommendedAction": "Prověřit rozdíl mezi WPJ store stavem a 4PX inventory pull em.",
+      "wpj4pxStock": 5749.0,
+      "fourpxAvailable": 5769.0,
+      "stockDelta": -20.0,
+      "yesterdaySalesUnits": 20.0,
+      "yesterdayOutboundUnits": 21.0,
+      "flags": [
+        "stock_mismatch",
+        "auto_mapped_4px_alias"
+      ]
+    },
+    {
+      "code": "61901",
+      "title": "Denní vložky s fytomembránou „Energie bylin“",
+      "priority": "high",
+      "score": 52.4,
+      "reasons": [
+        "včera se prodalo 35 ks",
+        "včera se expedovalo 41 ks"
+      ],
+      "recommendedAction": "Prověřit rozdíl mezi WPJ store stavem a 4PX inventory pull em.",
+      "wpj4pxStock": 737.0,
+      "fourpxAvailable": 757.0,
+      "stockDelta": -20.0,
+      "yesterdaySalesUnits": 35.0,
+      "yesterdayOutboundUnits": 41.0,
+      "flags": [
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "61911",
+      "title": "Denní vložky s extraktem aloe Nefritová svěžest",
+      "priority": "high",
+      "score": 52.4,
+      "reasons": [
+        "včera se prodalo 76 ks",
+        "včera se expedovalo 68 ks"
+      ],
+      "recommendedAction": "Prověřit rozdíl mezi WPJ store stavem a 4PX inventory pull em.",
+      "wpj4pxStock": 733.0,
+      "fourpxAvailable": 753.0,
+      "stockDelta": -20.0,
+      "yesterdaySalesUnits": 76.0,
+      "yesterdayOutboundUnits": 68.0,
+      "flags": [
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "61914",
+      "title": "Dámské bylinné slipové vložky Nefritová svěžest",
+      "priority": "high",
+      "score": 52.4,
+      "reasons": [
+        "včera se prodalo 58 ks",
+        "včera se expedovalo 56 ks"
+      ],
+      "recommendedAction": "Prověřit rozdíl mezi WPJ store stavem a 4PX inventory pull em.",
+      "wpj4pxStock": 374.0,
+      "fourpxAvailable": 394.0,
+      "stockDelta": -20.0,
+      "yesterdaySalesUnits": 58.0,
+      "yesterdayOutboundUnits": 56.0,
+      "flags": [
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "61915",
+      "title": "Dámské bylinné slipové vložky s anionty Nefritová svěžest",
+      "priority": "high",
+      "score": 52.4,
+      "reasons": [
+        "včera se prodalo 66 ks",
+        "včera se expedovalo 125 ks"
+      ],
+      "recommendedAction": "Prověřit rozdíl mezi WPJ store stavem a 4PX inventory pull em.",
+      "wpj4pxStock": 306.0,
+      "fourpxAvailable": 326.0,
+      "stockDelta": -20.0,
+      "yesterdaySalesUnits": 66.0,
+      "yesterdayOutboundUnits": 125.0,
+      "flags": [
+        "stock_mismatch"
+      ]
+    }
+  ],
+  "mappingSuggestions": [
+    {
+      "orphanCode": "63601/01",
+      "orphanTitle": "Denní vložka Energie života",
+      "suggestedWpjCode": "63601",
+      "suggestedWpjTitle": "Denní vložka Energie života",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 12106.0,
+      "yesterdaySalesUnits": 74.0,
+      "yesterdayOutboundUnits": 75.0
+    },
+    {
+      "orphanCode": "63601/05",
+      "orphanTitle": "Denní vložka Energie života",
+      "suggestedWpjCode": "63601",
+      "suggestedWpjTitle": "Denní vložka Energie života",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 12106.0,
+      "yesterdaySalesUnits": 74.0,
+      "yesterdayOutboundUnits": 75.0
+    },
+    {
+      "orphanCode": "63601/08",
+      "orphanTitle": "Denní vložka Energie života",
+      "suggestedWpjCode": "63601",
+      "suggestedWpjTitle": "Denní vložka Energie života",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 12106.0,
+      "yesterdaySalesUnits": 74.0,
+      "yesterdayOutboundUnits": 75.0
+    },
+    {
+      "orphanCode": "63601/10",
+      "orphanTitle": "Denní vložka Energie života",
+      "suggestedWpjCode": "63601",
+      "suggestedWpjTitle": "Denní vložka Energie života",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 12106.0,
+      "yesterdaySalesUnits": 74.0,
+      "yesterdayOutboundUnits": 75.0
+    },
+    {
+      "orphanCode": "60145/01",
+      "orphanTitle": "Denní hygienická vložka „Jemná péče“",
+      "suggestedWpjCode": "60145",
+      "suggestedWpjTitle": "Denní hygienická vložka „Jemná péče“",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 5769.0,
+      "yesterdaySalesUnits": 20.0,
+      "yesterdayOutboundUnits": 21.0
+    },
+    {
+      "orphanCode": "60145/05",
+      "orphanTitle": "Denní hygienická vložka „Jemná péče“",
+      "suggestedWpjCode": "60145",
+      "suggestedWpjTitle": "Denní hygienická vložka „Jemná péče“",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 5769.0,
+      "yesterdaySalesUnits": 20.0,
+      "yesterdayOutboundUnits": 21.0
+    },
+    {
+      "orphanCode": "60145/10",
+      "orphanTitle": "Denní hygienická vložka „Jemná péče“",
+      "suggestedWpjCode": "60145",
+      "suggestedWpjTitle": "Denní hygienická vložka „Jemná péče“",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 5769.0,
+      "yesterdaySalesUnits": 20.0,
+      "yesterdayOutboundUnits": 21.0
+    },
+    {
+      "orphanCode": "52901/03",
+      "orphanTitle": "Intenzivní hydratační maska na obličej a krk Hyaluronová kyselina",
+      "suggestedWpjCode": "52901",
+      "suggestedWpjTitle": "Intenzivní hydratační maska na obličej a krk Hyaluronová kyselina",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 1708.0,
+      "yesterdaySalesUnits": 1.0,
+      "yesterdayOutboundUnits": 1.0
+    },
+    {
+      "orphanCode": "80408/01",
+      "orphanTitle": "Rtěnka",
+      "suggestedWpjCode": "80408",
+      "suggestedWpjTitle": "Rtěnka",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80408/03",
+      "orphanTitle": "Rtěnka",
+      "suggestedWpjCode": "80408",
+      "suggestedWpjTitle": "Rtěnka",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80408/04",
+      "orphanTitle": "Rtěnka",
+      "suggestedWpjCode": "80408",
+      "suggestedWpjTitle": "Rtěnka",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80408/05",
+      "orphanTitle": "Rtěnka",
+      "suggestedWpjCode": "80408",
+      "suggestedWpjTitle": "Rtěnka",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80408/06",
+      "orphanTitle": "Rtěnka",
+      "suggestedWpjCode": "80408",
+      "suggestedWpjTitle": "Rtěnka",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80408/07",
+      "orphanTitle": "Rtěnka",
+      "suggestedWpjCode": "80408",
+      "suggestedWpjTitle": "Rtěnka",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80409/08",
+      "orphanTitle": "Rtěnka",
+      "suggestedWpjCode": "80409",
+      "suggestedWpjTitle": "Rtěnka",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80409/09",
+      "orphanTitle": "Rtěnka",
+      "suggestedWpjCode": "80409",
+      "suggestedWpjTitle": "Rtěnka",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80409/10",
+      "orphanTitle": "Rtěnka",
+      "suggestedWpjCode": "80409",
+      "suggestedWpjTitle": "Rtěnka",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80409/11",
+      "orphanTitle": "Rtěnka",
+      "suggestedWpjCode": "80409",
+      "suggestedWpjTitle": "Rtěnka",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80409/12",
+      "orphanTitle": "Rtěnka",
+      "suggestedWpjCode": "80409",
+      "suggestedWpjTitle": "Rtěnka",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80409/13",
+      "orphanTitle": "Rtěnka",
+      "suggestedWpjCode": "80409",
+      "suggestedWpjTitle": "Rtěnka",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80409/14",
+      "orphanTitle": "Rtěnka",
+      "suggestedWpjCode": "80409",
+      "suggestedWpjTitle": "Rtěnka",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80909/00",
+      "orphanTitle": "DD Tonální korekční přípravek Cushion",
+      "suggestedWpjCode": "80909",
+      "suggestedWpjTitle": "DD Tonální korekční přípravek Cushion",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80909/01",
+      "orphanTitle": "DD Tonální korekční přípravek Cushion",
+      "suggestedWpjCode": "80909",
+      "suggestedWpjTitle": "DD Tonální korekční přípravek Cushion",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80919/01",
+      "orphanTitle": "Tužka na oči a obočí",
+      "suggestedWpjCode": "80919",
+      "suggestedWpjTitle": "Tužka na oči a obočí",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "80919/02",
+      "orphanTitle": "Tužka na oči a obočí",
+      "suggestedWpjCode": "80919",
+      "suggestedWpjTitle": "Tužka na oči a obočí",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "87009/01",
+      "orphanTitle": "Tónující BB základ na obličej",
+      "suggestedWpjCode": "87009",
+      "suggestedWpjTitle": "Tónující BB základ na obličej",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "87009/02",
+      "orphanTitle": "Tónující BB základ na obličej",
+      "suggestedWpjCode": "87009",
+      "suggestedWpjTitle": "Tónující BB základ na obličej",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "87009/03",
+      "orphanTitle": "Tónující BB základ na obličej",
+      "suggestedWpjCode": "87009",
+      "suggestedWpjTitle": "Tónující BB základ na obličej",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    },
+    {
+      "orphanCode": "87009/04",
+      "orphanTitle": "Tónující BB základ na obličej",
+      "suggestedWpjCode": "87009",
+      "suggestedWpjTitle": "Tónující BB základ na obličej",
+      "confidence": "high",
+      "rule": "strip_/variant_suffix",
+      "applied": true,
+      "fourpxAvailable": 0.0,
+      "yesterdaySalesUnits": 0.0,
+      "yesterdayOutboundUnits": 0.0
+    }
+  ],
+  "manualMappedAliases": 0,
+  "autoMappedAliases": 73,
+  "lowAfterSales": [
+    {
+      "code": "10102",
+      "title": "Regenerační sérum v kapslích na pokožku kolem očí",
+      "ean": "6951951266882",
+      "url": "https://www.kralovstvi-tiande.cz/regeneracni-serum-v-kapslich-na-pokozku-kolem-oci_z232/",
+      "visible": true,
+      "wpj": {
+        "inStore": 1369.0,
+        "fourpxStoreTotal": 0.0,
+        "priceWithVat": 702.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 1500.0
+          },
+          {
+            "storeId": 9,
+            "storeName": "Fiktivní SK",
+            "inStore": 300.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 0.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "10102",
+          "sourceCodes": [
+            "10102"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001040951"
+          ],
+          "batchNos": [],
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "10102",
+          "sourceCodes": [
+            "10102"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001037122"
+          ],
+          "batchNos": [],
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [
+          "10102"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 122.0,
+        "revenueWithVat": 56919.23,
+        "sourceCodes": [
+          "10102"
+        ],
+        "czUnits": 110.0,
+        "skUnits": 12.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 122.0,
+            "revenueWithVat": 56919.23
+          },
+          "cz": {
+            "units": 110.0,
+            "revenueWithVat": 50898.0
+          },
+          "sk": {
+            "units": 12.0,
+            "revenueWithVat": 6021.23
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "low_after_sales"
+      ]
+    },
+    {
+      "code": "VSTUP200526",
+      "title": "Margit Slimáková v Praze",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/margit-slimakova-v-praze_z8272/",
+      "visible": true,
+      "wpj": {
+        "inStore": 198.0,
+        "fourpxStoreTotal": 200.0,
+        "priceWithVat": 790.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 200.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 6.0,
+        "revenueWithVat": 4740.0,
+        "sourceCodes": [
+          "VSTUP200526"
+        ],
+        "czUnits": 6.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 6.0,
+            "revenueWithVat": 4740.0
+          },
+          "cz": {
+            "units": 6.0,
+            "revenueWithVat": 4740.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 200.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch",
+        "low_after_sales"
+      ]
+    },
+    {
+      "code": "BIOANALYZA012",
+      "title": "Kouření - záloha",
+      "ean": "5555555554229",
+      "url": "https://www.kralovstvi-tiande.cz/koureni-zaloha_z7774/",
+      "visible": true,
+      "wpj": {
+        "inStore": 0.0,
+        "fourpxStoreTotal": 0.0,
+        "priceWithVat": 1500.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": -20.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 2.0,
+        "revenueWithVat": 3000.0,
+        "sourceCodes": [
+          "BIOANALYZA012"
+        ],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 2.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 2.0,
+            "revenueWithVat": 3000.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 2.0,
+            "revenueWithVat": 3000.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "low_after_sales"
+      ]
+    },
+    {
+      "code": "BIOANALYZA001",
+      "title": "BIOREZONANČNÍ ANALÝZA ENERGETICKÉHO STAVU + Následná HARMONIZACE ENERGETICKÉHO STAVU vč. nahrání čip",
+      "ean": "5555555554266",
+      "url": "https://www.kralovstvi-tiande.cz/biorezonancni-analyza-energetickeho-stavu-nasledna-harmonizace-energetickeho-stavu-vc-nahrani-cip_z7763/",
+      "visible": true,
+      "wpj": {
+        "inStore": 0.0,
+        "fourpxStoreTotal": 0.0,
+        "priceWithVat": 3200.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": -16.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 1.0,
+        "revenueWithVat": 3200.0,
+        "sourceCodes": [
+          "BIOANALYZA001"
+        ],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 1.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 1.0,
+            "revenueWithVat": 3200.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 1.0,
+            "revenueWithVat": 3200.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "low_after_sales"
+      ]
+    },
+    {
+      "code": "DP2000",
+      "title": "Dárkový poukaz 2000 Kč",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/darkovy-poukaz-2000-kc_z6624/",
+      "visible": true,
+      "wpj": {
+        "inStore": 1000.0,
+        "fourpxStoreTotal": 1000.0,
+        "priceWithVat": 2000.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1000.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 3.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 1.0,
+        "revenueWithVat": 2000.0,
+        "sourceCodes": [
+          "DP2000"
+        ],
+        "czUnits": 1.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 1.0,
+            "revenueWithVat": 2000.0
+          },
+          "cz": {
+            "units": 1.0,
+            "revenueWithVat": 2000.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 1000.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch",
+        "low_after_sales"
+      ]
+    },
+    {
+      "code": "101491",
+      "title": "Katalog tianDe 2026",
+      "ean": "0745604816786",
+      "url": "https://www.kralovstvi-tiande.cz/katalog-tiande-2026_z8302/",
+      "visible": true,
+      "wpj": {
+        "inStore": 0.0,
+        "fourpxStoreTotal": 3.0,
+        "priceWithVat": 35.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 3.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 50.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 50.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "101491",
+          "sourceCodes": [
+            "101491"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922002584936"
+          ],
+          "batchNos": [],
+          "availableStock": 3.0,
+          "pendingStock": 1.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "101491",
+          "sourceCodes": [
+            "101491"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922002584938"
+          ],
+          "batchNos": [],
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 3.0,
+        "sourceCodes": [
+          "101491"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 3.0,
+        "revenueWithVat": 105.0,
+        "sourceCodes": [
+          "101491"
+        ],
+        "czUnits": 3.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 3.0,
+            "revenueWithVat": 105.0
+          },
+          "cz": {
+            "units": 3.0,
+            "revenueWithVat": 105.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 7.0,
+        "skUnits": 0.0,
+        "shipments": 5,
+        "sourceCodes": [
+          "101491"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": [
+        "low_after_sales"
+      ]
+    },
+    {
+      "code": "45915-1",
+      "title": "Emulze na nohy Lesní talisman",
+      "ean": "4813409003024",
+      "url": "https://www.kralovstvi-tiande.cz/emulze-na-nohy-lesni-talisman_z7137/",
+      "visible": true,
+      "wpj": {
+        "inStore": 0.0,
+        "fourpxStoreTotal": 3.0,
+        "priceWithVat": 407.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 3.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 14.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 14.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "45915-1",
+          "sourceCodes": [
+            "45915-1"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001439462"
+          ],
+          "batchNos": [],
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "45915-1",
+          "sourceCodes": [
+            "45915-1"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001439466"
+          ],
+          "batchNos": [],
+          "availableStock": 3.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 3.0,
+        "sourceCodes": [
+          "45915-1"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 2.0,
+        "revenueWithVat": 580.86,
+        "sourceCodes": [
+          "45915-1"
+        ],
+        "czUnits": 0.0,
+        "skUnits": 2.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 2.0,
+            "revenueWithVat": 580.86
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 2.0,
+            "revenueWithVat": 580.86
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 1.0,
+        "shipments": 1,
+        "sourceCodes": [
+          "45915-1"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": [
+        "low_after_sales"
+      ]
+    },
+    {
+      "code": "40120",
+      "title": "Pečující krém na popraskané paty",
+      "ean": "6924444233036",
+      "url": "https://www.kralovstvi-tiande.cz/pecujici-krem-na-popraskane-paty_z80/",
+      "visible": true,
+      "wpj": {
+        "inStore": 1.0,
+        "fourpxStoreTotal": 9.0,
+        "priceWithVat": 256.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 4.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 5.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 9,
+            "storeName": "Fiktivní SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 6.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 7.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "40120",
+          "sourceCodes": [
+            "40120"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001040818"
+          ],
+          "batchNos": [],
+          "availableStock": 4.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "40120",
+          "sourceCodes": [
+            "40120"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001036990"
+          ],
+          "batchNos": [],
+          "availableStock": 5.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 9.0,
+        "sourceCodes": [
+          "40120"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 3.0,
+        "revenueWithVat": 498.0,
+        "sourceCodes": [
+          "40120"
+        ],
+        "czUnits": 3.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 3.0,
+            "revenueWithVat": 498.0
+          },
+          "cz": {
+            "units": 3.0,
+            "revenueWithVat": 498.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 3.0,
+        "skUnits": 0.0,
+        "shipments": 2,
+        "sourceCodes": [
+          "40120"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": [
+        "low_after_sales"
+      ]
+    }
+  ],
+  "stockMismatches": [
+    {
+      "code": "CZ385",
+      "title": "Křišťálová kolagenová maska 1=2",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/kristalova-kolagenova-maska-1-2_z7214/",
+      "visible": false,
+      "wpj": {
+        "inStore": 2606.0,
+        "fourpxStoreTotal": 3073.0,
+        "priceWithVat": 108.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 2606.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 467.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 9,
+            "storeName": "Fiktivní SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 37.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 3073.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "GD574",
+      "title": "Regenerační SPA balíček pro dokonalé ruce a nohy",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/regeneracni-spa-balicek-pro-dokonale-ruce-a-nohy_z8275/",
+      "visible": true,
+      "wpj": {
+        "inStore": 2564.0,
+        "fourpxStoreTotal": 2872.0,
+        "priceWithVat": 162.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 2564.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 308.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 10.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 9.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 2872.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "TW935",
+      "title": "Kompletní péče o ruce a nohy s hadím olejem",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/kompletni-pece-o-ruce-a-nohy-s-hadim-olejem_z8274/",
+      "visible": true,
+      "wpj": {
+        "inStore": 2362.0,
+        "fourpxStoreTotal": 2670.0,
+        "priceWithVat": 162.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 2362.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 308.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 9.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 2670.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "KE276",
+      "title": "Hadřík na nádobí, 1 ks (EcoDeViva)",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/hadrik-na-nadobi-1-ks-ecodeviva_z8162/",
+      "visible": false,
+      "wpj": {
+        "inStore": 2260.0,
+        "fourpxStoreTotal": 2445.0,
+        "priceWithVat": 143.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 2260.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 185.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 6.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 14.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 2445.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "UX966",
+      "title": "Pleťová beuty maska s granátovým jablkem v akci 1+1",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/pletova-beuty-maska-s-granatovym-jablkem-v-akci-1-1_z8371/",
+      "visible": true,
+      "wpj": {
+        "inStore": 2062.0,
+        "fourpxStoreTotal": 2239.0,
+        "priceWithVat": 70.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 2062.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 177.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 2.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 0.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 2239.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "CU462",
+      "title": "Omlazující duo pro unavenou pleť",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/omlazujici-duo-pro-unavenou-plet_z8028/",
+      "visible": false,
+      "wpj": {
+        "inStore": 2062.0,
+        "fourpxStoreTotal": 2192.0,
+        "priceWithVat": 105.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 2062.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 130.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 2.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 0.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 2192.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "LZ772",
+      "title": "Hydratační pleťová PGA-maska s pivoňkou a pupečníkem asijským",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/hydratacni-pletova-pga-maska-s-pivonkou-a-pupecnikem-asijskym_z8149/",
+      "visible": false,
+      "wpj": {
+        "inStore": 1900.0,
+        "fourpxStoreTotal": 2188.0,
+        "priceWithVat": 61.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1900.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 288.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 10.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 17.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 2188.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "PW005",
+      "title": "Dvojitá hydratační síla PGA-masek pro dokonalou pleť 1+1",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/dvojita-hydratacni-sila-pga-masek-pro-dokonalou-plet-1-1_z8129/",
+      "visible": false,
+      "wpj": {
+        "inStore": 1900.0,
+        "fourpxStoreTotal": 2188.0,
+        "priceWithVat": 88.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1900.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 288.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 10.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 17.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 2188.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "MZ984",
+      "title": "Luxusní péče pro hedvábně jemné ruce",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/luxusni-pece-pro-hedvabne-jemne-ruce_z8070/",
+      "visible": false,
+      "wpj": {
+        "inStore": 1888.0,
+        "fourpxStoreTotal": 2177.0,
+        "priceWithVat": 177.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1888.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 289.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 1.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 9.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 2177.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "TW154",
+      "title": "Péče o ruce s hadím tukem",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/pece-o-ruce-s-hadim-tukem_z6776/",
+      "visible": false,
+      "wpj": {
+        "inStore": 1888.0,
+        "fourpxStoreTotal": 2177.0,
+        "priceWithVat": 162.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1888.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 289.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 9,
+            "storeName": "Fiktivní SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 10.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 2177.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "UL375",
+      "title": "Nápoj s extraktem z pomerančovníku a šťávou z malin 1+1",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/napoj-s-extraktem-z-pomerancovniku-a-stavou-z-malin-1-1_z8122/",
+      "visible": false,
+      "wpj": {
+        "inStore": 1660.0,
+        "fourpxStoreTotal": 1828.0,
+        "priceWithVat": 78.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1660.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 168.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 20.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 20.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 1828.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "DB290",
+      "title": "Přírodní rovnováha pro aktivní ženu – rozchodnice, bylinné vložky a fytonáplast tianDe",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/prirodni-rovnovaha-pro-aktivni-zenu-rozchodnice-bylinne-vlozky-a-fytonaplast-tiande_z8334/",
+      "visible": false,
+      "wpj": {
+        "inStore": 1653.0,
+        "fourpxStoreTotal": 1797.0,
+        "priceWithVat": 1027.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1653.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 144.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 11.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 1797.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "DZ077",
+      "title": "Péče o nohy s hadím tukem",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/pece-o-nohy-s-hadim-tukem_z6775/",
+      "visible": false,
+      "wpj": {
+        "inStore": 1452.0,
+        "fourpxStoreTotal": 1644.0,
+        "priceWithVat": 173.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1452.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 192.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 9,
+            "storeName": "Fiktivní SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 0.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 1644.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "OB737",
+      "title": "Balíček pro hebké nohy i ruce",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/balicek-pro-hebke-nohy-i-ruce_z8069/",
+      "visible": false,
+      "wpj": {
+        "inStore": 1452.0,
+        "fourpxStoreTotal": 1644.0,
+        "priceWithVat": 190.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1452.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 192.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 7.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 0.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 1644.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "VB091",
+      "title": "Instantní nápoj s čekankou",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/instantni-napoj-s-cekankou_z7384/",
+      "visible": false,
+      "wpj": {
+        "inStore": 15.0,
+        "fourpxStoreTotal": 1586.0,
+        "priceWithVat": 56.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 15.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 1571.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 9,
+            "storeName": "Fiktivní SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 6.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 6.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 1586.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "XR589",
+      "title": "Štíhlá linie s čekankou",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/stihla-linie-s-cekankou_z7305/",
+      "visible": false,
+      "wpj": {
+        "inStore": 15.0,
+        "fourpxStoreTotal": 1586.0,
+        "priceWithVat": 56.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 15.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 1571.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 9,
+            "storeName": "Fiktivní SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 6.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 6.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 1586.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "PROMO35",
+      "title": "královská taška zelená",
+      "ean": "6666666666663",
+      "url": "https://www.kralovstvi-tiande.cz/kralovska-taska-zelena_z7338/",
+      "visible": false,
+      "wpj": {
+        "inStore": 1449.0,
+        "fourpxStoreTotal": 3158.0,
+        "priceWithVat": 99.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 2958.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 200.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 6.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "PROMO35",
+          "sourceCodes": [
+            "PROMO35"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001547300"
+          ],
+          "batchNos": [],
+          "availableStock": 1479.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "PROMO35",
+          "sourceCodes": [
+            "PROMO35"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001547313"
+          ],
+          "batchNos": [],
+          "availableStock": 100.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 1579.0,
+        "sourceCodes": [
+          "PROMO35"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 1579.0,
+      "flags": [
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "AU572",
+      "title": "Revitalizační maska na obličej a krk s fullereny – výhodný balíček dvou masek",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/revitalizacni-maska-na-oblicej-a-krk-s-fullereny-vyhodny-balicek-dvou-masek_z8338/",
+      "visible": true,
+      "wpj": {
+        "inStore": 1282.0,
+        "fourpxStoreTotal": 1552.0,
+        "priceWithVat": 88.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1282.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 270.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 1.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 15.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 1552.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "RK715",
+      "title": "Regenerační rituál pro obličej, krk a ruce",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/regeneracni-ritual-pro-oblicej-krk-a-ruce_z7740/",
+      "visible": false,
+      "wpj": {
+        "inStore": 1282.0,
+        "fourpxStoreTotal": 1552.0,
+        "priceWithVat": 148.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1282.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 270.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 1.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 9.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 1552.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "ZH518",
+      "title": "Křišťálová kolagenová maska 2=3",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/kristalova-kolagenova-maska-2-3_z7012/",
+      "visible": false,
+      "wpj": {
+        "inStore": 1303.0,
+        "fourpxStoreTotal": 1536.0,
+        "priceWithVat": 215.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1303.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 233.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 9,
+            "storeName": "Fiktivní SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 18.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 0.0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 1536.0,
+      "flags": [
+        "only_in_wpj_4px_context",
+        "stock_mismatch"
+      ]
+    }
+  ],
+  "onlyIn4px": [
+    {
+      "code": "TEST",
+      "title": "Bez názvu",
+      "ean": null,
+      "url": null,
+      "visible": false,
+      "wpj": {
+        "inStore": 0.0,
+        "fourpxStoreTotal": 0,
+        "priceWithVat": 0.0,
+        "stores": []
+      },
+      "fourpx": {
+        "cz": {
+          "code": "TEST",
+          "sourceCodes": [
+            "TEST"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001028200"
+          ],
+          "batchNos": [
+            "000"
+          ],
+          "availableStock": 10.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0,
+          "batchNos": [],
+          "skuIds": [],
+          "sourceCodes": [],
+          "mappedSourceCodes": [],
+          "mappingRules": []
+        },
+        "availableTotal": 10.0,
+        "sourceCodes": [
+          "TEST"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "shipments": 0,
+        "sourceCodes": [],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": -10.0,
+      "flags": [
+        "only_in_4px"
+      ]
+    }
+  ],
+  "topOutboundProducts": [
+    {
+      "code": "40203",
+      "title": "Peeling Broskvový",
+      "ean": "6921570933328",
+      "url": "https://www.kralovstvi-tiande.cz/peeling-broskvovy_z5809/",
+      "visible": true,
+      "wpj": {
+        "inStore": 1062.0,
+        "fourpxStoreTotal": 1213.0,
+        "priceWithVat": 45.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1210.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 3.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 19.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "40203",
+          "sourceCodes": [
+            "40203"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001041534"
+          ],
+          "batchNos": [],
+          "availableStock": 1210.0,
+          "pendingStock": 65.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "40203",
+          "sourceCodes": [
+            "40203"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001037871"
+          ],
+          "batchNos": [],
+          "availableStock": 3.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 1213.0,
+        "sourceCodes": [
+          "40203"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 3.0,
+        "revenueWithVat": 87.0,
+        "sourceCodes": [
+          "40203"
+        ],
+        "czUnits": 3.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 3.0,
+            "revenueWithVat": 87.0
+          },
+          "cz": {
+            "units": 3.0,
+            "revenueWithVat": 87.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 265.0,
+        "skUnits": 1.0,
+        "shipments": 216,
+        "sourceCodes": [
+          "40203"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": []
+    },
+    {
+      "code": "000075",
+      "title": "Brožura Fytogely",
+      "ean": "5690271694471",
+      "url": "https://www.kralovstvi-tiande.cz/brozura-fytogely_z4666/",
+      "visible": true,
+      "wpj": {
+        "inStore": 2929.0,
+        "fourpxStoreTotal": 2982.0,
+        "priceWithVat": 20.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 2982.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": -1.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 3.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "000075",
+          "sourceCodes": [
+            "000075"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001041431"
+          ],
+          "batchNos": [],
+          "availableStock": 2982.0,
+          "pendingStock": 34.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "000075",
+          "sourceCodes": [
+            "000075"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001037769"
+          ],
+          "batchNos": [],
+          "availableStock": 0.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 2982.0,
+        "sourceCodes": [
+          "000075"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 147.0,
+        "skUnits": 0.0,
+        "shipments": 147,
+        "sourceCodes": [
+          "000075"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": []
+    },
+    {
+      "code": "44402-2",
+      "title": "Fytogel Slaviton",
+      "ean": "6922782629528",
+      "url": "https://www.kralovstvi-tiande.cz/fytogel-slaviton_z8039/",
+      "visible": true,
+      "wpj": {
+        "inStore": 1819.0,
+        "fourpxStoreTotal": 2231.0,
+        "priceWithVat": 434.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1849.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 382.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 32.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 69.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "44402-2",
+          "sourceCodes": [
+            "44402-2"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922002239194"
+          ],
+          "batchNos": [],
+          "availableStock": 1849.0,
+          "pendingStock": 31.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "44402-2",
+          "sourceCodes": [
+            "44402-2"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922002239201"
+          ],
+          "batchNos": [],
+          "availableStock": 382.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 2231.0,
+        "sourceCodes": [
+          "44402-2"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 117.0,
+        "revenueWithVat": 34599.78,
+        "sourceCodes": [
+          "44402-2"
+        ],
+        "czUnits": 104.0,
+        "skUnits": 13.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 117.0,
+            "revenueWithVat": 34599.78
+          },
+          "cz": {
+            "units": 104.0,
+            "revenueWithVat": 30392.0
+          },
+          "sk": {
+            "units": 13.0,
+            "revenueWithVat": 4207.78
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 114.0,
+        "skUnits": 12.0,
+        "shipments": 77,
+        "sourceCodes": [
+          "44402-2"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": []
+    },
+    {
+      "code": "61915",
+      "title": "Dámské bylinné slipové vložky s anionty Nefritová svěžest",
+      "ean": "6921336330798",
+      "url": "https://www.kralovstvi-tiande.cz/damske-bylinne-slipove-vlozky-s-anionty-nefritova-svezest_z2110/",
+      "visible": true,
+      "wpj": {
+        "inStore": 191.0,
+        "fourpxStoreTotal": 306.0,
+        "priceWithVat": 176.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 250.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 56.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": -8.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 51.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "61915",
+          "sourceCodes": [
+            "61915"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001041143"
+          ],
+          "batchNos": [],
+          "availableStock": 270.0,
+          "pendingStock": 30.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "61915",
+          "sourceCodes": [
+            "61915"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001037530"
+          ],
+          "batchNos": [],
+          "availableStock": 56.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 326.0,
+        "sourceCodes": [
+          "61915"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 66.0,
+        "revenueWithVat": 7823.94,
+        "sourceCodes": [
+          "61915"
+        ],
+        "czUnits": 62.0,
+        "skUnits": 4.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 66.0,
+            "revenueWithVat": 7823.94
+          },
+          "cz": {
+            "units": 62.0,
+            "revenueWithVat": 7254.0
+          },
+          "sk": {
+            "units": 4.0,
+            "revenueWithVat": 569.94
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 118.0,
+        "skUnits": 7.0,
+        "shipments": 93,
+        "sourceCodes": [
+          "61915"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": -20.0,
+      "flags": [
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "30118",
+      "title": "Kosmetická fytonáplast Wutong",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/kosmeticka-fytonaplast-wutong_z3160/",
+      "visible": true,
+      "wpj": {
+        "inStore": 1486.0,
+        "fourpxStoreTotal": 2878.0,
+        "priceWithVat": 184.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1864.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 1014.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 33.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 86.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "30118",
+          "sourceCodes": [
+            "30118",
+            "30118/01",
+            "30118/03",
+            "30118/05"
+          ],
+          "mappedSourceCodes": [
+            "30118/01",
+            "30118/03",
+            "30118/05"
+          ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "30118/01",
+            "30118/03",
+            "30118/05"
+          ],
+          "mappingRules": [
+            "strip_/variant_suffix"
+          ],
+          "skuIds": [
+            "922001041276",
+            "922001433031",
+            "922001433033",
+            "922001433035"
+          ],
+          "batchNos": [],
+          "availableStock": 1864.0,
+          "pendingStock": 37.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "30118",
+          "sourceCodes": [
+            "30118",
+            "30118/01",
+            "30118/03",
+            "30118/05"
+          ],
+          "mappedSourceCodes": [
+            "30118/01",
+            "30118/03",
+            "30118/05"
+          ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "30118/01",
+            "30118/03",
+            "30118/05"
+          ],
+          "mappingRules": [
+            "strip_/variant_suffix"
+          ],
+          "skuIds": [
+            "922001037660",
+            "922001433045",
+            "922001433047",
+            "922001433049"
+          ],
+          "batchNos": [],
+          "availableStock": 1014.0,
+          "pendingStock": 3.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 2878.0,
+        "sourceCodes": [
+          "30118",
+          "30118/01",
+          "30118/03",
+          "30118/05"
+        ],
+        "mappedSourceCodes": [
+          "30118/01",
+          "30118/03",
+          "30118/05"
+        ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "30118/01",
+          "30118/03",
+          "30118/05"
+        ],
+        "mappingRules": [
+          "strip_/variant_suffix"
+        ]
+      },
+      "yesterdaySales": {
+        "units": 98.0,
+        "revenueWithVat": 23297.24,
+        "sourceCodes": [
+          "30118/01",
+          "30118/03",
+          "30118/05"
+        ],
+        "czUnits": 89.0,
+        "skUnits": 9.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 98.0,
+            "revenueWithVat": 23297.24
+          },
+          "cz": {
+            "units": 89.0,
+            "revenueWithVat": 21856.0
+          },
+          "sk": {
+            "units": 9.0,
+            "revenueWithVat": 1441.24
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 106.0,
+        "skUnits": 8.0,
+        "shipments": 67,
+        "sourceCodes": [
+          "30118/01",
+          "30118/03",
+          "30118/05"
+        ],
+        "mappedSourceCodes": [
+          "30118/01",
+          "30118/03",
+          "30118/05"
+        ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "30118/01",
+          "30118/03",
+          "30118/05"
+        ]
+      },
+      "stockDelta": 0.0,
+      "flags": [
+        "auto_mapped_4px_alias"
+      ]
+    },
+    {
+      "code": "61912",
+      "title": "Dámské bylinné menstruační vložky Nefritová svěžest. denní super",
+      "ean": "6921336330767",
+      "url": "https://www.kralovstvi-tiande.cz/damske-bylinne-menstruacni-vlozky-nefritova-svezest-denni-super_z2024/",
+      "visible": true,
+      "wpj": {
+        "inStore": 82.0,
+        "fourpxStoreTotal": 319.0,
+        "priceWithVat": 206.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 86.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 233.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": -10.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 26.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "61912",
+          "sourceCodes": [
+            "61912"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001041129"
+          ],
+          "batchNos": [],
+          "availableStock": 116.0,
+          "pendingStock": 19.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "61912",
+          "sourceCodes": [
+            "61912"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001037515"
+          ],
+          "batchNos": [],
+          "availableStock": 233.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 349.0,
+        "sourceCodes": [
+          "61912"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 109.0,
+        "revenueWithVat": 15151.14,
+        "sourceCodes": [
+          "61912"
+        ],
+        "czUnits": 101.0,
+        "skUnits": 8.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 109.0,
+            "revenueWithVat": 15151.14
+          },
+          "cz": {
+            "units": 101.0,
+            "revenueWithVat": 13894.0
+          },
+          "sk": {
+            "units": 8.0,
+            "revenueWithVat": 1257.14
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 96.0,
+        "skUnits": 4.0,
+        "shipments": 41,
+        "sourceCodes": [
+          "61912"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": -30.0,
+      "flags": [
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "64404-2",
+      "title": "Jemný intimní gel",
+      "ean": "6922782629542",
+      "url": "https://www.kralovstvi-tiande.cz/jemny-intimni-gel_z7619/",
+      "visible": true,
+      "wpj": {
+        "inStore": 1515.0,
+        "fourpxStoreTotal": 1922.0,
+        "priceWithVat": 385.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1613.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 309.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 9,
+            "storeName": "Fiktivní SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": -4.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 25.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "64404-2",
+          "sourceCodes": [
+            "64404-2"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001733501"
+          ],
+          "batchNos": [],
+          "availableStock": 1613.0,
+          "pendingStock": 50.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "64404-2",
+          "sourceCodes": [
+            "64404-2"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001733504"
+          ],
+          "batchNos": [],
+          "availableStock": 309.0,
+          "pendingStock": 3.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 1922.0,
+        "sourceCodes": [
+          "64404-2"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 104.0,
+        "revenueWithVat": 26365.57,
+        "sourceCodes": [
+          "64404-2"
+        ],
+        "czUnits": 97.0,
+        "skUnits": 6.0,
+        "ltmUnits": 1.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 104.0,
+            "revenueWithVat": 26365.57
+          },
+          "cz": {
+            "units": 97.0,
+            "revenueWithVat": 24520.0
+          },
+          "sk": {
+            "units": 6.0,
+            "revenueWithVat": 1652.57
+          },
+          "ltm": {
+            "units": 1.0,
+            "revenueWithVat": 193.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 88.0,
+        "skUnits": 3.0,
+        "shipments": 62,
+        "sourceCodes": [
+          "64404-2"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": []
+    },
+    {
+      "code": "41328",
+      "title": "Levandulová náplast na nohy",
+      "ean": "6970757000353",
+      "url": "https://www.kralovstvi-tiande.cz/levandulova-naplast-na-nohy_z3162/",
+      "visible": true,
+      "wpj": {
+        "inStore": 0.0,
+        "fourpxStoreTotal": 1999.0,
+        "priceWithVat": 119.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1096.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 903.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": -46.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 539.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "41328",
+          "sourceCodes": [
+            "41328",
+            "41328/01",
+            "41328/05",
+            "41328/07",
+            "41328/10"
+          ],
+          "mappedSourceCodes": [
+            "41328/01",
+            "41328/05",
+            "41328/07",
+            "41328/10"
+          ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "41328/01",
+            "41328/05",
+            "41328/07",
+            "41328/10"
+          ],
+          "mappingRules": [
+            "strip_/variant_suffix"
+          ],
+          "skuIds": [
+            "922001041278",
+            "922001331790",
+            "922001333593",
+            "922001403987",
+            "922002034256"
+          ],
+          "batchNos": [],
+          "availableStock": 1096.0,
+          "pendingStock": 25.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "41328",
+          "sourceCodes": [
+            "41328",
+            "41328/01",
+            "41328/05",
+            "41328/07",
+            "41328/10"
+          ],
+          "mappedSourceCodes": [
+            "41328/01",
+            "41328/05",
+            "41328/07",
+            "41328/10"
+          ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "41328/01",
+            "41328/05",
+            "41328/07",
+            "41328/10"
+          ],
+          "mappingRules": [
+            "strip_/variant_suffix"
+          ],
+          "skuIds": [
+            "922001037662",
+            "922001331794",
+            "922001333575",
+            "922001403998",
+            "922002034270"
+          ],
+          "batchNos": [],
+          "availableStock": 903.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 1999.0,
+        "sourceCodes": [
+          "41328",
+          "41328/01",
+          "41328/05",
+          "41328/07",
+          "41328/10"
+        ],
+        "mappedSourceCodes": [
+          "41328/01",
+          "41328/05",
+          "41328/07",
+          "41328/10"
+        ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "41328/01",
+          "41328/05",
+          "41328/07",
+          "41328/10"
+        ],
+        "mappingRules": [
+          "strip_/variant_suffix"
+        ]
+      },
+      "yesterdaySales": {
+        "units": 53.0,
+        "revenueWithVat": 8121.51,
+        "sourceCodes": [
+          "41328/01",
+          "41328/05",
+          "41328/07",
+          "41328/10"
+        ],
+        "czUnits": 46.0,
+        "skUnits": 7.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 53.0,
+            "revenueWithVat": 8121.51
+          },
+          "cz": {
+            "units": 46.0,
+            "revenueWithVat": 6848.0
+          },
+          "sk": {
+            "units": 7.0,
+            "revenueWithVat": 1273.51
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 83.0,
+        "skUnits": 1.0,
+        "shipments": 48,
+        "sourceCodes": [
+          "41328/01",
+          "41328/05",
+          "41328/07",
+          "41328/10"
+        ],
+        "mappedSourceCodes": [
+          "41328/01",
+          "41328/05",
+          "41328/07",
+          "41328/10"
+        ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "41328/01",
+          "41328/05",
+          "41328/07",
+          "41328/10"
+        ]
+      },
+      "stockDelta": 0.0,
+      "flags": [
+        "auto_mapped_4px_alias"
+      ]
+    },
+    {
+      "code": "30117",
+      "title": "Kosmetická fytonáplast Jian Kang",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/kosmeticka-fytonaplast-jian-kang_z3158/",
+      "visible": true,
+      "wpj": {
+        "inStore": 1648.0,
+        "fourpxStoreTotal": 3503.0,
+        "priceWithVat": 184.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 2254.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 1249.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 9,
+            "storeName": "Fiktivní SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 32.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 62.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "30117",
+          "sourceCodes": [
+            "30117",
+            "30117/01",
+            "30117/03",
+            "30117/05"
+          ],
+          "mappedSourceCodes": [
+            "30117/01",
+            "30117/03",
+            "30117/05"
+          ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "30117/01",
+            "30117/03",
+            "30117/05"
+          ],
+          "mappingRules": [
+            "strip_/variant_suffix"
+          ],
+          "skuIds": [
+            "922001041274",
+            "922001423291",
+            "922001423320",
+            "922001433029"
+          ],
+          "batchNos": [],
+          "availableStock": 2254.0,
+          "pendingStock": 25.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "30117",
+          "sourceCodes": [
+            "30117",
+            "30117/01",
+            "30117/03",
+            "30117/05"
+          ],
+          "mappedSourceCodes": [
+            "30117/01",
+            "30117/03",
+            "30117/05"
+          ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "30117/01",
+            "30117/03",
+            "30117/05"
+          ],
+          "mappingRules": [
+            "strip_/variant_suffix"
+          ],
+          "skuIds": [
+            "922001037658",
+            "922001423299",
+            "922001423327",
+            "922001433043"
+          ],
+          "batchNos": [],
+          "availableStock": 1249.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 3503.0,
+        "sourceCodes": [
+          "30117",
+          "30117/01",
+          "30117/03",
+          "30117/05"
+        ],
+        "mappedSourceCodes": [
+          "30117/01",
+          "30117/03",
+          "30117/05"
+        ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "30117/01",
+          "30117/03",
+          "30117/05"
+        ],
+        "mappingRules": [
+          "strip_/variant_suffix"
+        ]
+      },
+      "yesterdaySales": {
+        "units": 79.0,
+        "revenueWithVat": 15405.59,
+        "sourceCodes": [
+          "30117/01",
+          "30117/03",
+          "30117/05"
+        ],
+        "czUnits": 75.0,
+        "skUnits": 4.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 79.0,
+            "revenueWithVat": 15405.59
+          },
+          "cz": {
+            "units": 75.0,
+            "revenueWithVat": 14882.0
+          },
+          "sk": {
+            "units": 4.0,
+            "revenueWithVat": 523.59
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 78.0,
+        "skUnits": 4.0,
+        "shipments": 43,
+        "sourceCodes": [
+          "30117/01",
+          "30117/03",
+          "30117/05"
+        ],
+        "mappedSourceCodes": [
+          "30117/01",
+          "30117/03",
+          "30117/05"
+        ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "30117/01",
+          "30117/03",
+          "30117/05"
+        ]
+      },
+      "stockDelta": 0.0,
+      "flags": [
+        "auto_mapped_4px_alias"
+      ]
+    },
+    {
+      "code": "63601",
+      "title": "Denní vložka Energie života",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/denni-vlozka-energie-zivota_z94/",
+      "visible": true,
+      "wpj": {
+        "inStore": 7275.0,
+        "fourpxStoreTotal": 12086.0,
+        "priceWithVat": 69.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 8364.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 3722.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 33.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 100.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "63601",
+          "sourceCodes": [
+            "63601",
+            "63601/01",
+            "63601/05",
+            "63601/08",
+            "63601/10"
+          ],
+          "mappedSourceCodes": [
+            "63601/01",
+            "63601/05",
+            "63601/08",
+            "63601/10"
+          ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "63601/01",
+            "63601/05",
+            "63601/08",
+            "63601/10"
+          ],
+          "mappingRules": [
+            "strip_/variant_suffix"
+          ],
+          "skuIds": [
+            "922001040836",
+            "922001060951",
+            "922001060953",
+            "922001244432",
+            "922001844334"
+          ],
+          "batchNos": [],
+          "availableStock": 8384.0,
+          "pendingStock": 26.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "63601",
+          "sourceCodes": [
+            "63601",
+            "63601/01",
+            "63601/05",
+            "63601/08",
+            "63601/10"
+          ],
+          "mappedSourceCodes": [
+            "63601/01",
+            "63601/05",
+            "63601/08",
+            "63601/10"
+          ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "63601/01",
+            "63601/05",
+            "63601/08",
+            "63601/10"
+          ],
+          "mappingRules": [
+            "strip_/variant_suffix"
+          ],
+          "skuIds": [
+            "922001037008",
+            "922001058456",
+            "922001058465",
+            "922001198213",
+            "922001844338"
+          ],
+          "batchNos": [],
+          "availableStock": 3722.0,
+          "pendingStock": 1.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 12106.0,
+        "sourceCodes": [
+          "63601",
+          "63601/01",
+          "63601/05",
+          "63601/08",
+          "63601/10"
+        ],
+        "mappedSourceCodes": [
+          "63601/01",
+          "63601/05",
+          "63601/08",
+          "63601/10"
+        ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "63601/01",
+          "63601/05",
+          "63601/08",
+          "63601/10"
+        ],
+        "mappingRules": [
+          "strip_/variant_suffix"
+        ]
+      },
+      "yesterdaySales": {
+        "units": 74.0,
+        "revenueWithVat": 8630.21,
+        "sourceCodes": [
+          "63601/01",
+          "63601/05",
+          "63601/08",
+          "63601/10"
+        ],
+        "czUnits": 67.0,
+        "skUnits": 7.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 74.0,
+            "revenueWithVat": 8630.21
+          },
+          "cz": {
+            "units": 67.0,
+            "revenueWithVat": 6994.0
+          },
+          "sk": {
+            "units": 7.0,
+            "revenueWithVat": 1636.21
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 69.0,
+        "skUnits": 6.0,
+        "shipments": 23,
+        "sourceCodes": [
+          "63601/01",
+          "63601/05",
+          "63601/08",
+          "63601/10"
+        ],
+        "mappedSourceCodes": [
+          "63601/01",
+          "63601/05",
+          "63601/08",
+          "63601/10"
+        ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "63601/01",
+          "63601/05",
+          "63601/08",
+          "63601/10"
+        ]
+      },
+      "stockDelta": -20.0,
+      "flags": [
+        "stock_mismatch",
+        "auto_mapped_4px_alias"
+      ]
+    },
+    {
+      "code": "61911",
+      "title": "Denní vložky s extraktem aloe Nefritová svěžest",
+      "ean": "6921336301057",
+      "url": "https://www.kralovstvi-tiande.cz/denni-vlozky-s-extraktem-aloe-nefritova-svezest_z142/",
+      "visible": true,
+      "wpj": {
+        "inStore": 545.0,
+        "fourpxStoreTotal": 733.0,
+        "priceWithVat": 176.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 573.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 160.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": -7.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 87.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "61911",
+          "sourceCodes": [
+            "61911"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001040885"
+          ],
+          "batchNos": [],
+          "availableStock": 593.0,
+          "pendingStock": 22.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "61911",
+          "sourceCodes": [
+            "61911"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001037056"
+          ],
+          "batchNos": [],
+          "availableStock": 160.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 753.0,
+        "sourceCodes": [
+          "61911"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 76.0,
+        "revenueWithVat": 9133.71,
+        "sourceCodes": [
+          "61911"
+        ],
+        "czUnits": 68.0,
+        "skUnits": 8.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 76.0,
+            "revenueWithVat": 9133.71
+          },
+          "cz": {
+            "units": 68.0,
+            "revenueWithVat": 8062.0
+          },
+          "sk": {
+            "units": 8.0,
+            "revenueWithVat": 1071.71
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 64.0,
+        "skUnits": 4.0,
+        "shipments": 42,
+        "sourceCodes": [
+          "61911"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": -20.0,
+      "flags": [
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "61913",
+      "title": "Dámské bylinné menstruační vložky Nefritová svěžest. noční super",
+      "ean": "6921336330774",
+      "url": "https://www.kralovstvi-tiande.cz/damske-bylinne-menstruacni-vlozky-nefritova-svezest-nocni-super_z2111/",
+      "visible": true,
+      "wpj": {
+        "inStore": 275.0,
+        "fourpxStoreTotal": 405.0,
+        "priceWithVat": 206.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 285.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 120.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 9.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 51.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "61913",
+          "sourceCodes": [
+            "61913"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001041145"
+          ],
+          "batchNos": [],
+          "availableStock": 295.0,
+          "pendingStock": 18.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "61913",
+          "sourceCodes": [
+            "61913"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001037532"
+          ],
+          "batchNos": [],
+          "availableStock": 120.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 415.0,
+        "sourceCodes": [
+          "61913"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 72.0,
+        "revenueWithVat": 9963.89,
+        "sourceCodes": [
+          "61913"
+        ],
+        "czUnits": 65.0,
+        "skUnits": 7.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 72.0,
+            "revenueWithVat": 9963.89
+          },
+          "cz": {
+            "units": 65.0,
+            "revenueWithVat": 8854.0
+          },
+          "sk": {
+            "units": 7.0,
+            "revenueWithVat": 1109.89
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 62.0,
+        "skUnits": 5.0,
+        "shipments": 31,
+        "sourceCodes": [
+          "61913"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": -10.0,
+      "flags": [
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "41105",
+      "title": "Regenerační krém na nohy s hadím olejem",
+      "ean": null,
+      "url": "https://www.kralovstvi-tiande.cz/regeneracni-krem-na-nohy-s-hadim-olejem_z83/",
+      "visible": true,
+      "wpj": {
+        "inStore": 106.0,
+        "fourpxStoreTotal": 3477.0,
+        "priceWithVat": 74.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 2541.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 936.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 20.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 77.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "41105",
+          "sourceCodes": [
+            "41105",
+            "41105/01",
+            "41105/03",
+            "41105/05"
+          ],
+          "mappedSourceCodes": [
+            "41105/01",
+            "41105/03",
+            "41105/05"
+          ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "41105/01",
+            "41105/03",
+            "41105/05"
+          ],
+          "mappingRules": [
+            "strip_/variant_suffix"
+          ],
+          "skuIds": [
+            "922001040824",
+            "922001402617",
+            "922001402630",
+            "922001402632"
+          ],
+          "batchNos": [],
+          "availableStock": 2541.0,
+          "pendingStock": 22.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "41105",
+          "sourceCodes": [
+            "41105",
+            "41105/01",
+            "41105/03",
+            "41105/05"
+          ],
+          "mappedSourceCodes": [
+            "41105/01",
+            "41105/03",
+            "41105/05"
+          ],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [
+            "41105/01",
+            "41105/03",
+            "41105/05"
+          ],
+          "mappingRules": [
+            "strip_/variant_suffix"
+          ],
+          "skuIds": [
+            "922001036996",
+            "922001402638",
+            "922001402640",
+            "922001411838"
+          ],
+          "batchNos": [],
+          "availableStock": 936.0,
+          "pendingStock": 1.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 3477.0,
+        "sourceCodes": [
+          "41105",
+          "41105/01",
+          "41105/03",
+          "41105/05"
+        ],
+        "mappedSourceCodes": [
+          "41105/01",
+          "41105/03",
+          "41105/05"
+        ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "41105/01",
+          "41105/03",
+          "41105/05"
+        ],
+        "mappingRules": [
+          "strip_/variant_suffix"
+        ]
+      },
+      "yesterdaySales": {
+        "units": 68.0,
+        "revenueWithVat": 4768.76,
+        "sourceCodes": [
+          "41105/01",
+          "41105/03",
+          "41105/05"
+        ],
+        "czUnits": 64.0,
+        "skUnits": 4.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 68.0,
+            "revenueWithVat": 4768.76
+          },
+          "cz": {
+            "units": 64.0,
+            "revenueWithVat": 4237.0
+          },
+          "sk": {
+            "units": 4.0,
+            "revenueWithVat": 531.76
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 61.0,
+        "skUnits": 3.0,
+        "shipments": 23,
+        "sourceCodes": [
+          "41105/01",
+          "41105/03",
+          "41105/05"
+        ],
+        "mappedSourceCodes": [
+          "41105/01",
+          "41105/03",
+          "41105/05"
+        ],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [
+          "41105/01",
+          "41105/03",
+          "41105/05"
+        ]
+      },
+      "stockDelta": 0.0,
+      "flags": [
+        "auto_mapped_4px_alias"
+      ]
+    },
+    {
+      "code": "61914",
+      "title": "Dámské bylinné slipové vložky Nefritová svěžest",
+      "ean": "6921336330781",
+      "url": "https://www.kralovstvi-tiande.cz/damske-bylinne-slipove-vlozky-nefritova-svezest_z2025/",
+      "visible": true,
+      "wpj": {
+        "inStore": 222.0,
+        "fourpxStoreTotal": 374.0,
+        "priceWithVat": 176.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 251.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 123.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": -8.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 40.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "61914",
+          "sourceCodes": [
+            "61914"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001041131"
+          ],
+          "batchNos": [],
+          "availableStock": 271.0,
+          "pendingStock": 16.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "61914",
+          "sourceCodes": [
+            "61914"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001037517"
+          ],
+          "batchNos": [],
+          "availableStock": 123.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 394.0,
+        "sourceCodes": [
+          "61914"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 58.0,
+        "revenueWithVat": 7120.83,
+        "sourceCodes": [
+          "61914"
+        ],
+        "czUnits": 52.0,
+        "skUnits": 6.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 58.0,
+            "revenueWithVat": 7120.83
+          },
+          "cz": {
+            "units": 52.0,
+            "revenueWithVat": 6300.0
+          },
+          "sk": {
+            "units": 6.0,
+            "revenueWithVat": 820.83
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 51.0,
+        "skUnits": 5.0,
+        "shipments": 33,
+        "sourceCodes": [
+          "61914"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": -20.0,
+      "flags": [
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "61921",
+      "title": "Dámské bylinné slipové vložky Nefritová svěžest - super tenké",
+      "ean": "6921336330804",
+      "url": "https://www.kralovstvi-tiande.cz/damske-bylinne-slipove-vlozky-nefritova-svezest-super-tenke_z2226/",
+      "visible": true,
+      "wpj": {
+        "inStore": 408.0,
+        "fourpxStoreTotal": 513.0,
+        "priceWithVat": 179.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 425.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 88.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 17.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 61.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "61921",
+          "sourceCodes": [
+            "61921"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001041167"
+          ],
+          "batchNos": [],
+          "availableStock": 425.0,
+          "pendingStock": 20.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "61921",
+          "sourceCodes": [
+            "61921"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001037554"
+          ],
+          "batchNos": [],
+          "availableStock": 88.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 513.0,
+        "sourceCodes": [
+          "61921"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 51.0,
+        "revenueWithVat": 5979.0,
+        "sourceCodes": [
+          "61921"
+        ],
+        "czUnits": 51.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 51.0,
+            "revenueWithVat": 5979.0
+          },
+          "cz": {
+            "units": 51.0,
+            "revenueWithVat": 5979.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 53.0,
+        "skUnits": 0.0,
+        "shipments": 24,
+        "sourceCodes": [
+          "61921"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": []
+    },
+    {
+      "code": "52911",
+      "title": "Obnovující maska na obličej a krk s fullereny a polypeptidy",
+      "ean": "6950079111838",
+      "url": "https://www.kralovstvi-tiande.cz/obnovujici-maska-na-oblicej-a-krk-s-fullereny-a-polypeptidy_z6346/",
+      "visible": true,
+      "wpj": {
+        "inStore": 1250.0,
+        "fourpxStoreTotal": 1554.0,
+        "priceWithVat": 65.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 1283.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 271.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 1.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 15.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "52911",
+          "sourceCodes": [
+            "52911"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001041585"
+          ],
+          "batchNos": [],
+          "availableStock": 1283.0,
+          "pendingStock": 12.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "52911",
+          "sourceCodes": [
+            "52911"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001037941"
+          ],
+          "batchNos": [],
+          "availableStock": 271.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 1554.0,
+        "sourceCodes": [
+          "52911"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 49.0,
+        "revenueWithVat": 1534.16,
+        "sourceCodes": [
+          "52911"
+        ],
+        "czUnits": 45.0,
+        "skUnits": 4.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 49.0,
+            "revenueWithVat": 1534.16
+          },
+          "cz": {
+            "units": 45.0,
+            "revenueWithVat": 1406.0
+          },
+          "sk": {
+            "units": 4.0,
+            "revenueWithVat": 128.16
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 48.0,
+        "skUnits": 2.0,
+        "shipments": 20,
+        "sourceCodes": [
+          "52911"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": []
+    },
+    {
+      "code": "56007",
+      "title": "Tající kolagenová liftingová pleťová maska s mořskými řasami\t",
+      "ean": "6925466272010",
+      "url": "https://www.kralovstvi-tiande.cz/tajici-kolagenova-liftingova-pletova-maska-s-morskymi-rasami_z8125/",
+      "visible": true,
+      "wpj": {
+        "inStore": 620.0,
+        "fourpxStoreTotal": 1204.0,
+        "priceWithVat": 114.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 639.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 565.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 9,
+            "storeName": "Fiktivní SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 21.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 86.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "56007",
+          "sourceCodes": [
+            "56007"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922002402836"
+          ],
+          "batchNos": [],
+          "availableStock": 639.0,
+          "pendingStock": 13.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "56007",
+          "sourceCodes": [
+            "56007"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922002402844"
+          ],
+          "batchNos": [],
+          "availableStock": 565.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 1204.0,
+        "sourceCodes": [
+          "56007"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 57.0,
+        "revenueWithVat": 4357.25,
+        "sourceCodes": [
+          "56007"
+        ],
+        "czUnits": 55.0,
+        "skUnits": 2.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 57.0,
+            "revenueWithVat": 4357.25
+          },
+          "cz": {
+            "units": 55.0,
+            "revenueWithVat": 4150.0
+          },
+          "sk": {
+            "units": 2.0,
+            "revenueWithVat": 207.25
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 47.0,
+        "skUnits": 1.0,
+        "shipments": 26,
+        "sourceCodes": [
+          "56007"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": []
+    },
+    {
+      "code": "34401-2",
+      "title": "Masážní gel Orthophyt",
+      "ean": "6922782629504",
+      "url": "https://www.kralovstvi-tiande.cz/masazni-gel-orthophyt_z7670/",
+      "visible": true,
+      "wpj": {
+        "inStore": 718.0,
+        "fourpxStoreTotal": 958.0,
+        "priceWithVat": 434.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 721.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 237.0
+          },
+          {
+            "storeId": 8,
+            "storeName": "Fiktivní CZ",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 9,
+            "storeName": "Fiktivní SK",
+            "inStore": 0.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 13.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 60.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "34401-2",
+          "sourceCodes": [
+            "34401-2"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001841713"
+          ],
+          "batchNos": [],
+          "availableStock": 721.0,
+          "pendingStock": 26.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "34401-2",
+          "sourceCodes": [
+            "34401-2"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001841721"
+          ],
+          "batchNos": [],
+          "availableStock": 237.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 958.0,
+        "sourceCodes": [
+          "34401-2"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 42.0,
+        "revenueWithVat": 12748.39,
+        "sourceCodes": [
+          "34401-2"
+        ],
+        "czUnits": 36.0,
+        "skUnits": 5.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 1.0,
+        "byView": {
+          "complete": {
+            "units": 42.0,
+            "revenueWithVat": 12748.39
+          },
+          "cz": {
+            "units": 36.0,
+            "revenueWithVat": 10912.0
+          },
+          "sk": {
+            "units": 5.0,
+            "revenueWithVat": 1554.39
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 1.0,
+            "revenueWithVat": 282.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 37.0,
+        "skUnits": 6.0,
+        "shipments": 31,
+        "sourceCodes": [
+          "34401-2"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": []
+    },
+    {
+      "code": "61901",
+      "title": "Denní vložky s fytomembránou „Energie bylin“",
+      "ean": "6921336301033",
+      "url": "https://www.kralovstvi-tiande.cz/denni-vlozky-s-fytomembranou-energie-bylin_z135/",
+      "visible": true,
+      "wpj": {
+        "inStore": 602.0,
+        "fourpxStoreTotal": 737.0,
+        "priceWithVat": 253.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 605.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 132.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": -1.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 32.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "61901",
+          "sourceCodes": [
+            "61901"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001040879"
+          ],
+          "batchNos": [],
+          "availableStock": 625.0,
+          "pendingStock": 14.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "61901",
+          "sourceCodes": [
+            "61901"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001037050"
+          ],
+          "batchNos": [],
+          "availableStock": 132.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 757.0,
+        "sourceCodes": [
+          "61901"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 35.0,
+        "revenueWithVat": 5871.5,
+        "sourceCodes": [
+          "61901"
+        ],
+        "czUnits": 33.0,
+        "skUnits": 2.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 35.0,
+            "revenueWithVat": 5871.5
+          },
+          "cz": {
+            "units": 33.0,
+            "revenueWithVat": 5412.0
+          },
+          "sk": {
+            "units": 2.0,
+            "revenueWithVat": 459.5
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 39.0,
+        "skUnits": 2.0,
+        "shipments": 21,
+        "sourceCodes": [
+          "61901"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": -20.0,
+      "flags": [
+        "stock_mismatch"
+      ]
+    },
+    {
+      "code": "PROMO75",
+      "title": "Královská bylinná směs detoxikační",
+      "ean": "3298472001584",
+      "url": "https://www.kralovstvi-tiande.cz/kralovska-bylinna-smes-detoxikacni_z7266/",
+      "visible": false,
+      "wpj": {
+        "inStore": 6777.0,
+        "fourpxStoreTotal": 7010.0,
+        "priceWithVat": 130.0,
+        "stores": [
+          {
+            "storeId": 6,
+            "storeName": "4PX CZ",
+            "inStore": 6852.0
+          },
+          {
+            "storeId": 7,
+            "storeName": "4PX SK",
+            "inStore": 158.0
+          },
+          {
+            "storeId": 10,
+            "storeName": "[FlexiBee] Sklad Měčín",
+            "inStore": 3307.0
+          },
+          {
+            "storeId": 11,
+            "storeName": "[FlexiBee] Sklad LTM",
+            "inStore": 16.0
+          }
+        ]
+      },
+      "fourpx": {
+        "cz": {
+          "code": "PROMO75",
+          "sourceCodes": [
+            "PROMO75"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001509113"
+          ],
+          "batchNos": [],
+          "availableStock": 6852.0,
+          "pendingStock": 11.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "sk": {
+          "code": "PROMO75",
+          "sourceCodes": [
+            "PROMO75"
+          ],
+          "mappedSourceCodes": [],
+          "manualMappedSourceCodes": [],
+          "autoMappedSourceCodes": [],
+          "mappingRules": [],
+          "skuIds": [
+            "922001509129"
+          ],
+          "batchNos": [],
+          "availableStock": 158.0,
+          "pendingStock": 0.0,
+          "freezeStock": 0.0,
+          "onwayStock": 0.0
+        },
+        "availableTotal": 7010.0,
+        "sourceCodes": [
+          "PROMO75"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": [],
+        "mappingRules": []
+      },
+      "yesterdaySales": {
+        "units": 0.0,
+        "revenueWithVat": 0.0,
+        "sourceCodes": [],
+        "czUnits": 0.0,
+        "skUnits": 0.0,
+        "ltmUnits": 0.0,
+        "mecinUnits": 0.0,
+        "byView": {
+          "complete": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "cz": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "sk": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "ltm": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          },
+          "mecin": {
+            "units": 0.0,
+            "revenueWithVat": 0.0
+          }
+        }
+      },
+      "yesterdayOutbound": {
+        "czUnits": 34.0,
+        "skUnits": 3.0,
+        "shipments": 37,
+        "sourceCodes": [
+          "PROMO75"
+        ],
+        "mappedSourceCodes": [],
+        "manualMappedSourceCodes": [],
+        "autoMappedSourceCodes": []
+      },
+      "stockDelta": 0.0,
+      "flags": []
+    }
+  ]
+}
