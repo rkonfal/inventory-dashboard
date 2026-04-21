@@ -1840,9 +1840,13 @@ pre {
   .ux-table-wrap {
     margin-left: -4px;
     margin-right: -4px;
+    max-width: 100%;
   }
+  .table,
   .ux-table-wrap table {
-    min-width: 640px;
+    min-width: 0 !important;
+    width: 100%;
+    table-layout: auto;
   }
   .section-nav-links a {
     width: 100%;
