@@ -81,6 +81,34 @@
       flex-wrap: wrap;
       margin-top: 16px;
     }
+
+    @media (max-width: 768px) {
+      .ordering-detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ordering-detail-card,
+      .ordering-detail-list-item {
+        padding: 12px 13px;
+        border-radius: 14px;
+      }
+
+      .ordering-detail-card strong {
+        font-size: 16px;
+      }
+
+      .ordering-explorer-pagination {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .ordering-detail-card .label {
+        font-size: 11px;
+      }
+    }
   </style>
 </head>
 <body class="page-ordering-simplified">
