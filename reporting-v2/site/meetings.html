@@ -47,18 +47,23 @@
   </style>
 </head>
 <body>
-  <main class="main page-stack" style="margin-left:0; max-width:none;">
+  <aside class="sidebar" data-sidebar-page="meetings.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Porady, rozhodnutí a follow-upy" data-sidebar-section="Přehled" data-sidebar-footer="Schůzky podle data, s otevřenými úkoly a rozhodnutími na jednom místě."></aside>
+
+  <main class="main page-stack">
     <header class="header meetings-hero">
-      <div class="meetings-hero-card">
-        <div class="ux-kicker">Porady • rozhodnutí • úkoly</div>
-        <h1>Porady na jednom místě</h1>
-        <p>Jednoduchý dashboard nad interními poradami. Nahoře je rychlý přehled, pod tím porady seřazené podle data, otevřené úkoly, blízké termíny a odsouhlasená rozhodnutí.</p>
-        <div class="meetings-toolbar">
-          <button class="meetings-chip active" data-view="timeline">Chronologicky</button>
-          <button class="meetings-chip" data-view="owners">Podle lidí</button>
-          <button class="meetings-chip" data-view="urgent">Blízké termíny</button>
-          <button class="meetings-chip" data-view="decisions">Rozhodnutí</button>
+      <div class="ux-topbar">
+        <div class="ux-intro meetings-hero-card" style="width:100%;">
+          <div class="ux-kicker">Porady • rozhodnutí • úkoly</div>
+          <h1>Porady na jednom místě</h1>
+          <p>Jednoduchý dashboard nad interními poradami. Nahoře je rychlý přehled, pod tím porady seřazené podle data, otevřené úkoly, blízké termíny a odsouhlasená rozhodnutí.</p>
+          <div class="meetings-toolbar">
+            <button class="meetings-chip active" data-view="timeline">Chronologicky</button>
+            <button class="meetings-chip" data-view="owners">Podle lidí</button>
+            <button class="meetings-chip" data-view="urgent">Blízké termíny</button>
+            <button class="meetings-chip" data-view="decisions">Rozhodnutí</button>
+          </div>
         </div>
+        <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
       </div>
       <section class="meetings-grid" id="kpis"></section>
     </header>
@@ -91,6 +96,58 @@
   </main>
 
   <script>
+    const sidebarLinks = [
+      ['index.html', 'Přehled firmy'],
+      ['inventory.html', 'Sklad'],
+      ['eshop.html', 'E-shop'],
+      ['logistics.html', 'Logistika'],
+      ['expiry.html', 'Expirace a akce'],
+      ['finance.html', 'Finance'],
+      ['marketing.html', 'Marketing'],
+      ['ordering.html', 'Objednávání'],
+      ['meetings.html', 'Porady']
+    ];
+
+    (function initShell() {
+      const root = document.documentElement;
+      const savedTheme = localStorage.getItem('dp-theme');
+      if (savedTheme === 'dark') root.setAttribute('data-theme', 'dark');
+
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebar && !sidebar.innerHTML.trim()) {
+        const current = sidebar.dataset.sidebarPage || 'meetings.html';
+        const title = sidebar.dataset.sidebarTitle || 'Diamond Plus';
+        const subtitle = sidebar.dataset.sidebarSubtitle || '';
+        const footer = sidebar.dataset.sidebarFooter || '';
+        sidebar.innerHTML = `
+          <div class="sidebar-logo">
+            <h2>${title}</h2>
+            <span>${subtitle}</span>
+          </div>
+          <div class="sidebar-section-label">Reporty</div>
+          <nav class="sidebar-nav">
+            ${sidebarLinks.map(([href, label]) => `<a href="${href}" class="${href === current ? 'active' : ''}">${label}</a>`).join('')}
+          </nav>
+          <div class="sidebar-footer">${footer}</div>
+        `;
+      }
+
+      const themeToggle = document.querySelector('[data-theme-toggle]');
+      if (themeToggle) {
+        const syncLabel = () => {
+          themeToggle.textContent = root.getAttribute('data-theme') === 'dark' ? 'Světlý režim' : 'Tmavý režim';
+        };
+        syncLabel();
+        themeToggle.addEventListener('click', () => {
+          const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          if (next === 'dark') root.setAttribute('data-theme', 'dark');
+          else root.removeAttribute('data-theme');
+          localStorage.setItem('dp-theme', next);
+          syncLabel();
+        });
+      }
+    })();
+
     const state = { meetings: [], view: 'timeline' };
     const fmtDate = value => new Date(value).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' });
     const relative = value => {
