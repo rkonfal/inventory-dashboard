@@ -76,13 +76,13 @@
         <h2 class="section-title">Co objednat hned</h2>
         <div class="section-subtitle">Produkty, které podle posledních 90 dní potřebují řešit objednávku jako první.</div>
         <div class="ux-table-wrap" style="margin-top:16px;">
-          <table class="table">
+          <table class="table" data-sortable-table="critical-reorder">
             <thead>
               <tr>
-                <th>Produkt</th>
-                <th class="num">Sklad</th>
-                <th class="num">Pokrytí 90d</th>
-                <th class="num">Doporučit objednat</th>
+                <th><button type="button" class="table-sort" data-sort-table="critical-reorder" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+                <th class="num"><button type="button" class="table-sort" data-sort-table="critical-reorder" data-sort-key="stock">Sklad <span class="table-sort-arrow">↕</span></button></th>
+                <th class="num"><button type="button" class="table-sort" data-sort-table="critical-reorder" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
+                <th class="num"><button type="button" class="table-sort" data-sort-table="critical-reorder" data-sort-key="recommended">Doporučit objednat <span class="table-sort-arrow">↕</span></button></th>
               </tr>
             </thead>
             <tbody id="critical-reorder-table"></tbody>
@@ -94,13 +94,13 @@
         <h2 class="section-title">Příliš vysoká zásoba</h2>
         <div class="section-subtitle">Produkty, u kterých už držíme zbytečně moc zásoby.</div>
         <div class="ux-table-wrap" style="margin-top:16px;">
-          <table class="table">
+          <table class="table" data-sortable-table="overstock">
             <thead>
               <tr>
-                <th>Produkt</th>
-                <th class="num">Sklad</th>
-                <th class="num">Měsíce zásoby</th>
-                <th class="num">Vázaná hodnota</th>
+                <th><button type="button" class="table-sort" data-sort-table="overstock" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+                <th class="num"><button type="button" class="table-sort" data-sort-table="overstock" data-sort-key="stock">Sklad <span class="table-sort-arrow">↕</span></button></th>
+                <th class="num"><button type="button" class="table-sort" data-sort-table="overstock" data-sort-key="months">Měsíce zásoby <span class="table-sort-arrow">↕</span></button></th>
+                <th class="num"><button type="button" class="table-sort" data-sort-table="overstock" data-sort-key="value">Vázaná hodnota <span class="table-sort-arrow">↕</span></button></th>
               </tr>
             </thead>
             <tbody id="overstock-table"></tbody>
@@ -113,13 +113,13 @@
       <div class="card">
         <h2 class="section-title">Položky k ověření</h2>
         <div class="section-subtitle">Produkty s největší změnou proti ročnímu průměru.</div>
-        <table class="table">
+        <table class="table" data-sortable-table="trend-watch">
           <thead>
             <tr>
-              <th>Produkt</th>
-              <th class="num">Trend 90d vs 365d</th>
-              <th class="num">Prodej 90d</th>
-              <th class="num">Pokrytí 90d</th>
+              <th><button type="button" class="table-sort" data-sort-table="trend-watch" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="trend-watch" data-sort-key="trend">Trend 90d vs 365d <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="trend-watch" data-sort-key="sales90">Prodej 90d <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="trend-watch" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
             </tr>
           </thead>
           <tbody id="trend-watch-table"></tbody>
@@ -129,13 +129,13 @@
       <div class="card">
         <h2 class="section-title">Co přidat při volné kapacitě</h2>
         <div class="section-subtitle">Rozumné doplnění, když je v objednávce ještě místo.</div>
-        <table class="table">
+        <table class="table" data-sortable-table="fillers">
           <thead>
             <tr>
-              <th>Produkt</th>
-              <th class="num">Prodej 365d</th>
-              <th class="num">Pokrytí 90d</th>
-              <th class="num">Doporučit přidat</th>
+              <th><button type="button" class="table-sort" data-sort-table="fillers" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="fillers" data-sort-key="sales365">Prodej 365d <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="fillers" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="fillers" data-sort-key="recommended">Doporučit přidat <span class="table-sort-arrow">↕</span></button></th>
             </tr>
           </thead>
           <tbody id="fillers-table"></tbody>
@@ -201,21 +201,21 @@
         </div>
       </div>
       <div class="section-subtitle" id="planning-table-summary">Načítám doporučené položky…</div>
-      <table class="table">
+      <table class="table" data-sortable-table="planning">
         <thead>
           <tr>
             <th>Do exportu</th>
-            <th>Produkt</th>
-            <th>Priorita</th>
-            <th>Zdroj / důvod</th>
-            <th class="num">Forecast 30 / 60 / 90</th>
-            <th class="num">Safety</th>
-            <th class="num">Minimum</th>
-            <th class="num">Ideál</th>
-            <th class="num">Objednat po</th>
-            <th class="num">Finální objednávka</th>
-            <th class="num">Export ks</th>
-            <th>Typ zaokrouhlení</th>
+            <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+            <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="priority">Priorita <span class="table-sort-arrow">↕</span></button></th>
+            <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="source">Zdroj / důvod <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="forecast90">Forecast 30 / 60 / 90 <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="safety">Safety <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="minimum">Minimum <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="ideal">Ideál <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="step">Objednat po <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="finalOrder">Finální objednávka <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="exportQty">Export ks <span class="table-sort-arrow">↕</span></button></th>
+            <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="rounding">Typ zaokrouhlení <span class="table-sort-arrow">↕</span></button></th>
           </tr>
         </thead>
         <tbody id="planning-table"></tbody>
@@ -262,19 +262,19 @@
       </div>
 
       <div class="section-subtitle" id="ordering-explorer-summary">Načítám seznam položek…</div>
-      <table class="table">
+      <table class="table" data-sortable-table="explorer">
         <thead>
           <tr>
-            <th>Produkt</th>
-            <th>Nákupní signály</th>
-            <th class="num">Sklad</th>
-            <th class="num">Prodej v období</th>
-            <th class="num">Prodej 90d</th>
-            <th class="num">Pokrytí 90d</th>
-            <th class="num">Cíl</th>
-            <th class="num">Krok balení</th>
-            <th class="num">Objednat</th>
-            <th>Balicí pravidlo</th>
+            <th><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+            <th><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="signals">Nákupní signály <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="stock">Sklad <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="periodSales">Prodej v období <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="sales90">Prodej 90d <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="target">Cíl <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="step">Krok balení <span class="table-sort-arrow">↕</span></button></th>
+            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="order">Objednat <span class="table-sort-arrow">↕</span></button></th>
+            <th><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="rounding">Balicí pravidlo <span class="table-sort-arrow">↕</span></button></th>
           </tr>
         </thead>
         <tbody id="ordering-explorer-table"></tbody>
@@ -443,6 +443,14 @@
       let orderingReference = { summary: {}, items: [] };
       let currentPlanningRows = [];
       const planningExportState = new Map();
+      const sortableTableStates = {
+        'critical-reorder': { key: 'recommended', direction: 'desc' },
+        overstock: { key: 'value', direction: 'desc' },
+        'trend-watch': { key: 'trend', direction: 'desc' },
+        fillers: { key: 'recommended', direction: 'desc' },
+        planning: { key: 'priority', direction: 'desc' },
+        explorer: { key: 'priority', direction: 'desc' },
+      };
 
       const capacityProfiles = {
         small: { label: 'menší doplnění', targetUnits: 1200, fillerShare: 0.15 },
@@ -470,6 +478,62 @@
 
       function clamp(value, min, max) {
         return Math.min(Math.max(value, min), max);
+      }
+
+      function sortableText(value) {
+        return String(value ?? '').toLocaleLowerCase('cs');
+      }
+
+      function compareNullableNumber(aValue, bValue, direction = 'desc') {
+        const aMissing = aValue == null || Number.isNaN(Number(aValue));
+        const bMissing = bValue == null || Number.isNaN(Number(bValue));
+        if (aMissing && bMissing) return 0;
+        if (aMissing) return 1;
+        if (bMissing) return -1;
+        const diff = Number(aValue) - Number(bValue);
+        return direction === 'asc' ? diff : -diff;
+      }
+
+      function compareSortableValues(aValue, bValue, direction = 'asc', type = 'text') {
+        if (type === 'number') return compareNullableNumber(aValue, bValue, direction);
+        const compare = sortableText(aValue).localeCompare(sortableText(bValue), 'cs');
+        return direction === 'asc' ? compare : -compare;
+      }
+
+      function sortRowsWithConfig(rows, config) {
+        const state = sortableTableStates[config.id] || { key: config.defaultSortKey, direction: config.defaultDirection || 'desc' };
+        const primaryColumn = config.columns[state.key] || config.columns[config.defaultSortKey];
+        const fallbackColumn = config.fallbackKey ? config.columns[config.fallbackKey] : null;
+        return [...(rows || [])].sort((a, b) => {
+          const primary = compareSortableValues(primaryColumn.value(a), primaryColumn.value(b), state.direction, primaryColumn.type);
+          if (primary) return primary;
+          if (fallbackColumn && fallbackColumn !== primaryColumn) {
+            return compareSortableValues(fallbackColumn.value(a), fallbackColumn.value(b), fallbackColumn.defaultDirection || 'asc', fallbackColumn.type);
+          }
+          return 0;
+        });
+      }
+
+      function updateSortableTableHead(tableId) {
+        let activeIndex = -1;
+        document.querySelectorAll(`[data-sort-table="${tableId}"]`).forEach(button => {
+          const active = sortableTableStates[tableId]?.key === button.dataset.sortKey;
+          const direction = active ? sortableTableStates[tableId]?.direction : null;
+          const arrow = active ? (direction === 'asc' ? '↑' : '↓') : '↕';
+          button.classList.toggle('active', active);
+          const arrowEl = button.querySelector('.table-sort-arrow');
+          if (arrowEl) arrowEl.textContent = arrow;
+          const th = button.closest('th');
+          if (th) th.classList.toggle('active-column', active);
+          if (active && th?.parentElement) activeIndex = Array.from(th.parentElement.children).indexOf(th);
+        });
+        document.querySelectorAll(`[data-sortable-table="${tableId}"]`).forEach(table => {
+          table.querySelectorAll('tbody tr').forEach(row => {
+            Array.from(row.children).forEach((cell, index) => {
+              cell.classList.toggle('active-column', index === activeIndex && activeIndex >= 0);
+            });
+          });
+        });
       }
 
       function estimateDailyDemand(row) {
@@ -774,30 +838,108 @@
         }).length;
       }
 
+      function computeCapacityLoad(rows, profile) {
+        const target = Number(profile?.targetUnits || 0);
+        if (!target) return { packUnits: 0, usagePct: 0 };
+        const packUnits = (rows || []).reduce((sum, row) => {
+          const plannedUnits = Number(row.plannedUnits || 0);
+          const packSize = Math.max(1, Number(row.plannedOrderStepUnits || row.orderStepUnits || 1));
+          return sum + (plannedUnits / packSize);
+        }, 0);
+        return {
+          packUnits,
+          usagePct: Math.round((packUnits / target) * 100),
+        };
+      }
+
+      function formatCapacityUsage(value) {
+        const usage = Number(value || 0);
+        if (!Number.isFinite(usage) || usage <= 0) return '0 %';
+        if (usage >= 250) return `${fmt(usage)} % (nad rámec modelu)`;
+        return `${fmt(usage)} %`;
+      }
+
+      function getPlanningSortConfig() {
+        return {
+          id: 'planning',
+          defaultSortKey: 'priority',
+          defaultDirection: 'desc',
+          fallbackKey: 'product',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            priority: { type: 'number', defaultDirection: 'desc', value: row => row.priorityScore },
+            source: { type: 'text', defaultDirection: 'asc', value: row => `${row.source || ''} ${row.reason || ''}` },
+            forecast90: { type: 'number', defaultDirection: 'desc', value: row => row.forecast90 },
+            safety: { type: 'number', defaultDirection: 'desc', value: row => row.safetyStockUnits },
+            minimum: { type: 'number', defaultDirection: 'desc', value: row => row.roundedMinUnits ?? row.recommendedMinUnits ?? 0 },
+            ideal: { type: 'number', defaultDirection: 'desc', value: row => row.idealUnits ?? row.optimumUnits ?? 0 },
+            step: { type: 'number', defaultDirection: 'desc', value: row => row.orderStepUnits || 1 },
+            finalOrder: { type: 'number', defaultDirection: 'desc', value: row => row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? 0 },
+            exportQty: { type: 'number', defaultDirection: 'desc', value: row => (planningExportState.get(row.code)?.quantity) ?? (row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? 0) },
+            rounding: { type: 'text', defaultDirection: 'asc', value: row => row.roundingMode || '' },
+          },
+        };
+      }
+
+      function getExplorerSortConfig() {
+        return {
+          id: 'explorer',
+          defaultSortKey: 'priority',
+          defaultDirection: 'desc',
+          fallbackKey: 'product',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            signals: { type: 'text', defaultDirection: 'asc', value: row => `${row.orderable ? '1' : '0'} ${row.itemType || ''} ${row.orderingRole || ''} ${row.sourceChannel || ''} ${row.reorderRisk || ''} ${row.turnoverZone || ''} ${row.trend90v365Pct || 0}` },
+            stock: { type: 'number', defaultDirection: 'desc', value: row => row.effectiveStock },
+            periodSales: { type: 'number', defaultDirection: 'desc', value: row => row.unitsWindow ?? row.units730d },
+            sales90: { type: 'number', defaultDirection: 'desc', value: row => row.units90d },
+            cover: { type: 'number', defaultDirection: 'asc', value: row => row.daysOfCover90d },
+            target: { type: 'number', defaultDirection: 'desc', value: row => row.idealUnits ?? row.recommendedOrderUnits ?? 0 },
+            step: { type: 'number', defaultDirection: 'desc', value: row => row.orderStepUnits || row.recommendedOrderStep || 1 },
+            order: { type: 'number', defaultDirection: 'desc', value: row => row.finalOrderUnits ?? row.recommendedOrderUnits ?? 0 },
+            rounding: { type: 'text', defaultDirection: 'asc', value: row => row.roundingMode || '' },
+            priority: { type: 'number', defaultDirection: 'desc', value: row => row.recommendedOrderUnits || 0 },
+            recommended: { type: 'number', defaultDirection: 'desc', value: row => row.recommendedOrderUnits || 0 },
+            coverAsc: { type: 'number', defaultDirection: 'asc', value: row => row.daysOfCover90d },
+            stockValue: { type: 'number', defaultDirection: 'desc', value: row => row.stockValueSelling || 0 },
+            code: { type: 'text', defaultDirection: 'asc', value: row => row.code || '' },
+          },
+        };
+      }
+
       function renderPlanningPayload(planning, leadDays, usePraha, profile) {
         const scenarios = planning.scenarios || [];
         const filteredRows = filterPlanningRows(planning.recommendationRows || []);
-        currentPlanningRows = filteredRows;
-        ensurePlanningExportState(filteredRows);
+        const scenarioRowsByKey = {
+          A: buildScenarioRows('conservative', planning.recommendationRows || [], profile),
+          B: buildScenarioRows('balanced', planning.recommendationRows || [], profile),
+          C: buildScenarioRows('full', planning.recommendationRows || [], profile),
+        };
+        const sortedRows = sortRowsWithConfig(filteredRows, getPlanningSortConfig());
+        currentPlanningRows = sortedRows;
+        ensurePlanningExportState(sortedRows);
         planningSummary.innerHTML = `<strong>Simulace:</strong> lead time ${fmt(leadDays)} dní, kapacita ${profile.label}, pražská výpomoc ${usePraha ? 'zapnutá' : 'vypnutá'}. Varianty jsou spočítané z aktuálního odhadu prodeje a orientační hodnoty zásoby.`;
 
-        planningVariants.innerHTML = scenarios.map(variant => `
+        planningVariants.innerHTML = scenarios.map(variant => {
+          const capacityLoad = computeCapacityLoad(scenarioRowsByKey[variant.key] || [], profile);
+          return `
           <article class="metric-card ${variant.key === 'B' ? 'accent' : variant.key === 'C' ? 'warn' : ''}">
             <div class="metric-label">${variant.key} · ${variant.title}</div>
             <div class="metric-value">${fmt(variant.plannedUnits || 0)} ks</div>
             <div class="metric-sub">${variant.subtitle}</div>
             <div class="muted small" style="margin-top:10px; line-height:1.6;">
               Hodnota proxy ${money(variant.proxyValue)}<br>
-              Využití kapacity ${fmt(variant.capacityUsagePct || 0)} %<br>
+              Využití kapacity ${formatCapacityUsage(capacityLoad.usagePct)}<br>
+              Orientačně ${fmt(Math.round(capacityLoad.packUnits))} balení / logistických kroků<br>
               Kritické SKU po doplnění ${fmt(variant.criticalLeft || 0)}<br>
               Riziko pražské výpomoci ${fmt(variant.prahaFallbackRisk || 0)} SKU<br>
               Červená po 1 / 2 / 3 / 4 měsících: ${fmt(variant.redRiskAfterMonths?.m1 || 0)} / ${fmt(variant.redRiskAfterMonths?.m2 || 0)} / ${fmt(variant.redRiskAfterMonths?.m3 || 0)} / ${fmt(variant.redRiskAfterMonths?.m4 || 0)}
             </div>
-          </article>
-        `).join('');
+          </article>`;
+        }).join('');
 
-        planningTableSummary.textContent = `Zobrazeno ${fmt(filteredRows.length)} položek z celkem ${fmt((planning.recommendationRows || []).length)} doporučených. Rozlišení: nutné objednat vs doporučené doplnění.`;
-        planningTable.innerHTML = filteredRows.map(row => {
+        planningTableSummary.textContent = `Zobrazeno ${fmt(sortedRows.length)} položek z celkem ${fmt((planning.recommendationRows || []).length)} doporučených. Rozlišení: nutné objednat vs doporučené doplnění.`;
+        planningTable.innerHTML = sortedRows.map(row => {
           const urgency = recommendationUrgency(row);
           const exportState = planningExportState.get(row.code) || { selected: true, quantity: Math.max(0, Number(row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? 0)) };
           return `
@@ -830,7 +972,8 @@
             <td>${row.roundingMode || 'bez omezení'}</td>
           </tr>`;
         }).join('') || '<tr><td colspan="12">Zatím bez doporučených položek.</td></tr>';
-        renderPlanningExportSummary(filteredRows);
+        renderPlanningExportSummary(sortedRows);
+        updateSortableTableHead('planning');
       }
 
       function renderPlanning() {
@@ -866,7 +1009,7 @@
           const value = variant.rows.reduce((sum, row) => sum + ((row.unitSellingPrice || 0) * (row.plannedUnits || 0)), 0);
           const criticalLeft = variant.rows.filter(row => row.reorderRisk === 'critical' && (((row.effectiveStock || 0) + (row.plannedUnits || 0) - forecastUnits(row, leadDays)) / Math.max(estimateDailyDemand(row), 0.01)) < 30).length;
           const prahaRisk = variant.rows.filter(row => row.source === 'Pražská výpomoc').length;
-          const usage = profile.targetUnits ? Math.min(999, Math.round((units / profile.targetUnits) * 100)) : 0;
+          const capacityLoad = computeCapacityLoad(variant.rows, profile);
           return `
             <article class="metric-card ${variant.tone}">
               <div class="metric-label">${variant.key} · ${variant.title}</div>
@@ -874,7 +1017,8 @@
               <div class="metric-sub">${variant.subtitle}</div>
               <div class="muted small" style="margin-top:10px; line-height:1.6;">
                 Hodnota proxy ${money(value)}<br>
-                Využití kapacity ${fmt(usage)} %<br>
+                Využití kapacity ${formatCapacityUsage(capacityLoad.usagePct)}<br>
+                Orientačně ${fmt(Math.round(capacityLoad.packUnits))} balení / logistických kroků<br>
                 Kritické SKU po doplnění ${fmt(criticalLeft)}<br>
                 Riziko pražské výpomoci ${fmt(prahaRisk)} SKU<br>
                 Červená po 1 / 2 / 3 / 4 měsících: ${fmt(redRiskAfterMonths(variant.rows, 1))} / ${fmt(redRiskAfterMonths(variant.rows, 2))} / ${fmt(redRiskAfterMonths(variant.rows, 3))} / ${fmt(redRiskAfterMonths(variant.rows, 4))}
@@ -884,10 +1028,11 @@
         }).join('');
 
         const visibleRows = filterPlanningRows(rows.slice(0, 120));
-        currentPlanningRows = visibleRows;
-        ensurePlanningExportState(visibleRows);
-        planningTableSummary.textContent = `Zobrazeno ${fmt(visibleRows.length)} položek z celkem ${fmt(Math.min(rows.length, 120))} doporučených. Odhad vychází z tempa posledních 90 dní, delší historie a aktuálního trendu.`;
-        planningTable.innerHTML = visibleRows.map(row => {
+        const sortedRows = sortRowsWithConfig(visibleRows, getPlanningSortConfig());
+        currentPlanningRows = sortedRows;
+        ensurePlanningExportState(sortedRows);
+        planningTableSummary.textContent = `Zobrazeno ${fmt(sortedRows.length)} položek z celkem ${fmt(Math.min(rows.length, 120))} doporučených. Odhad vychází z tempa posledních 90 dní, delší historie a aktuálního trendu.`;
+        planningTable.innerHTML = sortedRows.map(row => {
           const urgency = recommendationUrgency(row);
           const exportState = planningExportState.get(row.code) || { selected: true, quantity: Math.max(0, Number(row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? 0)) };
           return `
@@ -920,11 +1065,18 @@
             <td>${row.roundingMode || 'bez omezení'}</td>
           </tr>`;
         }).join('') || '<tr><td colspan="12">Zatím bez doporučených položek.</td></tr>';
-        renderPlanningExportSummary(visibleRows);
+        renderPlanningExportSummary(sortedRows);
+        updateSortableTableHead('planning');
       }
 
       function renderShortTable(targetId, rows, mapper, emptyText, colspan) {
         document.getElementById(targetId).innerHTML = rows.map(mapper).join('') || `<tr><td colspan="${colspan}">${emptyText}</td></tr>`;
+      }
+
+      function renderSortableShortTable(config, rows) {
+        const sortedRows = sortRowsWithConfig(rows, config);
+        renderShortTable(config.bodyId, sortedRows, config.renderRow, config.emptyMessage, config.colspan);
+        updateSortableTableHead(config.id);
       }
 
       function renderHero() {
@@ -1016,16 +1168,7 @@
           };
         });
 
-        rows.sort((a, b) => {
-          if (sort === 'recommended') return (b.recommendedOrderUnits || 0) - (a.recommendedOrderUnits || 0);
-          if (sort === 'coverAsc') return (a.daysOfCover90d ?? 99999) - (b.daysOfCover90d ?? 99999);
-          if (sort === 'stockValue') return (b.stockValueSelling || 0) - (a.stockValueSelling || 0);
-          if (sort === 'code') return String(a.code || '').localeCompare(String(b.code || ''), 'cs');
-          return (b.recommendedOrderUnits || 0) - (a.recommendedOrderUnits || 0)
-            || (a.daysOfCover90d ?? 99999) - (b.daysOfCover90d ?? 99999)
-            || (b.units90d || 0) - (a.units90d || 0);
-        });
-        return rows;
+        return sortRowsWithConfig(rows, getExplorerSortConfig());
       }
 
       function renderExplorer() {
@@ -1052,6 +1195,7 @@
             <td>${row.roundingMode || 'bez omezení'}</td>
           </tr>
         `).join('') || '<tr><td colspan="10">Nic neodpovídá aktuálnímu filtru.</td></tr>';
+        updateSortableTableHead('explorer');
       }
 
       Promise.all([
@@ -1077,41 +1221,101 @@
         renderAlerts();
         renderSidebars();
 
-        renderShortTable('critical-reorder-table', (ordering.criticalReorder || []).slice(0, 20), row => `
-          <tr>
-            <td>${row.code} · ${row.title}</td>
-            <td class="num">${fmt(row.effectiveStock)}</td>
-            <td class="num">${cover(row.daysOfCover90d)}</td>
-            <td class="num">${fmt(row.recommendedOrderUnits || 0)} ks</td>
-          </tr>
-        `, 'Aktuálně bez kritických kandidátů na doplnění.', 4);
+        renderSortableShortTable({
+          id: 'critical-reorder',
+          bodyId: 'critical-reorder-table',
+          defaultSortKey: 'recommended',
+          defaultDirection: 'desc',
+          fallbackKey: 'product',
+          colspan: 4,
+          emptyMessage: 'Aktuálně bez kritických kandidátů na doplnění.',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            stock: { type: 'number', defaultDirection: 'desc', value: row => row.effectiveStock },
+            cover: { type: 'number', defaultDirection: 'asc', value: row => row.daysOfCover90d },
+            recommended: { type: 'number', defaultDirection: 'desc', value: row => row.recommendedOrderUnits || 0 },
+          },
+          renderRow: row => `
+            <tr>
+              <td>${row.code} · ${row.title}</td>
+              <td class="num">${fmt(row.effectiveStock)}</td>
+              <td class="num">${cover(row.daysOfCover90d)}</td>
+              <td class="num">${fmt(row.recommendedOrderUnits || 0)} ks</td>
+            </tr>
+          `,
+        }, (ordering.criticalReorder || []).slice(0, 20));
 
-        renderShortTable('overstock-table', (ordering.overstockRisks || []).slice(0, 20), row => `
-          <tr>
-            <td>${row.code} · ${row.title}</td>
-            <td class="num">${fmt(row.effectiveStock)}</td>
-            <td class="num">${months(row.stockMonthsOnHand)}</td>
-            <td class="num">${money(row.stockValueSelling)}</td>
-          </tr>
-        `, 'Aktuálně bez červené obrátkovosti.', 4);
+        renderSortableShortTable({
+          id: 'overstock',
+          bodyId: 'overstock-table',
+          defaultSortKey: 'value',
+          defaultDirection: 'desc',
+          fallbackKey: 'product',
+          colspan: 4,
+          emptyMessage: 'Aktuálně bez červené obrátkovosti.',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            stock: { type: 'number', defaultDirection: 'desc', value: row => row.effectiveStock },
+            months: { type: 'number', defaultDirection: 'desc', value: row => row.stockMonthsOnHand },
+            value: { type: 'number', defaultDirection: 'desc', value: row => row.stockValueSelling },
+          },
+          renderRow: row => `
+            <tr>
+              <td>${row.code} · ${row.title}</td>
+              <td class="num">${fmt(row.effectiveStock)}</td>
+              <td class="num">${months(row.stockMonthsOnHand)}</td>
+              <td class="num">${money(row.stockValueSelling)}</td>
+            </tr>
+          `,
+        }, (ordering.overstockRisks || []).slice(0, 20));
 
-        renderShortTable('trend-watch-table', (ordering.trendWatch || []).slice(0, 20), row => `
-          <tr>
-            <td>${row.code} · ${row.title}</td>
-            <td class="num">${pct(row.trend90v365Pct)}</td>
-            <td class="num">${fmt(row.units90d)}</td>
-            <td class="num">${cover(row.daysOfCover90d)}</td>
-          </tr>
-        `, 'Zatím bez položek k prověření.', 4);
+        renderSortableShortTable({
+          id: 'trend-watch',
+          bodyId: 'trend-watch-table',
+          defaultSortKey: 'trend',
+          defaultDirection: 'desc',
+          fallbackKey: 'product',
+          colspan: 4,
+          emptyMessage: 'Zatím bez položek k prověření.',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            trend: { type: 'number', defaultDirection: 'desc', value: row => row.trend90v365Pct },
+            sales90: { type: 'number', defaultDirection: 'desc', value: row => row.units90d },
+            cover: { type: 'number', defaultDirection: 'asc', value: row => row.daysOfCover90d },
+          },
+          renderRow: row => `
+            <tr>
+              <td>${row.code} · ${row.title}</td>
+              <td class="num">${pct(row.trend90v365Pct)}</td>
+              <td class="num">${fmt(row.units90d)}</td>
+              <td class="num">${cover(row.daysOfCover90d)}</td>
+            </tr>
+          `,
+        }, (ordering.trendWatch || []).slice(0, 20));
 
-        renderShortTable('fillers-table', (ordering.suggestedFillers || []).slice(0, 20), row => `
-          <tr>
-            <td>${row.code} · ${row.title}</td>
-            <td class="num">${fmt(row.units365d)}</td>
-            <td class="num">${cover(row.daysOfCover90d)}</td>
-            <td class="num">${fmt(row.recommendedOrderUnits || 0)} ks</td>
-          </tr>
-        `, 'Zatím bez vhodných filler položek.', 4);
+        renderSortableShortTable({
+          id: 'fillers',
+          bodyId: 'fillers-table',
+          defaultSortKey: 'recommended',
+          defaultDirection: 'desc',
+          fallbackKey: 'product',
+          colspan: 4,
+          emptyMessage: 'Zatím bez vhodných filler položek.',
+          columns: {
+            product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
+            sales365: { type: 'number', defaultDirection: 'desc', value: row => row.units365d },
+            cover: { type: 'number', defaultDirection: 'asc', value: row => row.daysOfCover90d },
+            recommended: { type: 'number', defaultDirection: 'desc', value: row => row.recommendedOrderUnits || 0 },
+          },
+          renderRow: row => `
+            <tr>
+              <td>${row.code} · ${row.title}</td>
+              <td class="num">${fmt(row.units365d)}</td>
+              <td class="num">${cover(row.daysOfCover90d)}</td>
+              <td class="num">${fmt(row.recommendedOrderUnits || 0)} ks</td>
+            </tr>
+          `,
+        }, (ordering.suggestedFillers || []).slice(0, 20));
 
         renderPlanning();
         renderExplorer();
@@ -1119,9 +1323,77 @@
         document.getElementById('ordering-window').textContent = `Nepodařilo se načíst data: ${err.message}`;
       });
 
+      function syncExplorerSortStateFromSelect() {
+        const sort = sortSelect.value;
+        sortableTableStates.explorer = {
+          key: sort,
+          direction: sort === 'coverAsc' || sort === 'code' ? 'asc' : 'desc',
+        };
+      }
+
+      document.addEventListener('click', event => {
+        const button = event.target.closest('[data-sort-table]');
+        if (!button) return;
+        const tableId = button.dataset.sortTable;
+        const key = button.dataset.sortKey;
+        const current = sortableTableStates[tableId] || { key, direction: 'desc' };
+        const nextDirection = current.key === key ? (current.direction === 'desc' ? 'asc' : 'desc') : 'desc';
+        sortableTableStates[tableId] = { key, direction: nextDirection };
+
+        if (tableId === 'planning') {
+          renderPlanning();
+          return;
+        }
+        if (tableId === 'explorer') {
+          const sortMap = {
+            product: 'code',
+            stock: 'stockValue',
+            cover: 'coverAsc',
+            order: 'recommended',
+          };
+          if (sortMap[key]) sortSelect.value = sortMap[key];
+          renderExplorer();
+          return;
+        }
+        if (tableId === 'critical-reorder') {
+          renderSortableShortTable({
+            id: 'critical-reorder', bodyId: 'critical-reorder-table', defaultSortKey: 'recommended', defaultDirection: 'desc', fallbackKey: 'product', colspan: 4, emptyMessage: 'Aktuálně bez kritických kandidátů na doplnění.',
+            columns: { product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` }, stock: { type: 'number', defaultDirection: 'desc', value: row => row.effectiveStock }, cover: { type: 'number', defaultDirection: 'asc', value: row => row.daysOfCover90d }, recommended: { type: 'number', defaultDirection: 'desc', value: row => row.recommendedOrderUnits || 0 } },
+            renderRow: row => `<tr><td>${row.code} · ${row.title}</td><td class="num">${fmt(row.effectiveStock)}</td><td class="num">${cover(row.daysOfCover90d)}</td><td class="num">${fmt(row.recommendedOrderUnits || 0)} ks</td></tr>`,
+          }, (ordering.criticalReorder || []).slice(0, 20));
+          return;
+        }
+        if (tableId === 'overstock') {
+          renderSortableShortTable({
+            id: 'overstock', bodyId: 'overstock-table', defaultSortKey: 'value', defaultDirection: 'desc', fallbackKey: 'product', colspan: 4, emptyMessage: 'Aktuálně bez červené obrátkovosti.',
+            columns: { product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` }, stock: { type: 'number', defaultDirection: 'desc', value: row => row.effectiveStock }, months: { type: 'number', defaultDirection: 'desc', value: row => row.stockMonthsOnHand }, value: { type: 'number', defaultDirection: 'desc', value: row => row.stockValueSelling } },
+            renderRow: row => `<tr><td>${row.code} · ${row.title}</td><td class="num">${fmt(row.effectiveStock)}</td><td class="num">${months(row.stockMonthsOnHand)}</td><td class="num">${money(row.stockValueSelling)}</td></tr>`,
+          }, (ordering.overstockRisks || []).slice(0, 20));
+          return;
+        }
+        if (tableId === 'trend-watch') {
+          renderSortableShortTable({
+            id: 'trend-watch', bodyId: 'trend-watch-table', defaultSortKey: 'trend', defaultDirection: 'desc', fallbackKey: 'product', colspan: 4, emptyMessage: 'Zatím bez položek k prověření.',
+            columns: { product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` }, trend: { type: 'number', defaultDirection: 'desc', value: row => row.trend90v365Pct }, sales90: { type: 'number', defaultDirection: 'desc', value: row => row.units90d }, cover: { type: 'number', defaultDirection: 'asc', value: row => row.daysOfCover90d } },
+            renderRow: row => `<tr><td>${row.code} · ${row.title}</td><td class="num">${pct(row.trend90v365Pct)}</td><td class="num">${fmt(row.units90d)}</td><td class="num">${cover(row.daysOfCover90d)}</td></tr>`,
+          }, (ordering.trendWatch || []).slice(0, 20));
+          return;
+        }
+        if (tableId === 'fillers') {
+          renderSortableShortTable({
+            id: 'fillers', bodyId: 'fillers-table', defaultSortKey: 'recommended', defaultDirection: 'desc', fallbackKey: 'product', colspan: 4, emptyMessage: 'Zatím bez vhodných filler položek.',
+            columns: { product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` }, sales365: { type: 'number', defaultDirection: 'desc', value: row => row.units365d }, cover: { type: 'number', defaultDirection: 'asc', value: row => row.daysOfCover90d }, recommended: { type: 'number', defaultDirection: 'desc', value: row => row.recommendedOrderUnits || 0 } },
+            renderRow: row => `<tr><td>${row.code} · ${row.title}</td><td class="num">${fmt(row.units365d)}</td><td class="num">${cover(row.daysOfCover90d)}</td><td class="num">${fmt(row.recommendedOrderUnits || 0)} ks</td></tr>`,
+          }, (ordering.suggestedFillers || []).slice(0, 20));
+        }
+      });
+
       searchInput.addEventListener('input', renderExplorer);
       filterSelect.addEventListener('change', renderExplorer);
-      sortSelect.addEventListener('change', renderExplorer);
+      sortSelect.addEventListener('change', () => {
+        syncExplorerSortStateFromSelect();
+        renderExplorer();
+      });
       planningOrderDate.addEventListener('change', renderPlanning);
       planningArrivalDate.addEventListener('change', renderPlanning);
       planningCapacity.addEventListener('change', renderPlanning);

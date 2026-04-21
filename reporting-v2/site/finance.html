@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Diamond Plus Reporting V2, Finance</title>
   <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .ux-button.is-active {
+      background: linear-gradient(135deg, var(--brand), var(--brand-light));
+      color: #fffaf4;
+      border-color: transparent;
+      box-shadow: 0 10px 22px rgba(107,61,99,.18);
+    }
+  </style>
 </head>
 <body>
   <aside class="sidebar" data-sidebar-page="finance.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Finance bez zbytečné složitosti" data-sidebar-section="Přehled" data-sidebar-footer="Nejdřív peníze, které je potřeba hlídat. Detail až potom."></aside>
@@ -17,6 +25,8 @@
           <h1 class="ux-title">Finance, ve kterých je rychle jasno</h1>
           <p class="ux-subtitle">Nahoře je poslední měsíc, hotovost a platby k hlídání. Účetní detail zůstává níž.</p>
           <div class="ux-actions">
+            <button class="ux-button secondary" type="button" data-view-toggle="current">Současný stav</button>
+            <button class="ux-button secondary" type="button" data-view-toggle="previous">Minulý měsíc</button>
             <a class="ux-button primary" href="../data/current/finance_overview.json" target="_blank" rel="noopener">Otevřít finance data</a>
             <a class="ux-button secondary" href="marketing.html">Na marketing</a>
             <a class="ux-button secondary" href="index.html">Na přehled</a>
@@ -44,8 +54,8 @@
 
       <div class="ux-side-stack">
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Tento měsíc stručně</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Jen to hlavní z posledního měsíce.</p>
+          <h3 id="finance-period-title" style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Tento měsíc stručně</h3>
+          <p id="finance-period-subtitle" style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Jen to hlavní z posledního měsíce.</p>
           <div class="ux-stat-list" id="current-month-list"></div>
         </div>
         <div class="ux-panel-card">
@@ -180,6 +190,8 @@
       const current = data.currentMonth || {};
       const cash = data.cash || {};
       const previous = data.previousMonth || {};
+      const toggleButtons = [...document.querySelectorAll('[data-view-toggle]')];
+      let activeMode = 'current';
       const journal = data.journal || {};
       const monthlyJournal = journal.monthly || [];
       const journalCurrent = journal.currentMonth || {};
@@ -200,44 +212,60 @@
           </select>
         </label>
       `;
-      const hero = [
-        ['Výnosy', money(current.revenue), `${pct(current.grossMarginPct)} hrubá marže`, 'accent'],
-        ['Čistý zisk', money(current.profit), `${pct(current.profitPct)} z výnosů`, ''],
-        ['Čistá cash pozice', money(cash.netCashPosition), `${DP.fmtNumber(cash.overdueInvoicesCount || 0)} po splatnosti`, '']
-      ];
-      document.getElementById('finance-hero').innerHTML = hero.map(([label, value, sub, klass]) => `
-        <div class="ux-hero-metric ${klass}">
-          <div class="label">${label}</div>
-          <div class="value">${value}</div>
-          <div class="sub">${sub}</div>
-        </div>
-      `).join('');
+      function selectedMonthData() {
+        return activeMode === 'previous' && previous.label ? previous : current;
+      }
 
-      const overdueText = Number(cash.overdueInvoicesCount || 0)
-        ? `${DP.fmtNumber(cash.overdueInvoicesCount || 0)} závazek po splatnosti, celkem ${money(cash.overdueInvoicesAmount)}.`
-        : 'Nic zásadního po splatnosti teď nevidíme.';
+      function renderFinanceTop() {
+        const month = selectedMonthData();
+        const compareMonth = activeMode === 'previous' ? current : previous;
+        toggleButtons.forEach(button => button.classList.toggle('is-active', button.dataset.viewToggle === activeMode));
+        document.getElementById('finance-period-title').textContent = activeMode === 'previous' ? `Minulý měsíc stručně (${month.label || '–'})` : `Tento měsíc stručně (${month.label || '–'})`;
+        document.getElementById('finance-period-subtitle').textContent = activeMode === 'previous'
+          ? 'Stejný rychlý výřez, ale pro minulý uzavřený měsíc.'
+          : 'Jen to hlavní z posledního měsíce.';
 
-      document.getElementById('finance-focus').innerHTML = [
-        [`Měsíc ${current.label || '–'}`, `Výnosy ${money(current.revenue)}, provozní marže ${money(current.operatingMargin)} a zisk ${money(current.profit)}.`],
-        [`Cash po závazcích`, `Na účtech ${money(cash.cashOnAccounts)}, k úhradě ${money(cash.unpaidInvoices)}, čistá pozice ${money(cash.netCashPosition)}.`],
-        [`Co potřebuje pozornost`, overdueText],
-        previous.label ? [`Srovnání s ${previous.label}`, `Minulý měsíc měl výnosy ${money(previous.revenue)} a zisk ${money(previous.profit)}.`] : null,
-      ].filter(Boolean).map(([title, text], index) => `
-        <div class="ux-item">
-          <span class="ux-dot ${index === 1 ? 'gold' : 'blue'}"></span>
-          <div>
-            <strong>${title}</strong>
-            <span>${text}</span>
+        const hero = [
+          ['Výnosy', money(month.revenue), `${pct(month.grossMarginPct)} hrubá marže`, 'accent'],
+          ['Čistý zisk', money(month.profit), `${pct(month.profitPct)} z výnosů`, ''],
+          ['Čistá cash pozice', money(cash.netCashPosition), `${DP.fmtNumber(cash.overdueInvoicesCount || 0)} po splatnosti`, '']
+        ];
+        document.getElementById('finance-hero').innerHTML = hero.map(([label, value, sub, klass]) => `
+          <div class="ux-hero-metric ${klass}">
+            <div class="label">${label}</div>
+            <div class="value">${value}</div>
+            <div class="sub">${sub}</div>
           </div>
-        </div>
-      `).join('');
+        `).join('');
 
-      document.getElementById('current-month-list').innerHTML = [
-        ['Výnosy', money(current.revenue)],
-        ['Hrubá marže', money(current.grossMargin)],
-        ['Provozní marže', `${money(current.operatingMargin)} (${pct(current.operatingMarginPct)})`],
-        ['Zisk', `${money(current.profit)} (${pct(current.profitPct)})`],
-      ].map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
+        const overdueText = Number(cash.overdueInvoicesCount || 0)
+          ? `${DP.fmtNumber(cash.overdueInvoicesCount || 0)} závazek po splatnosti, celkem ${money(cash.overdueInvoicesAmount)}.`
+          : 'Nic zásadního po splatnosti teď nevidíme.';
+
+        document.getElementById('finance-focus').innerHTML = [
+          [`Měsíc ${month.label || '–'}`, `Výnosy ${money(month.revenue)}, provozní marže ${money(month.operatingMargin)} a zisk ${money(month.profit)}.`],
+          [`Cash po závazcích`, `Na účtech ${money(cash.cashOnAccounts)}, k úhradě ${money(cash.unpaidInvoices)}, čistá pozice ${money(cash.netCashPosition)}.`],
+          [`Co potřebuje pozornost`, overdueText],
+          compareMonth?.label ? [`Srovnání s ${compareMonth.label}`, `${compareMonth.label} měl výnosy ${money(compareMonth.revenue)} a zisk ${money(compareMonth.profit)}.`] : null,
+        ].filter(Boolean).map(([title, text], index) => `
+          <div class="ux-item">
+            <span class="ux-dot ${index === 1 ? 'gold' : 'blue'}"></span>
+            <div>
+              <strong>${title}</strong>
+              <span>${text}</span>
+            </div>
+          </div>
+        `).join('');
+
+        document.getElementById('current-month-list').innerHTML = [
+          ['Výnosy', money(month.revenue)],
+          ['Hrubá marže', money(month.grossMargin)],
+          ['Provozní marže', `${money(month.operatingMargin)} (${pct(month.operatingMarginPct)})`],
+          ['Zisk', `${money(month.profit)} (${pct(month.profitPct)})`],
+        ].map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
+      }
+
+      renderFinanceTop();
 
       document.getElementById('cash-list').innerHTML = [
         ['Cash na účtech', money(cash.cashOnAccounts)],
@@ -358,6 +386,19 @@
       }
 
       renderJournalTables();
+
+      const hasPrevious = Boolean(previous.label);
+      toggleButtons.forEach(button => {
+        if (button.dataset.viewToggle === 'previous' && !hasPrevious) {
+          button.disabled = true;
+          button.title = 'Minulý měsíc bude dostupný po dalším refreshi finance dat.';
+        }
+        button.addEventListener('click', () => {
+          if (button.disabled) return;
+          activeMode = button.dataset.viewToggle;
+          renderFinanceTop();
+        });
+      });
     })().catch(err => {
       document.getElementById('source-alert').innerHTML = `<div class="alert danger">Nepodařilo se načíst finance data: ${err.message}</div>`;
     });
