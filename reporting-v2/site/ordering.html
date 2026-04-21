@@ -5,6 +5,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Objednávání zboží / Reporting V2</title>
   <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .ordering-explorer-pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .ordering-explorer-row {
+      cursor: pointer;
+    }
+
+    .ordering-explorer-row.is-active td {
+      background: rgba(200, 162, 75, .12);
+    }
+
+    [data-theme="dark"] .ordering-explorer-row.is-active td {
+      background: rgba(200, 162, 75, .18);
+    }
+
+    .ordering-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .ordering-detail-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, .62);
+    }
+
+    [data-theme="dark"] .ordering-detail-card {
+      background: rgba(20, 24, 31, .72);
+    }
+
+    .ordering-detail-card .label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .ordering-detail-card strong {
+      font-size: 18px;
+    }
+
+    .ordering-detail-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .ordering-detail-list-item {
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .55);
+    }
+
+    [data-theme="dark"] .ordering-detail-list-item {
+      background: rgba(20, 24, 31, .7);
+    }
+
+    .ordering-detail-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+  </style>
 </head>
 <body class="page-ordering-simplified">
   <aside class="sidebar" data-sidebar-page="ordering.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Objednávání zboží pro běžnou praxi" data-sidebar-section="Přehled" data-sidebar-footer="Pomáhá rychle poznat, co objednat hned a co raději nechat být."></aside>
@@ -252,27 +329,61 @@
               <option value="code">Kód A–Z</option>
             </select>
           </label>
+          <label class="control-group control-group-compact">
+            <span class="control-label">Na stránku</span>
+            <select id="ordering-page-size" class="select">
+              <option value="25">25</option>
+              <option value="50" selected>50</option>
+              <option value="100">100</option>
+            </select>
+          </label>
+          <button id="ordering-export-current-csv" class="ux-button secondary" type="button">Export aktuálního pohledu</button>
+          <button id="ordering-copy-summary" class="ux-button secondary" type="button">Kopírovat handoff</button>
         </div>
       </div>
 
       <div class="section-subtitle" id="ordering-explorer-summary">Načítám seznam položek…</div>
-      <table class="table" data-sortable-table="explorer">
-        <thead>
-          <tr>
-            <th><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
-            <th><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="signals">Nákupní signály <span class="table-sort-arrow">↕</span></button></th>
-            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="stock">Sklad <span class="table-sort-arrow">↕</span></button></th>
-            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="periodSales">Prodej v období <span class="table-sort-arrow">↕</span></button></th>
-            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="sales90">Prodej 90d <span class="table-sort-arrow">↕</span></button></th>
-            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
-            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="target">Cíl <span class="table-sort-arrow">↕</span></button></th>
-            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="step">Krok balení <span class="table-sort-arrow">↕</span></button></th>
-            <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="order">Objednat <span class="table-sort-arrow">↕</span></button></th>
-            <th><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="rounding">Balicí pravidlo <span class="table-sort-arrow">↕</span></button></th>
-          </tr>
-        </thead>
-        <tbody id="ordering-explorer-table"></tbody>
-      </table>
+      <div class="ux-table-wrap">
+        <table class="table" data-sortable-table="explorer">
+          <thead>
+            <tr>
+              <th><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="signals">Nákupní signály <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="stock">Sklad <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="periodSales">Prodej v období <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="sales90">Prodej 90d <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="target">Cíl <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="step">Krok balení <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="order">Objednat <span class="table-sort-arrow">↕</span></button></th>
+              <th><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="rounding">Balicí pravidlo <span class="table-sort-arrow">↕</span></button></th>
+            </tr>
+          </thead>
+          <tbody id="ordering-explorer-table"></tbody>
+        </table>
+      </div>
+      <div class="ordering-explorer-pagination">
+        <div class="section-subtitle" id="ordering-pagination-summary">Načítám stránkování…</div>
+        <div class="quick-filters" style="margin:0;">
+          <button id="ordering-page-prev" class="quick-filter" type="button">Předchozí</button>
+          <button id="ordering-page-next" class="quick-filter" type="button">Další</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:20px;">
+      <div class="toolbar">
+        <div>
+          <h2 class="section-title">Detail vybrané položky</h2>
+          <div class="section-subtitle" id="ordering-detail-summary">Klikni v exploreru na konkrétní SKU, ať hned vidíš důvod doporučení i handoff text.</div>
+        </div>
+        <div class="ordering-detail-actions">
+          <button id="ordering-copy-row-summary" class="ux-button secondary" type="button">Kopírovat detail položky</button>
+        </div>
+      </div>
+      <div id="ordering-detail-panel">
+        <div class="ux-empty-state">Zatím není vybraná žádná položka.</div>
+      </div>
     </section>
     </details>
   </main>
@@ -420,6 +531,15 @@
       const searchInput = document.getElementById('ordering-search');
       const filterSelect = document.getElementById('ordering-filter');
       const sortSelect = document.getElementById('ordering-sort');
+      const pageSizeSelect = document.getElementById('ordering-page-size');
+      const paginationSummary = document.getElementById('ordering-pagination-summary');
+      const pagePrevButton = document.getElementById('ordering-page-prev');
+      const pageNextButton = document.getElementById('ordering-page-next');
+      const exportCurrentViewButton = document.getElementById('ordering-export-current-csv');
+      const copySummaryButton = document.getElementById('ordering-copy-summary');
+      const detailSummary = document.getElementById('ordering-detail-summary');
+      const detailPanel = document.getElementById('ordering-detail-panel');
+      const copyRowSummaryButton = document.getElementById('ordering-copy-row-summary');
       const planningOrderDate = document.getElementById('planning-order-date');
       const planningArrivalDate = document.getElementById('planning-arrival-date');
       const planningCapacity = document.getElementById('planning-capacity');
@@ -437,7 +557,12 @@
       let ordering = { summary: {}, alerts: [] };
       let orderingReference = { summary: {}, items: [] };
       let currentPlanningRows = [];
+      let currentExplorerRows = [];
+      let currentExplorerVisibleRows = [];
+      let currentExplorerPage = 1;
+      let selectedExplorerCode = '';
       const planningExportState = new Map();
+      const ORDERING_EXPLORER_STATE_KEY = 'dp-ordering-explorer-state-v2';
       const sortableTableStates = {
         'critical-reorder': { key: 'recommended', direction: 'desc' },
         overstock: { key: 'value', direction: 'desc' },
@@ -452,6 +577,15 @@
         half: { label: 'půl kamionu', targetUnits: 2800, fillerShare: 0.35 },
         full: { label: 'celý kamion', targetUnits: 5200, fillerShare: 0.65 },
       };
+
+      function escapeHtml(text) {
+        return String(text ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
 
       function asDateInputValue(value) {
         if (!value) return '';
@@ -1133,6 +1267,134 @@
         `).join('');
       }
 
+      function explorerPageSize() {
+        return Math.max(25, Number(pageSizeSelect.value || 50));
+      }
+
+      function saveExplorerState() {
+        localStorage.setItem(ORDERING_EXPLORER_STATE_KEY, JSON.stringify({
+          search: searchInput.value || '',
+          filter: filterSelect.value || 'all',
+          sort: sortSelect.value || 'priority',
+          pageSize: pageSizeSelect.value || '50',
+          currentPage: currentExplorerPage,
+          selectedCode: selectedExplorerCode || '',
+          sortState: sortableTableStates.explorer || { key: 'priority', direction: 'desc' },
+        }));
+      }
+
+      function restoreExplorerState() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(ORDERING_EXPLORER_STATE_KEY) || 'null');
+          if (!saved || typeof saved !== 'object') return;
+          if (typeof saved.search === 'string') searchInput.value = saved.search;
+          if ([...filterSelect.options].some(option => option.value === saved.filter)) filterSelect.value = saved.filter;
+          if ([...sortSelect.options].some(option => option.value === saved.sort)) sortSelect.value = saved.sort;
+          if ([...pageSizeSelect.options].some(option => option.value === String(saved.pageSize))) pageSizeSelect.value = String(saved.pageSize);
+          if (saved.sortState?.key) sortableTableStates.explorer = saved.sortState;
+          if (saved.selectedCode) selectedExplorerCode = saved.selectedCode;
+          currentExplorerPage = Math.max(1, Number(saved.currentPage || 1));
+        } catch (error) {
+          console.warn('Nepodařilo se obnovit stav ordering exploreru.', error);
+        }
+      }
+
+      function explainRow(row) {
+        const reasons = [];
+        if (row.orderable === false) reasons.push(`SKU je aktuálně mimo nákup: ${row.excludeFromOrderingReason || 'bez upřesnění'}.`);
+        else reasons.push('SKU je pro nákup povolená a může vstoupit do shortlistu.');
+        if (row.reorderRisk === 'critical') reasons.push(`Pokrytí je jen ${cover(row.daysOfCover90d)}, proto je to kandidát řešit hned.`);
+        else if (row.reorderRisk === 'soon') reasons.push(`Pokrytí ${cover(row.daysOfCover90d)} už je na hraně a dává smysl objednávku chystat.`);
+        else if (row.reorderRisk === 'watch') reasons.push('Je to položka k ověření, ne automatický nákup.');
+        if ((row.trend90v365Pct || 0) >= 25) reasons.push(`Tempo prodeje roste o ${pct(row.trend90v365Pct)}, takže doporučení je agresivnější.`);
+        else if ((row.trend90v365Pct || 0) <= -25) reasons.push(`Tempo prodeje slábne o ${pct(row.trend90v365Pct)}, takže je na místě opatrnost.`);
+        if (row.orderStepUnits && row.orderStepUnits > 1) reasons.push(`Objednávka se zaokrouhluje po ${fmt(row.orderStepUnits)} ks kvůli balení ${row.packagingRaw || 'z referenční vrstvy'}.`);
+        else reasons.push('Balení nemá tvrdé omezení, takže finální počet zůstává blízko ideálu.');
+        return reasons;
+      }
+
+      function buildHandoffText(rows) {
+        const top = (rows || []).slice(0, 8);
+        if (!top.length) return 'Aktuální filtr v objednávání nic nevrací.';
+        return [
+          `Shortlist objednávání, filtr ${filterSelect.options[filterSelect.selectedIndex]?.text || filterSelect.value}, řazení ${sortSelect.options[sortSelect.selectedIndex]?.text || sortSelect.value}.`,
+          ...top.map((row, index) => `${index + 1}. ${row.code} ${row.title}, objednat ${fmt(row.finalOrderUnits || 0)} ks, krok ${fmt(row.orderStepUnits || 1)} ks, pokrytí ${cover(row.daysOfCover90d)}, riziko ${row.reorderRisk || 'bez rizika'}.`),
+        ].join('\n');
+      }
+
+      function copyText(text, button, successLabel = 'Zkopírováno') {
+        if (!navigator.clipboard?.writeText) return Promise.reject(new Error('Clipboard API není dostupné.'));
+        const original = button?.textContent;
+        return navigator.clipboard.writeText(text).then(() => {
+          if (!button) return;
+          button.textContent = successLabel;
+          window.setTimeout(() => {
+            button.textContent = original;
+          }, 1400);
+        });
+      }
+
+      function exportExplorerRows(rows) {
+        const header = ['Kód', 'Produkt', 'Objednatelné', 'Riziko', 'Role', 'Trend 90v365 %', 'Pokrytí 90d', 'Sklad', 'Prodej 90d', 'Ideál ks', 'Krok balení ks', 'Finální objednávka ks', 'Balicí pravidlo', 'Důvod'];
+        const escape = value => {
+          const text = String(value ?? '');
+          if (/[";,\n]/.test(text)) return `"${text.replace(/"/g, '""')}"`;
+          return text;
+        };
+        const csv = [header, ...(rows || []).map(row => [
+          row.code || '',
+          row.title || '',
+          row.orderable === false ? 'ne' : 'ano',
+          row.reorderRisk || '',
+          row.orderingRole || '',
+          row.trend90v365Pct ?? '',
+          row.daysOfCover90d ?? '',
+          row.effectiveStock ?? '',
+          row.units90d ?? '',
+          row.idealUnits ?? '',
+          row.orderStepUnits ?? '',
+          row.finalOrderUnits ?? '',
+          row.roundingMode || '',
+          (explainRow(row)[0] || '').replace(/\s+/g, ' ').trim(),
+        ])].map(line => line.map(escape).join(';')).join('\n');
+
+        const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `ordering-explorer-${new Date().toISOString().slice(0, 10)}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.setTimeout(() => URL.revokeObjectURL(url), 500);
+      }
+
+      function renderDetailPanel(row) {
+        if (!row) {
+          detailSummary.textContent = 'Klikni v exploreru na konkrétní SKU, ať hned vidíš důvod doporučení i handoff text.';
+          detailPanel.innerHTML = '<div class="ux-empty-state">Zatím není vybraná žádná položka.</div>';
+          return;
+        }
+
+        const reasons = explainRow(row);
+        const handoff = `${row.code} ${row.title}: objednat ${fmt(row.finalOrderUnits || 0)} ks po ${fmt(row.orderStepUnits || 1)} ks. Pokrytí ${cover(row.daysOfCover90d)}, prodej 90d ${fmt(row.units90d)}, trend ${pct(row.trend90v365Pct)}, riziko ${row.reorderRisk || 'bez varování'}.`;
+        detailSummary.textContent = `${row.code} · ${row.title}`;
+        detailPanel.innerHTML = `
+          <div class="ordering-detail-grid">
+            <div class="ordering-detail-card"><span class="label">Finální objednávka</span><strong>${fmt(row.finalOrderUnits || 0)} ks</strong><div class="muted small" style="margin-top:6px;">Ideál ${fmt(row.idealUnits || 0)} ks, krok ${fmt(row.orderStepUnits || 1)} ks</div></div>
+            <div class="ordering-detail-card"><span class="label">Pokrytí a prodej</span><strong>${cover(row.daysOfCover90d)}</strong><div class="muted small" style="margin-top:6px;">Prodej 90d ${fmt(row.units90d)} ks, v okně ${fmt(row.unitsWindow ?? row.units730d)} ks</div></div>
+            <div class="ordering-detail-card"><span class="label">Trend a role</span><strong>${pct(row.trend90v365Pct)}</strong><div class="muted small" style="margin-top:6px;">${row.orderingRole || 'standard'} · ${row.sourceChannel || 'zdroj neznámý'}</div></div>
+            <div class="ordering-detail-card"><span class="label">Balení a pravidlo</span><strong>${escapeHtml(row.packagingRaw || 'bez mapy')}</strong><div class="muted small" style="margin-top:6px;">${escapeHtml(row.roundingMode || 'bez omezení')} · párování ${escapeHtml(row.packagingMatchStatus || 'chybí')}</div></div>
+          </div>
+          <div class="ordering-detail-list">
+            ${reasons.map(text => `<div class="ordering-detail-list-item">${escapeHtml(text)}</div>`).join('')}
+          </div>
+          <div class="ordering-detail-list" style="margin-top:12px;">
+            <div class="ordering-detail-list-item"><strong>Handoff text</strong><div class="muted small" style="margin-top:6px; line-height:1.6;">${escapeHtml(handoff)}</div></div>
+          </div>
+        `;
+      }
+
       function getExplorerRows() {
         const term = (searchInput.value || '').trim().toLowerCase();
         const filter = filterSelect.value;
@@ -1168,11 +1430,21 @@
 
       function renderExplorer() {
         const rows = getExplorerRows();
+        currentExplorerRows = rows;
         const excludedCount = rows.filter(row => row.orderable === false).length;
         const packagingMatched = orderingReference.summary.byPackagingMatchStatus?.matched || 0;
+        const totalPages = Math.max(1, Math.ceil(rows.length / explorerPageSize()));
+        currentExplorerPage = clamp(currentExplorerPage, 1, totalPages);
+        const pageRows = rows.slice((currentExplorerPage - 1) * explorerPageSize(), currentExplorerPage * explorerPageSize());
+        currentExplorerVisibleRows = pageRows;
         explorerSummary.textContent = `Zobrazeno ${fmt(rows.length)} SKU, z toho ${fmt(excludedCount)} mimo nákup. Referenční vrstva je načtená pro ${fmt(orderingReference.summary.trackedItems || 0)} SKU, balení spárované u ${fmt(packagingMatched)} SKU.`;
-        explorerTable.innerHTML = rows.slice(0, 150).map(row => `
-          <tr>
+        paginationSummary.textContent = `Strana ${fmt(currentExplorerPage)} z ${fmt(totalPages)} · zobrazeno ${fmt(pageRows.length)} z ${fmt(rows.length)} řádků.`;
+        pagePrevButton.disabled = currentExplorerPage <= 1;
+        pageNextButton.disabled = currentExplorerPage >= totalPages;
+        if (!selectedExplorerCode && pageRows[0]?.code) selectedExplorerCode = pageRows[0].code;
+        if (selectedExplorerCode && !rows.some(row => row.code === selectedExplorerCode)) selectedExplorerCode = pageRows[0]?.code || '';
+        explorerTable.innerHTML = pageRows.map(row => `
+          <tr class="ordering-explorer-row${row.code === selectedExplorerCode ? ' is-active' : ''}" data-ordering-row="${escapeHtml(row.code || '')}">
             <td>
               <div><strong>${row.code} · ${row.title}</strong></div>
               <div class="muted small" style="margin-top:6px;">YoY ${pct(row.seasonalityYoYPct)} · poslední prodej ${row.daysSinceLastSale == null ? '–' : `${fmt(row.daysSinceLastSale)} dnů zpět`}</div>
@@ -1191,6 +1463,8 @@
           </tr>
         `).join('') || '<tr><td colspan="10">Nic neodpovídá aktuálnímu filtru.</td></tr>';
         updateSortableTableHead('explorer');
+        renderDetailPanel(rows.find(row => row.code === selectedExplorerCode) || pageRows[0] || null);
+        saveExplorerState();
       }
 
       Promise.all([
@@ -1210,6 +1484,8 @@
         planningArrivalDate.value = asDateInputValue(defaultArrivalDate);
         planningCapacity.value = ordering.planning?.defaults?.capacity || 'half';
         planningPraha.value = ordering.planning?.defaults?.prahaFallback ? 'on' : 'off';
+        restoreExplorerState();
+        syncExplorerSortStateFromSelect();
 
         renderHero();
         renderKpis();
@@ -1320,9 +1596,12 @@
 
       function syncExplorerSortStateFromSelect() {
         const sort = sortSelect.value;
+        const current = sortableTableStates.explorer || {};
         sortableTableStates.explorer = {
           key: sort,
-          direction: sort === 'coverAsc' || sort === 'code' ? 'asc' : 'desc',
+          direction: current.key === sort
+            ? (current.direction || (sort === 'coverAsc' || sort === 'code' ? 'asc' : 'desc'))
+            : (sort === 'coverAsc' || sort === 'code' ? 'asc' : 'desc'),
         };
       }
 
@@ -1347,6 +1626,7 @@
             order: 'recommended',
           };
           if (sortMap[key]) sortSelect.value = sortMap[key];
+          currentExplorerPage = 1;
           renderExplorer();
           return;
         }
@@ -1383,10 +1663,35 @@
         }
       });
 
-      searchInput.addEventListener('input', renderExplorer);
-      filterSelect.addEventListener('change', renderExplorer);
+      searchInput.addEventListener('input', () => {
+        currentExplorerPage = 1;
+        renderExplorer();
+      });
+      filterSelect.addEventListener('change', () => {
+        currentExplorerPage = 1;
+        renderExplorer();
+      });
       sortSelect.addEventListener('change', () => {
         syncExplorerSortStateFromSelect();
+        currentExplorerPage = 1;
+        renderExplorer();
+      });
+      pageSizeSelect.addEventListener('change', () => {
+        currentExplorerPage = 1;
+        renderExplorer();
+      });
+      pagePrevButton.addEventListener('click', () => {
+        currentExplorerPage = Math.max(1, currentExplorerPage - 1);
+        renderExplorer();
+      });
+      pageNextButton.addEventListener('click', () => {
+        currentExplorerPage += 1;
+        renderExplorer();
+      });
+      explorerTable.addEventListener('click', event => {
+        const rowEl = event.target.closest('[data-ordering-row]');
+        if (!rowEl) return;
+        selectedExplorerCode = rowEl.dataset.orderingRow || '';
         renderExplorer();
       });
       planningOrderDate.addEventListener('change', renderPlanning);
@@ -1427,6 +1732,20 @@
         exportPlanningRows(buildRecommendationRows().rows.slice(0, 120));
       });
       exportPlanningXlsxButton.addEventListener('click', () => exportPlanningXlsx(currentPlanningRows));
+      exportCurrentViewButton.addEventListener('click', () => exportExplorerRows(currentExplorerRows));
+      copySummaryButton.addEventListener('click', () => {
+        copyText(buildHandoffText(currentExplorerRows), copySummaryButton, 'Handoff zkopírován').catch(() => {
+          explorerSummary.textContent = 'Nepodařilo se zkopírovat handoff do schránky.';
+        });
+      });
+      copyRowSummaryButton.addEventListener('click', () => {
+        const row = currentExplorerRows.find(item => item.code === selectedExplorerCode);
+        if (!row) return;
+        const text = `${row.code} ${row.title}: objednat ${fmt(row.finalOrderUnits || 0)} ks po ${fmt(row.orderStepUnits || 1)} ks. Pokrytí ${cover(row.daysOfCover90d)}, prodej 90d ${fmt(row.units90d)}, trend ${pct(row.trend90v365Pct)}, důvod: ${explainRow(row).join(' ')}`;
+        copyText(text, copyRowSummaryButton, 'Detail zkopírován').catch(() => {
+          detailSummary.textContent = 'Nepodařilo se zkopírovat detail položky.';
+        });
+      });
     })();
   </script>
 </body>
