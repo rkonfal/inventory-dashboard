@@ -36,17 +36,22 @@
     .meta-box strong { display:block; margin-bottom:4px; }
     .task-list, .decision-list, .owner-list { display:grid; gap:12px; }
     .task-item, .decision-item, .owner-item { background:#fff; border:1px solid var(--border); border-radius:18px; padding:14px 16px; }
+    .task-item.is-done { background:#f8faf8; border-color:#d7eadc; }
     .task-top, .owner-top { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
+    .task-top { display:grid; grid-template-columns:auto 1fr auto; }
+    .task-check { width:18px; height:18px; margin-top:3px; accent-color:#15803d; cursor:pointer; }
     .task-text, .decision-text { margin-top:6px; line-height:1.65; overflow-wrap:anywhere; word-break:break-word; }
+    .task-item.is-done .task-text { text-decoration:line-through; color:var(--text-muted); }
     .tag { padding:5px 8px; border-radius:999px; font-size:11px; font-weight:800; }
     .priority-high { background:#fee2e2; color:#991b1b; }
     .priority-medium { background:#fef3c7; color:#92400e; }
     .status-open { background:#ede9fe; color:#5b21b6; }
+    .status-done { background:#dcfce7; color:#166534; }
     .section-note { color:var(--text-muted); margin-top:4px; margin-bottom:14px; }
     @media (max-width: 1100px) { .meetings-layout { grid-template-columns:1fr; } }
   </style>
 </head>
-<body>
+<body class="page-meetings-simplified">
   <aside class="sidebar" data-sidebar-page="meetings.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Porady, rozhodnutí a follow-upy" data-sidebar-section="Přehled" data-sidebar-footer="Schůzky podle data, s otevřenými úkoly a rozhodnutími na jednom místě."></aside>
 
   <main class="main page-stack">
@@ -55,7 +60,7 @@
         <div class="ux-intro meetings-hero-card" style="width:100%;">
           <div class="ux-kicker">Porady • rozhodnutí • úkoly</div>
           <h1>Porady na jednom místě</h1>
-          <p>Jednoduchý dashboard nad interními poradami. Nahoře je rychlý přehled, pod tím porady seřazené podle data, otevřené úkoly, blízké termíny a odsouhlasená rozhodnutí.</p>
+          <p>Rychlý přehled porad, rozhodnutí a otevřených úkolů. Bez zbytečné omáčky, hned je vidět kdo co drží a co hoří termínem.</p>
           <div class="meetings-toolbar">
             <button class="meetings-chip active" data-view="timeline">Chronologicky</button>
             <button class="meetings-chip" data-view="owners">Podle lidí</button>
@@ -148,6 +153,8 @@
       }
     })();
 
+    const STORAGE_KEY = 'dp-meetings-task-statuses';
+    const taskStatusOverrides = loadTaskStatusOverrides();
     const state = { meetings: [], view: 'timeline' };
     const fmtDate = value => new Date(value).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' });
     const relative = value => {
@@ -166,8 +173,43 @@
       return open[0] ? `${fmtDate(open[0].due)} (${relative(open[0].due)})` : 'bez termínu';
     };
 
+    function loadTaskStatusOverrides() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      } catch {
+        return {};
+      }
+    }
+
+    function saveTaskStatus(taskId, status) {
+      taskStatusOverrides[taskId] = status;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(taskStatusOverrides));
+    }
+
+    function setTaskStatus(taskId, status) {
+      for (const meeting of state.meetings) {
+        const task = (meeting.tasks || []).find(item => item.id === taskId);
+        if (task) {
+          task.status = status;
+          saveTaskStatus(taskId, status);
+          renderKpis();
+          renderView();
+          return;
+        }
+      }
+    }
+
     fetch('assets/meetings.json').then(r => r.json()).then(data => {
-      state.meetings = data.sort((a,b) => (a.date < b.date ? 1 : -1));
+      state.meetings = data
+        .sort((a,b) => (a.date < b.date ? 1 : -1))
+        .map(meeting => ({
+          ...meeting,
+          tasks: (meeting.tasks || []).map((task, index) => ({
+            ...task,
+            id: `${meeting.id || meeting.date || 'meeting'}-${index}`,
+            status: taskStatusOverrides[`${meeting.id || meeting.date || 'meeting'}-${index}`] || task.status || 'open'
+          }))
+        }));
       renderKpis();
       renderView();
     });
@@ -187,8 +229,9 @@
 
     function taskHtml(t, showMeeting=false) {
       return `
-        <div class="task-item">
+        <div class="task-item ${t.status === 'done' ? 'is-done' : ''}">
           <div class="task-top">
+            <input class="task-check" type="checkbox" ${t.status === 'done' ? 'checked' : ''} onchange="setTaskStatus('${t.id}', this.checked ? 'done' : 'open')" aria-label="Označit úkol jako hotový">
             <div>
               <strong>${t.owner}</strong>
               <div class="task-text">${t.task}</div>
@@ -197,7 +240,7 @@
           </div>
           <div class="task-tags">
             <span class="tag priority-${t.priority}">${t.priority === 'high' ? 'vysoká priorita' : 'střední priorita'}</span>
-            <span class="tag status-${t.status}">${t.status === 'open' ? 'otevřeno' : t.status}</span>
+            <span class="tag status-${t.status}">${t.status === 'open' ? 'otevřeno' : t.status === 'done' ? 'hotovo' : t.status}</span>
             ${showMeeting ? `<span class="tag pill brand">${t.meetingTitle}</span>` : ''}
           </div>
         </div>
@@ -232,6 +275,7 @@
               <div class="meta-box"><strong>Nejbližší termín</strong>${nextDue(m.tasks)}</div>
               <div class="meta-box"><strong>Zdroj</strong><a href="${m.sourceUrl}" target="_blank" rel="noopener">Notta přepis</a></div>
             </div>
+            ${(m.tasks || []).length ? `<div class="task-list" style="margin-top:14px;">${(m.tasks || []).sort((a,b) => a.due.localeCompare(b.due)).map(t => taskHtml(t)).join('')}</div>` : ''}
           </article>
         `).join('');
       }
@@ -246,9 +290,13 @@
             map.get(owner).push(t);
           });
         });
-        main.innerHTML = [...map.entries()].sort((a,b) => b[1].length - a[1].length).map(([owner, tasks]) => `
+        main.innerHTML = [...map.entries()].sort((a,b) => {
+          const aOpen = a[1].filter(t => t.status === 'open').length;
+          const bOpen = b[1].filter(t => t.status === 'open').length;
+          return bOpen - aOpen || b[1].length - a[1].length;
+        }).map(([owner, tasks]) => `
           <article class="meeting-card">
-            <div class="meeting-head"><h3>${owner}</h3><div class="meeting-date">${tasks.length} úkolů</div></div>
+            <div class="meeting-head"><h3>${owner}</h3><div class="meeting-date">${tasks.filter(t => t.status === 'open').length} otevřených</div></div>
             <div class="task-list">${tasks.map(t => taskHtml(t, true)).join('')}</div>
           </article>
         `).join('');

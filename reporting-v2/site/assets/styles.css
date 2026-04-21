@@ -283,6 +283,112 @@ a { color: inherit; }
 .theme-toggle:hover { border-color: var(--border-strong); }
 
 .grid { display: grid; gap: 20px; }
+.secondary-details {
+  margin-top: 24px;
+  background: rgba(255,255,255,.52);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 14px 16px 16px;
+  box-shadow: var(--shadow-soft);
+}
+.secondary-details summary {
+  cursor: pointer;
+  list-style: none;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.secondary-details summary::-webkit-details-marker { display: none; }
+.secondary-details summary::before {
+  content: '▸';
+  color: var(--brand-light);
+  font-size: 14px;
+  transition: transform .18s ease;
+}
+.secondary-details[open] summary::before { transform: rotate(90deg); }
+.secondary-details > section:first-of-type,
+.secondary-details > .grid:first-of-type {
+  margin-top: 18px !important;
+}
+.page-home-simplified .ux-grid,
+.page-inventory-simplified .ux-grid,
+.page-ordering-simplified .ux-grid,
+.page-eshop-simplified .ux-grid,
+.page-logistics-simplified .ux-grid,
+.page-expiry-simplified .ux-grid,
+.page-finance-simplified .ux-grid,
+.page-marketing-simplified .ux-grid {
+  margin-top: 24px;
+}
+.page-home-simplified .ux-focus-card,
+.page-inventory-simplified .ux-focus-card,
+.page-ordering-simplified .ux-focus-card,
+.page-eshop-simplified .ux-focus-card,
+.page-logistics-simplified .ux-focus-card,
+.page-expiry-simplified .ux-focus-card,
+.page-finance-simplified .ux-focus-card,
+.page-marketing-simplified .ux-focus-card {
+  background: linear-gradient(135deg, rgba(58,36,56,.97), rgba(107,61,99,.95));
+  color: #fff7ef;
+}
+.page-home-simplified .ux-focus-card .ux-section-title,
+.page-home-simplified .ux-focus-card .ux-section-subtitle,
+.page-home-simplified .ux-focus-card .ux-item strong,
+.page-home-simplified .ux-focus-card .ux-item span,
+.page-inventory-simplified .ux-focus-card .ux-section-title,
+.page-inventory-simplified .ux-focus-card .ux-section-subtitle,
+.page-inventory-simplified .ux-focus-card .ux-item strong,
+.page-inventory-simplified .ux-focus-card .ux-item span,
+.page-ordering-simplified .ux-focus-card .ux-section-title,
+.page-ordering-simplified .ux-focus-card .ux-section-subtitle,
+.page-ordering-simplified .ux-focus-card .ux-item strong,
+.page-ordering-simplified .ux-focus-card .ux-item span,
+.page-eshop-simplified .ux-focus-card .ux-section-title,
+.page-eshop-simplified .ux-focus-card .ux-section-subtitle,
+.page-eshop-simplified .ux-focus-card .ux-item strong,
+.page-eshop-simplified .ux-focus-card .ux-item span,
+.page-logistics-simplified .ux-focus-card .ux-section-title,
+.page-logistics-simplified .ux-focus-card .ux-section-subtitle,
+.page-logistics-simplified .ux-focus-card .ux-item strong,
+.page-logistics-simplified .ux-focus-card .ux-item span,
+.page-expiry-simplified .ux-focus-card .ux-section-title,
+.page-expiry-simplified .ux-focus-card .ux-section-subtitle,
+.page-expiry-simplified .ux-focus-card .ux-item strong,
+.page-expiry-simplified .ux-focus-card .ux-item span,
+.page-finance-simplified .ux-focus-card .ux-section-title,
+.page-finance-simplified .ux-focus-card .ux-section-subtitle,
+.page-finance-simplified .ux-focus-card .ux-item strong,
+.page-finance-simplified .ux-focus-card .ux-item span,
+.page-marketing-simplified .ux-focus-card .ux-section-title,
+.page-marketing-simplified .ux-focus-card .ux-section-subtitle,
+.page-marketing-simplified .ux-focus-card .ux-item strong,
+.page-marketing-simplified .ux-focus-card .ux-item span {
+  color: inherit;
+}
+.page-home-simplified .ux-focus-card .ux-item,
+.page-inventory-simplified .ux-focus-card .ux-item,
+.page-ordering-simplified .ux-focus-card .ux-item,
+.page-eshop-simplified .ux-focus-card .ux-item,
+.page-logistics-simplified .ux-focus-card .ux-item,
+.page-expiry-simplified .ux-focus-card .ux-item,
+.page-finance-simplified .ux-focus-card .ux-item,
+.page-marketing-simplified .ux-focus-card .ux-item {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.12);
+}
+.page-home-simplified .ux-date-note,
+.page-inventory-simplified .ux-date-note,
+.page-ordering-simplified .ux-date-note,
+.page-eshop-simplified .ux-date-note,
+.page-logistics-simplified .ux-date-note,
+.page-expiry-simplified .ux-date-note,
+.page-finance-simplified .ux-date-note,
+.page-marketing-simplified .ux-date-note {
+  margin-top: 18px;
+}
 .kpi-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 28px; }
 .card {
   background: var(--card);

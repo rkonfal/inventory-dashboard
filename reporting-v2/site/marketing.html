@@ -63,7 +63,7 @@
     }
   </style>
 </head>
-<body>
+<body class="page-marketing-simplified">
   <aside class="sidebar" data-sidebar-page="marketing.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Reklama bez zbytečné složitosti" data-sidebar-section="Přehled" data-sidebar-footer="Rychle ukáže, kolik dáváme do reklamy a co z toho jde zpátky."></aside>
 
   <main class="main page-stack">
@@ -86,22 +86,6 @@
       <section class="ux-hero-metrics" id="marketing-hero"></section>
       <div class="ux-date-note"><strong>Jak číst datumy:</strong> marketingové náklady a největší dodavatelé se vztahují k <strong>poslednímu dostupnému měsíci</strong>, ne k dnešku. Ranní text vpravo je jen <strong>rychlý včerejší kontext</strong>.</div>
     </header>
-
-    <section class="grid leadership-note-grid">
-      <div class="leadership-notes-head">
-        <div class="leadership-notes-kicker">Jak číst reklamu</div>
-        <h2>Jak ten přehled používat</h2>
-        <p>Dvě krátká pravidla. Nejdřív kontroluj celek, detail kanálů otevírej až když náklady nebo výkon vypadají špatně.</p>
-      </div>
-      <div class="card leadership-note director">
-        <div class="leadership-note-label">Co zkontrolovat hned</div>
-        <p><strong>Začni celkovými náklady, výkonem a závislostí na největších dodavatelích.</strong> To stačí pro první orientaci.</p>
-      </div>
-      <div class="card leadership-note board">
-        <div class="leadership-note-label">Kdy jít do detailu</div>
-        <p><strong>Do detailu jdi, když náklady rostou rychleji než výnosy nebo se moc koncentrují.</strong> Jinak má stránka zůstat jednoduchá a rychlá.</p>
-      </div>
-    </section>
 
     <div id="source-alert"></div>
 
@@ -173,42 +157,46 @@
       <div class="grid kpi-grid" id="daily-trend-source-kpis" style="margin-top:20px;"></div>
     </section>
 
-    <section class="card" id="klaviyo-section" style="display:none;">
-      <div class="ux-section-head">
-        <div>
-          <h2 class="section-title">Klaviyo, e-mail a SMS</h2>
-          <div class="section-subtitle">Objednávky a obrat připsané Klaviyu, plus nejsilnější flow a poslední kampaně.</div>
-        </div>
-      </div>
-      <div class="grid kpi-grid" id="klaviyo-kpis" style="margin-top:20px;"></div>
-      <div class="grid two-col" style="gap:20px; margin-top:20px;">
-        <div class="ux-table-wrap">
-          <table class="table desktop-only">
-            <thead>
-              <tr>
-                <th>Flow</th>
-                <th>Kanál</th>
-                <th>Status</th>
-                <th class="num">Open rate</th>
-                <th class="num">CTR</th>
-                <th class="num">Conv. rate</th>
-                <th class="num">Objednávky</th>
-                <th class="num">Obrat</th>
-              </tr>
-            </thead>
-            <tbody id="klaviyo-flow-table"></tbody>
-          </table>
-          <div class="mobile-only mobile-campaign-list" id="klaviyo-flow-mobile"></div>
-        </div>
-        <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Naposledy odeslané kampaně</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rychlý přehled toho, co se v Klaviyo naposledy měnilo nebo plánovalo.</p>
-          <div class="ux-list" id="klaviyo-campaign-list" style="margin-top:16px;"></div>
-        </div>
-      </div>
-    </section>
+    <details class="secondary-details">
+      <summary>Kampaně a CRM detail</summary>
 
-    <section class="grid" style="gap:20px;" id="source-campaign-sections"></section>
+      <section class="card" id="klaviyo-section" style="display:none; margin-top:18px;">
+        <div class="ux-section-head">
+          <div>
+            <h2 class="section-title">Klaviyo, e-mail a SMS</h2>
+            <div class="section-subtitle">Objednávky a obrat připsané Klaviyu, plus nejsilnější flow a poslední kampaně.</div>
+          </div>
+        </div>
+        <div class="grid kpi-grid" id="klaviyo-kpis" style="margin-top:20px;"></div>
+        <div class="grid two-col" style="gap:20px; margin-top:20px;">
+          <div class="ux-table-wrap">
+            <table class="table desktop-only">
+              <thead>
+                <tr>
+                  <th>Flow</th>
+                  <th>Kanál</th>
+                  <th>Status</th>
+                  <th class="num">Open rate</th>
+                  <th class="num">CTR</th>
+                  <th class="num">Conv. rate</th>
+                  <th class="num">Objednávky</th>
+                  <th class="num">Obrat</th>
+                </tr>
+              </thead>
+              <tbody id="klaviyo-flow-table"></tbody>
+            </table>
+            <div class="mobile-only mobile-campaign-list" id="klaviyo-flow-mobile"></div>
+          </div>
+          <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Naposledy odeslané kampaně</h3>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rychlý přehled toho, co se v Klaviyo naposledy měnilo nebo plánovalo.</p>
+            <div class="ux-list" id="klaviyo-campaign-list" style="margin-top:16px;"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" style="gap:20px; margin-top:20px;" id="source-campaign-sections"></section>
+    </details>
 
   </main>
 

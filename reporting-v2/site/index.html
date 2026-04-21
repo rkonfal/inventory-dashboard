@@ -6,7 +6,7 @@
   <title>Diamond Plus Reporting V2</title>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
-<body>
+<body class="page-home-simplified">
   <aside class="sidebar" data-sidebar-page="index.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Přehled firmy bez zbytečné složitosti" data-sidebar-section="Přehled" data-sidebar-footer="Přehled pro běžný provoz. Méně techniky, víc jasných kroků."></aside>
 
   <main class="main page-stack">
@@ -28,22 +28,6 @@
       <section class="ux-hero-metrics" id="hero-metrics"></section>
       <div class="ux-date-note"><strong>Jak číst datumy:</strong> objednávky a ranní report jsou za <strong>včerejšek</strong>, 4PX sklad je <strong>aktuální stav po posledním refreshi</strong> a finance s marketingem níž ukazují <strong>poslední dostupný měsíc</strong>.</div>
     </header>
-
-    <section class="grid leadership-note-grid">
-      <div class="leadership-notes-head">
-        <div class="leadership-notes-kicker">Jak se v tom vyznat</div>
-        <h2>Jak ten přehled používat</h2>
-        <p>Dvě krátké pravidla. Nejdřív zkontroluj horní bloky, detail otevírej až když něco bliká nebo nesedí.</p>
-      </div>
-      <div class="card leadership-note director">
-        <div class="leadership-note-label">Co sledovat hned</div>
-        <p><strong>Začni nahoře.</strong> Během minuty má být vidět, jestli je problém v objednávkách, skladu, logistice, marketingu nebo financích.</p>
-      </div>
-      <div class="card leadership-note board">
-        <div class="leadership-note-label">Kdy jít do detailu</div>
-        <p><strong>Do dalších stránek jdi jen když je důvod.</strong> Tahle úvodní stránka má sloužit jako jednoduchý rozcestník, ne jako další složitý dashboard.</p>
-      </div>
-    </section>
 
     <section class="ux-grid">
       <div class="ux-focus-card">
@@ -88,40 +72,44 @@
       </div>
     </section>
 
-    <section class="grid kpi-grid" id="top-kpis"></section>
+    <details class="secondary-details">
+      <summary>Technický a rozšířený detail</summary>
 
-    <section class="grid two-col">
-      <div class="card">
-        <h2 class="section-title">Co už funguje</h2>
-        <div class="block-list" id="done-list"></div>
-      </div>
-      <div class="card">
-        <h2 class="section-title">Co teď brzdí provoz</h2>
-        <div id="blockers"></div>
-      </div>
-    </section>
+      <section class="grid kpi-grid" id="top-kpis"></section>
 
-    <section class="card">
-      <div class="ux-section-head" style="margin-bottom:0;">
-        <div>
-          <h2 class="ux-section-title">Stav napojení</h2>
-          <p class="ux-section-subtitle">Napojení a datové zdroje tu zůstávají pro kontrolu, ale nejsou na prvním místě.</p>
+      <section class="grid two-col">
+        <div class="card">
+          <h2 class="section-title">Co už funguje</h2>
+          <div class="block-list" id="done-list"></div>
         </div>
-      </div>
-      <div class="ux-table-wrap" style="margin-top:16px;">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Zdroj</th>
-              <th>Stav</th>
-              <th>Co z něj vidíme</th>
-              <th class="num">Objektů</th>
-            </tr>
-          </thead>
-          <tbody id="sources-table"></tbody>
-        </table>
-      </div>
-    </section>
+        <div class="card">
+          <h2 class="section-title">Co teď brzdí provoz</h2>
+          <div id="blockers"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="ux-section-head" style="margin-bottom:0;">
+          <div>
+            <h2 class="ux-section-title">Stav napojení</h2>
+            <p class="ux-section-subtitle">Napojení a datové zdroje tu zůstávají pro kontrolu, ale nejsou na prvním místě.</p>
+          </div>
+        </div>
+        <div class="ux-table-wrap" style="margin-top:16px;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Zdroj</th>
+                <th>Stav</th>
+                <th>Co z něj vidíme</th>
+                <th class="num">Objektů</th>
+              </tr>
+            </thead>
+            <tbody id="sources-table"></tbody>
+          </table>
+        </div>
+      </section>
+    </details>
   </main>
 
   <script src="assets/app.js"></script>

@@ -6,7 +6,7 @@
   <title>Objednávání zboží / Reporting V2</title>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
-<body>
+<body class="page-ordering-simplified">
   <aside class="sidebar" data-sidebar-page="ordering.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Objednávání zboží pro běžnou praxi" data-sidebar-section="Přehled" data-sidebar-footer="Pomáhá rychle poznat, co objednat hned a co raději nechat být."></aside>
 
   <main class="main page-stack">
@@ -29,30 +29,14 @@
       <div class="ux-date-note" id="ordering-window">Načítám analytiku objednávání…</div>
     </header>
 
-    <section class="grid leadership-note-grid">
-      <div class="leadership-notes-head">
-        <div class="leadership-notes-kicker">Jak to číst</div>
-        <h2>Jak ten přehled používat</h2>
-        <p>Dvě krátká pravidla. Nejdřív zkontroluj riziko vyprodání a shortlist doplnění, detail otevři až potom.</p>
-      </div>
-      <div class="card leadership-note director">
-        <div class="leadership-note-label">Co hlídat hned</div>
-        <p><strong>Začni kritickým pokrytím, doporučeným doplněním a červenou obrátkovostí.</strong> To je první rozhodovací vrstva.</p>
-      </div>
-      <div class="card leadership-note board">
-        <div class="leadership-note-label">Kdy jít do detailu</div>
-        <p><strong>Do detailu jdi, když si potřebuješ ověřit trend nebo ručně přepsat doporučení.</strong> Nahoře má zůstat jednoduché rozhodnutí ano/ne.</p>
-      </div>
-    </section>
-
     <section class="grid kpi-grid" id="ordering-kpis"></section>
 
     <section class="ux-grid">
       <div class="ux-focus-card">
         <div class="ux-section-head">
           <div>
-            <h2 class="ux-section-title">Co teď svítí nejvíc</h2>
-            <p class="ux-section-subtitle">Nejdůležitější signály pro dnešní objednávku.</p>
+            <h2 class="ux-section-title">Krok 1: co řešit dnes</h2>
+            <p class="ux-section-subtitle">Nejdřív rozhodnutí, až potom detail a simulace.</p>
           </div>
           <span class="badge warn" id="ordering-alert-badge">Načítám důležité body…</span>
         </div>
@@ -70,6 +54,9 @@
         </div>
       </div>
     </section>
+
+    <details class="secondary-details" style="margin-top:20px;">
+      <summary>Vedlejší analytika objednávání</summary>
 
     <section class="grid two-col" style="margin-top:20px;">
       <div class="card">
@@ -143,11 +130,13 @@
       </div>
     </section>
 
+    </details>
+
     <section class="card" style="margin-top:20px;">
       <div class="toolbar">
         <div>
-          <h2 class="section-title">Návrhy variant objednávky</h2>
-          <div class="section-subtitle">První pracovní simulace variant objednávky. Kapacita je zatím orientační podle objemu doplnění, ne přesná logistická kapacita kamionu.</div>
+          <h2 class="section-title">Krok 3: simulace objednávky</h2>
+          <div class="section-subtitle">Až po shortlistu, ne před ním. Kapacita je zatím orientační podle objemu doplnění.</div>
         </div>
         <div class="toolbar-controls">
           <label class="control-group">
@@ -183,8 +172,8 @@
     <section class="card" style="margin-top:20px;">
       <div class="toolbar">
         <div>
-          <h2 class="section-title">Doporučené položky</h2>
-          <div class="section-subtitle">Odhad spotřeby a doporučení minimum, optimum a maximum pro první rozhodování.</div>
+          <h2 class="section-title">Krok 2: shortlist pro nákup</h2>
+          <div class="section-subtitle">Hlavní pracovní tabulka. Vyber, co opravdu patří do objednávky.</div>
         </div>
         <div class="toolbar-controls">
           <label class="control-group">
@@ -222,6 +211,9 @@
       </table>
       <div class="ux-date-note" id="planning-export-summary" style="margin-top:16px;">Připravuji export…</div>
     </section>
+
+    <details class="secondary-details" style="margin-top:20px;">
+      <summary>Detailní explorer položek</summary>
 
     <section class="card" style="margin-top:20px;">
       <div class="toolbar">
@@ -280,6 +272,7 @@
         <tbody id="ordering-explorer-table"></tbody>
       </table>
     </section>
+    </details>
   </main>
 
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>

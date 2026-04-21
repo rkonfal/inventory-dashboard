@@ -6,7 +6,7 @@
   <title>Logistika / 4PX, Reporting V2</title>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
-<body>
+<body class="page-logistics-simplified">
   <aside class="sidebar" data-sidebar-page="logistics.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Expedice 4PX pro běžný provoz" data-sidebar-section="Přehled" data-sidebar-footer="Nejdřív expedice a rizika, detail až potom."></aside>
 
   <main class="main page-stack">
@@ -27,22 +27,6 @@
       <section class="ux-hero-metrics" id="logistics-hero"></section>
       <div class="ux-date-note"><strong>Jak číst datumy:</strong> expedice a dopravci jsou za <strong>včerejšek</strong>, zatímco expirace a nepárované SKU jsou <strong>aktuální stav posledního 4PX refreshi</strong>.</div>
     </header>
-
-    <section class="grid leadership-note-grid">
-      <div class="leadership-notes-head">
-        <div class="leadership-notes-kicker">Jak číst expedici</div>
-        <h2>Jak ten přehled používat</h2>
-        <p>Dvě krátká pravidla. Nejdřív zkontroluj provozní rizika, detail otevři až když něco brzdí expedici.</p>
-      </div>
-      <div class="card leadership-note director">
-        <div class="leadership-note-label">Co hlídat dnes</div>
-        <p><strong>Sleduj počet zásilek, nepárované SKU a blízké expirace.</strong> To stačí pro rychlou ranní kontrolu expedice.</p>
-      </div>
-      <div class="card leadership-note board">
-        <div class="leadership-note-label">Kdy jít do detailu</div>
-        <p><strong>Do detailu jdi, když rostou nepárované položky, zpoždění nebo expirační tlak.</strong> Jinak má stránka zůstat rychlý provozní přehled.</p>
-      </div>
-    </section>
 
     <section class="ux-grid">
       <div class="ux-focus-card">
@@ -106,42 +90,46 @@
       </div>
     </section>
 
-    <section class="grid two-col">
-      <div class="card">
-        <h2 class="section-title">Nejvyšší expirační riziko</h2>
-        <div class="section-subtitle">Řazeno podle blízkosti expirace a velikosti zásoby.</div>
-        <div class="ux-table-wrap" style="margin-top:16px;">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Kód / produkt</th>
-                <th class="num">Účet</th>
-                <th class="num">Expirace</th>
-                <th class="num">Dní do expirace</th>
-                <th class="num">Expirující sklad</th>
-              </tr>
-            </thead>
-            <tbody id="expiry-table"></tbody>
-          </table>
+    <details class="secondary-details">
+      <summary>Expirační a párovací detail</summary>
+
+      <section class="grid two-col" style="margin-top:18px;">
+        <div class="card">
+          <h2 class="section-title">Nejvyšší expirační riziko</h2>
+          <div class="section-subtitle">Řazeno podle blízkosti expirace a velikosti zásoby.</div>
+          <div class="ux-table-wrap" style="margin-top:16px;">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Kód / produkt</th>
+                  <th class="num">Účet</th>
+                  <th class="num">Expirace</th>
+                  <th class="num">Dní do expirace</th>
+                  <th class="num">Expirující sklad</th>
+                </tr>
+              </thead>
+              <tbody id="expiry-table"></tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      <div class="card">
-        <h2 class="section-title">Položky jen ve 4PX</h2>
-        <div class="section-subtitle">Položky, které ve 4PX jsou, ale ve WPJ ještě nejsou správně napojené.</div>
-        <div class="ux-table-wrap" style="margin-top:16px;">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Kód / produkt</th>
-                <th class="num">4PX sklad</th>
-                <th class="num">Expedované kusy</th>
-              </tr>
-            </thead>
-            <tbody id="only-4px-log-table"></tbody>
-          </table>
+        <div class="card">
+          <h2 class="section-title">Položky jen ve 4PX</h2>
+          <div class="section-subtitle">Položky, které ve 4PX jsou, ale ve WPJ ještě nejsou správně napojené.</div>
+          <div class="ux-table-wrap" style="margin-top:16px;">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Kód / produkt</th>
+                  <th class="num">4PX sklad</th>
+                  <th class="num">Expedované kusy</th>
+                </tr>
+              </thead>
+              <tbody id="only-4px-log-table"></tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </details>
   </main>
 
   <script src="assets/app.js"></script>

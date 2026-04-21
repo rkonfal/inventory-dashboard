@@ -6,7 +6,7 @@
   <title>E-shop / WPJ, Reporting V2</title>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
-<body>
+<body class="page-eshop-simplified">
   <aside class="sidebar" data-sidebar-page="eshop.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Výkon e-shopu pro běžný provoz" data-sidebar-section="Přehled" data-sidebar-footer="Nejdřív výkon a problémy, detail až potom."></aside>
 
   <main class="main page-stack">
@@ -27,22 +27,6 @@
       <section class="ux-hero-metrics" id="eshop-hero"></section>
       <div class="ux-date-note"><strong>Jak číst datumy:</strong> objednávky, obrat i rozpad níž jsou za <strong>včerejšek</strong>. Jde o <strong>kompletní výsledek celého WPJShopu</strong>, ne jen část dneška.</div>
     </header>
-
-    <section class="grid leadership-note-grid">
-      <div class="leadership-notes-head">
-        <div class="leadership-notes-kicker">Jak číst e-shop</div>
-        <h2>Jak ten přehled používat</h2>
-        <p>Dvě krátká pravidla. Nejdřív zkontroluj výkon nahoře, detail otevři až když čísla nebo problémy nesedí.</p>
-      </div>
-      <div class="card leadership-note director">
-        <div class="leadership-note-label">Co zkontrolovat hned</div>
-        <p><strong>Začni objednávkami, obratem, AOV a problémovými objednávkami.</strong> To je celý první krok.</p>
-      </div>
-      <div class="card leadership-note board">
-        <div class="leadership-note-label">Kdy jít do detailu</div>
-        <p><strong>Do detailu jdi, když výkon kazí problémy, storna nebo propad objednávek.</strong> Jinak má stránka sloužit jako rychlý rozcestník.</p>
-      </div>
-    </section>
 
     <section class="ux-grid">
       <div class="ux-focus-card">
@@ -89,47 +73,51 @@
       <div class="section-subtitle" id="eshop-view-summary">Načítám rozdělení prodeje…</div>
     </section>
 
-    <section class="grid two-col">
-      <div class="card">
-        <h2 class="section-title">Platební metody</h2>
-        <div class="ux-table-wrap" style="margin-top:16px;">
-          <table class="table">
-            <thead><tr><th>Metoda</th><th class="num">Objednávek</th></tr></thead>
-            <tbody id="payments-table"></tbody>
-          </table>
-        </div>
-      </div>
-      <div class="card">
-        <h2 class="section-title">Dopravní metody</h2>
-        <div class="ux-table-wrap" style="margin-top:16px;">
-          <table class="table">
-            <thead><tr><th>Metoda</th><th class="num">Objednávek</th></tr></thead>
-            <tbody id="deliveries-table"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+    <details class="secondary-details">
+      <summary>Struktura objednávek a top produkty</summary>
 
-    <section class="grid two-col">
-      <div class="card">
-        <h2 class="section-title">Nejprodávanější produkty podle kusů</h2>
-        <div class="ux-table-wrap" style="margin-top:16px;">
-          <table class="table">
-            <thead><tr><th>Produkt</th><th class="num">Kusy</th></tr></thead>
-            <tbody id="units-table"></tbody>
-          </table>
+      <section class="grid two-col" style="margin-top:18px;">
+        <div class="card">
+          <h2 class="section-title">Platební metody</h2>
+          <div class="ux-table-wrap" style="margin-top:16px;">
+            <table class="table">
+              <thead><tr><th>Metoda</th><th class="num">Objednávek</th></tr></thead>
+              <tbody id="payments-table"></tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      <div class="card">
-        <h2 class="section-title">Nejprodávanější produkty podle obratu</h2>
-        <div class="ux-table-wrap" style="margin-top:16px;">
-          <table class="table">
-            <thead><tr><th>Produkt</th><th class="num">Obrat</th></tr></thead>
-            <tbody id="revenue-table"></tbody>
-          </table>
+        <div class="card">
+          <h2 class="section-title">Dopravní metody</h2>
+          <div class="ux-table-wrap" style="margin-top:16px;">
+            <table class="table">
+              <thead><tr><th>Metoda</th><th class="num">Objednávek</th></tr></thead>
+              <tbody id="deliveries-table"></tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section class="grid two-col">
+        <div class="card">
+          <h2 class="section-title">Nejprodávanější produkty podle kusů</h2>
+          <div class="ux-table-wrap" style="margin-top:16px;">
+            <table class="table">
+              <thead><tr><th>Produkt</th><th class="num">Kusy</th></tr></thead>
+              <tbody id="units-table"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="section-title">Nejprodávanější produkty podle obratu</h2>
+          <div class="ux-table-wrap" style="margin-top:16px;">
+            <table class="table">
+              <thead><tr><th>Produkt</th><th class="num">Obrat</th></tr></thead>
+              <tbody id="revenue-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </details>
   </main>
 
   <script src="assets/app.js"></script>

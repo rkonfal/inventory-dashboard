@@ -6,7 +6,7 @@
   <title>Sklad / párování WPJ + 4PX, Reporting V2</title>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
-<body>
+<body class="page-inventory-simplified">
   <aside class="sidebar" data-sidebar-page="inventory.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Sklad pro každodenní rozhodování" data-sidebar-section="Přehled" data-sidebar-footer="Nejdřív co řešit hned, detail až potom."></aside>
 
   <main class="main page-stack">
@@ -27,22 +27,6 @@
       <section class="ux-hero-metrics" id="inventory-hero"></section>
       <div class="ux-date-note"><strong>Jak číst datumy:</strong> hlavní přehled skladu a nesoulady ukazují <strong>aktuální stav po posledním refreshi</strong>, položky „prodané včera“ vycházejí z <strong>včerejšího reportu</strong> a pohyby jsou změna <strong>oproti minulému snapshotu</strong>.</div>
     </header>
-
-    <section class="grid leadership-note-grid">
-      <div class="leadership-notes-head">
-        <div class="leadership-notes-kicker">Jak číst sklad</div>
-        <h2>Jak ten přehled používat</h2>
-        <p>Nejdřív zkontroluj horní signály, potom hlavní tabulku. Ostatní tabulky jsou už jen detail pro dohledání příčiny.</p>
-      </div>
-      <div class="card leadership-note director">
-        <div class="leadership-note-label">Co hlídat dnes</div>
-        <p><strong>Hlídej kritické položky, nesoulady a nízké pokrytí.</strong> Celkový objem zásob řeš až ve druhém kroku.</p>
-      </div>
-      <div class="card leadership-note board">
-        <div class="leadership-note-label">Co je cíl</div>
-        <p><strong>Stránka má pomoct rychle rozhodnout.</strong> Má ukázat, jestli sklad podporuje prodej, nebo kde se zadrhává párování a dostupnost.</p>
-      </div>
-    </section>
 
     <section class="grid kpi-grid" id="inventory-kpis"></section>
 
@@ -162,6 +146,9 @@
         </div>
       </div>
     </section>
+
+    <details class="secondary-details" style="margin-top:20px;">
+      <summary>Další analýza skladu</summary>
 
     <section class="card" style="margin-top:20px;">
       <h2 class="section-title">Největší nesoulady</h2>
@@ -316,6 +303,7 @@
         <tbody id="mismatch-table"></tbody>
       </table>
     </section>
+    </details>
   </main>
 
   <script src="assets/app.js"></script>

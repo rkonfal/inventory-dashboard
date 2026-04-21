@@ -14,7 +14,7 @@
     }
   </style>
 </head>
-<body>
+<body class="page-finance-simplified">
   <aside class="sidebar" data-sidebar-page="finance.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Finance bez zbytečné složitosti" data-sidebar-section="Přehled" data-sidebar-footer="Nejdřív peníze, které je potřeba hlídat. Detail až potom."></aside>
 
   <main class="main page-stack">
@@ -66,25 +66,28 @@
       </div>
     </section>
 
-    <section class="card">
-      <h2 class="section-title">Vývoj roku po měsících</h2>
-      <div class="section-subtitle">Výnosy a zisk přehledně v čase.</div>
-      <div class="ux-table-wrap" style="margin-top:16px;">
-        <table class="table mobile-stack">
-          <thead>
-            <tr>
-              <th>Měsíc</th>
-              <th class="num">Výnosy</th>
-              <th class="num">Zisk</th>
-              <th class="num">Provozní marže</th>
-              <th class="num">Marketing</th>
-              <th class="num">Logistika</th>
-            </tr>
-          </thead>
-          <tbody id="monthly-table"></tbody>
-        </table>
-      </div>
-    </section>
+    <details class="secondary-details">
+      <summary>Trend a účetní detail</summary>
+
+      <section class="card" style="margin-top:18px;">
+        <h2 class="section-title">Vývoj roku po měsících</h2>
+        <div class="section-subtitle">Výnosy a zisk přehledně v čase.</div>
+        <div class="ux-table-wrap" style="margin-top:16px;">
+          <table class="table mobile-stack">
+            <thead>
+              <tr>
+                <th>Měsíc</th>
+                <th class="num">Výnosy</th>
+                <th class="num">Zisk</th>
+                <th class="num">Provozní marže</th>
+                <th class="num">Marketing</th>
+                <th class="num">Logistika</th>
+              </tr>
+            </thead>
+            <tbody id="monthly-table"></tbody>
+          </table>
+        </div>
+      </section>
 
     <section class="card">
       <h2 class="section-title">Co je potřeba zaplatit</h2>
@@ -164,6 +167,7 @@
         </table>
       </div>
     </section>
+    </details>
   </main>
 
   <script src="assets/app.js"></script>

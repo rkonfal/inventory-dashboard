@@ -6,7 +6,7 @@
   <title>Expirace / promo akce, Reporting V2</title>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
-<body>
+<body class="page-expiry-simplified">
   <aside class="sidebar" data-sidebar-page="expiry.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Akce a expirace pro rychlé rozhodnutí" data-sidebar-section="Přehled" data-sidebar-footer="Rychle ukáže, co dát do akce, co použít jako dárek a kde by sleva už byla moc drahá."></aside>
 
   <main class="main page-stack">
@@ -27,22 +27,6 @@
       <section class="ux-hero-metrics" id="expiry-hero"></section>
       <div class="ux-date-note"><strong>Jak číst datumy:</strong> expirace a expirační sklad jsou <strong>aktuální stav posledního 4PX refreshi</strong>, prodejní kontext vychází hlavně z <strong>30denního a 365denního výkonu</strong> a dárek nesmí přesáhnout <strong>18 % hodnoty celé akce</strong>.</div>
     </header>
-
-    <section class="grid leadership-note-grid">
-      <div class="leadership-notes-head">
-        <div class="leadership-notes-kicker">Jak číst akce a expirace</div>
-        <h2>Jak ten přehled používat</h2>
-        <p>Dvě krátká pravidla. Nejdřív vyber, co má smysl pustit do akce, detail otevři až když řešíš ekonomiku.</p>
-      </div>
-      <div class="card leadership-note director">
-        <div class="leadership-note-label">Co pustit do akce</div>
-        <p><strong>Začni tím, co expiruje brzy a má šanci na odprodej.</strong> Akce má být jednoduchá a ekonomicky bezpečná.</p>
-      </div>
-      <div class="card leadership-note board">
-        <div class="leadership-note-label">Kdy jít do detailu</div>
-        <p><strong>Do detailu jdi, když dárek nebo sleva začínají ničit marži.</strong> Jinak má stránka pomoct rychle rozhodnout, ne přidávat další složitost.</p>
-      </div>
-    </section>
 
     <section class="ux-grid">
       <div class="ux-focus-card">
@@ -72,18 +56,21 @@
 
     <section class="grid kpi-grid" id="expiry-kpis"></section>
 
-    <section class="grid two-col">
-      <div class="card">
-        <h2 class="section-title">Hotové návrhy pro akci</h2>
-        <div class="section-subtitle">Rychlé návrhy pro web, CRM i checkout.</div>
-        <div class="block-list" id="bundle-list" style="margin-top:16px;"></div>
-      </div>
-      <div class="card">
-        <h2 class="section-title">Jak to říct zákazníkovi</h2>
-        <div class="section-subtitle">Krátká pravidla, aby akce byla srozumitelná a bezpečná.</div>
-        <div class="block-list" id="guardrails-list" style="margin-top:16px;"></div>
-      </div>
-    </section>
+    <details class="secondary-details">
+      <summary>Návrhy mechanik a komunikační detail</summary>
+
+      <section class="grid two-col" style="margin-top:18px;">
+        <div class="card">
+          <h2 class="section-title">Hotové návrhy pro akci</h2>
+          <div class="section-subtitle">Rychlé návrhy pro web, CRM i checkout.</div>
+          <div class="block-list" id="bundle-list" style="margin-top:16px;"></div>
+        </div>
+        <div class="card">
+          <h2 class="section-title">Jak to říct zákazníkovi</h2>
+          <div class="section-subtitle">Krátká pravidla, aby akce byla srozumitelná a bezpečná.</div>
+          <div class="block-list" id="guardrails-list" style="margin-top:16px;"></div>
+        </div>
+      </section>
 
     <section class="card">
       <div class="ux-section-head" style="margin-bottom:0;">
@@ -145,6 +132,7 @@
         </div>
       </div>
     </section>
+    </details>
   </main>
 
   <script src="assets/app.js"></script>
