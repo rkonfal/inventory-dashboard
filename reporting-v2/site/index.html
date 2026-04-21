@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diamond Plus Reporting V2</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <aside class="sidebar" data-sidebar-page="index.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Přehled firmy bez zbytečné složitosti" data-sidebar-section="Přehled" data-sidebar-footer="Přehled pro běžný provoz. Méně techniky, víc jasných kroků."></aside>
+
+  <main class="main page-stack">
+    <header class="header">
+      <div class="ux-topbar">
+        <div class="ux-intro">
+          <div class="ux-kicker">Hlavní přehled • rychlá orientace</div>
+          <h1 class="ux-title">Přehled firmy, ve kterém je hned jasno</h1>
+          <p class="ux-subtitle">Nahoře jen to důležité: co se stalo včera, co dnes potřebuje pozornost a kam kliknout dál. Detail zůstává níž.</p>
+          <div class="ux-actions">
+            <a class="ux-button primary" href="../data/current/morning_report_previous_day.txt" target="_blank" rel="noopener">Otevřít ranní report</a>
+            <a class="ux-button secondary" href="inventory.html">Přejít do skladu</a>
+            <a class="ux-button secondary" href="eshop.html">Přejít do e-shopu</a>
+          </div>
+        </div>
+        <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
+      </div>
+      <section class="ux-hero-metrics" id="hero-metrics"></section>
+      <div class="ux-date-note"><strong>Jak číst datumy:</strong> objednávky a ranní report jsou za <strong>včerejšek</strong>, 4PX sklad je <strong>aktuální stav po posledním refreshi</strong> a finance s marketingem níž ukazují <strong>poslední dostupný měsíc</strong>.</div>
+    </header>
+
+    <section class="grid leadership-note-grid">
+      <div class="leadership-notes-head">
+        <div class="leadership-notes-kicker">Jak se v tom vyznat</div>
+        <h2>Jak ten přehled používat</h2>
+        <p>Dvě krátké pravidla. Nejdřív zkontroluj horní bloky, detail otevírej až když něco bliká nebo nesedí.</p>
+      </div>
+      <div class="card leadership-note director">
+        <div class="leadership-note-label">Co sledovat hned</div>
+        <p><strong>Začni nahoře.</strong> Během minuty má být vidět, jestli je problém v objednávkách, skladu, logistice, marketingu nebo financích.</p>
+      </div>
+      <div class="card leadership-note board">
+        <div class="leadership-note-label">Kdy jít do detailu</div>
+        <p><strong>Do dalších stránek jdi jen když je důvod.</strong> Tahle úvodní stránka má sloužit jako jednoduchý rozcestník, ne jako další složitý dashboard.</p>
+      </div>
+    </section>
+
+    <section class="ux-grid">
+      <div class="ux-focus-card">
+        <div class="ux-section-head">
+          <div>
+            <h2 class="ux-section-title">Co dnes řešit jako první</h2>
+            <p class="ux-section-subtitle">To nejdůležitější na jednom místě.</p>
+          </div>
+          <span class="badge warn" id="attention-badge">Načítám důležité body…</span>
+        </div>
+        <div class="ux-list" id="attention-list"></div>
+
+        <div style="height:18px"></div>
+
+        <div class="ux-section-head" style="margin-bottom:12px;">
+          <div>
+            <h2 class="ux-section-title" style="font-size:20px;">Dnešní priority</h2>
+            <p class="ux-section-subtitle">Krátce a jasně, co udělat dál.</p>
+          </div>
+        </div>
+        <div class="ux-list" id="priority-list"></div>
+      </div>
+
+      <div class="ux-side-stack">
+        <div class="ux-panel-card">
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Včerejšek jedním pohledem</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Krátký souhrn včerejška a rychlý vstup do detailu.</p>
+          <div class="ux-stat-list" id="report-mini"></div>
+        </div>
+
+        <div class="ux-panel-card">
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Odkud přišly objednávky</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Včerejší výkon podle CZ, SK a kamenných prodejen.</p>
+          <div class="ux-stat-list" id="eshop-source-split"></div>
+        </div>
+
+        <div class="ux-panel-card">
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Co je v pořádku</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rychlá kontrola, že zdroje běží a kde je případný problém.</p>
+          <div class="ux-side-list" id="status-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid kpi-grid" id="top-kpis"></section>
+
+    <section class="grid two-col">
+      <div class="card">
+        <h2 class="section-title">Co už funguje</h2>
+        <div class="block-list" id="done-list"></div>
+      </div>
+      <div class="card">
+        <h2 class="section-title">Co teď brzdí provoz</h2>
+        <div id="blockers"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="ux-section-head" style="margin-bottom:0;">
+        <div>
+          <h2 class="ux-section-title">Stav napojení</h2>
+          <p class="ux-section-subtitle">Napojení a datové zdroje tu zůstávají pro kontrolu, ale nejsou na prvním místě.</p>
+        </div>
+      </div>
+      <div class="ux-table-wrap" style="margin-top:16px;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Zdroj</th>
+              <th>Stav</th>
+              <th>Co z něj vidíme</th>
+              <th class="num">Objektů</th>
+            </tr>
+          </thead>
+          <tbody id="sources-table"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/app.js"></script>
+  <script>
+    DP.initThemeToggle();
+    const doneItems = [
+      ['4PX API napojení', 'CZ i SK připojené napřímo přes Open API.'],
+      ['WPJ GraphQL napojení', 'Objednávky i sklad se tahají přímo z WPJ přes X-Access-Token.'],
+      ['Finance připravené', 'Máme vytažený poslední dostupný ABRA Flexi snapshot z původního přehledu.'],
+      ['Marketing bootstrap', 'Marketingové náklady jsou rozdělené na PPC a ostatní marketing a připravené na další napojení.'],
+      ['Nová datová sada', 'Refresh skript zapisuje normalizovaná JSON data, snapshoty a ranní report.'],
+      ['Nový portál', 'Sdílené assets a společný vizuální systém bez kopírování stylů mezi HTML.'],
+      ['Automatické reporty', 'Ranní report se generuje a odesílá automaticky každý den v 8:00.']
+    ];
+
+    const fmtMoney = value => `${DP.fmtNumber(Math.round(value || 0))} Kč`;
+    const pctText = value => {
+      if (value == null) return 'bez srovnání';
+      const sign = value > 0 ? '+' : '';
+      return `${sign}${Number(value).toFixed(1)} % vs 7denní průměr`;
+    };
+
+    (async () => {
+      const [summary, report] = await Promise.all([
+        DP.loadJson('../data/current/portal_summary.json'),
+        DP.loadJson('../data/current/morning_report_previous_day.json')
+      ]);
+      const total4pxStock = (summary.accounts.cz.inventory.availableStockTotal || 0) + (summary.accounts.sk.inventory.availableStockTotal || 0);
+      const total4pxRows = (summary.accounts.cz.inventory.items || 0) + (summary.accounts.sk.inventory.items || 0);
+      const totalLowStockRows = (summary.accounts.cz.inventory.lowStockItems || 0) + (summary.accounts.sk.inventory.lowStockItems || 0);
+
+      const heroMetrics = [
+        {
+          label: 'Objednávky včera',
+          value: DP.fmtNumber(report.eshop.orders || 0),
+          sub: `${pctText(report.quickSummary?.orders?.deltaPct)} · celý WPJShop · AOV ${fmtMoney(report.eshop.averageOrderValue || 0)}`,
+          klass: 'accent'
+        },
+        {
+          label: 'Tržby s DPH',
+          value: fmtMoney(report.eshop.revenueWithVat || 0),
+          sub: `${pctText(report.quickSummary?.revenueWithVat?.deltaPct)} · celý WPJShop www.kralovstvi-tiande`,
+          klass: ''
+        },
+        {
+          label: 'CZ + SK dohromady',
+          value: DP.fmtNumber(Math.round(total4pxStock || 0)),
+          sub: `4PX sklad celkem · CZ ${DP.fmtNumber(summary.accounts.cz.inventory.availableStockTotal || 0)} · SK ${DP.fmtNumber(summary.accounts.sk.inventory.availableStockTotal || 0)}`,
+          klass: ''
+        }
+      ];
+      document.getElementById('hero-metrics').innerHTML = heroMetrics.map(card => `
+        <div class="ux-hero-metric ${card.klass}">
+          <div class="label">${card.label}</div>
+          <div class="value">${card.value}</div>
+          <div class="sub">${card.sub}</div>
+        </div>
+      `).join('');
+
+      const alerts = report.quickSummary?.alerts || [];
+      document.getElementById('attention-badge').textContent = alerts.length ? `${alerts.length} věcí k pozornosti` : 'Nic zásadního';
+      document.getElementById('attention-badge').className = `badge ${alerts.length ? 'warn' : 'live'}`;
+      document.getElementById('attention-list').innerHTML = (alerts.length ? alerts : ['Nic zásadního teď nehoří.']).map(item => `
+        <div class="ux-item">
+          <span class="ux-dot"></span>
+          <div>
+            <strong>${item}</strong>
+            <span>${item.includes('sklad') ? 'Mrkni do skladu.' : item.includes('objednávek') ? 'Mrkni do detailu e-shopu.' : 'Mrkni do detailu.'}</span>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('priority-list').innerHTML = (report.priorities || []).map(item => `
+        <div class="ux-item">
+          <span class="ux-dot gold"></span>
+          <div>
+            <strong>${item}</strong>
+            <span>Doporučený další krok.</span>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('report-mini').innerHTML = [
+        ['Objednávky WPJShop', DP.fmtNumber(report.eshop.orders || 0)],
+        ['Tržby WPJShop', fmtMoney(report.eshop.revenueWithVat || 0)],
+        ['4PX sklad CZ+SK', DP.fmtNumber(Math.round(report.inventory?.availableStockTotal || total4pxStock || 0))],
+        ['Expedice CZ+SK', `${DP.fmtNumber(report.logistics.shipmentsTotal || 0)} (${report.logistics.byAccount?.CZ || 0}/${report.logistics.byAccount?.SK || 0})`],
+        ['Problematické', DP.fmtNumber(report.eshop.problematicOrders || 0)],
+        ['Expirace k řešení', DP.fmtNumber((report.logistics.expiringProducts || []).length)]
+      ].map(([label, value]) => `
+        <div class="ux-stat-row">
+          <span>${label}</span>
+          <strong>${value}</strong>
+        </div>
+      `).join('');
+
+      const byView = report.eshop.byView || {};
+      document.getElementById('eshop-source-split').innerHTML = [
+        ['CZ e-shop', `${DP.fmtNumber(byView.cz?.orders || 0)} / ${fmtMoney(byView.cz?.revenueWithVat || 0)}`],
+        ['SK e-shop', `${DP.fmtNumber(byView.sk?.orders || 0)} / ${fmtMoney(byView.sk?.revenueWithVat || 0)}`],
+        ['Litoměřice', `${DP.fmtNumber(byView.ltm?.orders || 0)} / ${fmtMoney(byView.ltm?.revenueWithVat || 0)}`],
+        ['Měčín', `${DP.fmtNumber(byView.mecin?.orders || 0)} / ${fmtMoney(byView.mecin?.revenueWithVat || 0)}`]
+      ].map(([label, value]) => `
+        <div class="ux-stat-row">
+          <span>${label}</span>
+          <strong>${value}</strong>
+        </div>
+      `).join('');
+
+      const statusRows = [
+        ['WPJ a objednávky', summary.wpJ.ready ? 'Připojeno, bereme kompletní výsledek e-shopu.' : summary.wpJ.message],
+        ['4PX sklady a logistika', 'CZ i SK běží živě.'],
+        ['Finance a marketing', summary.finance?.message || 'Zatím bez finanční zprávy.']
+      ];
+      document.getElementById('status-list').innerHTML = statusRows.map(([title, text], index) => `
+        <div class="ux-side-item">
+          <span class="ux-dot ${index === 1 ? 'blue' : index === 2 ? 'gold' : 'green'}"></span>
+          <div>
+            <strong>${title}</strong>
+            <span>${text}</span>
+          </div>
+        </div>
+      `).join('');
+
+      const kpis = [
+        ['4PX sklad CZ + SK', DP.fmtNumber(Math.round(total4pxStock)), `CZ ${DP.fmtNumber(summary.accounts.cz.inventory.availableStockTotal)} · SK ${DP.fmtNumber(summary.accounts.sk.inventory.availableStockTotal)}`, 'green'],
+        ['4PX skladové řádky', DP.fmtNumber(total4pxRows), `${DP.fmtNumber(totalLowStockRows)} nízkých skladových řádků napříč CZ+SK`, 'blue'],
+        ['Finance, čistá cash pozice', DP.fmtNumber(Math.round(summary.finance?.cash?.netCashPosition || 0)), summary.finance?.mode === 'mixed_live_legacy' ? 'živé závazky + starší P&L' : summary.finance?.mode === 'legacy_with_live_error' ? 'starší data + chyba API' : summary.finance?.mode === 'legacy_snapshot' ? 'starší ABRA snapshot' : 'finanční zdroj', 'gold'],
+        ['Marketing, poslední měsíc', DP.fmtNumber(Math.round(summary.marketing?.currentMonth?.totalSpend || 0)), `${(summary.marketing?.currentMonth?.spendShareOfRevenuePct ?? 0).toFixed(1)} % z výnosů`, 'red']
+      ];
+      document.getElementById('top-kpis').innerHTML = kpis.map(([label, value, sub, klass]) => `
+        <div class="card kpi-card ${klass}">
+          <div class="kpi-label">${label}</div>
+          <div class="kpi-value">${value}</div>
+          <div class="kpi-sub">${sub}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('done-list').innerHTML = doneItems.map(([title, desc]) => `
+        <div class="block-item"><h4>${title}</h4><p>${desc}</p></div>
+      `).join('');
+
+      document.getElementById('blockers').innerHTML = (summary.warnings.length ? summary.warnings : (summary.report.alerts || []).length ? summary.report.alerts : ['Nic zásadního nás teď neblokuje.']).map(w => `<div class="alert warn">${w}</div>`).join('');
+
+      const sourceRows = [
+        ['4PX CZ inventory', 'OK', `Warehouse ${summary.config.warehouseCode}`, summary.accounts.cz.inventory.items],
+        ['4PX SK inventory', 'OK', `Warehouse ${summary.config.warehouseCode}`, summary.accounts.sk.inventory.items],
+        ['4PX CZ outbound', 'OK', `Recent pages: ${summary.accounts.cz.outbound.scannedPages}`, summary.accounts.cz.outbound.items],
+        ['4PX SK outbound', 'OK', `Recent pages: ${summary.accounts.sk.outbound.scannedPages}`, summary.accounts.sk.outbound.items],
+        ['WPJ / GraphQL', summary.wpJ.ready ? 'OK' : 'Čeká', summary.wpJ.ready ? 'Kompletní výsledek www.kralovstvi-tiande' : summary.wpJ.message, summary.wpJ.orders || 0],
+        ['ABRA Flexi / finance', summary.finance?.ready ? 'OK' : 'Čeká', summary.finance?.message || 'Bez dat', Math.round(summary.finance?.currentMonth?.revenue || 0)],
+        ['Marketing', summary.marketing?.ready ? 'OK' : 'Čeká', summary.marketing?.message || 'Bez dat', Math.round(summary.marketing?.currentMonth?.totalSpend || 0)],
+        ['Ranní report', 'OK', `Alerty: ${(summary.report.alerts || []).length}`, summary.report.shipments || 0]
+      ];
+      document.getElementById('sources-table').innerHTML = sourceRows.map(row => `
+        <tr>
+          <td>${row[0]}</td>
+          <td>${row[1] === 'OK' ? DP.statusPill('OK','success') : DP.statusPill(row[1],'warning')}</td>
+          <td>${row[2]}</td>
+          <td class="num">${DP.fmtNumber(row[3])}</td>
+        </tr>
+      `).join('');
+    })().catch(err => {
+      document.getElementById('attention-list').innerHTML = `<div class="ux-item"><span class="ux-dot"></span><div><strong>Nepodařilo se načíst portál</strong><span>${err.message}</span></div></div>`;
+    });
+  </script>
+</body>
+</html>
