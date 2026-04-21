@@ -201,6 +201,34 @@
     const main = document.querySelector('.main');
     if (!header || !main || main.querySelector('[data-section-nav]')) return;
 
+    const customNodes = Array.from(document.querySelectorAll('[data-section-nav-label]'));
+    if (customNodes.length) {
+      const items = customNodes.map((node, index) => {
+        const label = (node.getAttribute('data-section-nav-label') || node.textContent || '').trim();
+        const order = Number(node.getAttribute('data-section-nav-order') || (index + 1));
+        if (!node.id) node.id = `sekce-${slugify(label)}-${index + 1}`;
+        return { id: node.id, label, order };
+      }).filter(item => item.label);
+
+      if (!items.length) return;
+
+      items.sort((a, b) => a.order - b.order);
+
+      const nav = document.createElement('nav');
+      nav.className = 'section-nav';
+      nav.setAttribute('data-section-nav', '1');
+      nav.setAttribute('aria-label', 'Rychlá navigace sekcí');
+      nav.innerHTML = `
+        <div class="section-nav-label">Rychlá navigace</div>
+        <div class="section-nav-links">
+          ${items.slice(0, 8).map(item => `<a href="#${escapeHtml(item.id)}">${escapeHtml(item.label)}</a>`).join('')}
+        </div>
+      `;
+
+      header.appendChild(nav);
+      return;
+    }
+
     const selectors = [
       'main > section .section-title',
       'main > section .ux-section-title',
@@ -214,7 +242,7 @@
 
     document.querySelectorAll(selectors.join(',')).forEach((node, index) => {
       const text = (node.textContent || '').trim();
-      if (!text || seen.has(text)) return;
+      if (!text || seen.has(text) || /^detail layer/i.test(text)) return;
       const section = node.closest('section, details, .card');
       if (!section) return;
       if (!section.id) section.id = `sekce-${slugify(text)}-${index + 1}`;
