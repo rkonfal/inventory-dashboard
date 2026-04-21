@@ -87,7 +87,10 @@
       <div class="ux-date-note"><strong>Jak číst datumy:</strong> marketingové náklady a největší dodavatelé se vztahují k <strong>poslednímu dostupnému měsíci</strong>, ne k dnešku. Ranní text vpravo je jen <strong>rychlý včerejší kontext</strong>.</div>
     </header>
 
-    <div id="source-alert"></div>
+    <details class="secondary-details">
+      <summary>Zdroj a poznámka k marketingu</summary>
+      <div id="source-alert" style="margin-top:14px;"></div>
+    </details>
 
     <section class="ux-grid">
       <div class="ux-focus-card">
@@ -116,46 +119,49 @@
       </div>
     </section>
 
-    <section class="grid kpi-grid" id="top-kpis"></section>
-
     <section class="card">
       <div class="ux-section-head">
         <div>
           <h2 class="section-title">Placené kanály, aktivní kampaně</h2>
-          <div class="section-subtitle">Přehled podle kanálu. U každého vidíš všechny aktivní kampaně a jejich aktuální výkon za tento měsíc.</div>
+          <div class="section-subtitle">Jen hlavní provozní přehled podle kanálu. Detail trendů a CRM je schovaný níž.</div>
         </div>
       </div>
       <div class="grid kpi-grid" id="ppc-total-kpis" style="margin-top:20px;"></div>
       <div class="grid kpi-grid" id="source-kpis" style="margin-top:20px;"></div>
     </section>
 
-    <section class="card">
-      <div class="ux-section-head">
-        <div>
-          <h2 class="section-title">Denní trend všech placených kanálů</h2>
-          <div class="section-subtitle">Denní souhrn útraty, kliků, objednávek a návratnosti přes Meta Ads, Google Ads a Sklik.</div>
+    <details class="secondary-details">
+      <summary>Rozšířený marketingový detail</summary>
+
+      <section class="grid kpi-grid" id="top-kpis" style="margin-top:18px;"></section>
+
+      <section class="card" style="margin-top:20px;">
+        <div class="ux-section-head">
+          <div>
+            <h2 class="section-title">Denní trend všech placených kanálů</h2>
+            <div class="section-subtitle">Denní souhrn útraty, kliků, objednávek a návratnosti přes Meta Ads, Google Ads a Sklik.</div>
+          </div>
         </div>
-      </div>
-      <div class="ux-table-wrap desktop-only" style="margin-top:16px;">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Den</th>
-              <th class="num">Meta útrata</th>
-              <th class="num">Google útrata</th>
-              <th class="num">Sklik útrata</th>
-              <th class="num">Celkem útrata</th>
-              <th class="num">Kliky</th>
-              <th class="num">Konverze</th>
-              <th class="num">Hodnota objednávek</th>
-              <th class="num">ROAS</th>
-            </tr>
-          </thead>
-          <tbody id="daily-trend-table"></tbody>
-        </table>
-      </div>
-      <div class="grid kpi-grid" id="daily-trend-source-kpis" style="margin-top:20px;"></div>
-    </section>
+        <div class="ux-table-wrap desktop-only" style="margin-top:16px;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Den</th>
+                <th class="num">Meta útrata</th>
+                <th class="num">Google útrata</th>
+                <th class="num">Sklik útrata</th>
+                <th class="num">Celkem útrata</th>
+                <th class="num">Kliky</th>
+                <th class="num">Konverze</th>
+                <th class="num">Hodnota objednávek</th>
+                <th class="num">ROAS</th>
+              </tr>
+            </thead>
+            <tbody id="daily-trend-table"></tbody>
+          </table>
+        </div>
+        <div class="grid kpi-grid" id="daily-trend-source-kpis" style="margin-top:20px;"></div>
+      </section>
 
     <details class="secondary-details">
       <summary>Kampaně a CRM detail</summary>
@@ -196,6 +202,7 @@
       </section>
 
       <section class="grid" style="gap:20px; margin-top:20px;" id="source-campaign-sections"></section>
+    </details>
     </details>
 
   </main>
