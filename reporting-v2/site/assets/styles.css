@@ -1692,8 +1692,11 @@ pre {
 
 @media (max-width: 768px) {
   .main {
-    padding: 74px 16px 36px;
+    padding: 72px 12px 32px;
     max-width: 100vw;
+  }
+  .page-stack {
+    gap: 14px;
   }
   .header,
   .card,
@@ -1704,18 +1707,39 @@ pre {
   .ux-panel-card {
     border-radius: 18px;
   }
+  .card,
+  .signal-card,
+  .summary-card,
+  .secondary-details,
+  .ux-focus-card,
+  .ux-panel-card,
+  .layer-shell {
+    padding: 16px;
+  }
   .header {
-    padding: 22px 18px;
+    padding: 18px 16px;
   }
   .header h1,
   .ux-title,
   .layer-title {
-    font-size: 28px;
+    font-size: 24px;
+    line-height: 1.12;
+  }
+  .ux-kicker,
+  .layer-label {
+    font-size: 10px;
+    letter-spacing: .1em;
+  }
+  .ux-subtitle,
+  .layer-subtitle,
+  .layer-note {
+    font-size: 13px;
+    line-height: 1.5;
   }
   .signal-value,
   .kpi-value,
   .ux-hero-metric .value {
-    font-size: 28px;
+    font-size: 24px;
     word-break: break-word;
   }
   .signal-grid,
@@ -1723,25 +1747,98 @@ pre {
   .kpi-grid,
   .ux-grid,
   .two-col {
-    gap: 14px;
+    gap: 12px;
+  }
+  .ux-hero-metrics,
+  .three-col,
+  .work-grid,
+  .summary-grid,
+  .signal-grid,
+  .kpi-grid,
+  .leadership-note-grid,
+  .journal-filter-bar,
+  .toolbar-controls,
+  .workspace-toolbar,
+  .toolbar-meta {
+    grid-template-columns: 1fr !important;
   }
   .status-strip {
-    padding: 10px 12px;
+    padding: 10px 10px;
+    gap: 8px;
   }
   .status-chip {
     width: 100%;
     justify-content: space-between;
   }
+  .toolbar-controls,
+  .quick-filters,
+  .ordering-explorer-pagination,
+  .ordering-detail-actions,
+  .ux-actions,
+  .section-nav-links {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
   .ux-actions {
     width: 100%;
   }
   .ux-actions .ux-button,
+  .ux-actions button,
+  .toolbar-controls .ux-button,
+  .toolbar-controls button,
+  .quick-filters .quick-filter,
+  .ordering-explorer-pagination > *,
+  .ordering-detail-actions > * {
+    width: 100%;
+  }
+  .ux-actions .ux-button,
   .ux-actions button {
-    flex: 1 1 calc(50% - 8px);
+    flex: 1 1 100%;
     justify-content: center;
+  }
+  .ux-hero-metric,
+  .signal-card,
+  .summary-card,
+  .kpi-card {
+    min-height: 0;
+  }
+  .ux-table-wrap {
+    margin-left: -4px;
+    margin-right: -4px;
+  }
+  .ux-table-wrap table {
+    min-width: 640px;
   }
   .section-nav-links a {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .main {
+    padding: 68px 10px 26px;
+  }
+  .header,
+  .card,
+  .signal-card,
+  .summary-card,
+  .secondary-details,
+  .ux-focus-card,
+  .ux-panel-card,
+  .layer-shell {
+    padding: 14px;
+    border-radius: 16px;
+  }
+  .header h1,
+  .ux-title,
+  .layer-title {
+    font-size: 22px;
+  }
+  .signal-value,
+  .kpi-value,
+  .ux-hero-metric .value {
+    font-size: 22px;
   }
 }

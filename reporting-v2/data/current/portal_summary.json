@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-21T11:15:07.888301+02:00",
+  "generatedAt": "2026-04-21T15:37:28.124492+02:00",
   "config": {
     "warehouseCode": "CZPRGA",
     "outboundMaxPages": 20,
@@ -8,33 +8,31 @@
       "to": "2026-04-21T00:00:00+02:00"
     }
   },
-  "warnings": [
-    "ABRA report Výkaz hospodaření za měsíc se nepodařilo stáhnout."
-  ],
+  "warnings": [],
   "accounts": {
     "cz": {
       "label": "CZ",
       "inventory": {
-        "items": 768,
-        "availableStockTotal": 296395,
-        "pendingStockTotal": 1162,
+        "items": 770,
+        "availableStockTotal": 296335,
+        "pendingStockTotal": 1922,
         "freezeStockTotal": 0,
         "lowStockItems": 100
       },
       "outbound": {
-        "items": 500,
-        "scannedPages": 5,
+        "items": 600,
+        "scannedPages": 6,
         "topLogisticsProduct": "F1401",
-        "oldestTimestamp": "2026-04-19T20:20:05+02:00",
-        "newestTimestamp": "2026-04-21T11:13:45+02:00"
+        "oldestTimestamp": "2026-04-19T21:00:04+02:00",
+        "newestTimestamp": "2026-04-21T14:30:02+02:00"
       }
     },
     "sk": {
       "label": "SK",
       "inventory": {
-        "items": 621,
-        "availableStockTotal": 69755,
-        "pendingStockTotal": 26,
+        "items": 623,
+        "availableStockTotal": 70468,
+        "pendingStockTotal": 42,
         "freezeStockTotal": 0,
         "lowStockItems": 100
       },
@@ -42,8 +40,8 @@
         "items": 100,
         "scannedPages": 1,
         "topLogisticsProduct": "F1403",
-        "oldestTimestamp": "2026-04-17T06:00:38+02:00",
-        "newestTimestamp": "2026-04-21T10:53:48+02:00"
+        "oldestTimestamp": "2026-04-17T20:50:12+02:00",
+        "newestTimestamp": "2026-04-21T14:35:09+02:00"
       }
     }
   },
@@ -71,51 +69,51 @@
     ]
   },
   "expiries": {
-    "datedSkuCount": 615,
+    "datedSkuCount": 616,
     "czSkuCount": 316,
-    "skSkuCount": 299
+    "skSkuCount": 300
   },
   "pairing": {
-    "allCodes": 2905,
-    "pairedProducts": 390,
-    "onlyInWpj": 1449,
+    "allCodes": 2916,
+    "pairedProducts": 391,
+    "onlyInWpj": 1459,
     "onlyIn4px": 1,
-    "stockMismatch": 698,
-    "lowAfterSales": 8,
+    "stockMismatch": 693,
+    "lowAfterSales": 6,
     "manualMapped4pxAliases": 0,
     "autoMapped4pxAliases": 73
   },
   "finance": {
     "ready": true,
-    "mode": "mixed_live_legacy",
-    "message": "Závazky z přijatých faktur jsou tahány živě z ABRA API. Měsíční P&L zatím zůstává na legacy snapshotu.",
+    "mode": "live_report",
+    "message": "Měsíční finance se tahají přímo z ABRA reportu Výkaz hospodaření za měsíc za všechna střediska. Cash a závazky jsou také live z ABRA API.",
     "currentMonth": {
-      "label": "3/2026",
-      "revenue": 16130000,
-      "cogsAndFees": 11566057.87,
-      "logistics": 100848.43,
-      "marketing": 245438.02,
-      "opex": 1019389.35,
+      "label": "4/2026",
+      "revenue": 9158221.66,
+      "cogsAndFees": 6533352.02,
+      "logistics": 37815.04,
+      "marketing": 257841.46,
+      "opex": 252042.59,
       "depreciation": 385502.0,
-      "other": -1175388.08,
-      "grossMargin": 4563942.13,
-      "afterLogistics": 4463093.7,
-      "afterMarketing": 4217655.68,
-      "operatingMargin": 3198266.33,
-      "ebit": 2812764.33,
-      "profit": 1637376.25,
-      "grossMarginPct": 28.3,
-      "marketingPct": 1.5,
-      "logisticsPct": 0.6,
-      "operatingMarginPct": 19.8,
-      "profitPct": 10.2
+      "other": -1937.44,
+      "grossMargin": 2624869.64,
+      "afterLogistics": 2587054.6,
+      "afterMarketing": 2329213.14,
+      "operatingMargin": 2077170.55,
+      "ebit": 1691668.55,
+      "profit": 1689731.11,
+      "grossMarginPct": 28.7,
+      "marketingPct": 2.8,
+      "logisticsPct": 0.4,
+      "operatingMarginPct": 22.7,
+      "profitPct": 18.5
     },
     "cash": {
       "cashOnAccounts": 10255308.0,
-      "unpaidInvoices": 2385880.41,
+      "unpaidInvoices": 2429993.78,
       "netCashPosition": 8675748.0,
-      "overdueInvoicesCount": 0,
-      "overdueInvoicesAmount": 0.0,
+      "overdueInvoicesCount": 1,
+      "overdueInvoicesAmount": 1210.0,
       "largestPayables": [
         {
           "code": "PF0478/2026",
@@ -166,43 +164,40 @@
           "status": "9 dní do splatnosti"
         },
         {
+          "code": "PF0482/2026",
+          "vendor": "Zásilkovna s.r.o.",
+          "dueDate": "27.04.2026",
+          "amountTotal": 39828.37,
+          "amountDue": 39828.37,
+          "status": "6 dní do splatnosti"
+        },
+        {
           "code": "PF0413/2026",
           "vendor": "4PX Express CZ",
           "dueDate": "30.04.2026",
           "amountTotal": 27981.25,
           "amountDue": 27981.25,
           "status": "9 dní do splatnosti"
-        },
-        {
-          "code": "Z0033/2026",
-          "vendor": "ORLEN Unipetrol RPA s.r.o.",
-          "dueDate": "29.04.2026",
-          "amountTotal": 20625.3,
-          "amountDue": 20625.3,
-          "status": "8 dní do splatnosti"
         }
       ]
     },
     "reportExport": {
-      "status": "error",
-      "message": "ABRA report Výkaz hospodaření za měsíc se nepodařilo stáhnout (module 'xlrd' has no attribute 'open_workbook')."
+      "status": "live",
+      "message": "Report Výkaz hospodaření za měsíc je načtený z aktuálních ABRA XLS exportů v data/current."
     }
   },
   "marketing": {
     "ready": true,
-    "mode": "legacy_snapshot",
-    "message": "Zatím čerpáno z posledního dostupného ABRA Flexi výřezu v původním dashboardu, ne z živého API.",
+    "mode": "live_report",
+    "message": "Marketing se skládá z live ABRA reportu a aktuálních položek z účetního deníku. Přímé platformy přes API: Sklik, Meta Ads, Google Ads, Klaviyo.",
     "currentMonth": {
-      "label": "3/2026",
-      "performanceSpend": 7438.02,
-      "brandSpend": 238000.0,
-      "totalSpend": 245438.02,
-      "revenue": 16130000,
-      "spendShareOfRevenuePct": 1.5
+      "label": "4/2026",
+      "performanceSpend": 6957.68,
+      "brandSpend": 250883.78,
+      "totalSpend": 257841.46,
+      "revenue": 9158221.66,
+      "spendShareOfRevenuePct": 2.8
     },
-    "topSupplier": {
-      "name": "Selfcareacademy s.r.o.",
-      "amount": 155355.37
-    }
+    "topSupplier": null
   }
 }

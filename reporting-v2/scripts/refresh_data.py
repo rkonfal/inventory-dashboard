@@ -24,6 +24,8 @@ if VENDOR_PY_DIR.exists() and str(VENDOR_PY_DIR) not in sys.path:
 
 try:
     import xlrd
+    if not hasattr(xlrd, 'open_workbook'):
+        raise ImportError('xlrd package is incomplete')
 except ImportError:
     xlrd = None
 
@@ -3508,6 +3510,46 @@ def build_finance_snapshot(legacy_abra_payload, live_abra_payload, report_payloa
 
 
 def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapshot, generated_at):
+    def build_channel_rows(sklik_direct, sklik_current, meta_direct, meta_summary, google_direct, google_summary, klaviyo_direct, klaviyo_current):
+        channel_rows = []
+        if sklik_direct['ready']:
+            channel_rows.append({
+                'name': 'Sklik',
+                'amount': round(float(sklik_current.get('priceCzk') or 0), 2),
+                'clicks': int(sklik_current.get('clicks') or 0),
+                'conversions': round(float(sklik_current.get('conversions') or 0), 2),
+                'roas': None,
+                'source': 'live_api',
+            })
+        if meta_direct['ready']:
+            channel_rows.append({
+                'name': 'Meta Ads',
+                'amount': round(float(meta_summary.get('spendCzk') or 0), 2),
+                'clicks': int(meta_summary.get('clicks') or 0),
+                'conversions': round(float(meta_summary.get('purchaseConversions') or 0), 2),
+                'roas': meta_summary.get('roas'),
+                'source': 'live_api',
+            })
+        if google_direct['ready']:
+            channel_rows.append({
+                'name': 'Google Ads',
+                'amount': round(float(google_summary.get('spendCzk') or 0), 2),
+                'clicks': int(google_summary.get('clicks') or 0),
+                'conversions': round(float(google_summary.get('conversions') or 0), 2),
+                'roas': google_summary.get('roas'),
+                'source': 'live_api',
+            })
+        if klaviyo_direct['ready']:
+            channel_rows.append({
+                'name': 'Klaviyo',
+                'amount': round(float(klaviyo_current.get('totalAttributedRevenueCzk') or 0), 2),
+                'clicks': int(klaviyo_current.get('totalClicks') or 0),
+                'conversions': round(float(klaviyo_current.get('totalAttributedOrders') or 0), 2),
+                'roas': None,
+                'source': 'live_api',
+            })
+        return channel_rows
+
     sklik_overview = load_optional_current_json('sklik_overview.json') or {}
     sklik_current = ((sklik_overview.get('currentMonth') or {}).get('total') or {})
     sklik_previous = ((sklik_overview.get('previousMonth') or {}).get('total') or {})
@@ -3653,43 +3695,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             ),
         }
         direct_sources = {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct}
-        channel_rows = []
-        if sklik_direct['ready']:
-            channel_rows.append({
-                'name': 'Sklik',
-                'amount': round(float(sklik_current.get('priceCzk') or 0), 2),
-                'clicks': int(sklik_current.get('clicks') or 0),
-                'conversions': round(float(sklik_current.get('conversions') or 0), 2),
-                'roas': None,
-                'source': 'live_api',
-            })
-        if meta_direct['ready']:
-            channel_rows.append({
-                'name': 'Meta Ads',
-                'amount': round(float(meta_summary.get('spendCzk') or 0), 2),
-                'clicks': int(meta_summary.get('clicks') or 0),
-                'conversions': round(float(meta_summary.get('purchaseConversions') or 0), 2),
-                'roas': meta_summary.get('roas'),
-                'source': 'live_api',
-            })
-        if google_direct['ready']:
-            channel_rows.append({
-                'name': 'Google Ads',
-                'amount': round(float(google_summary.get('spendCzk') or 0), 2),
-                'clicks': int(google_summary.get('clicks') or 0),
-                'conversions': round(float(google_summary.get('conversions') or 0), 2),
-                'roas': google_summary.get('roas'),
-                'source': 'live_api',
-            })
-        if klaviyo_direct['ready']:
-            channel_rows.append({
-                'name': 'Klaviyo',
-                'amount': round(float(klaviyo_current.get('totalAttributedRevenueCzk') or 0), 2),
-                'clicks': int(klaviyo_current.get('totalClicks') or 0),
-                'conversions': round(float(klaviyo_current.get('totalAttributedOrders') or 0), 2),
-                'roas': None,
-                'source': 'live_api',
-            })
+        channel_rows = build_channel_rows(sklik_direct, sklik_current, meta_direct, meta_summary, google_direct, google_summary, klaviyo_direct, klaviyo_current)
         source_message = 'Marketing se skládá z live ABRA reportu a aktuálních položek z účetního deníku.'
         live_labels = []
         if sklik_direct['ready']:
@@ -3718,6 +3724,44 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'activeCampaignsBySource': active_campaigns,
         }
 
+    direct_sources = {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct}
+    live_labels = [source['label'] for source in direct_sources.values() if source.get('ready')]
+    channel_rows = build_channel_rows(sklik_direct, sklik_current, meta_direct, meta_summary, google_direct, google_summary, klaviyo_direct, klaviyo_current)
+    live_current_month = {
+        'label': (finance_snapshot.get('currentMonth') or {}).get('label') or ((meta_summary.get('dateTo') or google_summary.get('dateTo') or (sklik_direct.get('currentMonth') or {}).get('dateTo') or klaviyo_current.get('dateTo') or 'aktuální měsíc')),
+        'performanceSpend': round(float(meta_summary.get('spendCzk') or 0) + float(google_summary.get('spendCzk') or 0) + float(sklik_current.get('priceCzk') or 0), 2),
+        'brandSpend': 0.0,
+        'totalSpend': round(float(meta_summary.get('spendCzk') or 0) + float(google_summary.get('spendCzk') or 0) + float(sklik_current.get('priceCzk') or 0), 2),
+        'revenue': round(float(((finance_snapshot.get('currentMonth') or {}).get('revenue') or 0)), 2),
+    }
+    live_current_month['spendShareOfRevenuePct'] = safe_ratio(live_current_month['totalSpend'], live_current_month['revenue'])
+    live_previous_month = {
+        'label': ((finance_snapshot.get('previousMonth') or {}).get('label') or ((sklik_direct.get('previousMonth') or {}).get('dateTo') or meta_previous.get('dateTo') or google_previous.get('dateTo') or klaviyo_previous.get('dateTo') or 'předchozí měsíc')),
+        'performanceSpend': round(float(meta_previous.get('spendCzk') or 0) + float(google_previous.get('spendCzk') or 0) + float(sklik_previous.get('priceCzk') or 0), 2),
+        'brandSpend': 0.0,
+        'totalSpend': round(float(meta_previous.get('spendCzk') or 0) + float(google_previous.get('spendCzk') or 0) + float(sklik_previous.get('priceCzk') or 0), 2),
+        'revenue': round(float(((finance_snapshot.get('previousMonth') or {}).get('revenue') or 0)), 2),
+    }
+    live_previous_month['spendShareOfRevenuePct'] = safe_ratio(live_previous_month['totalSpend'], live_previous_month['revenue'])
+
+    if live_labels:
+        source_message = 'Marketing je teď skládaný přímo z live marketing API.'
+        if (finance_snapshot.get('source') or {}).get('status') in {'live_report', 'mixed_live_legacy', 'live_payables_only', 'legacy_with_live_error', 'legacy_snapshot'}:
+            source_message += ' Revenue benchmark bere z finance snapshotu.'
+        source_message += ' Přímé platformy přes API: ' + ', '.join(live_labels) + '.'
+        return {
+            'generatedAt': generated_at,
+            'source': {'status': 'live_channels', 'message': source_message},
+            'monthly': [live_previous_month, live_current_month] if live_previous_month.get('label') else [live_current_month],
+            'currentMonth': live_current_month,
+            'previousMonth': live_previous_month,
+            'topSuppliersCurrentMonth': [],
+            'entriesCurrentMonth': [],
+            'directSources': direct_sources,
+            'channelsCurrentMonth': channel_rows,
+            'activeCampaignsBySource': active_campaigns,
+        }
+
     if not legacy_abra_payload:
         return {
             'generatedAt': generated_at,
@@ -3727,8 +3771,8 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'previousMonth': {},
             'topSuppliersCurrentMonth': [],
             'entriesCurrentMonth': [],
-            'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct},
-            'channelsCurrentMonth': [],
+            'directSources': direct_sources,
+            'channelsCurrentMonth': channel_rows,
             'activeCampaignsBySource': active_campaigns,
         }
 
@@ -3743,8 +3787,8 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'previousMonth': {},
             'topSuppliersCurrentMonth': [],
             'entriesCurrentMonth': [],
-            'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct},
-            'channelsCurrentMonth': [],
+            'directSources': direct_sources,
+            'channelsCurrentMonth': channel_rows,
             'activeCampaignsBySource': active_campaigns,
         }
 
@@ -3778,43 +3822,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
 
     current_month = monthly[-1] if monthly else {}
     previous_month = monthly[-2] if len(monthly) > 1 else {}
-    channel_rows = []
-    if sklik_direct['ready']:
-        channel_rows.append({
-            'name': 'Sklik',
-            'amount': round(float(sklik_current.get('priceCzk') or 0), 2),
-            'clicks': int(sklik_current.get('clicks') or 0),
-            'conversions': round(float(sklik_current.get('conversions') or 0), 2),
-            'roas': None,
-            'source': 'live_api',
-        })
-    if meta_direct['ready']:
-        channel_rows.append({
-            'name': 'Meta Ads',
-            'amount': round(float(meta_summary.get('spendCzk') or 0), 2),
-            'clicks': int(meta_summary.get('clicks') or 0),
-            'conversions': round(float(meta_summary.get('purchaseConversions') or 0), 2),
-            'roas': meta_summary.get('roas'),
-            'source': 'live_api',
-        })
-    if google_direct['ready']:
-        channel_rows.append({
-            'name': 'Google Ads',
-            'amount': round(float(google_summary.get('spendCzk') or 0), 2),
-            'clicks': int(google_summary.get('clicks') or 0),
-            'conversions': round(float(google_summary.get('conversions') or 0), 2),
-            'roas': google_summary.get('roas'),
-            'source': 'live_api',
-        })
-    if klaviyo_direct['ready']:
-        channel_rows.append({
-            'name': 'Klaviyo',
-            'amount': round(float(klaviyo_current.get('totalAttributedRevenueCzk') or 0), 2),
-            'clicks': int(klaviyo_current.get('totalClicks') or 0),
-            'conversions': round(float(klaviyo_current.get('totalAttributedOrders') or 0), 2),
-            'roas': None,
-            'source': 'live_api',
-        })
+    channel_rows = build_channel_rows(sklik_direct, sklik_current, meta_direct, meta_summary, google_direct, google_summary, klaviyo_direct, klaviyo_current)
     return {
         'generatedAt': generated_at,
         'source': legacy_abra_payload['source'],
@@ -3837,7 +3845,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             }
             for row in current_entries[:20]
         ],
-        'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct},
+        'directSources': direct_sources,
         'channelsCurrentMonth': channel_rows,
         'activeCampaignsBySource': active_campaigns,
     }
