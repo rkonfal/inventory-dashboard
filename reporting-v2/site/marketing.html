@@ -112,8 +112,9 @@
       <div class="ux-side-stack">
         <div class="ux-panel-card">
           <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Tento měsíc</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Kolik jde do výkonu a kolik do širšího marketingu.</p>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Nahoře jsou spendy. Klaviyo atribuce je schválně oddělená pod nimi.</p>
           <div class="ux-stat-list" id="marketing-current"></div>
+          <div class="ux-stat-list" id="marketing-klaviyo-current" style="margin-top:14px;"></div>
         </div>
         <div class="ux-panel-card">
           <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Co z toho plyne</h3>
@@ -216,12 +217,7 @@
 
     (async () => {
       const data = await DP.loadJson('../data/current/marketing_overview.json');
-      const source = sourceMeta(data.source?.status);
-      document.getElementById('source-mode').textContent = source.label;
-      document.getElementById('source-mode').className = `badge ${source.tone}`;
-      document.getElementById('source-alert').innerHTML = `<div class="alert warn">${data.source?.message || 'Bez zdrojové poznámky.'}</div>`;
-
-      const current = data.currentMonth || {};
+      const rawCurrent = data.currentMonth || {};
       const sklik = data.directSources?.sklik || {};
       const sklikCurrent = sklik.currentMonth?.total || {};
       const meta = data.directSources?.meta || {};
@@ -231,6 +227,27 @@
       const klaviyo = data.directSources?.klaviyo || {};
       const klaviyoCurrent = klaviyo.currentMonth || {};
       const activeBySource = data.activeCampaignsBySource || {};
+      const anyLiveSource = [sklik, meta, google, klaviyo].some(source => source?.ready);
+      const fallbackPpcAmount = Number(metaCurrent.spendCzk || 0) + Number(googleCurrent.spendCzk || 0) + Number(sklikCurrent.priceCzk || 0);
+      const fallbackTotalAmount = Number(rawCurrent.totalÚtrata ?? rawCurrent.totalSpend ?? 0) || fallbackPpcAmount;
+      const fallbackRevenue = Number(rawCurrent.revenue || 0);
+      const current = {
+        ...rawCurrent,
+        label: rawCurrent.label || [metaCurrent.dateTo, googleCurrent.dateTo, sklik.currentMonth?.dateTo].find(Boolean) || '–',
+        performanceÚtrata: Number((rawCurrent.performanceÚtrata ?? rawCurrent.performanceSpend ?? fallbackPpcAmount) || 0),
+        brandÚtrata: Number((rawCurrent.brandÚtrata ?? rawCurrent.brandSpend ?? Math.max(fallbackTotalAmount - fallbackPpcAmount, 0)) || 0),
+        totalÚtrata: Number((rawCurrent.totalÚtrata ?? rawCurrent.totalSpend ?? fallbackTotalAmount) || 0),
+        spendShareOfRevenuePct: rawCurrent.spendShareOfRevenuePct ?? (fallbackRevenue ? (fallbackTotalAmount / fallbackRevenue) * 100 : null),
+      };
+      const source = (!data.source?.status || data.source?.status === 'missing') && anyLiveSource
+        ? { label: 'live API', tone: 'ok' }
+        : sourceMeta(data.source?.status);
+      const sourceMessage = (!data.source?.status || data.source?.status === 'missing') && anyLiveSource
+        ? 'Souhrn měsíce z ABRA teď chybí, ale reklamní data níž běží živě z Meta Ads, Google Ads, Skliku a Klaviyo.'
+        : (data.source?.message || 'Bez zdrojové poznámky.');
+      document.getElementById('source-mode').textContent = source.label;
+      document.getElementById('source-mode').className = `badge ${source.tone}`;
+      document.getElementById('source-alert').innerHTML = `<div class="alert warn">${sourceMessage}</div>`;
       const normalizeDate = value => {
         if (!value) return '–';
         if (typeof value === 'string' && /^\d{8}/.test(value)) return `${value.slice(0,4)}-${value.slice(4,6)}-${value.slice(6,8)}`;
@@ -410,11 +427,18 @@
         ['Ostatní marketing', money(current.brandÚtrata)],
         ['Celkem', money(current.totalÚtrata)],
         ['Podíl z výnosů', pct(current.spendShareOfRevenuePct)],
-        meta.ready ? ['Meta Ads live', money(metaCurrent.spendCzk)] : null,
-        google.ready ? ['Google Ads live', money(googleCurrent.spendCzk)] : null,
-        sklik.ready ? ['Sklik live', money(sklikCurrent.priceCzk)] : null,
-        klaviyo.ready ? ['Klaviyo atribuce', money(klaviyoCurrent.totalAttributedRevenueCzk)] : null,
+        meta.ready ? ['Meta Ads spend', money(metaCurrent.spendCzk)] : null,
+        google.ready ? ['Google Ads spend', money(googleCurrent.spendCzk)] : null,
+        sklik.ready ? ['Sklik spend', money(sklikCurrent.priceCzk)] : null,
       ].filter(Boolean).map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
+
+      document.getElementById('marketing-klaviyo-current').innerHTML = klaviyo.ready ? `
+        <div style="margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Klaviyo atribuce</div>
+        <div class="ux-stat-row"><span>Atribuovaný obrat</span><strong>${money(klaviyoCurrent.totalAttributedRevenueCzk)}</strong></div>
+        <div class="ux-stat-row"><span>Atribuované objednávky</span><strong>${Number(klaviyoCurrent.totalAttributedOrders || 0).toFixed(2)}</strong></div>
+        <div class="ux-stat-row"><span>Příjemci</span><strong>${DP.fmtNumber(Math.round(klaviyoCurrent.totalRecipients || 0))}</strong></div>
+        <div class="ux-stat-row"><span>Kliky / CTR</span><strong>${DP.fmtNumber(Math.round(klaviyoCurrent.totalClicks || 0))} / ${klaviyoCurrent.clickRate == null ? '–' : `${(Number(klaviyoCurrent.clickRate) * 100).toFixed(1)} %`}</strong></div>
+      ` : '';
 
       const strongestSource = [...sourceConfigs].sort((a, b) => (b.amount || 0) - (a.amount || 0))[0];
       const bestRoasSource = [...sourceConfigs].filter(source => source.roas != null).sort((a, b) => (b.roas || 0) - (a.roas || 0))[0];
@@ -469,7 +493,16 @@
         <div class="card kpi-card ${source.key === 'meta' ? 'blue' : source.key === 'google' ? 'green' : 'gold'} ${cardTone(source.roas)}">
           <div class="kpi-label">${source.label}</div>
           <div class="kpi-value">${money(source.amount)}</div>
-          <div class="kpi-sub">${DP.fmtNumber(Math.round(source.clicks || 0))} kliků, ${Number(source.conversions || 0).toFixed(2)} konverzí, ROAS <span class="${roasTone(source.roas)}">${source.roas == null ? '–' : Number(source.roas).toFixed(2)}</span></div>
+          <div class="kpi-sub" style="margin-top:12px; display:grid; gap:10px; text-align:left;">
+            <div>
+              <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Spend</div>
+              <div>${money(source.amount)} • ${DP.fmtNumber(Math.round(source.clicks || 0))} kliků</div>
+            </div>
+            <div>
+              <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Atribuce</div>
+              <div>${Number(source.conversions || 0).toFixed(2)} konverzí • ${money(source.value)} • ROAS <span class="${roasTone(source.roas)}">${source.roas == null ? '–' : Number(source.roas).toFixed(2)}</span></div>
+            </div>
+          </div>
           ${sparkline((source.daily || []).map(row => row.spend))}
         </div>
       `).join('');
