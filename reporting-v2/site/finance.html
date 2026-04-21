@@ -21,9 +21,9 @@
     <header class="header">
       <div class="ux-topbar">
         <div class="ux-intro">
-          <div class="ux-kicker">Finance • rychlá orientace</div>
-          <h1 class="ux-title">Finance, ve kterých je rychle jasno</h1>
-          <p class="ux-subtitle">Nahoře je měsíc, hotovost a závazky k hlídání. Účetní detail a deník zůstávají níž, ale první rozhodnutí uděláš už tady.</p>
+          <div class="ux-kicker">Finance • cash a risk dashboard</div>
+          <h1 class="ux-title">Finance jako jasný cash a risk dashboard</h1>
+          <p class="ux-subtitle">Nejdřív peníze, tlak závazků a trend měsíce. Účetní detail zůstává až ve spodní vrstvě.</p>
           <div class="ux-actions">
             <button class="ux-button secondary" type="button" data-view-toggle="current">Současný stav</button>
             <button class="ux-button secondary" type="button" data-view-toggle="previous">Minulý měsíc</button>
@@ -35,12 +35,8 @@
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
       </div>
       <section class="ux-hero-metrics" id="finance-hero"></section>
-      <div class="ux-date-note"><strong>Jak číst datumy:</strong> měsíční P&amp;L nahoře je <strong>poslední dostupný uzavřený měsíc</strong>, závazky jsou <strong>aktuální stav při posledním refreshi</strong> a účetní deník níž ukazuje <strong>poslední 3 měsíce</strong>.</div>
-      <div class="hero-notes">
-        <div class="hero-note"><strong>Nejdřív cash</strong><span>První řada má říct, kolik opravdu zbývá po odečtení otevřených závazků.</span></div>
-        <div class="hero-note"><strong>Pak měsíc</strong><span>Teprve potom dává smysl číst výnosy, marži a zisk ve zvoleném období.</span></div>
-        <div class="hero-note"><strong>Detail pro dohledání</strong><span>Tabulky níž jsou už spíš na kontrolu konkrétní platby, dodavatele nebo zápisu.</span></div>
-      </div>
+      <div class="status-strip" id="finance-status-strip"></div>
+      <div class="ux-date-note"><strong>Období:</strong> P&amp;L za poslední uzavřený měsíc, závazky jako aktuální stav, deník za poslední 3 měsíce.</div>
     </header>
 
     <details class="secondary-details">
@@ -48,7 +44,26 @@
       <div id="source-alert" style="margin-top:14px;"></div>
     </details>
 
-    <section class="ux-grid">
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Decision layer</div>
+          <h2 class="layer-title">Jeden pohled na cash, tlak a trend měsíce</h2>
+          <p class="layer-subtitle">Tahle vrstva má říct, jestli je potřeba řešit hotovost, závazky, nebo výkon měsíce.</p>
+        </div>
+      </div>
+      <section class="signal-grid" id="finance-decision-grid"></section>
+    </section>
+
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Focus layer</div>
+          <h2 class="layer-title">Co si otevřít hned po prvním přečtení</h2>
+          <p class="layer-subtitle">Nejdřív pracovní kontext, pak zkratka k závazkům, cashi a měsíčnímu výsledku.</p>
+        </div>
+      </div>
+      <section class="ux-grid">
       <div class="ux-focus-card">
         <div class="ux-section-head">
           <div>
@@ -74,8 +89,21 @@
       </div>
     </section>
 
+    </section>
+
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Work layer</div>
+          <h2 class="layer-title">Pracovní vrstva pro cash a závazky</h2>
+          <p class="layer-subtitle">Krátké pracovní bloky před tím, než člověk spadne do účetního detailu.</p>
+        </div>
+      </div>
+      <section class="summary-grid" id="finance-work-grid"></section>
+    </section>
+
     <details class="secondary-details">
-      <summary>Trend a účetní detail</summary>
+      <summary>Detail layer, trend a účetní detail</summary>
 
       <section class="card" style="margin-top:18px;">
         <h2 class="section-title">Vývoj roku po měsících</h2>
@@ -228,6 +256,13 @@
         return activeMode === 'previous' && previous.label ? previous : current;
       }
 
+      function deltaText(currentValue, compareValue, suffix = '') {
+        if (!Number.isFinite(Number(currentValue)) || !Number.isFinite(Number(compareValue)) || Number(compareValue) === 0) return 'bez srovnání';
+        const delta = ((Number(currentValue) - Number(compareValue)) / Math.abs(Number(compareValue))) * 100;
+        const sign = delta > 0 ? '+' : '';
+        return `${sign}${delta.toFixed(1)} %${suffix}`;
+      }
+
       function renderFinanceTop() {
         const month = selectedMonthData();
         const compareMonth = activeMode === 'previous' ? current : previous;
@@ -237,9 +272,48 @@
           ? 'Stejný rychlý výřez, ale pro minulý uzavřený měsíc.'
           : 'Jen to hlavní z posledního měsíce.';
 
+        const decisionCards = [
+          {
+            eyebrow: 'Cash now',
+            value: money(cash.netCashPosition),
+            sub: `Na účtech ${money(cash.cashOnAccounts)} minus závazky ${money(cash.unpaidInvoices)}.`,
+            meta: Number(cash.netCashPosition || 0) < 0 ? 'Cash pozice je pod nulou.' : 'Cash pozice zůstává kladná.',
+            tone: Number(cash.netCashPosition || 0) < 0 ? 'danger' : 'accent',
+          },
+          {
+            eyebrow: 'Tlak závazků',
+            value: Number(cash.overdueInvoicesCount || 0) ? `${DP.fmtNumber(cash.overdueInvoicesCount || 0)} po splatnosti` : 'Bez prodlení',
+            sub: `${money(cash.overdueInvoicesAmount)} po splatnosti, celkem k úhradě ${money(cash.unpaidInvoices)}.`,
+            meta: (cash.largestPayables || [])[0] ? `Největší závazek ${(cash.largestPayables || [])[0].vendor} za ${money((cash.largestPayables || [])[0].amountDue)}` : 'Bez většího závazku k rychlé pozornosti.',
+            tone: Number(cash.overdueInvoicesCount || 0) ? 'warn' : '',
+          },
+          {
+            eyebrow: `Výsledek ${month.label || 'měsíce'}`,
+            value: money(month.profit),
+            sub: `Výnosy ${money(month.revenue)} · provozní marže ${money(month.operatingMargin)}.`,
+            meta: compareMonth?.label ? `Vs ${compareMonth.label}: ${deltaText(month.profit, compareMonth.profit, ' na zisku')}` : 'Bez porovnání s jiným měsícem.',
+            tone: Number(month.profit || 0) < 0 ? 'danger' : '',
+          },
+          {
+            eyebrow: 'Zdroj a důvěra',
+            value: source.label,
+            sub: data.source?.message || 'Bez zdrojové poznámky.',
+            meta: compareMonth?.label ? `Výnosy vs ${compareMonth.label}: ${deltaText(month.revenue, compareMonth.revenue)}` : 'Bez druhého období pro srovnání.',
+            tone: source.tone === 'danger' ? 'danger' : source.tone === 'warn' ? 'warn' : '',
+          }
+        ];
+        document.getElementById('finance-decision-grid').innerHTML = decisionCards.map(card => `
+          <article class="signal-card ${card.tone || ''}">
+            <div class="eyebrow">${card.eyebrow}</div>
+            <div class="signal-value">${card.value}</div>
+            <div class="signal-sub">${card.sub}</div>
+            <div class="signal-meta">${card.meta}</div>
+          </article>
+        `).join('');
+
         const hero = [
-          ['Výnosy', money(month.revenue), `${pct(month.grossMarginPct)} hrubá marže`, 'accent'],
-          ['Čistý zisk', money(month.profit), `${pct(month.profitPct)} z výnosů`, ''],
+          ['Výnosy', money(month.revenue), `${pct(month.grossMarginPct)} hrubá marže · ${compareMonth?.label ? deltaText(month.revenue, compareMonth.revenue) : 'bez srovnání'}`, 'accent'],
+          ['Čistý zisk', money(month.profit), `${pct(month.profitPct)} z výnosů · ${compareMonth?.label ? deltaText(month.profit, compareMonth.profit) : 'bez srovnání'}`, ''],
           ['Čistá cash pozice', money(cash.netCashPosition), `${DP.fmtNumber(cash.overdueInvoicesCount || 0)} po splatnosti`, '']
         ];
         document.getElementById('finance-hero').innerHTML = hero.map(([label, value, sub, klass]) => `
@@ -249,6 +323,13 @@
             <div class="sub">${sub}</div>
           </div>
         `).join('');
+
+        DP.renderStatusStrip('finance-status-strip', [
+          { label: 'Stav', value: Number(cash.overdueInvoicesCount || 0) ? 'Pozor' : 'OK', tone: Number(cash.overdueInvoicesCount || 0) ? 'warn' : 'success' },
+          { label: 'Zdroj', value: source.label, tone: source.tone === 'danger' ? 'danger' : source.tone === 'warn' ? 'warn' : 'info' },
+          { label: 'Cash', value: money(cash.netCashPosition), tone: Number(cash.netCashPosition || 0) < 0 ? 'danger' : 'success' },
+          { label: 'Akce', value: Number(cash.overdueInvoicesCount || 0) ? 'Projít závazky po splatnosti' : 'Kontrola měsíce a cash', tone: Number(cash.overdueInvoicesCount || 0) ? 'warn' : 'info' },
+        ]);
 
         const overdueText = Number(cash.overdueInvoicesCount || 0)
           ? `${DP.fmtNumber(cash.overdueInvoicesCount || 0)} závazek po splatnosti, celkem ${money(cash.overdueInvoicesAmount)}.`
@@ -270,14 +351,55 @@
         `).join('');
 
         document.getElementById('current-month-list').innerHTML = [
-          ['Výnosy', money(month.revenue)],
           ['Hrubá marže', money(month.grossMargin)],
           ['Provozní marže', `${money(month.operatingMargin)} (${pct(month.operatingMarginPct)})`],
-          ['Zisk', `${money(month.profit)} (${pct(month.profitPct)})`],
+          ['Marketing', money(month.marketing)],
+          ['Logistika', money(month.logistics)],
         ].map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
       }
 
       renderFinanceTop();
+
+      document.getElementById('finance-work-grid').innerHTML = [
+        {
+          title: 'Závazky k rychlé kontrole',
+          text: 'Krátký shortlist z největších plateb, aby bylo hned jasné, kdo tlačí na cash.',
+          body: (cash.largestPayables || []).slice(0, 4).map(item => [item.vendor, `${money(item.amountDue)} · ${item.status}`])
+        },
+        {
+          title: 'Měsíc v kostce',
+          text: 'Shrnutí výsledku zvoleného měsíce bez účetního detailu.',
+          body: [
+            ['Výnosy', money(current.revenue)],
+            ['Hrubá marže', money(current.grossMargin)],
+            ['Provozní marže', `${money(current.operatingMargin)} (${pct(current.operatingMarginPct)})`],
+            ['Zisk', `${money(current.profit)} (${pct(current.profitPct)})`],
+          ]
+        },
+        {
+          title: 'Srovnání s minulým měsícem',
+          text: 'Rychlý delta pohled na výkonnost a nákladové páky.',
+          body: previous.label ? [
+            ['Výnosy', deltaText(current.revenue, previous.revenue)],
+            ['Zisk', deltaText(current.profit, previous.profit)],
+            ['Marketing', deltaText(current.marketing, previous.marketing)],
+            ['Logistika', deltaText(current.logistics, previous.logistics)],
+          ] : [['Srovnání', 'Minulý měsíc zatím není k dispozici']]
+        }
+      ].map(card => `
+        <article class="summary-card">
+          <h3>${card.title}</h3>
+          <p>${card.text}</p>
+          <div class="ux-stat-list">
+            ${card.body.map(([label, value]) => `
+              <div class="ux-stat-row">
+                <span>${label}</span>
+                <strong>${value}</strong>
+              </div>
+            `).join('')}
+          </div>
+        </article>
+      `).join('');
 
       document.getElementById('cash-list').innerHTML = [
         ['Cash na účtech', money(cash.cashOnAccounts)],

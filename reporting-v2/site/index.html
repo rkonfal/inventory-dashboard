@@ -13,9 +13,9 @@
     <header class="header">
       <div class="ux-topbar">
         <div class="ux-intro">
-          <div class="ux-kicker">Hlavní přehled • rychlá orientace</div>
-          <h1 class="ux-title">Přehled firmy, ve kterém je hned jasno</h1>
-          <p class="ux-subtitle">Nahoře zůstává jen to, podle čeho se dnes opravdu rozhoduješ: co se stalo včera, co pálí teď a kam má smysl kliknout dál. Všechno ostatní je schované níž.</p>
+          <div class="ux-kicker">Hlavní přehled • command center</div>
+          <h1 class="ux-title">Homepage jako řídicí centrum firmy</h1>
+          <p class="ux-subtitle">Nejdřív signál, pak kontext, potom pracovní vrstva. Vše důležité pro dnešek bez lovení v detailu.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="../data/current/morning_report_previous_day.txt" target="_blank" rel="noopener">Ranní report</a>
             <a class="ux-button secondary" href="inventory.html">Sklad</a>
@@ -26,59 +26,87 @@
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
       </div>
       <section class="ux-hero-metrics" id="hero-metrics"></section>
-      <div class="ux-date-note"><strong>Jak číst datumy:</strong> objednávky a ranní report jsou za <strong>včerejšek</strong>, 4PX sklad je <strong>aktuální stav po posledním refreshi</strong> a finance s marketingem níž ukazují <strong>poslední dostupný měsíc</strong>.</div>
-      <div class="hero-notes">
-        <div class="hero-note"><strong>Začni nahoře</strong><span>První řádek má dát odpověď během pár sekund, bez rolování do detailu.</span></div>
-        <div class="hero-note"><strong>Klik dál jen když je důvod</strong><span>Sklad, e-shop a porady zůstávají po ruce jako další krok, ne jako šum navíc.</span></div>
-        <div class="hero-note"><strong>Detail zůstal zachovaný</strong><span>Technická data a napojení tu pořád jsou, jen už nepřebíjejí hlavní rozhodnutí.</span></div>
-      </div>
+      <div class="status-strip" id="overview-status-strip"></div>
+      <div class="ux-date-note"><strong>Období:</strong> včerejší výkon, aktuální sklad po refreshi, finance a marketing za poslední dostupný měsíc.</div>
     </header>
 
-    <section class="ux-grid">
-      <div class="ux-focus-card">
-        <div class="ux-section-head">
-          <div>
-            <h2 class="ux-section-title">Co dnes řešit jako první</h2>
-            <p class="ux-section-subtitle">To nejdůležitější na jednom místě.</p>
-          </div>
-          <span class="badge warn" id="attention-badge">Načítám důležité body…</span>
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Decision layer</div>
+          <h2 class="layer-title">Co ten den opravdu znamená pro firmu</h2>
+          <p class="layer-subtitle">Čtyři jasné signály, které řeknou, jestli je den pod kontrolou, kde je riziko a kam má jít první pozornost.</p>
         </div>
-        <div class="ux-list" id="attention-list"></div>
-
-        <div style="height:18px"></div>
-
-        <div class="ux-section-head" style="margin-bottom:12px;">
-          <div>
-            <h2 class="ux-section-title" style="font-size:20px;">Dnešní priority</h2>
-            <p class="ux-section-subtitle">Krátce a jasně, co udělat dál.</p>
-          </div>
-        </div>
-        <div class="ux-list" id="priority-list"></div>
+        <div class="layer-note">Signál nahoře, detail až níž.</div>
       </div>
+      <section class="signal-grid" id="overview-decision-grid"></section>
+    </section>
 
-      <div class="ux-side-stack">
-        <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Včerejšek jedním pohledem</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Krátký souhrn včerejška a rychlý vstup do detailu.</p>
-          <div class="ux-stat-list" id="report-mini"></div>
-        </div>
-
-        <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Odkud přišly objednávky</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Včerejší výkon podle CZ, SK a kamenných prodejen.</p>
-          <div class="ux-stat-list" id="eshop-source-split"></div>
-        </div>
-
-        <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Co je v pořádku</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rychlá kontrola, že zdroje běží a kde je případný problém.</p>
-          <div class="ux-side-list" id="status-list"></div>
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Focus layer</div>
+          <h2 class="layer-title">Kam se přepnout dál</h2>
+          <p class="layer-subtitle">Homepage už není jen shrnutí, ale rozcestník do hlavních pracovních směrů.</p>
         </div>
       </div>
+      <section class="ux-grid">
+        <div class="ux-focus-card">
+          <div class="ux-section-head">
+            <div>
+              <h2 class="ux-section-title">Co dnes řešit jako první</h2>
+              <p class="ux-section-subtitle">Nejdůležitější provozní zásahy na jednom místě.</p>
+            </div>
+            <span class="badge warn" id="attention-badge">Načítám důležité body…</span>
+          </div>
+          <div class="ux-list" id="attention-list"></div>
+
+          <div style="height:18px"></div>
+
+          <div class="ux-section-head" style="margin-bottom:12px;">
+            <div>
+              <h2 class="ux-section-title" style="font-size:20px;">Dnešní priority</h2>
+              <p class="ux-section-subtitle">Doporučené další kroky bez zbytečné omáčky.</p>
+            </div>
+          </div>
+          <div class="ux-list" id="priority-list"></div>
+        </div>
+
+        <div class="ux-side-stack">
+          <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Včerejšek jedním pohledem</h3>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rychlý kontext pro dnešní rozhodnutí.</p>
+            <div class="ux-stat-list" id="report-mini"></div>
+          </div>
+
+          <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Odkud přišly objednávky</h3>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rozpad výkonu podle hlavních pohledů.</p>
+            <div class="ux-stat-list" id="eshop-source-split"></div>
+          </div>
+
+          <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Co je v pořádku</h3>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Krátká kontrola, že zdroje běží a kde je případný problém.</p>
+            <div class="ux-side-list" id="status-list"></div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Work layer</div>
+          <h2 class="layer-title">Hlavní pracovní proudy firmy</h2>
+          <p class="layer-subtitle">Každý blok říká, co je signál, jaký je kontext a kde pokračovat do operativního detailu.</p>
+        </div>
+      </div>
+      <section class="summary-grid" id="overview-work-grid"></section>
     </section>
 
     <details class="secondary-details">
-      <summary>Technický a rozšířený detail</summary>
+      <summary>Detail layer, technický a rozšířený detail</summary>
 
       <section class="grid kpi-grid" id="top-kpis"></section>
 
@@ -175,6 +203,51 @@
       `).join('');
 
       const alerts = report.quickSummary?.alerts || [];
+      DP.renderStatusStrip('overview-status-strip', [
+        { label: 'Stav', value: alerts.length ? 'Pozor' : 'OK', tone: alerts.length ? 'warn' : 'success' },
+        { label: 'Data', value: summary.wpJ.ready ? 'Live + snapshot mix' : 'Částečná data', tone: summary.wpJ.ready ? 'info' : 'warn' },
+        { label: 'Priorita dne', value: (report.priorities || [])[0] || 'Bez kritické priority', tone: (report.priorities || []).length ? 'info' : 'success' },
+        { label: 'Refresh', value: 'Ranní report + poslední sync', tone: 'info' }
+      ]);
+      const decisionCards = [
+        {
+          eyebrow: 'Denní signál',
+          value: alerts.length ? 'Pozor' : 'OK',
+          sub: alerts.length ? `${alerts.length} alertů napříč objednávkami, skladem a párováním.` : 'Bez kritického signálu v hlavních tocích.',
+          meta: `Objednávky ${pctText(report.quickSummary?.orders?.deltaPct)} · tržby ${pctText(report.quickSummary?.revenueWithVat?.deltaPct)}`,
+          tone: alerts.length ? 'warn' : 'accent',
+        },
+        {
+          eyebrow: 'Sklad a plnění',
+          value: `${DP.fmtNumber(totalLowStockRows || 0)} nízkých pozic`,
+          sub: `${DP.fmtNumber(summary.pairing?.stockMismatch || 0)} nesouladů skladu a ${DP.fmtNumber(summary.report.shipments || 0)} zásilek v denním reportu.`,
+          meta: `4PX celkem ${DP.fmtNumber(Math.round(total4pxStock || 0))} ks`,
+          tone: totalLowStockRows ? 'warn' : '',
+        },
+        {
+          eyebrow: 'Cash a finance',
+          value: fmtMoney(summary.finance?.cash?.netCashPosition || 0),
+          sub: `${DP.fmtNumber(summary.finance?.cash?.overdueInvoicesCount || 0)} po splatnosti · zdroj ${summary.finance?.mode === 'mixed_live_legacy' ? 'mix live + snapshot' : 'finance data'}`,
+          meta: `Měsíc ${summary.finance?.currentMonth?.label || '–'} · zisk ${fmtMoney(summary.finance?.currentMonth?.profit || 0)}`,
+          tone: Number(summary.finance?.cash?.overdueInvoicesCount || 0) ? 'warn' : '',
+        },
+        {
+          eyebrow: 'Datová důvěryhodnost',
+          value: summary.wpJ.ready ? 'Live + snapshot mix' : 'Částečná data',
+          sub: summary.finance?.message || 'Bez poznámky ke zdroji.',
+          meta: `Refresh ${DP.fmtDateTime(summary.generatedAt)}`,
+          tone: summary.warnings.length ? 'danger' : '',
+        }
+      ];
+      document.getElementById('overview-decision-grid').innerHTML = decisionCards.map(card => `
+        <article class="signal-card ${card.tone || ''}">
+          <div class="eyebrow">${card.eyebrow}</div>
+          <div class="signal-value">${card.value}</div>
+          <div class="signal-sub">${card.sub}</div>
+          <div class="signal-meta">${card.meta}</div>
+        </article>
+      `).join('');
+
       document.getElementById('attention-badge').textContent = alerts.length ? `${alerts.length} věcí k pozornosti` : 'Nic zásadního';
       document.getElementById('attention-badge').className = `badge ${alerts.length ? 'warn' : 'live'}`;
       document.getElementById('attention-list').innerHTML = (alerts.length ? alerts : ['Nic zásadního teď nehoří.']).map(item => `
@@ -198,12 +271,12 @@
       `).join('');
 
       document.getElementById('report-mini').innerHTML = [
-        ['Objednávky WPJShop', DP.fmtNumber(report.eshop.orders || 0)],
-        ['Tržby WPJShop', fmtMoney(report.eshop.revenueWithVat || 0)],
-        ['4PX sklad CZ+SK', DP.fmtNumber(Math.round(report.inventory?.availableStockTotal || total4pxStock || 0))],
+        ['AOV', fmtMoney(report.eshop.averageOrderValue || 0)],
         ['Expedice CZ+SK', `${DP.fmtNumber(report.logistics.shipmentsTotal || 0)} (${report.logistics.byAccount?.CZ || 0}/${report.logistics.byAccount?.SK || 0})`],
-        ['Problematické', DP.fmtNumber(report.eshop.problematicOrders || 0)],
-        ['Expirace k řešení', DP.fmtNumber((report.logistics.expiringProducts || []).length)]
+        ['Problematické objednávky', DP.fmtNumber(report.eshop.problematicOrders || 0)],
+        ['Nízký sklad po prodeji', DP.fmtNumber(totalLowStockRows || 0)],
+        ['Expirace k řešení', DP.fmtNumber((report.logistics.expiringProducts || []).length)],
+        ['Alerty', DP.fmtNumber(alerts.length)]
       ].map(([label, value]) => `
         <div class="ux-stat-row">
           <span>${label}</span>
@@ -237,6 +310,62 @@
             <span>${text}</span>
           </div>
         </div>
+      `).join('');
+
+      document.getElementById('overview-work-grid').innerHTML = [
+        {
+          title: 'Objednávky a výkon',
+          text: 'Co se stalo včera a jestli je potřeba řešit výkon nebo mix zdrojů.',
+          body: [
+            ['Objednávky', DP.fmtNumber(report.eshop.orders || 0)],
+            ['Tržby', fmtMoney(report.eshop.revenueWithVat || 0)],
+            ['AOV', fmtMoney(report.eshop.averageOrderValue || 0)],
+            ['Další krok', alerts.some(item => item.includes('objednávek')) ? 'Mrkni do e-shopu' : 'Běžný monitoring'],
+          ],
+        },
+        {
+          title: 'Sklad a párování',
+          text: 'Operativní vrstva pro doplnění, nesoulady a dostupnost po včerejším prodeji.',
+          body: [
+            ['Nízký sklad', DP.fmtNumber(summary.pairing?.lowAfterSales || 0)],
+            ['Nesoulady', DP.fmtNumber(summary.pairing?.stockMismatch || 0)],
+            ['Jen ve 4PX', DP.fmtNumber(summary.pairing?.onlyIn4px || 0)],
+            ['Další krok', 'Otevřít sklad'],
+          ],
+        },
+        {
+          title: 'Finance a cash',
+          text: 'Kolik je opravdu k dispozici a jestli už některý závazek tlačí na rozhodnutí.',
+          body: [
+            ['Cash po závazcích', fmtMoney(summary.finance?.cash?.netCashPosition || 0)],
+            ['Po splatnosti', `${DP.fmtNumber(summary.finance?.cash?.overdueInvoicesCount || 0)} ks`],
+            ['Zisk měsíce', fmtMoney(summary.finance?.currentMonth?.profit || 0)],
+            ['Další krok', Number(summary.finance?.cash?.overdueInvoicesCount || 0) ? 'Otevřít finance' : 'Cash pod kontrolou'],
+          ],
+        },
+        {
+          title: 'Marketing a akvizice',
+          text: 'Lehký kontext, aby bylo jasné, kolik výkon stojí a jestli to odpovídá situaci.',
+          body: [
+            ['Spend', fmtMoney(summary.marketing?.currentMonth?.totalSpend || 0)],
+            ['Podíl na výnosech', `${(summary.marketing?.currentMonth?.spendShareOfRevenuePct ?? 0).toFixed(1)} %`],
+            ['Top dodavatel', summary.marketing?.topSupplier?.name || '–'],
+            ['Další krok', 'Otevřít marketing'],
+          ],
+        }
+      ].map(card => `
+        <article class="summary-card">
+          <h3>${card.title}</h3>
+          <p>${card.text}</p>
+          <div class="ux-stat-list">
+            ${card.body.map(([label, value]) => `
+              <div class="ux-stat-row">
+                <span>${label}</span>
+                <strong>${value}</strong>
+              </div>
+            `).join('')}
+          </div>
+        </article>
       `).join('');
 
       const kpis = [

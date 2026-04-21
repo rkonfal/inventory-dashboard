@@ -15,7 +15,7 @@
         <div class="ux-intro">
           <div class="ux-kicker">Akce a expirace • rychlé obchodní rozhodnutí</div>
           <h1 class="ux-title">Expirace s jasným plánem</h1>
-          <p class="ux-subtitle">Nahoře má být hned vidět, co pustit do akce, co dát jako dárek a co už by bylo moc drahé. Detail a mechaniky jsou níž až jako druhý krok.</p>
+          <p class="ux-subtitle">Rychle ukáže, co pustit do akce, co dát jako dárek a co už by bylo moc drahé.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="../data/current/4px_expiry_overview.json" target="_blank" rel="noopener">Expirační data</a>
             <a class="ux-button secondary" href="logistics.html">Logistika</a>
@@ -25,7 +25,8 @@
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
       </div>
       <section class="ux-hero-metrics" id="expiry-hero"></section>
-      <div class="ux-date-note"><strong>Jak číst datumy:</strong> expirace a expirační sklad jsou <strong>aktuální stav posledního 4PX refreshi</strong>, prodejní kontext vychází hlavně z <strong>30denního a 365denního výkonu</strong> a dárek nesmí přesáhnout <strong>18 % hodnoty celé akce</strong>.</div>
+      <div class="status-strip" id="expiry-status-strip"></div>
+      <div class="ux-date-note"><strong>Období:</strong> expirace a expirační sklad jsou aktuální stav, prodejní kontext vychází hlavně z 30denního a 365denního výkonu.</div>
     </header>
 
     <section class="ux-grid">
@@ -301,6 +302,13 @@
           <div class="sub">${sub}</div>
         </div>
       `).join('');
+
+      DP.renderStatusStrip('expiry-status-strip', [
+        { label: 'Stav', value: urgentRows.length ? 'Pozor' : 'OK', tone: urgentRows.length ? 'warn' : 'success' },
+        { label: 'Data', value: 'Aktuální 4PX expirace', tone: 'info' },
+        { label: 'Priorita', value: urgentRows[0]?.sku ? `Nasadit akci pro ${urgentRows[0].sku}` : 'Bez akutní expirace', tone: urgentRows.length ? 'warn' : 'success' },
+        { label: 'Akce', value: safeGiftRows.length ? 'Vybrat mechaniku akce' : 'Prověřit 2+1 varianty', tone: 'info' },
+      ]);
 
       const focusRows = expiringRows.slice(0, 4).map(row => {
         const meta = priorityMeta(row.rule.priority);

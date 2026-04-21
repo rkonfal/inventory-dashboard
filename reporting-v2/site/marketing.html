@@ -70,9 +70,9 @@
     <header class="header">
       <div class="ux-topbar">
         <div class="ux-intro">
-          <div class="ux-kicker">Reklama • rychlá orientace</div>
-          <h1 class="ux-title">Reklama, ve které je hned jasno</h1>
-          <p class="ux-subtitle">Nahoře jsou celkové náklady, výkon kanálů a největší položky. Detail kampaní a CRM zůstává níž, až když je potřeba jít hlouběji.</p>
+          <div class="ux-kicker">Marketing • spend a efektivita</div>
+          <h1 class="ux-title">Marketing ve sjednoceném cash a performance standardu</h1>
+          <p class="ux-subtitle">Nahoře je spend, efektivita a tlak na výnos. Detail kampaní a CRM až níž.</p>
           <div class="ux-actions">
             <button class="ux-button secondary" type="button" data-view-toggle="current">Současný stav</button>
             <button class="ux-button secondary" type="button" data-view-toggle="previous">Minulý měsíc</button>
@@ -84,7 +84,8 @@
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
       </div>
       <section class="ux-hero-metrics" id="marketing-hero"></section>
-      <div class="ux-date-note"><strong>Jak číst datumy:</strong> marketingové náklady a největší dodavatelé se vztahují k <strong>poslednímu dostupnému měsíci</strong>, ne k dnešku. Ranní text vpravo je jen <strong>rychlý včerejší kontext</strong>.</div>
+      <div class="status-strip" id="marketing-status-strip"></div>
+      <div class="ux-date-note"><strong>Období:</strong> marketingové náklady a dodavatelé za poslední dostupný měsíc, ranní text je jen včerejší kontext.</div>
     </header>
 
     <details class="secondary-details">
@@ -92,7 +93,26 @@
       <div id="source-alert" style="margin-top:14px;"></div>
     </details>
 
-    <section class="ux-grid">
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Decision layer</div>
+          <h2 class="layer-title">Co marketingový spend právě znamená</h2>
+          <p class="layer-subtitle">Jestli řešíme výši spendu, efektivitu kanálů, nebo chybějící zdrojový kontext.</p>
+        </div>
+      </div>
+      <section class="signal-grid" id="marketing-decision-grid"></section>
+    </section>
+
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Focus layer</div>
+          <h2 class="layer-title">Co číst hned po signálu</h2>
+          <p class="layer-subtitle">Rychlý kontext měsíce, kanálů a komentáře k tomu, co opravdu stojí za pozornost.</p>
+        </div>
+      </div>
+      <section class="ux-grid">
       <div class="ux-focus-card">
         <div class="ux-section-head">
           <div>
@@ -119,6 +139,19 @@
       </div>
     </section>
 
+    </section>
+
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Work layer</div>
+          <h2 class="layer-title">Pracovní vrstva pro kanály a trend</h2>
+          <p class="layer-subtitle">Nejdřív přehled kanálů, pak teprve denní trend a detail kampaní.</p>
+        </div>
+      </div>
+      <section class="summary-grid" id="marketing-work-grid"></section>
+    </section>
+
     <section class="card">
       <div class="ux-section-head">
         <div>
@@ -131,7 +164,7 @@
     </section>
 
     <details class="secondary-details">
-      <summary>Rozšířený marketingový detail</summary>
+      <summary>Detail layer, rozšířený marketingový detail</summary>
 
       <section class="grid kpi-grid" id="top-kpis" style="margin-top:18px;"></section>
 
@@ -227,7 +260,7 @@
       const activeBySource = data.activeCampaignsBySource || {};
       const anyLiveSource = [sklik, meta, google, klaviyo].some(source => source?.ready);
       const source = (!data.source?.status || data.source?.status === 'missing') && anyLiveSource
-        ? { label: 'live API', tone: 'ok' }
+        ? { label: 'live API', tone: 'success' }
         : sourceMeta(data.source?.status);
       const sourceMessage = (!data.source?.status || data.source?.status === 'missing') && anyLiveSource
         ? 'Souhrn měsíce z ABRA teď chybí, ale reklamní data níž běží živě z Meta Ads, Google Ads, Skliku a Klaviyo.'
@@ -235,6 +268,13 @@
       document.getElementById('source-mode').textContent = source.label;
       document.getElementById('source-mode').className = `badge ${source.tone}`;
       document.getElementById('source-alert').innerHTML = `<div class="alert warn">${sourceMessage}</div>`;
+
+      DP.renderStatusStrip('marketing-status-strip', [
+        { label: 'Stav', value: anyLiveSource ? 'OK' : 'Pozor', tone: anyLiveSource ? 'success' : 'warn' },
+        { label: 'Zdroj', value: source.label, tone: source.tone === 'danger' ? 'danger' : source.tone === 'warn' ? 'warn' : 'info' },
+        { label: 'Akce', value: anyLiveSource ? 'Vyhodnotit výkon kanálů' : 'Zkontrolovat zdroj dat', tone: anyLiveSource ? 'info' : 'warn' },
+        { label: 'Režim', value: anyLiveSource ? 'Live kanály' : 'Bez live dat', tone: anyLiveSource ? 'success' : 'danger' },
+      ]);
 
       const normalizeDate = value => {
         if (!value) return '–';
@@ -434,6 +474,46 @@
           ? 'Porovnáváš uzavřený minulý měsíc. Klaviyo atribuce zůstává schválně oddělená pod spendy.'
           : 'Nahoře jsou spendy. Klaviyo atribuce je schválně oddělená pod nimi.';
 
+        const strongestSource = [...sourceConfigs].sort((a, b) => (b.amount || 0) - (a.amount || 0))[0];
+        const bestRoasSource = [...sourceConfigs].filter(source => source.roas != null).sort((a, b) => (b.roas || 0) - (a.roas || 0))[0];
+        document.getElementById('marketing-decision-grid').innerHTML = [
+          {
+            eyebrow: 'Spend měsíce',
+            value: money(month.totalÚtrata),
+            sub: `${pct(month.spendShareOfRevenuePct)} z výnosů, PPC ${money(month.performanceÚtrata)} a ostatní marketing ${money(month.brandÚtrata)}.`,
+            meta: `${modeLabel(mode)} ${month.label || '–'}`,
+            tone: 'accent',
+          },
+          {
+            eyebrow: 'Nejsilnější kanál',
+            value: strongestSource?.label || '–',
+            sub: strongestSource ? `${money(strongestSource.amount)} spend a ${DP.fmtNumber(Math.round(strongestSource.clicks || 0))} kliků.` : 'Bez live kanálu.',
+            meta: strongestSource?.roas != null ? `ROAS ${Number(strongestSource.roas).toFixed(2)}` : 'Bez ROAS.',
+            tone: strongestSource ? '' : 'warn',
+          },
+          {
+            eyebrow: 'Nejlepší efektivita',
+            value: bestRoasSource?.roas == null ? '–' : Number(bestRoasSource.roas).toFixed(2),
+            sub: bestRoasSource ? `${bestRoasSource.label} má nejlepší návratnost.` : 'Bez kanálu s porovnatelnou efektivitou.',
+            meta: klaviyo.ready ? `Klaviyo atribuce ${money(klaviyoMonth.totalAttributedRevenueCzk)}` : source.label,
+            tone: bestRoasSource?.roas >= 4 ? '' : 'warn',
+          },
+          {
+            eyebrow: 'Zdroj a důvěra',
+            value: source.label,
+            sub: sourceMessage,
+            meta: anyLiveSource ? 'Live reklamní zdroje jsou dostupné.' : 'Bez live dat pro kanály.',
+            tone: source.tone === 'danger' ? 'danger' : source.tone === 'warn' ? 'warn' : '',
+          }
+        ].map(card => `
+          <article class="signal-card ${card.tone || ''}">
+            <div class="eyebrow">${card.eyebrow}</div>
+            <div class="signal-value">${card.value}</div>
+            <div class="signal-sub">${card.sub}</div>
+            <div class="signal-meta">${card.meta}</div>
+          </article>
+        `).join('');
+
         document.getElementById('marketing-hero').innerHTML = [
           ['Marketingové náklady', money(month.totalÚtrata), `${pct(month.spendShareOfRevenuePct)} z výnosů`, 'accent'],
           ['PPC', money(month.performanceÚtrata), 'výkonové kanály', ''],
@@ -464,13 +544,13 @@
         `).join('');
 
         document.getElementById('marketing-current').innerHTML = [
-          ['PPC', money(month.performanceÚtrata)],
-          ['Ostatní marketing', money(month.brandÚtrata)],
-          ['Celkem', money(month.totalÚtrata)],
           ['Podíl z výnosů', pct(month.spendShareOfRevenuePct)],
           meta.ready ? ['Meta Ads spend', money(month.metaMonth.spendCzk)] : null,
           google.ready ? ['Google Ads spend', money(month.googleMonth.spendCzk)] : null,
           sklik.ready ? ['Sklik spend', money(month.sklikTotal.priceCzk)] : null,
+          meta.ready ? ['Meta Ads ROAS', month.metaMonth.roas == null ? '–' : Number(month.metaMonth.roas).toFixed(2)] : null,
+          google.ready ? ['Google Ads ROAS', month.googleMonth.roas == null ? '–' : Number(month.googleMonth.roas).toFixed(2)] : null,
+          sklik.ready ? ['Sklik ROAS', month.sklikTotal.roas == null ? '–' : Number(month.sklikTotal.roas).toFixed(2)] : null,
         ].filter(Boolean).map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
 
         document.getElementById('marketing-klaviyo-current').innerHTML = klaviyo.ready ? `
@@ -483,8 +563,6 @@
           <div class="ux-stat-row"><span>Kliky / CTR</span><strong>${DP.fmtNumber(Math.round(klaviyoMonth.totalClicks || 0))} / ${klaviyoMonth.clickRate == null ? '–' : `${(Number(klaviyoMonth.clickRate) * 100).toFixed(1)} %`}</strong></div>
         ` : '';
 
-        const strongestSource = [...sourceConfigs].sort((a, b) => (b.amount || 0) - (a.amount || 0))[0];
-        const bestRoasSource = [...sourceConfigs].filter(source => source.roas != null).sort((a, b) => (b.roas || 0) - (a.roas || 0))[0];
         document.getElementById('dashboard-commentary').innerHTML = [
           [`PPC celkem`, `Do PPC šlo ${money(ppcTotal.amount)} a celkový PPC ROAS vychází na ${ppcTotal.roas == null ? '–' : Number(ppcTotal.roas).toFixed(2)}.`],
           strongestSource ? [`Nejsilnější kanál`, `${strongestSource.label} má nejvyšší útratu ${money(strongestSource.amount)}.`] : null,
@@ -516,6 +594,47 @@
             <div class="kpi-value">${value}</div>
             <div class="kpi-sub">${sub}</div>
           </div>
+        `).join('');
+
+        document.getElementById('marketing-work-grid').innerHTML = [
+          {
+            title: 'PPC souhrn',
+            text: 'Rychlý pracovní pohled na výkon placených kanálů bez kampaní.',
+            body: [
+              ['Spend', money(ppcTotal.amount)],
+              ['Kliky', DP.fmtNumber(Math.round(ppcTotal.clicks || 0))],
+              ['Konverze', Number(ppcTotal.conversions || 0).toFixed(2)],
+              ['ROAS', ppcTotal.roas == null ? '–' : Number(ppcTotal.roas).toFixed(2)],
+            ]
+          },
+          {
+            title: 'Kanály podle síly',
+            text: 'Který kanál táhne spend a který táhne efektivitu.',
+            body: [
+              ['Nejvyšší spend', strongestSource?.label || '–'],
+              ['Nejlepší ROAS', bestRoasSource?.label || '–'],
+              ['Meta', money(month.metaMonth?.spendCzk || 0)],
+              ['Google', money(month.googleMonth?.spendCzk || 0)],
+            ]
+          },
+          {
+            title: 'CRM a atribuce',
+            text: 'Odděleně od spendu, aby se nemíchala média a CRM přínos.',
+            body: [
+              ['Klaviyo revenue', money(klaviyoMonth.totalAttributedRevenueCzk || 0)],
+              ['Klaviyo orders', Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)],
+              ['Příjemci', DP.fmtNumber(Math.round(klaviyoMonth.totalRecipients || 0))],
+              ['CTR', klaviyoMonth.clickRate == null ? '–' : `${(Number(klaviyoMonth.clickRate) * 100).toFixed(1)} %`],
+            ]
+          }
+        ].map(card => `
+          <article class="summary-card">
+            <h3>${card.title}</h3>
+            <p>${card.text}</p>
+            <div class="ux-stat-list">
+              ${card.body.map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('')}
+            </div>
+          </article>
         `).join('');
 
         document.getElementById('ppc-total-kpis').innerHTML = [

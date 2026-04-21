@@ -38,6 +38,22 @@
     return `<span class="pill ${safeTone}">${safeLabel}</span>`;
   }
 
+  function renderStatusStrip(targetId, items = [], options = {}) {
+    const target = typeof targetId === 'string' ? document.getElementById(targetId) : targetId;
+    if (!target) return;
+    const compact = options.compact ? ' compact' : '';
+    target.className = `status-strip${compact}`;
+    target.innerHTML = items.map(item => {
+      const tone = ['success', 'warn', 'danger', 'info'].includes(item.tone) ? item.tone : 'info';
+      return `
+        <div class="status-chip ${tone}">
+          <span class="label">${escapeHtml(item.label || '')}</span>
+          <span class="value">${escapeHtml(item.value || '–')}</span>
+        </div>
+      `;
+    }).join('');
+  }
+
   function escapeHtml(text) {
     return String(text)
       .replace(/&/g, '&amp;')
@@ -233,6 +249,7 @@
     fmtDateTime,
     loadJson,
     statusPill,
+    renderStatusStrip,
     initThemeToggle,
     renderSidebar,
     ensureSectionNav,

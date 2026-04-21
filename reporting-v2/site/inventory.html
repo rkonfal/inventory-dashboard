@@ -13,9 +13,9 @@
     <header class="header">
       <div class="ux-topbar">
         <div class="ux-intro">
-          <div class="ux-kicker">Sklad • rychlá operativa</div>
-          <h1 class="ux-title">Sklad, kde je hned vidět co řešit</h1>
-          <p class="ux-subtitle">Nejdřív kritické položky, nesoulady a riziko vyprodání. Hlavní pracovní tabulka je připravená tak, aby šla filtrovat bez zbytečného přepínání.</p>
+          <div class="ux-kicker">Sklad • operativní dashboard</div>
+          <h1 class="ux-title">Sklad jako hlavní operativní pracovní dashboard</h1>
+          <p class="ux-subtitle">Nejdřív signál a pracovní fronty, potom explorer a detail. Cíl je rychle rozhodnout, ne hledat.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="../data/current/morning_report_previous_day.txt" target="_blank" rel="noopener">Ranní report</a>
             <a class="ux-button secondary" href="logistics.html">Logistika</a>
@@ -25,12 +25,32 @@
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
       </div>
       <section class="ux-hero-metrics" id="inventory-hero"></section>
-      <div class="ux-date-note"><strong>Jak číst datumy:</strong> hlavní přehled skladu a nesoulady ukazují <strong>aktuální stav po posledním refreshi</strong>, položky „prodané včera“ vycházejí z <strong>včerejšího reportu</strong> a pohyby jsou změna <strong>oproti minulému snapshotu</strong>.</div>
+      <div class="status-strip" id="inventory-status-strip"></div>
+      <div class="ux-date-note"><strong>Období:</strong> sklad a nesoulady jsou aktuální stav po refreshi, prodeje včerejší kontext, pohyby proti minulému snapshotu.</div>
     </header>
+
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Decision layer</div>
+          <h2 class="layer-title">Jaký typ skladového problému dnes převládá</h2>
+          <p class="layer-subtitle">Tahle vrstva odděluje signál, zda řešíme výpadek, nesoulad, párování nebo přetok zásoby.</p>
+        </div>
+      </div>
+      <section class="signal-grid" id="inventory-decision-grid"></section>
+    </section>
 
     <section class="grid kpi-grid" id="inventory-kpis"></section>
 
-    <section class="ux-grid">
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Focus layer</div>
+          <h2 class="layer-title">První kontrola skladu</h2>
+          <p class="layer-subtitle">Krátká pracovní fronta, stručný kontext a jednoduché doporučení, jak tím projít.</p>
+        </div>
+      </div>
+      <section class="ux-grid">
       <div class="ux-focus-card">
         <div class="ux-section-head">
           <div>
@@ -54,6 +74,19 @@
           <div class="ux-side-list" id="inventory-usage-list"></div>
         </div>
       </div>
+    </section>
+
+    </section>
+
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Work layer</div>
+          <h2 class="layer-title">Explorer a hlavní pracovní proudy</h2>
+          <p class="layer-subtitle">Nejdřív krátký pracovní souhrn, pod tím centrální explorer pro řezání skladu podle pohledu a problému.</p>
+        </div>
+      </div>
+      <section class="summary-grid" id="inventory-work-grid"></section>
     </section>
 
     <section class="card" style="margin-top:20px;">
@@ -150,7 +183,7 @@
     </section>
 
     <details class="secondary-details" style="margin-top:20px;">
-      <summary>Další analýza skladu</summary>
+      <summary>Detail layer, další analýza skladu</summary>
 
     <section class="card" style="margin-top:20px;">
       <h2 class="section-title">Největší nesoulady</h2>
@@ -476,6 +509,7 @@
         .map(({ row, metric }) => ({ row, metric, qty: mecinQty(row) }))
         .filter(item => item.qty > 0)
         .sort((a, b) => b.qty - a.qty || Number(b.metric.units365d || 0) - Number(a.metric.units365d || 0));
+      const total4pxAvailable = explorerRows.reduce((sum, item) => sum + czQty(item.row) + skQty(item.row), 0);
 
       const searchInput = document.getElementById('inventory-search');
       const filterSelect = document.getElementById('inventory-filter');
@@ -660,6 +694,51 @@
         </div>
       `).join('');
 
+      DP.renderStatusStrip('inventory-status-strip', [
+        { label: 'Stav', value: overview.counts.stockMismatch ? 'Pozor' : 'OK', tone: overview.counts.stockMismatch ? 'warn' : 'success' },
+        { label: 'Data', value: 'Aktuální sklad po refreshi', tone: 'info' },
+        { label: 'Priorita', value: overview.counts.lowAfterSales ? 'Nízký sklad po prodeji' : 'Bez kritického výpadku', tone: overview.counts.lowAfterSales ? 'warn' : 'success' },
+        { label: 'Akce', value: overview.counts.onlyIn4px ? 'Projít nepárované položky' : 'Zkontrolovat shortlist', tone: overview.counts.onlyIn4px ? 'warn' : 'info' },
+      ]);
+
+      document.getElementById('inventory-decision-grid').innerHTML = [
+        {
+          eyebrow: 'Výpadek po prodeji',
+          value: fmt(overview.counts.lowAfterSales || 0),
+          sub: `${fmt(overview.lowAfterSales?.length || 0)} položek už po včerejšku padá na hranu zásoby.`,
+          meta: overview.lowAfterSales?.[0] ? `${overview.lowAfterSales[0].code} · ${overview.lowAfterSales[0].title}` : 'Bez konkrétního kritického SKU.',
+          tone: overview.counts.lowAfterSales ? 'danger' : 'accent',
+        },
+        {
+          eyebrow: 'Nesoulad a mapování',
+          value: fmt(overview.counts.stockMismatch || 0),
+          sub: `${fmt(overview.counts.onlyIn4px || 0)} jen ve 4PX · ${fmt(overview.counts.manualMapped4pxAliases || 0)} ručních map.`,
+          meta: `Auto alias ${fmt(overview.counts.autoMapped4pxAliases || 0)} · jen ve WPJ ${fmt(overview.counts.onlyInWpj || 0)}`,
+          tone: overview.counts.stockMismatch ? 'warn' : '',
+        },
+        {
+          eyebrow: 'Prioritní shortlist',
+          value: fmt((overview.priorityShortlist || []).length),
+          sub: 'Fronta položek s největším dopadem na operativu a dostupnost.',
+          meta: overview.priorityShortlist?.[0] ? `${overview.priorityShortlist[0].code} · score ${overview.priorityShortlist[0].score}` : 'Shortlist je prázdný.',
+          tone: overview.priorityShortlist?.length ? '' : 'accent',
+        },
+        {
+          eyebrow: 'Sklad mimo 4PX',
+          value: `${fmt(ltmRows.reduce((sum, item) => sum + item.qty, 0) + mecinRows.reduce((sum, item) => sum + item.qty, 0))} ks`,
+          sub: `LTM ${fmt(ltmRows.reduce((sum, item) => sum + item.qty, 0))} · Měčín ${fmt(mecinRows.reduce((sum, item) => sum + item.qty, 0))}`,
+          meta: 'Pomáhá oddělit čistý 4PX problém od lokální zásoby.',
+          tone: '',
+        }
+      ].map(card => `
+        <article class="signal-card ${card.tone || ''}">
+          <div class="eyebrow">${card.eyebrow}</div>
+          <div class="signal-value">${card.value}</div>
+          <div class="signal-sub">${card.sub}</div>
+          <div class="signal-meta">${card.meta}</div>
+        </article>
+      `).join('');
+
       document.getElementById('inventory-kpis').innerHTML = [
         ['Spárované produkty', fmt(overview.counts.pairedProducts), 'WPJ + 4PX mají vazbu', 'green'],
         ['Nesoulady skladu', fmt(overview.counts.stockMismatch), 'potřebují shortlist a kontrolu', 'red'],
@@ -694,11 +773,11 @@
 
       document.getElementById('inventory-stat-list').innerHTML = [
         ['Datum reportu', new Date(overview.window.from).toLocaleDateString('cs-CZ')],
-        ['Spárované produkty', fmt(overview.counts.pairedProducts)],
         ['LTM celkem', `${fmt(ltmRows.reduce((sum, item) => sum + item.qty, 0))} ks`],
         ['Měčín celkem', `${fmt(mecinRows.reduce((sum, item) => sum + item.qty, 0))} ks`],
-        ['Nesoulady', fmt(overview.counts.stockMismatch)],
+        ['Jen ve WPJ', fmt(overview.counts.onlyInWpj || 0)],
         ['Nízký sklad po prodeji', fmt(overview.counts.lowAfterSales || 0)],
+        ['Ruční mapování', fmt(overview.counts.manualMapped4pxAliases || 0)],
       ].map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
 
       document.getElementById('inventory-usage-list').innerHTML = [
@@ -706,13 +785,59 @@
         ['Pohled skladu', 'Přepínač KOMPLET / CZ / SK / LTM / MĚČÍN přepne celý výpis i pokrytí zásoby.'],
         ['Stránkování', 'Přehled ukazuje jen aktuální stránku, takže se v něm neztratíš.'],
       ].map(([title, text], index) => `
-        <div class="ux-side-item">
-          <span class="ux-dot ${index === 1 ? 'gold' : index === 2 ? 'green' : 'blue'}"></span>
-          <div>
-            <strong>${title}</strong>
-            <span>${text}</span>
+         <div class="ux-side-item">
+           <span class="ux-dot ${index === 1 ? 'gold' : index === 2 ? 'green' : 'blue'}"></span>
+           <div>
+             <strong>${title}</strong>
+             <span>${text}</span>
+           </div>
+         </div>
+       `).join('');
+
+      document.getElementById('inventory-work-grid').innerHTML = [
+        {
+          title: 'Kde začít dnes',
+          text: 'Nejkratší pracovní pořadí pro první průchod skladem.',
+          body: [
+            ['1', overview.counts.lowAfterSales ? 'Nízký sklad po prodeji' : 'Shortlist nesouladů'],
+            ['2', overview.counts.onlyIn4px ? 'Nepárované položky 4PX' : 'Top priority shortlist'],
+            ['3', 'Explorer podle pohledu skladu'],
+            ['4', 'Teprve potom další analýza dole'],
+          ]
+        },
+        {
+          title: 'Rizikové fronty',
+          text: 'Kolik práce je v jednotlivých typech problému.',
+          body: [
+            ['Nesoulady', fmt(overview.counts.stockMismatch || 0)],
+            ['Nízký sklad po prodeji', fmt(overview.counts.lowAfterSales || 0)],
+            ['Jen ve 4PX', fmt(overview.counts.onlyIn4px || 0)],
+            ['Jen ve WPJ', fmt(overview.counts.onlyInWpj || 0)],
+          ]
+        },
+        {
+          title: 'Sklady v pohledu',
+          text: 'Pomáhá vybrat správný přepínač ještě před otevřením exploreru.',
+          body: [
+            ['4PX CZ + SK', `${fmt(total4pxAvailable)} ks`],
+            ['LTM', `${fmt(ltmRows.reduce((sum, item) => sum + item.qty, 0))} ks`],
+            ['Měčín', `${fmt(mecinRows.reduce((sum, item) => sum + item.qty, 0))} ks`],
+            ['Doporučení', 'Začni KOMPLET, pak řež podle skladu'],
+          ]
+        }
+      ].map(card => `
+        <article class="summary-card">
+          <h3>${card.title}</h3>
+          <p>${card.text}</p>
+          <div class="ux-stat-list">
+            ${card.body.map(([label, value]) => `
+              <div class="ux-stat-row">
+                <span>${label}</span>
+                <strong>${value}</strong>
+              </div>
+            `).join('')}
           </div>
-        </div>
+        </article>
       `).join('');
 
       function compareNullableNumber(aValue, bValue, direction, nullsLast = true) {

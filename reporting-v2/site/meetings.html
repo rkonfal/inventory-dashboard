@@ -58,20 +58,47 @@
     <header class="header meetings-hero">
       <div class="ux-topbar">
         <div class="ux-intro meetings-hero-card" style="width:100%;">
-          <div class="ux-kicker">Porady • rozhodnutí • úkoly</div>
-          <h1>Porady na jednom místě</h1>
-          <p>Rychlý přehled porad, rozhodnutí a otevřených úkolů. Bez zbytečné omáčky, hned je vidět kdo co drží a co hoří termínem.</p>
+          <div class="ux-kicker">Porady • rozhodnutí • follow-upy</div>
+          <h1>Porady ve stejném rozhodovacím standardu</h1>
+          <p>Nejdřív přehled úkolů a termínů, potom pracovní pohledy na lidi, rozhodnutí a chronologii.</p>
           <div class="meetings-toolbar">
             <button class="meetings-chip active" data-view="timeline">Chronologicky</button>
             <button class="meetings-chip" data-view="owners">Podle lidí</button>
             <button class="meetings-chip" data-view="urgent">Blízké termíny</button>
             <button class="meetings-chip" data-view="decisions">Rozhodnutí</button>
           </div>
+          <div class="status-strip compact" id="meetings-status-strip">
+            <div class="status-chip info"><span class="label">Stav</span><span class="value">Načítám</span></div>
+            <div class="status-chip info"><span class="label">Fokus</span><span class="value">Otevřené úkoly</span></div>
+            <div class="status-chip info"><span class="label">Akce</span><span class="value">Blízké termíny</span></div>
+          </div>
         </div>
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
       </div>
       <section class="meetings-grid" id="kpis"></section>
     </header>
+
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Decision layer</div>
+          <h2 class="layer-title">Co je dnes u porad opravdu důležité</h2>
+          <p class="layer-subtitle">Odděleně vidíš stav follow-upů, tlak termínů, zapojené lidi a rozhodnutí.</p>
+        </div>
+      </div>
+      <section class="signal-grid" id="meetings-decision-grid"></section>
+    </section>
+
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Work layer</div>
+          <h2 class="layer-title">Jak ty porady prakticky používat</h2>
+          <p class="layer-subtitle">První pracovní vrstva před detailním listováním jednotlivých porad.</p>
+        </div>
+      </div>
+      <section class="summary-grid" id="meetings-work-grid"></section>
+    </section>
 
     <section class="meetings-layout">
       <div class="card" style="padding:22px; border-radius:24px;">
@@ -219,12 +246,99 @@
       const openTasks = tasks.filter(t => t.status === 'open');
       const owners = new Set(openTasks.flatMap(t => t.owner.split('+').map(x => x.trim())));
       const urgent = openTasks.filter(t => t.due <= new Date(Date.now() + 3*86400000).toISOString().slice(0,10));
+      const strip = document.getElementById('meetings-status-strip');
+      if (strip) {
+        strip.innerHTML = `
+          <div class="status-chip ${urgent.length ? 'warn' : 'success'}"><span class="label">Stav</span><span class="value">${urgent.length ? 'Pozor' : 'OK'}</span></div>
+          <div class="status-chip info"><span class="label">Otevřené</span><span class="value">${openTasks.length}</span></div>
+          <div class="status-chip info"><span class="label">Lidé</span><span class="value">${owners.size}</span></div>
+          <div class="status-chip ${urgent.length ? 'warn' : 'info'}"><span class="label">Akce</span><span class="value">${urgent.length ? 'Projít blízké termíny' : 'Běžný follow-up'}</span></div>
+        `;
+      }
       document.getElementById('kpis').innerHTML = `
         <div class="meetings-kpi"><div class="label">Porady</div><div class="value">${state.meetings.length}</div><div class="sub">Seřazené podle data</div></div>
         <div class="meetings-kpi"><div class="label">Otevřené úkoly</div><div class="value">${openTasks.length}</div><div class="sub">Ze všech aktivních porad</div></div>
         <div class="meetings-kpi"><div class="label">Lidé v úkolech</div><div class="value">${owners.size}</div><div class="sub">Účastníci s akcí</div></div>
         <div class="meetings-kpi"><div class="label">Blízké termíny</div><div class="value">${urgent.length}</div><div class="sub">Dnes až za 3 dny</div></div>
       `;
+      const decisions = state.meetings.flatMap(m => m.decisions || []);
+      document.getElementById('meetings-decision-grid').innerHTML = [
+        {
+          eyebrow: 'Follow-up stav',
+          value: openTasks.length,
+          sub: `Otevřené úkoly napříč všemi poradami.`,
+          meta: urgent.length ? `${urgent.length} termínů je v nejbližších 3 dnech.` : 'Bez akutního termínu v příštích 3 dnech.',
+          tone: urgent.length ? 'warn' : 'accent',
+        },
+        {
+          eyebrow: 'Lidé v akci',
+          value: owners.size,
+          sub: 'Kolik lidí má právě otevřený follow-up.',
+          meta: openTasks[0] ? `${openTasks[0].owner} drží nejbližší úkol.` : 'Nikdo nemá otevřený úkol.',
+          tone: '',
+        },
+        {
+          eyebrow: 'Rozhodnutí',
+          value: decisions.length,
+          sub: 'Počet zaznamenaných rozhodnutí, ke kterým se lze vracet bez znovuotevírání tématu.',
+          meta: state.meetings[0]?.title ? `Poslední porada: ${state.meetings[0].title}` : 'Bez záznamu porady.',
+          tone: '',
+        },
+        {
+          eyebrow: 'Další termín',
+          value: nextDue(openTasks),
+          sub: 'Nejbližší otevřený follow-up napříč poradami.',
+          meta: state.view === 'urgent' ? 'Aktuálně jsi v urgent pohledu.' : 'Urgent pohled použij pro rychlý průchod.',
+          tone: urgent.length ? 'danger' : '',
+        }
+      ].map(card => `
+        <article class="signal-card ${card.tone || ''}">
+          <div class="eyebrow">${card.eyebrow}</div>
+          <div class="signal-value">${card.value}</div>
+          <div class="signal-sub">${card.sub}</div>
+          <div class="signal-meta">${card.meta}</div>
+        </article>
+      `).join('');
+      document.getElementById('meetings-work-grid').innerHTML = [
+        {
+          title: 'Doporučený workflow',
+          text: 'Jak tím procházet, aby porady nebyly jen archiv.',
+          body: [
+            ['1', 'Urgent termíny'],
+            ['2', 'Podle lidí'],
+            ['3', 'Rozhodnutí'],
+            ['4', 'Pak teprve timeline'],
+          ]
+        },
+        {
+          title: 'Co hlídat',
+          text: 'Krátký přehled, kde se follow-upy nejčastěji zaseknou.',
+          body: [
+            ['Otevřené úkoly', openTasks.length],
+            ['Blízké termíny', urgent.length],
+            ['Lidé v úkolech', owners.size],
+            ['Porady', state.meetings.length],
+          ]
+        },
+        {
+          title: 'Paměť rozhodnutí',
+          text: 'Aby se stejné věci neřešily pořád dokola.',
+          body: [
+            ['Rozhodnutí', decisions.length],
+            ['Poslední porada', state.meetings[0]?.date || '–'],
+            ['Nejbližší due', nextDue(openTasks)],
+            ['Default pohled', 'Chronologicky + urgent'],
+          ]
+        }
+      ].map(card => `
+        <article class="summary-card">
+          <h3>${card.title}</h3>
+          <p>${card.text}</p>
+          <div class="ux-stat-list">
+            ${card.body.map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('')}
+          </div>
+        </article>
+      `).join('');
     }
 
     function taskHtml(t, showMeeting=false) {

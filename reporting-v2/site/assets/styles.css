@@ -280,12 +280,67 @@ summary:focus-visible {
   font-weight: 700;
   border: 1px solid transparent;
 }
+.badge.success,
 .badge.live { background: rgba(47,154,112,.10); color: var(--success); border-color: rgba(47,154,112,.16); }
 .badge.warn { background: rgba(192,135,34,.10); color: var(--warning); border-color: rgba(192,135,34,.16); }
 .badge.info { background: rgba(80,120,200,.10); color: var(--info); border-color: rgba(80,120,200,.16); }
+.badge.danger { background: rgba(203,79,95,.10); color: var(--danger); border-color: rgba(203,79,95,.16); }
+[data-theme="dark"] .badge.success,
 [data-theme="dark"] .badge.live { color: #7cf0be; }
 [data-theme="dark"] .badge.warn { color: #f7c76a; }
 [data-theme="dark"] .badge.info { color: #a7caff; }
+[data-theme="dark"] .badge.danger { color: #ff98a3; }
+
+.status-strip {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.62);
+  box-shadow: var(--shadow-soft);
+}
+[data-theme="dark"] .status-strip {
+  background: rgba(255,255,255,.04);
+}
+.status-strip.compact {
+  margin-top: 12px;
+  padding: 10px 12px;
+}
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.74);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+}
+[data-theme="dark"] .status-chip {
+  background: rgba(255,255,255,.05);
+}
+.status-chip .label {
+  color: var(--text-faint);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: 10px;
+}
+.status-chip .value {
+  color: var(--text);
+}
+.status-chip.success { border-color: rgba(47,154,112,.18); }
+.status-chip.warn { border-color: rgba(192,135,34,.18); }
+.status-chip.danger { border-color: rgba(203,79,95,.18); }
+.status-chip.info { border-color: rgba(80,120,200,.18); }
 
 .theme-toggle {
   background: rgba(255,255,255,.72);
@@ -456,6 +511,164 @@ summary:focus-visible {
   margin-top: 18px;
 }
 .kpi-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 28px; }
+.layer-shell {
+  margin-top: 24px;
+}
+.layer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.layer-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--text-faint);
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.layer-title {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.12;
+  letter-spacing: -.03em;
+}
+.layer-subtitle {
+  margin: 8px 0 0;
+  max-width: 860px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.layer-note {
+  color: var(--text-faint);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.signal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+.signal-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px 20px 18px;
+  box-shadow: var(--shadow-soft);
+}
+.signal-card.accent {
+  background: linear-gradient(135deg, rgba(17,34,79,.98), rgba(49,94,251,.92));
+  color: #f8fbff;
+  border-color: rgba(111,140,255,.28);
+}
+.signal-card.warn {
+  border-color: rgba(192,135,34,.24);
+  background: linear-gradient(180deg, rgba(245,231,197,.42), rgba(255,255,255,.92));
+}
+.signal-card.danger {
+  border-color: rgba(203,79,95,.24);
+  background: linear-gradient(180deg, rgba(203,79,95,.08), rgba(255,255,255,.92));
+}
+[data-theme="dark"] .signal-card.warn,
+[data-theme="dark"] .signal-card.danger,
+[data-theme="dark"] .signal-card {
+  background: rgba(255,255,255,.04);
+}
+.signal-card .eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--text-faint);
+  font-weight: 800;
+}
+.signal-card.accent .eyebrow,
+.signal-card.accent .signal-sub,
+.signal-card.accent .signal-meta,
+.signal-card.accent .signal-list,
+.signal-card.accent .signal-list li {
+  color: rgba(248,251,255,.82);
+}
+.signal-value {
+  margin-top: 10px;
+  font-size: 32px;
+  line-height: 1.04;
+  font-weight: 850;
+  letter-spacing: -.04em;
+}
+.signal-sub {
+  margin-top: 10px;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.signal-meta {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-faint);
+}
+.signal-list {
+  margin: 12px 0 0;
+  padding-left: 18px;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.work-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr);
+  gap: 20px;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.summary-card {
+  background: var(--card-soft);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow-soft);
+}
+.summary-card h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  letter-spacing: -.02em;
+}
+.summary-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.summary-card .ux-stat-list,
+.summary-card .ux-list,
+.summary-card .ux-side-list,
+.summary-card .ux-table-wrap {
+  margin-top: 14px;
+}
+.stack-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+}
+.stack-card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  letter-spacing: -.02em;
+}
+.stack-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
 .card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -1469,4 +1682,66 @@ pre {
 
 .leadership-note strong {
   color: var(--text);
+}
+
+@media (max-width: 980px) {
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 74px 16px 36px;
+    max-width: 100vw;
+  }
+  .header,
+  .card,
+  .signal-card,
+  .summary-card,
+  .secondary-details,
+  .ux-focus-card,
+  .ux-panel-card {
+    border-radius: 18px;
+  }
+  .header {
+    padding: 22px 18px;
+  }
+  .header h1,
+  .ux-title,
+  .layer-title {
+    font-size: 28px;
+  }
+  .signal-value,
+  .kpi-value,
+  .ux-hero-metric .value {
+    font-size: 28px;
+    word-break: break-word;
+  }
+  .signal-grid,
+  .summary-grid,
+  .kpi-grid,
+  .ux-grid,
+  .two-col {
+    gap: 14px;
+  }
+  .status-strip {
+    padding: 10px 12px;
+  }
+  .status-chip {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .ux-actions {
+    width: 100%;
+  }
+  .ux-actions .ux-button,
+  .ux-actions button {
+    flex: 1 1 calc(50% - 8px);
+    justify-content: center;
+  }
+  .section-nav-links a {
+    width: 100%;
+    justify-content: center;
+  }
 }
