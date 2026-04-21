@@ -15,12 +15,12 @@
         <div class="ux-intro">
           <div class="ux-kicker">Objednávání zboží • pracovní přehled</div>
           <h1 class="ux-title">Co objednat hned a co zatím nechat být</h1>
-          <p class="ux-subtitle">Nahoře je riziko vyprodání, přebytek zásoby a doporučené doplnění. Detail je až pod tím.</p>
+          <p class="ux-subtitle">Nahoře je riziko vyprodání, přebytek zásoby a doporučené doplnění. Pod tím už navazuje shortlist a simulace, takže práce teče v přirozeném pořadí.</p>
           <div class="ux-actions">
-            <a class="ux-button primary" href="inventory.html">Původní SKLAD</a>
-            <a class="ux-button secondary" href="../data/current/ordering_core.json" target="_blank" rel="noopener">Otevřít ordering_core.json</a>
-            <a class="ux-button secondary" href="../data/current/ordering_reference_data.json" target="_blank" rel="noopener">Otevřít ordering_reference_data.json</a>
-            <a class="ux-button secondary" href="../data/current/inventory_analytics_730d.json" target="_blank" rel="noopener">Otevřít analytiku objednávání</a>
+            <a class="ux-button primary" href="inventory.html">Zpátky na sklad</a>
+            <a class="ux-button secondary" href="../data/current/ordering_core.json" target="_blank" rel="noopener">Ordering core</a>
+            <a class="ux-button secondary" href="../data/current/ordering_reference_data.json" target="_blank" rel="noopener">Reference data</a>
+            <a class="ux-button secondary" href="../data/current/inventory_analytics_730d.json" target="_blank" rel="noopener">Analytika</a>
           </div>
         </div>
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
@@ -133,7 +133,7 @@
     </details>
 
     <section class="card" style="margin-top:20px;">
-      <div class="toolbar">
+      <div class="toolbar workspace-toolbar">
         <div>
           <h2 class="section-title">Krok 3: simulace objednávky</h2>
           <div class="section-subtitle">Až po shortlistu, ne před ním. Kapacita je zatím orientační podle objemu doplnění.</div>
@@ -166,11 +166,12 @@
       </div>
 
       <div class="ux-date-note" id="planning-summary">Načítám varianty objednávky…</div>
+      <div class="toolbar-inline-summary"><strong>Pracovní tok:</strong> nejdřív shortlist, potom simulace kapacity a až nakonec export. Tahle sekce má zůstat po ruce při skrolování.</div>
       <section class="ux-hero-metrics" id="planning-variants"></section>
     </section>
 
     <section class="card" style="margin-top:20px;">
-      <div class="toolbar">
+      <div class="toolbar workspace-toolbar">
         <div>
           <h2 class="section-title">Krok 2: shortlist pro nákup</h2>
           <div class="section-subtitle">Hlavní pracovní tabulka. Vyber, co opravdu patří do objednávky.</div>
@@ -190,6 +191,7 @@
         </div>
       </div>
       <div class="section-subtitle" id="planning-table-summary">Načítám doporučené položky…</div>
+      <div class="toolbar-inline-summary"><strong>Tip:</strong> vyfiltruj si nejdřív „Nutné objednat“ a teprve pak přidávej fillers, ať shortlist nezmizí v šumu.</div>
       <table class="table" data-sortable-table="planning">
         <thead>
           <tr>

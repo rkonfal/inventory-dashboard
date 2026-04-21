@@ -171,9 +171,61 @@
     ensureMobileSidebarControls();
   }
 
+  function slugify(text) {
+    return String(text || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '') || 'sekce';
+  }
+
+  function ensureSectionNav() {
+    const header = document.querySelector('.header');
+    const main = document.querySelector('.main');
+    if (!header || !main || main.querySelector('[data-section-nav]')) return;
+
+    const selectors = [
+      'main > section .section-title',
+      'main > section .ux-section-title',
+      'main > details > summary',
+      'main > details section .section-title',
+      'main > details section .ux-section-title'
+    ];
+
+    const seen = new Set();
+    const items = [];
+
+    document.querySelectorAll(selectors.join(',')).forEach((node, index) => {
+      const text = (node.textContent || '').trim();
+      if (!text || seen.has(text)) return;
+      const section = node.closest('section, details, .card');
+      if (!section) return;
+      if (!section.id) section.id = `sekce-${slugify(text)}-${index + 1}`;
+      seen.add(text);
+      items.push({ id: section.id, label: text });
+    });
+
+    if (!items.length) return;
+
+    const nav = document.createElement('nav');
+    nav.className = 'section-nav';
+    nav.setAttribute('data-section-nav', '1');
+    nav.setAttribute('aria-label', 'Rychlá navigace sekcí');
+    nav.innerHTML = `
+      <div class="section-nav-label">Rychlá navigace</div>
+      <div class="section-nav-links">
+        ${items.slice(0, 8).map(item => `<a href="#${escapeHtml(item.id)}">${escapeHtml(item.label)}</a>`).join('')}
+      </div>
+    `;
+
+    header.appendChild(nav);
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     renderSidebar();
     initThemeToggle();
+    ensureSectionNav();
   });
 
   window.DP = {
@@ -183,5 +235,6 @@
     statusPill,
     initThemeToggle,
     renderSidebar,
+    ensureSectionNav,
   };
 })();

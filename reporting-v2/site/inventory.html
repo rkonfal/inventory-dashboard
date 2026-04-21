@@ -15,11 +15,11 @@
         <div class="ux-intro">
           <div class="ux-kicker">Sklad • rychlá operativa</div>
           <h1 class="ux-title">Sklad, kde je hned vidět co řešit</h1>
-          <p class="ux-subtitle">Nejdřív kritické položky, nesoulady a riziko vyprodání. Detail a delší analytika až pod tím.</p>
+          <p class="ux-subtitle">Nejdřív kritické položky, nesoulady a riziko vyprodání. Hlavní pracovní tabulka je připravená tak, aby šla filtrovat bez zbytečného přepínání.</p>
           <div class="ux-actions">
-            <a class="ux-button primary" href="../data/current/morning_report_previous_day.txt" target="_blank" rel="noopener">Otevřít ranní report</a>
-            <a class="ux-button secondary" href="logistics.html">Na logistiku</a>
-            <a class="ux-button secondary" href="index.html">Na přehled</a>
+            <a class="ux-button primary" href="../data/current/morning_report_previous_day.txt" target="_blank" rel="noopener">Ranní report</a>
+            <a class="ux-button secondary" href="logistics.html">Logistika</a>
+            <a class="ux-button secondary" href="index.html">Přehled</a>
           </div>
         </div>
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
@@ -57,7 +57,7 @@
     </section>
 
     <section class="card" style="margin-top:20px;">
-      <div class="toolbar-card">
+      <div class="toolbar-card workspace-toolbar">
         <div class="toolbar">
           <div>
             <h2 class="section-title">Hlavní přehled skladu</h2>
@@ -107,6 +107,7 @@
           <div class="toolbar-meta-item"><strong>Rychlý postup:</strong> vyber sklad, zapni filtr, pak případně dolaď hledání.</div>
           <div class="toolbar-meta-item"><strong>Doporučení:</strong> začni „Nesoulady“ nebo „Nízký sklad po prodeji“.</div>
         </div>
+        <div class="toolbar-inline-summary"><strong>Pracovní režim:</strong> horní panel zůstává při skrolování po ruce, aby šlo rychle měnit sklad, filtr i řazení bez návratu nahoru.</div>
       </div>
 
       <div class="quick-filters" id="inventory-view-tabs">
@@ -130,6 +131,7 @@
       </div>
 
       <div class="section-subtitle" id="inventory-explorer-summary">Načítám seznam položek…</div>
+      <div class="toolbar-inline-summary"><strong>Tip:</strong> quick filtry používej pro první řez a hledání až na konci, když už víš, co přesně dohledáváš.</div>
 
       <div class="ux-table-wrap">
         <table class="table">
