@@ -117,6 +117,14 @@ def current_month_window() -> tuple[str, str, str]:
     return since.isoformat(), until.isoformat(), until_exclusive.isoformat()
 
 
+def previous_month_window() -> tuple[str, str, str]:
+    first_this_month = date.today().replace(day=1)
+    until = first_this_month - timedelta(days=1)
+    since = until.replace(day=1)
+    until_exclusive = until + timedelta(days=1)
+    return since.isoformat(), until.isoformat(), until_exclusive.isoformat()
+
+
 def metric_lookup() -> dict[str, dict]:
     metrics = paginate('metrics/')
     lookup = {}
@@ -434,17 +442,7 @@ def enrich_recent_campaigns(campaign_rows: list[dict], month_metrics: dict[str, 
     return output
 
 
-def main() -> int:
-    load_env_local(ENV_LOCAL)
-    account = fetch_account()
-    metrics = metric_lookup()
-    missing_metrics = [key for key in ('placed_order', 'received_email', 'opened_email', 'clicked_email') if key not in metrics]
-    if missing_metrics:
-        raise SystemExit('Missing required Klaviyo metrics: ' + ', '.join(missing_metrics))
-
-    since, until, until_exclusive = current_month_window()
-    flows_map = fetch_flows_map()
-
+def build_daily_summary(metrics: dict[str, dict], since: str, until_exclusive: str) -> list[dict]:
     placed_daily = series_by_channel(metric_aggregate(
         metrics['placed_order']['id'],
         measurements=['count', 'sum_value'],
@@ -520,6 +518,11 @@ def main() -> int:
             'clickRate': round(total_clicks / total_recipients, 4) if total_recipients else None,
         })
     daily_summary.sort(key=lambda row: row['date'])
+    return daily_summary
+
+
+def build_window_payload(metrics: dict[str, dict], flows_map: dict[str, dict], since: str, until: str, until_exclusive: str, label: str) -> dict:
+    daily_summary = build_daily_summary(metrics, since, until_exclusive)
 
     current = {
         'dateFrom': since,
@@ -546,11 +549,37 @@ def main() -> int:
         'attributedByMessage': aggregate_month_by_dimension(metrics['placed_order']['id'], ['count', 'sum_value'], '$attributed_message', since, until_exclusive, extra_filters=['not(equals($attributed_message,""))']),
     }
 
-    flows_current_month = enrich_flow_rows(
+    flows = enrich_flow_rows(
         top_flows(metrics['placed_order']['id'], since, until_exclusive, flows_map),
         month_metrics,
     )
-    recent_campaigns = enrich_recent_campaigns(fetch_recent_campaigns(), month_metrics)
+    recent_campaigns = [
+        row for row in enrich_recent_campaigns(fetch_recent_campaigns(), month_metrics)
+        if since <= (row.get('sendDatetime') or row.get('scheduledAt') or row.get('updatedAt') or '')[:10] <= until
+    ]
+
+    return {
+        label: current,
+        f'dailySummary{label[0].upper()}{label[1:]}': daily_summary,
+        f'flows{label[0].upper()}{label[1:]}': flows,
+        f'topFlows{label[0].upper()}{label[1:]}': flows[:10],
+        f'recentCampaigns{label[0].upper()}{label[1:]}': recent_campaigns,
+    }
+
+
+def main() -> int:
+    load_env_local(ENV_LOCAL)
+    account = fetch_account()
+    metrics = metric_lookup()
+    missing_metrics = [key for key in ('placed_order', 'received_email', 'opened_email', 'clicked_email') if key not in metrics]
+    if missing_metrics:
+        raise SystemExit('Missing required Klaviyo metrics: ' + ', '.join(missing_metrics))
+
+    since, until, until_exclusive = current_month_window()
+    previous_since, previous_until, previous_until_exclusive = previous_month_window()
+    flows_map = fetch_flows_map()
+    current_payload = build_window_payload(metrics, flows_map, since, until, until_exclusive, 'currentMonth')
+    previous_payload = build_window_payload(metrics, flows_map, previous_since, previous_until, previous_until_exclusive, 'previousMonth')
     result = {
         'source': {
             'status': 'live_api',
@@ -560,11 +589,16 @@ def main() -> int:
         'window': {'dateFrom': since, 'dateTo': until},
         'account': account,
         'metrics': metrics,
-        'currentMonth': current,
-        'dailySummary': daily_summary,
-        'flowsCurrentMonth': flows_current_month,
-        'topFlowsCurrentMonth': flows_current_month[:10],
-        'recentCampaigns': recent_campaigns,
+        'currentMonth': current_payload['currentMonth'],
+        'dailySummary': current_payload['dailySummaryCurrentMonth'],
+        'flowsCurrentMonth': current_payload['flowsCurrentMonth'],
+        'topFlowsCurrentMonth': current_payload['topFlowsCurrentMonth'],
+        'recentCampaigns': current_payload['recentCampaignsCurrentMonth'],
+        'previousMonth': previous_payload['previousMonth'],
+        'dailySummaryPreviousMonth': previous_payload['dailySummaryPreviousMonth'],
+        'flowsPreviousMonth': previous_payload['flowsPreviousMonth'],
+        'topFlowsPreviousMonth': previous_payload['topFlowsPreviousMonth'],
+        'recentCampaignsPreviousMonth': previous_payload['recentCampaignsPreviousMonth'],
     }
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
@@ -572,7 +606,8 @@ def main() -> int:
     print(f'Wrote {OUTPUT}')
     print(json.dumps({
         'account': account.get('organizationName') or account.get('id'),
-        'currentMonth': current,
+        'currentMonth': current_payload['currentMonth'],
+        'previousMonth': previous_payload['previousMonth'],
         'topFlows': len(result['topFlowsCurrentMonth']),
         'recentCampaigns': len(result['recentCampaigns']),
     }, ensure_ascii=False, indent=2))

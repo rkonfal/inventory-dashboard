@@ -3510,56 +3510,80 @@ def build_finance_snapshot(legacy_abra_payload, live_abra_payload, report_payloa
 def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapshot, generated_at):
     sklik_overview = load_optional_current_json('sklik_overview.json') or {}
     sklik_current = ((sklik_overview.get('currentMonth') or {}).get('total') or {})
+    sklik_previous = ((sklik_overview.get('previousMonth') or {}).get('total') or {})
     sklik_direct = {
         'ready': bool(sklik_overview),
         'label': 'Sklik',
         'source': (sklik_overview.get('source') or {}).get('status'),
         'account': sklik_overview.get('account') or {},
         'currentMonth': sklik_overview.get('currentMonth') or {},
+        'previousMonth': sklik_overview.get('previousMonth') or {},
         'campaignSummary': sklik_overview.get('campaignSummary') or {},
         'campaignsCurrentMonth': sklik_overview.get('campaignPerformanceCurrentMonth') or [],
-        'topCampaigns': sorted(
+        'campaignsPreviousMonth': sklik_overview.get('campaignPerformancePreviousMonth') or [],
+        'topCampaignsCurrentMonth': sorted(
             sklik_overview.get('campaignPerformanceCurrentMonth') or [],
+            key=lambda row: float(row.get('priceCzk') or 0),
+            reverse=True,
+        )[:5],
+        'topCampaignsPreviousMonth': sorted(
+            sklik_overview.get('campaignPerformancePreviousMonth') or [],
             key=lambda row: float(row.get('priceCzk') or 0),
             reverse=True,
         )[:5],
     }
     meta_overview = load_optional_current_json('meta_ads_overview.json') or {}
     meta_summary = meta_overview.get('summary') or {}
+    meta_previous = meta_overview.get('previousMonth') or {}
     meta_direct = {
         'ready': bool(meta_overview),
         'label': 'Meta Ads',
         'source': (meta_overview.get('source') or {}).get('status'),
         'accounts': meta_overview.get('accounts') or [],
         'currentMonth': meta_summary,
+        'previousMonth': meta_previous,
         'campaignsCurrentMonth': meta_overview.get('campaignsCurrentMonth') or [],
-        'topCampaigns': meta_overview.get('topCampaignsCurrentMonth') or [],
+        'campaignsPreviousMonth': meta_overview.get('campaignsPreviousMonth') or [],
+        'topCampaignsCurrentMonth': meta_overview.get('topCampaignsCurrentMonth') or [],
+        'topCampaignsPreviousMonth': meta_overview.get('topCampaignsPreviousMonth') or [],
         'dailySummary': meta_overview.get('dailySummary') or [],
+        'dailySummaryPreviousMonth': meta_overview.get('dailySummaryPreviousMonth') or [],
     }
     google_overview = load_optional_current_json('google_ads_overview.json') or {}
     google_summary = google_overview.get('summary') or {}
+    google_previous = google_overview.get('previousMonth') or {}
     google_direct = {
         'ready': bool(google_overview),
         'label': 'Google Ads',
         'source': (google_overview.get('source') or {}).get('status'),
         'accounts': google_overview.get('accounts') or [],
         'currentMonth': google_summary,
+        'previousMonth': google_previous,
         'campaignsCurrentMonth': google_overview.get('campaignsCurrentMonth') or google_overview.get('topCampaignsCurrentMonth') or [],
-        'topCampaigns': google_overview.get('topCampaignsCurrentMonth') or google_overview.get('campaignsCurrentMonth') or [],
+        'campaignsPreviousMonth': google_overview.get('campaignsPreviousMonth') or google_overview.get('topCampaignsPreviousMonth') or [],
+        'topCampaignsCurrentMonth': google_overview.get('topCampaignsCurrentMonth') or google_overview.get('campaignsCurrentMonth') or [],
+        'topCampaignsPreviousMonth': google_overview.get('topCampaignsPreviousMonth') or google_overview.get('campaignsPreviousMonth') or [],
         'dailySummary': google_overview.get('dailySummary') or [],
+        'dailySummaryPreviousMonth': google_overview.get('dailySummaryPreviousMonth') or [],
     }
     klaviyo_overview = load_optional_current_json('klaviyo_overview.json') or {}
     klaviyo_current = klaviyo_overview.get('currentMonth') or {}
+    klaviyo_previous = klaviyo_overview.get('previousMonth') or {}
     klaviyo_direct = {
         'ready': bool(klaviyo_overview),
         'label': 'Klaviyo',
         'source': (klaviyo_overview.get('source') or {}).get('status'),
         'account': klaviyo_overview.get('account') or {},
         'currentMonth': klaviyo_current,
+        'previousMonth': klaviyo_previous,
         'dailySummary': klaviyo_overview.get('dailySummary') or [],
+        'dailySummaryPreviousMonth': klaviyo_overview.get('dailySummaryPreviousMonth') or [],
         'flowsCurrentMonth': klaviyo_overview.get('flowsCurrentMonth') or [],
-        'topFlows': klaviyo_overview.get('topFlowsCurrentMonth') or [],
+        'flowsPreviousMonth': klaviyo_overview.get('flowsPreviousMonth') or [],
+        'topFlowsCurrentMonth': klaviyo_overview.get('topFlowsCurrentMonth') or [],
+        'topFlowsPreviousMonth': klaviyo_overview.get('topFlowsPreviousMonth') or [],
         'recentCampaigns': klaviyo_overview.get('recentCampaigns') or [],
+        'recentCampaignsPreviousMonth': klaviyo_overview.get('recentCampaignsPreviousMonth') or [],
     }
 
     active_campaigns = {
@@ -3617,6 +3641,17 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             supplier_totals[row.get('supplier') or 'Neznámý dodavatel'] += float(row.get('amount') or 0)
 
         current_month = monthly[-1] if monthly else {}
+        previous_month = monthly[-2] if len(monthly) > 1 else {
+            'label': ((finance_snapshot.get('previousMonth') or {}).get('label') or ((sklik_direct.get('previousMonth') or {}).get('dateTo') or (meta_direct.get('previousMonth') or {}).get('dateTo') or (google_direct.get('previousMonth') or {}).get('dateTo') or '')),
+            'performanceSpend': round(float(meta_previous.get('spendCzk') or 0) + float(google_previous.get('spendCzk') or 0) + float(sklik_previous.get('priceCzk') or 0), 2),
+            'brandSpend': 0.0,
+            'totalSpend': round(float(meta_previous.get('spendCzk') or 0) + float(google_previous.get('spendCzk') or 0) + float(sklik_previous.get('priceCzk') or 0), 2),
+            'revenue': round(float(((finance_snapshot.get('previousMonth') or {}).get('revenue') or 0)), 2),
+            'spendShareOfRevenuePct': safe_ratio(
+                round(float(meta_previous.get('spendCzk') or 0) + float(google_previous.get('spendCzk') or 0) + float(sklik_previous.get('priceCzk') or 0), 2),
+                round(float(((finance_snapshot.get('previousMonth') or {}).get('revenue') or 0)), 2),
+            ),
+        }
         direct_sources = {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct}
         channel_rows = []
         if sklik_direct['ready']:
@@ -3672,6 +3707,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'source': {'status': 'live_report', 'message': source_message},
             'monthly': monthly,
             'currentMonth': current_month,
+            'previousMonth': previous_month,
             'topSuppliersCurrentMonth': [
                 {'name': name, 'amount': round(amount, 2)}
                 for name, amount in sorted(supplier_totals.items(), key=lambda item: item[1], reverse=True)[:8]
@@ -3688,6 +3724,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'source': {'status': 'missing', 'message': 'Legacy marketing snapshot nebyl nalezen.'},
             'monthly': [],
             'currentMonth': {},
+            'previousMonth': {},
             'topSuppliersCurrentMonth': [],
             'entriesCurrentMonth': [],
             'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct},
@@ -3703,6 +3740,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'source': {'status': 'missing', 'message': 'Marketing skupina ve legacy ABRA modelu chybí.'},
             'monthly': [],
             'currentMonth': {},
+            'previousMonth': {},
             'topSuppliersCurrentMonth': [],
             'entriesCurrentMonth': [],
             'directSources': {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct},
@@ -3739,6 +3777,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
         supplier_totals[row.get('company') or 'Neznámý dodavatel'] += float(row.get('amount') or 0)
 
     current_month = monthly[-1] if monthly else {}
+    previous_month = monthly[-2] if len(monthly) > 1 else {}
     channel_rows = []
     if sklik_direct['ready']:
         channel_rows.append({
@@ -3781,6 +3820,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
         'source': legacy_abra_payload['source'],
         'monthly': monthly,
         'currentMonth': current_month,
+        'previousMonth': previous_month,
         'topSuppliersCurrentMonth': [
             {'name': name, 'amount': round(amount, 2)}
             for name, amount in sorted(supplier_totals.items(), key=lambda item: item[1], reverse=True)[:8]

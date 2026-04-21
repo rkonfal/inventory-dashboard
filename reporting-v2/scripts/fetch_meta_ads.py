@@ -111,6 +111,119 @@ def current_month_window() -> tuple[str, str]:
     return since.isoformat(), until.isoformat()
 
 
+def previous_month_window() -> tuple[str, str]:
+    first_this_month = date.today().replace(day=1)
+    until = first_this_month - timedelta(days=1)
+    since = until.replace(day=1)
+    return since.isoformat(), until.isoformat()
+
+
+def fetch_window_payload(account_ids: List[str], since: str, until: str, label: str) -> Dict[str, object]:
+    accounts = []
+    daily_all = []
+    campaigns_all = []
+
+    for account_id in account_ids:
+        meta = fetch_account_meta(account_id)
+        currency = meta['currency']
+        daily = fetch_account_daily(account_id, since, until)
+        campaigns = fetch_campaign_totals(account_id, since, until)
+        campaign_statuses = fetch_campaign_statuses(account_id)
+
+        spend = round(sum(float(row['spend']) for row in daily), 2)
+        clicks = sum(int(row['clicks']) for row in daily)
+        impressions = sum(int(row['impressions']) for row in daily)
+        purchase_conversions = round(sum(float(row['purchaseConversions']) for row in daily), 2)
+        purchase_value = round(sum(float(row['purchaseValue']) for row in daily), 2)
+        spend_czk = to_czk(spend, currency)
+        purchase_value_czk = to_czk(purchase_value, currency)
+        roas = round((purchase_value / spend), 2) if spend else None
+
+        account_payload = {
+            **meta,
+            label: {
+                'dateFrom': since,
+                'dateTo': until,
+                'spend': spend,
+                'spendCzk': spend_czk,
+                'impressions': impressions,
+                'clicks': clicks,
+                'purchaseConversions': purchase_conversions,
+                'purchaseValue': purchase_value,
+                'purchaseValueCzk': purchase_value_czk,
+                'roas': roas,
+            },
+            'daily': [
+                {
+                    **row,
+                    'currency': currency,
+                    'spendCzk': to_czk(float(row['spend']), currency),
+                    'purchaseValueCzk': to_czk(float(row['purchaseValue']), currency),
+                }
+                for row in daily
+            ],
+        }
+        accounts.append(account_payload)
+        daily_all.extend(account_payload['daily'])
+        campaigns_all.extend([
+            {
+                **row,
+                'status': (campaign_statuses.get(str(row.get('campaignId'))) or {}).get('status'),
+                'effectiveStatus': (campaign_statuses.get(str(row.get('campaignId'))) or {}).get('effectiveStatus'),
+                'currency': currency,
+                'spendCzk': to_czk(float(row['spend']), currency),
+                'purchaseValueCzk': to_czk(float(row['purchaseValue']), currency),
+                'roas': round((float(row['purchaseValue']) / float(row['spend'])), 2) if float(row['spend'] or 0) else None,
+            }
+            for row in campaigns
+        ])
+
+    summary_daily = defaultdict(lambda: {
+        'date': '',
+        'spendCzk': 0.0,
+        'impressions': 0,
+        'clicks': 0,
+        'purchaseConversions': 0.0,
+        'purchaseValueCzk': 0.0,
+    })
+    for row in daily_all:
+        bucket = summary_daily[row['date']]
+        bucket['date'] = row['date']
+        bucket['spendCzk'] += float(row['spendCzk'])
+        bucket['impressions'] += int(row['impressions'])
+        bucket['clicks'] += int(row['clicks'])
+        bucket['purchaseConversions'] += float(row['purchaseConversions'])
+        bucket['purchaseValueCzk'] += float(row['purchaseValueCzk'])
+
+    summary = {
+        'dateFrom': since,
+        'dateTo': until,
+        'spendCzk': round(sum(float(row['spendCzk']) for row in daily_all), 2),
+        'impressions': sum(int(row['impressions']) for row in daily_all),
+        'clicks': sum(int(row['clicks']) for row in daily_all),
+        'purchaseConversions': round(sum(float(row['purchaseConversions']) for row in daily_all), 2),
+        'purchaseValueCzk': round(sum(float(row['purchaseValueCzk']) for row in daily_all), 2),
+    }
+    summary['roas'] = round(summary['purchaseValueCzk'] / summary['spendCzk'], 2) if summary['spendCzk'] else None
+
+    return {
+        label: summary,
+        f'accounts{label[0].upper()}{label[1:]}': accounts,
+        f'dailySummary{label[0].upper()}{label[1:]}': [
+            {
+                **row,
+                'spendCzk': round(float(row['spendCzk']), 2),
+                'purchaseConversions': round(float(row['purchaseConversions']), 2),
+                'purchaseValueCzk': round(float(row['purchaseValueCzk']), 2),
+                'roas': round(float(row['purchaseValueCzk']) / float(row['spendCzk']), 2) if float(row['spendCzk']) else None,
+            }
+            for _, row in sorted(summary_daily.items())
+        ],
+        f'campaigns{label[0].upper()}{label[1:]}': campaigns_all,
+        f'topCampaigns{label[0].upper()}{label[1:]}': sorted(campaigns_all, key=lambda row: float(row.get('spendCzk') or 0), reverse=True)[:15],
+    }
+
+
 def fetch_account_meta(account_id: str) -> Dict[str, object]:
     payload = graph_json(account_id, fields='id,account_id,name,currency')
     return {
@@ -193,95 +306,10 @@ def main() -> int:
     if not account_ids:
         raise SystemExit('Missing META_AD_ACCOUNT_IDS')
 
-    since, until = current_month_window()
-    accounts = []
-    daily_all = []
-    campaigns_all = []
-
-    for account_id in account_ids:
-        meta = fetch_account_meta(account_id)
-        currency = meta['currency']
-        daily = fetch_account_daily(account_id, since, until)
-        campaigns = fetch_campaign_totals(account_id, since, until)
-        campaign_statuses = fetch_campaign_statuses(account_id)
-
-        spend = round(sum(float(row['spend']) for row in daily), 2)
-        clicks = sum(int(row['clicks']) for row in daily)
-        impressions = sum(int(row['impressions']) for row in daily)
-        purchase_conversions = round(sum(float(row['purchaseConversions']) for row in daily), 2)
-        purchase_value = round(sum(float(row['purchaseValue']) for row in daily), 2)
-        spend_czk = to_czk(spend, currency)
-        purchase_value_czk = to_czk(purchase_value, currency)
-        roas = round((purchase_value / spend), 2) if spend else None
-
-        account_payload = {
-            **meta,
-            'currentMonth': {
-                'dateFrom': since,
-                'dateTo': until,
-                'spend': spend,
-                'spendCzk': spend_czk,
-                'impressions': impressions,
-                'clicks': clicks,
-                'purchaseConversions': purchase_conversions,
-                'purchaseValue': purchase_value,
-                'purchaseValueCzk': purchase_value_czk,
-                'roas': roas,
-            },
-            'daily': [
-                {
-                    **row,
-                    'currency': currency,
-                    'spendCzk': to_czk(float(row['spend']), currency),
-                    'purchaseValueCzk': to_czk(float(row['purchaseValue']), currency),
-                }
-                for row in daily
-            ],
-        }
-        accounts.append(account_payload)
-        daily_all.extend(account_payload['daily'])
-        campaigns_all.extend([
-            {
-                **row,
-                'status': (campaign_statuses.get(str(row.get('campaignId'))) or {}).get('status'),
-                'effectiveStatus': (campaign_statuses.get(str(row.get('campaignId'))) or {}).get('effectiveStatus'),
-                'currency': currency,
-                'spendCzk': to_czk(float(row['spend']), currency),
-                'purchaseValueCzk': to_czk(float(row['purchaseValue']), currency),
-                'roas': round((float(row['purchaseValue']) / float(row['spend'])), 2) if float(row['spend'] or 0) else None,
-            }
-            for row in campaigns
-        ])
-
-    summary_daily = defaultdict(lambda: {
-        'date': '',
-        'spendCzk': 0.0,
-        'impressions': 0,
-        'clicks': 0,
-        'purchaseConversions': 0.0,
-        'purchaseValueCzk': 0.0,
-    })
-    for row in daily_all:
-        bucket = summary_daily[row['date']]
-        bucket['date'] = row['date']
-        bucket['spendCzk'] += float(row['spendCzk'])
-        bucket['impressions'] += int(row['impressions'])
-        bucket['clicks'] += int(row['clicks'])
-        bucket['purchaseConversions'] += float(row['purchaseConversions'])
-        bucket['purchaseValueCzk'] += float(row['purchaseValueCzk'])
-
-    summary = {
-        'dateFrom': since,
-        'dateTo': until,
-        'spendCzk': round(sum(float(row['spendCzk']) for row in daily_all), 2),
-        'impressions': sum(int(row['impressions']) for row in daily_all),
-        'clicks': sum(int(row['clicks']) for row in daily_all),
-        'purchaseConversions': round(sum(float(row['purchaseConversions']) for row in daily_all), 2),
-        'purchaseValueCzk': round(sum(float(row['purchaseValueCzk']) for row in daily_all), 2),
-    }
-    summary['roas'] = round(summary['purchaseValueCzk'] / summary['spendCzk'], 2) if summary['spendCzk'] else None
-
-    campaigns_top = sorted(campaigns_all, key=lambda row: float(row.get('spendCzk') or 0), reverse=True)[:15]
+    current_since, current_until = current_month_window()
+    previous_since, previous_until = previous_month_window()
+    current_payload = fetch_window_payload(account_ids, current_since, current_until, 'currentMonth')
+    previous_payload = fetch_window_payload(account_ids, previous_since, previous_until, 'previousMonth')
 
     result = {
         'source': {
@@ -289,27 +317,23 @@ def main() -> int:
             'platform': 'meta_ads',
             'message': 'Meta Ads overview fetched directly from Marketing API.',
         },
-        'window': {'dateFrom': since, 'dateTo': until},
-        'summary': summary,
-        'accounts': accounts,
-        'dailySummary': [
-            {
-                **row,
-                'spendCzk': round(float(row['spendCzk']), 2),
-                'purchaseConversions': round(float(row['purchaseConversions']), 2),
-                'purchaseValueCzk': round(float(row['purchaseValueCzk']), 2),
-                'roas': round(float(row['purchaseValueCzk']) / float(row['spendCzk']), 2) if float(row['spendCzk']) else None,
-            }
-            for _, row in sorted(summary_daily.items())
-        ],
-        'campaignsCurrentMonth': campaigns_all,
-        'topCampaignsCurrentMonth': campaigns_top,
+        'window': {'dateFrom': current_since, 'dateTo': current_until},
+        'summary': current_payload['currentMonth'],
+        'accounts': current_payload['accountsCurrentMonth'],
+        'dailySummary': current_payload['dailySummaryCurrentMonth'],
+        'campaignsCurrentMonth': current_payload['campaignsCurrentMonth'],
+        'topCampaignsCurrentMonth': current_payload['topCampaignsCurrentMonth'],
+        'previousMonth': previous_payload['previousMonth'],
+        'accountsPreviousMonth': previous_payload['accountsPreviousMonth'],
+        'dailySummaryPreviousMonth': previous_payload['dailySummaryPreviousMonth'],
+        'campaignsPreviousMonth': previous_payload['campaignsPreviousMonth'],
+        'topCampaignsPreviousMonth': previous_payload['topCampaignsPreviousMonth'],
     }
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
     print(f'Wrote {OUTPUT}')
-    print(json.dumps({'summary': summary, 'accounts': len(accounts), 'topCampaigns': len(campaigns_top)}, ensure_ascii=False, indent=2))
+    print(json.dumps({'summary': current_payload['currentMonth'], 'previousMonth': previous_payload['previousMonth'], 'accounts': len(current_payload['accountsCurrentMonth']), 'topCampaigns': len(current_payload['topCampaignsCurrentMonth'])}, ensure_ascii=False, indent=2))
     return 0
 
 

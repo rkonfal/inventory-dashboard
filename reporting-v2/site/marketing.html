@@ -8,6 +8,12 @@
   <style>
     .mobile-only { display: none; }
     .sparkline { width: 100%; height: 42px; margin-top: 12px; }
+    .ux-button.is-active {
+      background: linear-gradient(135deg, var(--brand), var(--brand-light));
+      color: #fffaf4;
+      border-color: transparent;
+      box-shadow: 0 10px 22px rgba(107,61,99,.18);
+    }
     .roas-good { color: #1d9a52; font-weight: 700; }
     .roas-mid { color: #c9a84c; font-weight: 700; }
     .roas-bad { color: #d14b4b; font-weight: 700; }
@@ -68,6 +74,8 @@
           <h1 class="ux-title">Reklama, ve které je hned jasno</h1>
           <p class="ux-subtitle">Nahoře jsou celkové náklady, výkon kanálů a největší položky. Detail kampaní je až pod tím.</p>
           <div class="ux-actions">
+            <button class="ux-button secondary" type="button" data-view-toggle="current">Současný stav</button>
+            <button class="ux-button secondary" type="button" data-view-toggle="previous">Minulý měsíc</button>
             <a class="ux-button primary" href="../data/current/marketing_overview.json" target="_blank" rel="noopener">Otevřít marketing data</a>
             <a class="ux-button secondary" href="finance.html">Na finance</a>
             <a class="ux-button secondary" href="index.html">Na přehled</a>
@@ -111,8 +119,8 @@
 
       <div class="ux-side-stack">
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Tento měsíc</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Nahoře jsou spendy. Klaviyo atribuce je schválně oddělená pod nimi.</p>
+          <h3 id="marketing-period-title" style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Tento měsíc</h3>
+          <p id="marketing-period-subtitle" style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Nahoře jsou spendy. Klaviyo atribuce je schválně oddělená pod nimi.</p>
           <div class="ux-stat-list" id="marketing-current"></div>
           <div class="ux-stat-list" id="marketing-klaviyo-current" style="margin-top:14px;"></div>
         </div>
@@ -217,28 +225,12 @@
 
     (async () => {
       const data = await DP.loadJson('../data/current/marketing_overview.json');
-      const rawCurrent = data.currentMonth || {};
       const sklik = data.directSources?.sklik || {};
-      const sklikCurrent = sklik.currentMonth?.total || {};
       const meta = data.directSources?.meta || {};
-      const metaCurrent = meta.currentMonth || {};
       const google = data.directSources?.google || {};
-      const googleCurrent = google.currentMonth || {};
       const klaviyo = data.directSources?.klaviyo || {};
-      const klaviyoCurrent = klaviyo.currentMonth || {};
       const activeBySource = data.activeCampaignsBySource || {};
       const anyLiveSource = [sklik, meta, google, klaviyo].some(source => source?.ready);
-      const fallbackPpcAmount = Number(metaCurrent.spendCzk || 0) + Number(googleCurrent.spendCzk || 0) + Number(sklikCurrent.priceCzk || 0);
-      const fallbackTotalAmount = Number(rawCurrent.totalÚtrata ?? rawCurrent.totalSpend ?? 0) || fallbackPpcAmount;
-      const fallbackRevenue = Number(rawCurrent.revenue || 0);
-      const current = {
-        ...rawCurrent,
-        label: rawCurrent.label || [metaCurrent.dateTo, googleCurrent.dateTo, sklik.currentMonth?.dateTo].find(Boolean) || '–',
-        performanceÚtrata: Number((rawCurrent.performanceÚtrata ?? rawCurrent.performanceSpend ?? fallbackPpcAmount) || 0),
-        brandÚtrata: Number((rawCurrent.brandÚtrata ?? rawCurrent.brandSpend ?? Math.max(fallbackTotalAmount - fallbackPpcAmount, 0)) || 0),
-        totalÚtrata: Number((rawCurrent.totalÚtrata ?? rawCurrent.totalSpend ?? fallbackTotalAmount) || 0),
-        spendShareOfRevenuePct: rawCurrent.spendShareOfRevenuePct ?? (fallbackRevenue ? (fallbackTotalAmount / fallbackRevenue) * 100 : null),
-      };
       const source = (!data.source?.status || data.source?.status === 'missing') && anyLiveSource
         ? { label: 'live API', tone: 'ok' }
         : sourceMeta(data.source?.status);
@@ -248,6 +240,7 @@
       document.getElementById('source-mode').textContent = source.label;
       document.getElementById('source-mode').className = `badge ${source.tone}`;
       document.getElementById('source-alert').innerHTML = `<div class="alert warn">${sourceMessage}</div>`;
+
       const normalizeDate = value => {
         if (!value) return '–';
         if (typeof value === 'string' && /^\d{8}/.test(value)) return `${value.slice(0,4)}-${value.slice(4,6)}-${value.slice(6,8)}`;
@@ -268,377 +261,273 @@
       };
       const roasTone = value => value == null ? 'roas-mid' : value >= 20 ? 'roas-good' : value >= 10 ? 'roas-mid' : 'roas-bad';
       const cardTone = value => value == null ? 'tone-mid' : value >= 20 ? 'tone-good' : value >= 10 ? 'tone-mid' : 'tone-bad';
-      const sourceConfigs = [
-        {
-          key: 'meta',
-          ready: meta.ready,
-          label: 'Meta Ads',
-          amount: Number(metaCurrent.spendCzk || 0),
-          clicks: Number(metaCurrent.clicks || 0),
-          conversions: Number(metaCurrent.purchaseConversions || 0),
-          value: Number(metaCurrent.purchaseValueCzk || 0),
-          roas: metaCurrent.roas,
-          rows: activeBySource.meta || [],
-          daily: (meta.dailySummary || []).map(row => ({
-            date: normalizeDate(row.date),
-            spend: Number(row.spendCzk || 0),
-            clicks: Number(row.clicks || 0),
-            conversions: Number(row.purchaseConversions || 0),
-            value: Number(row.purchaseValueCzk || 0),
-          })),
-          columns: row => ({
-            account: row.accountName || '–',
-            name: row.campaignName || '–',
-            status: row.effectiveStatus || row.status || '–',
-            spend: Number(row.spendCzk || 0),
-            clicks: Number(row.clicks || 0),
-            conversions: Number(row.purchaseConversions || 0),
-            value: Number(row.purchaseValueCzk || 0),
-            roas: row.roas,
-          }),
-        },
-        {
-          key: 'google',
-          ready: google.ready,
-          label: 'Google Ads',
-          amount: Number(googleCurrent.spendCzk || 0),
-          clicks: Number(googleCurrent.clicks || 0),
-          conversions: Number(googleCurrent.conversions || 0),
-          value: Number(googleCurrent.conversionValueCzk || 0),
-          roas: googleCurrent.roas,
-          rows: (activeBySource.google || []).length ? (activeBySource.google || []) : (google.topCampaigns || []),
-          daily: (google.dailySummary || []).map(row => ({
-            date: normalizeDate(row.date),
-            spend: Number(row.spendCzk || 0),
-            clicks: Number(row.clicks || 0),
-            conversions: Number(row.conversions || 0),
-            value: Number(row.conversionValueCzk || 0),
-          })),
-          columns: row => ({
-            account: row.accountName || '–',
-            name: row.campaignName || '–',
-            status: row.status || '–',
-            spend: Number(row.spendCzk || 0),
-            clicks: Number(row.clicks || 0),
-            conversions: Number(row.conversions || 0),
-            value: Number(row.conversionValueCzk || 0),
-            roas: row.roas,
-          }),
-        },
-        {
-          key: 'sklik',
-          ready: sklik.ready,
-          label: 'Sklik',
-          amount: Number(sklikCurrent.priceCzk || 0),
-          clicks: Number(sklikCurrent.clicks || 0),
-          conversions: Number(sklikCurrent.conversions || 0),
-          value: Number(sklikCurrent.conversionValueCzk || 0),
-          roas: sklikCurrent.priceCzk ? Number(sklikCurrent.conversionValueCzk || 0) / Number(sklikCurrent.priceCzk || 1) : null,
-          rows: activeBySource.sklik || [],
-          daily: ((sklik.currentMonth || {}).daily || []).map(row => ({
-            date: normalizeDate(row.date),
-            spend: Number(row.priceCzk || 0),
-            clicks: Number(row.clicks || 0),
-            conversions: Number(row.conversions || 0),
-            value: Number(row.conversionValueCzk || 0),
-          })),
-          columns: row => ({
-            account: 'Sklik účet',
-            name: row.name || '–',
-            status: row.status || '–',
-            spend: Number(row.priceCzk || 0),
-            clicks: Number(row.clicks || 0),
-            conversions: Number(row.conversions || 0),
-            value: Number(row.conversionValueCzk || 0),
-            roas: row.priceCzk ? Number(row.conversionValueCzk || 0) / Number(row.priceCzk || 1) : null,
-          }),
-        },
-      ].filter(source => source.ready);
-      const ppcTotal = sourceConfigs.reduce((acc, source) => {
-        acc.amount += source.amount || 0;
-        acc.clicks += source.clicks || 0;
-        acc.conversions += source.conversions || 0;
-        acc.value += source.value || 0;
-        return acc;
-      }, { amount: 0, clicks: 0, conversions: 0, value: 0 });
-      ppcTotal.roas = ppcTotal.amount ? ppcTotal.value / ppcTotal.amount : null;
+      const modeLabel = mode => mode === 'previous' ? 'Minulý měsíc' : 'Současný stav';
+      const sectionMonthLabel = mode => mode === 'previous' ? 'minulý měsíc' : 'tento měsíc';
 
-      const dailyMap = {};
-      for (const source of sourceConfigs) {
-        for (const row of source.daily || []) {
-          const day = row.date;
-          dailyMap[day] ||= {
-            date: day,
-            metaÚtrata: 0,
-            googleÚtrata: 0,
-            sklikÚtrata: 0,
-            clicks: 0,
-            conversions: 0,
-            value: 0,
-          };
-          const bucket = dailyMap[day];
-          if (source.key === 'meta') bucket.metaÚtrata += row.spend;
-          if (source.key === 'google') bucket.googleÚtrata += row.spend;
-          if (source.key === 'sklik') bucket.sklikÚtrata += row.spend;
-          bucket.clicks += row.clicks || 0;
-          bucket.conversions += row.conversions || 0;
-          bucket.value += row.value || 0;
+      const buildMonth = mode => {
+        const raw = (mode === 'previous' ? data.previousMonth : data.currentMonth) || {};
+        const metaMonth = (mode === 'previous' ? meta.previousMonth : meta.currentMonth) || {};
+        const googleMonth = (mode === 'previous' ? google.previousMonth : google.currentMonth) || {};
+        const sklikMonth = ((mode === 'previous' ? sklik.previousMonth : sklik.currentMonth) || {});
+        const sklikTotal = sklikMonth.total || {};
+        const klaviyoMonth = (mode === 'previous' ? klaviyo.previousMonth : klaviyo.currentMonth) || {};
+        const fallbackPpcAmount = Number(metaMonth.spendCzk || 0) + Number(googleMonth.spendCzk || 0) + Number(sklikTotal.priceCzk || 0);
+        const fallbackTotalAmount = Number(raw.totalÚtrata ?? raw.totalSpend ?? 0) || fallbackPpcAmount;
+        const fallbackRevenue = Number(raw.revenue || 0);
+        return {
+          raw,
+          metaMonth,
+          googleMonth,
+          sklikMonth,
+          sklikTotal,
+          klaviyoMonth,
+          label: raw.label || [metaMonth.dateTo, googleMonth.dateTo, sklikMonth.dateTo, sklikMonth.dateFrom].find(Boolean) || '–',
+          performanceÚtrata: Number((raw.performanceÚtrata ?? raw.performanceSpend ?? fallbackPpcAmount) || 0),
+          brandÚtrata: Number((raw.brandÚtrata ?? raw.brandSpend ?? Math.max(fallbackTotalAmount - fallbackPpcAmount, 0)) || 0),
+          totalÚtrata: Number((raw.totalÚtrata ?? raw.totalSpend ?? fallbackTotalAmount) || 0),
+          revenue: fallbackRevenue,
+          spendShareOfRevenuePct: raw.spendShareOfRevenuePct ?? (fallbackRevenue ? (fallbackTotalAmount / fallbackRevenue) * 100 : null),
+        };
+      };
+
+      const buildSourceConfigs = mode => {
+        const month = buildMonth(mode);
+        return [
+          {
+            key: 'meta',
+            ready: meta.ready,
+            label: 'Meta Ads',
+            amount: Number(month.metaMonth.spendCzk || 0),
+            clicks: Number(month.metaMonth.clicks || 0),
+            conversions: Number(month.metaMonth.purchaseConversions || 0),
+            value: Number(month.metaMonth.purchaseValueCzk || 0),
+            roas: month.metaMonth.roas,
+            rows: mode === 'previous'
+              ? (meta.campaignsPreviousMonth || meta.topCampaignsPreviousMonth || [])
+              : ((activeBySource.meta || []).length ? (activeBySource.meta || []) : (meta.campaignsCurrentMonth || meta.topCampaignsCurrentMonth || [])),
+            daily: (mode === 'previous' ? (meta.dailySummaryPreviousMonth || []) : (meta.dailySummary || [])).map(row => ({
+              date: normalizeDate(row.date),
+              spend: Number(row.spendCzk || 0),
+              clicks: Number(row.clicks || 0),
+              conversions: Number(row.purchaseConversions || 0),
+              value: Number(row.purchaseValueCzk || 0),
+            })),
+            columns: row => ({
+              account: row.accountName || '–',
+              name: row.campaignName || '–',
+              status: row.effectiveStatus || row.status || '–',
+              spend: Number(row.spendCzk || 0),
+              clicks: Number(row.clicks || 0),
+              conversions: Number(row.purchaseConversions || 0),
+              value: Number(row.purchaseValueCzk || 0),
+              roas: row.roas,
+            }),
+          },
+          {
+            key: 'google',
+            ready: google.ready,
+            label: 'Google Ads',
+            amount: Number(month.googleMonth.spendCzk || 0),
+            clicks: Number(month.googleMonth.clicks || 0),
+            conversions: Number(month.googleMonth.conversions || 0),
+            value: Number(month.googleMonth.conversionValueCzk || 0),
+            roas: month.googleMonth.roas,
+            rows: mode === 'previous'
+              ? (google.campaignsPreviousMonth || google.topCampaignsPreviousMonth || [])
+              : ((activeBySource.google || []).length ? (activeBySource.google || []) : (google.campaignsCurrentMonth || google.topCampaignsCurrentMonth || [])),
+            daily: (mode === 'previous' ? (google.dailySummaryPreviousMonth || []) : (google.dailySummary || [])).map(row => ({
+              date: normalizeDate(row.date),
+              spend: Number(row.spendCzk || 0),
+              clicks: Number(row.clicks || 0),
+              conversions: Number(row.conversions || 0),
+              value: Number(row.conversionValueCzk || 0),
+            })),
+            columns: row => ({
+              account: row.accountName || '–',
+              name: row.campaignName || '–',
+              status: row.status || '–',
+              spend: Number(row.spendCzk || 0),
+              clicks: Number(row.clicks || 0),
+              conversions: Number(row.conversions || 0),
+              value: Number(row.conversionValueCzk || 0),
+              roas: row.roas,
+            }),
+          },
+          {
+            key: 'sklik',
+            ready: sklik.ready,
+            label: 'Sklik',
+            amount: Number(month.sklikTotal.priceCzk || 0),
+            clicks: Number(month.sklikTotal.clicks || 0),
+            conversions: Number(month.sklikTotal.conversions || 0),
+            value: Number(month.sklikTotal.conversionValueCzk || 0),
+            roas: month.sklikTotal.priceCzk ? Number(month.sklikTotal.conversionValueCzk || 0) / Number(month.sklikTotal.priceCzk || 1) : null,
+            rows: mode === 'previous'
+              ? (sklik.campaignsPreviousMonth || sklik.topCampaignsPreviousMonth || [])
+              : ((activeBySource.sklik || []).length ? (activeBySource.sklik || []) : (sklik.campaignsCurrentMonth || sklik.topCampaignsCurrentMonth || [])),
+            daily: ((mode === 'previous' ? sklik.previousMonth : sklik.currentMonth) || {}).daily?.map(row => ({
+              date: normalizeDate(row.date),
+              spend: Number(row.priceCzk || 0),
+              clicks: Number(row.clicks || 0),
+              conversions: Number(row.conversions || 0),
+              value: Number(row.conversionValueCzk || 0),
+            })) || [],
+            columns: row => ({
+              account: 'Sklik účet',
+              name: row.name || '–',
+              status: row.status || '–',
+              spend: Number(row.priceCzk || 0),
+              clicks: Number(row.clicks || 0),
+              conversions: Number(row.conversions || 0),
+              value: Number(row.conversionValueCzk || 0),
+              roas: row.priceCzk ? Number(row.conversionValueCzk || 0) / Number(row.priceCzk || 1) : null,
+            }),
+          },
+        ].filter(source => source.ready);
+      };
+
+      const monthHasDirectPrevious = !!(
+        data.previousMonth
+        || meta.previousMonth
+        || google.previousMonth
+        || sklik.previousMonth
+        || klaviyo.previousMonth
+      );
+      let activeMode = monthHasDirectPrevious ? 'current' : 'current';
+      const toggleButtons = [...document.querySelectorAll('[data-view-toggle]')];
+      const trendMobileHost = document.getElementById('daily-trend-table').closest('.ux-table-wrap');
+
+      const render = mode => {
+        const month = buildMonth(mode);
+        const sourceConfigs = buildSourceConfigs(mode);
+        const klaviyoMonth = month.klaviyoMonth || {};
+        const klaviyoDaily = mode === 'previous' ? (klaviyo.dailySummaryPreviousMonth || []) : (klaviyo.dailySummary || []);
+        const klaviyoFlows = mode === 'previous' ? (klaviyo.topFlowsPreviousMonth || klaviyo.flowsPreviousMonth || []) : (klaviyo.topFlowsCurrentMonth || klaviyo.topFlows || klaviyo.flowsCurrentMonth || []);
+        const klaviyoCampaigns = mode === 'previous' ? (klaviyo.recentCampaignsPreviousMonth || []) : (klaviyo.recentCampaigns || []);
+        const ppcTotal = sourceConfigs.reduce((acc, source) => {
+          acc.amount += source.amount || 0;
+          acc.clicks += source.clicks || 0;
+          acc.conversions += source.conversions || 0;
+          acc.value += source.value || 0;
+          return acc;
+        }, { amount: 0, clicks: 0, conversions: 0, value: 0 });
+        ppcTotal.roas = ppcTotal.amount ? ppcTotal.value / ppcTotal.amount : null;
+
+        const dailyMap = {};
+        for (const source of sourceConfigs) {
+          for (const row of source.daily || []) {
+            const day = row.date;
+            dailyMap[day] ||= { date: day, metaÚtrata: 0, googleÚtrata: 0, sklikÚtrata: 0, clicks: 0, conversions: 0, value: 0 };
+            const bucket = dailyMap[day];
+            if (source.key === 'meta') bucket.metaÚtrata += row.spend;
+            if (source.key === 'google') bucket.googleÚtrata += row.spend;
+            if (source.key === 'sklik') bucket.sklikÚtrata += row.spend;
+            bucket.clicks += row.clicks || 0;
+            bucket.conversions += row.conversions || 0;
+            bucket.value += row.value || 0;
+          }
         }
-      }
-      const dailyRows = Object.values(dailyMap)
-        .sort((a, b) => a.date.localeCompare(b.date))
-        .map(row => ({
+        const dailyRows = Object.values(dailyMap).sort((a, b) => a.date.localeCompare(b.date)).map(row => ({
           ...row,
           totalÚtrata: row.metaÚtrata + row.googleÚtrata + row.sklikÚtrata,
           roas: (row.metaÚtrata + row.googleÚtrata + row.sklikÚtrata) ? row.value / (row.metaÚtrata + row.googleÚtrata + row.sklikÚtrata) : null,
         }));
-      const hero = [
-        ['Marketingové náklady', money(current.totalÚtrata), `${pct(current.spendShareOfRevenuePct)} z výnosů`, 'accent'],
-        ['PPC', money(current.performanceÚtrata), 'výkonové kanály', ''],
-        ['Ostatní marketing', money(current.brandÚtrata), 'produkce, SMS, služby', '']
-      ];
-      document.getElementById('marketing-hero').innerHTML = hero.map(([label, value, sub, klass]) => `
-        <div class="ux-hero-metric ${klass}">
-          <div class="label">${label}</div>
-          <div class="value">${value}</div>
-          <div class="sub">${sub}</div>
-        </div>
-      `).join('');
 
-      document.getElementById('marketing-focus').innerHTML = [
-        [`Tento měsíc: ${current.label || '–'}`, `Celkem ${money(current.totalÚtrata)}, tedy ${pct(current.spendShareOfRevenuePct)} z výnosů.`],
-        [`PPC vs ostatní marketing`, `PPC ${money(current.performanceÚtrata)} oproti ostatnímu marketingu ${money(current.brandÚtrata)}.`],
-        meta.ready ? [`Meta Ads live`, `${money(metaCurrent.spendCzk)} útrata, ${DP.fmtNumber(Math.round(metaCurrent.clicks || 0))} kliků, ROAS ${metaCurrent.roas ?? '–'}.`] : null,
-        google.ready ? [`Google Ads live`, `${money(googleCurrent.spendCzk)} útrata, ${DP.fmtNumber(Math.round(googleCurrent.clicks || 0))} kliků, ROAS ${googleCurrent.roas ?? '–'}.`] : null,
-        sklik.ready ? [`Sklik live`, `${money(sklikCurrent.priceCzk)} útrata, ${DP.fmtNumber(Math.round(sklikCurrent.clicks || 0))} kliků a ${DP.fmtNumber(Math.round(sklikCurrent.conversions || 0))} konverzí.`] : null,
-        klaviyo.ready ? [`Klaviyo live`, `${money(klaviyoCurrent.totalAttributedRevenueCzk)} atribuovaný obrat, ${Number(klaviyoCurrent.totalAttributedOrders || 0).toFixed(2)} objednávek, ${DP.fmtNumber(Math.round(klaviyoCurrent.totalRecipients || 0))} příjemců.`] : null,
-      ].filter(Boolean).map(([title, text], index) => `
-        <div class="ux-item">
-          <span class="ux-dot ${index === 1 ? 'blue' : 'gold'}"></span>
-          <div>
-            <strong>${title}</strong>
-            <span>${text}</span>
+        toggleButtons.forEach(button => button.classList.toggle('is-active', button.dataset.viewToggle === mode));
+        document.getElementById('marketing-period-title').textContent = `${modeLabel(mode)} (${month.label || '–'})`;
+        document.getElementById('marketing-period-subtitle').textContent = mode === 'previous'
+          ? 'Porovnáváš uzavřený minulý měsíc. Klaviyo atribuce zůstává schválně oddělená pod spendy.'
+          : 'Nahoře jsou spendy. Klaviyo atribuce je schválně oddělená pod nimi.';
+
+        document.getElementById('marketing-hero').innerHTML = [
+          ['Marketingové náklady', money(month.totalÚtrata), `${pct(month.spendShareOfRevenuePct)} z výnosů`, 'accent'],
+          ['PPC', money(month.performanceÚtrata), 'výkonové kanály', ''],
+          ['Ostatní marketing', money(month.brandÚtrata), 'produkce, SMS, služby', '']
+        ].map(([label, value, sub, klass]) => `
+          <div class="ux-hero-metric ${klass}">
+            <div class="label">${label}</div>
+            <div class="value">${value}</div>
+            <div class="sub">${sub}</div>
           </div>
-        </div>
-      `).join('');
+        `).join('');
 
-      document.getElementById('marketing-current').innerHTML = [
-        ['PPC', money(current.performanceÚtrata)],
-        ['Ostatní marketing', money(current.brandÚtrata)],
-        ['Celkem', money(current.totalÚtrata)],
-        ['Podíl z výnosů', pct(current.spendShareOfRevenuePct)],
-        meta.ready ? ['Meta Ads spend', money(metaCurrent.spendCzk)] : null,
-        google.ready ? ['Google Ads spend', money(googleCurrent.spendCzk)] : null,
-        sklik.ready ? ['Sklik spend', money(sklikCurrent.priceCzk)] : null,
-      ].filter(Boolean).map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
-
-      document.getElementById('marketing-klaviyo-current').innerHTML = klaviyo.ready ? `
-        <div style="margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Klaviyo</div>
-        <div class="ux-stat-row"><span>Spend</span><strong>–</strong></div>
-        <div style="margin:12px 0 8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Atribuce</div>
-        <div class="ux-stat-row"><span>Atribuovaný obrat</span><strong>${money(klaviyoCurrent.totalAttributedRevenueCzk)}</strong></div>
-        <div class="ux-stat-row"><span>Atribuované objednávky</span><strong>${Number(klaviyoCurrent.totalAttributedOrders || 0).toFixed(2)}</strong></div>
-        <div class="ux-stat-row"><span>Příjemci</span><strong>${DP.fmtNumber(Math.round(klaviyoCurrent.totalRecipients || 0))}</strong></div>
-        <div class="ux-stat-row"><span>Kliky / CTR</span><strong>${DP.fmtNumber(Math.round(klaviyoCurrent.totalClicks || 0))} / ${klaviyoCurrent.clickRate == null ? '–' : `${(Number(klaviyoCurrent.clickRate) * 100).toFixed(1)} %`}</strong></div>
-      ` : '';
-
-      const strongestSource = [...sourceConfigs].sort((a, b) => (b.amount || 0) - (a.amount || 0))[0];
-      const bestRoasSource = [...sourceConfigs].filter(source => source.roas != null).sort((a, b) => (b.roas || 0) - (a.roas || 0))[0];
-      document.getElementById('dashboard-commentary').innerHTML = [
-        [`PPC celkem`, `Do PPC teď jde ${money(ppcTotal.amount)} a celkový PPC ROAS je ${ppcTotal.roas == null ? '–' : Number(ppcTotal.roas).toFixed(2)}.`],
-        strongestSource ? [`Nejsilnější kanál`, `${strongestSource.label} má nejvyšší útratu ${money(strongestSource.amount)}.`] : null,
-        bestRoasSource ? [`Nejlepší efektivita`, `${bestRoasSource.label} má nejvyšší ROAS ${Number(bestRoasSource.roas).toFixed(2)}.`] : null,
-        klaviyo.ready ? [`Klaviyo dopad`, `Email + SMS teď připisují ${money(klaviyoCurrent.totalAttributedRevenueCzk)} a ${Number(klaviyoCurrent.totalAttributedOrders || 0).toFixed(2)} objednávek.`] : null,
-        [`Čtení trendu`, `Denní trend níž rychle ukáže, jestli některý kanál roste v útratě bez růstu hodnoty.`],
-      ].filter(Boolean).map(([title, text], index) => `
-        <div class="ux-item">
-          <span class="ux-dot ${index % 2 ? 'blue' : 'gold'}"></span>
-          <div>
-            <strong>${title}</strong>
-            <span>${text}</span>
-          </div>
-        </div>
-      `).join('');
-
-      const kpis = [
-        ['Marketingové náklady', money(current.totalÚtrata), `${pct(current.spendShareOfRevenuePct)} z výnosů`, 'gold'],
-        ['PPC', money(current.performanceÚtrata), 'výkonové kanály', 'blue'],
-        ['Ostatní marketing', money(current.brandÚtrata), 'produkce, SMS, služby', 'green'],
-        meta.ready ? ['Meta Ads live', money(metaCurrent.spendCzk), `${DP.fmtNumber(Math.round(metaCurrent.clicks || 0))} kliků, ROAS ${metaCurrent.roas ?? '–'}`, 'blue'] : null,
-        google.ready ? ['Google Ads live', money(googleCurrent.spendCzk), `${DP.fmtNumber(Math.round(googleCurrent.clicks || 0))} kliků, ROAS ${googleCurrent.roas ?? '–'}`, 'green'] : null,
-        sklik.ready ? ['Sklik live', money(sklikCurrent.priceCzk), `${DP.fmtNumber(Math.round(sklikCurrent.clicks || 0))} kliků, ${DP.fmtNumber(Math.round(sklikCurrent.conversions || 0))} konverzí`, 'blue'] : null,
-        klaviyo.ready ? ['Klaviyo live', money(klaviyoCurrent.totalAttributedRevenueCzk), `${Number(klaviyoCurrent.totalAttributedOrders || 0).toFixed(2)} objednávek, CTR ${klaviyoCurrent.clickRate == null ? '–' : `${(Number(klaviyoCurrent.clickRate) * 100).toFixed(1)} %`}`, 'green'] : null,
-        ['PPC total', money(ppcTotal.amount), `ROAS ${ppcTotal.roas == null ? '–' : Number(ppcTotal.roas).toFixed(2)}`, 'red']
-      ].filter(Boolean);
-      document.getElementById('top-kpis').innerHTML = kpis.map(([label, value, sub, klass]) => `
-        <div class="card kpi-card ${klass}">
-          <div class="kpi-label">${label}</div>
-          <div class="kpi-value">${value}</div>
-          <div class="kpi-sub">${sub}</div>
-        </div>
-      `).join('');
-
-      document.getElementById('ppc-total-kpis').innerHTML = [
-        ['PPC celkem', money(ppcTotal.amount), `${sourceConfigs.length} source aktivně zapojené`, 'gold'],
-        ['Kliky celkem', DP.fmtNumber(Math.round(ppcTotal.clicks || 0)), 'součet Meta + Google + Sklik', 'blue'],
-        ['Konverze celkem', Number(ppcTotal.conversions || 0).toFixed(2), 'součet napříč source', 'green'],
-        ['Hodnota objednávek celkem', money(ppcTotal.value), `ROAS ${ppcTotal.roas == null ? '–' : Number(ppcTotal.roas).toFixed(2)}`, 'red'],
-      ].map(([label, value, sub, klass]) => `
-        <div class="card kpi-card ${klass}">
-          <div class="kpi-label">${label}</div>
-          <div class="kpi-value">${value}</div>
-          <div class="kpi-sub">${sub}</div>
-        </div>
-      `).join('');
-
-      document.getElementById('source-kpis').innerHTML = sourceConfigs.map(source => `
-        <div class="card kpi-card ${source.key === 'meta' ? 'blue' : source.key === 'google' ? 'green' : 'gold'} ${cardTone(source.roas)}">
-          <div class="kpi-label">${source.label}</div>
-          <div class="kpi-value">${money(source.amount)}</div>
-          <div class="kpi-sub" style="margin-top:12px; display:grid; gap:10px; text-align:left;">
+        document.getElementById('marketing-focus').innerHTML = [
+          [`${modeLabel(mode)}: ${month.label || '–'}`, `Celkem ${money(month.totalÚtrata)}, tedy ${pct(month.spendShareOfRevenuePct)} z výnosů.`],
+          [`PPC vs ostatní marketing`, `PPC ${money(month.performanceÚtrata)} oproti ostatnímu marketingu ${money(month.brandÚtrata)}.`],
+          meta.ready ? [`Meta Ads`, `${money(month.metaMonth.spendCzk)} útrata, ${DP.fmtNumber(Math.round(month.metaMonth.clicks || 0))} kliků, ROAS ${month.metaMonth.roas ?? '–'}.`] : null,
+          google.ready ? [`Google Ads`, `${money(month.googleMonth.spendCzk)} útrata, ${DP.fmtNumber(Math.round(month.googleMonth.clicks || 0))} kliků, ROAS ${month.googleMonth.roas ?? '–'}.`] : null,
+          sklik.ready ? [`Sklik`, `${money(month.sklikTotal.priceCzk)} útrata, ${DP.fmtNumber(Math.round(month.sklikTotal.clicks || 0))} kliků a ${DP.fmtNumber(Math.round(month.sklikTotal.conversions || 0))} konverzí.`] : null,
+          klaviyo.ready ? [`Klaviyo`, `${money(klaviyoMonth.totalAttributedRevenueCzk)} atribuovaný obrat, ${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)} objednávek, ${DP.fmtNumber(Math.round(klaviyoMonth.totalRecipients || 0))} příjemců.`] : null,
+        ].filter(Boolean).map(([title, text], index) => `
+          <div class="ux-item">
+            <span class="ux-dot ${index === 1 ? 'blue' : 'gold'}"></span>
             <div>
-              <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Spend</div>
-              <div>${money(source.amount)} • ${DP.fmtNumber(Math.round(source.clicks || 0))} kliků</div>
+              <strong>${title}</strong>
+              <span>${text}</span>
             </div>
+          </div>
+        `).join('');
+
+        document.getElementById('marketing-current').innerHTML = [
+          ['PPC', money(month.performanceÚtrata)],
+          ['Ostatní marketing', money(month.brandÚtrata)],
+          ['Celkem', money(month.totalÚtrata)],
+          ['Podíl z výnosů', pct(month.spendShareOfRevenuePct)],
+          meta.ready ? ['Meta Ads spend', money(month.metaMonth.spendCzk)] : null,
+          google.ready ? ['Google Ads spend', money(month.googleMonth.spendCzk)] : null,
+          sklik.ready ? ['Sklik spend', money(month.sklikTotal.priceCzk)] : null,
+        ].filter(Boolean).map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
+
+        document.getElementById('marketing-klaviyo-current').innerHTML = klaviyo.ready ? `
+          <div style="margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Klaviyo</div>
+          <div class="ux-stat-row"><span>Spend</span><strong>–</strong></div>
+          <div style="margin:12px 0 8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Atribuce</div>
+          <div class="ux-stat-row"><span>Atribuovaný obrat</span><strong>${money(klaviyoMonth.totalAttributedRevenueCzk)}</strong></div>
+          <div class="ux-stat-row"><span>Atribuované objednávky</span><strong>${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)}</strong></div>
+          <div class="ux-stat-row"><span>Příjemci</span><strong>${DP.fmtNumber(Math.round(klaviyoMonth.totalRecipients || 0))}</strong></div>
+          <div class="ux-stat-row"><span>Kliky / CTR</span><strong>${DP.fmtNumber(Math.round(klaviyoMonth.totalClicks || 0))} / ${klaviyoMonth.clickRate == null ? '–' : `${(Number(klaviyoMonth.clickRate) * 100).toFixed(1)} %`}</strong></div>
+        ` : '';
+
+        const strongestSource = [...sourceConfigs].sort((a, b) => (b.amount || 0) - (a.amount || 0))[0];
+        const bestRoasSource = [...sourceConfigs].filter(source => source.roas != null).sort((a, b) => (b.roas || 0) - (a.roas || 0))[0];
+        document.getElementById('dashboard-commentary').innerHTML = [
+          [`PPC celkem`, `Do PPC šlo ${money(ppcTotal.amount)} a celkový PPC ROAS vychází na ${ppcTotal.roas == null ? '–' : Number(ppcTotal.roas).toFixed(2)}.`],
+          strongestSource ? [`Nejsilnější kanál`, `${strongestSource.label} má nejvyšší útratu ${money(strongestSource.amount)}.`] : null,
+          bestRoasSource ? [`Nejlepší efektivita`, `${bestRoasSource.label} má nejvyšší ROAS ${Number(bestRoasSource.roas).toFixed(2)}.`] : null,
+          klaviyo.ready ? [`Klaviyo dopad`, `Email + SMS připisují ${money(klaviyoMonth.totalAttributedRevenueCzk)} a ${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)} objednávek.`] : null,
+          [`Čtení trendu`, `Denní trend níž ukáže, jestli některý kanál v ${sectionMonthLabel(mode)} rostl v útratě bez růstu hodnoty.`],
+        ].filter(Boolean).map(([title, text], index) => `
+          <div class="ux-item">
+            <span class="ux-dot ${index % 2 ? 'blue' : 'gold'}"></span>
             <div>
-              <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Atribuce</div>
-              <div>${Number(source.conversions || 0).toFixed(2)} konverzí • ${money(source.value)} • ROAS <span class="${roasTone(source.roas)}">${source.roas == null ? '–' : Number(source.roas).toFixed(2)}</span></div>
+              <strong>${title}</strong>
+              <span>${text}</span>
             </div>
           </div>
-          ${sparkline((source.daily || []).map(row => row.spend))}
-        </div>
-      `).join('');
+        `).join('');
 
-      document.getElementById('daily-trend-table').innerHTML = dailyRows.map(row => `
-        <tr>
-          <td>${row.date}</td>
-          <td class="num">${money(row.metaÚtrata)}</td>
-          <td class="num">${money(row.googleÚtrata)}</td>
-          <td class="num">${money(row.sklikÚtrata)}</td>
-          <td class="num">${money(row.totalÚtrata)}</td>
-          <td class="num">${DP.fmtNumber(Math.round(row.clicks || 0))}</td>
-          <td class="num">${Number(row.conversions || 0).toFixed(2)}</td>
-          <td class="num">${money(row.value)}</td>
-          <td class="num ${roasTone(row.roas)}">${row.roas == null ? '–' : Number(row.roas).toFixed(2)}</td>
-        </tr>
-      `).join('');
-
-      const dailyTrendCards = sourceConfigs.map(source => {
-        const bestDay = [...(source.daily || [])].sort((a, b) => (b.spend || 0) - (a.spend || 0))[0];
-        return `
-          <div class="card kpi-card ${source.key === 'meta' ? 'blue' : source.key === 'google' ? 'green' : 'gold'} ${cardTone(bestDay && bestDay.spend ? (bestDay.value || 0) / bestDay.spend : null)}">
-            <div class="kpi-label">${source.label}, nejsilnější den podle útraty</div>
-            <div class="kpi-value">${bestDay ? bestDay.date : '–'}</div>
-            <div class="kpi-sub">${bestDay ? `${money(bestDay.spend)}, ${DP.fmtNumber(Math.round(bestDay.clicks || 0))} kliků, ROAS <span class="${roasTone(bestDay.spend ? (bestDay.value || 0) / bestDay.spend : null)}">${bestDay.spend ? Number((bestDay.value || 0) / bestDay.spend).toFixed(2) : '–'}</span>` : 'Denní data zatím nejsou'}</div>
-            ${sparkline((source.daily || []).map(row => row.spend))}
+        document.getElementById('top-kpis').innerHTML = [
+          ['Marketingové náklady', money(month.totalÚtrata), `${pct(month.spendShareOfRevenuePct)} z výnosů`, 'gold'],
+          ['PPC', money(month.performanceÚtrata), 'výkonové kanály', 'blue'],
+          ['Ostatní marketing', money(month.brandÚtrata), 'produkce, SMS, služby', 'green'],
+          meta.ready ? ['Meta Ads', money(month.metaMonth.spendCzk), `${DP.fmtNumber(Math.round(month.metaMonth.clicks || 0))} kliků, ROAS ${month.metaMonth.roas ?? '–'}`, 'blue'] : null,
+          google.ready ? ['Google Ads', money(month.googleMonth.spendCzk), `${DP.fmtNumber(Math.round(month.googleMonth.clicks || 0))} kliků, ROAS ${month.googleMonth.roas ?? '–'}`, 'green'] : null,
+          sklik.ready ? ['Sklik', money(month.sklikTotal.priceCzk), `${DP.fmtNumber(Math.round(month.sklikTotal.clicks || 0))} kliků, ${DP.fmtNumber(Math.round(month.sklikTotal.conversions || 0))} konverzí`, 'blue'] : null,
+          klaviyo.ready ? ['Klaviyo', money(klaviyoMonth.totalAttributedRevenueCzk), `${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)} objednávek, CTR ${klaviyoMonth.clickRate == null ? '–' : `${(Number(klaviyoMonth.clickRate) * 100).toFixed(1)} %`}`, 'green'] : null,
+          ['PPC total', money(ppcTotal.amount), `ROAS ${ppcTotal.roas == null ? '–' : Number(ppcTotal.roas).toFixed(2)}`, 'red']
+        ].filter(Boolean).map(([label, value, sub, klass]) => `
+          <div class="card kpi-card ${klass}">
+            <div class="kpi-label">${label}</div>
+            <div class="kpi-value">${value}</div>
+            <div class="kpi-sub">${sub}</div>
           </div>
-        `;
-      });
-      if (klaviyo.ready) {
-        const bestRevenueDay = [...(klaviyo.dailySummary || [])].sort((a, b) => Number(b.totalAttributedRevenueCzk || 0) - Number(a.totalAttributedRevenueCzk || 0))[0];
-        dailyTrendCards.push(`
-          <div class="card kpi-card green">
-            <div class="kpi-label">Klaviyo, nejsilnější den</div>
-            <div class="kpi-value">${bestRevenueDay ? bestRevenueDay.date : '–'}</div>
-            <div class="kpi-sub">${bestRevenueDay ? `${money(bestRevenueDay.totalAttributedRevenueCzk)} atribuovaný obrat, ${Number(bestRevenueDay.totalAttributedOrders || 0).toFixed(2)} objednávek, CTR ${pctFromRate(bestRevenueDay.clickRate)}` : 'Denní data zatím nejsou'}</div>
-            ${sparkline((klaviyo.dailySummary || []).map(row => Number(row.totalAttributedRevenueCzk || 0)))}
-          </div>
-        `);
-      }
-      document.getElementById('daily-trend-source-kpis').innerHTML = dailyTrendCards.join('');
+        `).join('');
 
-      document.getElementById('source-campaign-sections').innerHTML = sourceConfigs.map(source => `
-        <section class="card">
-          <div class="ux-section-head">
-            <div>
-              <h2 class="section-title">${source.label}, aktivní kampaně</h2>
-              <div class="section-subtitle">${source.rows.length}  aktivních kampaní, útrata ${money(source.amount)}, hodnota objednávek ${money(source.value)}</div>
-            </div>
-          </div>
-          <div class="ux-table-wrap" style="margin-top:16px;">
-            <table class="table desktop-only">
-              <thead>
-                <tr>
-                  <th>Účet</th>
-                  <th>Kampaň</th>
-                  <th>Status</th>
-                  <th class="num">Útrata</th>
-                  <th class="num">Kliky</th>
-                  <th class="num">Konverze</th>
-                  <th class="num">Hodnota objednávek</th>
-                  <th class="num">ROAS</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${source.rows.length ? source.rows.map(raw => {
-                  const row = source.columns(raw);
-                  return `
-                    <tr>
-                      <td>${row.account}</td>
-                      <td>${row.name}</td>
-                      <td>${row.status}</td>
-                      <td class="num">${money(row.spend)}</td>
-                      <td class="num">${DP.fmtNumber(Math.round(row.clicks || 0))}</td>
-                      <td class="num">${Number(row.conversions || 0).toFixed(2)}</td>
-                      <td class="num">${money(row.value)}</td>
-                      <td class="num ${roasTone(row.roas)}">${row.roas == null ? '–' : Number(row.roas).toFixed(2)}</td>
-                    </tr>
-                  `;
-                }).join('') : `<tr><td colspan="8">Bez aktivních kampaní.</td></tr>`}
-              </tbody>
-            </table>
-            <div class="mobile-only mobile-campaign-list">
-              ${source.rows.length ? source.rows.map(raw => {
-                const row = source.columns(raw);
-                return `
-                  <div class="mobile-campaign-card">
-                    <strong>${row.name}</strong>
-                    <div style="margin-bottom:8px; color:var(--text-muted); font-size:13px;">${row.account} • ${row.status}</div>
-                    <div class="mobile-metric-grid">
-                      <div><span>Útrata</span><br>${money(row.spend)}</div>
-                      <div><span>Kliky</span><br>${DP.fmtNumber(Math.round(row.clicks || 0))}</div>
-                      <div><span>Konverze</span><br>${Number(row.conversions || 0).toFixed(2)}</div>
-                      <div><span>Hodnota objednávek</span><br>${money(row.value)}</div>
-                      <div><span>ROAS</span><br><span class="${roasTone(row.roas)}">${row.roas == null ? '–' : Number(row.roas).toFixed(2)}</span></div>
-                    </div>
-                  </div>
-                `;
-              }).join('') : `<div class="mobile-campaign-card"><strong>Bez aktivních kampaní</strong></div>`}
-            </div>
-          </div>
-        </section>
-      `).join('');
-
-      document.getElementById('daily-trend-table').closest('.ux-table-wrap').insertAdjacentHTML('afterend', `
-        <div class="mobile-only mobile-trend-list">
-          ${dailyRows.map(row => `
-            <div class="mobile-trend-card">
-              <strong>${row.date}</strong>
-              <div class="mobile-metric-grid">
-                <div><span>Meta</span><br>${money(row.metaÚtrata)}</div>
-                <div><span>Google</span><br>${money(row.googleÚtrata)}</div>
-                <div><span>Sklik</span><br>${money(row.sklikÚtrata)}</div>
-                <div><span>Celkem</span><br>${money(row.totalÚtrata)}</div>
-                <div><span>Kliky</span><br>${DP.fmtNumber(Math.round(row.clicks || 0))}</div>
-                <div><span>Konverze</span><br>${Number(row.conversions || 0).toFixed(2)}</div>
-                <div><span>Hodnota objednávek</span><br>${money(row.value)}</div>
-                <div><span>ROAS</span><br><span class="${roasTone(row.roas)}">${row.roas == null ? '–' : Number(row.roas).toFixed(2)}</span></div>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      `);
-
-      if (klaviyo.ready) {
-        document.getElementById('klaviyo-section').style.display = '';
-        const klaviyoFlows = klaviyo.topFlows || [];
-        const klaviyoCampaigns = klaviyo.recentCampaigns || [];
-        document.getElementById('klaviyo-kpis').innerHTML = [
-          ['Spend', '–', 'Klaviyo spend v tomto dashboardu teď nesledujeme', 'gold'],
-          ['Atribuovaný obrat', money(klaviyoCurrent.totalAttributedRevenueCzk), `email ${money(klaviyoCurrent.emailAttributedRevenueCzk)} • sms ${money(klaviyoCurrent.smsAttributedRevenueCzk)}`, 'green'],
-          ['Atribuované objednávky', Number(klaviyoCurrent.totalAttributedOrders || 0).toFixed(2), `email ${Number(klaviyoCurrent.emailAttributedOrders || 0).toFixed(2)} • sms ${Number(klaviyoCurrent.smsAttributedOrders || 0).toFixed(2)}`, 'blue'],
-          ['Příjemci', DP.fmtNumber(Math.round(klaviyoCurrent.totalRecipients || 0)), `email ${DP.fmtNumber(Math.round(klaviyoCurrent.emailRecipients || 0))} • sms ${DP.fmtNumber(Math.round(klaviyoCurrent.smsRecipients || 0))}`, 'gold'],
-          ['Kliky / CTR', DP.fmtNumber(Math.round(klaviyoCurrent.totalClicks || 0)), `CTR ${pctFromRate(klaviyoCurrent.clickRate)}`, 'red'],
+        document.getElementById('ppc-total-kpis').innerHTML = [
+          ['PPC celkem', money(ppcTotal.amount), `${sourceConfigs.length} source zapojené`, 'gold'],
+          ['Kliky celkem', DP.fmtNumber(Math.round(ppcTotal.clicks || 0)), 'součet Meta + Google + Sklik', 'blue'],
+          ['Konverze celkem', Number(ppcTotal.conversions || 0).toFixed(2), 'součet napříč source', 'green'],
+          ['Hodnota objednávek celkem', money(ppcTotal.value), `ROAS ${ppcTotal.roas == null ? '–' : Number(ppcTotal.roas).toFixed(2)}`, 'red'],
         ].map(([label, value, sub, klass]) => `
           <div class="card kpi-card ${klass}">
             <div class="kpi-label">${label}</div>
@@ -647,45 +536,215 @@
           </div>
         `).join('');
 
-        document.getElementById('klaviyo-flow-table').innerHTML = klaviyoFlows.length ? klaviyoFlows.map(row => `
+        document.getElementById('source-kpis').innerHTML = sourceConfigs.map(source => `
+          <div class="card kpi-card ${source.key === 'meta' ? 'blue' : source.key === 'google' ? 'green' : 'gold'} ${cardTone(source.roas)}">
+            <div class="kpi-label">${source.label}</div>
+            <div class="kpi-value">${money(source.amount)}</div>
+            <div class="kpi-sub" style="margin-top:12px; display:grid; gap:10px; text-align:left;">
+              <div>
+                <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Spend</div>
+                <div>${money(source.amount)} • ${DP.fmtNumber(Math.round(source.clicks || 0))} kliků</div>
+              </div>
+              <div>
+                <div style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Atribuce</div>
+                <div>${Number(source.conversions || 0).toFixed(2)} konverzí • ${money(source.value)} • ROAS <span class="${roasTone(source.roas)}">${source.roas == null ? '–' : Number(source.roas).toFixed(2)}</span></div>
+              </div>
+            </div>
+            ${sparkline((source.daily || []).map(row => row.spend))}
+          </div>
+        `).join('');
+
+        document.getElementById('daily-trend-table').innerHTML = dailyRows.map(row => `
           <tr>
-            <td>${row.flowName || '–'}</td>
-            <td>${row.channel || '–'}</td>
-            <td>${row.status || '–'}</td>
-            <td class="num">${pctFromRate(row.openRate)}</td>
-            <td class="num">${pctFromRate(row.clickRate)}</td>
-            <td class="num">${pctFromRate(row.conversionRate)}</td>
-            <td class="num">${Number(row.attributedOrders || 0).toFixed(2)}</td>
-            <td class="num">${money(row.attributedRevenueCzk)}</td>
+            <td>${row.date}</td>
+            <td class="num">${money(row.metaÚtrata)}</td>
+            <td class="num">${money(row.googleÚtrata)}</td>
+            <td class="num">${money(row.sklikÚtrata)}</td>
+            <td class="num">${money(row.totalÚtrata)}</td>
+            <td class="num">${DP.fmtNumber(Math.round(row.clicks || 0))}</td>
+            <td class="num">${Number(row.conversions || 0).toFixed(2)}</td>
+            <td class="num">${money(row.value)}</td>
+            <td class="num ${roasTone(row.roas)}">${row.roas == null ? '–' : Number(row.roas).toFixed(2)}</td>
           </tr>
-        `).join('') : `<tr><td colspan="8">Bez flow atribuce za tento měsíc.</td></tr>`;
+        `).join('') || '<tr><td colspan="9">Denní trend zatím není k dispozici.</td></tr>';
 
-        document.getElementById('klaviyo-flow-mobile').innerHTML = klaviyoFlows.length ? klaviyoFlows.map(row => `
-          <div class="mobile-campaign-card">
-            <strong>${row.flowName || '–'}</strong>
-            <div style="margin-bottom:8px; color:var(--text-muted); font-size:13px;">${row.channel || '–'} • ${row.status || '–'}</div>
-            <div class="mobile-metric-grid">
-              <div><span>Open rate</span><br>${pctFromRate(row.openRate)}</div>
-              <div><span>CTR</span><br>${pctFromRate(row.clickRate)}</div>
-              <div><span>Conv. rate</span><br>${pctFromRate(row.conversionRate)}</div>
-              <div><span>Objednávky</span><br>${Number(row.attributedOrders || 0).toFixed(2)}</div>
-              <div><span>Obrat</span><br>${money(row.attributedRevenueCzk)}</div>
+        const dailyTrendCards = sourceConfigs.map(source => {
+          const bestDay = [...(source.daily || [])].sort((a, b) => (b.spend || 0) - (a.spend || 0))[0];
+          return `
+            <div class="card kpi-card ${source.key === 'meta' ? 'blue' : source.key === 'google' ? 'green' : 'gold'} ${cardTone(bestDay && bestDay.spend ? (bestDay.value || 0) / bestDay.spend : null)}">
+              <div class="kpi-label">${source.label}, nejsilnější den podle útraty</div>
+              <div class="kpi-value">${bestDay ? bestDay.date : '–'}</div>
+              <div class="kpi-sub">${bestDay ? `${money(bestDay.spend)}, ${DP.fmtNumber(Math.round(bestDay.clicks || 0))} kliků, ROAS <span class="${roasTone(bestDay.spend ? (bestDay.value || 0) / bestDay.spend : null)}">${bestDay.spend ? Number((bestDay.value || 0) / bestDay.spend).toFixed(2) : '–'}</span>` : 'Denní data zatím nejsou'}</div>
+              ${sparkline((source.daily || []).map(row => row.spend))}
             </div>
-          </div>
-        `).join('') : `<div class="mobile-campaign-card"><strong>Bez flow atribuce</strong></div>`;
-
-        document.getElementById('klaviyo-campaign-list').innerHTML = klaviyoCampaigns.length ? klaviyoCampaigns.map((row, index) => `
-          <div class="ux-item">
-            <span class="ux-dot ${index % 2 ? 'blue' : 'gold'}"></span>
-            <div>
-              <strong>${row.name || 'Kampaň'}</strong>
-              <span>${row.channel || '–'} • ${row.status || '–'} • ${normalizeDate(row.sendDatetime || row.scheduledAt || row.updatedAt)}</span>
-              <span>${DP.fmtNumber(Math.round(row.recipients || 0))} příjemců • open ${pctFromRate(row.openRate)} • CTR ${pctFromRate(row.clickRate)} • conv ${pctFromRate(row.conversionRate)} • ${Number(row.attributedOrders || 0).toFixed(2)} obj. • ${money(row.attributedRevenueCzk)}</span>
+          `;
+        });
+        if (klaviyo.ready) {
+          const bestRevenueDay = [...klaviyoDaily].sort((a, b) => Number(b.totalAttributedRevenueCzk || 0) - Number(a.totalAttributedRevenueCzk || 0))[0];
+          dailyTrendCards.push(`
+            <div class="card kpi-card green">
+              <div class="kpi-label">Klaviyo, nejsilnější den</div>
+              <div class="kpi-value">${bestRevenueDay ? normalizeDate(bestRevenueDay.date) : '–'}</div>
+              <div class="kpi-sub">${bestRevenueDay ? `${money(bestRevenueDay.totalAttributedRevenueCzk)} atribuovaný obrat, ${Number(bestRevenueDay.totalAttributedOrders || 0).toFixed(2)} objednávek, CTR ${pctFromRate(bestRevenueDay.clickRate)}` : 'Denní data zatím nejsou'}</div>
+              ${sparkline(klaviyoDaily.map(row => Number(row.totalAttributedRevenueCzk || 0)))}
             </div>
-          </div>
-        `).join('') : `<div class="ux-item"><span class="ux-dot gold"></span><div><strong>Bez kampaní</strong><span>V Klaviyo teď není co vykreslit.</span></div></div>`;
-      }
+          `);
+        }
+        document.getElementById('daily-trend-source-kpis').innerHTML = dailyTrendCards.join('');
 
+        document.getElementById('source-campaign-sections').innerHTML = sourceConfigs.map(source => `
+          <section class="card">
+            <div class="ux-section-head">
+              <div>
+                <h2 class="section-title">${source.label}, ${mode === 'previous' ? 'kampaně minulého měsíce' : 'aktivní kampaně'}</h2>
+                <div class="section-subtitle">${source.rows.length} kampaní, útrata ${money(source.amount)}, hodnota objednávek ${money(source.value)}</div>
+              </div>
+            </div>
+            <div class="ux-table-wrap" style="margin-top:16px;">
+              <table class="table desktop-only">
+                <thead>
+                  <tr>
+                    <th>Účet</th>
+                    <th>Kampaň</th>
+                    <th>Status</th>
+                    <th class="num">Útrata</th>
+                    <th class="num">Kliky</th>
+                    <th class="num">Konverze</th>
+                    <th class="num">Hodnota objednávek</th>
+                    <th class="num">ROAS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${source.rows.length ? source.rows.map(raw => {
+                    const row = source.columns(raw);
+                    return `
+                      <tr>
+                        <td>${row.account}</td>
+                        <td>${row.name}</td>
+                        <td>${row.status}</td>
+                        <td class="num">${money(row.spend)}</td>
+                        <td class="num">${DP.fmtNumber(Math.round(row.clicks || 0))}</td>
+                        <td class="num">${Number(row.conversions || 0).toFixed(2)}</td>
+                        <td class="num">${money(row.value)}</td>
+                        <td class="num ${roasTone(row.roas)}">${row.roas == null ? '–' : Number(row.roas).toFixed(2)}</td>
+                      </tr>
+                    `;
+                  }).join('') : `<tr><td colspan="8">Bez kampaní pro ${sectionMonthLabel(mode)}.</td></tr>`}
+                </tbody>
+              </table>
+              <div class="mobile-only mobile-campaign-list">
+                ${source.rows.length ? source.rows.map(raw => {
+                  const row = source.columns(raw);
+                  return `
+                    <div class="mobile-campaign-card">
+                      <strong>${row.name}</strong>
+                      <div style="margin-bottom:8px; color:var(--text-muted); font-size:13px;">${row.account} • ${row.status}</div>
+                      <div class="mobile-metric-grid">
+                        <div><span>Útrata</span><br>${money(row.spend)}</div>
+                        <div><span>Kliky</span><br>${DP.fmtNumber(Math.round(row.clicks || 0))}</div>
+                        <div><span>Konverze</span><br>${Number(row.conversions || 0).toFixed(2)}</div>
+                        <div><span>Hodnota objednávek</span><br>${money(row.value)}</div>
+                        <div><span>ROAS</span><br><span class="${roasTone(row.roas)}">${row.roas == null ? '–' : Number(row.roas).toFixed(2)}</span></div>
+                      </div>
+                    </div>
+                  `;
+                }).join('') : `<div class="mobile-campaign-card"><strong>Bez kampaní</strong></div>`}
+              </div>
+            </div>
+          </section>
+        `).join('');
+
+        const existingMobileTrend = document.getElementById('daily-trend-mobile');
+        if (existingMobileTrend) existingMobileTrend.remove();
+        trendMobileHost.insertAdjacentHTML('afterend', `
+          <div class="mobile-only mobile-trend-list" id="daily-trend-mobile">
+            ${dailyRows.map(row => `
+              <div class="mobile-trend-card">
+                <strong>${row.date}</strong>
+                <div class="mobile-metric-grid">
+                  <div><span>Meta</span><br>${money(row.metaÚtrata)}</div>
+                  <div><span>Google</span><br>${money(row.googleÚtrata)}</div>
+                  <div><span>Sklik</span><br>${money(row.sklikÚtrata)}</div>
+                  <div><span>Celkem</span><br>${money(row.totalÚtrata)}</div>
+                  <div><span>Kliky</span><br>${DP.fmtNumber(Math.round(row.clicks || 0))}</div>
+                  <div><span>Konverze</span><br>${Number(row.conversions || 0).toFixed(2)}</div>
+                  <div><span>Hodnota objednávek</span><br>${money(row.value)}</div>
+                  <div><span>ROAS</span><br><span class="${roasTone(row.roas)}">${row.roas == null ? '–' : Number(row.roas).toFixed(2)}</span></div>
+                </div>
+              </div>
+            `).join('') || `<div class="mobile-trend-card"><strong>Bez trendu</strong></div>`}
+          </div>
+        `);
+
+        if (klaviyo.ready) {
+          document.getElementById('klaviyo-section').style.display = '';
+          document.getElementById('klaviyo-kpis').innerHTML = [
+            ['Spend', '–', 'Klaviyo spend v tomto dashboardu teď nesledujeme', 'gold'],
+            ['Atribuovaný obrat', money(klaviyoMonth.totalAttributedRevenueCzk), `email ${money(klaviyoMonth.emailAttributedRevenueCzk)} • sms ${money(klaviyoMonth.smsAttributedRevenueCzk)}`, 'green'],
+            ['Atribuované objednávky', Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2), `email ${Number(klaviyoMonth.emailAttributedOrders || 0).toFixed(2)} • sms ${Number(klaviyoMonth.smsAttributedOrders || 0).toFixed(2)}`, 'blue'],
+            ['Příjemci', DP.fmtNumber(Math.round(klaviyoMonth.totalRecipients || 0)), `email ${DP.fmtNumber(Math.round(klaviyoMonth.emailRecipients || 0))} • sms ${DP.fmtNumber(Math.round(klaviyoMonth.smsRecipients || 0))}`, 'gold'],
+            ['Kliky / CTR', DP.fmtNumber(Math.round(klaviyoMonth.totalClicks || 0)), `CTR ${pctFromRate(klaviyoMonth.clickRate)}`, 'red'],
+          ].map(([label, value, sub, klass]) => `
+            <div class="card kpi-card ${klass}">
+              <div class="kpi-label">${label}</div>
+              <div class="kpi-value">${value}</div>
+              <div class="kpi-sub">${sub}</div>
+            </div>
+          `).join('');
+
+          document.getElementById('klaviyo-flow-table').innerHTML = klaviyoFlows.length ? klaviyoFlows.map(row => `
+            <tr>
+              <td>${row.flowName || '–'}</td>
+              <td>${row.channel || '–'}</td>
+              <td>${row.status || '–'}</td>
+              <td class="num">${pctFromRate(row.openRate)}</td>
+              <td class="num">${pctFromRate(row.clickRate)}</td>
+              <td class="num">${pctFromRate(row.conversionRate)}</td>
+              <td class="num">${Number(row.attributedOrders || 0).toFixed(2)}</td>
+              <td class="num">${money(row.attributedRevenueCzk)}</td>
+            </tr>
+          `).join('') : `<tr><td colspan="8">Bez flow atribuce pro ${sectionMonthLabel(mode)}.</td></tr>`;
+
+          document.getElementById('klaviyo-flow-mobile').innerHTML = klaviyoFlows.length ? klaviyoFlows.map(row => `
+            <div class="mobile-campaign-card">
+              <strong>${row.flowName || '–'}</strong>
+              <div style="margin-bottom:8px; color:var(--text-muted); font-size:13px;">${row.channel || '–'} • ${row.status || '–'}</div>
+              <div class="mobile-metric-grid">
+                <div><span>Open rate</span><br>${pctFromRate(row.openRate)}</div>
+                <div><span>CTR</span><br>${pctFromRate(row.clickRate)}</div>
+                <div><span>Conv. rate</span><br>${pctFromRate(row.conversionRate)}</div>
+                <div><span>Objednávky</span><br>${Number(row.attributedOrders || 0).toFixed(2)}</div>
+                <div><span>Obrat</span><br>${money(row.attributedRevenueCzk)}</div>
+              </div>
+            </div>
+          `).join('') : `<div class="mobile-campaign-card"><strong>Bez flow atribuce</strong></div>`;
+
+          document.getElementById('klaviyo-campaign-list').innerHTML = klaviyoCampaigns.length ? klaviyoCampaigns.map((row, index) => `
+            <div class="ux-item">
+              <span class="ux-dot ${index % 2 ? 'blue' : 'gold'}"></span>
+              <div>
+                <strong>${row.name || 'Kampaň'}</strong>
+                <span>${row.channel || '–'} • ${row.status || '–'} • ${normalizeDate(row.sendDatetime || row.scheduledAt || row.updatedAt)}</span>
+                <span>${DP.fmtNumber(Math.round(row.recipients || 0))} příjemců • open ${pctFromRate(row.openRate)} • CTR ${pctFromRate(row.clickRate)} • conv ${pctFromRate(row.conversionRate)} • ${Number(row.attributedOrders || 0).toFixed(2)} obj. • ${money(row.attributedRevenueCzk)}</span>
+              </div>
+            </div>
+          `).join('') : `<div class="ux-item"><span class="ux-dot gold"></span><div><strong>Bez kampaní</strong><span>V Klaviyo teď není co vykreslit.</span></div></div>`;
+        }
+      };
+
+      toggleButtons.forEach(button => {
+        if (button.dataset.viewToggle === 'previous' && !monthHasDirectPrevious) {
+          button.disabled = true;
+          button.title = 'Data za minulý měsíc se zobrazí po dalším refreshi marketing dat.';
+        }
+        button.addEventListener('click', () => {
+          if (button.disabled) return;
+          activeMode = button.dataset.viewToggle;
+          render(activeMode);
+        });
+      });
+
+      render(activeMode);
     })().catch(err => {
       document.getElementById('source-alert').innerHTML = `<div class="alert danger">Nepodařilo se načíst marketing data: ${err.message}</div>`;
     });

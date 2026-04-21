@@ -96,6 +96,95 @@ def current_month_window() -> tuple[str, str]:
     return since.isoformat(), until.isoformat()
 
 
+def previous_month_window() -> tuple[str, str]:
+    first_this_month = date.today().replace(day=1)
+    until = first_this_month - timedelta(days=1)
+    since = until.replace(day=1)
+    return since.isoformat(), until.isoformat()
+
+
+def fetch_window_payload(accounts: list[dict], access_token: str, since: str, until: str, label: str) -> dict:
+    all_daily = []
+    all_campaigns = []
+    account_payloads = []
+
+    for account in accounts:
+        daily = fetch_account_daily(account['id'], access_token, since, until)
+        campaigns = fetch_campaigns(account['id'], access_token, since, until)
+        spend_czk = round(sum(float(row['spendCzk']) for row in daily), 2)
+        conversion_value_czk = round(sum(float(row['conversionValueCzk']) for row in daily), 2)
+        payload = {
+            **account,
+            label: {
+                'dateFrom': since,
+                'dateTo': until,
+                'spend': round(sum(float(row['spend']) for row in daily), 2),
+                'spendCzk': spend_czk,
+                'impressions': sum(int(row['impressions']) for row in daily),
+                'clicks': sum(int(row['clicks']) for row in daily),
+                'conversions': round(sum(float(row['conversions']) for row in daily), 2),
+                'conversionValue': round(sum(float(row['conversionValue']) for row in daily), 2),
+                'conversionValueCzk': conversion_value_czk,
+                'roas': round(conversion_value_czk / spend_czk, 2) if spend_czk else None,
+            },
+            'daily': daily,
+        }
+        account_payloads.append(payload)
+        all_daily.extend(daily)
+        all_campaigns.extend([
+            {
+                **row,
+                'roas': round(float(row['conversionValueCzk']) / float(row['spendCzk']), 2) if float(row['spendCzk']) else None,
+            }
+            for row in campaigns
+        ])
+
+    summary_daily = defaultdict(lambda: {
+        'date': '',
+        'spendCzk': 0.0,
+        'impressions': 0,
+        'clicks': 0,
+        'conversions': 0.0,
+        'conversionValueCzk': 0.0,
+    })
+    for row in all_daily:
+        bucket = summary_daily[row['date']]
+        bucket['date'] = row['date']
+        bucket['spendCzk'] += float(row['spendCzk'])
+        bucket['impressions'] += int(row['impressions'])
+        bucket['clicks'] += int(row['clicks'])
+        bucket['conversions'] += float(row['conversions'])
+        bucket['conversionValueCzk'] += float(row['conversionValueCzk'])
+
+    summary = {
+        'dateFrom': since,
+        'dateTo': until,
+        'spendCzk': round(sum(float(row['spendCzk']) for row in all_daily), 2),
+        'impressions': sum(int(row['impressions']) for row in all_daily),
+        'clicks': sum(int(row['clicks']) for row in all_daily),
+        'conversions': round(sum(float(row['conversions']) for row in all_daily), 2),
+        'conversionValueCzk': round(sum(float(row['conversionValueCzk']) for row in all_daily), 2),
+    }
+    summary['roas'] = round(summary['conversionValueCzk'] / summary['spendCzk'], 2) if summary['spendCzk'] else None
+
+    return {
+        label: summary,
+        f'accounts{label[0].upper()}{label[1:]}': account_payloads,
+        f'dailySummary{label[0].upper()}{label[1:]}': [
+            {
+                **row,
+                'spendCzk': round(float(row['spendCzk']), 2),
+                'conversions': round(float(row['conversions']), 2),
+                'conversionValueCzk': round(float(row['conversionValueCzk']), 2),
+                'roas': round(float(row['conversionValueCzk']) / float(row['spendCzk']), 2) if float(row['spendCzk']) else None,
+            }
+            for _, row in sorted(summary_daily.items())
+        ],
+        f'campaigns{label[0].upper()}{label[1:]}': all_campaigns,
+        f'topCampaigns{label[0].upper()}{label[1:]}': sorted(all_campaigns, key=lambda row: float(row.get('spendCzk') or 0), reverse=True)[:15],
+    }
+
+
 def micros_to_amount(value) -> float:
     return round(float(value or 0) / 1_000_000, 2)
 
@@ -235,71 +324,12 @@ def main() -> int:
     if missing:
         raise SystemExit('Missing required env keys: ' + ', '.join(missing))
 
-    since, until = current_month_window()
     access_token = fetch_access_token()
     accounts = fetch_child_accounts(access_token)
-    all_daily = []
-    all_campaigns = []
-    account_payloads = []
-
-    for account in accounts:
-        daily = fetch_account_daily(account['id'], access_token, since, until)
-        campaigns = fetch_campaigns(account['id'], access_token, since, until)
-        spend_czk = round(sum(float(row['spendCzk']) for row in daily), 2)
-        conversion_value_czk = round(sum(float(row['conversionValueCzk']) for row in daily), 2)
-        payload = {
-            **account,
-            'currentMonth': {
-                'dateFrom': since,
-                'dateTo': until,
-                'spend': round(sum(float(row['spend']) for row in daily), 2),
-                'spendCzk': spend_czk,
-                'impressions': sum(int(row['impressions']) for row in daily),
-                'clicks': sum(int(row['clicks']) for row in daily),
-                'conversions': round(sum(float(row['conversions']) for row in daily), 2),
-                'conversionValue': round(sum(float(row['conversionValue']) for row in daily), 2),
-                'conversionValueCzk': conversion_value_czk,
-                'roas': round(conversion_value_czk / spend_czk, 2) if spend_czk else None,
-            },
-            'daily': daily,
-        }
-        account_payloads.append(payload)
-        all_daily.extend(daily)
-        all_campaigns.extend([
-            {
-                **row,
-                'roas': round(float(row['conversionValueCzk']) / float(row['spendCzk']), 2) if float(row['spendCzk']) else None,
-            }
-            for row in campaigns
-        ])
-
-    summary_daily = defaultdict(lambda: {
-        'date': '',
-        'spendCzk': 0.0,
-        'impressions': 0,
-        'clicks': 0,
-        'conversions': 0.0,
-        'conversionValueCzk': 0.0,
-    })
-    for row in all_daily:
-        bucket = summary_daily[row['date']]
-        bucket['date'] = row['date']
-        bucket['spendCzk'] += float(row['spendCzk'])
-        bucket['impressions'] += int(row['impressions'])
-        bucket['clicks'] += int(row['clicks'])
-        bucket['conversions'] += float(row['conversions'])
-        bucket['conversionValueCzk'] += float(row['conversionValueCzk'])
-
-    summary = {
-        'dateFrom': since,
-        'dateTo': until,
-        'spendCzk': round(sum(float(row['spendCzk']) for row in all_daily), 2),
-        'impressions': sum(int(row['impressions']) for row in all_daily),
-        'clicks': sum(int(row['clicks']) for row in all_daily),
-        'conversions': round(sum(float(row['conversions']) for row in all_daily), 2),
-        'conversionValueCzk': round(sum(float(row['conversionValueCzk']) for row in all_daily), 2),
-    }
-    summary['roas'] = round(summary['conversionValueCzk'] / summary['spendCzk'], 2) if summary['spendCzk'] else None
+    current_since, current_until = current_month_window()
+    previous_since, previous_until = previous_month_window()
+    current_payload = fetch_window_payload(accounts, access_token, current_since, current_until, 'currentMonth')
+    previous_payload = fetch_window_payload(accounts, access_token, previous_since, previous_until, 'previousMonth')
 
     result = {
         'source': {
@@ -307,26 +337,23 @@ def main() -> int:
             'platform': 'google_ads',
             'message': 'Google Ads overview fetched directly from Google Ads API.',
         },
-        'window': {'dateFrom': since, 'dateTo': until},
-        'summary': summary,
-        'accounts': account_payloads,
-        'dailySummary': [
-            {
-                **row,
-                'spendCzk': round(float(row['spendCzk']), 2),
-                'conversions': round(float(row['conversions']), 2),
-                'conversionValueCzk': round(float(row['conversionValueCzk']), 2),
-                'roas': round(float(row['conversionValueCzk']) / float(row['spendCzk']), 2) if float(row['spendCzk']) else None,
-            }
-            for _, row in sorted(summary_daily.items())
-        ],
-        'topCampaignsCurrentMonth': sorted(all_campaigns, key=lambda row: float(row.get('spendCzk') or 0), reverse=True)[:15],
+        'window': {'dateFrom': current_since, 'dateTo': current_until},
+        'summary': current_payload['currentMonth'],
+        'accounts': current_payload['accountsCurrentMonth'],
+        'dailySummary': current_payload['dailySummaryCurrentMonth'],
+        'campaignsCurrentMonth': current_payload['campaignsCurrentMonth'],
+        'topCampaignsCurrentMonth': current_payload['topCampaignsCurrentMonth'],
+        'previousMonth': previous_payload['previousMonth'],
+        'accountsPreviousMonth': previous_payload['accountsPreviousMonth'],
+        'dailySummaryPreviousMonth': previous_payload['dailySummaryPreviousMonth'],
+        'campaignsPreviousMonth': previous_payload['campaignsPreviousMonth'],
+        'topCampaignsPreviousMonth': previous_payload['topCampaignsPreviousMonth'],
     }
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
     print(f'Wrote {OUTPUT}')
-    print(json.dumps({'summary': summary, 'accounts': len(account_payloads)}, ensure_ascii=False, indent=2))
+    print(json.dumps({'summary': current_payload['currentMonth'], 'previousMonth': previous_payload['previousMonth'], 'accounts': len(current_payload['accountsCurrentMonth'])}, ensure_ascii=False, indent=2))
     return 0
 
 

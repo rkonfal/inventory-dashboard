@@ -87,40 +87,23 @@ def normalize_stat_row(row: Dict[str, object]) -> Dict[str, object]:
     }
 
 
-def main() -> int:
-    proxy = ServerProxy(RPC_URL)
-    login = proxy.client.loginByToken(sklik_token())
-    if str(login.get('status')) != '200':
-        raise SystemExit(f"Sklik login failed: {login.get('status')} {login.get('statusMessage')}")
-
-    user = {'session': login['session']}
-    client = proxy.client.get(user)
-    if str(client.get('status')) != '200':
-        raise SystemExit(f"Sklik client.get failed: {client.get('status')} {client.get('statusMessage')}")
-
-    campaigns: List[Dict[str, object]] = []
-    offset = 0
-    page_size = 200
-    columns = ['id', 'name', 'status', 'type', 'createDate', 'startDate', 'endDate']
-
-    while True:
-        page = proxy.campaigns.list(user, {}, {
-            'offset': offset,
-            'limit': page_size,
-            'displayColumns': columns,
-        })
-        if str(page.get('status')) != '200':
-            raise SystemExit(f"Sklik campaigns.list failed: {page.get('status')} {page.get('statusMessage')}")
-        batch = page.get('campaigns') or []
-        campaigns.extend(batch)
-        if len(batch) < page_size:
-            break
-        offset += page_size
-
+def current_month_window() -> tuple[date, date]:
     today = date.today()
     date_from = today.replace(day=1)
     date_to = today - timedelta(days=1)
+    if date_to < date_from:
+        date_to = today
+    return date_from, date_to
 
+
+def previous_month_window() -> tuple[date, date]:
+    first_this_month = date.today().replace(day=1)
+    date_to = first_this_month - timedelta(days=1)
+    date_from = date_to.replace(day=1)
+    return date_from, date_to
+
+
+def fetch_window_payload(proxy, user, date_from: date, date_to: date, label: str) -> Dict[str, object]:
     stats_status = proxy.stats.status(user, {
         'dateFrom': xmlrpc_day(date_from),
         'dateTo': xmlrpc_day(date_to),
@@ -180,6 +163,69 @@ def main() -> int:
             break
         report_offset += report_limit
 
+    return {
+        f'statsStatus{label[0].upper()}{label[1:]}': [
+            {
+                'date': str(row.get('date') or ''),
+                'status': row.get('status'),
+            }
+            for row in (stats_status.get('days') or [])
+        ],
+        label: {
+            'dateFrom': date_from.isoformat(),
+            'dateTo': date_to.isoformat(),
+            'total': normalize_stat_row(((client_total.get('report') or [{}])[0])),
+            'daily': [normalize_stat_row(row) for row in (client_daily.get('report') or [])],
+        },
+        f'campaignPerformance{label[0].upper()}{label[1:]}': [
+            {
+                'id': row.get('id'),
+                'name': row.get('name'),
+                'status': row.get('status'),
+                'type': row.get('type'),
+                **(normalize_stat_row((row.get('stats') or [{}])[0]))
+            }
+            for row in campaign_rows
+            if row.get('stats')
+        ],
+    }
+
+
+def main() -> int:
+    proxy = ServerProxy(RPC_URL)
+    login = proxy.client.loginByToken(sklik_token())
+    if str(login.get('status')) != '200':
+        raise SystemExit(f"Sklik login failed: {login.get('status')} {login.get('statusMessage')}")
+
+    user = {'session': login['session']}
+    client = proxy.client.get(user)
+    if str(client.get('status')) != '200':
+        raise SystemExit(f"Sklik client.get failed: {client.get('status')} {client.get('statusMessage')}")
+
+    campaigns: List[Dict[str, object]] = []
+    offset = 0
+    page_size = 200
+    columns = ['id', 'name', 'status', 'type', 'createDate', 'startDate', 'endDate']
+
+    while True:
+        page = proxy.campaigns.list(user, {}, {
+            'offset': offset,
+            'limit': page_size,
+            'displayColumns': columns,
+        })
+        if str(page.get('status')) != '200':
+            raise SystemExit(f"Sklik campaigns.list failed: {page.get('status')} {page.get('statusMessage')}")
+        batch = page.get('campaigns') or []
+        campaigns.extend(batch)
+        if len(batch) < page_size:
+            break
+        offset += page_size
+
+    current_from, current_to = current_month_window()
+    previous_from, previous_to = previous_month_window()
+    current_payload = fetch_window_payload(proxy, user, current_from, current_to, 'currentMonth')
+    previous_payload = fetch_window_payload(proxy, user, previous_from, previous_to, 'previousMonth')
+
     result = normalize({
         'source': {
             'status': 'live_api',
@@ -207,30 +253,8 @@ def main() -> int:
             'byStatus': campaign_status_summary(campaigns),
             'byType': campaign_type_summary(campaigns),
         },
-        'statsStatusCurrentMonth': [
-            {
-                'date': str(row.get('date') or ''),
-                'status': row.get('status'),
-            }
-            for row in (stats_status.get('days') or [])
-        ],
-        'currentMonth': {
-            'dateFrom': date_from.isoformat(),
-            'dateTo': date_to.isoformat(),
-            'total': normalize_stat_row(((client_total.get('report') or [{}])[0])),
-            'daily': [normalize_stat_row(row) for row in (client_daily.get('report') or [])],
-        },
-        'campaignPerformanceCurrentMonth': [
-            {
-                'id': row.get('id'),
-                'name': row.get('name'),
-                'status': row.get('status'),
-                'type': row.get('type'),
-                **(normalize_stat_row((row.get('stats') or [{}])[0]))
-            }
-            for row in campaign_rows
-            if row.get('stats')
-        ],
+        **current_payload,
+        **previous_payload,
         'campaigns': campaigns,
     })
 
@@ -244,6 +268,7 @@ def main() -> int:
         'byStatus': result['campaignSummary']['byStatus'],
         'byType': result['campaignSummary']['byType'],
         'currentMonthTotal': result['currentMonth']['total'],
+        'previousMonthTotal': result['previousMonth']['total'],
         'campaignPerformanceRows': len(result['campaignPerformanceCurrentMonth']),
     }, ensure_ascii=False, indent=2))
     return 0
