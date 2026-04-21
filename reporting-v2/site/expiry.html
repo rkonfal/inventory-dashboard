@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expirace / promo akce, Reporting V2</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <aside class="sidebar" data-sidebar-page="expiry.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Akce a expirace pro rychlé rozhodnutí" data-sidebar-section="Přehled" data-sidebar-footer="Rychle ukáže, co dát do akce, co použít jako dárek a kde by sleva už byla moc drahá."></aside>
+
+  <main class="main page-stack">
+    <header class="header">
+      <div class="ux-topbar">
+        <div class="ux-intro">
+          <div class="ux-kicker">Akce a expirace • rychlé obchodní rozhodnutí</div>
+          <h1 class="ux-title">Expirace s jasným plánem</h1>
+          <p class="ux-subtitle">Nahoře má být hned vidět, co pustit do akce, co dát jako dárek a co už by bylo moc drahé. Detail je níž.</p>
+          <div class="ux-actions">
+            <a class="ux-button primary" href="../data/current/4px_expiry_overview.json" target="_blank" rel="noopener">Otevřít expirační data</a>
+            <a class="ux-button secondary" href="logistics.html">Na logistiku</a>
+            <a class="ux-button secondary" href="inventory.html">Na sklad</a>
+          </div>
+        </div>
+        <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
+      </div>
+      <section class="ux-hero-metrics" id="expiry-hero"></section>
+      <div class="ux-date-note"><strong>Jak číst datumy:</strong> expirace a expirační sklad jsou <strong>aktuální stav posledního 4PX refreshi</strong>, prodejní kontext vychází hlavně z <strong>30denního a 365denního výkonu</strong> a dárek nesmí přesáhnout <strong>18 % hodnoty celé akce</strong>.</div>
+    </header>
+
+    <section class="grid leadership-note-grid">
+      <div class="leadership-notes-head">
+        <div class="leadership-notes-kicker">Jak číst akce a expirace</div>
+        <h2>Jak ten přehled používat</h2>
+        <p>Dvě krátká pravidla. Nejdřív vyber, co má smysl pustit do akce, detail otevři až když řešíš ekonomiku.</p>
+      </div>
+      <div class="card leadership-note director">
+        <div class="leadership-note-label">Co pustit do akce</div>
+        <p><strong>Začni tím, co expiruje brzy a má šanci na odprodej.</strong> Akce má být jednoduchá a ekonomicky bezpečná.</p>
+      </div>
+      <div class="card leadership-note board">
+        <div class="leadership-note-label">Kdy jít do detailu</div>
+        <p><strong>Do detailu jdi, když dárek nebo sleva začínají ničit marži.</strong> Jinak má stránka pomoct rychle rozhodnout, ne přidávat další složitost.</p>
+      </div>
+    </section>
+
+    <section class="ux-grid">
+      <div class="ux-focus-card">
+        <div class="ux-section-head">
+          <div>
+            <h2 class="ux-section-title">Co řešit hned</h2>
+            <p class="ux-section-subtitle">Krátký seznam toho, co je dnes potřeba rozhodnout.</p>
+          </div>
+          <span class="badge warn" id="expiry-attention-badge">Načítám důležité body…</span>
+        </div>
+        <div class="ux-list" id="expiry-attention-list"></div>
+      </div>
+
+      <div class="ux-side-stack">
+        <div class="ux-panel-card">
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Kolik může stát dárek</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Nejdřív uhlídat ekonomiku akce.</p>
+          <div class="ux-stat-list" id="gift-limit-list"></div>
+        </div>
+        <div class="ux-panel-card">
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Jak to odkomunikovat</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Jednoduše. Co dát do akce samo a co spojit s bestsellerem.</p>
+          <div class="ux-side-list" id="mechanics-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid kpi-grid" id="expiry-kpis"></section>
+
+    <section class="grid two-col">
+      <div class="card">
+        <h2 class="section-title">Hotové návrhy pro akci</h2>
+        <div class="section-subtitle">Rychlé návrhy pro web, CRM i checkout.</div>
+        <div class="block-list" id="bundle-list" style="margin-top:16px;"></div>
+      </div>
+      <div class="card">
+        <h2 class="section-title">Jak to říct zákazníkovi</h2>
+        <div class="section-subtitle">Krátká pravidla, aby akce byla srozumitelná a bezpečná.</div>
+        <div class="block-list" id="guardrails-list" style="margin-top:16px;"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="ux-section-head" style="margin-bottom:0;">
+        <div>
+          <h2 class="ux-section-title">Krátký seznam expirací s návrhem akce</h2>
+          <p class="ux-section-subtitle">Datum expirace, zásoba i návrh akce v jedné tabulce.</p>
+        </div>
+      </div>
+      <div class="ux-table-wrap" style="margin-top:16px;">
+        <table class="table mobile-stack">
+          <thead>
+            <tr>
+              <th>SKU / produkt</th>
+              <th class="num">Expirace</th>
+              <th class="num">Expirující sklad</th>
+              <th>30 dní / pokrytí</th>
+                <th>Jasný návrh akce</th>
+                <th>Dárek do 18 %?</th>
+            </tr>
+          </thead>
+          <tbody id="expiry-action-table"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="grid two-col">
+      <div class="card">
+        <h2 class="section-title">Nejbližší expirace</h2>
+        <div class="section-subtitle">Nejvyšší rizika podle data a velikosti zásoby.</div>
+        <div class="ux-table-wrap" style="margin-top:16px;">
+          <table class="table mobile-stack">
+            <thead>
+              <tr>
+                <th>SKU / produkt</th>
+                <th class="num">Dní do expirace</th>
+                <th class="num">Expirující sklad</th>
+                <th>Priority</th>
+              </tr>
+            </thead>
+            <tbody id="nearest-expiry-table"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="section-title">Co použít jako tahák akce</h2>
+        <div class="section-subtitle">Bestsellery, které mají sílu utáhnout dárek nebo balíček.</div>
+        <div class="ux-table-wrap" style="margin-top:16px;">
+          <table class="table mobile-stack">
+            <thead>
+              <tr>
+                <th>Produkt</th>
+                <th class="num">30 dní</th>
+                <th class="num">Pokrytí</th>
+                <th>Využití</th>
+              </tr>
+            </thead>
+            <tbody id="carrier-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/app.js"></script>
+  <script>
+    DP.initThemeToggle();
+
+    const fmt = value => DP.fmtNumber(Math.round(Number(value || 0)));
+    const fmtUnits = value => `${fmt(value)} ks`;
+    const fmtDays = value => value == null ? '–' : `${fmt(value)} dní`;
+    const fmtShortDate = value => {
+      if (!value) return '–';
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return value;
+      return new Intl.DateTimeFormat('cs-CZ', { day: 'numeric', month: 'numeric' }).format(date);
+    };
+
+    const ruleMap = {
+      '40203': {
+        priority: 'urgent',
+        mechanic: '2x 40203 + 1x 40203 zdarma',
+        carrier: 'Přímo na stejné SKU',
+        giftCheck: 'NE, radši 2+1',
+        giftTone: 'danger',
+        urgency: 'Nasadit hned, do 3 týdnů končí zásoba s expirací.',
+        note: 'Nejjednodušší varianta je pustit ho rovnou jako 2+1.'
+      },
+      '52902/03': {
+        priority: 'urgent',
+        mechanic: '1x 10117 + 1x 10118 + 1x 52902/03 zdarma',
+        carrier: 'Krém 10117 + sérum 10118',
+        giftCheck: 'ZKONTROLOVAT',
+        giftTone: 'warning',
+        urgency: 'Samo od sebe se do expirace neodprodá.',
+        note: 'Když to nevyjde do 18 %, pustit radši 2+1 přímo na masku.'
+      },
+      'PROMO74': {
+        priority: 'stock',
+        mechanic: '2x 61911 nebo 61912 + 1x PROMO74 zdarma',
+        carrier: '61911 / 61912 / 61914',
+        giftCheck: 'ANO',
+        giftTone: 'success',
+        urgency: 'Není akutní datumově, ale zásoba je extrémní.',
+        note: 'Použít jako jednoduchý bonus, ne jako hlavní produkt akce.'
+      },
+      '63601/01': {
+        priority: 'stock',
+        mechanic: '2x 61911 / 61912 / 61914 + 1x 63601 zdarma',
+        carrier: '61911 / 61912 / 61914',
+        giftCheck: 'ANO',
+        giftTone: 'success',
+        urgency: 'Silný produkt s velkou expirační zásobou.',
+        note: 'Nejjednodušší je dát ho zdarma k ženské hygieně.'
+      },
+      '63601': {
+        priority: 'stock',
+        mechanic: '2x 61911 / 61912 / 61914 + 1x 63601 zdarma',
+        carrier: '61911 / 61912 / 61914',
+        giftCheck: 'ANO',
+        giftTone: 'success',
+        urgency: 'Silný produkt s velkou zásobou.',
+        note: 'Nejjednodušší je dát ho zdarma k ženské hygieně.'
+      },
+      '30111': {
+        priority: 'stock',
+        mechanic: '2x 30117 nebo 30118 + 1x 30111 zdarma',
+        carrier: '30117 / 30118',
+        giftCheck: 'ZKONTROLOVAT',
+        giftTone: 'warning',
+        urgency: 'Produkt se hýbe, ale zásoba je vysoká.',
+        note: 'Když to nevyjde do 18 %, udělat 2+1 v patch řadě.'
+      }
+    };
+
+    const bundleIdeas = [
+      {
+        name: 'Peeling Broskvový 2+1',
+        mechanic: '2+1',
+        lead: '2x 40203 · Peeling Broskvový',
+        gift: '1x 40203 zdarma',
+        note: 'Nejrychlejší a nejčistší varianta.'
+      },
+      {
+        name: 'Krém + sérum + maska zdarma',
+        mechanic: 'dárek zdarma',
+        lead: '1x 10117 + 1x 10118',
+        gift: '1x 52902/03 zdarma',
+        note: 'Jen když dárek vyjde do 18 %. Jinak masku pustit samostatně jako 2+1.'
+      },
+      {
+        name: 'Fytonáplasti + Yaoshen zdarma',
+        mechanic: 'dárek zdarma / 2+1',
+        lead: '2x 30117 nebo 30118',
+        gift: '1x 30111 zdarma',
+        note: 'Když to nevychází do 18 %, změnit na 2+1 v patch řadě.'
+      },
+      {
+        name: 'Ženská péče + dárek zdarma',
+        mechanic: 'dárek zdarma',
+        lead: '2x 61911 / 61912 / 61914',
+        gift: '1x 63601 nebo 1x PROMO74 zdarma',
+        note: 'Jednoduchá akce, která dává smysl i obchodně.'
+      }
+    ];
+
+    const carrierCodes = ['44402-2', '61912', '61911', '61914', '64404-2', '30117', '30118', '10117', '10118'];
+
+    function analyticsLookup(map, code) {
+      if (map[code]) return map[code];
+      const plain = code?.split('/')[0];
+      if (plain && map[plain]) return map[plain];
+      return null;
+    }
+
+    function priorityMeta(priority) {
+      return {
+        urgent: { label: 'Řešit hned', dot: 'red', pill: 'danger' },
+        stock: { label: 'Tlak zásoby', dot: 'gold', pill: 'warning' },
+        watch: { label: 'Watchlist', dot: 'blue', pill: 'info' }
+      }[priority] || { label: 'Watchlist', dot: 'blue', pill: 'info' };
+    }
+
+    (async () => {
+      const [expiryOverview, report, analyticsPayload, productsPayload] = await Promise.all([
+        DP.loadJson('../data/current/4px_expiry_overview.json'),
+        DP.loadJson('../data/current/morning_report_previous_day.json'),
+        DP.loadJson('../data/current/inventory_analytics_365d.json'),
+        DP.loadJson('../data/current/wpj_products.json')
+      ]);
+
+      const analyticsMap = Object.fromEntries((analyticsPayload.items || []).map(row => [row.code, row]));
+      const productMap = Object.fromEntries((productsPayload.items || []).map(row => [row.code, row]));
+      const expiringRows = (report.logistics.expiringProducts || []).map(row => {
+        const analytics = analyticsLookup(analyticsMap, row.sku) || {};
+        const product = productMap[row.sku] || productMap[row.sku?.split('/')[0]] || {};
+        const rule = ruleMap[row.sku] || ruleMap[row.sku?.split('/')[0]] || {
+          priority: row.daysToExpiry <= 30 ? 'urgent' : 'watch',
+          mechanic: row.daysToExpiry <= 30 ? '2+1 na stejné SKU' : 'balíček nebo dárek po kontrole',
+          carrier: 'dle relevance kategorie',
+          giftCheck: row.daysToExpiry <= 30 ? 'NE, radši 2+1' : 'ZKONTROLOVAT',
+          giftTone: row.daysToExpiry <= 30 ? 'danger' : 'warning',
+          urgency: row.daysToExpiry <= 30 ? 'Krátké okno do expirace.' : 'Sledovat zásobu a prodejní tempo.',
+          note: 'Bez detailní kurátorské poznámky.'
+        };
+        return {
+          ...row,
+          analytics,
+          product,
+          rule
+        };
+      });
+
+      const urgentRows = expiringRows.filter(row => row.daysToExpiry <= 30);
+      const urgentStock = urgentRows.reduce((sum, row) => sum + Number(row.datedStock || 0), 0);
+      const safeGiftRows = expiringRows.filter(row => row.rule.giftTone === 'success');
+
+      const hero = [
+        ['SKU s expirací', fmt(expiryOverview.summary?.datedSkuCount || 0), `CZ ${fmt(expiryOverview.summary?.czSkuCount || 0)} · SK ${fmt(expiryOverview.summary?.skSkuCount || 0)}`, 'accent'],
+        ['Kritické do 30 dní', fmt(urgentRows.length), `${fmtUnits(urgentStock)} v nejbližším tlaku`, 'red'],
+        ['Jde dát zdarma', fmt(safeGiftRows.length), 'položky s nejvyšší šancí vejít se do 18 %', 'green'],
+        ['Hotové akce', fmt(bundleIdeas.length), 'jednoduché akce připravené k nasazení', 'blue']
+      ];
+      document.getElementById('expiry-hero').innerHTML = hero.map(([label, value, sub, klass]) => `
+        <div class="ux-hero-metric ${klass}">
+          <div class="label">${label}</div>
+          <div class="value">${value}</div>
+          <div class="sub">${sub}</div>
+        </div>
+      `).join('');
+
+      const focusRows = expiringRows.slice(0, 4).map(row => {
+        const meta = priorityMeta(row.rule.priority);
+        const sales30d = row.analytics.units30d != null ? `${fmt(row.analytics.units30d)} ks / 30 dní` : '30denní prodej zatím bez mapování';
+        return {
+          title: `${meta.label}: ${row.sku} · ${row.title}`,
+          text: `${row.rule.urgency} Návrh: ${row.rule.mechanic}. Hlavní produkt: ${row.rule.carrier}. ${sales30d}.`,
+          dot: meta.dot
+        };
+      });
+      document.getElementById('expiry-attention-badge').textContent = `${focusRows.length} akcí k rozhodnutí`;
+      document.getElementById('expiry-attention-list').innerHTML = focusRows.map(row => `
+        <div class="ux-item">
+          <span class="ux-dot ${row.dot === 'red' ? '' : row.dot}"></span>
+          <div>
+            <strong>${row.title}</strong>
+            <span>${row.text}</span>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('gift-limit-list').innerHTML = [
+        ['Kolik může stát dárek', '18 % z hodnoty akce'],
+        ['Co z toho plyne', 'Dražší věci radši přes 2+1 než zdarma'],
+        ['Co může jít zdarma', 'PROMO74, 63601'],
+        ['Co zkontrolovat hned', '52902/03, 30111']
+      ].map(([label, value]) => `
+        <div class="ux-stat-row">
+          <span>${label}</span>
+          <strong>${value}</strong>
+        </div>
+      `).join('');
+
+      document.getElementById('mechanics-list').innerHTML = [
+        ['2+1 na stejné SKU', 'Použít tam, kde je expirace blízko a dárek by byl moc drahý.', 'gold'],
+        ['Dárek k bestselleru', 'Použít tam, kde se dárek vejde do 18 %.', 'green'],
+        ['2 kusy + 1 dárek zdarma', 'Dobře funguje hlavně v ženské hygieně a patch řadě.', 'blue'],
+        ['Skrytý dárek', 'Vhodné hlavně pro PROMO74, když ho nechceme prodávat samostatně.', 'gold']
+      ].map(([title, text, dot]) => `
+        <div class="ux-side-item">
+          <span class="ux-dot ${dot}"></span>
+          <div>
+            <strong>${title}</strong>
+            <span>${text}</span>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('expiry-kpis').innerHTML = [
+        ['Kritická expirační zásoba', fmtUnits(urgentStock), 'SKU s expirací do 30 dní', 'red'],
+        ['Nejurgentnější SKU', expiringRows[0] ? `${expiringRows[0].sku}` : '–', expiringRows[0] ? expiringRows[0].title : 'Bez dat', 'gold'],
+        ['Hlavní produkt akce', '44402-2 / 619xx', 'bestsellery, které utáhnou dárek nebo balíček', 'blue'],
+        ['Položky vhodné jako dárek', fmt(safeGiftRows.length), 'nejvyšší šance vejít se do pravidla 18 %', 'green']
+      ].map(([label, value, sub, klass]) => `
+        <div class="card kpi-card ${klass}">
+          <div class="kpi-label">${label}</div>
+          <div class="kpi-value">${value}</div>
+          <div class="kpi-sub">${sub}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('bundle-list').innerHTML = bundleIdeas.map(row => `
+        <div class="block-item">
+          <h4>${row.name} <span style="float:right;">${DP.statusPill(row.mechanic, row.mechanic.includes('dárek') ? 'warning' : 'info')}</span></h4>
+          <p><strong>Hlavní produkt:</strong> ${row.lead}</p>
+          <p><strong>Co k tomu zdarma:</strong> ${row.gift}</p>
+          <p>${row.note}</p>
+        </div>
+      `).join('');
+
+      document.getElementById('guardrails-list').innerHTML = [
+        ['Mluv jednoduše', 'Výhodný set, dárek zdarma, časově omezená akce. Ne zdravotní sliby.'],
+        ['Nenič cenu bestselleru', 'Když to jde, nech cenu hlavního produktu a pracuj s dárkem nebo 2+1.'],
+        ['Hlídej 18 %', 'Když je dárek moc drahý, změň akci na 2+1 nebo balíček bez „zdarma“.']
+      ].map(row => `
+        <div class="block-item">
+          <h4>${row[0]}</h4>
+          <p>${row[1]}</p>
+        </div>
+      `).join('');
+
+      document.getElementById('expiry-action-table').innerHTML = expiringRows.map(row => {
+        const sales30d = row.analytics.units30d != null ? `${fmt(row.analytics.units30d)} ks` : '–';
+        const cover = row.analytics.daysOfCover365d != null ? `${Number(row.analytics.daysOfCover365d).toFixed(1)} dní` : '–';
+        const gift = DP.statusPill(row.rule.giftCheck, row.rule.giftTone);
+        return `
+          <tr>
+            <td data-label="SKU / produkt">${row.sku} · ${row.title}</td>
+            <td class="num" data-label="Expirace">${fmtShortDate(row.dateExpiry)} (${fmtDays(row.daysToExpiry)})</td>
+            <td class="num" data-label="Expirující sklad">${fmtUnits(row.datedStock)}</td>
+            <td data-label="30 dní / pokrytí">${sales30d}<br /><span style="color:var(--text-muted);">Pokrytí ${cover}</span></td>
+            <td data-label="Jasný návrh akce"><strong>${row.rule.mechanic}</strong><br /><span style="color:var(--text-muted);">Hlavní produkt: ${row.rule.carrier}</span></td>
+            <td data-label="Dárek do 18 %?">${gift}</td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('nearest-expiry-table').innerHTML = expiringRows.map(row => {
+        const meta = priorityMeta(row.rule.priority);
+        return `
+          <tr>
+            <td data-label="SKU / produkt">${row.sku} · ${row.title}</td>
+            <td class="num" data-label="Dní do expirace">${fmtDays(row.daysToExpiry)}</td>
+            <td class="num" data-label="Expirující sklad">${fmtUnits(row.datedStock)}</td>
+            <td data-label="Priority">${DP.statusPill(meta.label, meta.pill)}</td>
+          </tr>
+        `;
+      }).join('');
+
+      const carrierRows = carrierCodes.map(code => analyticsLookup(analyticsMap, code)).filter(Boolean);
+      document.getElementById('carrier-table').innerHTML = carrierRows.map(row => {
+        const use = code => {
+          if (['61911', '61912', '61914'].includes(code)) return 'hlavní produkt pro ženskou péči';
+          if (['30117', '30118'].includes(code)) return 'hlavní produkt pro patch akci';
+          if (code === '44402-2') return 'hlavní produkt pro body-care akci';
+          if (code === '64404-2') return 'hlavní produkt pro bonus v košíku';
+          if (['10117', '10118'].includes(code)) return 'hlavní produkt pro pleťový set';
+          return 'hlavní produkt akce';
+        };
+        return `
+          <tr>
+            <td data-label="Produkt">${row.code} · ${row.title}</td>
+            <td class="num" data-label="30 dní">${fmtUnits(row.units30d)}</td>
+            <td class="num" data-label="Pokrytí">${row.daysOfCover365d != null ? Number(row.daysOfCover365d).toFixed(1) + ' dní' : '–'}</td>
+            <td data-label="Využití">${use(row.code)}</td>
+          </tr>
+        `;
+      }).join('');
+    })();
+  </script>
+</body>
+</html>
