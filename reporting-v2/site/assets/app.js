@@ -74,9 +74,80 @@
     });
   }
 
+  function ensureMobileSidebarControls() {
+    const sidebar = document.querySelector('.sidebar');
+    if (!sidebar) return;
+
+    let toggle = document.querySelector('[data-mobile-nav-toggle]');
+    if (!toggle) {
+      toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'mobile-nav-toggle';
+      toggle.setAttribute('data-mobile-nav-toggle', '1');
+      toggle.setAttribute('aria-label', 'Otevřít menu');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg>';
+      document.body.appendChild(toggle);
+    }
+
+    let overlay = document.querySelector('[data-mobile-nav-overlay]');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'mobile-nav-overlay';
+      overlay.setAttribute('data-mobile-nav-overlay', '1');
+      document.body.appendChild(overlay);
+    }
+
+    const closeNav = () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+      document.body.classList.remove('nav-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    };
+
+    const openNav = () => {
+      sidebar.classList.add('open');
+      overlay.classList.add('show');
+      document.body.classList.add('nav-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    };
+
+    if (!toggle.dataset.bound) {
+      toggle.dataset.bound = '1';
+      toggle.addEventListener('click', () => {
+        if (sidebar.classList.contains('open')) closeNav();
+        else openNav();
+      });
+    }
+
+    if (!overlay.dataset.bound) {
+      overlay.dataset.bound = '1';
+      overlay.addEventListener('click', closeNav);
+    }
+
+    sidebar.querySelectorAll('a').forEach(link => {
+      if (link.dataset.mobileNavBound === '1') return;
+      link.dataset.mobileNavBound = '1';
+      link.addEventListener('click', closeNav);
+    });
+
+    const syncDesktopState = () => {
+      if (window.innerWidth > 900) closeNav();
+    };
+
+    if (!window.__dpMobileNavResizeBound) {
+      window.__dpMobileNavResizeBound = true;
+      window.addEventListener('resize', syncDesktopState);
+    }
+    syncDesktopState();
+  }
+
   function renderSidebar() {
     const sidebar = document.querySelector('.sidebar');
-    if (!sidebar || sidebar.innerHTML.trim()) return;
+    if (!sidebar || sidebar.innerHTML.trim()) {
+      ensureMobileSidebarControls();
+      return;
+    }
     const current = sidebar.dataset.sidebarPage || 'index.html';
     const title = sidebar.dataset.sidebarTitle || 'Diamond Plus';
     const subtitle = sidebar.dataset.sidebarSubtitle || '';
@@ -96,6 +167,8 @@
       </nav>
       <div class="sidebar-footer">${escapeHtml(footer)}</div>
     `;
+
+    ensureMobileSidebarControls();
   }
 
   document.addEventListener('DOMContentLoaded', () => {
