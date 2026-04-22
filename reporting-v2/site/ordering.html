@@ -118,9 +118,9 @@
     <header class="header">
       <div class="ux-topbar">
         <div class="ux-intro">
-          <div class="ux-kicker">Objednávání zboží • pracovní přehled</div>
-          <h1 class="ux-title">Co objednat hned a co zatím nechat být</h1>
-          <p class="ux-subtitle">Riziko vyprodání, přebytek zásoby a doporučené doplnění nahoře. Shortlist a simulace až potom.</p>
+          <div class="ux-kicker">Objednávání zboží • decision + work layer</div>
+          <h1 class="ux-title">Objednávka bez chaosu, nejdřív rozhodnutí, potom shortlist</h1>
+          <p class="ux-subtitle">Spojená Fáze 1 a 2. Nahoře co řešit hned, uprostřed pracovní fronty, dole shortlist, simulace a detail SKU.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="inventory.html">Zpátky na sklad</a>
             <a class="ux-button secondary" href="../data/current/ordering_core.json" target="_blank" rel="noopener">Ordering core</a>
@@ -139,8 +139,8 @@
       <div class="layer-head">
         <div>
           <div class="layer-label">Decision layer</div>
-          <h2 class="layer-title">Jaký nákupní problém právě řešíme</h2>
-          <p class="layer-subtitle">Oddělený signál pro kritické doplnění, přebytek zásoby a pracovní shortlist.</p>
+          <h2 class="layer-title">Co je dnes nutné rozhodnout v objednávce</h2>
+          <p class="layer-subtitle">Kritické doplnění, ruční ověření, blokace shortlistu a přebytek zásoby v jedné vrstvě.</p>
         </div>
       </div>
       <section class="signal-grid" id="ordering-decision-grid"></section>
@@ -152,8 +152,8 @@
       <div class="layer-head">
         <div>
           <div class="layer-label">Focus layer</div>
-          <h2 class="layer-title">Co řešit dnes v objednávání</h2>
-          <p class="layer-subtitle">Nejdřív alerty a pracovní režim, potom shortlist a simulace.</p>
+          <h2 class="layer-title">Pracovní režim pro dnešní objednávku</h2>
+          <p class="layer-subtitle">Nejdřív fronty a vysvětlení, potom shortlist, simulace a export.</p>
         </div>
       </div>
       <section class="ux-grid">
@@ -186,8 +186,8 @@
       <div class="layer-head">
         <div>
           <div class="layer-label">Work layer</div>
-          <h2 class="layer-title">Shortlist a simulace objednávky</h2>
-          <p class="layer-subtitle">Pracovní vrstva před detailním explorerem a exportem.</p>
+          <h2 class="layer-title">Shortlist, simulace a export objednávky</h2>
+          <p class="layer-subtitle">Operativní fronty nahoře, detailní shortlist a doporučené množství níž.</p>
         </div>
       </div>
       <section class="summary-grid" id="ordering-work-grid"></section>
@@ -318,9 +318,9 @@
           <label class="control-group">
             <span class="control-label">Typ doporučení</span>
             <select id="planning-type-filter" class="select">
-              <option value="all">Všechno</option>
-              <option value="must">Nutné objednat</option>
-              <option value="recommended">Jen doporučené doplnění</option>
+              <option value="all">Všechny pracovní fronty</option>
+              <option value="must">Jen objednat hned / brzy</option>
+              <option value="recommended">Jen standardní shortlist</option>
               <option value="fillers">Jen doplněk do objednávky</option>
             </select>
           </label>
@@ -329,7 +329,7 @@
         </div>
       </div>
       <div class="section-subtitle" id="planning-table-summary">Načítám doporučené položky…</div>
-      <div class="toolbar-inline-summary"><strong>Tip:</strong> vyfiltruj si nejdřív „Nutné objednat“ a teprve pak přidávej fillers, ať shortlist nezmizí v šumu.</div>
+      <div class="toolbar-inline-summary"><strong>Tip:</strong> začni frontou „objednat hned / brzy“, potom otevři standardní shortlist a fillers přidávej až nakonec.</div>
       <table class="table" data-sortable-table="planning">
         <thead>
           <tr>
@@ -358,8 +358,8 @@
     <section class="card" style="margin-top:20px;">
       <div class="toolbar">
         <div>
-          <h2 class="section-title">Detailní přehled položek</h2>
-          <div class="section-subtitle">Detailní seznam položek s historií, trendem a doporučeným množstvím.</div>
+          <h2 class="section-title">Detailní explorer položek</h2>
+          <div class="section-subtitle">Rozhodovací detail pro SKU, kde potřebuješ vidět důvod, blokaci, balení i doporučené množství.</div>
         </div>
         <div class="toolbar-controls">
           <label class="control-group">
@@ -369,12 +369,16 @@
           <label class="control-group">
             <span class="control-label">Filtr</span>
             <select id="ordering-filter" class="select">
-              <option value="all">Všechno</option>
+              <option value="all">Všechny SKU</option>
+              <option value="critical">Jen objednat hned</option>
+              <option value="urgent">Jen objednat hned + brzy</option>
+              <option value="manual-review">Jen ruční ověření</option>
+              <option value="fillup">Jen doplněk do objednávky</option>
+              <option value="topsku">Jen top SKU</option>
               <option value="orderable">Jen objednatelné</option>
               <option value="excluded">Jen vyloučené</option>
-              <option value="critical">Jen objednat hned</option>
-              <option value="urgent">Jen kritické + brzy</option>
-              <option value="watch">Jen prověřit</option>
+              <option value="blocked">Jen blokované / s problémem</option>
+              <option value="packaging-missing">Jen chybějící balení</option>
               <option value="red">Jen červená obrátkovost</option>
               <option value="green">Jen zelená obrátkovost</option>
               <option value="accelerating">Jen zrychlující</option>
@@ -436,7 +440,7 @@
       <div class="toolbar">
         <div>
           <h2 class="section-title">Detail vybrané položky</h2>
-          <div class="section-subtitle" id="ordering-detail-summary">Klikni v exploreru na konkrétní SKU, ať hned vidíš důvod doporučení i handoff text.</div>
+          <div class="section-subtitle" id="ordering-detail-summary">Klikni v exploreru na konkrétní SKU, ať hned vidíš režim rozhodnutí, důvod doporučení i handoff text.</div>
         </div>
         <div class="ordering-detail-actions">
           <button id="ordering-copy-row-summary" class="ux-button secondary" type="button">Kopírovat detail položky</button>
@@ -509,6 +513,13 @@
           unknown: 'zdroj nejasný',
         };
         return `<span class="badge">${labels[row.sourceChannel] || (row.sourceChannel || 'zdroj neznámý')}</span>`;
+      };
+
+      const packagingBadge = row => {
+        if (row.packagingMatchStatus === 'missing') return '<span class="badge warn">chybí balení</span>';
+        if (row.packagingMatchStatus === 'exact_code') return '<span class="badge success">balení přesně spárované</span>';
+        if (row.packagingMatchStatus === 'base_code') return '<span class="badge">balení přes prefix</span>';
+        return '<span class="badge">balení neznámé</span>';
       };
 
       const roleBadge = row => {
@@ -1270,34 +1281,42 @@
       }
 
       function renderHero() {
+        const missingPackaging = Number(orderingReference.summary.byPackagingMatchStatus?.missing || 0);
+        const exactPackaging = Number(orderingReference.summary.byPackagingMatchStatus?.exact_code || 0);
+        const basePackaging = Number(orderingReference.summary.byPackagingMatchStatus?.base_code || 0);
+        const blockedItems = Number(ordering.summary.excludedItems || 0);
+        const criticalItems = Number(ordering.summary.criticalReorderItems || 0);
+        const watchItems = Number(ordering.summary.watchReorderItems || 0);
+        const redItems = Number(ordering.summary.redTurnoverItems || 0);
+
         document.getElementById('ordering-decision-grid').innerHTML = [
           {
-            eyebrow: 'Kritické doplnění',
-            value: fmt(ordering.summary.criticalReorderItems || 0),
-            sub: 'SKU, která je potřeba řešit hned podle posledních 90 dní a aktuální zásoby.',
-            meta: `Watch ${fmt(ordering.summary.watchReorderItems || 0)} · fill-up ${fmt(ordering.summary.fillUpItems || 0)}`,
-            tone: Number(ordering.summary.criticalReorderItems || 0) ? 'danger' : 'accent',
+            eyebrow: 'Objednat hned',
+            value: fmt(criticalItems),
+            sub: 'Nejkritičtější SKU podle pokrytí a rychlosti prodeje. Tohle je první pracovní fronta.',
+            meta: `Brzy prověřit ${fmt(watchItems)} · top SKU ${fmt(ordering.summary.topSkuItems || 0)}`,
+            tone: criticalItems ? 'danger' : 'accent',
+          },
+          {
+            eyebrow: 'Ruční ověření',
+            value: fmt(watchItems),
+            sub: 'Položky na hraně, kde nestačí slepé dopočítání a je potřeba lidské rozhodnutí.',
+            meta: `Fill-up ${fmt(ordering.summary.fillUpItems || 0)} · fast low cover ${fmt(analytics.summary.fastLowCoverItems || 0)}`,
+            tone: watchItems ? 'warn' : '',
+          },
+          {
+            eyebrow: 'Blokace shortlistu',
+            value: fmt(blockedItems),
+            sub: `${fmt(missingPackaging)} SKU nemá párování balení a ${fmt(blockedItems)} SKU je mimo nákupní režim.`,
+            meta: `Přesné balení ${fmt(exactPackaging)} · přes prefix ${fmt(basePackaging)}`,
+            tone: blockedItems || missingPackaging ? 'warn' : '',
           },
           {
             eyebrow: 'Přebytek zásoby',
-            value: fmt(ordering.summary.redTurnoverItems || 0),
-            sub: `${money(ordering.summary.cashInRedTurnover)} je vázaná hodnota v červené obrátkovosti.`,
+            value: fmt(redItems),
+            sub: `${money(ordering.summary.cashInRedTurnover)} je teď vázaná hodnota v červené obrátkovosti.`,
             meta: `Oranžová obrátkovost ${fmt(analytics.summary.orangeTurnoverItems || 0)} SKU`,
-            tone: Number(ordering.summary.redTurnoverItems || 0) ? 'warn' : '',
-          },
-          {
-            eyebrow: 'Nákupní prostor',
-            value: fmt(ordering.summary.orderableItems || 0),
-            sub: `${fmt(ordering.summary.excludedItems || 0)} SKU je mimo nákup a ${fmt(orderingReference.summary.trackedItems || 0)} je v referenční vrstvě.`,
-            meta: `Balení matched ${fmt(orderingReference.summary.byPackagingMatchStatus?.matched || 0)}`,
-            tone: '',
-          },
-          {
-            eyebrow: 'Datové okno',
-            value: `${analytics.window?.days || 548} dní`,
-            sub: `Analytika do ${DP.fmtDateTime(analytics.generatedAt)} a reference do ${DP.fmtDateTime(orderingReference.generatedAt)}.`,
-            meta: 'Shortlist a simulace jedou nad stejnou vrstvou.',
-            tone: '',
+            tone: redItems ? 'warn' : '',
           }
         ].map(card => `
           <article class="signal-card ${card.tone || ''}">
@@ -1309,9 +1328,9 @@
         `).join('');
 
         hero.innerHTML = [
-          { label: 'Objednat hned', value: fmt(ordering.summary.criticalReorderItems || 0), tone: 'danger' },
-          { label: 'Prověřit / brzy doobjednat', value: fmt(ordering.summary.watchReorderItems || 0), tone: 'warn' },
-          { label: 'Příliš vysoká zásoba', value: fmt(ordering.summary.redTurnoverItems || 0), tone: 'warn' },
+          { label: 'Objednat hned', value: fmt(criticalItems), tone: 'danger' },
+          { label: 'K ručnímu ověření', value: fmt(watchItems), tone: 'warn' },
+          { label: 'Blokované SKU', value: fmt(blockedItems), tone: missingPackaging ? 'warn' : '' },
           { label: 'Vázaná hodnota v červené', value: money(ordering.summary.cashInRedTurnover), tone: 'danger' },
         ].map(card => `
           <article class="metric-card ${card.tone || ''}">
@@ -1321,21 +1340,21 @@
         `).join('');
 
         DP.renderStatusStrip('ordering-status-strip', [
-          { label: 'Stav', value: Number(ordering.summary.criticalReorderItems || 0) ? 'Pozor' : 'OK', tone: Number(ordering.summary.criticalReorderItems || 0) ? 'warn' : 'success' },
-          { label: 'Data', value: `Analytika ${analytics.window?.days || 548} dní`, tone: 'info' },
-          { label: 'Priorita', value: Number(ordering.summary.criticalReorderItems || 0) ? 'Řešit kritické doplnění' : 'Bez kritické potřeby', tone: Number(ordering.summary.criticalReorderItems || 0) ? 'warn' : 'success' },
-          { label: 'Akce', value: 'Projít shortlist a simulaci', tone: 'info' },
+          { label: 'Stav', value: criticalItems ? 'Kritické' : watchItems ? 'Pozor' : 'OK', tone: criticalItems ? 'danger' : watchItems ? 'warn' : 'success' },
+          { label: 'Čerstvost', value: `Analytika ${analytics.window?.days || 548} dní`, tone: 'info' },
+          { label: 'Datová jistota', value: missingPackaging ? `${fmt(missingPackaging)} SKU bez balení` : 'Balení bez hlavní blokace', tone: missingPackaging ? 'warn' : 'success' },
+          { label: 'Akce dne', value: criticalItems ? 'Vzít frontu objednat hned a ruční ověření' : 'Projít shortlist a simulaci', tone: criticalItems ? 'warn' : 'info' },
         ]);
       }
 
       function renderKpis() {
         kpis.innerHTML = [
           ['SKU v analytice', fmt(analytics.summary.trackedItems || 0)],
+          ['Objednatelné SKU', fmt(ordering.summary.orderableItems || 0)],
+          ['Blokované SKU', fmt(ordering.summary.excludedItems || 0)],
           ['Top SKU', fmt(ordering.summary.topSkuItems || 0)],
           ['Fill-up SKU', fmt(ordering.summary.fillUpItems || 0)],
-          ['Zelená obrátkovost', fmt(analytics.summary.greenTurnoverItems || 0)],
-          ['Oranžová obrátkovost', fmt(analytics.summary.orangeTurnoverItems || 0)],
-          ['Rychle rotující s nízkým pokrytím', fmt(analytics.summary.fastLowCoverItems || 0)],
+          ['Chybí balení', fmt(orderingReference.summary.byPackagingMatchStatus?.missing || 0)],
         ].map(([label, value]) => `
           <div class="card compact-card">
             <div class="kpi-label">${label}</div>
@@ -1351,35 +1370,36 @@
       }
 
       function renderSidebars() {
+        const missingPackaging = Number(orderingReference.summary.byPackagingMatchStatus?.missing || 0);
         document.getElementById('ordering-work-grid').innerHTML = [
           {
-            title: 'Pořadí práce',
-            text: 'Jak tím projít, aby se člověk neztratil v simulaci příliš brzo.',
+            title: 'Dnešní pracovní fronty',
+            text: 'Jasné pořadí, aby se shortlist neztratil v detailech moc brzo.',
             body: [
-              ['1', 'Kritické doplnění'],
-              ['2', 'Přebytek zásoby'],
-              ['3', 'Shortlist pro nákup'],
+              ['1', 'Objednat hned'],
+              ['2', 'Ručně ověřit'],
+              ['3', 'Vyčistit blokace shortlistu'],
               ['4', 'Simulace a export'],
             ]
           },
           {
-            title: 'Nákupní fronty',
-            text: 'Kolik položek je v jednotlivých režimech doporučení.',
+            title: 'Co blokuje rozhodnutí',
+            text: 'Ne každý problém je businessový, část je čistě datová nebo referenční.',
             body: [
-              ['Objednat hned', fmt(ordering.summary.criticalReorderItems || 0)],
-              ['Prověřit brzy', fmt(ordering.summary.watchReorderItems || 0)],
-              ['Fill-up', fmt(ordering.summary.fillUpItems || 0)],
-              ['Mimo nákup', fmt(ordering.summary.excludedItems || 0)],
+              ['SKU mimo nákup', fmt(ordering.summary.excludedItems || 0)],
+              ['Chybí balení', fmt(missingPackaging)],
+              ['Přesné párování balení', fmt(orderingReference.summary.byPackagingMatchStatus?.exact_code || 0)],
+              ['Párování přes prefix', fmt(orderingReference.summary.byPackagingMatchStatus?.base_code || 0)],
             ]
           },
           {
-            title: 'Analytický kontext',
-            text: 'Na jaké vrstvě stojí doporučení a kde jsou limity modelu.',
+            title: 'Shortlist režimy',
+            text: 'Fronty, které se mají chovat jinak než běžný seznam položek.',
             body: [
-              ['Tracked SKU', fmt(analytics.summary.trackedItems || 0)],
-              ['Fast low cover', fmt(analytics.summary.fastLowCoverItems || 0)],
-              ['Green turnover', fmt(analytics.summary.greenTurnoverItems || 0)],
-              ['Reference vrstva', fmt(orderingReference.summary.trackedItems || 0)],
+              ['Objednat hned', fmt(ordering.summary.criticalReorderItems || 0)],
+              ['Ruční ověření', fmt(ordering.summary.watchReorderItems || 0)],
+              ['Top SKU', fmt(ordering.summary.topSkuItems || 0)],
+              ['Fill-up', fmt(ordering.summary.fillUpItems || 0)],
             ]
           }
         ].map(card => `
@@ -1393,16 +1413,16 @@
         `).join('');
 
         usageList.innerHTML = [
-          'Začni položkami objednat hned, to je operativní priorita.',
-          'Pak zkontroluj červenou obrátkovost, kde leží peníze.',
-          'Položky k ověření ber jako signál, ne automatické rozhodnutí.',
-          'Explorer je detail pro jemné doladění objednávky.',
+          'Začni frontou objednat hned, tam je operativní rozhodnutí s nejvyšší prioritou.',
+          'Ruční ověření ber jako samostatnou frontu, ne jako slabší verzi kritických SKU.',
+          'Než exportuješ objednávku, zkontroluj blokované SKU a chybějící balení.',
+          'Explorer používej hlavně tam, kde potřebuješ vysvětlení nebo ruční zásah do množství.',
         ].map(text => `<div class="ux-side-list-item">${text}</div>`).join('');
 
         statList.innerHTML = [
           ['Historie objednávání', '1,5 roku'],
           ['Model doplnění', 'tempo 90d + safety'],
-          ['Obrátkovost', 'zelená / oranžová / červená'],
+          ['Režimy shortlistu', 'hned / ověřit / fill-up'],
           ['SKU pro nákup', fmt(ordering.summary.orderableItems || 0)],
           ['SKU mimo nákup', fmt(ordering.summary.excludedItems || 0)],
           ['Reference vrstva', fmt(orderingReference.summary.trackedItems || 0)],
@@ -1518,7 +1538,7 @@
 
       function renderDetailPanel(row) {
         if (!row) {
-          detailSummary.textContent = 'Klikni v exploreru na konkrétní SKU, ať hned vidíš důvod doporučení i handoff text.';
+          detailSummary.textContent = 'Klikni v exploreru na konkrétní SKU, ať hned vidíš režim rozhodnutí, důvod doporučení i handoff text.';
           detailPanel.innerHTML = '<div class="ux-empty-state">Zatím není vybraná žádná položka.</div>';
           return;
         }
@@ -1555,6 +1575,11 @@
           if (filter === 'excluded') return row.orderable === false;
           if (filter === 'critical') return row.reorderRisk === 'critical';
           if (filter === 'urgent') return ['critical', 'soon'].includes(row.reorderRisk);
+          if (filter === 'manual-review') return row.reorderRisk === 'watch' || row.orderable === false || row.packagingMatchStatus === 'missing';
+          if (filter === 'fillup') return row.orderingRole === 'fill_up';
+          if (filter === 'topsku') return row.orderingRole === 'top_sku';
+          if (filter === 'blocked') return row.orderable === false || row.packagingMatchStatus === 'missing';
+          if (filter === 'packaging-missing') return row.packagingMatchStatus === 'missing';
           if (filter === 'watch') return ['critical', 'soon', 'watch'].includes(row.reorderRisk);
           if (filter === 'red') return row.turnoverZone === 'red';
           if (filter === 'green') return row.turnoverZone === 'green';
@@ -1579,12 +1604,14 @@
         const rows = getExplorerRows();
         currentExplorerRows = rows;
         const excludedCount = rows.filter(row => row.orderable === false).length;
-        const packagingMatched = orderingReference.summary.byPackagingMatchStatus?.matched || 0;
+        const packagingExact = Number(orderingReference.summary.byPackagingMatchStatus?.exact_code || 0);
+        const packagingBase = Number(orderingReference.summary.byPackagingMatchStatus?.base_code || 0);
+        const packagingMissing = Number(orderingReference.summary.byPackagingMatchStatus?.missing || 0);
         const totalPages = Math.max(1, Math.ceil(rows.length / explorerPageSize()));
         currentExplorerPage = clamp(currentExplorerPage, 1, totalPages);
         const pageRows = rows.slice((currentExplorerPage - 1) * explorerPageSize(), currentExplorerPage * explorerPageSize());
         currentExplorerVisibleRows = pageRows;
-        explorerSummary.textContent = `Zobrazeno ${fmt(rows.length)} SKU, z toho ${fmt(excludedCount)} mimo nákup. Referenční vrstva je načtená pro ${fmt(orderingReference.summary.trackedItems || 0)} SKU, balení spárované u ${fmt(packagingMatched)} SKU.`;
+        explorerSummary.textContent = `Zobrazeno ${fmt(rows.length)} SKU, z toho ${fmt(excludedCount)} mimo nákup. Referenční vrstva je načtená pro ${fmt(orderingReference.summary.trackedItems || 0)} SKU, balení přesně spárované u ${fmt(packagingExact)} SKU, přes prefix u ${fmt(packagingBase)} a chybí u ${fmt(packagingMissing)} SKU.`;
         paginationSummary.textContent = `Strana ${fmt(currentExplorerPage)} z ${fmt(totalPages)} · zobrazeno ${fmt(pageRows.length)} z ${fmt(rows.length)} řádků.`;
         pagePrevButton.disabled = currentExplorerPage <= 1;
         pageNextButton.disabled = currentExplorerPage >= totalPages;
@@ -1598,7 +1625,7 @@
               <div class="muted small" style="margin-top:6px;">${row.excludeFromOrderingReason || 'Položka je pro nákup povolená a bez blokace.'}</div>
               <div class="muted small" style="margin-top:6px;">Balení ${row.packagingRaw || 'bez mapy'} · stav párování ${row.packagingMatchStatus || 'chybí'}</div>
             </td>
-            <td>${orderableBadge(row)} ${typeBadge(row)} ${roleBadge(row)} ${sourceChannelBadge(row)} ${riskBadge(row)} ${zoneBadge(row)} ${trendBadge(row)}</td>
+            <td>${orderableBadge(row)} ${typeBadge(row)} ${roleBadge(row)} ${sourceChannelBadge(row)} ${packagingBadge(row)} ${riskBadge(row)} ${zoneBadge(row)} ${trendBadge(row)}</td>
             <td class="num">${fmt(row.effectiveStock)}</td>
             <td class="num">${fmt(row.unitsWindow ?? row.units730d)}</td>
             <td class="num">${fmt(row.units90d)}</td>
