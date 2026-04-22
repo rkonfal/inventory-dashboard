@@ -82,7 +82,107 @@
       margin-top: 16px;
     }
 
+    .ordering-executive {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 20px 22px;
+      background: linear-gradient(135deg, rgba(200, 162, 75, .12), rgba(255, 255, 255, .82));
+      box-shadow: var(--shadow-soft);
+    }
+
+    [data-theme="dark"] .ordering-executive {
+      background: linear-gradient(135deg, rgba(200, 162, 75, .14), rgba(20, 24, 31, .86));
+    }
+
+    .ordering-executive-top {
+      display: grid;
+      gap: 8px;
+    }
+
+    .ordering-executive-title {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -.03em;
+    }
+
+    .ordering-executive-text {
+      margin: 0;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .ordering-executive-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .ordering-executive-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, .72);
+    }
+
+    [data-theme="dark"] .ordering-executive-card {
+      background: rgba(20, 24, 31, .8);
+    }
+
+    .ordering-executive-card .label {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .ordering-executive-card strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .ordering-executive-card p {
+      margin: 8px 0 0;
+      color: var(--text-muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .ordering-mobile-note {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 1024px) {
+      .ordering-executive-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
     @media (max-width: 768px) {
+      .ordering-executive {
+        padding: 16px;
+        border-radius: 18px;
+      }
+
+      .ordering-executive-title {
+        font-size: 20px;
+      }
+
+      .ordering-executive-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .ordering-executive-card {
+        padding: 13px 14px;
+        border-radius: 16px;
+      }
       .ordering-detail-grid {
         grid-template-columns: 1fr;
       }
@@ -133,6 +233,13 @@
       <section class="ux-hero-metrics" id="ordering-hero"></section>
       <div class="status-strip" id="ordering-status-strip"></div>
       <div class="ux-date-note" id="ordering-window">Načítám analytiku objednávání…</div>
+      <section class="ordering-executive" id="ordering-executive-summary">
+        <div class="ordering-executive-top">
+          <div class="layer-label">Executive summary</div>
+          <h2 class="ordering-executive-title">Shrnutí dnešní objednávky</h2>
+          <p class="ordering-executive-text">Načítám hlavní závěr, rizika a doporučený postup…</p>
+        </div>
+      </section>
     </header>
 
     <section class="layer-shell">
@@ -594,6 +701,7 @@
 
       const hero = document.getElementById('ordering-hero');
       const kpis = document.getElementById('ordering-kpis');
+      const executiveSummary = document.getElementById('ordering-executive-summary');
       const alertList = document.getElementById('ordering-alert-list');
       const alertBadge = document.getElementById('ordering-alert-badge');
       const usageList = document.getElementById('ordering-usage-list');
@@ -1347,6 +1455,51 @@
         ]);
       }
 
+      function renderExecutiveSummary() {
+        const criticalItems = Number(ordering.summary.criticalReorderItems || 0);
+        const watchItems = Number(ordering.summary.watchReorderItems || 0);
+        const blockedItems = Number(ordering.summary.excludedItems || 0);
+        const missingPackaging = Number(orderingReference.summary.byPackagingMatchStatus?.missing || 0);
+        const redItems = Number(ordering.summary.redTurnoverItems || 0);
+        const topSku = Number(ordering.summary.topSkuItems || 0);
+        const headline = criticalItems
+          ? `Objednávka je teď hlavně operativní, ${fmt(criticalItems)} SKU potřebuje řešit hned a dalších ${fmt(watchItems)} SKU ručně ověřit.`
+          : watchItems
+            ? `Kritická fronta je klidná, ale ${fmt(watchItems)} SKU je na ruční ověření před potvrzením shortlistu.`
+            : 'Kritická fronta je klidná, fokus se může přesunout na shortlist, simulaci a čistotu dat.';
+
+        executiveSummary.innerHTML = `
+          <div class="ordering-executive-top">
+            <div class="layer-label">Executive summary</div>
+            <h2 class="ordering-executive-title">Shrnutí dnešní objednávky</h2>
+            <p class="ordering-executive-text">${headline}</p>
+          </div>
+          <div class="ordering-executive-grid">
+            <article class="ordering-executive-card">
+              <span class="label">Verdikt</span>
+              <strong>${criticalItems ? 'Nejdřív operativa, až potom export' : 'Shortlist může jít do simulace'}</strong>
+              <p>${criticalItems ? `Fronta objednat hned má ${fmt(criticalItems)} SKU a nemá se ztratit v detailech.` : 'Když už nejsou kritické kusy, největší value je v doladění shortlistu a finálního exportu.'}</p>
+            </article>
+            <article class="ordering-executive-card">
+              <span class="label">Největší business risk</span>
+              <strong>${criticalItems ? `${fmt(criticalItems)} SKU s rizikem výpadku` : `${fmt(redItems)} SKU s přebytkem zásoby`}</strong>
+              <p>${criticalItems ? `Top SKU v riziku: ${fmt(topSku)}. Tohle je místo, kde hrozí ztráta dostupnosti.` : `${money(ordering.summary.cashInRedTurnover)} leží v červené obrátkovosti a tlačí cash i prostor.`}</p>
+            </article>
+            <article class="ordering-executive-card">
+              <span class="label">Datová brzda</span>
+              <strong>${fmt(missingPackaging)} SKU bez párování balení</strong>
+              <p>${fmt(blockedItems)} SKU je mimo nákupní režim. Datové a referenční problémy je potřeba držet odděleně od business priorit.</p>
+            </article>
+            <article class="ordering-executive-card">
+              <span class="label">Doporučený postup</span>
+              <strong>Objednat hned → ručně ověřit → shortlist → simulace</strong>
+              <p>Teprve po vyčištění blokací a hraničních SKU dává smysl finální export a kontrola kapacity.</p>
+            </article>
+          </div>
+          <div class="ordering-mobile-note">Mobile polish: horní vrstva má držet hlavní závěr a postup, detaily patří níž do pracovních tabulek.</div>
+        `;
+      }
+
       function renderKpis() {
         kpis.innerHTML = [
           ['SKU v analytice', fmt(analytics.summary.trackedItems || 0)],
@@ -1662,6 +1815,7 @@
         syncExplorerSortStateFromSelect();
 
         renderHero();
+        renderExecutiveSummary();
         renderKpis();
         renderAlerts();
         renderSidebars();
