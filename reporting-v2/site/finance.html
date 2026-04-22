@@ -256,6 +256,16 @@
         return activeMode === 'previous' && previous.label ? previous : current;
       }
 
+      function syncJournalMonthToActiveMode() {
+        const targetLabel = selectedMonthData()?.label;
+        if (targetLabel && monthlyJournal.some(row => row.label === targetLabel)) {
+          journalState.month = targetLabel;
+          journalState.account = 'all';
+          journalState.vendor = 'all';
+          journalState.side = 'all';
+        }
+      }
+
       function deltaText(currentValue, compareValue, suffix = '') {
         if (!Number.isFinite(Number(currentValue)) || !Number.isFinite(Number(compareValue)) || Number(compareValue) === 0) return 'bez srovnání';
         const delta = ((Number(currentValue) - Number(compareValue)) / Math.abs(Number(compareValue))) * 100;
@@ -515,10 +525,15 @@
           </tr>
         `).join('') || '<tr><td colspan="7">Pro zvolenou kombinaci filtrů tu teď nic není.</td></tr>';
 
-        document.getElementById('journal-filter-note').textContent = `${selectedMonth.label || '–'} • ${entries.length} zápisů • hlavní třída: ${selectedMonth.topExpenseClass ? selectedMonth.topExpenseClass.label : '–'}`;
+        const totalExpenseEntries = (selectedMonth.recentEntries || []).filter(row => row.side === 'náklad').length;
+        const missingExpenseDetailNote = totalExpenseEntries === 0 && Number(selectedMonth.expenseTotal || 0) > 0
+          ? ' • Nákladové doklady v detailu tu teď chybí, ale souhrn nákladů je výše v tabulce Kam šlo nejvíc peněz.'
+          : '';
+        document.getElementById('journal-filter-note').textContent = `${selectedMonth.label || '–'} • ${entries.length} zápisů • hlavní třída: ${selectedMonth.topExpenseClass ? selectedMonth.topExpenseClass.label : '–'}${missingExpenseDetailNote}`;
         renderJournalFilterBar();
       }
 
+      syncJournalMonthToActiveMode();
       renderJournalTables();
 
       const hasPrevious = Boolean(previous.label);
@@ -531,6 +546,8 @@
           if (button.disabled) return;
           activeMode = button.dataset.viewToggle;
           renderFinanceTop();
+          syncJournalMonthToActiveMode();
+          renderJournalTables();
         });
       });
     })().catch(err => {
