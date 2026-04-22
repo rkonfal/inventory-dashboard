@@ -233,6 +233,12 @@
       <section class="ux-hero-metrics" id="ordering-hero"></section>
       <div class="status-strip" id="ordering-status-strip"></div>
       <div class="ux-date-note" id="ordering-window">Načítám analytiku objednávání…</div>
+      <div class="toolbar-inline-summary" id="ordering-market-switch" style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+        <strong>Trh:</strong>
+        <button class="quick-filter active" type="button" data-ordering-market="complete">DOPORUČENÁ OBJEDNÁVKA / CELÝ KATALOG</button>
+        <button class="quick-filter" type="button" data-ordering-market="cz">CZ</button>
+        <button class="quick-filter" type="button" data-ordering-market="sk">SK</button>
+      </div>
       <section class="ordering-executive" id="ordering-executive-summary">
         <div class="ordering-executive-top">
           <div class="layer-label">Executive summary</div>
@@ -700,6 +706,7 @@
       };
 
       const hero = document.getElementById('ordering-hero');
+      const marketSwitch = document.getElementById('ordering-market-switch');
       const kpis = document.getElementById('ordering-kpis');
       const executiveSummary = document.getElementById('ordering-executive-summary');
       const alertList = document.getElementById('ordering-alert-list');
@@ -736,6 +743,12 @@
       let analytics = { items: [], summary: {} };
       let ordering = { summary: {}, alerts: [] };
       let orderingReference = { summary: {}, items: [] };
+      let currentMarket = 'complete';
+      let payloadsByMarket = {
+        complete: { analytics: null, ordering: null, reference: null },
+        cz: { analytics: null, ordering: null, reference: null },
+        sk: { analytics: null, ordering: null, reference: null },
+      };
       let currentPlanningRows = [];
       let currentExplorerRows = [];
       let currentExplorerVisibleRows = [];
@@ -1794,32 +1807,7 @@
         saveExplorerState();
       }
 
-      Promise.all([
-        DP.loadJson('../data/current/inventory_analytics_730d.json'),
-        DP.loadJson('../data/current/ordering_core.json'),
-        DP.loadJson('../data/current/ordering_reference_data.json'),
-      ]).then(([analyticsPayload, orderingPayload, orderingReferencePayload]) => {
-        analytics = analyticsPayload || analytics;
-        ordering = orderingPayload || ordering;
-        orderingReference = orderingReferencePayload || orderingReference;
-        document.getElementById('ordering-window').innerHTML = `<strong>Okno analytiky:</strong> ${analytics.window?.days || 548} dní · data do ${DP.fmtDateTime(analytics.generatedAt)} · referenční vrstva ${fmt(orderingReference.summary?.trackedItems || 0)} SKU (${DP.fmtDateTime(orderingReference.generatedAt)}).`;
-
-        const defaultOrderDate = new Date();
-        const defaultLeadDays = ordering.planning?.defaults?.leadDays || 21;
-        const defaultArrivalDate = new Date(defaultOrderDate.getTime() + defaultLeadDays * 86400000);
-        planningOrderDate.value = asDateInputValue(defaultOrderDate);
-        planningArrivalDate.value = asDateInputValue(defaultArrivalDate);
-        planningCapacity.value = ordering.planning?.defaults?.capacity || 'half';
-        planningPraha.value = ordering.planning?.defaults?.prahaFallback ? 'on' : 'off';
-        restoreExplorerState();
-        syncExplorerSortStateFromSelect();
-
-        renderHero();
-        renderExecutiveSummary();
-        renderKpis();
-        renderAlerts();
-        renderSidebars();
-
+      function renderQuickTables() {
         renderSortableShortTable({
           id: 'critical-reorder',
           bodyId: 'critical-reorder-table',
@@ -1915,9 +1903,81 @@
             </tr>
           `,
         }, (ordering.suggestedFillers || []).slice(0, 20));
+      }
 
+      function marketTitle(key) {
+        if (key === 'cz') return 'CZ';
+        if (key === 'sk') return 'SK';
+        return 'DOPORUČENÁ OBJEDNÁVKA / CELÝ KATALOG';
+      }
+
+      function applyMarketPayload(marketKey, { preservePlanningSetup = true } = {}) {
+        const next = payloadsByMarket[marketKey];
+        if (!next?.analytics || !next?.ordering || !next?.reference) return;
+        currentMarket = marketKey;
+        analytics = next.analytics;
+        ordering = next.ordering;
+        orderingReference = next.reference;
+        planningExportState.clear();
+        currentExplorerPage = 1;
+        selectedExplorerCode = '';
+
+        marketSwitch.querySelectorAll('[data-ordering-market]').forEach(button => {
+          button.classList.toggle('active', button.dataset.orderingMarket === marketKey);
+        });
+
+        document.getElementById('ordering-window').innerHTML = `<strong>Okno analytiky:</strong> ${analytics.window?.days || 548} dní · trh ${marketTitle(marketKey)} · data do ${DP.fmtDateTime(analytics.generatedAt)} · referenční vrstva ${fmt(orderingReference.summary?.trackedItems || 0)} SKU (${DP.fmtDateTime(orderingReference.generatedAt)}).`;
+
+        if (!preservePlanningSetup) {
+          const defaultOrderDate = new Date();
+          const defaultLeadDays = ordering.planning?.defaults?.leadDays || 21;
+          const defaultArrivalDate = new Date(defaultOrderDate.getTime() + defaultLeadDays * 86400000);
+          planningOrderDate.value = asDateInputValue(defaultOrderDate);
+          planningArrivalDate.value = asDateInputValue(defaultArrivalDate);
+          planningCapacity.value = ordering.planning?.defaults?.capacity || 'half';
+          planningPraha.value = ordering.planning?.defaults?.prahaFallback ? 'on' : 'off';
+        }
+
+        renderHero();
+        renderExecutiveSummary();
+        renderKpis();
+        renderAlerts();
+        renderSidebars();
+        renderQuickTables();
         renderPlanning();
         renderExplorer();
+      }
+
+      Promise.all([
+        DP.loadJson('../data/current/inventory_analytics_730d.json'),
+        DP.loadJson('../data/current/ordering_core.json'),
+        DP.loadJson('../data/current/ordering_reference_data.json'),
+        DP.loadJson('../data/current/inventory_analytics_730d_cz.json'),
+        DP.loadJson('../data/current/ordering_core_cz.json'),
+        DP.loadJson('../data/current/ordering_reference_data_cz.json'),
+        DP.loadJson('../data/current/inventory_analytics_730d_sk.json'),
+        DP.loadJson('../data/current/ordering_core_sk.json'),
+        DP.loadJson('../data/current/ordering_reference_data_sk.json'),
+      ]).then(([
+        analyticsPayload,
+        orderingPayload,
+        orderingReferencePayload,
+        analyticsPayloadCz,
+        orderingPayloadCz,
+        orderingReferencePayloadCz,
+        analyticsPayloadSk,
+        orderingPayloadSk,
+        orderingReferencePayloadSk,
+      ]) => {
+        payloadsByMarket = {
+          complete: { analytics: analyticsPayload || analytics, ordering: orderingPayload || ordering, reference: orderingReferencePayload || orderingReference },
+          cz: { analytics: analyticsPayloadCz || analyticsPayload || analytics, ordering: orderingPayloadCz || orderingPayload || ordering, reference: orderingReferencePayloadCz || orderingReferencePayload || orderingReference },
+          sk: { analytics: analyticsPayloadSk || analyticsPayload || analytics, ordering: orderingPayloadSk || orderingPayload || ordering, reference: orderingReferencePayloadSk || orderingReferencePayload || orderingReference },
+        };
+
+        restoreExplorerState();
+        syncExplorerSortStateFromSelect();
+        applyMarketPayload('complete', { preservePlanningSetup: false });
       }).catch(err => {
         document.getElementById('ordering-window').textContent = `Nepodařilo se načíst data: ${err.message}`;
       });
@@ -1934,6 +1994,12 @@
       }
 
       document.addEventListener('click', event => {
+        const marketButton = event.target.closest('[data-ordering-market]');
+        if (marketButton) {
+          applyMarketPayload(marketButton.dataset.orderingMarket || 'complete');
+          return;
+        }
+
         const button = event.target.closest('[data-sort-table]');
         if (!button) return;
         const tableId = button.dataset.sortTable;

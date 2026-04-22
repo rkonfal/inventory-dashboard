@@ -1871,6 +1871,152 @@ def enrich_inventory_analytics_prices(payload, wpj_by_code):
     return payload, changed
 
 
+def build_inventory_analytics_market_view(base_payload, combined_index, generated_at, market_key='complete'):
+    if not base_payload or not base_payload.get('items'):
+        return {'generatedAt': generated_at, 'market': market_key, 'window': (base_payload or {}).get('window') or {}, 'summary': {}, 'items': [], 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': []}
+
+    combined_by_code = {item.get('code'): item for item in (combined_index.get('items') or []) if item.get('code')}
+    window_days = int(((base_payload.get('window') or {}).get('days')) or ORDERING_ANALYTICS_DAYS)
+    items = []
+
+    for base_item in (base_payload.get('items') or []):
+        code = base_item.get('code')
+        combined_item = combined_by_code.get(code) or {}
+        if market_key == 'cz':
+            effective_stock = round(num((((combined_item.get('fourpx') or {}).get('cz') or {}).get('availableStock'))), 2)
+        elif market_key == 'sk':
+            effective_stock = round(num((((combined_item.get('fourpx') or {}).get('sk') or {}).get('availableStock'))), 2)
+        else:
+            effective_stock = round(num(base_item.get('effectiveStock')), 2)
+
+        market_view = ((base_item.get('byView') or {}).get(market_key) or {}) if market_key != 'complete' else ((base_item.get('byView') or {}).get('complete') or {})
+        units_window = round(num(market_view.get('units730d' if window_days == ORDERING_ANALYTICS_DAYS else f'units{window_days}d')), 2)
+        units730d = round(num(market_view.get('units730d')), 2)
+        units365d = round(num(market_view.get('units365d')), 2)
+        units180d = round(num(market_view.get('units180d')), 2)
+        units90d = round(num(market_view.get('units90d')), 2)
+        units30d = round(num(market_view.get('units30d')), 2)
+        units14d = round(num(market_view.get('units14d')), 2)
+        prev365d = round(max(units730d - units365d, 0), 2)
+
+        daily_run_rate_730 = units_window / window_days if units_window else 0.0
+        daily_run_rate_365 = units365d / 365 if units365d else 0.0
+        daily_run_rate_90 = units90d / 90 if units90d else 0.0
+        days_of_cover_730 = round(effective_stock / daily_run_rate_730, 1) if daily_run_rate_730 > 0 else None
+        days_of_cover_365 = round(effective_stock / daily_run_rate_365, 1) if daily_run_rate_365 > 0 else None
+        days_of_cover_90 = round(effective_stock / daily_run_rate_90, 1) if daily_run_rate_90 > 0 else None
+        stock_months_on_hand = round((days_of_cover_90 or days_of_cover_365 or 0) / 30.4, 1) if (days_of_cover_90 or days_of_cover_365) else None
+
+        trend_pct = pct_delta(daily_run_rate_90, daily_run_rate_365) if daily_run_rate_365 else None
+        yoy_pct = pct_delta(units365d, prev365d) if prev365d else None
+        if stock_months_on_hand is None:
+            turnover_zone = 'no_sales'
+        elif stock_months_on_hand <= 1:
+            turnover_zone = 'green'
+        elif stock_months_on_hand <= 4:
+            turnover_zone = 'orange'
+        else:
+            turnover_zone = 'red'
+
+        reorder_target_days = 60
+        safety_days = 14 if units90d > 0 else 0
+        recommended_min_units = max(0, round(daily_run_rate_90 * 30 - effective_stock)) if daily_run_rate_90 else 0
+        recommended_order_units = max(0, round(daily_run_rate_90 * (reorder_target_days + safety_days) - effective_stock)) if daily_run_rate_90 else 0
+        reorder_risk = 'none'
+        if units90d > 0:
+            if days_of_cover_90 is None or days_of_cover_90 <= 14:
+                reorder_risk = 'critical'
+            elif days_of_cover_90 <= 30:
+                reorder_risk = 'soon'
+            elif days_of_cover_90 <= 60:
+                reorder_risk = 'watch'
+
+        tags = []
+        if effective_stock > 0 and units365d == 0:
+            tags.append('dead_stock')
+        if effective_stock > 0 and (base_item.get('daysSinceLastSale') is not None) and int(base_item.get('daysSinceLastSale') or 0) >= 90:
+            tags.append('slow_mover')
+        if effective_stock > 0 and days_of_cover_365 is not None and days_of_cover_365 >= 365:
+            tags.append('overstocked')
+        if effective_stock > 0 and days_of_cover_365 is not None and days_of_cover_365 <= 30 and units365d > 0:
+            tags.append('fast_mover_low_cover')
+        if reorder_risk in {'critical', 'soon'}:
+            tags.append('reorder_candidate')
+        if turnover_zone == 'red':
+            tags.append('turnover_red')
+        elif turnover_zone == 'orange':
+            tags.append('turnover_orange')
+        elif turnover_zone == 'green':
+            tags.append('turnover_green')
+
+        item = dict(base_item)
+        item.update({
+            'effectiveStock': effective_stock,
+            'fourpxAvailable': effective_stock,
+            'units730d': units730d,
+            'unitsWindow': units_window,
+            'units365d': units365d,
+            'units180d': units180d,
+            'units90d': units90d,
+            'units30d': units30d,
+            'units14d': units14d,
+            'prev365d': prev365d,
+            'avgMonthlyUnits365d': round(units365d / 12, 1) if units365d else 0,
+            'avgMonthlyUnits730d': round(units730d / 24, 1) if units730d else 0,
+            'avgMonthlyUnitsWindow': round(units_window / max(window_days / 30.4167, 1), 1) if units_window else 0,
+            'dailyRunRate730d': round(daily_run_rate_730, 3),
+            'dailyRunRate365d': round(daily_run_rate_365, 3),
+            'dailyRunRate90d': round(daily_run_rate_90, 3),
+            'daysOfCover730d': days_of_cover_730,
+            'daysOfCoverWindow': days_of_cover_730,
+            'daysOfCover365d': days_of_cover_365,
+            'daysOfCover90d': days_of_cover_90,
+            'stockMonthsOnHand': stock_months_on_hand,
+            'turnoverZone': turnover_zone,
+            'reorderRisk': reorder_risk,
+            'recommendedMinUnits': recommended_min_units,
+            'recommendedOrderUnits': recommended_order_units,
+            'trend90v365Pct': trend_pct,
+            'seasonalityYoYPct': yoy_pct,
+            'stockValueSelling': round(effective_stock * money(base_item.get('unitSellingPrice')), 2) if base_item.get('unitSellingPrice') else None,
+            'tags': tags,
+            'orderingRole': classify_ordering_role({**base_item, 'effectiveStock': effective_stock, 'units365d': units365d, 'daysOfCover90d': days_of_cover_90, 'turnoverZone': turnover_zone, 'reorderRisk': reorder_risk, 'recommendedOrderUnits': recommended_order_units}),
+            'market': market_key,
+        })
+        items.append(item)
+
+    turnover = sorted([item for item in items if item['units365d'] > 0 and item['effectiveStock'] > 0], key=lambda item: item['units365d'], reverse=True)
+    dead_stock = sorted([item for item in items if 'dead_stock' in item['tags']], key=lambda item: item['effectiveStock'], reverse=True)
+    slow_movers = sorted([item for item in items if 'slow_mover' in item['tags'] and item['effectiveStock'] > 0], key=lambda item: ((item['daysSinceLastSale'] or 0), item['effectiveStock']), reverse=True)
+    overstocked = sorted([item for item in items if 'overstocked' in item['tags'] and item['effectiveStock'] > 0], key=lambda item: (item['daysOfCover365d'] or 0), reverse=True)
+    fast_low_cover = sorted([item for item in items if 'fast_mover_low_cover' in item['tags']], key=lambda item: (item['daysOfCover365d'] or 999, -item['units365d']))
+
+    return {
+        'generatedAt': generated_at,
+        'market': market_key,
+        'window': base_payload.get('window') or {},
+        'summary': {
+            'trackedItems': len(items),
+            'turnoverItems': len(turnover),
+            'deadStockItems': len(dead_stock),
+            'slowMoverItems': len(slow_movers),
+            'overstockedItems': len(overstocked),
+            'fastLowCoverItems': len(fast_low_cover),
+            'criticalReorderItems': len([item for item in items if item['reorderRisk'] == 'critical']),
+            'reorderSoonItems': len([item for item in items if item['reorderRisk'] == 'soon']),
+            'redTurnoverItems': len([item for item in items if item['turnoverZone'] == 'red']),
+            'orangeTurnoverItems': len([item for item in items if item['turnoverZone'] == 'orange']),
+            'greenTurnoverItems': len([item for item in items if item['turnoverZone'] == 'green']),
+        },
+        'items': items,
+        'topTurnover': turnover[:50],
+        'deadStock': dead_stock[:100],
+        'slowMovers': slow_movers[:100],
+        'overstocked': overstocked[:100],
+        'fastLowCover': fast_low_cover[:100],
+    }
+
+
 def classify_ordering_role(item):
     if not item.get('orderable', True):
         return 'excluded'
@@ -3162,7 +3308,10 @@ def build_live_journal_snapshot(config, now_local):
                 'amount': round(amount, 2),
             })
 
-        month_entries = sorted(month_entries, key=lambda row: (row['dateSort'], row['amount']), reverse=True)[:120]
+        sorted_entries = sorted(month_entries, key=lambda row: (row['dateSort'], row['amount']), reverse=True)
+        expense_entries = [row for row in sorted_entries if row.get('side') == 'náklad'][:80]
+        revenue_entries = [row for row in sorted_entries if row.get('side') == 'výnos'][:80]
+        month_entries = sorted(expense_entries + revenue_entries, key=lambda row: (row['dateSort'], row['amount']), reverse=True)
         monthly.append({
             'label': label,
             'expenseTotal': round(expense_total, 2),
@@ -3260,20 +3409,7 @@ def fetch_abra_live_snapshot(now_local):
     try:
         journal = build_live_journal_snapshot(config, now_local)
     except Exception as exc:
-        journal = {
-            'source': {
-                'status': 'error',
-                'message': f'Live účetní deník se nepodařilo načíst ({exc}).',
-            },
-            'monthly': [],
-            'currentMonth': {
-                'label': month_label(month_floor(now_local)),
-                'topExpenseAccounts': [],
-                'topExpenseClasses': [],
-                'topVendors': [],
-                'recentEntries': [],
-            },
-        }
+        journal = build_journal_snapshot_fallback(now_local, str(exc))
 
     return {
         'source': {
@@ -3900,6 +4036,31 @@ def load_optional_current_json(name):
     return json.loads(path.read_text(encoding='utf-8'))
 
 
+def build_journal_snapshot_fallback(now_local, reason=None):
+    fallback_payload = load_optional_current_json('finance_overview.json') or load_previous_snapshot_json('finance_overview.json') or {}
+    fallback_journal = fallback_payload.get('journal') or {}
+    monthly = fallback_journal.get('monthly') or []
+    current_label = month_label(month_floor(now_local))
+    current_month = next((row for row in monthly if row.get('label') == current_label), None) or fallback_journal.get('currentMonth') or {
+        'label': current_label,
+        'topExpenseAccounts': [],
+        'topExpenseClasses': [],
+        'topVendors': [],
+        'recentEntries': [],
+    }
+    message = 'Live účetní deník se nepodařilo načíst, použit poslední úspěšný snapshot.'
+    if reason:
+        message = f'{message} ({reason})'
+    return {
+        'source': {
+            'status': 'fallback_snapshot',
+            'message': message,
+        },
+        'monthly': monthly,
+        'currentMonth': current_month,
+    }
+
+
 def ensure_daily_sklik_snapshot(now_local):
     token = (os.environ.get('SKLIK_API_TOKEN') or '').strip()
     if not token:
@@ -4099,8 +4260,14 @@ def main():
     wpj_history_payload = {'generatedAt': generated_at, 'days': []}
     inventory_analytics_payload = {'generatedAt': generated_at, 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': []}
     inventory_analytics_730_payload = {'generatedAt': generated_at, 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': [], 'items': []}
+    inventory_analytics_730_cz_payload = {'generatedAt': generated_at, 'market': 'cz', 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': [], 'items': []}
+    inventory_analytics_730_sk_payload = {'generatedAt': generated_at, 'market': 'sk', 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': [], 'items': []}
     ordering_core_payload = {'generatedAt': generated_at, 'summary': {}, 'alerts': [], 'criticalReorder': [], 'reorderWatch': [], 'overstockRisks': [], 'trendWatch': [], 'suggestedFillers': []}
+    ordering_core_cz_payload = {'generatedAt': generated_at, 'market': 'cz', 'summary': {}, 'alerts': [], 'criticalReorder': [], 'reorderWatch': [], 'overstockRisks': [], 'trendWatch': [], 'suggestedFillers': []}
+    ordering_core_sk_payload = {'generatedAt': generated_at, 'market': 'sk', 'summary': {}, 'alerts': [], 'criticalReorder': [], 'reorderWatch': [], 'overstockRisks': [], 'trendWatch': [], 'suggestedFillers': []}
     ordering_reference_payload = {'generatedAt': generated_at, 'summary': {}, 'items': [], 'excludedTop': []}
+    ordering_reference_cz_payload = {'generatedAt': generated_at, 'market': 'cz', 'summary': {}, 'items': [], 'excludedTop': []}
+    ordering_reference_sk_payload = {'generatedAt': generated_at, 'market': 'sk', 'summary': {}, 'items': [], 'excludedTop': []}
     expiry_overview_payload = {'generatedAt': generated_at, 'summary': {}, 'topExpiring': []}
     combined_index_payload = {'generatedAt': generated_at, 'items': [], 'counts': {}}
     combined_overview_payload = {'generatedAt': generated_at, 'counts': {}}
@@ -4205,6 +4372,12 @@ def main():
             ordering_core_payload = build_ordering_core(inventory_analytics_730_payload, generated_at)
 
         ordering_reference_payload = build_ordering_reference_data(inventory_analytics_730_payload, generated_at)
+        inventory_analytics_730_cz_payload = build_inventory_analytics_market_view(inventory_analytics_730_payload, combined_index_payload, generated_at, market_key='cz')
+        inventory_analytics_730_sk_payload = build_inventory_analytics_market_view(inventory_analytics_730_payload, combined_index_payload, generated_at, market_key='sk')
+        ordering_core_cz_payload = build_ordering_core(inventory_analytics_730_cz_payload, generated_at)
+        ordering_core_sk_payload = build_ordering_core(inventory_analytics_730_sk_payload, generated_at)
+        ordering_reference_cz_payload = build_ordering_reference_data(inventory_analytics_730_cz_payload, generated_at)
+        ordering_reference_sk_payload = build_ordering_reference_data(inventory_analytics_730_sk_payload, generated_at)
 
         wpj_orders_payload = {
             'generatedAt': generated_at,
@@ -4306,8 +4479,14 @@ def main():
         'combined_inventory_overview.json': combined_overview_payload,
         'inventory_analytics_365d.json': inventory_analytics_payload,
         'inventory_analytics_730d.json': inventory_analytics_730_payload,
+        'inventory_analytics_730d_cz.json': inventory_analytics_730_cz_payload,
+        'inventory_analytics_730d_sk.json': inventory_analytics_730_sk_payload,
         'ordering_core.json': ordering_core_payload,
+        'ordering_core_cz.json': ordering_core_cz_payload,
+        'ordering_core_sk.json': ordering_core_sk_payload,
         'ordering_reference_data.json': ordering_reference_payload,
+        'ordering_reference_data_cz.json': ordering_reference_cz_payload,
+        'ordering_reference_data_sk.json': ordering_reference_sk_payload,
         'finance_overview.json': finance_snapshot,
         'marketing_overview.json': marketing_snapshot,
         'wpj_orders_previous_day.json': wpj_orders_payload,
