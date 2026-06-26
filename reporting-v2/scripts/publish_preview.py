@@ -2,6 +2,7 @@
 import os
 import shutil
 import subprocess
+import tempfile
 from datetime import datetime
 from pathlib import Path
 
@@ -16,11 +17,49 @@ PREVIEW_FILES = [
     'dashboard-portal-preview-clean-light.png',
     'dashboard-eshop-preview-clean-light.png',
 ]
+PREVIEW_CURRENT_ALLOWLIST = [
+    '4px_expiry_overview.json',
+    'affiliate_overview.json',
+    'combined_inventory_overview.json',
+    'combined_product_index.json',
+    'eshop_ytd.json',
+    'finance_overview.json',
+    'ga4_overview.json',
+    'google_ads_overview.json',
+    'inventory_analytics_365d.json',
+    'inventory_analytics_730d.json',
+    'inventory_analytics_730d_cz.json',
+    'inventory_analytics_730d_sk.json',
+    'klaviyo_overview.json',
+    'marketing_overview.json',
+    'meta_ads_overview.json',
+    'morning_report_delivery_status.json',
+    'morning_report_prepare_status.json',
+    'morning_report_previous_day.json',
+    'ordering_actions.json',
+    'ordering_core.json',
+    'ordering_core_cz.json',
+    'ordering_core_sk.json',
+    'ordering_reference_data.json',
+    'ordering_reference_data_cz.json',
+    'ordering_reference_data_sk.json',
+    'ordering_sales_history.json',
+    'packaging_consumption.json',
+    'portal_summary.json',
+    'sklik_overview.json',
+    'top_50_customers_last_year.json',
+    'twisto_watchdog.json',
+    'wpj_history_8_days.json',
+    'wpj_orders_previous_day.json',
+    'wpj_products.json',
+]
+PREVIEW_WARN_MB = float(os.environ.get('PREVIEW_WARN_MB', '25'))
+PREVIEW_HARD_LIMIT_MB = float(os.environ.get('PREVIEW_HARD_LIMIT_MB', '50'))
 
 
-def run(*args, cwd=None):
+def run(*args, cwd=None, env=None):
     print('+', ' '.join(args))
-    subprocess.run(args, cwd=cwd, check=True)
+    subprocess.run(args, cwd=cwd, check=True, env=env)
 
 
 def ensure_clone():
@@ -50,14 +89,45 @@ def clear_worktree():
 
 
 def build_dynamic_pages():
-    run('python3', 'scripts/build_order_bump_report.py', cwd=str(ROOT))
+    target_html = WORKTREE / 'site' / 'order-bump.html'
+    target_html.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='order-bump-preview-') as temp_dir:
+        env = os.environ.copy()
+        env.update({
+            'ORDER_BUMP_TARGET_HTML': str(target_html),
+            'ORDER_BUMP_TARGET_JSON': str(Path(temp_dir) / 'order_bump_report.json'),
+        })
+        run('python3', 'scripts/build_order_bump_report.py', cwd=str(ROOT), env=env)
+
+
+def copy_preview_current_files():
+    target_current = WORKTREE / 'data' / 'current'
+    target_current.mkdir(parents=True, exist_ok=True)
+    copied = []
+    warnings = []
+    for name in PREVIEW_CURRENT_ALLOWLIST:
+        src = CURRENT_DIR / name
+        if not src.exists():
+            continue
+        size_mb = src.stat().st_size / (1024 ** 2)
+        if size_mb > PREVIEW_HARD_LIMIT_MB:
+            raise RuntimeError(f'Preview export hard stop: {name} is {size_mb:.2f} MB, limit is {PREVIEW_HARD_LIMIT_MB:.2f} MB')
+        if size_mb > PREVIEW_WARN_MB:
+            warnings.append(f'{name} is {size_mb:.2f} MB')
+        shutil.copy2(src, target_current / name)
+        copied.append((name, round(size_mb, 2)))
+    print(f'Preview current allowlist copied: {len(copied)} files')
+    for name, size_mb in copied:
+        print(f'  - {name} ({size_mb} MB)')
+    for warning in warnings:
+        print(f'WARN: preview export large file: {warning}')
 
 
 def export_preview():
-    build_dynamic_pages()
     clear_worktree()
     shutil.copytree(SITE_DIR, WORKTREE / 'site')
-    shutil.copytree(CURRENT_DIR, WORKTREE / 'data' / 'current')
+    copy_preview_current_files()
+    build_dynamic_pages()
 
     audit_page = SITE_DIR / 'ads-audit-2026-04.html'
     if audit_page.exists():
@@ -89,7 +159,7 @@ def export_preview():
         'Static preview export of reporting-v2.\n\n'
         '- Main preview: `site/index.html`\n'
         '- Root page shortcuts: `/*.html` redirect to matching `site/*.html`\n'
-        '- Current preview data: `data/current/`\n'
+        '- Current preview data: allowlist only under `data/current/`\n'
         '- Preview boards: `previews/`\n',
         encoding='utf-8',
     )

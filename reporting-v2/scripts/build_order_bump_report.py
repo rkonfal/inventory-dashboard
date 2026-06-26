@@ -15,8 +15,8 @@ from typing import Any
 ROOT = Path('/Users/rudolfkonfal/.openclaw/workspace/reporting-v2')
 SITE_DIR = ROOT / 'site'
 CURRENT_DIR = ROOT / 'data' / 'current'
-TARGET_HTML = SITE_DIR / 'order-bump.html'
-TARGET_JSON = CURRENT_DIR / 'order_bump_report.json'
+TARGET_HTML = Path(os.environ.get('ORDER_BUMP_TARGET_HTML', str(SITE_DIR / 'order-bump.html')))
+TARGET_JSON = Path(os.environ.get('ORDER_BUMP_TARGET_JSON', str(CURRENT_DIR / 'order_bump_report.json')))
 DEFAULT_HOST = os.environ.get('ORDER_BUMP_SSH_HOST', 'root@70.34.246.98')
 DEFAULT_HOURS = int(os.environ.get('ORDER_BUMP_REPORT_HOURS', '720'))
 SSH_KEY = os.environ.get('ORDER_BUMP_SSH_KEY', str(Path.home() / '.ssh' / 'rudolf_tiande_key'))
@@ -948,6 +948,8 @@ def main() -> None:
     }
     CURRENT_DIR.mkdir(parents=True, exist_ok=True)
     SITE_DIR.mkdir(parents=True, exist_ok=True)
+    TARGET_JSON.parent.mkdir(parents=True, exist_ok=True)
+    TARGET_HTML.parent.mkdir(parents=True, exist_ok=True)
     TARGET_JSON.write_text(json.dumps(reports, ensure_ascii=False, indent=2), encoding='utf-8')
     TARGET_HTML.write_text(render_page(reports), encoding='utf-8')
     print(f'Wrote {TARGET_JSON}')
