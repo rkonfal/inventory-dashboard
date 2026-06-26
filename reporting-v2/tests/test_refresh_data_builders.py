@@ -3,6 +3,7 @@ import sys
 import unittest
 from datetime import date, datetime
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 from zoneinfo import ZoneInfo
 
@@ -23,6 +24,52 @@ PRAGUE_TZ = ZoneInfo("Europe/Prague")
 
 
 class RefreshDataBuilderTests(unittest.TestCase):
+    def make_refresh_output_test_context(self):
+        ctx = SimpleNamespace(
+            generated_at="2026-06-26T10:00:00+02:00",
+        )
+        fetch_result = SimpleNamespace(
+            cz_inventory={"items": []},
+            sk_inventory={"items": []},
+            cz_inventory_detail={"items": []},
+            sk_inventory_detail={"items": []},
+            cz_outbound={"items": []},
+            sk_outbound={"items": []},
+            finance_snapshot={"source": {"status": "ok"}},
+            marketing_snapshot={"summary": {}},
+            affiliate_overview={"summary": {}},
+            abra_vykaz_hospodareni_reports={"exports": []},
+        )
+        build_result = SimpleNamespace(
+            expiry_overview_payload={"summary": {}},
+            combined_index_payload={"items": []},
+            combined_overview_payload={"counts": {}},
+            inventory_analytics_payload={"items": []},
+            inventory_analytics_730_payload={"items": []},
+            inventory_analytics_730_cz_payload={"items": []},
+            inventory_analytics_730_sk_payload={"items": []},
+            ordering_core_payload={"summary": {}},
+            ordering_core_cz_payload={"summary": {}},
+            ordering_core_sk_payload={"summary": {}},
+            ordering_reference_payload={"items": []},
+            ordering_reference_cz_payload={"items": []},
+            ordering_reference_sk_payload={"items": []},
+            ordering_sales_history_payload={"codes": {}},
+            wpj_orders_payload={"items": []},
+            wpj_products_payload={"items": []},
+            wpj_history_payload={"days": []},
+            eshop_ytd_payload={"months": []},
+            customer_fact_payload={"customers": []},
+            order_fact_payload={"orders": []},
+            report_json={"reportDate": "2026-06-25"},
+            report_text="report text",
+            report_telegram_text="telegram text",
+            report_manifest={"months": []},
+            heavy_payloads={"ordering_sales_history.json", "order_fact_ytd_window.json"},
+            skip_snapshot_for_heavy=True,
+        )
+        return ctx, fetch_result, build_result
+
     def test_build_combined_product_views_merges_aliases_and_flags_mismatch(self):
         ctx = refresh_data.CombinedProductsBuildContext(
             wpj_products=[
@@ -328,6 +375,43 @@ class RefreshDataBuilderTests(unittest.TestCase):
         self.assertEqual(payload["warnings"], ["warning"])
         self.assertEqual(payload["window"]["from"], "2026-06-25T00:00:01+02:00")
         self.assertEqual(payload["window"]["to"], "2026-06-25T23:59:59+02:00")
+
+    def test_build_refresh_output_registry_includes_expected_outputs(self):
+        ctx, fetch_result, build_result = self.make_refresh_output_test_context()
+
+        outputs = refresh_data.build_refresh_output_registry(
+            ctx,
+            fetch_result,
+            build_result,
+            remote_sync_result={"status": "ok"},
+        )
+        by_name = {output.name: output for output in outputs}
+
+        self.assertEqual(by_name["finance_overview.json"].writer, "finance")
+        self.assertEqual(by_name["morning_report_previous_day.txt"].writer, "text")
+        self.assertEqual(by_name["ordering_sales_history.json"].snapshot_policy, "skip_heavy")
+        self.assertEqual(by_name["order_fact_ytd_window.json"].snapshot_policy, "skip_heavy")
+        self.assertEqual(by_name["reporting_remote_storage_status.json"].payload["status"], "ok")
+
+    def test_should_write_refresh_snapshot_skips_only_heavy_outputs(self):
+        _, _, build_result = self.make_refresh_output_test_context()
+
+        self.assertFalse(refresh_data.should_write_refresh_snapshot(
+            refresh_data.RefreshOutputSpec(
+                "ordering_sales_history.json",
+                {"codes": {}},
+                snapshot_policy="skip_heavy",
+            ),
+            build_result,
+        ))
+        self.assertTrue(refresh_data.should_write_refresh_snapshot(
+            refresh_data.RefreshOutputSpec(
+                "marketing_overview.json",
+                {"summary": {}},
+                snapshot_policy="always",
+            ),
+            build_result,
+        ))
 
 
 if __name__ == "__main__":

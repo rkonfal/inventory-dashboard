@@ -359,6 +359,14 @@ class RefreshBuildState:
     mtd_summary: dict[str, Any] = field(default_factory=dict)
 
 
+@dataclass(frozen=True)
+class RefreshOutputSpec:
+    name: str
+    payload: Any
+    writer: str = 'json'
+    snapshot_policy: str = 'always'
+
+
 def load_env_file(path: Path):
     if not path.exists():
         return
@@ -5739,6 +5747,83 @@ def build_abra_report_manifest(generated_at: str, abra_vykaz_hospodareni_reports
     }
 
 
+def should_write_refresh_snapshot(output: RefreshOutputSpec, build_result: RefreshBuildResult) -> bool:
+    if output.snapshot_policy != 'skip_heavy':
+        return True
+    return not (build_result.skip_snapshot_for_heavy and output.name in build_result.heavy_payloads)
+
+
+def write_refresh_output(output: RefreshOutputSpec, current_dir: Path, snapshot_path: Path, build_result: RefreshBuildResult):
+    if output.writer == 'finance':
+        write_finance_payloads(current_dir, output.payload)
+        if should_write_refresh_snapshot(output, build_result):
+            write_finance_payloads(snapshot_path, output.payload)
+        return
+
+    if output.writer == 'text':
+        write_text(current_dir / output.name, output.payload)
+        if should_write_refresh_snapshot(output, build_result):
+            write_text(snapshot_path / output.name, output.payload)
+        return
+
+    write_json(current_dir / output.name, output.payload)
+    if should_write_refresh_snapshot(output, build_result):
+        write_json(snapshot_path / output.name, output.payload)
+
+
+def build_refresh_output_registry(
+    ctx: RefreshRuntimeContext,
+    fetch_result: RefreshFetchResult,
+    build_result: RefreshBuildResult,
+    remote_sync_result: dict[str, Any] | None = None,
+) -> list[RefreshOutputSpec]:
+    outputs = [
+        RefreshOutputSpec('4px_cz_inventory.json', {'generatedAt': ctx.generated_at, **fetch_result.cz_inventory}),
+        RefreshOutputSpec('4px_sk_inventory.json', {'generatedAt': ctx.generated_at, **fetch_result.sk_inventory}),
+        RefreshOutputSpec('4px_cz_inventory_detail.json', {'generatedAt': ctx.generated_at, **fetch_result.cz_inventory_detail}),
+        RefreshOutputSpec('4px_sk_inventory_detail.json', {'generatedAt': ctx.generated_at, **fetch_result.sk_inventory_detail}),
+        RefreshOutputSpec('4px_cz_outbound_recent.json', {'generatedAt': ctx.generated_at, **fetch_result.cz_outbound}),
+        RefreshOutputSpec('4px_sk_outbound_recent.json', {'generatedAt': ctx.generated_at, **fetch_result.sk_outbound}),
+        RefreshOutputSpec('4px_expiry_overview.json', build_result.expiry_overview_payload),
+        RefreshOutputSpec('combined_product_index.json', build_result.combined_index_payload),
+        RefreshOutputSpec('combined_inventory_overview.json', build_result.combined_overview_payload),
+        RefreshOutputSpec('inventory_analytics_365d.json', build_result.inventory_analytics_payload),
+        RefreshOutputSpec('inventory_analytics_730d.json', build_result.inventory_analytics_730_payload),
+        RefreshOutputSpec('inventory_analytics_730d_cz.json', build_result.inventory_analytics_730_cz_payload),
+        RefreshOutputSpec('inventory_analytics_730d_sk.json', build_result.inventory_analytics_730_sk_payload),
+        RefreshOutputSpec('ordering_core.json', build_result.ordering_core_payload),
+        RefreshOutputSpec('ordering_core_cz.json', build_result.ordering_core_cz_payload),
+        RefreshOutputSpec('ordering_core_sk.json', build_result.ordering_core_sk_payload),
+        RefreshOutputSpec('ordering_reference_data.json', build_result.ordering_reference_payload),
+        RefreshOutputSpec('ordering_reference_data_cz.json', build_result.ordering_reference_cz_payload),
+        RefreshOutputSpec('ordering_reference_data_sk.json', build_result.ordering_reference_sk_payload),
+        RefreshOutputSpec('ordering_sales_history.json', build_result.ordering_sales_history_payload, snapshot_policy='skip_heavy'),
+        RefreshOutputSpec('finance_overview.json', fetch_result.finance_snapshot, writer='finance'),
+        RefreshOutputSpec('marketing_overview.json', fetch_result.marketing_snapshot),
+        RefreshOutputSpec('affiliate_overview.json', fetch_result.affiliate_overview),
+        RefreshOutputSpec('wpj_orders_previous_day.json', build_result.wpj_orders_payload),
+        RefreshOutputSpec('wpj_products.json', build_result.wpj_products_payload),
+        RefreshOutputSpec('wpj_history_8_days.json', build_result.wpj_history_payload),
+        RefreshOutputSpec('eshop_ytd.json', build_result.eshop_ytd_payload),
+        RefreshOutputSpec('customer_fact_ytd_window.json', build_result.customer_fact_payload, snapshot_policy='skip_heavy'),
+        RefreshOutputSpec('order_fact_ytd_window.json', build_result.order_fact_payload, snapshot_policy='skip_heavy'),
+        RefreshOutputSpec('morning_report_previous_day.json', build_result.report_json),
+        RefreshOutputSpec('abra_vykaz_hospodareni_reports.json', build_result.report_manifest),
+        RefreshOutputSpec('morning_report_previous_day.txt', build_result.report_text, writer='text'),
+        RefreshOutputSpec('morning_report_previous_day_telegram.txt', build_result.report_telegram_text, writer='text'),
+    ]
+    if remote_sync_result is not None:
+        outputs.append(RefreshOutputSpec(
+            'reporting_remote_storage_status.json',
+            {
+                'generatedAt': ctx.generated_at,
+                'heavyPayloads': sorted(build_result.heavy_payloads),
+                **remote_sync_result,
+            },
+        ))
+    return outputs
+
+
 def build_refresh_payloads(ctx: RefreshRuntimeContext, fetch_result: RefreshFetchResult) -> RefreshBuildResult:
     generated_at = ctx.generated_at
     state = build_empty_refresh_state(generated_at)
@@ -5845,67 +5930,15 @@ def persist_refresh_outputs(
     snapshot_path = SNAPSHOT_DIR / ctx.stamp
     snapshot_path.mkdir(parents=True, exist_ok=True)
 
-    payloads = {
-        '4px_cz_inventory.json': {'generatedAt': ctx.generated_at, **fetch_result.cz_inventory},
-        '4px_sk_inventory.json': {'generatedAt': ctx.generated_at, **fetch_result.sk_inventory},
-        '4px_cz_inventory_detail.json': {'generatedAt': ctx.generated_at, **fetch_result.cz_inventory_detail},
-        '4px_sk_inventory_detail.json': {'generatedAt': ctx.generated_at, **fetch_result.sk_inventory_detail},
-        '4px_cz_outbound_recent.json': {'generatedAt': ctx.generated_at, **fetch_result.cz_outbound},
-        '4px_sk_outbound_recent.json': {'generatedAt': ctx.generated_at, **fetch_result.sk_outbound},
-        '4px_expiry_overview.json': build_result.expiry_overview_payload,
-        'combined_product_index.json': build_result.combined_index_payload,
-        'combined_inventory_overview.json': build_result.combined_overview_payload,
-        'inventory_analytics_365d.json': build_result.inventory_analytics_payload,
-        'inventory_analytics_730d.json': build_result.inventory_analytics_730_payload,
-        'inventory_analytics_730d_cz.json': build_result.inventory_analytics_730_cz_payload,
-        'inventory_analytics_730d_sk.json': build_result.inventory_analytics_730_sk_payload,
-        'ordering_core.json': build_result.ordering_core_payload,
-        'ordering_core_cz.json': build_result.ordering_core_cz_payload,
-        'ordering_core_sk.json': build_result.ordering_core_sk_payload,
-        'ordering_reference_data.json': build_result.ordering_reference_payload,
-        'ordering_reference_data_cz.json': build_result.ordering_reference_cz_payload,
-        'ordering_reference_data_sk.json': build_result.ordering_reference_sk_payload,
-        'ordering_sales_history.json': build_result.ordering_sales_history_payload,
-        'finance_overview.json': fetch_result.finance_snapshot,
-        'marketing_overview.json': fetch_result.marketing_snapshot,
-        'affiliate_overview.json': fetch_result.affiliate_overview,
-        'wpj_orders_previous_day.json': build_result.wpj_orders_payload,
-        'wpj_products.json': build_result.wpj_products_payload,
-        'wpj_history_8_days.json': build_result.wpj_history_payload,
-        'eshop_ytd.json': build_result.eshop_ytd_payload,
-        'customer_fact_ytd_window.json': build_result.customer_fact_payload,
-        'order_fact_ytd_window.json': build_result.order_fact_payload,
-        'morning_report_previous_day.json': build_result.report_json,
-    }
-
-    for name, payload in payloads.items():
-        if name == 'finance_overview.json':
-            write_finance_payloads(CURRENT_DIR, payload)
-            write_finance_payloads(snapshot_path, payload)
-            continue
-        write_json(CURRENT_DIR / name, payload)
-        if not (build_result.skip_snapshot_for_heavy and name in build_result.heavy_payloads):
-            write_json(snapshot_path / name, payload)
-
-    write_json(CURRENT_DIR / 'abra_vykaz_hospodareni_reports.json', build_result.report_manifest)
-    write_json(snapshot_path / 'abra_vykaz_hospodareni_reports.json', build_result.report_manifest)
     remote_sync_result = sync_remote_heavy_payloads(sorted(build_result.heavy_payloads))
-    write_json(CURRENT_DIR / 'reporting_remote_storage_status.json', {
-        'generatedAt': ctx.generated_at,
-        'heavyPayloads': sorted(build_result.heavy_payloads),
-        **remote_sync_result,
-    })
+    for output in build_refresh_output_registry(ctx, fetch_result, build_result, remote_sync_result=remote_sync_result):
+        write_refresh_output(output, CURRENT_DIR, snapshot_path, build_result)
     for row in (fetch_result.abra_vykaz_hospodareni_reports.get('exports') or []):
         body = row.get('bytes')
         if not body:
             continue
         write_bytes(CURRENT_DIR / row['fileName'], body)
         write_bytes(snapshot_path / row['fileName'], body)
-
-    write_text(CURRENT_DIR / 'morning_report_previous_day.txt', build_result.report_text)
-    write_text(snapshot_path / 'morning_report_previous_day.txt', build_result.report_text)
-    write_text(CURRENT_DIR / 'morning_report_previous_day_telegram.txt', build_result.report_telegram_text)
-    write_text(snapshot_path / 'morning_report_previous_day_telegram.txt', build_result.report_telegram_text)
 
     twisto_watchdog = run_twisto_watchdog(snapshot_path, ctx.generated_at)
     portal_summary = {
@@ -5979,8 +6012,12 @@ def persist_refresh_outputs(
             'message': ((twisto_watchdog.get('alert') or {}).get('lines') or [None])[0],
         },
     }
-    write_json(CURRENT_DIR / 'portal_summary.json', portal_summary)
-    write_json(snapshot_path / 'portal_summary.json', portal_summary)
+    write_refresh_output(
+        RefreshOutputSpec('portal_summary.json', portal_summary),
+        CURRENT_DIR,
+        snapshot_path,
+        build_result,
+    )
 
     latest_snapshot = SNAPSHOT_DIR / 'latest'
     if latest_snapshot.exists() or latest_snapshot.is_symlink():
