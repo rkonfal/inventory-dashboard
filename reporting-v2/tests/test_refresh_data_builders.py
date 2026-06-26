@@ -284,7 +284,10 @@ class RefreshDataBuilderTests(unittest.TestCase):
             ],
         }
 
-        payload = refresh_data.build_ordering_core(analytics_payload, "2026-06-26T10:00:00+02:00")
+        payload = refresh_data.build_ordering_core(refresh_data.OrderingCoreBuildContext(
+            analytics_payload=analytics_payload,
+            generated_at="2026-06-26T10:00:00+02:00",
+        ))
 
         self.assertEqual(payload["summary"]["trackedItems"], 4)
         self.assertEqual(payload["summary"]["criticalReorderItems"], 1)

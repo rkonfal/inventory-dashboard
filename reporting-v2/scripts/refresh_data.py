@@ -222,6 +222,12 @@ class OrderingSalesHistoryBuildContext:
 
 
 @dataclass
+class OrderingCoreBuildContext:
+    analytics_payload: dict[str, Any]
+    generated_at: str
+
+
+@dataclass
 class MorningReportBuildContext:
     report_date: date
     wpj_summary: dict[str, Any]
@@ -3335,7 +3341,9 @@ def build_ordering_planning(items, lead_days=21, capacity_key='half', use_praha=
     }
 
 
-def build_ordering_core(analytics_payload, generated_at):
+def build_ordering_core(ctx: OrderingCoreBuildContext):
+    analytics_payload = ctx.analytics_payload
+    generated_at = ctx.generated_at
     items = analytics_payload.get('items') or []
     orderable_items = [item for item in items if item.get('orderable', True)]
     top_sku_items = [item for item in orderable_items if item.get('orderingRole') == 'top_sku']
@@ -5601,15 +5609,27 @@ def populate_refresh_wpj_state(ctx: RefreshRuntimeContext, fetch_result: Refresh
             ordering_reference_overrides=ctx.ordering_reference_overrides,
             ordering_packaging_map=ctx.ordering_packaging_map,
         ))
-        state.ordering_core_payload = build_ordering_core(state.inventory_analytics_730_payload, generated_at)
+        state.ordering_core_payload = build_ordering_core(OrderingCoreBuildContext(
+            analytics_payload=state.inventory_analytics_730_payload,
+            generated_at=generated_at,
+        ))
     elif analytics_730_prices_changed or analytics_730_reference_changed or analytics_730_packaging_changed or analytics_730_stock_changed:
-        state.ordering_core_payload = build_ordering_core(state.inventory_analytics_730_payload, generated_at)
+        state.ordering_core_payload = build_ordering_core(OrderingCoreBuildContext(
+            analytics_payload=state.inventory_analytics_730_payload,
+            generated_at=generated_at,
+        ))
 
     state.ordering_reference_payload = build_ordering_reference_data(state.inventory_analytics_730_payload, generated_at)
     state.inventory_analytics_730_cz_payload = build_inventory_analytics_market_view(state.inventory_analytics_730_payload, state.combined_index_payload, generated_at, market_key='cz')
     state.inventory_analytics_730_sk_payload = build_inventory_analytics_market_view(state.inventory_analytics_730_payload, state.combined_index_payload, generated_at, market_key='sk')
-    state.ordering_core_cz_payload = build_ordering_core(state.inventory_analytics_730_cz_payload, generated_at)
-    state.ordering_core_sk_payload = build_ordering_core(state.inventory_analytics_730_sk_payload, generated_at)
+    state.ordering_core_cz_payload = build_ordering_core(OrderingCoreBuildContext(
+        analytics_payload=state.inventory_analytics_730_cz_payload,
+        generated_at=generated_at,
+    ))
+    state.ordering_core_sk_payload = build_ordering_core(OrderingCoreBuildContext(
+        analytics_payload=state.inventory_analytics_730_sk_payload,
+        generated_at=generated_at,
+    ))
     state.ordering_reference_cz_payload = build_ordering_reference_data(state.inventory_analytics_730_cz_payload, generated_at)
     state.ordering_reference_sk_payload = build_ordering_reference_data(state.inventory_analytics_730_sk_payload, generated_at)
 
