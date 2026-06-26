@@ -15,7 +15,7 @@
   </style>
 </head>
 <body class="page-finance-simplified">
-  <aside class="sidebar" data-sidebar-page="finance.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Finance bez zbytečné složitosti" data-sidebar-section="Přehled" data-sidebar-footer="Nejdřív peníze, které je potřeba hlídat. Detail až potom."></aside>
+  <aside class="sidebar" data-sidebar-page="finance.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Finance bez zbytečné složitosti" data-sidebar-section="Finance" data-sidebar-footer="Nejdřív peníze, které je potřeba hlídat. Detail až potom."></aside>
 
   <main class="main page-stack">
     <header class="header">
@@ -28,8 +28,6 @@
             <button class="ux-button secondary" type="button" data-view-toggle="current">Současný stav</button>
             <button class="ux-button secondary" type="button" data-view-toggle="previous">Minulý měsíc</button>
             <a class="ux-button primary" href="../data/current/finance_overview.json" target="_blank" rel="noopener">Finance data</a>
-            <a class="ux-button secondary" href="marketing.html">Marketing</a>
-            <a class="ux-button secondary" href="index.html">Přehled</a>
           </div>
         </div>
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
@@ -186,6 +184,7 @@
         <div class="section-subtitle">Filtrování pro dohledání konkrétní platby nebo dokladu.</div>
       <div id="journal-filter-bar" class="journal-filter-bar" style="margin-top:18px;"></div>
       <div id="journal-filter-note" class="section-subtitle" style="margin-top:12px;"></div>
+      <div id="journal-pagination" style="margin-top:12px;"></div>
       <div class="ux-table-wrap" style="margin-top:16px;">
         <table class="table mobile-stack">
           <thead>
@@ -211,6 +210,7 @@
     DP.initThemeToggle();
     const money = value => `${DP.fmtNumber(Math.round(value || 0))} Kč`;
     const pct = value => value == null ? '–' : `${Number(value).toFixed(1)} %`;
+    const shortTs = value => value ? DP.fmtDateTime(value) : '–';
     const sourceMeta = status => ({
       legacy_snapshot: { label: 'starší uložený přehled', tone: 'warn' },
       mixed_live_legacy: { label: 'živé závazky + starší P&L', tone: 'success' },
@@ -234,6 +234,7 @@
       let activeMode = 'current';
       const journal = data.journal || {};
       const monthlyJournal = journal.monthly || [];
+      const monthCache = new Map((monthlyJournal || []).map(row => [row.label, row]));
       const journalCurrent = journal.currentMonth || {};
       const journalTopClass = (journalCurrent.topExpenseClasses || [])[0];
       const journalState = {
@@ -241,9 +242,13 @@
         side: 'all',
         account: 'all',
         vendor: 'all',
+        page: 1,
+        pageSize: 250,
       };
 
-      const getSelectedMonth = () => monthlyJournal.find(row => row.label === journalState.month) || monthlyJournal[monthlyJournal.length - 1] || { recentEntries: [], topExpenseAccounts: [], topVendors: [] };
+      const emptyMonth = { recentEntries: [], topExpenseAccounts: [], topVendors: [], topExpenseClasses: [] };
+      const getSelectedMonth = () => monthCache.get(journalState.month) || monthlyJournal[monthlyJournal.length - 1] || emptyMonth;
+      const monthFileName = label => `../data/current/finance_journal_${String(label || '').replace('/', '-')}.json`;
       const selectHtml = (id, label, value, options) => `
         <label style="display:grid; gap:6px; font-size:12px; color:var(--text-muted);">
           <span>${label}</span>
@@ -338,7 +343,7 @@
           { label: 'Stav', value: Number(cash.overdueInvoicesCount || 0) ? 'Pozor' : 'OK', tone: Number(cash.overdueInvoicesCount || 0) ? 'warn' : 'success' },
           { label: 'Zdroj', value: source.label, tone: source.tone === 'danger' ? 'danger' : source.tone === 'warn' ? 'warn' : 'info' },
           { label: 'Cash', value: money(cash.netCashPosition), tone: Number(cash.netCashPosition || 0) < 0 ? 'danger' : 'success' },
-          { label: 'Akce', value: Number(cash.overdueInvoicesCount || 0) ? 'Projít závazky po splatnosti' : 'Kontrola měsíce a cash', tone: Number(cash.overdueInvoicesCount || 0) ? 'warn' : 'info' },
+          { label: 'Refresh', value: shortTs(data.generatedAt), tone: 'info' },
         ]);
 
         const overdueText = Number(cash.overdueInvoicesCount || 0)
@@ -448,17 +453,29 @@
           </tr>
       `).join('') || '<tr><td colspan="4">Trendy z účetního deníku zatím nejsou dostupné.</td></tr>';
 
+      async function ensureJournalMonthLoaded(label) {
+        const month = monthCache.get(label);
+        if (!label || !month || Array.isArray(month.recentEntries)) return month || emptyMonth;
+        const loaded = await DP.loadJson(monthFileName(label));
+        monthCache.set(label, loaded || month);
+        return monthCache.get(label) || emptyMonth;
+      }
+
+      function rerenderJournalSafely() {
+        renderJournalTables().catch(err => {
+          document.getElementById('journal-filter-note').textContent = `Nepodařilo se načíst detail měsíce: ${err.message}`;
+        });
+      }
+
       function renderJournalFilterBar() {
         const selectedMonth = getSelectedMonth();
         const accountOptions = [{ value: 'all', label: 'Všechny účty' }].concat(
           Array.from(new Map((selectedMonth.recentEntries || []).map(row => [row.accountCode, row.accountLabel || row.accountCode])).entries())
             .filter(([code]) => code)
             .map(([code, label]) => ({ value: code, label: `${code}: ${label}` }))
-            .slice(0, 80)
         );
         const vendorOptions = [{ value: 'all', label: 'Všichni dodavatelé / protistrany' }].concat(
           Array.from(new Set((selectedMonth.recentEntries || []).map(row => row.vendor).filter(Boolean)))
-            .slice(0, 80)
             .map(name => ({ value: name, label: name }))
         );
 
@@ -480,23 +497,28 @@
           journalState.month = event.target.value;
           journalState.account = 'all';
           journalState.vendor = 'all';
-          renderJournalTables();
+          journalState.page = 1;
+          rerenderJournalSafely();
         });
         document.getElementById('journal-side-filter').addEventListener('change', event => {
           journalState.side = event.target.value;
-          renderJournalTables();
+          journalState.page = 1;
+          rerenderJournalSafely();
         });
         document.getElementById('journal-account-filter').addEventListener('change', event => {
           journalState.account = event.target.value;
-          renderJournalTables();
+          journalState.page = 1;
+          rerenderJournalSafely();
         });
         document.getElementById('journal-vendor-filter').addEventListener('change', event => {
           journalState.vendor = event.target.value;
-          renderJournalTables();
+          journalState.page = 1;
+          rerenderJournalSafely();
         });
       }
 
-      function renderJournalTables() {
+      async function renderJournalTables() {
+        await ensureJournalMonthLoaded(journalState.month);
         const selectedMonth = getSelectedMonth();
         const entries = (selectedMonth.recentEntries || []).filter(row => {
           if (journalState.side !== 'all' && row.side !== journalState.side) return false;
@@ -504,6 +526,10 @@
           if (journalState.vendor !== 'all' && row.vendor !== journalState.vendor) return false;
           return true;
         });
+        const totalPages = Math.max(1, Math.ceil(entries.length / journalState.pageSize));
+        if (journalState.page > totalPages) journalState.page = totalPages;
+        const pageStart = (journalState.page - 1) * journalState.pageSize;
+        const pagedEntries = entries.slice(pageStart, pageStart + journalState.pageSize);
 
         document.getElementById('journal-accounts-table').innerHTML = (selectedMonth.topExpenseAccounts || []).map(row => `
           <tr>
@@ -513,7 +539,7 @@
           </tr>
       `).join('') || '<tr><td colspan="3">Největší nákladové účty zatím nejsou k dispozici.</td></tr>';
 
-        document.getElementById('journal-entries-table').innerHTML = entries.map(row => `
+        document.getElementById('journal-entries-table').innerHTML = pagedEntries.map(row => `
           <tr>
             <td data-label="Datum">${row.date}</td>
             <td data-label="Doklad">${row.document}</td>
@@ -525,6 +551,26 @@
           </tr>
         `).join('') || '<tr><td colspan="7">Pro zvolenou kombinaci filtrů tu teď nic není.</td></tr>';
 
+        document.getElementById('journal-pagination').innerHTML = entries.length > journalState.pageSize ? `
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <button id="journal-page-prev" class="ux-button secondary" ${journalState.page <= 1 ? 'disabled' : ''}>Předchozí</button>
+            <span style="font-size:12px; color:var(--text-muted);">Zobrazeno ${pageStart + 1}-${Math.min(pageStart + journalState.pageSize, entries.length)} z ${entries.length} zápisů, stránka ${journalState.page} z ${totalPages}</span>
+            <button id="journal-page-next" class="ux-button secondary" ${journalState.page >= totalPages ? 'disabled' : ''}>Další</button>
+          </div>
+        ` : (entries.length ? `<div style="font-size:12px; color:var(--text-muted);">Zobrazeno všech ${entries.length} zápisů.</div>` : '');
+        const prevBtn = document.getElementById('journal-page-prev');
+        const nextBtn = document.getElementById('journal-page-next');
+        if (prevBtn) prevBtn.addEventListener('click', () => {
+          if (journalState.page <= 1) return;
+          journalState.page -= 1;
+          rerenderJournalSafely();
+        });
+        if (nextBtn) nextBtn.addEventListener('click', () => {
+          if (journalState.page >= totalPages) return;
+          journalState.page += 1;
+          rerenderJournalSafely();
+        });
+
         const totalExpenseEntries = (selectedMonth.recentEntries || []).filter(row => row.side === 'náklad').length;
         const missingExpenseDetailNote = totalExpenseEntries === 0 && Number(selectedMonth.expenseTotal || 0) > 0
           ? ' • Nákladové doklady v detailu tu teď chybí, ale souhrn nákladů je výše v tabulce Kam šlo nejvíc peněz.'
@@ -534,7 +580,7 @@
       }
 
       syncJournalMonthToActiveMode();
-      renderJournalTables();
+      rerenderJournalSafely();
 
       const hasPrevious = Boolean(previous.label);
       toggleButtons.forEach(button => {
@@ -547,7 +593,8 @@
           activeMode = button.dataset.viewToggle;
           renderFinanceTop();
           syncJournalMonthToActiveMode();
-          renderJournalTables();
+          journalState.page = 1;
+          rerenderJournalSafely();
         });
       });
     })().catch(err => {

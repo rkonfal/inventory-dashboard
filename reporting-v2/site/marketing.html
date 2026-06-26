@@ -73,7 +73,7 @@
   </style>
 </head>
 <body class="page-marketing-simplified">
-  <aside class="sidebar" data-sidebar-page="marketing.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Reklama bez zbytečné složitosti" data-sidebar-section="Přehled" data-sidebar-footer="Rychle ukáže, kolik dáváme do reklamy a co z toho jde zpátky."></aside>
+  <aside class="sidebar" data-sidebar-page="marketing.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Reklama bez zbytečné složitosti" data-sidebar-section="Marketing" data-sidebar-footer="Rychle ukáže, kolik dáváme do reklamy a co z toho jde zpátky."></aside>
 
   <main class="main page-stack">
     <header class="header">
@@ -86,8 +86,6 @@
             <button class="ux-button secondary" type="button" data-view-toggle="current">Současný stav</button>
             <button class="ux-button secondary" type="button" data-view-toggle="previous">Minulý měsíc</button>
             <a class="ux-button primary" href="../data/current/marketing_overview.json" target="_blank" rel="noopener">Marketing data</a>
-            <a class="ux-button secondary" href="finance.html">Finance</a>
-            <a class="ux-button secondary" href="index.html">Na přehled</a>
           </div>
         </div>
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
@@ -298,6 +296,7 @@
     const money = value => `${DP.fmtNumber(Math.round(value || 0))} Kč`;
     const pct = value => value == null ? '–' : `${Number(value).toFixed(1)} %`;
     const pctFromRate = value => value == null ? '–' : `${(Number(value) * 100).toFixed(1)} %`;
+    const shortTs = value => value ? DP.fmtDateTime(value) : '–';
     const sourceMeta = status => ({
       legacy_snapshot: { label: 'starší uložený přehled', tone: 'warn' },
       missing: { label: 'bez zdroje', tone: 'danger' },
@@ -309,6 +308,7 @@
       const meta = data.directSources?.meta || {};
       const google = data.directSources?.google || {};
       const klaviyo = data.directSources?.klaviyo || {};
+      const affiliate = data.directSources?.affiliate || {};
       const ga4 = data.analytics || {};
       const ga4Mode = ga4.property?.mode === 'combined' ? 'GA4 CZ+SK bundle' : 'GA4';
       const ga4Country = name => (ga4.countries7d || []).find(row => row.country === name) || null;
@@ -331,7 +331,7 @@
         { label: 'Stav', value: anyLiveSource ? 'OK' : 'Pozor', tone: anyLiveSource ? 'success' : 'warn' },
         { label: 'Zdroj', value: source.label, tone: source.tone === 'danger' ? 'danger' : source.tone === 'warn' ? 'warn' : 'info' },
         { label: 'Akce', value: anyLiveSource ? 'Vyhodnotit výkon kanálů' : 'Zkontrolovat zdroj dat', tone: anyLiveSource ? 'info' : 'warn' },
-        { label: 'Režim', value: anyLiveSource ? 'Live kanály' : 'Bez live dat', tone: anyLiveSource ? 'success' : 'danger' },
+        { label: 'Režim', value: anyLiveSource ? `Live kanály, GA4 ${ga4.generatedAt || 'daily'}` : 'Bez live dat', tone: anyLiveSource ? 'success' : 'danger' },
       ]);
 
       const normalizeDate = value => {
@@ -594,6 +594,7 @@
           sklik.ready ? [`Sklik`, `${money(month.sklikTotal.priceCzk)} útrata, ${DP.fmtNumber(Math.round(month.sklikTotal.clicks || 0))} kliků a ${DP.fmtNumber(Math.round(month.sklikTotal.conversions || 0))} konverzí.`] : null,
           ga4.ready ? [`${ga4Mode} akvizice`, `${DP.fmtNumber(ga4.currentMonth?.sessions || 0)} sessions, ${DP.fmtNumber(Math.round(ga4.currentMonth?.ecommercePurchases || 0))} nákupů, revenue ${money(ga4.currentMonth?.purchaseRevenue || 0)}${ga4SkCountry ? `, Slovensko ${DP.fmtNumber(Math.round(ga4SkCountry.activeUsers || 0))} AU za 7 dní` : ''}.`] : null,
           klaviyo.ready ? [`Klaviyo`, `${money(klaviyoMonth.totalAttributedRevenueCzk)} atribuovaný obrat, ${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)} objednávek, ${DP.fmtNumber(Math.round(klaviyoMonth.totalRecipients || 0))} příjemců.`] : null,
+          affiliate.ready ? [`Affiliate`, `Nováčci ${money(affiliate.summary?.noviceRevenueCzkEquiv || 0)}, MLM síť ${money(affiliate.summary?.networkRevenueCzkEquiv || 0)}, období ${affiliate.period?.label || '–'}.`] : null,
         ].filter(Boolean).map(([title, text], index) => `
           <div class="ux-item">
             <span class="ux-dot ${index === 1 ? 'blue' : 'gold'}"></span>
@@ -634,6 +635,7 @@
           bestRoasSource ? [`Nejlepší efektivita`, `${bestRoasSource.label} má nejvyšší ROAS ${Number(bestRoasSource.roas).toFixed(2)}.`] : null,
           ga4.ready ? [`${ga4Mode} top channel`, `${ga4.channelPerformanceCurrentMonth?.[0]?.channel || '–'} přivedl ${DP.fmtNumber(ga4.channelPerformanceCurrentMonth?.[0]?.sessions || 0)} sessions a ${money(ga4.channelPerformanceCurrentMonth?.[0]?.purchaseRevenue || 0)} revenue.`] : null,
           klaviyo.ready ? [`Klaviyo dopad`, `Email + SMS připisují ${money(klaviyoMonth.totalAttributedRevenueCzk)} a ${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)} objednávek.`] : null,
+          affiliate.ready ? [`Affiliate výkon`, `Mimo PPC a CRM teď affiliate ukazuje ${money(affiliate.summary?.networkRevenueCzkEquiv || 0)} obratu celé sítě a ${money(affiliate.summary?.noviceRevenueCzkEquiv || 0)} u nováčků.`] : null,
           [`Čtení trendu`, `Denní trend níž ukáže, jestli některý kanál v ${sectionMonthLabel(mode)} rostl v útratě bez růstu hodnoty.`],
         ].filter(Boolean).map(([title, text], index) => `
           <div class="ux-item">

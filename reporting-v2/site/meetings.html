@@ -85,30 +85,30 @@
   </style>
 </head>
 <body class="page-meetings-simplified">
-  <aside class="sidebar" data-sidebar-page="meetings.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Porady, rozhodnutí a follow-upy" data-sidebar-section="Přehled" data-sidebar-footer="Schůzky podle data, s otevřenými úkoly a rozhodnutími na jednom místě."></aside>
+  <aside class="sidebar" data-sidebar-page="meetings.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Porady, rozhodnutí a follow-upy" data-sidebar-section="Porady" data-sidebar-footer="Schůzky podle data, s otevřenými úkoly a rozhodnutími na jednom místě."></aside>
 
   <main class="main page-stack">
     <header class="header meetings-hero">
       <div class="ux-topbar">
         <div class="ux-intro meetings-hero-card" style="width:100%;">
           <div class="ux-kicker">Porady • rozhodnutí • follow-upy</div>
-          <h1>Porady ve stejném rozhodovacím standardu</h1>
-          <p>Nejdřív přehled úkolů a termínů, potom pracovní pohledy na lidi, rozhodnutí a chronologii.</p>
-          <div class="meetings-toolbar">
-            <button class="meetings-chip active" data-view="timeline">Chronologicky</button>
-            <button class="meetings-chip" data-view="owners">Podle lidí</button>
-            <button class="meetings-chip" data-view="urgent">Blízké termíny</button>
-            <button class="meetings-chip" data-view="decisions">Rozhodnutí</button>
+          <h1 class="ux-title">Porady ve stejném rozhodovacím standardu</h1>
+          <p class="ux-subtitle">Nejdřív přehled úkolů a termínů, potom pracovní pohledy na lidi, rozhodnutí a chronologii.</p>
+          <div class="ux-actions">
+            <button class="ux-button secondary is-active" type="button" data-view="timeline">Chronologicky</button>
+            <button class="ux-button secondary" type="button" data-view="urgent">Blízké termíny</button>
+            <button class="ux-button secondary" type="button" data-view="decisions">Rozhodnutí</button>
           </div>
           <div class="status-strip compact" id="meetings-status-strip">
             <div class="status-chip info"><span class="label">Stav</span><span class="value">Načítám</span></div>
             <div class="status-chip info"><span class="label">Fokus</span><span class="value">Otevřené úkoly</span></div>
             <div class="status-chip info"><span class="label">Akce</span><span class="value">Blízké termíny</span></div>
           </div>
+          <div class="ux-date-note"><strong>Období:</strong> nejnovější porady jsou nahoře, termíny se hlídají jen u otevřených follow-upů a stav odškrtnutých úkolů se drží lokálně v tomhle prohlížeči.</div>
         </div>
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
       </div>
-      <section class="meetings-grid" id="kpis"></section>
+      <section class="ux-hero-metrics meetings-grid" id="kpis"></section>
     </header>
 
     <section class="layer-shell">
@@ -160,59 +160,8 @@
     </section>
   </main>
 
+  <script src="assets/app.js"></script>
   <script>
-    const sidebarLinks = [
-      ['index.html', 'Přehled firmy'],
-      ['inventory.html', 'Sklad'],
-      ['eshop.html', 'E-shop'],
-      ['logistics.html', 'Logistika'],
-      ['expiry.html', 'Expirace a akce'],
-      ['finance.html', 'Finance'],
-      ['marketing.html', 'Marketing'],
-      ['ordering.html', 'Objednávání'],
-      ['meetings.html', 'Porady']
-    ];
-
-    (function initShell() {
-      const root = document.documentElement;
-      const savedTheme = localStorage.getItem('dp-theme');
-      if (savedTheme === 'dark') root.setAttribute('data-theme', 'dark');
-
-      const sidebar = document.querySelector('.sidebar');
-      if (sidebar && !sidebar.innerHTML.trim()) {
-        const current = sidebar.dataset.sidebarPage || 'meetings.html';
-        const title = sidebar.dataset.sidebarTitle || 'Diamond Plus';
-        const subtitle = sidebar.dataset.sidebarSubtitle || '';
-        const footer = sidebar.dataset.sidebarFooter || '';
-        sidebar.innerHTML = `
-          <div class="sidebar-logo">
-            <h2>${title}</h2>
-            <span>${subtitle}</span>
-          </div>
-          <div class="sidebar-section-label">Reporty</div>
-          <nav class="sidebar-nav">
-            ${sidebarLinks.map(([href, label]) => `<a href="${href}" class="${href === current ? 'active' : ''}">${label}</a>`).join('')}
-          </nav>
-          <div class="sidebar-footer">${footer}</div>
-        `;
-      }
-
-      const themeToggle = document.querySelector('[data-theme-toggle]');
-      if (themeToggle) {
-        const syncLabel = () => {
-          themeToggle.textContent = root.getAttribute('data-theme') === 'dark' ? 'Světlý režim' : 'Tmavý režim';
-        };
-        syncLabel();
-        themeToggle.addEventListener('click', () => {
-          const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-          if (next === 'dark') root.setAttribute('data-theme', 'dark');
-          else root.removeAttribute('data-theme');
-          localStorage.setItem('dp-theme', next);
-          syncLabel();
-        });
-      }
-    })();
-
     const STORAGE_KEY = 'dp-meetings-task-statuses';
     const taskStatusOverrides = loadTaskStatusOverrides();
     const state = { meetings: [], view: 'timeline' };
@@ -291,7 +240,6 @@
       document.getElementById('kpis').innerHTML = `
         <div class="meetings-kpi"><div class="label">Porady</div><div class="value">${state.meetings.length}</div><div class="sub">Seřazené podle data</div></div>
         <div class="meetings-kpi"><div class="label">Otevřené úkoly</div><div class="value">${openTasks.length}</div><div class="sub">Ze všech aktivních porad</div></div>
-        <div class="meetings-kpi"><div class="label">Lidé v úkolech</div><div class="value">${owners.size}</div><div class="sub">Účastníci s akcí</div></div>
         <div class="meetings-kpi"><div class="label">Blízké termíny</div><div class="value">${urgent.length}</div><div class="sub">Dnes až za 3 dny</div></div>
       `;
       const decisions = state.meetings.flatMap(m => m.decisions || []);
@@ -469,10 +417,10 @@
       }
     }
 
-    document.querySelectorAll('.meetings-chip').forEach(btn => {
+    document.querySelectorAll('[data-view]').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.meetings-chip').forEach(x => x.classList.remove('active'));
-        btn.classList.add('active');
+        document.querySelectorAll('[data-view]').forEach(x => x.classList.remove('is-active'));
+        btn.classList.add('is-active');
         state.view = btn.dataset.view;
         renderView();
       });

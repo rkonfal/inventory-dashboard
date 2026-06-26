@@ -55,6 +55,7 @@ body {
   min-height: 100vh;
   font-size: 15px;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 a { color: inherit; }
@@ -1262,6 +1263,13 @@ pre {
   border-color: var(--border);
 }
 
+.ux-button.secondary.is-active {
+  background: linear-gradient(135deg, var(--brand), var(--brand-light));
+  color: #fffaf4;
+  border-color: transparent;
+  box-shadow: 0 10px 22px rgba(49,94,251,.16);
+}
+
 [data-theme="dark"] .ux-button.secondary {
   background: rgba(255,255,255,.06);
 }
@@ -2046,11 +2054,93 @@ pre {
   padding-left: 18px;
 }
 
+.page-order-bump {
+  --topbar-h: 0px;
+}
+
+.page-order-bump .sidebar,
+.page-order-bump .mobile-nav-toggle,
+.page-order-bump .mobile-nav-overlay,
+.page-order-bump .sidebar-footer,
+.page-order-bump .section-nav {
+  display: none !important;
+}
+
+.page-order-bump .main,
+.page-order-bump .main.page-stack {
+  width: min(1160px, calc(100vw - 24px));
+  max-width: 100%;
+  margin: 12px auto 0;
+  padding-top: 0;
+}
+
+.order-bump-hero {
+  display: grid;
+  gap: 18px;
+}
+
+.order-bump-hero-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.order-bump-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.order-bump-window-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.78);
+  border: 1px solid var(--border-strong);
+}
+
+.order-bump-window-btn {
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.order-bump-window-btn.is-active {
+  background: var(--text);
+  color: #fff;
+}
+
+.order-bump-meta-card {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--border-strong);
+  background: rgba(255,255,255,.72);
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.order-bump-meta-card strong {
+  color: var(--text);
+}
+
 .order-bump-kpis {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 14px;
-  margin: 0 0 18px;
+  margin: 0;
 }
 
 .order-bump-kpis .kpi {
@@ -2059,6 +2149,11 @@ pre {
   border-radius: 20px;
   padding: 18px;
   box-shadow: var(--shadow-soft);
+}
+
+.order-bump-kpis .kpi-accent {
+  border-color: var(--border-strong);
+  background: linear-gradient(180deg, rgba(255,252,248,.96), rgba(247,241,234,.96));
 }
 
 .order-bump-kpis .lbl {
@@ -2089,16 +2184,21 @@ pre {
   border-radius: 22px;
   padding: 18px 20px;
   line-height: 1.8;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .order-bump-note code {
-  display: inline-block;
+  display: inline;
   padding: 1px 6px;
   margin: 0 2px;
   border-radius: 999px;
   background: rgba(36, 48, 67, 0.06);
   border: 1px solid rgba(36, 48, 67, 0.08);
   font-size: 12px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .order-bump-chart-card {
@@ -2161,10 +2261,26 @@ pre {
 }
 
 .order-bump-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
   align-items: start;
 }
 
+.order-bump-top30-grid-3 {
+  grid-template-columns: 1fr;
+}
+
 @media (max-width: 900px) {
+  .order-bump-hero-head {
+    flex-direction: column;
+  }
+
+  .order-bump-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .order-bump-kpis {
     grid-template-columns: 1fr;
   }
@@ -2226,6 +2342,14 @@ pre {
   .layer-shell > section.card {
     padding: 18px;
   }
+
+  .order-bump-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .order-bump-top30-grid-3 {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
@@ -2233,6 +2357,85 @@ pre {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
+  }
+
+  .main {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .page-order-bump .main,
+  .page-order-bump .main.page-stack {
+    width: calc(100vw - 16px);
+    margin-top: max(8px, env(safe-area-inset-top));
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom));
+  }
+
+  .page-order-bump .header,
+  .page-order-bump .layer-shell,
+  .page-order-bump .card {
+    border-radius: 20px;
+  }
+
+  .page-order-bump .header,
+  .page-order-bump .layer-shell,
+  .page-order-bump .card {
+    padding: 16px;
+  }
+
+  .page-order-bump .header {
+    padding: 18px 16px;
+  }
+
+  .page-order-bump .ux-kicker {
+    margin-bottom: 10px;
+  }
+
+  .page-order-bump .ux-title {
+    font-size: 22px;
+    line-height: 1.15;
+  }
+
+  .page-order-bump .ux-subtitle,
+  .page-order-bump .order-bump-note,
+  .page-order-bump .order-bump-meta-card,
+  .page-order-bump .layer-subtitle {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .page-order-bump .order-bump-kpis .sub2 {
+    font-size: 14px;
+  }
+
+  .page-order-bump .layer-head.compact {
+    margin-bottom: 10px;
+  }
+
+  .page-order-bump .order-bump-chart-card {
+    display: none;
+  }
+
+  .page-order-bump .order-bump-trend-section .layer-subtitle::after {
+    content: ' Pro detailní graf otevři stránku na desktopu.';
+  }
+
+  .page-order-bump .order-bump-detail-section {
+    display: none;
+  }
+
+  .page-order-bump .order-bump-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .page-order-bump .order-bump-market-section .card,
+  .page-order-bump .order-bump-products-section .card,
+  .page-order-bump .order-bump-related-section .card {
+    padding: 14px;
   }
 
   .ux-actions .ux-button {
@@ -2273,11 +2476,24 @@ pre {
     min-width: 860px;
   }
 
+  .order-bump-table-wrap {
+    margin-inline: 0;
+    overflow: visible;
+  }
+
   .order-bump-table-wrap table {
-    min-width: 700px;
+    min-width: 0;
   }
 
   .order-bump-table-wrap table.mobile-stack {
     min-width: 0;
+  }
+}
+
+@supports (padding: max(0px)) {
+  .page-order-bump .main,
+  .page-order-bump .main.page-stack {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
   }
 }

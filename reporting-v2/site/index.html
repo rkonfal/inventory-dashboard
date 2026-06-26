@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body class="page-home-simplified">
-  <aside class="sidebar" data-sidebar-page="index.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Přehled firmy bez zbytečné složitosti" data-sidebar-section="Přehled" data-sidebar-footer="Přehled pro běžný provoz. Méně techniky, víc jasných kroků."></aside>
+  <aside class="sidebar" data-sidebar-page="index.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Přehled firmy bez zbytečné složitosti" data-sidebar-section="Přehled firmy" data-sidebar-footer="Přehled pro běžný provoz. Méně techniky, víc jasných kroků."></aside>
 
   <main class="main page-stack">
     <header class="header">
@@ -19,8 +19,7 @@
           <div class="ux-actions">
             <a class="ux-button primary" href="../data/current/morning_report_previous_day.txt" target="_blank" rel="noopener">Ranní report</a>
             <a class="ux-button secondary" href="inventory.html">Sklad</a>
-            <a class="ux-button secondary" href="eshop.html">E-shop</a>
-            <a class="ux-button secondary" href="meetings.html">Porady</a>
+            <a class="ux-button secondary" href="finance.html">Finance</a>
           </div>
         </div>
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
@@ -159,6 +158,7 @@
     ];
 
     const fmtMoney = value => `${DP.fmtNumber(Math.round(value || 0))} Kč`;
+    const shortTs = value => value ? DP.fmtDateTime(value) : '–';
     const pctText = value => {
       if (value == null) return 'bez srovnání';
       const sign = value > 0 ? '+' : '';
@@ -166,10 +166,11 @@
     };
 
     (async () => {
-      const [summary, report, ga4] = await Promise.all([
+      const [summary, report, ga4, packaging] = await Promise.all([
         DP.loadJson('../data/current/portal_summary.json'),
         DP.loadJson('../data/current/morning_report_previous_day.json'),
-        DP.loadJson('../data/current/ga4_overview.json').catch(() => ({}))
+        DP.loadJson('../data/current/ga4_overview.json').catch(() => ({})),
+        DP.loadJson('../data/current/packaging_consumption.json').catch(() => ({}))
       ]);
       const total4pxStock = (summary.accounts.cz.inventory.availableStockTotal || 0) + (summary.accounts.sk.inventory.availableStockTotal || 0);
       const total4pxRows = (summary.accounts.cz.inventory.items || 0) + (summary.accounts.sk.inventory.items || 0);
@@ -211,9 +212,9 @@
       const alerts = report.quickSummary?.alerts || [];
       DP.renderStatusStrip('overview-status-strip', [
         { label: 'Stav', value: alerts.length ? 'Pozor' : 'OK', tone: alerts.length ? 'warn' : 'success' },
-        { label: 'Data', value: summary.wpJ.ready ? 'Live + snapshot mix' : 'Částečná data', tone: summary.wpJ.ready ? 'info' : 'warn' },
+        { label: 'Data', value: summary.wpJ.ready ? 'WPJ live, GA4 daily snapshot' : 'Částečná data', tone: summary.wpJ.ready ? 'info' : 'warn' },
         { label: 'Priorita dne', value: (report.priorities || [])[0] || 'Bez kritické priority', tone: (report.priorities || []).length ? 'info' : 'success' },
-        { label: 'Refresh', value: 'Ranní report + poslední sync', tone: 'info' }
+        { label: 'Refresh', value: shortTs(summary.generatedAt || report.generatedAt), tone: 'info' }
       ]);
       const decisionCards = [
         {
@@ -342,6 +343,16 @@
             ['Další krok', 'Otevřít sklad'],
           ],
         },
+        packaging.summary ? {
+          title: 'Obalový materiál',
+          text: 'Týdenní spotřeba obalů a rychlá kontrola, kde začíná docházet krytí zásob.',
+          body: [
+            ['Poslední týden', DP.fmtNumber(packaging.summary.lastWeekConsumed || 0)],
+            ['Hlavní velikost', packaging.summary.topPackageOverall || '–'],
+            ['Krytí 4w', packaging.summary.estimatedWeeksOfCoverOverall4w == null ? '–' : `${Number(packaging.summary.estimatedWeeksOfCoverOverall4w).toFixed(1)} týd.`],
+            ['Další krok', 'Otevřít obaly'],
+          ],
+        } : null,
         {
           title: 'Finance a cash',
           text: 'Kolik je opravdu k dispozici a jestli už některý závazek tlačí na rozhodnutí.',
@@ -363,8 +374,19 @@
             ['Slovakia AU 7d', ga4SkCountry ? DP.fmtNumber(Math.round(ga4SkCountry.activeUsers || 0)) : '–'],
             ['Další krok', 'Otevřít marketing'],
           ],
+        },
+        {
+          title: 'Affiliate a síť',
+          text: 'Nováčci a MLM síť odděleně, aby bylo vidět nábor i reálný obrat partnerů.',
+          body: [
+            ['Nováčci obrat', fmtMoney(summary.affiliate?.summary?.noviceRevenueCzkEquiv || 0)],
+            ['MLM obrat', fmtMoney(summary.affiliate?.summary?.networkRevenueCzkEquiv || 0)],
+            ['Nakupující nováčci', DP.fmtNumber(summary.affiliate?.summary?.noviceOrderingContacts || 0)],
+            ['Nakupující síť', DP.fmtNumber(summary.affiliate?.summary?.networkOrderingCustomers || 0)],
+            ['Další krok', 'Otevřít affiliate'],
+          ],
         }
-      ].map(card => `
+      ].filter(Boolean).map(card => `
         <article class="summary-card">
           <h3>${card.title}</h3>
           <p>${card.text}</p>
@@ -408,6 +430,7 @@
         ['WPJ / GraphQL', summary.wpJ.ready ? 'OK' : 'Čeká', summary.wpJ.ready ? 'Kompletní výsledek www.kralovstvi-tiande' : summary.wpJ.message, summary.wpJ.orders || 0],
         ['ABRA Flexi / finance', summary.finance?.ready ? 'OK' : 'Čeká', summary.finance?.message || 'Bez dat', Math.round(summary.finance?.currentMonth?.revenue || 0)],
         ['Marketing', summary.marketing?.ready ? 'OK' : 'Čeká', summary.marketing?.message || 'Bez dat', Math.round(summary.marketing?.currentMonth?.totalSpend || 0)],
+        ['Affiliate', summary.affiliate?.ready ? 'OK' : 'Čeká', summary.affiliate?.message || 'Bez dat', Math.round(summary.affiliate?.summary?.networkRevenueCzkEquiv || 0)],
         ['Ranní report', 'OK', `Alerty: ${(summary.report.alerts || []).length}`, summary.report.shipments || 0]
       ];
       document.getElementById('sources-table').innerHTML = sourceRows.map(row => `

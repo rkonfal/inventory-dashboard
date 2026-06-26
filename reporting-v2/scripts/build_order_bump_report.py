@@ -621,25 +621,26 @@ def render_window_block(report: dict[str, Any], *, window_key: str, active: bool
     return f'''
     <section class="order-bump-window-block" data-window-block="{window_key}"{hidden_attr}>
       <header class="header order-bump-hero">
-        <div class="order-bump-hero-head">
-          <div>
+        <div class="ux-topbar">
+          <div class="ux-intro">
             <div class="ux-kicker">E-shop • order bump</div>
             <h1 class="ux-title">Order bump a doplňky</h1>
             <p class="ux-subtitle">Jednoduchý přehled toho, kolik přidávají bump nabídky a doplňkové produkty za {html.escape(report['window_label'])}.</p>
-          </div>
-          <div class="order-bump-controls">
-            <div class="order-bump-window-switch" role="tablist" aria-label="Výběr okna">
-              <button class="order-bump-window-btn{' is-active' if window_key == '7d' else ''}" data-window-target="7d" aria-pressed="{'true' if window_key == '7d' else 'false'}">7 dní</button>
-              <button class="order-bump-window-btn{' is-active' if window_key == '30d' else ''}" data-window-target="30d" aria-pressed="{'true' if window_key == '30d' else 'false'}">30 dní</button>
+            <div class="ux-actions">
+              <button class="ux-button secondary{' is-active' if window_key == '7d' else ''}" type="button" data-window-target="7d" aria-pressed="{'true' if window_key == '7d' else 'false'}">7 dní</button>
+              <button class="ux-button secondary{' is-active' if window_key == '30d' else ''}" type="button" data-window-target="30d" aria-pressed="{'true' if window_key == '30d' else 'false'}">30 dní</button>
+              <a class="ux-button primary" href="eshop.html">E-shop</a>
             </div>
-            <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
           </div>
+          <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
         </div>
-
-        <div class="order-bump-meta-card">
-          <div><strong>Aktualizováno:</strong> {html.escape(report['generated_at_local'])} (CEST)</div>
-          <div><strong>Okno:</strong> {html.escape(report['window_start_local'])} až {html.escape(report['window_end_local'])}</div>
+        <div class="status-strip">
+          <div class="status-chip success"><span class="label">Stav</span><span class="value">Live</span></div>
+          <div class="status-chip info"><span class="label">Okno</span><span class="value">{html.escape(report['window_label'])}</span></div>
+          <div class="status-chip info"><span class="label">Data</span><span class="value">Skutečné objednávky + personalization events</span></div>
+          <div class="status-chip info"><span class="label">Refresh</span><span class="value">{html.escape(report['generated_at_local'])}</span></div>
         </div>
+        <div class="ux-date-note"><strong>Okno:</strong> {html.escape(report['window_start_local'])} až {html.escape(report['window_end_local'])}. <strong>Kontext:</strong> bump netto je rozdíl přidáno minus odebráno, doplňky jsou samostatně přidané související produkty.</div>
 
         <section class="order-bump-kpis">
           <article class="kpi">
@@ -652,15 +653,10 @@ def render_window_block(report: dict[str, Any], *, window_key: str, active: bool
             <div class="val">{rendered['kpi_bump_net']}</div>
             <div class="sub2">{rendered['kpi_bump_sub']}</div>
           </article>
-          <article class="kpi">
-            <div class="lbl">Doplňkové přidáno</div>
-            <div class="val">{rendered['kpi_related_added']}</div>
-            <div class="sub2">Hodnota {rendered['kpi_related_value']}</div>
-          </article>
           <article class="kpi kpi-accent">
             <div class="lbl">Celkový přínos</div>
             <div class="val">{rendered['kpi_addon_value']}</div>
-            <div class="sub2">{rendered['kpi_addon_share']} proti obratu objednávek</div>
+            <div class="sub2">{rendered['kpi_addon_share']} proti obratu objednávek · doplňky {rendered['kpi_related_added']} ks za {rendered['kpi_related_value']}</div>
           </article>
         </section>
       </header>
