@@ -170,6 +170,11 @@ def format_pct(numerator: int | float, denominator: int | float) -> str:
     return f'{100 * numerator / denominator:.1f}'.replace('.', ',') + ' %'
 
 
+def fmt_signed_pct(value: float) -> str:
+    sign = '+' if value > 0 else ''
+    return f'{sign}{value:.1f}'.replace('.', ',') + ' %'
+
+
 def hour_key(value: datetime) -> datetime:
     return value.astimezone(timezone.utc).replace(minute=0, second=0, microsecond=0)
 
@@ -591,33 +596,78 @@ def build_report(hours_back: int = DEFAULT_HOURS) -> dict[str, Any]:
 
 def render_window_block(report: dict[str, Any], *, window_key: str, active: bool, include_30d_summary: bool = False) -> str:
     rendered = report['rendered']
+    metrics = report['metrics']
+    market_breakdown = report['market_breakdown']
     hidden_attr = '' if active else ' hidden'
+    total_decisions = metrics['bump_accepted'] + metrics['bump_dismissed']
+    bump_take_rate = format_pct(metrics['bump_accepted'], total_decisions) if total_decisions else '0,0 %'
+    top_bump_value = report['tables']['bump_by_value'][0] if report['tables']['bump_by_value'] else None
+    top_related_value = report['tables']['related_by_value'][0] if report['tables']['related_by_value'] else None
+    weakest_bump = report['tables']['bump_weak'][0] if report['tables']['bump_weak'] else None
+    addon_share = float(metrics.get('addon_share_pct') or 0)
+    bump_value = float(metrics.get('bump_net_value_czk') or 0)
+    related_value = float(metrics.get('related_added_value_czk') or 0)
+    addon_source = 'Bump teď táhne víc než doplňky.' if bump_value > related_value else 'Doplňky teď přináší víc než samotný bump.'
+    worst_market = min(market_breakdown, key=lambda row: row.get('bump_net_value_czk', 0), default=None)
+    best_market = max(market_breakdown, key=lambda row: row.get('bump_net_value_czk', 0), default=None)
+    top_focus_rows = []
+    if top_bump_value:
+        top_focus_rows.append((
+            f"Nejsilnější bump: {top_bump_value[1]} · {top_bump_value[2]}",
+            f"Netto {top_bump_value[5]} ks a {top_bump_value[6]}. Tohle je produkt, který dnes reálně táhne bump layer."
+        ))
+    if top_related_value:
+        top_focus_rows.append((
+            f"Nejsilnější doplněk: {top_related_value[1]} · {top_related_value[2]}",
+            f"Přidaný {top_related_value[3]}× za {top_related_value[4]}. Doplňky mají být vidět odděleně od klasického bumpu."
+        ))
+    if weakest_bump:
+        top_focus_rows.append((
+            f"Nejslabší bump k prověření: {weakest_bump[1]} · {weakest_bump[2]}",
+            f"Take rate proxy jen {weakest_bump[6]} při {weakest_bump[5]} rozhodnutích. Kandidát na úpravu textu, pozice nebo úplné vypnutí."
+        ))
+    else:
+        top_focus_rows.append((
+            'Slabý bump bez dostatečného vzorku',
+            'V tomhle okně není produkt s dost velkým počtem rozhodnutí, aby šel férově označit jako jasně slabý.'
+        ))
+    top_focus_html = ''.join(
+        f'''<div class="ux-list-item"><strong>{html.escape(title)}</strong><span>{html.escape(text)}</span></div>'''
+        for title, text in top_focus_rows
+    )
+    work_cards = f'''
+      <article class="card">
+        <h2 class="ux-section-title">Výkon podle trhů</h2>
+        <p class="ux-section-subtitle">Rychlý rozpad, jestli add-on value táhne spíš CZ nebo SK.</p>
+        {rendered['market_table']}
+      </article>
+      <article class="card">
+        <h2 class="ux-section-title">Bump produkty, které fungují</h2>
+        <p class="ux-section-subtitle">Jedna tabulka podle četnosti, druhá podle skutečné přinesené hodnoty.</p>
+        {rendered['bump_count_table']}
+        <div style="height:16px"></div>
+        {rendered['bump_value_table']}
+      </article>
+      <article class="card">
+        <h2 class="ux-section-title">Doplňky a slabá místa</h2>
+        <p class="ux-section-subtitle">Doplňky drž odděleně od bumpu a slabé nabídky kontroluj zvlášť.</p>
+        {rendered['related_value_table']}
+        <div style="height:16px"></div>
+        {rendered['bump_weak_table']}
+      </article>
+    '''
     summary_block = ''
     if include_30d_summary:
         summary_block = f'''
-    <section class="layer-shell order-bump-top30-section">
-      <div class="layer-head compact">
-        <div>
-          <div class="layer-label">Top 30 dní</div>
-          <h2 class="layer-title">Nejsilnější bump produkty</h2>
-          <p class="layer-subtitle">Jedno pořadí podle Kč, druhé podle take rate proxy z přijetí vs. odebrání.</p>
-        </div>
-      </div>
-      <section class="grid order-bump-grid order-bump-top30-grid order-bump-top30-grid-3">
-        <article class="card">
-          <h2 class="ux-section-title">Top podle netto Kč</h2>
-          {rendered['bump_value_table']}
-        </article>
-        <article class="card">
-          <h2 class="ux-section-title">Top podle take rate proxy</h2>
-          {rendered['bump_take_rate_table']}
-        </article>
-        <article class="card">
-          <h2 class="ux-section-title">Nejslabší za 30 dní</h2>
-          {rendered['bump_weak_table']}
-        </article>
-      </section>
-    </section>'''
+        <article class="card order-bump-benchmark-card">
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">30denní benchmark</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Na delším okně už jde férověji poznat, které nabídky mají stabilní přínos a které jen občas trefí špičku.</p>
+          <div class="ux-stat-list" style="margin-top:14px;">
+            <div><span>Top podle netto Kč</span><strong>{html.escape(top_bump_value[1] + ' · ' + top_bump_value[6]) if top_bump_value else '–'}</strong></div>
+            <div><span>Top take rate proxy</span><strong>{html.escape(report['tables']['bump_take_rate'][0][1] + ' · ' + report['tables']['bump_take_rate'][0][6]) if report['tables']['bump_take_rate'] else '–'}</strong></div>
+            <div><span>Nejslabší bump</span><strong>{html.escape(weakest_bump[1] + ' · ' + weakest_bump[6]) if weakest_bump else '–'}</strong></div>
+          </div>
+        </article>'''
     return f'''
     <section class="order-bump-window-block" data-window-block="{window_key}"{hidden_attr}>
       <header class="header order-bump-hero">
@@ -635,9 +685,10 @@ def render_window_block(report: dict[str, Any], *, window_key: str, active: bool
           <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
         </div>
         <div class="status-strip">
-          <div class="status-chip success"><span class="label">Stav</span><span class="value">Live</span></div>
+          <div class="status-chip {'success' if addon_share >= 3 else 'warn'}"><span class="label">Stav</span><span class="value">{'Silnější add-on layer' if addon_share >= 3 else 'Slabší add-on layer'}</span></div>
           <div class="status-chip info"><span class="label">Okno</span><span class="value">{html.escape(report['window_label'])}</span></div>
           <div class="status-chip info"><span class="label">Data</span><span class="value">Skutečné objednávky + personalization events</span></div>
+          <div class="status-chip {'success' if total_decisions >= 100 else 'warn'}"><span class="label">Rozhodnutí</span><span class="value">{format_int(total_decisions)} · take rate {bump_take_rate}</span></div>
           <div class="status-chip info"><span class="label">Refresh</span><span class="value">{html.escape(report['generated_at_local'])}</span></div>
         </div>
         <div class="ux-date-note"><strong>Okno:</strong> {html.escape(report['window_start_local'])} až {html.escape(report['window_end_local'])}. <strong>Kontext:</strong> bump netto je rozdíl přidáno minus odebráno, doplňky jsou samostatně přidané související produkty.</div>
@@ -661,86 +712,186 @@ def render_window_block(report: dict[str, Any], *, window_key: str, active: bool
         </section>
       </header>
 
-      <section class="layer-shell order-bump-summary-section">
-        <div class="layer-head compact">
+      <section class="layer-shell order-bump-summary-section" data-section-nav-label="Decision layer">
+        <div class="layer-head">
           <div>
-            <div class="layer-label">Shrnutí</div>
-            <h2 class="layer-title">Co je důležité</h2>
+            <div class="layer-label">Decision layer</div>
+            <h2 class="layer-title">Co order bump teď opravdu znamená</h2>
+            <p class="layer-subtitle">Čtyři signály, které řeknou, jestli add-on vrstva reálně vydělává a kde je potřeba zásah.</p>
           </div>
         </div>
-        <div class="order-bump-note">Report bere jen skutečně započtené objednávky. Bump netto je rozdíl mezi přidanými a odebranými nabídkami. Doplňky jsou samostatně přidané související produkty. SK hodnoty přepočítáváme kurzem <strong>{report['sk_fx_rate']:.2f} Kč/EUR</strong>.</div>
-      </section>
-
-      {summary_block}
-
-      <section class="layer-shell order-bump-trend-section">
-        <div class="layer-head compact">
-          <div>
-            <div class="layer-label">Trend</div>
-            <h2 class="layer-title">{rendered['chart_title']}</h2>
-            <p class="layer-subtitle">{rendered['chart_subtitle']}</p>
-          </div>
-        </div>
-        <div class="card order-bump-chart-card"><div class="legend"><span><i class="dot" style="background:#1d4ed8"></i>Objednávky</span><span><i class="dot" style="background:#16a34a"></i>Bump netto</span><span><i class="dot" style="background:#db2777"></i>Doplňkové přidáno</span></div>{rendered['chart_html']}</div>
-      </section>
-
-      <section class="layer-shell order-bump-market-section">
-        <div class="layer-head compact">
-          <div>
-            <div class="layer-label">Trhy</div>
-            <h2 class="layer-title">CZ vs. SK</h2>
-          </div>
-        </div>
-        <section class="card">{rendered['market_table']}</section>
-      </section>
-
-      <section class="layer-shell order-bump-products-section">
-        <div class="layer-head compact">
-          <div>
-            <div class="layer-label">Bump produkty</div>
-            <h2 class="layer-title">Které bumpy fungují</h2>
-          </div>
-        </div>
-        <section class="grid two-col order-bump-grid">
-          <article class="card">
-            <h2 class="ux-section-title">Nejčastější podle počtu</h2>
-            {rendered['bump_count_table']}
+        <section class="signal-grid">
+          <article class="signal-card {'accent' if addon_share >= 3 else 'warn'}">
+            <div class="eyebrow">Celkový přínos</div>
+            <div class="signal-value">{rendered['kpi_addon_value']}</div>
+            <div class="signal-sub">{rendered['kpi_addon_share']} proti obratu objednávek za {html.escape(report['window_label'])}.</div>
+            <div class="signal-meta">{addon_source}</div>
           </article>
-          <article class="card">
-            <h2 class="ux-section-title">Nejsilnější podle částky</h2>
-            {rendered['bump_value_table']}
+          <article class="signal-card {'success' if metrics['bump_net'] > 0 else 'warn'}">
+            <div class="eyebrow">Bump netto</div>
+            <div class="signal-value">{rendered['kpi_bump_net']}</div>
+            <div class="signal-sub">{rendered['kpi_bump_sub']}.</div>
+            <div class="signal-meta">Take rate proxy {bump_take_rate} z {format_int(total_decisions)} rozhodnutí.</div>
+          </article>
+          <article class="signal-card">
+            <div class="eyebrow">Doplňky mimo bump</div>
+            <div class="signal-value">{rendered['kpi_related_value']}</div>
+            <div class="signal-sub">{rendered['kpi_related_added']} samostatně přidaných souvisejících produktů.</div>
+            <div class="signal-meta">{html.escape(top_related_value[1] + ' · ' + top_related_value[2]) if top_related_value else 'Bez výrazného top doplňku.'}</div>
+          </article>
+          <article class="signal-card {'warn' if weakest_bump else ''}">
+            <div class="eyebrow">Nejslabší místo</div>
+            <div class="signal-value">{html.escape(weakest_bump[1]) if weakest_bump else '–'}</div>
+            <div class="signal-sub">{html.escape(weakest_bump[6] + ' take rate proxy · ' + weakest_bump[7]) if weakest_bump else 'Bez produktu s dostatečným vzorkem pro slabý signál.'}</div>
+            <div class="signal-meta">{html.escape(worst_market['market'] + ' netto ' + format_money(worst_market['bump_net_value_czk'])) if worst_market else 'Bez tržního propadu.'}</div>
           </article>
         </section>
       </section>
 
-      <section class="layer-shell order-bump-related-section">
-        <div class="layer-head compact">
+      <section class="layer-shell" data-section-nav-label="Focus layer">
+        <div class="layer-head">
           <div>
-            <div class="layer-label">Doplňky</div>
-            <h2 class="layer-title">Které doplňky fungují</h2>
+            <div class="layer-label">Focus layer</div>
+            <h2 class="layer-title">Co projít jako první</h2>
+            <p class="layer-subtitle">Krátká vrstva pro rozhodnutí, co podržet, co posílit a co vypnout.</p>
           </div>
         </div>
-        <section class="grid two-col order-bump-grid">
-          <article class="card">
-            <h2 class="ux-section-title">Nejčastější podle počtu</h2>
-            {rendered['related_count_table']}
-          </article>
-          <article class="card">
-            <h2 class="ux-section-title">Nejsilnější podle částky</h2>
-            {rendered['related_value_table']}
-          </article>
+        <section class="ux-grid">
+          <div class="ux-focus-card">
+            <div class="ux-section-head">
+              <div>
+                <h2 class="ux-section-title">Dnešní praktický pořadník</h2>
+                <p class="ux-section-subtitle">Nejdřív winner, potom doplňky, nakonec slabé místo.</p>
+              </div>
+              <span class="badge {'warn' if weakest_bump else 'live'}">{'Prověřit slabý bump' if weakest_bump else 'Silný vzorek drží'}</span>
+            </div>
+            <div class="ux-list">{top_focus_html}</div>
+          </div>
+          <div class="ux-side-stack">
+            <div class="ux-panel-card">
+              <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Okno jedním pohledem</h3>
+              <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Krátký kontext bez potřeby číst tabulky.</p>
+              <div class="ux-stat-list" style="margin-top:14px;">
+                <div><span>Objednávky</span><strong>{rendered['kpi_order_count']}</strong></div>
+                <div><span>Add-on share</span><strong>{rendered['kpi_addon_share']}</strong></div>
+                <div><span>Nejlepší trh</span><strong>{html.escape(best_market['market'] + ' · ' + format_money(best_market['bump_net_value_czk'])) if best_market else '–'}</strong></div>
+              </div>
+            </div>
+            {summary_block}
+            <div class="ux-panel-card">
+              <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Poznámka k datům</h3>
+              <p class="order-bump-note" style="margin:0;">Report bere jen skutečně započtené objednávky. Bump netto je rozdíl mezi přidanými a odebranými nabídkami. Doplňky jsou samostatně přidané související produkty. SK hodnoty přepočítáváme kurzem <strong>{report['sk_fx_rate']:.2f} Kč/EUR</strong>.</p>
+            </div>
+          </div>
         </section>
       </section>
 
-      <section class="layer-shell order-bump-detail-section">
-        <div class="layer-head compact">
+      <section class="layer-shell" data-section-nav-label="Work layer">
+        <div class="layer-head">
           <div>
-            <div class="layer-label">Detail</div>
-            <h2 class="layer-title">{rendered['detail_title']}</h2>
+            <div class="layer-label">Work layer</div>
+            <h2 class="layer-title">Pracovní vrstva order bumpu</h2>
+            <p class="layer-subtitle">Nejdřív trhy a winners, pod tím doplňky a slabé nabídky.</p>
           </div>
         </div>
-        <section class="card">{rendered['detail_table']}</section>
+        <section class="summary-grid order-bump-work-grid">
+          {work_cards}
+        </section>
       </section>
+
+      <details class="secondary-details order-bump-detail-shell" data-section-nav-label="Detail layer">
+        <summary>Detail layer, trend a kompletní tabulky</summary>
+
+        <section class="layer-shell order-bump-trend-section" style="margin-top:18px;">
+          <div class="layer-head compact">
+            <div>
+              <div class="layer-label">Trend</div>
+              <h2 class="layer-title">{rendered['chart_title']}</h2>
+              <p class="layer-subtitle">{rendered['chart_subtitle']}</p>
+            </div>
+          </div>
+          <div class="card order-bump-chart-card"><div class="legend"><span><i class="dot" style="background:#1d4ed8"></i>Objednávky</span><span><i class="dot" style="background:#16a34a"></i>Bump netto</span><span><i class="dot" style="background:#db2777"></i>Doplňkové přidáno</span></div>{rendered['chart_html']}</div>
+        </section>
+
+        <section class="layer-shell order-bump-market-section">
+          <div>
+            <div class="layer-head compact">
+              <div>
+                <div class="layer-label">Trhy</div>
+                <h2 class="layer-title">CZ vs. SK</h2>
+              </div>
+            </div>
+            <section class="card">{rendered['market_table']}</section>
+          </div>
+        </section>
+
+        <section class="layer-shell order-bump-products-section">
+          <div class="layer-head compact">
+            <div>
+              <div class="layer-label">Bump produkty</div>
+              <h2 class="layer-title">Které bumpy fungují</h2>
+            </div>
+          </div>
+          <section class="grid two-col order-bump-grid">
+            <article class="card">
+              <h2 class="ux-section-title">Nejčastější podle počtu</h2>
+              {rendered['bump_count_table']}
+            </article>
+            <article class="card">
+              <h2 class="ux-section-title">Nejsilnější podle částky</h2>
+              {rendered['bump_value_table']}
+            </article>
+          </section>
+        </section>
+
+        <section class="layer-shell order-bump-related-section">
+          <div class="layer-head compact">
+            <div>
+              <div class="layer-label">Doplňky</div>
+              <h2 class="layer-title">Které doplňky fungují</h2>
+            </div>
+          </div>
+          <section class="grid two-col order-bump-grid">
+            <article class="card">
+              <h2 class="ux-section-title">Nejčastější podle počtu</h2>
+              {rendered['related_count_table']}
+            </article>
+            <article class="card">
+              <h2 class="ux-section-title">Nejsilnější podle částky</h2>
+              {rendered['related_value_table']}
+            </article>
+          </section>
+        </section>
+
+        <section class="layer-shell order-bump-weak-section">
+          <div class="layer-head compact">
+            <div>
+              <div class="layer-label">Weak spots</div>
+              <h2 class="layer-title">Slabší bump nabídky</h2>
+            </div>
+          </div>
+          <section class="grid two-col order-bump-grid">
+            <article class="card">
+              <h2 class="ux-section-title">Top podle take rate proxy</h2>
+              {rendered['bump_take_rate_table']}
+            </article>
+            <article class="card">
+              <h2 class="ux-section-title">Nejslabší za okno</h2>
+              {rendered['bump_weak_table']}
+            </article>
+          </section>
+        </section>
+
+        <section class="layer-shell order-bump-detail-section">
+          <div class="layer-head compact">
+            <div>
+              <div class="layer-label">Detail</div>
+              <h2 class="layer-title">{rendered['detail_title']}</h2>
+            </div>
+          </div>
+          <section class="card">{rendered['detail_table']}</section>
+        </section>
+      </details>
     </section>'''
 
 
@@ -755,7 +906,7 @@ def render_page(reports: dict[str, dict[str, Any]]) -> str:
   <title>Order bump, Reporting V2</title>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
-<body class="page-stack page-order-bump" data-disable-section-nav="1">
+<body class="page-order-bump">
   <aside class="sidebar" data-sidebar-page="order-bump.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Order bump a doplňkové produkty" data-sidebar-section="E-shop" data-sidebar-footer="Přehled výkonu order bumpu a doplňkových produktů."></aside>
 
   <main class="main page-stack">
