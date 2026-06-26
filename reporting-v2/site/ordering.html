@@ -360,14 +360,17 @@
     .ordering-meta-chip {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      padding: 3px 8px;
+      gap: 5px;
+      min-height: 24px;
+      padding: 4px 9px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, .06);
+      border: 1px solid rgba(15, 23, 42, .08);
+      background: rgba(15, 23, 42, .05);
     }
 
     [data-theme="dark"] .ordering-meta-chip {
-      background: rgba(255, 255, 255, .08);
+      border-color: rgba(255, 255, 255, .08);
+      background: rgba(255, 255, 255, .06);
     }
 
     .ordering-badge-wrap {
@@ -670,7 +673,7 @@
         <div class="ux-intro">
           <div class="ux-kicker">Objednávání zboží • decision + work layer</div>
           <h1 class="ux-title">Objednávka bez chaosu, nejdřív rozhodnutí, potom shortlist</h1>
-          <p class="ux-subtitle">Spojená Fáze 1 a 2. Nahoře co řešit hned, uprostřed pracovní fronty, dole shortlist, simulace a detail SKU.</p>
+          <p class="ux-subtitle">Nahoře co řešit hned, pod tím pracovní fronty, shortlist a až nakonec detail SKU.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="inventory.html">Zpátky na sklad</a>
             <a class="ux-button secondary" href="../data/current/ordering_core.json" target="_blank" rel="noopener">Ordering core</a>
