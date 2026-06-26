@@ -323,6 +323,36 @@ class RefreshBuildResult:
     report_manifest: dict[str, Any]
 
 
+@dataclass
+class RefreshBuildState:
+    warnings: list[str]
+    wpj_summary: dict[str, Any]
+    wpj_orders_payload: dict[str, Any]
+    wpj_products_payload: dict[str, Any]
+    wpj_history_payload: dict[str, Any]
+    eshop_ytd_payload: dict[str, Any]
+    customer_fact_payload: dict[str, Any]
+    order_fact_payload: dict[str, Any]
+    inventory_analytics_payload: dict[str, Any]
+    inventory_analytics_730_payload: dict[str, Any]
+    inventory_analytics_730_cz_payload: dict[str, Any]
+    inventory_analytics_730_sk_payload: dict[str, Any]
+    ordering_core_payload: dict[str, Any]
+    ordering_core_cz_payload: dict[str, Any]
+    ordering_core_sk_payload: dict[str, Any]
+    ordering_reference_payload: dict[str, Any]
+    ordering_reference_cz_payload: dict[str, Any]
+    ordering_reference_sk_payload: dict[str, Any]
+    ordering_sales_history_payload: dict[str, Any]
+    expiry_overview_payload: dict[str, Any]
+    combined_index_payload: dict[str, Any]
+    combined_overview_payload: dict[str, Any]
+    stock_summary: dict[str, Any]
+    baseline_orders: float | int | None = None
+    baseline_revenue: float | int | None = None
+    mtd_summary: dict[str, Any] = field(default_factory=dict)
+
+
 def load_env_file(path: Path):
     if not path.exists():
         return
@@ -5392,227 +5422,227 @@ def fetch_refresh_inputs(ctx: RefreshRuntimeContext) -> RefreshFetchResult:
     )
 
 
-def build_refresh_payloads(ctx: RefreshRuntimeContext, fetch_result: RefreshFetchResult) -> RefreshBuildResult:
-    warnings = []
+def build_empty_refresh_state(generated_at: str) -> RefreshBuildState:
+    return RefreshBuildState(
+        warnings=[],
+        wpj_summary={
+            'orders': 0,
+            'revenueWithVat': 0,
+            'averageOrderValue': 0,
+            'cancelledOrders': 0,
+            'problematicOrders': 0,
+            'statuses': [],
+            'paymentMethods': [],
+            'deliveryMethods': [],
+            'topProductsByUnits': [],
+            'topProductsByRevenue': [],
+            'soldProductCodes': [],
+        },
+        wpj_orders_payload={'generatedAt': generated_at, 'items': []},
+        wpj_products_payload={'generatedAt': generated_at, 'items': []},
+        wpj_history_payload={'generatedAt': generated_at, 'days': []},
+        eshop_ytd_payload={'generatedAt': generated_at, 'years': {}, 'months': [], 'totals': {}},
+        customer_fact_payload={'generatedAt': generated_at, 'window': {}, 'ordersProcessed': 0, 'customersCount': 0, 'summary': {}, 'customers': []},
+        order_fact_payload={'generatedAt': generated_at, 'window': {}, 'summary': {}, 'orders': []},
+        inventory_analytics_payload={'generatedAt': generated_at, 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': []},
+        inventory_analytics_730_payload={'generatedAt': generated_at, 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': [], 'items': []},
+        inventory_analytics_730_cz_payload={'generatedAt': generated_at, 'market': 'cz', 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': [], 'items': []},
+        inventory_analytics_730_sk_payload={'generatedAt': generated_at, 'market': 'sk', 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': [], 'items': []},
+        ordering_core_payload={'generatedAt': generated_at, 'summary': {}, 'alerts': [], 'criticalReorder': [], 'reorderWatch': [], 'overstockRisks': [], 'trendWatch': [], 'suggestedFillers': []},
+        ordering_core_cz_payload={'generatedAt': generated_at, 'market': 'cz', 'summary': {}, 'alerts': [], 'criticalReorder': [], 'reorderWatch': [], 'overstockRisks': [], 'trendWatch': [], 'suggestedFillers': []},
+        ordering_core_sk_payload={'generatedAt': generated_at, 'market': 'sk', 'summary': {}, 'alerts': [], 'criticalReorder': [], 'reorderWatch': [], 'overstockRisks': [], 'trendWatch': [], 'suggestedFillers': []},
+        ordering_reference_payload={'generatedAt': generated_at, 'summary': {}, 'items': [], 'excludedTop': []},
+        ordering_reference_cz_payload={'generatedAt': generated_at, 'market': 'cz', 'summary': {}, 'items': [], 'excludedTop': []},
+        ordering_reference_sk_payload={'generatedAt': generated_at, 'market': 'sk', 'summary': {}, 'items': [], 'excludedTop': []},
+        ordering_sales_history_payload={'generatedAt': generated_at, 'window': {}, 'summary': {}, 'codes': {}},
+        expiry_overview_payload={'generatedAt': generated_at, 'summary': {}, 'topExpiring': []},
+        combined_index_payload={'generatedAt': generated_at, 'items': [], 'counts': {}},
+        combined_overview_payload={'generatedAt': generated_at, 'counts': {}},
+        stock_summary={
+            'lowStockSoldYesterday': [],
+            'lowStockOverall': [],
+            'negativeStoreStock': [],
+            'largestMovesSinceLastSnapshot': [],
+        },
+    )
+
+
+def populate_refresh_wpj_state(ctx: RefreshRuntimeContext, fetch_result: RefreshFetchResult, state: RefreshBuildState):
     generated_at = ctx.generated_at
     now_local = ctx.now_local
     report_start = ctx.report_start
     report_end = ctx.report_end
     report_date = ctx.report_date
+    wpj_url = wpj_endpoint()
+    wpj_token = SETTINGS.wpj_access_token
+    history_start = report_start - timedelta(days=7)
+    ytd_start = datetime(now_local.year - 1, 1, 1, 0, 0, 0, tzinfo=PRAGUE_TZ)
+    year_start = report_start - timedelta(days=364)
+    two_year_start = report_start - timedelta(days=ORDERING_ANALYTICS_DAYS - 1)
 
-    wpj_summary = {
-        'orders': 0,
-        'revenueWithVat': 0,
-        'averageOrderValue': 0,
-        'cancelledOrders': 0,
-        'problematicOrders': 0,
-        'statuses': [],
-        'paymentMethods': [],
-        'deliveryMethods': [],
-        'topProductsByUnits': [],
-        'topProductsByRevenue': [],
-        'soldProductCodes': [],
-    }
-    wpj_orders_payload = {'generatedAt': generated_at, 'items': []}
-    wpj_products_payload = {'generatedAt': generated_at, 'items': []}
-    wpj_history_payload = {'generatedAt': generated_at, 'days': []}
-    eshop_ytd_payload = {'generatedAt': generated_at, 'years': {}, 'months': [], 'totals': {}}
-    inventory_analytics_payload = {'generatedAt': generated_at, 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': []}
-    inventory_analytics_730_payload = {'generatedAt': generated_at, 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': [], 'items': []}
-    inventory_analytics_730_cz_payload = {'generatedAt': generated_at, 'market': 'cz', 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': [], 'items': []}
-    inventory_analytics_730_sk_payload = {'generatedAt': generated_at, 'market': 'sk', 'summary': {}, 'topTurnover': [], 'deadStock': [], 'slowMovers': [], 'overstocked': [], 'fastLowCover': [], 'items': []}
-    ordering_core_payload = {'generatedAt': generated_at, 'summary': {}, 'alerts': [], 'criticalReorder': [], 'reorderWatch': [], 'overstockRisks': [], 'trendWatch': [], 'suggestedFillers': []}
-    ordering_core_cz_payload = {'generatedAt': generated_at, 'market': 'cz', 'summary': {}, 'alerts': [], 'criticalReorder': [], 'reorderWatch': [], 'overstockRisks': [], 'trendWatch': [], 'suggestedFillers': []}
-    ordering_core_sk_payload = {'generatedAt': generated_at, 'market': 'sk', 'summary': {}, 'alerts': [], 'criticalReorder': [], 'reorderWatch': [], 'overstockRisks': [], 'trendWatch': [], 'suggestedFillers': []}
-    ordering_reference_payload = {'generatedAt': generated_at, 'summary': {}, 'items': [], 'excludedTop': []}
-    ordering_reference_cz_payload = {'generatedAt': generated_at, 'market': 'cz', 'summary': {}, 'items': [], 'excludedTop': []}
-    ordering_reference_sk_payload = {'generatedAt': generated_at, 'market': 'sk', 'summary': {}, 'items': [], 'excludedTop': []}
-    ordering_sales_history_payload = {'generatedAt': generated_at, 'window': {}, 'summary': {}, 'codes': {}}
-    expiry_overview_payload = {'generatedAt': generated_at, 'summary': {}, 'topExpiring': []}
-    combined_index_payload = {'generatedAt': generated_at, 'items': [], 'counts': {}}
-    combined_overview_payload = {'generatedAt': generated_at, 'counts': {}}
-    baseline_orders = None
-    baseline_revenue = None
-    stock_summary = {
-        'lowStockSoldYesterday': [],
-        'lowStockOverall': [],
-        'negativeStoreStock': [],
-        'largestMovesSinceLastSnapshot': [],
-    }
-    customer_fact_payload = {'generatedAt': generated_at, 'window': {}, 'ordersProcessed': 0, 'customersCount': 0, 'summary': {}, 'customers': []}
-    order_fact_payload = {'generatedAt': generated_at, 'window': {}, 'summary': {}, 'orders': []}
+    history_orders = fetch_wpj_orders(wpj_url, wpj_token, history_start, report_end, limit=1000, detailed=False)
+    ytd_orders = fetch_wpj_orders(wpj_url, wpj_token, ytd_start, now_local, limit=1000, detailed=False)
+    yesterday_orders = fetch_wpj_orders(wpj_url, wpj_token, report_start, report_end, limit=250, detailed=True)
+    history_orders = apply_pos_view_overrides_to_orders(history_orders, wpj_url, wpj_token, history_start, report_end, detailed=False, pos_view_ids=ctx.pos_view_filters, limit=1000)
+    ytd_orders = apply_pos_view_overrides_to_orders(ytd_orders, wpj_url, wpj_token, ytd_start, now_local, detailed=False, pos_view_ids=ctx.pos_view_filters, limit=1000)
+    yesterday_orders = apply_pos_view_overrides_to_orders(yesterday_orders, wpj_url, wpj_token, report_start, report_end, detailed=True, pos_view_ids=ctx.pos_view_filters, limit=250)
+    wpj_products = fetch_wpj_products(wpj_url, wpj_token)
 
-    if fetch_result.wpj_ready:
-        wpj_url = wpj_endpoint()
-        wpj_token = SETTINGS.wpj_access_token
-        history_start = report_start - timedelta(days=7)
-        ytd_start = datetime(now_local.year - 1, 1, 1, 0, 0, 0, tzinfo=PRAGUE_TZ)
-        year_start = report_start - timedelta(days=364)
-        two_year_start = report_start - timedelta(days=ORDERING_ANALYTICS_DAYS - 1)
-        history_orders = fetch_wpj_orders(wpj_url, wpj_token, history_start, report_end, limit=1000, detailed=False)
-        ytd_orders = fetch_wpj_orders(wpj_url, wpj_token, ytd_start, now_local, limit=1000, detailed=False)
-        yesterday_orders = fetch_wpj_orders(wpj_url, wpj_token, report_start, report_end, limit=250, detailed=True)
-        history_orders = apply_pos_view_overrides_to_orders(history_orders, wpj_url, wpj_token, history_start, report_end, detailed=False, pos_view_ids=ctx.pos_view_filters, limit=1000)
-        ytd_orders = apply_pos_view_overrides_to_orders(ytd_orders, wpj_url, wpj_token, ytd_start, now_local, detailed=False, pos_view_ids=ctx.pos_view_filters, limit=1000)
-        yesterday_orders = apply_pos_view_overrides_to_orders(yesterday_orders, wpj_url, wpj_token, report_start, report_end, detailed=True, pos_view_ids=ctx.pos_view_filters, limit=250)
-        wpj_products = fetch_wpj_products(wpj_url, wpj_token)
+    state.wpj_summary = summarize_orders(yesterday_orders, pos_admin_views=ctx.pos_admin_views)
+    history_days, state.baseline_orders, state.baseline_revenue = summarize_daily_history(history_orders, report_date, pos_admin_views=ctx.pos_admin_views)
+    state.mtd_summary = build_mtd_revenue_snapshot(ytd_orders, report_date, pos_admin_views=ctx.pos_admin_views)
+    state.eshop_ytd_payload = build_eshop_ytd_payload(ytd_orders, generated_at, now_local, pos_admin_views=ctx.pos_admin_views)
+    state.customer_fact_payload = build_customer_fact_payload(
+        ytd_orders,
+        generated_at,
+        {'from': ytd_start.isoformat(), 'to': now_local.isoformat()},
+        pos_admin_views=ctx.pos_admin_views,
+    )
+    state.order_fact_payload = build_order_fact_payload(
+        ytd_orders,
+        generated_at,
+        {'from': ytd_start.isoformat(), 'to': now_local.isoformat()},
+        pos_admin_views=ctx.pos_admin_views,
+    )
+    state.stock_summary = summarize_stock(
+        wpj_products,
+        state.wpj_summary['soldProductCodes'],
+        previous_products=ctx.previous_wpj_products,
+        ordering_reference_overrides=ctx.ordering_reference_overrides,
+    )
+    state.stock_summary = filter_non_orderable_stock_rows(
+        state.stock_summary,
+        ordering_reference_overrides=ctx.ordering_reference_overrides,
+    )
 
-        wpj_summary = summarize_orders(yesterday_orders, pos_admin_views=ctx.pos_admin_views)
-        history_days, baseline_orders, baseline_revenue = summarize_daily_history(history_orders, report_date, pos_admin_views=ctx.pos_admin_views)
-        mtd_summary = build_mtd_revenue_snapshot(ytd_orders, report_date, pos_admin_views=ctx.pos_admin_views)
-        eshop_ytd_payload = build_eshop_ytd_payload(ytd_orders, generated_at, now_local, pos_admin_views=ctx.pos_admin_views)
-        customer_fact_payload = build_customer_fact_payload(
-            ytd_orders,
-            generated_at,
-            {'from': ytd_start.isoformat(), 'to': now_local.isoformat()},
-            pos_admin_views=ctx.pos_admin_views,
-        )
-        order_fact_payload = build_order_fact_payload(
-            ytd_orders,
-            generated_at,
-            {'from': ytd_start.isoformat(), 'to': now_local.isoformat()},
-            pos_admin_views=ctx.pos_admin_views,
-        )
-        stock_summary = summarize_stock(
-            wpj_products,
-            wpj_summary['soldProductCodes'],
-            previous_products=ctx.previous_wpj_products,
-            ordering_reference_overrides=ctx.ordering_reference_overrides,
-        )
-        stock_summary = filter_non_orderable_stock_rows(
-            stock_summary,
-            ordering_reference_overrides=ctx.ordering_reference_overrides,
-        )
-        combined_products_ctx = CombinedProductsBuildContext(
-            wpj_products=wpj_products,
-            yesterday_orders=yesterday_orders,
-            cz_inventory=fetch_result.cz_inventory,
-            sk_inventory=fetch_result.sk_inventory,
-            cz_outbound=fetch_result.cz_outbound,
-            sk_outbound=fetch_result.sk_outbound,
-            start_dt=report_start,
+    combined_products_ctx = CombinedProductsBuildContext(
+        wpj_products=wpj_products,
+        yesterday_orders=yesterday_orders,
+        cz_inventory=fetch_result.cz_inventory,
+        sk_inventory=fetch_result.sk_inventory,
+        cz_outbound=fetch_result.cz_outbound,
+        sk_outbound=fetch_result.sk_outbound,
+        start_dt=report_start,
+        end_dt=report_end,
+        generated_at=generated_at,
+        manual_overrides=ctx.manual_overrides,
+        pos_admin_views=ctx.pos_admin_views,
+    )
+    state.combined_index_payload, state.combined_overview_payload = build_combined_product_views(combined_products_ctx)
+    state.expiry_overview_payload = build_expiry_overview(
+        generated_at,
+        state.combined_index_payload,
+        fetch_result.cz_expiry_summary,
+        fetch_result.sk_expiry_summary,
+    )
+
+    analytics_cache_path = CURRENT_DIR / 'inventory_analytics_365d.json'
+    analytics_730_cache_path = CURRENT_DIR / 'inventory_analytics_730d.json'
+    ordering_core_cache_path = CURRENT_DIR / 'ordering_core.json'
+    ordering_sales_history_cache_path = CURRENT_DIR / 'ordering_sales_history.json'
+    state.inventory_analytics_payload = load_json_if_fresh(analytics_cache_path, max_age_hours=24)
+    state.inventory_analytics_730_payload = load_json_if_fresh(analytics_730_cache_path, max_age_hours=24)
+    state.ordering_core_payload = load_json_if_fresh(ordering_core_cache_path, max_age_hours=24)
+    state.ordering_sales_history_payload = load_json_if_fresh(ordering_sales_history_cache_path, max_age_hours=24)
+
+    if state.inventory_analytics_payload:
+        state.inventory_analytics_payload = mark_payload_refreshed(state.inventory_analytics_payload, generated_at)
+    if state.inventory_analytics_730_payload:
+        state.inventory_analytics_730_payload = mark_payload_refreshed(state.inventory_analytics_730_payload, generated_at)
+    if state.ordering_core_payload:
+        state.ordering_core_payload = mark_payload_refreshed(state.ordering_core_payload, generated_at)
+    if state.ordering_sales_history_payload:
+        state.ordering_sales_history_payload = mark_payload_refreshed(state.ordering_sales_history_payload, generated_at)
+    wpj_by_code = {item.get('code'): item for item in wpj_products if item.get('code')}
+
+    state.inventory_analytics_payload, analytics_prices_changed = enrich_inventory_analytics_prices(state.inventory_analytics_payload, wpj_by_code)
+    state.inventory_analytics_730_payload, analytics_730_prices_changed = enrich_inventory_analytics_prices(state.inventory_analytics_730_payload, wpj_by_code)
+    state.inventory_analytics_payload, analytics_reference_changed = reapply_ordering_reference_to_analytics(state.inventory_analytics_payload, ctx.ordering_reference_overrides)
+    state.inventory_analytics_730_payload, analytics_730_reference_changed = reapply_ordering_reference_to_analytics(state.inventory_analytics_730_payload, ctx.ordering_reference_overrides)
+    state.inventory_analytics_payload, analytics_packaging_changed = reapply_ordering_packaging_to_analytics(state.inventory_analytics_payload, ctx.ordering_packaging_map)
+    state.inventory_analytics_730_payload, analytics_730_packaging_changed = reapply_ordering_packaging_to_analytics(state.inventory_analytics_730_payload, ctx.ordering_packaging_map)
+    state.inventory_analytics_payload, analytics_stock_changed = reapply_combined_stock_to_analytics(state.inventory_analytics_payload, state.combined_index_payload, market_key='complete')
+    state.inventory_analytics_730_payload, analytics_730_stock_changed = reapply_combined_stock_to_analytics(state.inventory_analytics_730_payload, state.combined_index_payload, market_key='complete')
+
+    if (analytics_prices_changed or analytics_reference_changed or analytics_packaging_changed or analytics_stock_changed) and state.inventory_analytics_payload:
+        write_json(analytics_cache_path, state.inventory_analytics_payload)
+    if (analytics_730_prices_changed or analytics_730_reference_changed or analytics_730_packaging_changed or analytics_730_stock_changed) and state.inventory_analytics_730_payload:
+        write_json(analytics_730_cache_path, state.inventory_analytics_730_payload)
+
+    analytics_orders = None
+    if (
+        not state.inventory_analytics_payload or not state.inventory_analytics_payload.get('items')
+        or not state.inventory_analytics_730_payload or not state.inventory_analytics_730_payload.get('items')
+        or not state.ordering_core_payload or not state.ordering_core_payload.get('summary')
+    ):
+        analytics_orders = fetch_wpj_year_order_metrics(wpj_url, wpj_token, two_year_start, report_end, limit=1000)
+        analytics_orders = apply_pos_view_overrides_to_orders(analytics_orders, wpj_url, wpj_token, two_year_start, report_end, detailed=False, pos_view_ids=ctx.pos_view_filters, limit=1000)
+        state.inventory_analytics_payload = build_inventory_analytics_365d(InventoryAnalyticsBuildContext(
+            combined_index=state.combined_index_payload,
+            orders=analytics_orders,
+            start_dt=year_start,
             end_dt=report_end,
             generated_at=generated_at,
+            wpj_by_code=wpj_by_code,
             manual_overrides=ctx.manual_overrides,
             pos_admin_views=ctx.pos_admin_views,
-        )
-        combined_index_payload, combined_overview_payload = build_combined_product_views(combined_products_ctx)
-        expiry_overview_payload = build_expiry_overview(
-            generated_at,
-            combined_index_payload,
-            fetch_result.cz_expiry_summary,
-            fetch_result.sk_expiry_summary,
-        )
+            ordering_reference_overrides=ctx.ordering_reference_overrides,
+            ordering_packaging_map=ctx.ordering_packaging_map,
+        ))
+        state.inventory_analytics_730_payload = build_inventory_analytics_730d(InventoryAnalyticsBuildContext(
+            combined_index=state.combined_index_payload,
+            orders=analytics_orders,
+            start_dt=two_year_start,
+            end_dt=report_end,
+            generated_at=generated_at,
+            wpj_by_code=wpj_by_code,
+            manual_overrides=ctx.manual_overrides,
+            pos_admin_views=ctx.pos_admin_views,
+            ordering_reference_overrides=ctx.ordering_reference_overrides,
+            ordering_packaging_map=ctx.ordering_packaging_map,
+        ))
+        state.ordering_core_payload = build_ordering_core(state.inventory_analytics_730_payload, generated_at)
+    elif analytics_730_prices_changed or analytics_730_reference_changed or analytics_730_packaging_changed or analytics_730_stock_changed:
+        state.ordering_core_payload = build_ordering_core(state.inventory_analytics_730_payload, generated_at)
 
-        analytics_cache_path = CURRENT_DIR / 'inventory_analytics_365d.json'
-        analytics_730_cache_path = CURRENT_DIR / 'inventory_analytics_730d.json'
-        ordering_core_cache_path = CURRENT_DIR / 'ordering_core.json'
-        ordering_sales_history_cache_path = CURRENT_DIR / 'ordering_sales_history.json'
-        inventory_analytics_payload = load_json_if_fresh(analytics_cache_path, max_age_hours=24)
-        inventory_analytics_730_payload = load_json_if_fresh(analytics_730_cache_path, max_age_hours=24)
-        ordering_core_payload = load_json_if_fresh(ordering_core_cache_path, max_age_hours=24)
-        ordering_sales_history_payload = load_json_if_fresh(ordering_sales_history_cache_path, max_age_hours=24)
+    state.ordering_reference_payload = build_ordering_reference_data(state.inventory_analytics_730_payload, generated_at)
+    state.inventory_analytics_730_cz_payload = build_inventory_analytics_market_view(state.inventory_analytics_730_payload, state.combined_index_payload, generated_at, market_key='cz')
+    state.inventory_analytics_730_sk_payload = build_inventory_analytics_market_view(state.inventory_analytics_730_payload, state.combined_index_payload, generated_at, market_key='sk')
+    state.ordering_core_cz_payload = build_ordering_core(state.inventory_analytics_730_cz_payload, generated_at)
+    state.ordering_core_sk_payload = build_ordering_core(state.inventory_analytics_730_sk_payload, generated_at)
+    state.ordering_reference_cz_payload = build_ordering_reference_data(state.inventory_analytics_730_cz_payload, generated_at)
+    state.ordering_reference_sk_payload = build_ordering_reference_data(state.inventory_analytics_730_sk_payload, generated_at)
 
-        if inventory_analytics_payload:
-            inventory_analytics_payload = mark_payload_refreshed(inventory_analytics_payload, generated_at)
-        if inventory_analytics_730_payload:
-            inventory_analytics_730_payload = mark_payload_refreshed(inventory_analytics_730_payload, generated_at)
-        if ordering_core_payload:
-            ordering_core_payload = mark_payload_refreshed(ordering_core_payload, generated_at)
-        if ordering_sales_history_payload:
-            ordering_sales_history_payload = mark_payload_refreshed(ordering_sales_history_payload, generated_at)
-        wpj_by_code = {item.get('code'): item for item in wpj_products if item.get('code')}
+    if not state.ordering_sales_history_payload or not state.ordering_sales_history_payload.get('codes'):
+        ordering_history_end = now_local
+        if analytics_orders is None:
+            analytics_orders = fetch_wpj_year_order_metrics(wpj_url, wpj_token, two_year_start, ordering_history_end, limit=1000)
+            analytics_orders = apply_pos_view_overrides_to_orders(analytics_orders, wpj_url, wpj_token, two_year_start, ordering_history_end, detailed=False, pos_view_ids=ctx.pos_view_filters, limit=1000)
+        state.ordering_sales_history_payload = build_ordering_sales_history_payload(OrderingSalesHistoryBuildContext(
+            orders=analytics_orders,
+            start_dt=two_year_start,
+            end_dt=ordering_history_end,
+            generated_at=generated_at,
+            wpj_by_code=wpj_by_code,
+            manual_overrides=ctx.manual_overrides,
+            pos_admin_views=ctx.pos_admin_views,
+        ))
 
-        inventory_analytics_payload, analytics_prices_changed = enrich_inventory_analytics_prices(inventory_analytics_payload, wpj_by_code)
-        inventory_analytics_730_payload, analytics_730_prices_changed = enrich_inventory_analytics_prices(inventory_analytics_730_payload, wpj_by_code)
-        inventory_analytics_payload, analytics_reference_changed = reapply_ordering_reference_to_analytics(inventory_analytics_payload, ctx.ordering_reference_overrides)
-        inventory_analytics_730_payload, analytics_730_reference_changed = reapply_ordering_reference_to_analytics(inventory_analytics_730_payload, ctx.ordering_reference_overrides)
-        inventory_analytics_payload, analytics_packaging_changed = reapply_ordering_packaging_to_analytics(inventory_analytics_payload, ctx.ordering_packaging_map)
-        inventory_analytics_730_payload, analytics_730_packaging_changed = reapply_ordering_packaging_to_analytics(inventory_analytics_730_payload, ctx.ordering_packaging_map)
-        inventory_analytics_payload, analytics_stock_changed = reapply_combined_stock_to_analytics(inventory_analytics_payload, combined_index_payload, market_key='complete')
-        inventory_analytics_730_payload, analytics_730_stock_changed = reapply_combined_stock_to_analytics(inventory_analytics_730_payload, combined_index_payload, market_key='complete')
+    state.wpj_orders_payload = {
+        'generatedAt': generated_at,
+        'window': {'from': report_start.isoformat(), 'to': report_end.isoformat()},
+        'items': yesterday_orders,
+        'summary': state.wpj_summary,
+    }
+    state.wpj_products_payload = {'generatedAt': generated_at, 'items': wpj_products}
+    state.wpj_history_payload = {
+        'generatedAt': generated_at,
+        'window': {'from': history_start.isoformat(), 'to': report_end.isoformat()},
+        'days': history_days,
+    }
 
-        if (analytics_prices_changed or analytics_reference_changed or analytics_packaging_changed or analytics_stock_changed) and inventory_analytics_payload:
-            write_json(analytics_cache_path, inventory_analytics_payload)
-        if (analytics_730_prices_changed or analytics_730_reference_changed or analytics_730_packaging_changed or analytics_730_stock_changed) and inventory_analytics_730_payload:
-            write_json(analytics_730_cache_path, inventory_analytics_730_payload)
 
-        analytics_orders = None
-
-        if (
-            not inventory_analytics_payload or not inventory_analytics_payload.get('items')
-            or not inventory_analytics_730_payload or not inventory_analytics_730_payload.get('items')
-            or not ordering_core_payload or not ordering_core_payload.get('summary')
-        ):
-            analytics_orders = fetch_wpj_year_order_metrics(wpj_url, wpj_token, two_year_start, report_end, limit=1000)
-            analytics_orders = apply_pos_view_overrides_to_orders(analytics_orders, wpj_url, wpj_token, two_year_start, report_end, detailed=False, pos_view_ids=ctx.pos_view_filters, limit=1000)
-            inventory_analytics_payload = build_inventory_analytics_365d(InventoryAnalyticsBuildContext(
-                combined_index=combined_index_payload,
-                orders=analytics_orders,
-                start_dt=year_start,
-                end_dt=report_end,
-                generated_at=generated_at,
-                wpj_by_code=wpj_by_code,
-                manual_overrides=ctx.manual_overrides,
-                pos_admin_views=ctx.pos_admin_views,
-                ordering_reference_overrides=ctx.ordering_reference_overrides,
-                ordering_packaging_map=ctx.ordering_packaging_map,
-            ))
-            inventory_analytics_730_payload = build_inventory_analytics_730d(InventoryAnalyticsBuildContext(
-                combined_index=combined_index_payload,
-                orders=analytics_orders,
-                start_dt=two_year_start,
-                end_dt=report_end,
-                generated_at=generated_at,
-                wpj_by_code=wpj_by_code,
-                manual_overrides=ctx.manual_overrides,
-                pos_admin_views=ctx.pos_admin_views,
-                ordering_reference_overrides=ctx.ordering_reference_overrides,
-                ordering_packaging_map=ctx.ordering_packaging_map,
-            ))
-            ordering_core_payload = build_ordering_core(inventory_analytics_730_payload, generated_at)
-        elif analytics_730_prices_changed or analytics_730_reference_changed or analytics_730_packaging_changed or analytics_730_stock_changed:
-            ordering_core_payload = build_ordering_core(inventory_analytics_730_payload, generated_at)
-
-        ordering_reference_payload = build_ordering_reference_data(inventory_analytics_730_payload, generated_at)
-        inventory_analytics_730_cz_payload = build_inventory_analytics_market_view(inventory_analytics_730_payload, combined_index_payload, generated_at, market_key='cz')
-        inventory_analytics_730_sk_payload = build_inventory_analytics_market_view(inventory_analytics_730_payload, combined_index_payload, generated_at, market_key='sk')
-        ordering_core_cz_payload = build_ordering_core(inventory_analytics_730_cz_payload, generated_at)
-        ordering_core_sk_payload = build_ordering_core(inventory_analytics_730_sk_payload, generated_at)
-        ordering_reference_cz_payload = build_ordering_reference_data(inventory_analytics_730_cz_payload, generated_at)
-        ordering_reference_sk_payload = build_ordering_reference_data(inventory_analytics_730_sk_payload, generated_at)
-
-        if not ordering_sales_history_payload or not ordering_sales_history_payload.get('codes'):
-            ordering_history_end = now_local
-            if analytics_orders is None:
-                analytics_orders = fetch_wpj_year_order_metrics(wpj_url, wpj_token, two_year_start, ordering_history_end, limit=1000)
-                analytics_orders = apply_pos_view_overrides_to_orders(analytics_orders, wpj_url, wpj_token, two_year_start, ordering_history_end, detailed=False, pos_view_ids=ctx.pos_view_filters, limit=1000)
-            ordering_sales_history_payload = build_ordering_sales_history_payload(OrderingSalesHistoryBuildContext(
-                orders=analytics_orders,
-                start_dt=two_year_start,
-                end_dt=ordering_history_end,
-                generated_at=generated_at,
-                wpj_by_code=wpj_by_code,
-                manual_overrides=ctx.manual_overrides,
-                pos_admin_views=ctx.pos_admin_views,
-            ))
-
-        wpj_orders_payload = {
-            'generatedAt': generated_at,
-            'window': {'from': report_start.isoformat(), 'to': report_end.isoformat()},
-            'items': yesterday_orders,
-            'summary': wpj_summary,
-        }
-        wpj_products_payload = {'generatedAt': generated_at, 'items': wpj_products}
-        wpj_history_payload = {
-            'generatedAt': generated_at,
-            'window': {'from': history_start.isoformat(), 'to': report_end.isoformat()},
-            'days': history_days,
-        }
-    else:
-        warnings.append('WPJ část není připojená, ranní report nebude mít e-shop výkon.')
-        mtd_summary = {}
-
+def append_refresh_source_warnings(fetch_result: RefreshFetchResult, warnings: list[str]):
     if fetch_result.finance_snapshot.get('source', {}).get('status') == 'legacy_with_live_error':
         warnings.append('ABRA live adapter selhal, finance fallbacknuly na legacy snapshot.')
     if fetch_result.abra_vykaz_hospodareni_reports.get('source', {}).get('status') == 'error':
@@ -5628,17 +5658,9 @@ def build_refresh_payloads(ctx: RefreshRuntimeContext, fetch_result: RefreshFetc
     if not fetch_result.klaviyo_status.get('ready') and fetch_result.klaviyo_status.get('reason') != 'missing_token':
         warnings.append('Klaviyo denní refresh selhal, marketing používá poslední dostupný snapshot.')
 
-    if not expiry_overview_payload.get('topExpiring'):
-        expiry_overview_payload = build_expiry_overview(
-            generated_at,
-            combined_index_payload,
-            fetch_result.cz_expiry_summary,
-            fetch_result.sk_expiry_summary,
-        )
 
-    cz_daily = summarize_4px_window('CZ', fetch_result.cz_outbound, report_start, report_end)
-    sk_daily = summarize_4px_window('SK', fetch_result.sk_outbound, report_start, report_end)
-    inventory_summary = {
+def build_refresh_inventory_summary(fetch_result: RefreshFetchResult) -> dict[str, Any]:
+    return {
         'availableStockTotal': round(fetch_result.cz_inventory['availableStockTotal'] + fetch_result.sk_inventory['availableStockTotal'], 2),
         'itemsTotal': len(fetch_result.cz_inventory['items']) + len(fetch_result.sk_inventory['items']),
         'byAccount': {
@@ -5650,43 +5672,97 @@ def build_refresh_payloads(ctx: RefreshRuntimeContext, fetch_result: RefreshFetc
             'SK': len(fetch_result.sk_inventory['items']),
         },
     }
-    logistics_summary = {
+
+
+def merge_ranked_count_rows(*groups: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    counter = Counter({})
+    for rows in groups:
+        counter += Counter({row['name']: row['count'] for row in rows})
+    return [{'name': name, 'count': count} for name, count in counter.most_common()]
+
+
+def build_refresh_logistics_summary(
+    fetch_result: RefreshFetchResult,
+    report_start: datetime,
+    report_end: datetime,
+    expiry_overview_payload: dict[str, Any],
+) -> dict[str, Any]:
+    cz_daily = summarize_4px_window('CZ', fetch_result.cz_outbound, report_start, report_end)
+    sk_daily = summarize_4px_window('SK', fetch_result.sk_outbound, report_start, report_end)
+    return {
         'shipmentsTotal': cz_daily['shipments'] + sk_daily['shipments'],
         'byAccount': {'CZ': cz_daily['shipments'], 'SK': sk_daily['shipments']},
-        'carrierCounts': [
-            {'name': name, 'count': count}
-            for name, count in (Counter({}) + Counter({row['name']: row['count'] for row in cz_daily['carrierCounts']}) + Counter({row['name']: row['count'] for row in sk_daily['carrierCounts']})).most_common()
-        ],
-        'logisticsCounts': [
-            {'name': name, 'count': count}
-            for name, count in (Counter({}) + Counter({row['name']: row['count'] for row in cz_daily['logisticsCounts']}) + Counter({row['name']: row['count'] for row in sk_daily['logisticsCounts']})).most_common()
-        ],
-        'statusCounts': [
-            {'name': name, 'count': count}
-            for name, count in (Counter({}) + Counter({row['name']: row['count'] for row in cz_daily['statusCounts']}) + Counter({row['name']: row['count'] for row in sk_daily['statusCounts']})).most_common()
-        ],
+        'carrierCounts': merge_ranked_count_rows(cz_daily['carrierCounts'], sk_daily['carrierCounts']),
+        'logisticsCounts': merge_ranked_count_rows(cz_daily['logisticsCounts'], sk_daily['logisticsCounts']),
+        'statusCounts': merge_ranked_count_rows(cz_daily['statusCounts'], sk_daily['statusCounts']),
         'coverageWarnings': [warning for warning in [cz_daily['coverageWarning'], sk_daily['coverageWarning']] if warning],
         'expiringProducts': (expiry_overview_payload.get('topExpiring') or [])[:5],
         'notes': [],
     }
-    warnings.extend(logistics_summary['coverageWarnings'])
 
-    inventory_health_summary = build_inventory_health_summary(inventory_analytics_730_payload, ordering_core_payload)
-    alerts = build_alerts(wpj_summary, stock_summary, logistics_summary, warnings, inventory_health_summary)
-    priorities = build_priorities(wpj_summary, stock_summary, logistics_summary, inventory_health_summary)
+
+def build_abra_report_manifest(generated_at: str, abra_vykaz_hospodareni_reports: dict[str, Any]) -> dict[str, Any]:
+    return {
+        'generatedAt': generated_at,
+        'source': abra_vykaz_hospodareni_reports.get('source') or {},
+        'months': [
+            {
+                'label': row.get('label'),
+                'monthKey': row.get('monthKey'),
+                'fileName': row.get('fileName'),
+                'contentType': row.get('contentType'),
+                'url': row.get('url'),
+                'parsed': (row.get('parsed') or {}).get('metrics') or {},
+            }
+            for row in (abra_vykaz_hospodareni_reports.get('exports') or [])
+        ],
+    }
+
+
+def build_refresh_payloads(ctx: RefreshRuntimeContext, fetch_result: RefreshFetchResult) -> RefreshBuildResult:
+    generated_at = ctx.generated_at
+    state = build_empty_refresh_state(generated_at)
+
+    if fetch_result.wpj_ready:
+        populate_refresh_wpj_state(ctx, fetch_result, state)
+    else:
+        state.warnings.append('WPJ část není připojená, ranní report nebude mít e-shop výkon.')
+
+    append_refresh_source_warnings(fetch_result, state.warnings)
+
+    if not state.expiry_overview_payload.get('topExpiring'):
+        state.expiry_overview_payload = build_expiry_overview(
+            generated_at,
+            state.combined_index_payload,
+            fetch_result.cz_expiry_summary,
+            fetch_result.sk_expiry_summary,
+        )
+
+    inventory_summary = build_refresh_inventory_summary(fetch_result)
+    logistics_summary = build_refresh_logistics_summary(
+        fetch_result,
+        ctx.report_start,
+        ctx.report_end,
+        state.expiry_overview_payload,
+    )
+    state.warnings.extend(logistics_summary['coverageWarnings'])
+
+    inventory_health_summary = build_inventory_health_summary(state.inventory_analytics_730_payload, state.ordering_core_payload)
+    alerts = build_alerts(state.wpj_summary, state.stock_summary, logistics_summary, state.warnings, inventory_health_summary)
+    priorities = build_priorities(state.wpj_summary, state.stock_summary, logistics_summary, inventory_health_summary)
 
     report_json = build_morning_report(MorningReportBuildContext(
-        report_date=report_date,
-        wpj_summary=wpj_summary,
-        baseline_orders=baseline_orders,
-        baseline_revenue=baseline_revenue,
-        stock_summary=stock_summary,
+        report_date=ctx.report_date,
+        wpj_summary=state.wpj_summary,
+        baseline_orders=state.baseline_orders,
+        baseline_revenue=state.baseline_revenue,
+        stock_summary=state.stock_summary,
         inventory_summary=inventory_summary,
         logistics_summary=logistics_summary,
         alerts=alerts,
         priorities=priorities,
-        warnings=warnings,
-        mtd_summary=mtd_summary,
+        warnings=state.warnings,
+        mtd_summary=state.mtd_summary,
         inventory_health=inventory_health_summary,
     ))
     report_text = format_morning_report_text(report_json)
@@ -5698,48 +5774,34 @@ def build_refresh_payloads(ctx: RefreshRuntimeContext, fetch_result: RefreshFetc
         'ordering_sales_history.json',
     ])
     skip_snapshot_for_heavy = SETTINGS.reporting_skip_heavy_snapshot_writes
-    report_manifest = {
-        'generatedAt': generated_at,
-        'source': fetch_result.abra_vykaz_hospodareni_reports.get('source') or {},
-        'months': [
-            {
-                'label': row.get('label'),
-                'monthKey': row.get('monthKey'),
-                'fileName': row.get('fileName'),
-                'contentType': row.get('contentType'),
-                'url': row.get('url'),
-                'parsed': (row.get('parsed') or {}).get('metrics') or {},
-            }
-            for row in (fetch_result.abra_vykaz_hospodareni_reports.get('exports') or [])
-        ],
-    }
+    report_manifest = build_abra_report_manifest(generated_at, fetch_result.abra_vykaz_hospodareni_reports)
 
     return RefreshBuildResult(
-        warnings=warnings,
-        wpj_summary=wpj_summary,
-        wpj_orders_payload=wpj_orders_payload,
-        wpj_products_payload=wpj_products_payload,
-        wpj_history_payload=wpj_history_payload,
-        eshop_ytd_payload=eshop_ytd_payload,
-        customer_fact_payload=customer_fact_payload,
-        order_fact_payload=order_fact_payload,
-        inventory_analytics_payload=inventory_analytics_payload,
-        inventory_analytics_730_payload=inventory_analytics_730_payload,
-        inventory_analytics_730_cz_payload=inventory_analytics_730_cz_payload,
-        inventory_analytics_730_sk_payload=inventory_analytics_730_sk_payload,
-        ordering_core_payload=ordering_core_payload,
-        ordering_core_cz_payload=ordering_core_cz_payload,
-        ordering_core_sk_payload=ordering_core_sk_payload,
-        ordering_reference_payload=ordering_reference_payload,
-        ordering_reference_cz_payload=ordering_reference_cz_payload,
-        ordering_reference_sk_payload=ordering_reference_sk_payload,
-        ordering_sales_history_payload=ordering_sales_history_payload,
-        expiry_overview_payload=expiry_overview_payload,
-        combined_index_payload=combined_index_payload,
-        combined_overview_payload=combined_overview_payload,
-        baseline_orders=baseline_orders,
-        baseline_revenue=baseline_revenue,
-        stock_summary=stock_summary,
+        warnings=state.warnings,
+        wpj_summary=state.wpj_summary,
+        wpj_orders_payload=state.wpj_orders_payload,
+        wpj_products_payload=state.wpj_products_payload,
+        wpj_history_payload=state.wpj_history_payload,
+        eshop_ytd_payload=state.eshop_ytd_payload,
+        customer_fact_payload=state.customer_fact_payload,
+        order_fact_payload=state.order_fact_payload,
+        inventory_analytics_payload=state.inventory_analytics_payload,
+        inventory_analytics_730_payload=state.inventory_analytics_730_payload,
+        inventory_analytics_730_cz_payload=state.inventory_analytics_730_cz_payload,
+        inventory_analytics_730_sk_payload=state.inventory_analytics_730_sk_payload,
+        ordering_core_payload=state.ordering_core_payload,
+        ordering_core_cz_payload=state.ordering_core_cz_payload,
+        ordering_core_sk_payload=state.ordering_core_sk_payload,
+        ordering_reference_payload=state.ordering_reference_payload,
+        ordering_reference_cz_payload=state.ordering_reference_cz_payload,
+        ordering_reference_sk_payload=state.ordering_reference_sk_payload,
+        ordering_sales_history_payload=state.ordering_sales_history_payload,
+        expiry_overview_payload=state.expiry_overview_payload,
+        combined_index_payload=state.combined_index_payload,
+        combined_overview_payload=state.combined_overview_payload,
+        baseline_orders=state.baseline_orders,
+        baseline_revenue=state.baseline_revenue,
+        stock_summary=state.stock_summary,
         inventory_summary=inventory_summary,
         logistics_summary=logistics_summary,
         inventory_health_summary=inventory_health_summary,
