@@ -24,6 +24,19 @@
   --topbar-h: 80px;
   --radius: 24px;
   --radius-sm: 18px;
+  /* Backward-compatible aliases for newer page tokens and older standalone reports. */
+  --line: var(--border);
+  --panel: var(--card);
+  --panel-2: var(--card-soft);
+  --panel-soft: var(--bg-elevated);
+  --surface-raised: var(--card-soft);
+  --text-strong: var(--text);
+  --muted: var(--text-muted);
+  --border-color: var(--border);
+  --ok: var(--success);
+  --good: var(--success);
+  --warn: var(--warning);
+  --bad: var(--danger);
 }
 
 [data-theme="dark"] {
