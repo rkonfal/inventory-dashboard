@@ -162,6 +162,10 @@
       gap: 22px;
     }
 
+    body.page-ordering-simplified .main.page-stack {
+      width: min(1440px, calc(100vw - 32px));
+    }
+
     .header {
       padding: 24px;
       border: 1px solid var(--line);
@@ -251,7 +255,76 @@
     }
 
     table[data-sortable-table="planning"] {
-      min-width: 1880px;
+      width: 100%;
+      min-width: 1360px;
+      table-layout: fixed;
+    }
+
+    table[data-sortable-table="planning"] th {
+      white-space: nowrap;
+      font-size: 11px;
+      letter-spacing: .03em;
+    }
+
+    table[data-sortable-table="planning"] th,
+    table[data-sortable-table="planning"] td {
+      padding: 11px 10px;
+      font-size: 12.5px;
+    }
+
+    table[data-sortable-table="planning"] th:nth-child(1),
+    table[data-sortable-table="planning"] td:nth-child(1) {
+      width: 52px;
+    }
+
+    table[data-sortable-table="planning"] th:nth-child(2),
+    table[data-sortable-table="planning"] td:nth-child(2) {
+      width: 248px;
+    }
+
+    table[data-sortable-table="planning"] th:nth-child(3),
+    table[data-sortable-table="planning"] td:nth-child(3) {
+      width: 136px;
+    }
+
+    table[data-sortable-table="planning"] th:nth-child(4),
+    table[data-sortable-table="planning"] td:nth-child(4) {
+      width: 152px;
+    }
+
+    table[data-sortable-table="planning"] th:nth-child(5),
+    table[data-sortable-table="planning"] td:nth-child(5) {
+      width: 136px;
+    }
+
+    table[data-sortable-table="planning"] th:nth-child(6),
+    table[data-sortable-table="planning"] td:nth-child(6),
+    table[data-sortable-table="planning"] th:nth-child(7),
+    table[data-sortable-table="planning"] td:nth-child(7),
+    table[data-sortable-table="planning"] th:nth-child(8),
+    table[data-sortable-table="planning"] td:nth-child(8) {
+      width: 92px;
+    }
+
+    table[data-sortable-table="planning"] th:nth-child(9),
+    table[data-sortable-table="planning"] td:nth-child(9) {
+      width: 96px;
+    }
+
+    table[data-sortable-table="planning"] th:nth-child(10),
+    table[data-sortable-table="planning"] td:nth-child(10) {
+      width: 176px;
+    }
+
+    .ordering-note-input,
+    .ordering-qty-input {
+      min-width: 0;
+    }
+
+    #planning-table-summary {
+      margin: 14px 0 14px;
+      position: relative;
+      z-index: 1;
     }
 
     table[data-sortable-table="explorer"] {
@@ -324,11 +397,13 @@
     }
 
     .ordering-note-input {
-      min-width: 180px;
+      width: 100%;
+      min-width: 0;
     }
 
     .ordering-qty-input {
-      width: 92px !important;
+      width: 72px !important;
+      max-width: 100%;
       text-align: right;
     }
 
@@ -587,7 +662,7 @@
   </style>
 </head>
 <body class="page-ordering-simplified">
-  <aside class="sidebar" data-sidebar-page="ordering.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Objednávání zboží pro běžnou praxi" data-sidebar-section="Přehled" data-sidebar-footer="Pomáhá rychle poznat, co objednat hned a co raději nechat být."></aside>
+  <aside class="sidebar" data-sidebar-page="ordering.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Objednávání zboží pro běžnou praxi" data-sidebar-section="Objednávání" data-sidebar-footer="Pomáhá rychle poznat, co objednat hned a co raději nechat být."></aside>
 
   <main class="main page-stack">
     <header class="header">
@@ -695,6 +770,56 @@
         </div>
       </div>
       <section class="summary-grid" id="ordering-work-grid"></section>
+    </section>
+
+    <section class="card" style="margin-top:20px;">
+      <div class="toolbar workspace-toolbar">
+        <div>
+          <h2 class="section-title">Prodeje za vlastní období</h2>
+          <div class="section-subtitle">Kolegové si můžou vybrat období od-do a hned vidí, co se v objednávání opravdu prodávalo.</div>
+        </div>
+        <div class="toolbar-controls" style="align-items:flex-end; gap:12px; flex-wrap:wrap;">
+          <label class="control-group">
+            <span class="control-label">Od</span>
+            <input id="ordering-sales-from" class="input" type="date" />
+          </label>
+          <label class="control-group">
+            <span class="control-label">Do</span>
+            <input id="ordering-sales-to" class="input" type="date" />
+          </label>
+          <div class="control-group" style="min-width:260px;">
+            <span class="control-label">Rychlá volba</span>
+            <div class="quick-filters" style="margin:0;">
+              <button class="quick-filter active" type="button" data-ordering-sales-preset="30">30 dní</button>
+              <button class="quick-filter" type="button" data-ordering-sales-preset="90">90 dní</button>
+              <button class="quick-filter" type="button" data-ordering-sales-preset="365">365 dní</button>
+              <button class="quick-filter" type="button" data-ordering-sales-preset="all">Celé okno</button>
+            </div>
+          </div>
+          <label class="control-group" style="min-width:220px;">
+            <span class="control-label">Hledat SKU</span>
+            <input id="ordering-sales-search" class="input" type="search" placeholder="Kód, název" />
+          </label>
+        </div>
+      </div>
+
+      <div class="ux-date-note" id="ordering-sales-summary">Načítám prodeje za vybrané období…</div>
+      <section class="summary-grid" id="ordering-sales-kpis" style="margin-top:16px;"></section>
+      <div class="ux-table-wrap" style="margin-top:16px;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="soldUnits">Prodáno ks <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="avgPerDay">Průměr / den <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="stock">Sklad <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="coverAtPace">Pokrytí při tempu <span class="table-sort-arrow">↕</span></button></th>
+              <th><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="lastSaleDate">Poslední prodej <span class="table-sort-arrow">↕</span></button></th>
+            </tr>
+          </thead>
+          <tbody id="ordering-sales-table"></tbody>
+        </table>
+      </div>
     </section>
 
     <details class="secondary-details" style="margin-top:20px;">
@@ -849,23 +974,25 @@
       </div>
       <div class="section-subtitle" id="planning-table-summary">Načítám doporučené položky…</div>
       <div class="toolbar-inline-summary"><strong>Tip:</strong> začni frontou „objednat hned / brzy“, potom otevři standardní shortlist a fillers přidávej až nakonec.</div>
-      <table class="table" data-sortable-table="planning">
-        <thead>
-          <tr>
-            <th>Do exportu</th>
-            <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
-            <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="priority">Priorita <span class="table-sort-arrow">↕</span></button></th>
-            <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="source">Zdroj / důvod <span class="table-sort-arrow">↕</span></button></th>
-            <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="forecast90">Forecast 30 / 60 / 90 <span class="table-sort-arrow">↕</span></button></th>
-            <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="minimum">A / minimum <span class="table-sort-arrow">↕</span></button></th>
-            <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="ideal">B / ideál <span class="table-sort-arrow">↕</span></button></th>
-            <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="step">Objednat po <span class="table-sort-arrow">↕</span></button></th>
-            <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="exportQty">Moje hodnota <span class="table-sort-arrow">↕</span></button></th>
-            <th>Poznámka</th>
-          </tr>
-        </thead>
-        <tbody id="planning-table"></tbody>
-      </table>
+      <div class="ux-table-wrap">
+        <table class="table" data-sortable-table="planning">
+          <thead>
+            <tr>
+              <th>Export</th>
+              <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="priority">Priorita <span class="table-sort-arrow">↕</span></button></th>
+              <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="source">Důvod <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="forecast90">F30 / 60 / 90 <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="minimum">A min <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="ideal">B ideál <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="step">Pack <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="exportQty">Moje ks <span class="table-sort-arrow">↕</span></button></th>
+              <th>Pozn.</th>
+            </tr>
+          </thead>
+          <tbody id="planning-table"></tbody>
+        </table>
+      </div>
       <div class="ux-date-note" id="planning-export-summary" style="margin-top:16px;">Připravuji export…</div>
     </section>
 
@@ -982,6 +1109,12 @@
       const pct = value => value == null ? '–' : `${value > 0 ? '+' : ''}${one(value)} %`;
       const cover = value => value == null ? 'bez prodeje' : `${one(value)} dnů`;
       const months = value => value == null ? '–' : `${one(value)} měs.`;
+      const fmtDate = value => {
+        if (!value) return '–';
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return '–';
+        return `${date.getDate()}. ${date.getMonth() + 1}. ${date.getFullYear()}`;
+      };
 
       const riskBadge = row => {
         if (row.reorderRisk === 'critical') return '<span class="badge danger">řešit hned</span>'; 
@@ -1147,14 +1280,23 @@
       const orderingActionsList = document.getElementById('ordering-actions-list');
       const orderingActionsToggle = document.getElementById('ordering-actions-toggle');
       const orderingActionsBody = document.getElementById('ordering-actions-body');
+      const orderingSalesFrom = document.getElementById('ordering-sales-from');
+      const orderingSalesTo = document.getElementById('ordering-sales-to');
+      const orderingSalesSearch = document.getElementById('ordering-sales-search');
+      const orderingSalesSummary = document.getElementById('ordering-sales-summary');
+      const orderingSalesKpis = document.getElementById('ordering-sales-kpis');
+      const orderingSalesTable = document.getElementById('ordering-sales-table');
 
       let analytics = { items: [], summary: {} };
       let ordering = { summary: {}, alerts: [] };
       let orderingReference = { summary: {}, items: [] };
       let orderingActions = { markets: {} };
+      let orderingSalesHistory = { summary: {}, window: {}, codes: {} };
       let orderingActionsExpanded = false;
       let currentMarket = 'complete';
       let currentPlanningScope = 'recommended';
+      let currentOrderingSalesPreset = '30';
+      let currentOrderingSalesSort = { key: 'soldUnits', direction: 'desc' };
       let payloadsByMarket = {
         complete: { analytics: null, ordering: null, reference: null },
         cz: { analytics: null, ordering: null, reference: null },
@@ -1174,6 +1316,7 @@
         fillers: { key: 'recommended', direction: 'desc' },
         planning: { key: 'priority', direction: 'desc' },
         explorer: { key: 'priority', direction: 'desc' },
+        'ordering-sales': { key: 'soldUnits', direction: 'desc' },
       };
 
       const capacityProfiles = {
@@ -1207,6 +1350,441 @@
       function daysBetween(a, b) {
         if (!a || !b) return 0;
         return Math.max(0, Math.round((b.getTime() - a.getTime()) / 86400000));
+      }
+
+      function isoDate(value) {
+        if (!value) return '';
+        if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+        const parsed = new Date(value);
+        if (Number.isNaN(parsed.getTime())) return '';
+        return asDateInputValue(parsed);
+      }
+
+      function salesWindowBounds() {
+        const from = isoDate(orderingSalesHistory.window?.from);
+        const to = isoDate(orderingSalesHistory.window?.to);
+        return { from, to };
+      }
+
+      function syncOrderingSalesPresetButtons() {
+        document.querySelectorAll('[data-ordering-sales-preset]').forEach(button => {
+          button.classList.toggle('active', button.dataset.orderingSalesPreset === currentOrderingSalesPreset);
+        });
+      }
+
+      function setOrderingSalesPreset(preset) {
+        const { from, to } = salesWindowBounds();
+        if (!from || !to) return;
+        currentOrderingSalesPreset = preset;
+        const toDate = parseDateInput(to);
+        if (!toDate) return;
+        if (preset === 'all') {
+          orderingSalesFrom.value = from;
+          orderingSalesTo.value = to;
+          syncOrderingSalesPresetButtons();
+          renderOrderingSalesModule();
+          return;
+        }
+        const days = Math.max(1, Number(preset || 30));
+        const fromDate = new Date(toDate.getTime() - (days - 1) * 86400000);
+        const floorDate = parseDateInput(from);
+        const clampedFrom = floorDate && fromDate < floorDate ? floorDate : fromDate;
+        orderingSalesFrom.value = asDateInputValue(clampedFrom);
+        orderingSalesTo.value = to;
+        syncOrderingSalesPresetButtons();
+        renderOrderingSalesModule();
+      }
+
+      function ensureOrderingSalesDefaults() {
+        const { from, to } = salesWindowBounds();
+        if (!from || !to) return;
+        if (!orderingSalesFrom.value || !orderingSalesTo.value) {
+          setOrderingSalesPreset(currentOrderingSalesPreset || '30');
+          return;
+        }
+        if (orderingSalesFrom.value < from) orderingSalesFrom.value = from;
+        if (orderingSalesTo.value > to) orderingSalesTo.value = to;
+      }
+
+      function selectedOrderingSalesRange() {
+        const { from: minFrom, to: maxTo } = salesWindowBounds();
+        const from = orderingSalesFrom.value || minFrom;
+        const to = orderingSalesTo.value || maxTo;
+        if (!from || !to) return { from: '', to: '', days: 0 };
+        if (from > to) {
+          return { from: to, to: from, days: daysBetween(parseDateInput(to), parseDateInput(from)) + 1 };
+        }
+        return { from, to, days: daysBetween(parseDateInput(from), parseDateInput(to)) + 1 };
+      }
+
+      function codeSalesEntries(code, marketKey = currentMarket) {
+        return orderingSalesHistory.codes?.[code]?.dailyByView?.[marketKey] || [];
+      }
+
+      function sumSalesEntries(entries, from, to) {
+        let total = 0;
+        for (const entry of entries || []) {
+          const [dateKey, units] = entry;
+          if (dateKey < from || dateKey > to) continue;
+          total += Number(units || 0);
+        }
+        return Math.round(total * 100) / 100;
+      }
+
+      function latestSalesDate(entries, from = '', to = '') {
+        let last = '';
+        for (const entry of entries || []) {
+          const [dateKey] = entry;
+          if (from && dateKey < from) continue;
+          if (to && dateKey > to) continue;
+          if (!last || dateKey > last) last = dateKey;
+        }
+        return last || null;
+      }
+
+      function trailingSalesRange(endIso, days, floorIso = '') {
+        const endDate = parseDateInput(endIso);
+        if (!endDate || !days) return { from: '', to: endIso, days: 0 };
+        const startDate = new Date(endDate.getTime());
+        startDate.setDate(startDate.getDate() - Math.max(days - 1, 0));
+        const floorDate = parseDateInput(floorIso);
+        const clampedStart = floorDate && startDate < floorDate ? floorDate : startDate;
+        return {
+          from: asDateInputValue(clampedStart),
+          to: endIso,
+          days: daysBetween(clampedStart, endDate) + 1,
+        };
+      }
+
+      function pctDelta(current, previous) {
+        if (!(previous > 0)) return null;
+        return ((Number(current || 0) - Number(previous || 0)) / Number(previous || 0)) * 100;
+      }
+
+      function deriveLiveSalesMetrics(row, marketKey = currentMarket) {
+        const entries = codeSalesEntries(row.code, marketKey);
+        const { from: windowFrom, to: windowTo } = salesWindowBounds();
+        if (!entries.length || !windowFrom || !windowTo) return { ...row };
+
+        const range14 = trailingSalesRange(windowTo, 14, windowFrom);
+        const range30 = trailingSalesRange(windowTo, 30, windowFrom);
+        const range90 = trailingSalesRange(windowTo, 90, windowFrom);
+        const range180 = trailingSalesRange(windowTo, 180, windowFrom);
+        const range365 = trailingSalesRange(windowTo, 365, windowFrom);
+        const range730 = trailingSalesRange(windowTo, 730, windowFrom);
+        const prev365EndDate = parseDateInput(range365.from);
+        let prev365From = '';
+        let prev365ToIso = '';
+        if (prev365EndDate) {
+          const prevEnd = new Date(prev365EndDate.getTime());
+          prevEnd.setDate(prevEnd.getDate() - 1);
+          prev365ToIso = asDateInputValue(prevEnd);
+          prev365From = trailingSalesRange(prev365ToIso, 365, windowFrom).from;
+        }
+
+        const unitsWindow = sumSalesEntries(entries, windowFrom, windowTo);
+        const windowDays = daysBetween(parseDateInput(windowFrom), parseDateInput(windowTo)) + 1;
+        const units14d = sumSalesEntries(entries, range14.from, range14.to);
+        const units30d = sumSalesEntries(entries, range30.from, range30.to);
+        const units90d = sumSalesEntries(entries, range90.from, range90.to);
+        const units180d = sumSalesEntries(entries, range180.from, range180.to);
+        const units365d = sumSalesEntries(entries, range365.from, range365.to);
+        const units730d = sumSalesEntries(entries, range730.from, range730.to);
+        const prev365d = prev365From && prev365ToIso ? sumSalesEntries(entries, prev365From, prev365ToIso) : Number(row.prev365d || 0);
+        const lastSaleDate = latestSalesDate(entries) || row.lastSaleDate || null;
+        const daysSinceLastSale = lastSaleDate ? daysBetween(parseDateInput(lastSaleDate), parseDateInput(windowTo)) : row.daysSinceLastSale ?? null;
+        const dailyRunRate730d = range730.days ? units730d / range730.days : 0;
+        const dailyRunRate365d = units365d ? units365d / 365 : 0;
+        const dailyRunRate90d = units90d ? units90d / 90 : 0;
+        const effectiveStock = Number(row.effectiveStock || 0);
+        const daysOfCover730d = dailyRunRate730d > 0 ? effectiveStock / dailyRunRate730d : null;
+        const daysOfCover365d = dailyRunRate365d > 0 ? effectiveStock / dailyRunRate365d : null;
+        const daysOfCover90d = dailyRunRate90d > 0 ? effectiveStock / dailyRunRate90d : null;
+        const stockMonthsOnHand = (daysOfCover90d || daysOfCover365d) ? ((daysOfCover90d || daysOfCover365d) / 30.4) : null;
+        const trend90v365Pct = dailyRunRate365d > 0 ? pctDelta(dailyRunRate90d, dailyRunRate365d) : row.trend90v365Pct ?? null;
+        let turnoverZone = 'no_sales';
+        if (stockMonthsOnHand != null) {
+          if (stockMonthsOnHand <= 1) turnoverZone = 'green';
+          else if (stockMonthsOnHand <= 4) turnoverZone = 'orange';
+          else turnoverZone = 'red';
+        }
+        let reorderRisk = 'none';
+        if (units90d > 0) {
+          if (daysOfCover90d == null || daysOfCover90d <= 14) reorderRisk = 'critical';
+          else if (daysOfCover90d <= 30) reorderRisk = 'soon';
+          else if (daysOfCover90d <= 60) reorderRisk = 'watch';
+        }
+        const recommendedMinUnits = dailyRunRate90d > 0 ? Math.max(0, Math.round(dailyRunRate90d * 30 - effectiveStock)) : 0;
+        const recommendedOrderUnits = dailyRunRate90d > 0 ? Math.max(0, Math.round(dailyRunRate90d * 74 - effectiveStock)) : 0;
+
+        return {
+          ...row,
+          unitsWindow,
+          units14d,
+          units30d,
+          units90d,
+          units180d,
+          units365d,
+          units730d,
+          prev365d,
+          lastSaleDate,
+          daysSinceLastSale,
+          avgMonthlyUnits365d: units365d ? Number((units365d / 12).toFixed(1)) : 0,
+          avgMonthlyUnits730d: units730d ? Number((units730d / 24).toFixed(1)) : 0,
+          avgMonthlyUnitsWindow: unitsWindow ? Number((unitsWindow / Math.max(windowDays / 30.4167, 1)).toFixed(1)) : Number(row.avgMonthlyUnitsWindow || 0),
+          dailyRunRate730d: Number(dailyRunRate730d.toFixed(3)),
+          dailyRunRate365d: Number(dailyRunRate365d.toFixed(3)),
+          dailyRunRate90d: Number(dailyRunRate90d.toFixed(3)),
+          daysOfCover730d: daysOfCover730d == null ? null : Number(daysOfCover730d.toFixed(1)),
+          daysOfCoverWindow: daysOfCover730d == null ? null : Number(daysOfCover730d.toFixed(1)),
+          daysOfCover365d: daysOfCover365d == null ? null : Number(daysOfCover365d.toFixed(1)),
+          daysOfCover90d: daysOfCover90d == null ? null : Number(daysOfCover90d.toFixed(1)),
+          stockMonthsOnHand: stockMonthsOnHand == null ? null : Number(stockMonthsOnHand.toFixed(1)),
+          trend90v365Pct: trend90v365Pct == null ? null : Number(trend90v365Pct.toFixed(1)),
+          turnoverZone,
+          reorderRisk,
+          recommendedMinUnits,
+          recommendedOrderUnits,
+        };
+      }
+
+      function liveAnalyticsRows() {
+        return (analytics.items || []).map(row => deriveLiveSalesMetrics(row));
+      }
+
+      function currentOrderingSnapshot() {
+        const rows = liveAnalyticsRows();
+        const orderableRows = rows.filter(row => row.orderable !== false);
+        const criticalRows = orderableRows.filter(row => row.reorderRisk === 'critical');
+        const watchRows = orderableRows.filter(row => ['critical', 'soon', 'watch'].includes(row.reorderRisk));
+        const redRows = orderableRows.filter(row => row.turnoverZone === 'red');
+        return {
+          rows,
+          orderableRows,
+          criticalItems: criticalRows.length,
+          watchItems: watchRows.length,
+          blockedItems: rows.filter(row => row.orderable === false).length,
+          topSkuItems: orderableRows.filter(row => row.orderingRole === 'top_sku').length,
+          fillUpItems: orderableRows.filter(row => row.orderingRole === 'fill_up').length,
+          redItems: redRows.length,
+          cashInRedTurnover: redRows.reduce((sum, item) => sum + Number(item.stockValueSelling || 0), 0),
+        };
+      }
+
+      function percent(value, digits = 1) {
+        return `${Number(value || 0).toLocaleString('cs-CZ', { minimumFractionDigits: digits, maximumFractionDigits: digits })} %`;
+      }
+
+      function healthToneFromScore(score) {
+        if (score < 60) return 'danger';
+        if (score < 80) return 'warn';
+        return 'success';
+      }
+
+      function coverTone(days) {
+        if (days == null) return 'info';
+        if (days > 120) return 'danger';
+        if (days > 90 || days < 30) return 'warn';
+        return 'success';
+      }
+
+      function currentInventoryHealthSnapshot() {
+        const snapshot = currentOrderingSnapshot();
+        const orderableRows = snapshot.orderableRows || [];
+        const aRows = orderableRows.filter(row => row.orderingRole === 'top_sku');
+        const totalStockValue = orderableRows.reduce((sum, row) => sum + Math.max(0, Number(row.stockValueSelling || 0)), 0);
+        const deadRows = orderableRows.filter(row => Math.max(0, Number(row.effectiveStock || 0)) > 0 && Number(row.daysOfCover90d ?? row.daysOfCover365d ?? 0) > 180);
+        const slowRows = orderableRows.filter(row => {
+          const cover = Number(row.daysOfCover90d ?? row.daysOfCover365d ?? 0);
+          return Math.max(0, Number(row.effectiveStock || 0)) > 0 && cover > 90 && cover <= 180;
+        });
+        const overstockRows = orderableRows.filter(row => {
+          if (Math.max(0, Number(row.effectiveStock || 0)) <= 0) return false;
+          const tags = new Set(row.tags || []);
+          const cover = Number(row.daysOfCover90d ?? row.daysOfCover365d ?? 0);
+          return tags.has('overstocked') || cover > 90 || row.turnoverZone === 'red';
+        });
+        const aCriticalRows = aRows.filter(row => {
+          const cover = Number(row.daysOfCover90d ?? row.daysOfCover365d ?? Infinity);
+          return Number(row.effectiveStock || 0) <= 0 || cover < 7 || row.reorderRisk === 'critical';
+        });
+        const aWarningRows = aRows.filter(row => {
+          const cover = Number(row.daysOfCover90d ?? row.daysOfCover365d ?? Infinity);
+          return !aCriticalRows.includes(row) && (cover < 14 || ['soon', 'watch'].includes(row.reorderRisk));
+        });
+        const deadValue = deadRows.reduce((sum, row) => sum + Math.max(0, Number(row.stockValueSelling || 0)), 0);
+        const slowValue = slowRows.reduce((sum, row) => sum + Math.max(0, Number(row.stockValueSelling || 0)), 0);
+        const slowDeadValue = deadValue + slowValue;
+        const overstockValue = overstockRows.reduce((sum, row) => sum + Math.max(0, Number(row.stockValueSelling || 0)), 0);
+        const dailySalesValue90 = orderableRows.reduce((sum, row) => {
+          const units90 = Math.max(0, Number(row.units90d || 0));
+          const price = Math.max(0, Number(row.unitSellingPrice || 0));
+          return sum + (units90 * price) / 90;
+        }, 0);
+        const totalCoverDays = dailySalesValue90 > 0 ? totalStockValue / dailySalesValue90 : null;
+        const slowDeadShare = totalStockValue > 0 ? (slowDeadValue / totalStockValue) * 100 : 0;
+        const deadShare = totalStockValue > 0 ? (deadValue / totalStockValue) * 100 : 0;
+        const overstockShare = totalStockValue > 0 ? (overstockValue / totalStockValue) * 100 : 0;
+        let healthScore = 100;
+        healthScore -= aCriticalRows.length * 8;
+        healthScore -= aWarningRows.length * 3;
+        if (deadShare > 15) healthScore -= 20;
+        else if (deadShare > 8) healthScore -= 10;
+        if (slowDeadShare > 35) healthScore -= 15;
+        else if (slowDeadShare > 20) healthScore -= 8;
+        if (totalCoverDays != null && totalCoverDays > 120) healthScore -= 15;
+        else if (totalCoverDays != null && totalCoverDays > 90) healthScore -= 8;
+        if (overstockShare > 20) healthScore -= 10;
+        healthScore = Math.max(0, Math.round(healthScore));
+        return {
+          ...snapshot,
+          aRows,
+          aCriticalRows,
+          aWarningRows,
+          totalStockValue,
+          deadRows,
+          slowRows,
+          overstockRows,
+          deadValue,
+          slowValue,
+          slowDeadValue,
+          overstockValue,
+          totalCoverDays,
+          slowDeadShare,
+          deadShare,
+          overstockShare,
+          healthScore,
+        };
+      }
+
+      function getOrderingSalesRows() {
+        const range = selectedOrderingSalesRange();
+        const term = (orderingSalesSearch.value || '').trim().toLowerCase();
+        if (!range.from || !range.to || !range.days) return [];
+        const rows = liveAnalyticsRows().map(row => {
+          const entries = codeSalesEntries(row.code);
+          const soldUnits = sumSalesEntries(entries, range.from, range.to);
+          const avgPerDay = range.days ? soldUnits / range.days : 0;
+          const coverAtPace = avgPerDay > 0 ? row.effectiveStock / avgPerDay : null;
+          const periodLastSaleDate = latestSalesDate(entries, range.from, range.to);
+          const overallLastSaleDate = latestSalesDate(entries);
+          return {
+            ...row,
+            soldUnits,
+            avgPerDay,
+            coverAtPace,
+            lastSaleDate: periodLastSaleDate || overallLastSaleDate || row.lastSaleDate || null,
+            periodLastSaleDate,
+            overallLastSaleDate,
+          };
+        }).filter(row => {
+          if (term) {
+            const hay = `${row.code || ''} ${row.title || ''}`.toLowerCase();
+            if (!hay.includes(term)) return false;
+          }
+          return row.soldUnits > 0;
+        });
+
+        const sort = currentOrderingSalesSort || { key: 'soldUnits', direction: 'desc' };
+        const getValue = row => {
+          switch (sort.key) {
+            case 'product': return `${row.code || ''} ${row.title || ''}`;
+            case 'avgPerDay': return row.avgPerDay;
+            case 'stock': return row.effectiveStock;
+            case 'coverAtPace': return row.coverAtPace;
+            case 'lastSaleDate': return row.lastSaleDate ? new Date(row.lastSaleDate).getTime() : null;
+            case 'soldUnits':
+            default: return row.soldUnits;
+          }
+        };
+
+        return rows.sort((a, b) => {
+          const type = sort.key === 'product' ? 'text' : 'number';
+          const primary = compareSortableValues(getValue(a), getValue(b), sort.direction, type);
+          if (primary) return primary;
+          return sortableText(`${a.code || ''} ${a.title || ''}`).localeCompare(sortableText(`${b.code || ''} ${b.title || ''}`), 'cs');
+        });
+      }
+
+      function getOrderingSalesLookup() {
+        const lookup = new Map();
+        getOrderingSalesRows().forEach(row => lookup.set(row.code, row));
+        return lookup;
+      }
+
+      function buildSelectedPeriodPlanningInsight(rows, leadDays) {
+        const range = selectedOrderingSalesRange();
+        if (!range.days) return null;
+        const salesLookup = getOrderingSalesLookup();
+        const compared = (rows || []).map(row => {
+          const salesRow = salesLookup.get(row.code);
+          const periodUnits = Number(salesRow?.soldUnits || 0);
+          const periodDailyRate = range.days ? periodUnits / range.days : 0;
+          const periodSuggested = periodDailyRate > 0 ? Math.max(0, Math.round(periodDailyRate * (Math.max(leadDays, 21) + 14) - Number(row.effectiveStock || 0))) : 0;
+          const baselineSuggested = Number(row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? row.recommendedOrderUnits ?? 0);
+          return {
+            ...row,
+            periodUnits,
+            periodDailyRate,
+            periodSuggested,
+            baselineSuggested,
+            delta: periodSuggested - baselineSuggested,
+          };
+        }).filter(row => row.periodUnits > 0);
+
+        if (!compared.length) return null;
+
+        const topUp = [...compared].sort((a, b) => b.delta - a.delta).filter(row => row.delta > 0).slice(0, 3);
+        const topDown = [...compared].sort((a, b) => a.delta - b.delta).filter(row => row.delta < 0).slice(0, 3);
+        const totalPeriodSuggested = compared.reduce((sum, row) => sum + row.periodSuggested, 0);
+        const totalBaselineSuggested = compared.reduce((sum, row) => sum + row.baselineSuggested, 0);
+
+        return {
+          range,
+          comparedCount: compared.length,
+          totalPeriodSuggested,
+          totalBaselineSuggested,
+          topUp,
+          topDown,
+        };
+      }
+
+      function renderOrderingSalesModule() {
+        if (!orderingSalesSummary || !orderingSalesKpis || !orderingSalesTable) return;
+        ensureOrderingSalesDefaults();
+        const range = selectedOrderingSalesRange();
+        const rows = getOrderingSalesRows();
+        const totalUnits = rows.reduce((sum, row) => sum + Number(row.soldUnits || 0), 0);
+        const avgPerDay = range.days ? totalUnits / range.days : 0;
+        const top = [...rows].sort((a, b) => Number(b.soldUnits || 0) - Number(a.soldUnits || 0))[0] || null;
+
+        orderingSalesSummary.textContent = range.from && range.to
+          ? `Prodeje od ${range.from.split('-').reverse().join('. ')}. do ${range.to.split('-').reverse().join('. ')}. · ${fmt(range.days)} dní · trh ${marketTitle(currentMarket)} · aktivních SKU ${fmt(rows.length)}.`
+          : 'Vyber období, ať se načte přehled prodejů.';
+
+        orderingSalesKpis.innerHTML = [
+          ['Prodané kusy', fmt(totalUnits)],
+          ['Aktivní SKU', fmt(rows.length)],
+          ['Průměr za den', fmt(avgPerDay.toFixed ? Number(avgPerDay.toFixed(1)) : avgPerDay)],
+          ['Top SKU', top ? `${top.code} · ${fmt(top.soldUnits)} ks` : 'bez prodeje'],
+        ].map(([label, value]) => `
+          <article class="summary-card">
+            <h3 style="margin:0 0 8px;">${label}</h3>
+            <div class="kpi-value">${value}</div>
+          </article>
+        `).join('');
+
+        orderingSalesTable.innerHTML = rows.slice(0, 150).map(row => `
+          <tr>
+            <td>${escapeHtml(row.code || '')} · ${escapeHtml(row.title || '')}</td>
+            <td class="num">${fmt(row.soldUnits)}</td>
+            <td class="num">${fmt(Number((row.avgPerDay || 0).toFixed(1)))}</td>
+            <td class="num">${fmt(row.effectiveStock)}</td>
+            <td class="num">${row.coverAtPace == null ? '–' : cover(row.coverAtPace)}</td>
+            <td>${fmtDate(row.lastSaleDate)}</td>
+          </tr>
+        `).join('') || '<tr><td colspan="6">Ve vybraném období zatím nic neodpovídá filtru.</td></tr>';
+        updateSortableTableHead('ordering-sales');
       }
 
       function clamp(value, min, max) {
@@ -1270,9 +1848,25 @@
       }
 
       function estimateDailyDemand(row) {
-        const base = Math.max(Number(row.dailyRunRate90d || 0), Number(row.dailyRunRate365d || 0) * 0.9, Number(row.dailyRunRate730d || 0) * 0.85);
-        const trendFactor = clamp(1 + Number(row.trend90v365Pct || 0) / 250, 0.6, 1.6);
-        return Math.max(0, base * trendFactor);
+        const rate30 = Number(row.units30d || 0) > 0 ? Number(row.units30d || 0) / 30 : 0;
+        const rate90 = Number(row.dailyRunRate90d || 0);
+        const rate365 = Number(row.dailyRunRate365d || 0);
+        const rate730 = Number(row.dailyRunRate730d || 0);
+        const weighted = (rate30 * 0.65) + (rate90 * 0.25) + (rate365 * 0.07) + (rate730 * 0.03);
+        const trendFactor = clamp(1 + Number(row.trend90v365Pct || 0) / 600, 0.85, 1.15);
+        let estimate = weighted * trendFactor;
+        const recentCap = Math.max(
+          rate30 > 0 ? rate30 * 1.25 : 0,
+          rate90 > 0 ? rate90 * 1.10 : 0,
+          rate365 > 0 ? rate365 * 0.35 : 0,
+        );
+        if (recentCap > 0) estimate = Math.min(estimate, recentCap);
+        const recentFloor = Math.max(
+          rate30 > 0 ? rate30 * 0.85 : 0,
+          rate90 > 0 ? rate90 * 0.75 : 0,
+        );
+        if (recentFloor > 0) estimate = Math.max(estimate, recentFloor);
+        return Math.max(0, estimate);
       }
 
       function forecastUnits(row, days) {
@@ -1281,8 +1875,7 @@
 
       function safetyUnits(row, leadDays) {
         const base = estimateDailyDemand(row);
-        const trendBonus = Math.max(0, Number(row.trend90v365Pct || 0)) / 100;
-        return Math.max(1, Math.round(base * Math.max(14, leadDays * 0.5) * (1 + trendBonus * 0.2)));
+        return Math.max(1, Math.round(base * Math.max(14, leadDays * 0.5)));
       }
 
       function maxUnits(row, leadDays) {
@@ -1484,7 +2077,7 @@
         const arrivalDate = parseDateInput(planningArrivalDate.value) || orderDate;
         const leadDays = Math.max(1, daysBetween(orderDate, arrivalDate));
         const usePraha = planningPraha.value === 'on';
-        const rows = (analytics.items || []).filter(row => {
+        const rows = liveAnalyticsRows().filter(row => {
           if (!row.orderable) return false;
           if (includeAll) return true;
           if (!(row.recommendedOrderUnits > 0 || row.recommendedMinUnits > 0)) return false;
@@ -1655,6 +2248,7 @@
           B: buildScenarioRows('balanced', planning.recommendationRows || [], profile),
         };
         const sortedRows = sortRowsWithConfig(filteredRows, getPlanningSortConfig());
+        const periodInsight = buildSelectedPeriodPlanningInsight(sortedRows, leadDays);
         currentPlanningRows = sortedRows;
         ensurePlanningExportState(sortedRows);
         planningSummary.innerHTML = `<strong>Simulace:</strong> lead time ${fmt(leadDays)} dní, kapacita ${profile.label}, pražská výpomoc ${usePraha ? 'zapnutá' : 'vypnutá'}. Varianty jsou spočítané z aktuálního odhadu prodeje a orientační hodnoty zásoby.`;
@@ -1663,7 +2257,7 @@
           A: { title: 'Varianta A, minimum', subtitle: 'Nejnutnější doplnění, spodní bezpečný rámec.', tone: '' },
           B: { title: 'Varianta B, ideál', subtitle: 'Doporučený cílový stav pro standardní objednávku.', tone: 'accent' },
         };
-        planningVariants.innerHTML = scenarios.filter(variant => variant.key === 'A' || variant.key === 'B').map(variant => {
+        const variantCards = scenarios.filter(variant => variant.key === 'A' || variant.key === 'B').map(variant => {
           const meta = scenarioMeta[variant.key] || { title: variant.title, subtitle: variant.subtitle, tone: '' };
           const capacityLoad = computeCapacityLoad(scenarioRowsByKey[variant.key] || [], profile);
           return `
@@ -1681,6 +2275,21 @@
             </div>
           </article>`;
         }).join('');
+
+        const insightCard = periodInsight ? `
+          <article class="metric-card blue">
+            <div class="metric-label">Info podle vybraného období</div>
+            <div class="metric-value">${fmt(periodInsight.totalPeriodSuggested)} ks</div>
+            <div class="metric-sub">Jen informativní přepočet, hlavní doporučená objednávka se tím zatím nemění.</div>
+            <div class="muted small" style="margin-top:10px; line-height:1.6;">
+              Období ${periodInsight.range.from} až ${periodInsight.range.to} · ${fmt(periodInsight.range.days)} dní · porovnáno ${fmt(periodInsight.comparedCount)} SKU<br>
+              Standardní shortlist ${fmt(periodInsight.totalBaselineSuggested)} ks<br>
+              Nahoru podle období: ${periodInsight.topUp.map(row => `${row.code} +${fmt(row.delta)} ks`).join(', ') || 'bez výrazného navýšení'}<br>
+              Dolů podle období: ${periodInsight.topDown.map(row => `${row.code} ${fmt(row.delta)} ks`).join(', ') || 'bez výrazného snížení'}
+            </div>
+          </article>` : '';
+
+        planningVariants.innerHTML = insightCard + variantCards;
 
         planningTableSummary.textContent = `Zobrazeno ${fmt(sortedRows.length)} položek z celkem ${fmt((planning.recommendationRows || []).length)} doporučených. Rozlišení: nutné objednat vs doporučené doplnění.`;
         planningTable.innerHTML = sortedRows.map(row => {
@@ -1747,6 +2356,7 @@
         }
 
         const { rows, leadDays, usePraha } = buildRecommendationRows(includeAllCatalog);
+        const periodInsight = buildSelectedPeriodPlanningInsight(rows, leadDays);
         const conservative = buildScenarioRows('conservative', rows, profile);
         const balanced = buildScenarioRows('balanced', rows, profile);
 
@@ -1757,7 +2367,7 @@
 
         planningSummary.innerHTML = `<strong>Simulace:</strong> lead time ${fmt(leadDays)} dní, kapacita ${profile.label}, pražská výpomoc ${usePraha ? 'zapnutá' : 'vypnutá'}. ${includeAllCatalog ? 'Pracovní tabulka je přepnutá na celý katalog zboží.' : 'Pracovní tabulka je přepnutá na doporučenou objednávku.'}`;
 
-        planningVariants.innerHTML = variants.map(variant => {
+        const variantCards = variants.map(variant => {
           const units = variant.rows.reduce((sum, row) => sum + (row.plannedUnits || 0), 0);
           const value = variant.rows.reduce((sum, row) => sum + ((row.unitSellingPrice || 0) * (row.plannedUnits || 0)), 0);
           const criticalLeft = variant.rows.filter(row => row.reorderRisk === 'critical' && (((row.effectiveStock || 0) + (row.plannedUnits || 0) - forecastUnits(row, leadDays)) / Math.max(estimateDailyDemand(row), 0.01)) < 30).length;
@@ -1779,6 +2389,21 @@
             </article>
           `;
         }).join('');
+
+        const insightCard = periodInsight ? `
+          <article class="metric-card blue">
+            <div class="metric-label">Info podle vybraného období</div>
+            <div class="metric-value">${fmt(periodInsight.totalPeriodSuggested)} ks</div>
+            <div class="metric-sub">Jen informativní přepočet, hlavní doporučená objednávka se tím zatím nemění.</div>
+            <div class="muted small" style="margin-top:10px; line-height:1.6;">
+              Období ${periodInsight.range.from} až ${periodInsight.range.to} · ${fmt(periodInsight.range.days)} dní · porovnáno ${fmt(periodInsight.comparedCount)} SKU<br>
+              Standardní shortlist ${fmt(periodInsight.totalBaselineSuggested)} ks<br>
+              Nahoru podle období: ${periodInsight.topUp.map(row => `${row.code} +${fmt(row.delta)} ks`).join(', ') || 'bez výrazného navýšení'}<br>
+              Dolů podle období: ${periodInsight.topDown.map(row => `${row.code} ${fmt(row.delta)} ks`).join(', ') || 'bez výrazného snížení'}
+            </div>
+          </article>` : '';
+
+        planningVariants.innerHTML = insightCard + variantCards;
 
         const visibleRows = filterPlanningRows(rows.slice(0, 120));
         const sortedRows = sortRowsWithConfig(visibleRows, getPlanningSortConfig());
@@ -1847,39 +2472,40 @@
         const missingPackaging = Number(orderingReference.summary.byPackagingMatchStatus?.missing || 0);
         const exactPackaging = Number(orderingReference.summary.byPackagingMatchStatus?.exact_code || 0);
         const basePackaging = Number(orderingReference.summary.byPackagingMatchStatus?.base_code || 0);
-        const blockedItems = Number(ordering.summary.excludedItems || 0);
-        const criticalItems = Number(ordering.summary.criticalReorderItems || 0);
-        const watchItems = Number(ordering.summary.watchReorderItems || 0);
-        const redItems = Number(ordering.summary.redTurnoverItems || 0);
+        const snapshot = currentInventoryHealthSnapshot();
+        const blockedItems = snapshot.blockedItems;
+        const criticalItems = snapshot.criticalItems;
+        const watchItems = snapshot.watchItems;
+        const healthTone = healthToneFromScore(snapshot.healthScore);
 
         document.getElementById('ordering-decision-grid').innerHTML = [
           {
-            eyebrow: 'Objednat hned',
-            value: fmt(criticalItems),
-            sub: 'Nejkritičtější SKU podle pokrytí a rychlosti prodeje. Tohle je první pracovní fronta.',
-            meta: `Brzy prověřit ${fmt(watchItems)} · top SKU ${fmt(ordering.summary.topSkuItems || 0)}`,
-            tone: criticalItems ? 'danger' : 'accent',
+            eyebrow: 'A produkty v riziku',
+            value: fmt(snapshot.aCriticalRows.length),
+            sub: `${fmt(snapshot.aWarningRows.length)} dalších A SKU je ve warningu pod 14 dní coveru.`,
+            meta: snapshot.aCriticalRows[0] ? `${snapshot.aCriticalRows[0].code} · ${snapshot.aCriticalRows[0].title}` : 'Top SKU fronta je bez kritického výpadku.',
+            tone: snapshot.aCriticalRows.length ? 'danger' : 'accent',
           },
           {
-            eyebrow: 'Ruční ověření',
-            value: fmt(watchItems),
-            sub: 'Položky na hraně, kde nestačí slepé dopočítání a je potřeba lidské rozhodnutí.',
-            meta: `Fill-up ${fmt(ordering.summary.fillUpItems || 0)} · fast low cover ${fmt(analytics.summary.fastLowCoverItems || 0)}`,
-            tone: watchItems ? 'warn' : '',
+            eyebrow: 'Kapitál ve slow + dead stock',
+            value: money(snapshot.slowDeadValue),
+            sub: `${percent(snapshot.slowDeadShare)} z objednatelné zásoby je dnes v pomalém nebo mrtvém skladu.`,
+            meta: `Dead ${money(snapshot.deadValue)} · slow ${money(snapshot.slowValue)}`,
+            tone: snapshot.slowDeadShare > 35 ? 'danger' : snapshot.slowDeadShare > 20 ? 'warn' : '',
           },
           {
-            eyebrow: 'Blokace shortlistu',
-            value: fmt(blockedItems),
-            sub: `${fmt(missingPackaging)} SKU nemá párování balení a ${fmt(blockedItems)} SKU je mimo nákupní režim.`,
-            meta: `Přesné balení ${fmt(exactPackaging)} · přes prefix ${fmt(basePackaging)}`,
-            tone: blockedItems || missingPackaging ? 'warn' : '',
+            eyebrow: 'Stock-to-sales cover',
+            value: snapshot.totalCoverDays == null ? '–' : `${one(snapshot.totalCoverDays)} dní`,
+            sub: 'Celkový cover podle 90d prodejního tempa a selling-price proxy.',
+            meta: snapshot.totalCoverDays > 120 ? 'Kritický přebytek zásoby.' : snapshot.totalCoverDays > 90 ? 'Pozor na přezásobení.' : snapshot.totalCoverDays != null && snapshot.totalCoverDays < 30 ? 'Pozor na podzásobení.' : 'Cover je v pracovním pásmu 45–90 dní.',
+            tone: coverTone(snapshot.totalCoverDays),
           },
           {
-            eyebrow: 'Přebytek zásoby',
-            value: fmt(redItems),
-            sub: `${money(ordering.summary.cashInRedTurnover)} je teď vázaná hodnota v červené obrátkovosti.`,
-            meta: `Oranžová obrátkovost ${fmt(analytics.summary.orangeTurnoverItems || 0)} SKU`,
-            tone: redItems ? 'warn' : '',
+            eyebrow: 'Inventory health score',
+            value: `${fmt(snapshot.healthScore)} / 100`,
+            sub: `${money(snapshot.overstockValue)} je dnes nad cílovým coverem nebo v červené obrátkovosti.`,
+            meta: `${fmt(blockedItems)} blokovaných SKU · ${fmt(missingPackaging)} SKU bez balení`,
+            tone: healthTone,
           }
         ].map(card => `
           <article class="signal-card ${card.tone || ''}">
@@ -1891,10 +2517,10 @@
         `).join('');
 
         hero.innerHTML = [
-          { label: 'Objednat hned', value: fmt(criticalItems), tone: 'danger' },
-          { label: 'K ručnímu ověření', value: fmt(watchItems), tone: 'warn' },
-          { label: 'Blokované SKU', value: fmt(blockedItems), tone: missingPackaging ? 'warn' : '' },
-          { label: 'Vázaná hodnota v červené', value: money(ordering.summary.cashInRedTurnover), tone: 'danger' },
+          { label: 'A SKU v kritice', value: fmt(snapshot.aCriticalRows.length), tone: snapshot.aCriticalRows.length ? 'danger' : 'success' },
+          { label: 'Slow + dead cash', value: money(snapshot.slowDeadValue), tone: snapshot.slowDeadShare > 35 ? 'danger' : snapshot.slowDeadShare > 20 ? 'warn' : '' },
+          { label: 'Cover skladu', value: snapshot.totalCoverDays == null ? '–' : `${one(snapshot.totalCoverDays)} dní`, tone: coverTone(snapshot.totalCoverDays) },
+          { label: 'Health score', value: `${fmt(snapshot.healthScore)} / 100`, tone: healthTone },
         ].map(card => `
           <article class="metric-card ${card.tone || ''}">
             <div class="metric-label">${card.label}</div>
@@ -1902,26 +2528,27 @@
           </article>
         `).join('');
 
+        const analyticsRefresh = analytics.generatedAt ? DP.fmtDateTime(analytics.generatedAt) : '–';
+        const analyticsSource = analytics.sourceGeneratedAt ? DP.fmtDateTime(analytics.sourceGeneratedAt) : null;
+
         DP.renderStatusStrip('ordering-status-strip', [
-          { label: 'Stav', value: criticalItems ? 'Kritické' : watchItems ? 'Pozor' : 'OK', tone: criticalItems ? 'danger' : watchItems ? 'warn' : 'success' },
-          { label: 'Čerstvost', value: `Analytika ${analytics.window?.days || 548} dní`, tone: 'info' },
-          { label: 'Datová jistota', value: missingPackaging ? `${fmt(missingPackaging)} SKU bez balení` : 'Balení bez hlavní blokace', tone: missingPackaging ? 'warn' : 'success' },
-          { label: 'Akce dne', value: criticalItems ? 'Vzít frontu objednat hned a ruční ověření' : 'Projít shortlist a simulaci', tone: criticalItems ? 'warn' : 'info' },
+          { label: 'Stav', value: snapshot.healthScore < 60 ? 'Nezdravý sklad' : snapshot.healthScore < 80 ? 'Pozor' : 'Zdravější režim', tone: healthTone },
+          { label: 'Čerstvost', value: analyticsSource ? `Snapshot ${analyticsSource}` : `Analytika ${analytics.window?.days || 548} dní`, tone: 'info' },
+          { label: 'Priorita', value: snapshot.aCriticalRows.length ? 'Nejdřív A produkty v riziku' : snapshot.slowDeadShare > 20 ? 'Řezat slow/dead stock' : 'Doladit shortlist a kapacitu', tone: snapshot.aCriticalRows.length ? 'danger' : snapshot.slowDeadShare > 20 ? 'warn' : 'success' },
+          { label: 'Datová jistota', value: missingPackaging ? `${fmt(missingPackaging)} SKU bez balení` : `Balení ok · přesné ${fmt(exactPackaging)} · prefix ${fmt(basePackaging)}`, tone: missingPackaging ? 'warn' : 'success' },
+          { label: 'Refresh', value: analyticsRefresh, tone: 'info' },
         ]);
       }
 
       function renderExecutiveSummary() {
-        const criticalItems = Number(ordering.summary.criticalReorderItems || 0);
-        const watchItems = Number(ordering.summary.watchReorderItems || 0);
-        const blockedItems = Number(ordering.summary.excludedItems || 0);
+        const snapshot = currentInventoryHealthSnapshot();
+        const blockedItems = snapshot.blockedItems;
         const missingPackaging = Number(orderingReference.summary.byPackagingMatchStatus?.missing || 0);
-        const redItems = Number(ordering.summary.redTurnoverItems || 0);
-        const topSku = Number(ordering.summary.topSkuItems || 0);
-        const headline = criticalItems
-          ? `Objednávka je teď hlavně operativní, ${fmt(criticalItems)} SKU potřebuje řešit hned a dalších ${fmt(watchItems)} SKU ručně ověřit.`
-          : watchItems
-            ? `Kritická fronta je klidná, ale ${fmt(watchItems)} SKU je na ruční ověření před potvrzením shortlistu.`
-            : 'Kritická fronta je klidná, fokus se může přesunout na shortlist, simulaci a čistotu dat.';
+        const headline = snapshot.aCriticalRows.length
+          ? `Dnešní verdikt: nejdřív zachránit A produkty v riziku. Kritických je ${fmt(snapshot.aCriticalRows.length)} a dalších ${fmt(snapshot.aWarningRows.length)} už je ve warning pásmu.`
+          : snapshot.slowDeadShare > 20
+            ? `Dnešní verdikt: dostupnost není hlavní problém, ale ${percent(snapshot.slowDeadShare)} zásoby je uvázané ve slow/dead stock.`
+            : 'Dnešní verdikt: sklad je v použitelném pásmu, takže hlavní práce je doladit shortlist, kapacitu a datovou čistotu.';
 
         executiveSummary.innerHTML = `
           <div class="ordering-executive-top">
@@ -1932,37 +2559,38 @@
           <div class="ordering-executive-grid">
             <article class="ordering-executive-card">
               <span class="label">Verdikt</span>
-              <strong>${criticalItems ? 'Nejdřív operativa, až potom export' : 'Shortlist může jít do simulace'}</strong>
-              <p>${criticalItems ? `Fronta objednat hned má ${fmt(criticalItems)} SKU a nemá se ztratit v detailech.` : 'Když už nejsou kritické kusy, největší value je v doladění shortlistu a finálního exportu.'}</p>
+              <strong>${snapshot.aCriticalRows.length ? 'Nejdřív A produkty, až potom simulace' : snapshot.healthScore < 80 ? 'Nejdřív pročistit cash ve skladu' : 'Shortlist může do simulace'}</strong>
+              <p>${snapshot.aCriticalRows.length ? 'Pokud nejdou klíčové SKU pod kontrolu, export objednávky je až druhý krok.' : snapshot.healthScore < 80 ? 'Největší value není v dalších položkách navíc, ale v řezu slow/dead stock a overstocku.' : 'Když health vrstva drží, má smysl přepnout energii do shortlistu, kapacity a exportu.'}</p>
             </article>
             <article class="ordering-executive-card">
               <span class="label">Největší business risk</span>
-              <strong>${criticalItems ? `${fmt(criticalItems)} SKU s rizikem výpadku` : `${fmt(redItems)} SKU s přebytkem zásoby`}</strong>
-              <p>${criticalItems ? `Top SKU v riziku: ${fmt(topSku)}. Tohle je místo, kde hrozí ztráta dostupnosti.` : `${money(ordering.summary.cashInRedTurnover)} leží v červené obrátkovosti a tlačí cash i prostor.`}</p>
+              <strong>${snapshot.aCriticalRows.length ? `${fmt(snapshot.aCriticalRows.length)} A SKU s rizikem výpadku` : `${money(snapshot.overstockValue)} v overstocku`}</strong>
+              <p>${snapshot.aCriticalRows.length ? `První SKU na ráně: ${snapshot.aCriticalRows[0].code} · ${snapshot.aCriticalRows[0].title}.` : `${money(snapshot.slowDeadValue)} už teď jen váže cash a cover skladu je ${snapshot.totalCoverDays == null ? '–' : `${one(snapshot.totalCoverDays)} dní`}.`}</p>
+            </article>
+            <article class="ordering-executive-card">
+              <span class="label">Cash ve skladu</span>
+              <strong>${percent(snapshot.slowDeadShare)} slow + dead stock</strong>
+              <p>Dead stock dělá ${percent(snapshot.deadShare)} a celková hodnota objednatelné zásoby je ${money(snapshot.totalStockValue)}.</p>
             </article>
             <article class="ordering-executive-card">
               <span class="label">Datová brzda</span>
               <strong>${fmt(missingPackaging)} SKU bez párování balení</strong>
-              <p>${fmt(blockedItems)} SKU je mimo nákupní režim. Datové a referenční problémy je potřeba držet odděleně od business priorit.</p>
-            </article>
-            <article class="ordering-executive-card">
-              <span class="label">Doporučený postup</span>
-              <strong>Objednat hned → ručně ověřit → shortlist → simulace</strong>
-              <p>Teprve po vyčištění blokací a hraničních SKU dává smysl finální export a kontrola kapacity.</p>
+              <p>${fmt(blockedItems)} SKU je mimo nákupní režim. Datové brzdy drž odděleně od business priorit, ale nenech je potichu růst.</p>
             </article>
           </div>
-          <div class="ordering-mobile-note">Mobile polish: horní vrstva má držet hlavní závěr a postup, detaily patří níž do pracovních tabulek.</div>
+          <div class="ordering-mobile-note">Decision layer nově drží 4 health otázky: A produkty v riziku, slow/dead cash, cover skladu a overstock tlak.</div>
         `;
       }
 
       function renderKpis() {
+        const snapshot = currentInventoryHealthSnapshot();
         kpis.innerHTML = [
-          ['SKU v analytice', fmt(analytics.summary.trackedItems || 0)],
-          ['Objednatelné SKU', fmt(ordering.summary.orderableItems || 0)],
-          ['Blokované SKU', fmt(ordering.summary.excludedItems || 0)],
-          ['Top SKU', fmt(ordering.summary.topSkuItems || 0)],
-          ['Fill-up SKU', fmt(ordering.summary.fillUpItems || 0)],
-          ['Chybí balení', fmt(orderingReference.summary.byPackagingMatchStatus?.missing || 0)],
+          ['A SKU kritické', fmt(snapshot.aCriticalRows.length)],
+          ['A SKU warning', fmt(snapshot.aWarningRows.length)],
+          ['Slow + dead podíl', percent(snapshot.slowDeadShare)],
+          ['Dead stock podíl', percent(snapshot.deadShare)],
+          ['Overstock value', money(snapshot.overstockValue)],
+          ['Health score', `${fmt(snapshot.healthScore)} / 100`],
         ].map(([label, value]) => `
           <div class="card compact-card">
             <div class="kpi-label">${label}</div>
@@ -1979,6 +2607,7 @@
 
       function renderSidebars() {
         const missingPackaging = Number(orderingReference.summary.byPackagingMatchStatus?.missing || 0);
+        const snapshot = currentOrderingSnapshot();
         document.getElementById('ordering-work-grid').innerHTML = [
           {
             title: 'Dnešní pracovní fronty',
@@ -1994,7 +2623,7 @@
             title: 'Co blokuje rozhodnutí',
             text: 'Ne každý problém je businessový, část je čistě datová nebo referenční.',
             body: [
-              ['SKU mimo nákup', fmt(ordering.summary.excludedItems || 0)],
+              ['SKU mimo nákup', fmt(snapshot.blockedItems)],
               ['Chybí balení', fmt(missingPackaging)],
               ['Přesné párování balení', fmt(orderingReference.summary.byPackagingMatchStatus?.exact_code || 0)],
               ['Párování přes prefix', fmt(orderingReference.summary.byPackagingMatchStatus?.base_code || 0)],
@@ -2004,10 +2633,10 @@
             title: 'Shortlist režimy',
             text: 'Fronty, které se mají chovat jinak než běžný seznam položek.',
             body: [
-              ['Objednat hned', fmt(ordering.summary.criticalReorderItems || 0)],
-              ['Ruční ověření', fmt(ordering.summary.watchReorderItems || 0)],
-              ['Top SKU', fmt(ordering.summary.topSkuItems || 0)],
-              ['Fill-up', fmt(ordering.summary.fillUpItems || 0)],
+              ['Objednat hned', fmt(snapshot.criticalItems)],
+              ['Ruční ověření', fmt(snapshot.watchItems)],
+              ['Top SKU', fmt(snapshot.topSkuItems)],
+              ['Fill-up', fmt(snapshot.fillUpItems)],
             ]
           }
         ].map(card => `
@@ -2174,7 +2803,7 @@
         const term = (searchInput.value || '').trim().toLowerCase();
         const filter = filterSelect.value;
         const sort = sortSelect.value;
-        let rows = (analytics.items || []).filter(row => {
+        let rows = liveAnalyticsRows().filter(row => {
           if (term) {
             const hay = `${row.code || ''} ${row.title || ''}`.toLowerCase();
             if (!hay.includes(term)) return false;
@@ -2459,6 +3088,7 @@
         renderAlerts();
         renderSidebars();
         renderQuickTables();
+        renderOrderingSalesModule();
         syncPlanningScopeButtons();
         renderPlanning();
         renderExplorer();
@@ -2475,6 +3105,7 @@
         DP.loadJson('../data/current/inventory_analytics_730d.json'),
         DP.loadJson('../data/current/ordering_core.json'),
         DP.loadJson('../data/current/ordering_reference_data.json'),
+        DP.loadJson('../data/current/ordering_sales_history.json'),
         DP.loadJson('../data/current/inventory_analytics_730d_cz.json'),
         DP.loadJson('../data/current/ordering_core_cz.json'),
         DP.loadJson('../data/current/ordering_reference_data_cz.json'),
@@ -2486,6 +3117,7 @@
         analyticsPayload,
         orderingPayload,
         orderingReferencePayload,
+        orderingSalesHistoryPayload,
         analyticsPayloadCz,
         orderingPayloadCz,
         orderingReferencePayloadCz,
@@ -2499,6 +3131,7 @@
           cz: { analytics: analyticsPayloadCz || analyticsPayload || analytics, ordering: orderingPayloadCz || orderingPayload || ordering, reference: orderingReferencePayloadCz || orderingReferencePayload || orderingReference },
           sk: { analytics: analyticsPayloadSk || analyticsPayload || analytics, ordering: orderingPayloadSk || orderingPayload || ordering, reference: orderingReferencePayloadSk || orderingReferencePayload || orderingReference },
         };
+        orderingSalesHistory = orderingSalesHistoryPayload || orderingSalesHistory;
         orderingActions = orderingActionsPayload || orderingActions;
 
         restoreExplorerState();
@@ -2534,6 +3167,12 @@
           return;
         }
 
+        const salesPresetButton = event.target.closest('[data-ordering-sales-preset]');
+        if (salesPresetButton) {
+          setOrderingSalesPreset(salesPresetButton.dataset.orderingSalesPreset || '30');
+          return;
+        }
+
         const button = event.target.closest('[data-sort-table]');
         if (!button) return;
         const tableId = button.dataset.sortTable;
@@ -2544,6 +3183,11 @@
 
         if (tableId === 'planning') {
           renderPlanning();
+          return;
+        }
+        if (tableId === 'ordering-sales') {
+          currentOrderingSalesSort = sortableTableStates['ordering-sales'];
+          renderOrderingSalesModule();
           return;
         }
         if (tableId === 'explorer') {
@@ -2594,6 +3238,22 @@
       searchInput.addEventListener('input', () => {
         currentExplorerPage = 1;
         renderExplorer();
+      });
+
+      orderingSalesFrom?.addEventListener('change', () => {
+        currentOrderingSalesPreset = 'custom';
+        syncOrderingSalesPresetButtons();
+        renderOrderingSalesModule();
+      });
+
+      orderingSalesTo?.addEventListener('change', () => {
+        currentOrderingSalesPreset = 'custom';
+        syncOrderingSalesPresetButtons();
+        renderOrderingSalesModule();
+      });
+
+      orderingSalesSearch?.addEventListener('input', () => {
+        renderOrderingSalesModule();
       });
       filterSelect.addEventListener('change', () => {
         currentExplorerPage = 1;

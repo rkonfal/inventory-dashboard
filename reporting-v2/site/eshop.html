@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body class="page-eshop-simplified">
-  <aside class="sidebar" data-sidebar-page="eshop.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Výkon e-shopu pro běžný provoz" data-sidebar-section="Přehled" data-sidebar-footer="Nejdřív výkon a problémy, detail až potom."></aside>
+  <aside class="sidebar" data-sidebar-page="eshop.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Výkon e-shopu pro běžný provoz" data-sidebar-section="E-shop" data-sidebar-footer="Nejdřív výkon a problémy, detail až potom."></aside>
 
   <main class="main page-stack">
     <header class="header">
@@ -104,6 +104,7 @@
           </div>
         </div>
         <div class="grid kpi-grid" id="eshop-ytd-kpis"></div>
+        <div id="eshop-ytd-revenue-chart" style="margin-top:16px;"></div>
         <div class="ux-table-wrap" style="margin-top:16px;">
           <table class="table">
             <thead>
@@ -240,6 +241,7 @@
       const summary = await DP.loadJson('../data/current/portal_summary.json');
       const report = await DP.loadJson('../data/current/morning_report_previous_day.json');
       const history8d = await DP.loadJson('../data/current/wpj_history_8_days.json');
+      const eshopYtd = await DP.loadJson('../data/current/eshop_ytd.json').catch(() => ({}));
       const ga4 = await DP.loadJson('../data/current/ga4_overview.json').catch(() => ({}));
       const ga4Mode = ga4.property?.mode === 'combined' ? 'GA4 CZ+SK bundle' : 'GA4';
       const ga4SkCountry = (ga4.countries7d || []).find(row => row.country === 'Slovakia');
@@ -256,6 +258,7 @@
         ltm: { label: 'Prodejna Litoměřice', accent: 'Jen objednávky z pokladny Litoměřice.' },
         mecin: { label: 'Prodejna Měčín', accent: 'Jen objednávky z pokladny Měčín.' },
       };
+      const shortTs = value => value ? DP.fmtDateTime(value) : '–';
 
       function syncViewButtons() {
         viewButtons.forEach(button => button.classList.toggle('active', button.dataset.view === activeView));
@@ -278,12 +281,24 @@
         };
       }
 
-      const yoyMonths = [
+      const fallbackYoyMonths = [
         { label: 'Leden', m25: { count: 11988, rev: 15765609 }, m26: { count: 9848, rev: 14662580 } },
         { label: 'Únor', m25: { count: 12600, rev: 16357334 }, m26: { count: 10445, rev: 14903972 } },
         { label: 'Březen', m25: { count: 12892, rev: 16414183 }, m26: { count: 12079, rev: 17600645 } },
         { label: 'Duben*', m25: { count: Math.round(13469 * 13 / 30), rev: Math.round(18708141 * 13 / 30) }, m26: { count: 3792, rev: 5539410 } },
       ];
+      const yoyMonths = (eshopYtd.months || []).map(month => ({
+        label: `${month.label}${month.partial ? '*' : ''}`,
+        m25: {
+          count: Number(month.previous?.count || 0),
+          rev: Number(month.previous?.revenueWithVat || 0),
+        },
+        m26: {
+          count: Number(month.current?.count || 0),
+          rev: Number(month.current?.revenueWithVat || 0),
+        },
+      }));
+      const ytdYears = eshopYtd.years || { previous: 2025, current: 2026 };
 
       function deltaPct(current, baseline) {
         if (!baseline) return null;
@@ -301,14 +316,96 @@
         return value >= 0 ? 'success' : 'warn';
       }
 
+      function renderRevenueYoyChart(targetId, months, years) {
+        const target = document.getElementById(targetId);
+        if (!target) return;
+
+        const chartMonths = Array.isArray(months) ? months : [];
+        if (!chartMonths.length) {
+          target.innerHTML = '';
+          return;
+        }
+
+        const width = 920;
+        const height = 280;
+        const padding = { top: 16, right: 16, bottom: 52, left: 78 };
+        const plotWidth = width - padding.left - padding.right;
+        const plotHeight = height - padding.top - padding.bottom;
+        const values = chartMonths.flatMap(month => [Number(month.m25.rev || 0), Number(month.m26.rev || 0)]);
+        const maxValue = Math.max(...values, 1);
+        const stepX = chartMonths.length > 1 ? plotWidth / (chartMonths.length - 1) : 0;
+
+        const xFor = index => padding.left + stepX * index;
+        const yFor = value => padding.top + plotHeight - ((Number(value || 0) / maxValue) * plotHeight);
+        const pointsFor = key => chartMonths.map((month, index) => `${xFor(index)},${yFor(month[key].rev)}`).join(' ');
+        const shortMoney = value => `${new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 1 }).format(value / 1000000)} mil. Kč`;
+        const gridValues = [0, 0.25, 0.5, 0.75, 1].map(ratio => maxValue * ratio);
+
+        target.innerHTML = `
+          <div style="border:1px solid var(--line); border-radius:20px; padding:18px; background:var(--panel); box-shadow:var(--shadow-soft);">
+            <div style="display:flex; justify-content:space-between; gap:12px; align-items:flex-start; flex-wrap:wrap; margin-bottom:12px;">
+              <div>
+                <div style="font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint); font-weight:700;">Graf obratu e-shopu</div>
+                <div style="font-size:18px; font-weight:700; letter-spacing:-.02em;">Přímé meziroční porovnání v jednom grafu</div>
+              </div>
+              <div style="display:flex; gap:14px; flex-wrap:wrap; color:var(--text-muted); font-size:13px;">
+                <span style="display:inline-flex; align-items:center; gap:8px;"><span style="width:10px; height:10px; border-radius:999px; background:#6b7280;"></span>${years.previous}</span>
+                <span style="display:inline-flex; align-items:center; gap:8px;"><span style="width:10px; height:10px; border-radius:999px; background:#2563eb;"></span>${years.current}</span>
+              </div>
+            </div>
+            <svg viewBox="0 0 ${width} ${height}" width="100%" role="img" aria-label="Vývoj obratu e-shopu ${years.previous} a ${years.current}">
+              ${gridValues.map(value => `
+                <g>
+                  <line x1="${padding.left}" y1="${yFor(value)}" x2="${width - padding.right}" y2="${yFor(value)}" stroke="var(--line)" stroke-dasharray="4 6" />
+                  <text x="${padding.left - 10}" y="${yFor(value) + 4}" text-anchor="end" fill="var(--text-faint)" font-size="11">${shortMoney(value)}</text>
+                </g>
+              `).join('')}
+              <polyline fill="none" stroke="#6b7280" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="${pointsFor('m25')}" />
+              <polyline fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="${pointsFor('m26')}" />
+              ${chartMonths.map((month, index) => {
+                const x = xFor(index);
+                const y25 = yFor(month.m25.rev);
+                const y26 = yFor(month.m26.rev);
+                return `
+                  <g>
+                    <line x1="${x}" y1="${padding.top}" x2="${x}" y2="${padding.top + plotHeight}" stroke="rgba(148, 163, 184, 0.16)" />
+                    <circle cx="${x}" cy="${y25}" r="4" fill="#6b7280">
+                      <title>${month.label}: ${years.previous} ${DP.fmtNumber(Math.round(month.m25.rev))} Kč</title>
+                    </circle>
+                    <circle cx="${x}" cy="${y26}" r="4" fill="#2563eb">
+                      <title>${month.label}: ${years.current} ${DP.fmtNumber(Math.round(month.m26.rev))} Kč</title>
+                    </circle>
+                    <text x="${x}" y="${height - 18}" text-anchor="middle" fill="var(--text-muted)" font-size="12">${month.label.replace('*', '')}</text>
+                  </g>
+                `;
+              }).join('')}
+            </svg>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-top:10px;">
+              ${chartMonths.map(month => {
+                const delta = deltaPct(month.m26.rev, month.m25.rev);
+                return `
+                  <div style="border:1px solid var(--line); border-radius:14px; padding:10px 12px; background:var(--panel-soft);">
+                    <div style="font-size:12px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.06em;">${month.label}</div>
+                    <div style="font-size:13px; color:var(--text-muted); margin-top:4px;">${years.previous}: ${DP.fmtNumber(Math.round(month.m25.rev))} Kč</div>
+                    <div style="font-size:13px; color:var(--text-muted);">${years.current}: ${DP.fmtNumber(Math.round(month.m26.rev))} Kč</div>
+                    <div style="margin-top:6px; font-weight:700; color:${delta != null && delta >= 0 ? 'var(--ok)' : 'var(--warn)'};">${fmtPct(delta)}</div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }
+
       function renderLinkedView(eshop) {
         const days = Array.isArray(history8d.days) ? history8d.days : [];
         const previousDays = days.slice(0, -1);
         const avgOrders = previousDays.length ? previousDays.reduce((sum, day) => sum + Number(day.orders || 0), 0) / previousDays.length : 0;
         const avgRevenue = previousDays.length ? previousDays.reduce((sum, day) => sum + Number(day.revenueWithVat || 0), 0) / previousDays.length : 0;
         const avgAov = previousDays.length ? previousDays.reduce((sum, day) => sum + Number(day.averageOrderValue || 0), 0) / previousDays.length : 0;
-        const ytd25 = yoyMonths.reduce((sum, month) => ({ count: sum.count + month.m25.count, rev: sum.rev + month.m25.rev }), { count: 0, rev: 0 });
-        const ytd26 = yoyMonths.reduce((sum, month) => ({ count: sum.count + month.m26.count, rev: sum.rev + month.m26.rev }), { count: 0, rev: 0 });
+        const activeYoyMonths = yoyMonths.length ? yoyMonths : fallbackYoyMonths;
+        const ytd25 = activeYoyMonths.reduce((sum, month) => ({ count: sum.count + month.m25.count, rev: sum.rev + month.m25.rev }), { count: 0, rev: 0 });
+        const ytd26 = activeYoyMonths.reduce((sum, month) => ({ count: sum.count + month.m26.count, rev: sum.rev + month.m26.rev }), { count: 0, rev: 0 });
         const avg25 = ytd25.rev / ytd25.count;
         const avg26 = ytd26.rev / ytd26.count;
         const orderDelta = deltaPct(Number(eshop.orders || 0), avgOrders);
@@ -336,12 +433,12 @@
           },
           {
             title: 'YTD 2026 vs 2025',
-            text: 'Stejný linked pohled, který byl omylem pushnutý do standalone ESHOP repa.',
+            text: 'Živý YTD pohled napojený na WPJ data, ne statický relikt ze standalone ESHOP repa.',
             body: [
-              ['Objednávky YTD', `${DP.fmtNumber(ytd26.count)} (${fmtPct(deltaPct(ytd26.count, ytd25.count))})`],
-              ['Tržby YTD', `${DP.fmtNumber(ytd26.rev)} Kč (${fmtPct(deltaPct(ytd26.rev, ytd25.rev))})`],
+              [`Objednávky YTD ${ytdYears.current}`, `${DP.fmtNumber(ytd26.count)} (${fmtPct(deltaPct(ytd26.count, ytd25.count))})`],
+              [`Tržby YTD ${ytdYears.current}`, `${DP.fmtNumber(ytd26.rev)} Kč (${fmtPct(deltaPct(ytd26.rev, ytd25.rev))})`],
               ['AOV YTD', `${DP.fmtNumber(Math.round(avg26))} Kč (${fmtPct(deltaPct(avg26, avg25))})`],
-              ['Poznámka', 'Duben je srovnaný jako stejné částečné období'],
+              ['Poznámka', 'Aktuální měsíc je srovnaný jako stejné částečné období'],
             ]
           }
         ].map(card => `
@@ -355,9 +452,9 @@
         `).join('');
 
         document.getElementById('eshop-ytd-kpis').innerHTML = [
-          ['Objednávky YTD 2026', DP.fmtNumber(ytd26.count), `2025: ${DP.fmtNumber(ytd25.count)} · ${fmtPct(deltaPct(ytd26.count, ytd25.count))}`, badgeTone(deltaPct(ytd26.count, ytd25.count))],
-          ['Tržby YTD 2026', `${DP.fmtNumber(ytd26.rev)} Kč`, `2025: ${DP.fmtNumber(ytd25.rev)} Kč · ${fmtPct(deltaPct(ytd26.rev, ytd25.rev))}`, badgeTone(deltaPct(ytd26.rev, ytd25.rev))],
-          ['Průměrný košík YTD', `${DP.fmtNumber(Math.round(avg26))} Kč`, `2025: ${DP.fmtNumber(Math.round(avg25))} Kč · ${fmtPct(deltaPct(avg26, avg25))}`, badgeTone(deltaPct(avg26, avg25))],
+          [`Objednávky YTD ${ytdYears.current}`, DP.fmtNumber(ytd26.count), `${ytdYears.previous}: ${DP.fmtNumber(ytd25.count)} · ${fmtPct(deltaPct(ytd26.count, ytd25.count))}`, badgeTone(deltaPct(ytd26.count, ytd25.count))],
+          [`Tržby YTD ${ytdYears.current}`, `${DP.fmtNumber(ytd26.rev)} Kč`, `${ytdYears.previous}: ${DP.fmtNumber(ytd25.rev)} Kč · ${fmtPct(deltaPct(ytd26.rev, ytd25.rev))}`, badgeTone(deltaPct(ytd26.rev, ytd25.rev))],
+          ['Průměrný košík YTD', `${DP.fmtNumber(Math.round(avg26))} Kč`, `${ytdYears.previous}: ${DP.fmtNumber(Math.round(avg25))} Kč · ${fmtPct(deltaPct(avg26, avg25))}`, badgeTone(deltaPct(avg26, avg25))],
         ].map(([label, value, sub, klass]) => `
           <div class="card kpi-card ${klass}">
             <div class="kpi-label">${label}</div>
@@ -366,7 +463,9 @@
           </div>
         `).join('');
 
-        document.getElementById('eshop-ytd-table').innerHTML = yoyMonths.map(month => {
+        renderRevenueYoyChart('eshop-ytd-revenue-chart', activeYoyMonths, ytdYears);
+
+        document.getElementById('eshop-ytd-table').innerHTML = activeYoyMonths.map(month => {
           const countDelta = deltaPct(month.m26.count, month.m25.count);
           const revDelta = deltaPct(month.m26.rev, month.m25.rev);
           return `
@@ -444,9 +543,9 @@
 
         DP.renderStatusStrip('eshop-status-strip', [
           { label: 'Stav', value: (eshop.problematicOrders || 0) ? 'Pozor' : 'OK', tone: (eshop.problematicOrders || 0) ? 'warn' : 'success' },
-          { label: 'Zdroj', value: summary.wpJ.ready ? 'WPJ live' : 'WPJ omezeně', tone: summary.wpJ.ready ? 'success' : 'warn' },
+          { label: 'Zdroj', value: summary.wpJ.ready ? 'WPJ live, YTD live, GA4 daily' : 'WPJ omezeně', tone: summary.wpJ.ready ? 'success' : 'warn' },
           { label: 'Delta', value: view === 'complete' ? `${report.quickSummary?.orders?.deltaPct > 0 ? '+' : ''}${Number(report.quickSummary?.orders?.deltaPct || 0).toFixed(1)} % vs 7D` : `${viewMeta.label}`, tone: 'info' },
-          { label: 'Akce', value: (eshop.problematicOrders || 0) ? 'Projít problémové objednávky' : 'Kontrola výkonu bez zásahu', tone: (eshop.problematicOrders || 0) ? 'warn' : 'success' },
+          { label: 'Refresh', value: shortTs(report.generatedAt || eshopYtd.generatedAt), tone: 'info' },
         ]);
 
         document.getElementById('eshop-focus').innerHTML = [
