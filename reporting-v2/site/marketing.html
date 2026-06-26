@@ -323,16 +323,18 @@
       const sourceMessage = (!data.source?.status || data.source?.status === 'missing') && anyLiveSource
         ? 'Souhrn měsíce z ABRA teď chybí, ale reklamní data níž běží živě z Meta Ads, Google Ads, Skliku a Klaviyo.'
         : (data.source?.message || 'Bez zdrojové poznámky.');
+      const refreshCandidates = [
+        data.generatedAt,
+        ga4.generatedAt,
+        meta.generatedAt,
+        google.generatedAt,
+        sklik.generatedAt,
+        klaviyo.generatedAt,
+      ].filter(Boolean);
+      const refreshValue = shortTs(refreshCandidates.sort().slice(-1)[0]);
       document.getElementById('source-mode').textContent = source.label;
       document.getElementById('source-mode').className = `badge ${source.tone}`;
-      document.getElementById('source-alert').innerHTML = `<div class="alert warn">${sourceMessage}</div>`;
-
-      DP.renderStatusStrip('marketing-status-strip', [
-        { label: 'Stav', value: anyLiveSource ? 'OK' : 'Pozor', tone: anyLiveSource ? 'success' : 'warn' },
-        { label: 'Zdroj', value: source.label, tone: source.tone === 'danger' ? 'danger' : source.tone === 'warn' ? 'warn' : 'info' },
-        { label: 'Akce', value: anyLiveSource ? 'Vyhodnotit výkon kanálů' : 'Zkontrolovat zdroj dat', tone: anyLiveSource ? 'info' : 'warn' },
-        { label: 'Režim', value: anyLiveSource ? `Live kanály, GA4 ${ga4.generatedAt || 'daily'}` : 'Bez live dat', tone: anyLiveSource ? 'success' : 'danger' },
-      ]);
+      document.getElementById('source-alert').innerHTML = `<div class="alert ${source.tone === 'danger' ? 'danger' : source.tone === 'warn' ? 'warn' : 'success'}">${sourceMessage}</div>`;
 
       const normalizeDate = value => {
         if (!value) return '–';
@@ -536,6 +538,19 @@
 
         const strongestSource = [...sourceConfigs].sort((a, b) => (b.amount || 0) - (a.amount || 0))[0];
         const bestRoasSource = [...sourceConfigs].filter(source => source.roas != null).sort((a, b) => (b.roas || 0) - (a.roas || 0))[0];
+        const nextAction = !anyLiveSource
+          ? 'Zkontrolovat zdroj dat'
+          : bestRoasSource?.roas != null
+            ? `Projít ${bestRoasSource.label}`
+            : strongestSource?.label
+              ? `Vyhodnotit ${strongestSource.label}`
+              : 'Vyhodnotit výkon kanálů';
+        DP.renderStatusStrip('marketing-status-strip', [
+          { label: 'Stav', value: anyLiveSource ? 'OK' : 'Pozor', tone: anyLiveSource ? 'success' : 'warn' },
+          { label: 'Zdroj', value: source.label, tone: source.tone === 'danger' ? 'danger' : source.tone === 'warn' ? 'warn' : 'info' },
+          { label: 'Priorita', value: nextAction, tone: anyLiveSource ? 'info' : 'warn' },
+          { label: 'Refresh', value: refreshValue, tone: anyLiveSource ? 'info' : 'danger' },
+        ]);
         document.getElementById('marketing-decision-grid').innerHTML = [
           {
             eyebrow: 'Spend měsíce',
@@ -705,6 +720,16 @@
               ['Top channel', ga4.channelPerformanceCurrentMonth?.[0]?.channel || '–'],
               ['Top landing', ga4.landingPages7d?.[0]?.landingPage || '–'],
               ['Slovakia AU 7d', ga4SkCountry ? DP.fmtNumber(Math.round(ga4SkCountry.activeUsers || 0)) : '–'],
+            ]
+          },
+          {
+            title: 'Další krok',
+            text: 'Jedna pracovní akce po přečtení horní vrstvy.',
+            body: [
+              ['Priorita', nextAction],
+              ['Refresh', refreshValue],
+              ['Nejvyšší spend', strongestSource?.label || '–'],
+              ['Nejlepší ROAS', bestRoasSource?.label || '–'],
             ]
           }
         ].map(card => `

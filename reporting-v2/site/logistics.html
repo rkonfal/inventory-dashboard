@@ -169,6 +169,7 @@
     DP.initThemeToggle();
     function fmt(value) { return DP.fmtNumber(Math.round(Number(value || 0))); }
     function label(row) { return `${row.code || row.sku || '–'} · ${row.title || 'Bez názvu'}`; }
+    function shortTs(value) { return value ? DP.fmtDateTime(value) : '–'; }
 
     (async () => {
       const [overview, report, expiries] = await Promise.all([
@@ -177,7 +178,10 @@
         DP.loadJson('../data/current/4px_expiry_overview.json')
       ]);
 
-      document.getElementById('log-expiry').textContent = `Expirační SKU: ${fmt(expiries.summary.datedSkuCount || 0)}`;
+      const refreshTs = shortTs(expiries.generatedAt || overview.generatedAt || report.generatedAt);
+      document.getElementById('log-expiry').textContent = (overview.onlyIn4px?.length || 0)
+        ? `Nepárované SKU: ${fmt(overview.onlyIn4px.length)}`
+        : `Expirační SKU: ${fmt(expiries.summary.datedSkuCount || 0)}`;
       const topCarrier = report.logistics.carrierCounts[0]?.name || '–';
       document.getElementById('logistics-decision-grid').innerHTML = [
         {
@@ -234,10 +238,14 @@
         { label: 'Stav', value: (overview.onlyIn4px?.length || 0) ? 'Pozor' : 'OK', tone: (overview.onlyIn4px?.length || 0) ? 'warn' : 'success' },
         { label: 'Data', value: '4PX live + včerejší report', tone: 'info' },
         { label: 'Priorita', value: expiries.topExpiring?.[0]?.sku ? `Zkontrolovat ${expiries.topExpiring[0].sku}` : 'Bez kritické expirace', tone: expiries.topExpiring?.[0] ? 'warn' : 'success' },
-        { label: 'Akce', value: (overview.onlyIn4px?.length || 0) ? 'Projít nepárované SKU' : 'Kontrola expedice', tone: (overview.onlyIn4px?.length || 0) ? 'warn' : 'info' }
+        { label: 'Refresh', value: refreshTs, tone: 'info' }
       ]);
 
       const focusRows = [];
+      focusRows.push([
+        `Expedice včera: ${fmt(report.logistics.shipmentsTotal)} zásilek`,
+        `CZ ${fmt(report.logistics.byAccount.CZ)} · SK ${fmt(report.logistics.byAccount.SK)} · top dopravce ${topCarrier}.`
+      ]);
       if (expiries.topExpiring?.[0]) {
         const top = expiries.topExpiring[0];
         focusRows.push([`Nejvyšší expirační riziko: ${top.sku}`, `Expirace ${top.dateExpiry}, expirující sklad ${fmt(top.datedStock)} ks.`]);
@@ -248,9 +256,12 @@
       if (report.logistics.coverageWarnings?.length) {
         focusRows.push([`Pozor na pokrytí včerejšího okna`, report.logistics.coverageWarnings[0]]);
       }
+      if (!overview.onlyIn4px?.length && !report.logistics.coverageWarnings?.length) {
+        focusRows.push(['Datový dluh je pod kontrolou', 'Párovací vrstva teď nehlásí nic nového a logistika zůstává hlavně provozní disciplína.']);
+      }
       document.getElementById('logistics-focus').innerHTML = (focusRows.length ? focusRows : [['Nic zásadního teď nehoří', 'Momentálně není nic kritického na první pohled.']]).map(([title, text], index) => `
         <div class="ux-item">
-          <span class="ux-dot ${index === 1 ? 'gold' : 'blue'}"></span>
+          <span class="ux-dot ${index === 1 ? 'gold' : index === 2 ? 'green' : 'blue'}"></span>
           <div>
             <strong>${title}</strong>
             <span>${text}</span>
@@ -263,6 +274,7 @@
         ['Zásilky celkem', fmt(report.logistics.shipmentsTotal)],
         ['CZ účet', fmt(report.logistics.byAccount.CZ)],
         ['SK účet', fmt(report.logistics.byAccount.SK)],
+        ['Refresh', refreshTs],
       ].map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
 
       document.getElementById('logistics-notes').innerHTML = [
@@ -308,6 +320,16 @@
             ['Coverage warning', report.logistics.coverageWarnings?.length ? 'Ano' : 'Ne'],
             ['Auto alias', fmt(overview.counts?.autoMapped4pxAliases || 0)],
             ['Další krok', (overview.onlyIn4px?.length || 0) ? 'Projít párování' : 'Běžná kontrola'],
+          ]
+        },
+        {
+          title: 'Další krok',
+          text: 'Jedna doporučená akce po prvním přečtení stránky.',
+          body: [
+            ['První akce', expiries.topExpiring?.[0]?.sku ? `Prověřit ${expiries.topExpiring[0].sku}` : (overview.onlyIn4px?.length || 0) ? 'Projít nepárované SKU' : 'Zkontrolovat top outbound'],
+            ['Top dopravce', topCarrier],
+            ['Refresh', refreshTs],
+            ['Režim', (overview.onlyIn4px?.length || 0) || report.logistics.coverageWarnings?.length ? 'Operativa + datový dluh' : 'Čistá operativa'],
           ]
         }
       ].map(card => `

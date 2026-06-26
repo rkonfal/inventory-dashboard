@@ -6,6 +6,12 @@
   <title>Porady | Diamond Plus Reporting</title>
   <link rel="stylesheet" href="assets/styles.css" />
   <style>
+    .ux-button.is-active {
+      background: linear-gradient(135deg, var(--brand), var(--brand-light));
+      color: #fffaf4;
+      border-color: transparent;
+      box-shadow: 0 10px 22px rgba(107,61,99,.18);
+    }
     .meetings-hero { display:grid; gap:18px; margin-bottom:24px; }
     .meetings-hero-card { background: linear-gradient(135deg, rgba(92,36,80,.08), rgba(230,168,23,.08)); border:1px solid var(--border); border-radius:24px; padding:28px; }
     .meetings-hero-card h1 { margin:0; font-size:34px; color:var(--brand); letter-spacing:-.03em; }
@@ -96,6 +102,7 @@
           <p class="ux-subtitle">Nejdřív přehled úkolů a termínů, potom pracovní pohledy na lidi, rozhodnutí a chronologii.</p>
           <div class="ux-actions">
             <button class="ux-button secondary is-active" type="button" data-view="timeline">Chronologicky</button>
+            <button class="ux-button secondary" type="button" data-view="owners">Podle lidí</button>
             <button class="ux-button secondary" type="button" data-view="urgent">Blízké termíny</button>
             <button class="ux-button secondary" type="button" data-view="decisions">Rozhodnutí</button>
           </div>
@@ -120,6 +127,42 @@
         </div>
       </div>
       <section class="signal-grid" id="meetings-decision-grid"></section>
+    </section>
+
+    <section class="layer-shell">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Focus layer</div>
+          <h2 class="layer-title">Co projít jako první</h2>
+          <p class="layer-subtitle">Krátká pracovní fronta, než člověk začne listovat celou historií porad.</p>
+        </div>
+      </div>
+      <section class="ux-grid">
+        <div class="ux-focus-card">
+          <div class="ux-section-head">
+            <div>
+              <h2 class="ux-section-title">První průchod follow-upy</h2>
+              <p class="ux-section-subtitle">Nejdřív termíny, potom lidé, až nakonec chronologie a archiv.</p>
+            </div>
+            <span class="badge warn" id="meetings-focus-badge">Načítám pohled…</span>
+          </div>
+          <div class="ux-list" id="meetings-focus-list"></div>
+        </div>
+
+        <div class="ux-side-stack">
+          <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Porady stručně</h3>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Jedna orientační karta před detailním průchodem.</p>
+            <div class="ux-stat-list" id="meetings-focus-summary"></div>
+          </div>
+
+          <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Další krok</h3>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Doporučený další pohyb podle aktuální situace.</p>
+            <div class="ux-list" id="meetings-next-step" style="margin-top:16px;"></div>
+          </div>
+        </div>
+      </section>
     </section>
 
     <section class="layer-shell">
@@ -162,6 +205,7 @@
 
   <script src="assets/app.js"></script>
   <script>
+    DP.initThemeToggle();
     const STORAGE_KEY = 'dp-meetings-task-statuses';
     const taskStatusOverrides = loadTaskStatusOverrides();
     const state = { meetings: [], view: 'timeline' };
@@ -228,6 +272,8 @@
       const openTasks = tasks.filter(t => t.status === 'open');
       const owners = new Set(openTasks.flatMap(t => t.owner.split('+').map(x => x.trim())));
       const urgent = openTasks.filter(t => t.due <= new Date(Date.now() + 3*86400000).toISOString().slice(0,10));
+      const lastMeeting = state.meetings[0];
+      const focusBadge = document.getElementById('meetings-focus-badge');
       const strip = document.getElementById('meetings-status-strip');
       if (strip) {
         strip.innerHTML = `
@@ -236,6 +282,10 @@
           <div class="status-chip info"><span class="label">Lidé</span><span class="value">${owners.size}</span></div>
           <div class="status-chip ${urgent.length ? 'warn' : 'info'}"><span class="label">Akce</span><span class="value">${urgent.length ? 'Projít blízké termíny' : 'Běžný follow-up'}</span></div>
         `;
+      }
+      if (focusBadge) {
+        focusBadge.textContent = urgent.length ? `${urgent.length} blízkých termínů` : openTasks.length ? `${openTasks.length} otevřených úkolů` : 'Nic akutního';
+        focusBadge.className = `badge ${urgent.length ? 'warn' : openTasks.length ? 'info' : 'live'}`;
       }
       document.getElementById('kpis').innerHTML = `
         <div class="meetings-kpi"><div class="label">Porady</div><div class="value">${state.meetings.length}</div><div class="sub">Seřazené podle data</div></div>
@@ -279,6 +329,41 @@
           <div class="signal-sub">${card.sub}</div>
           <div class="signal-meta">${card.meta}</div>
         </article>
+      `).join('');
+      document.getElementById('meetings-focus-list').innerHTML = [
+        urgent[0] ? [`Nejbližší termín: ${urgent[0].owner}`, `${urgent[0].task} · ${fmtDate(urgent[0].due)} (${relative(urgent[0].due)}) · ${urgent[0].meetingTitle}`] : null,
+        openTasks[0] ? [`Kde začít`, `${openTasks.length} otevřených úkolů napříč ${owners.size} lidmi. První průchod udělej přes blízké termíny a pak přes pohled podle lidí.`] : ['Žádný otevřený follow-up', 'Momentálně není co eskalovat, takže stačí běžná kontrola rozhodnutí a poslední porady.'],
+        lastMeeting ? [`Poslední porada`, `${lastMeeting.title} z ${fmtDate(lastMeeting.date)} drží ${(lastMeeting.tasks || []).filter(t => t.status === 'open').length} otevřených úkolů.`] : null,
+        decisions[0] ? [`Rozhodnutí jako paměť`, `V poradách je zapsáno ${decisions.length} rozhodnutí, takže stejné téma není potřeba znovu rozjíždět od nuly.`] : null,
+      ].filter(Boolean).map(([title, text], index) => `
+        <div class="ux-item">
+          <span class="ux-dot ${index === 0 && urgent[0] ? 'gold' : 'blue'}"></span>
+          <div>
+            <strong>${title}</strong>
+            <span>${text}</span>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('meetings-focus-summary').innerHTML = [
+        ['Otevřené úkoly', openTasks.length],
+        ['Blízké termíny', urgent.length],
+        ['Lidé v follow-upu', owners.size],
+        ['Poslední porada', lastMeeting ? fmtDate(lastMeeting.date) : '–'],
+      ].map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
+      document.getElementById('meetings-next-step').innerHTML = [
+        urgent.length
+          ? ['Dnešní akce', `Otevři nejdřív pohled „Blízké termíny“ a dočisti ${urgent.length} úkolů v nejbližších 3 dnech.`]
+          : openTasks.length
+            ? ['Další akce', 'Přepni se do pohledu „Podle lidí“ a projdi, kde se follow-upy hromadí u jednoho ownera.']
+            : ['Kontrolní akce', 'Stačí projet „Rozhodnutí“ a zkontrolovat, jestli poslední porada nechce nový follow-up.']
+      ].map(([title, text]) => `
+        <div class="ux-item">
+          <span class="ux-dot ${urgent.length ? 'gold' : 'blue'}"></span>
+          <div>
+            <strong>${title}</strong>
+            <span>${text}</span>
+          </div>
+        </div>
       `).join('');
       document.getElementById('meetings-work-grid').innerHTML = [
         {
