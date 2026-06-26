@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body class="page-inventory-simplified">
-  <aside class="sidebar" data-sidebar-page="inventory.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Sklad pro každodenní rozhodování" data-sidebar-section="Přehled" data-sidebar-footer="Nejdřív co řešit hned, detail až potom."></aside>
+  <aside class="sidebar" data-sidebar-page="inventory.html" data-sidebar-title="Diamond Plus" data-sidebar-subtitle="Sklad pro každodenní rozhodování" data-sidebar-section="Sklad" data-sidebar-footer="Nejdřív co řešit hned, detail až potom."></aside>
 
   <main class="main page-stack">
     <header class="header">
@@ -372,6 +372,14 @@
       return value == null ? '–' : Number(value).toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     }
 
+    function money(value) {
+      return `${DP.fmtNumber(Math.round(Number(value || 0)))} Kč`;
+    }
+
+    function percent(value, digits = 1) {
+      return `${Number(value || 0).toLocaleString('cs-CZ', { minimumFractionDigits: digits, maximumFractionDigits: digits })} %`;
+    }
+
     function list(value) {
       return Array.isArray(value) ? value : [];
     }
@@ -500,6 +508,40 @@
         row,
         metric: analyticsByCode.get(row.code) || {}
       }));
+
+      const healthRows = (analytics.items || []).filter(row => row.orderable !== false);
+      const aRows = healthRows.filter(row => row.orderingRole === 'top_sku');
+      const aCriticalRows = aRows.filter(row => Number(row.effectiveStock || 0) <= 0 || Number(row.daysOfCover90d ?? row.daysOfCover365d ?? Infinity) < 7 || row.reorderRisk === 'critical');
+      const aWarningRows = aRows.filter(row => !aCriticalRows.includes(row) && (Number(row.daysOfCover90d ?? row.daysOfCover365d ?? Infinity) < 14 || ['soon', 'watch'].includes(row.reorderRisk)));
+      const deadRows = healthRows.filter(row => Math.max(0, Number(row.effectiveStock || 0)) > 0 && Number(row.daysOfCover90d ?? row.daysOfCover365d ?? 0) > 180);
+      const slowRows = healthRows.filter(row => {
+        const cover = Number(row.daysOfCover90d ?? row.daysOfCover365d ?? 0);
+        return Math.max(0, Number(row.effectiveStock || 0)) > 0 && cover > 90 && cover <= 180;
+      });
+      const overstockRows = healthRows.filter(row => {
+        const tags = new Set(list(row.tags));
+        return Math.max(0, Number(row.effectiveStock || 0)) > 0 && (tags.has('overstocked') || Number(row.daysOfCover90d ?? row.daysOfCover365d ?? 0) > 90 || row.turnoverZone === 'red');
+      });
+      const totalStockValue = healthRows.reduce((sum, row) => sum + Math.max(0, Number(row.stockValueSelling || 0)), 0);
+      const deadValue = deadRows.reduce((sum, row) => sum + Math.max(0, Number(row.stockValueSelling || 0)), 0);
+      const slowValue = slowRows.reduce((sum, row) => sum + Math.max(0, Number(row.stockValueSelling || 0)), 0);
+      const slowDeadValue = deadValue + slowValue;
+      const overstockValue = overstockRows.reduce((sum, row) => sum + Math.max(0, Number(row.stockValueSelling || 0)), 0);
+      const dailySalesValue90 = healthRows.reduce((sum, row) => sum + (Math.max(0, Number(row.units90d || 0)) * Math.max(0, Number(row.unitSellingPrice || 0)) / 90), 0);
+      const totalCoverDays = dailySalesValue90 > 0 ? totalStockValue / dailySalesValue90 : null;
+      const slowDeadShare = totalStockValue > 0 ? (slowDeadValue / totalStockValue) * 100 : 0;
+      const deadShare = totalStockValue > 0 ? (deadValue / totalStockValue) * 100 : 0;
+      let healthScore = 100;
+      healthScore -= aCriticalRows.length * 8;
+      healthScore -= aWarningRows.length * 3;
+      if (deadShare > 15) healthScore -= 20;
+      else if (deadShare > 8) healthScore -= 10;
+      if (slowDeadShare > 35) healthScore -= 15;
+      else if (slowDeadShare > 20) healthScore -= 8;
+      if (totalCoverDays != null && totalCoverDays > 120) healthScore -= 15;
+      else if (totalCoverDays != null && totalCoverDays > 90) healthScore -= 8;
+      if (totalStockValue > 0 && (overstockValue / totalStockValue) * 100 > 20) healthScore -= 10;
+      healthScore = Math.max(0, Math.round(healthScore));
 
       const ltmRows = explorerRows
         .map(({ row, metric }) => ({ row, metric, qty: ltmQty(row) }))
@@ -694,41 +736,44 @@
         </div>
       `).join('');
 
+      const analyticsRefresh = analytics.generatedAt ? DP.fmtDateTime(analytics.generatedAt) : '–';
+      const analyticsSource = analytics.sourceGeneratedAt ? DP.fmtDateTime(analytics.sourceGeneratedAt) : null;
+
       DP.renderStatusStrip('inventory-status-strip', [
         { label: 'Stav', value: overview.counts.stockMismatch ? 'Pozor' : 'OK', tone: overview.counts.stockMismatch ? 'warn' : 'success' },
-        { label: 'Data', value: 'Aktuální sklad po refreshi', tone: 'info' },
+        { label: 'Data', value: analyticsSource ? `Sklad live, analytika snapshot ${analyticsSource}` : 'Aktuální sklad po refreshi', tone: 'info' },
         { label: 'Priorita', value: overview.counts.lowAfterSales ? 'Nízký sklad po prodeji' : 'Bez kritického výpadku', tone: overview.counts.lowAfterSales ? 'warn' : 'success' },
-        { label: 'Akce', value: overview.counts.onlyIn4px ? 'Projít nepárované položky' : 'Zkontrolovat shortlist', tone: overview.counts.onlyIn4px ? 'warn' : 'info' },
+        { label: 'Refresh', value: analyticsRefresh, tone: 'info' },
       ]);
 
       document.getElementById('inventory-decision-grid').innerHTML = [
         {
-          eyebrow: 'Výpadek po prodeji',
-          value: fmt(overview.counts.lowAfterSales || 0),
-          sub: `${fmt(overview.lowAfterSales?.length || 0)} položek už po včerejšku padá na hranu zásoby.`,
-          meta: overview.lowAfterSales?.[0] ? `${overview.lowAfterSales[0].code} · ${overview.lowAfterSales[0].title}` : 'Bez konkrétního kritického SKU.',
-          tone: overview.counts.lowAfterSales ? 'danger' : 'accent',
+          eyebrow: 'A produkty v riziku',
+          value: fmt(aCriticalRows.length),
+          sub: `${fmt(aWarningRows.length)} dalších A SKU je pod warning hranou.`,
+          meta: aCriticalRows[0] ? `${aCriticalRows[0].code} · ${aCriticalRows[0].title}` : 'Top SKU jsou bez kritického výpadku.',
+          tone: aCriticalRows.length ? 'danger' : 'accent',
+        },
+        {
+          eyebrow: 'Kapitál ve slow + dead stock',
+          value: money(slowDeadValue),
+          sub: `${percent(slowDeadShare)} z objednatelné zásoby dnes nevydělává dost rychle.`,
+          meta: `Dead ${money(deadValue)} · slow ${money(slowValue)}`,
+          tone: slowDeadShare > 35 ? 'danger' : slowDeadShare > 20 ? 'warn' : '',
+        },
+        {
+          eyebrow: 'Stock-to-sales cover',
+          value: totalCoverDays == null ? '–' : `${fmtOne(totalCoverDays)} dní`,
+          sub: 'Cover skladu podle 90d tempa a selling-price proxy.',
+          meta: totalCoverDays > 120 ? 'Kritický přebytek zásoby.' : totalCoverDays > 90 ? 'Pozor na přezásobení.' : totalCoverDays != null && totalCoverDays < 30 ? 'Pozor na podzásobení.' : 'Cover je v pracovním pásmu.',
+          tone: totalCoverDays > 120 ? 'danger' : totalCoverDays > 90 || (totalCoverDays != null && totalCoverDays < 30) ? 'warn' : '',
         },
         {
           eyebrow: 'Nesoulad a mapování',
           value: fmt(overview.counts.stockMismatch || 0),
           sub: `${fmt(overview.counts.onlyIn4px || 0)} jen ve 4PX · ${fmt(overview.counts.manualMapped4pxAliases || 0)} ručních map.`,
-          meta: `Auto alias ${fmt(overview.counts.autoMapped4pxAliases || 0)} · jen ve WPJ ${fmt(overview.counts.onlyInWpj || 0)}`,
+          meta: `Health score ${fmt(healthScore)} / 100 · overstock ${money(overstockValue)}`,
           tone: overview.counts.stockMismatch ? 'warn' : '',
-        },
-        {
-          eyebrow: 'Prioritní shortlist',
-          value: fmt((overview.priorityShortlist || []).length),
-          sub: 'Fronta položek s největším dopadem na operativu a dostupnost.',
-          meta: overview.priorityShortlist?.[0] ? `${overview.priorityShortlist[0].code} · score ${overview.priorityShortlist[0].score}` : 'Shortlist je prázdný.',
-          tone: overview.priorityShortlist?.length ? '' : 'accent',
-        },
-        {
-          eyebrow: 'Sklad mimo 4PX',
-          value: `${fmt(ltmRows.reduce((sum, item) => sum + item.qty, 0) + mecinRows.reduce((sum, item) => sum + item.qty, 0))} ks`,
-          sub: `LTM ${fmt(ltmRows.reduce((sum, item) => sum + item.qty, 0))} · Měčín ${fmt(mecinRows.reduce((sum, item) => sum + item.qty, 0))}`,
-          meta: 'Pomáhá oddělit čistý 4PX problém od lokální zásoby.',
-          tone: '',
         }
       ].map(card => `
         <article class="signal-card ${card.tone || ''}">
@@ -740,10 +785,10 @@
       `).join('');
 
       document.getElementById('inventory-kpis').innerHTML = [
-        ['Spárované produkty', fmt(overview.counts.pairedProducts), 'WPJ + 4PX mají vazbu', 'green'],
-        ['Nesoulady skladu', fmt(overview.counts.stockMismatch), 'potřebují shortlist a kontrolu', 'red'],
-        ['Jen ve 4PX', fmt(overview.counts.onlyIn4px), 'chybí nebo nejsou svázané ve WPJ', 'gold'],
-        ['Ruční mapování', fmt(overview.counts.manualMapped4pxAliases || 0), 'výjimky řízené přes konfigurační mapu', 'blue']
+        ['A SKU kritické', fmt(aCriticalRows.length), 'klíčové položky s rizikem výpadku', 'red'],
+        ['Slow + dead podíl', percent(slowDeadShare), 'kolik zásoby dnes váže cash', slowDeadShare > 20 ? 'gold' : 'green'],
+        ['Dead stock podíl', percent(deadShare), 'položky s pokrytím nad 180 dní', deadShare > 15 ? 'red' : deadShare > 8 ? 'gold' : 'green'],
+        ['Health score', `${fmt(healthScore)} / 100`, 'rychlý health signál skladu', healthScore < 60 ? 'red' : healthScore < 80 ? 'gold' : 'blue']
       ].map(([label, value, sub, klass]) => `
         <div class="card kpi-card ${klass}">
           <div class="kpi-label">${label}</div>

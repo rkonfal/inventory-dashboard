@@ -3,10 +3,13 @@
     ['index.html', 'Přehled firmy'],
     ['inventory.html', 'Sklad'],
     ['eshop.html', 'E-shop'],
+    ['order-bump.html', 'Order bump'],
     ['logistics.html', 'Logistika'],
+    ['packaging.html', 'Obalový materiál'],
     ['expiry.html', 'Expirace a akce'],
-    ['finance.html', 'Finance'],
     ['marketing.html', 'Marketing'],
+    ['affiliate.html', 'Affiliate'],
+    ['twisto.html', 'Twisto'],
     ['ordering.html', 'Objednávání'],
     ['meetings.html', 'Porady']
   ];
@@ -171,17 +174,21 @@
     const footer = sidebar.dataset.sidebarFooter || '';
 
     sidebar.innerHTML = `
-      <div class="sidebar-logo">
-        <h2>${escapeHtml(title)}</h2>
-        <span>${escapeHtml(subtitle)}</span>
+      <div class="sidebar-shell">
+        <div class="sidebar-logo">
+          <div class="sidebar-logo-text">
+            <h2>${escapeHtml(title)}</h2>
+            <span>${escapeHtml(subtitle)}</span>
+          </div>
+        </div>
+        <div class="sidebar-section-label">${escapeHtml(section)}</div>
+        <nav class="sidebar-nav" aria-label="Hlavní navigace reportingu">
+          ${sidebarLinks.map(([href, label]) => `
+            <a href="${href}" class="${href === current ? 'active' : ''}">${escapeHtml(label)}</a>
+          `).join('')}
+        </nav>
+        <div class="sidebar-footer">${escapeHtml(footer)}</div>
       </div>
-      <div class="sidebar-section-label">${escapeHtml(section)}</div>
-      <nav class="sidebar-nav">
-        ${sidebarLinks.map(([href, label]) => `
-          <a href="${href}" class="${href === current ? 'active' : ''}">${escapeHtml(label)}</a>
-        `).join('')}
-      </nav>
-      <div class="sidebar-footer">${escapeHtml(footer)}</div>
     `;
 
     ensureMobileSidebarControls();
@@ -200,6 +207,7 @@
     const header = document.querySelector('.header');
     const main = document.querySelector('.main');
     if (!header || !main || main.querySelector('[data-section-nav]')) return;
+    if (document.body?.dataset?.disableSectionNav === '1') return;
 
     const customNodes = Array.from(document.querySelectorAll('[data-section-nav-label]'));
     if (customNodes.length) {
