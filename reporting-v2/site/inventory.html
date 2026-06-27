@@ -15,9 +15,10 @@
         <div class="ux-intro">
           <div class="ux-kicker">Sklad • operativní dashboard</div>
           <h1 class="ux-title">Sklad jako hlavní operativní pracovní dashboard</h1>
-          <p class="ux-subtitle">Nejdřív signál a pracovní fronty, potom explorer a detail. Cíl je rychle rozhodnout, ne hledat.</p>
+          <p class="ux-subtitle">Nejdřív signál, potom hlavní akce. Detail a širší analýza až níž.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="../data/current/morning_report_previous_day.txt" target="_blank" rel="noopener">Ranní report</a>
+            <a class="ux-button secondary" href="ordering.html">Objednávání</a>
             <a class="ux-button secondary" href="logistics.html">Logistika</a>
             <a class="ux-button secondary" href="index.html">Přehled</a>
           </div>
@@ -29,25 +30,23 @@
       <div class="ux-date-note"><strong>Období:</strong> sklad a nesoulady jsou aktuální stav po refreshi, prodeje včerejší kontext, pohyby proti minulému snapshotu.</div>
     </header>
 
-    <section class="layer-shell">
+    <section class="layer-shell" id="inventory-step-1">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Decision layer</div>
-          <h2 class="layer-title">Jaký typ skladového problému dnes převládá</h2>
-          <p class="layer-subtitle">Tahle vrstva odděluje signál, zda řešíme výpadek, nesoulad, párování nebo přetok zásoby.</p>
+          <div class="layer-label">Krok 1</div>
+          <h2 class="layer-title">Co dnes ve skladu řešit nejdřív</h2>
+          <p class="layer-subtitle">Nejdřív signál a vstup do práce. Až potom samotný seznam položek.</p>
         </div>
       </div>
       <section class="signal-grid" id="inventory-decision-grid"></section>
     </section>
 
-    <section class="grid kpi-grid" id="inventory-kpis"></section>
-
     <section class="layer-shell">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Focus layer</div>
-          <h2 class="layer-title">První kontrola skladu</h2>
-          <p class="layer-subtitle">Krátká pracovní fronta, stručný kontext a jednoduché doporučení, jak tím projít.</p>
+          <div class="layer-label">Hlavní vstupy</div>
+          <h2 class="layer-title">Kam se přepnout a co zkontrolovat jako první</h2>
+          <p class="layer-subtitle">Krátká pracovní fronta, navazující vstupy a stručný kontext bez vedlejší analytiky.</p>
         </div>
       </div>
       <section class="ux-grid">
@@ -64,37 +63,26 @@
 
       <div class="ux-side-stack">
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Sklad stručně</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Základní stav skladu bez dlouhých tabulek.</p>
-          <div class="ux-stat-list" id="inventory-stat-list"></div>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Hlavní vstupy</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Otevři jen to, co dnes opravdu vede práci.</p>
+          <div class="section-nav-links" id="inventory-route-links" style="margin-top:16px;"></div>
         </div>
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Jak s tím pracovat</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Nejdřív rychlá kontrola, detail až potom.</p>
-          <div class="ux-side-list" id="inventory-usage-list"></div>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Sklad stručně</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Krátký kontext pro dnešní rozhodnutí bez dlouhých tabulek.</p>
+          <div class="ux-stat-list" id="inventory-stat-list"></div>
         </div>
       </div>
     </section>
 
     </section>
 
-    <section class="layer-shell">
-      <div class="layer-head">
-        <div>
-          <div class="layer-label">Work layer</div>
-          <h2 class="layer-title">Explorer a hlavní pracovní proudy</h2>
-          <p class="layer-subtitle">Nejdřív krátký pracovní souhrn, pod tím centrální explorer pro řezání skladu podle pohledu a problému.</p>
-        </div>
-      </div>
-      <section class="summary-grid" id="inventory-work-grid"></section>
-    </section>
-
-    <section class="card" style="margin-top:20px;">
+    <section class="card" id="inventory-step-2" style="margin-top:20px;">
       <div class="toolbar-card workspace-toolbar">
         <div class="toolbar">
           <div>
-            <h2 class="section-title">Hlavní přehled skladu</h2>
-            <div class="section-subtitle">Jeden jednoduchý seznam, který si přepneš podle skladu a tématu. Vždy zůstává jen to, co právě potřebuješ vidět.</div>
+            <h2 class="section-title">Krok 2: hlavní pracovní seznam skladu</h2>
+            <div class="section-subtitle">Jeden pracovní explorer pro přepínání skladu a tématu. Vedlejší tabulky a širší analytika jsou až dole.</div>
           </div>
           <div class="toolbar-controls">
             <label class="control-group control-group-wide">
@@ -137,7 +125,7 @@
         </div>
 
         <div class="toolbar-meta">
-          <div class="toolbar-meta-item"><strong>Rychlý postup:</strong> vyber sklad, zapni filtr, pak případně dolaď hledání.</div>
+          <div class="toolbar-meta-item"><strong>Postup:</strong> vyber sklad, zapni filtr a teprve pak případně dolaď hledání.</div>
           <div class="toolbar-meta-item"><strong>Doporučení:</strong> začni „Nesoulady“ nebo „Nízký sklad po prodeji“.</div>
         </div>
         <div class="toolbar-inline-summary"><strong>Pracovní režim:</strong> horní panel zůstává při skrolování po ruce, aby šlo rychle měnit sklad, filtr i řazení bez návratu nahoru.</div>
@@ -183,7 +171,31 @@
     </section>
 
     <details class="secondary-details" style="margin-top:20px;">
-      <summary>Detail layer, další analýza skladu</summary>
+      <summary>Krok 3: vedlejší tabulky, širší analýza a technický detail</summary>
+
+    <section class="layer-shell" style="margin-top:20px;">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Secondary workflow</div>
+          <h2 class="layer-title">Co řešit až po hlavním průchodu</h2>
+          <p class="layer-subtitle">Sekundární workflow shrnutí a širší zásobový kontext až poté, co projdeš horní explorer.</p>
+        </div>
+      </div>
+      <section class="summary-grid" id="inventory-work-grid"></section>
+    </section>
+
+    <section class="layer-shell" style="margin-top:20px;">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Secondary layer</div>
+          <h2 class="layer-title">Vedlejší analýza a kontrolní tabulky</h2>
+          <p class="layer-subtitle">KPI, delší tabulky a širší zásobový kontext patří až sem, ne do horního rozhodovacího toku.</p>
+        </div>
+      </div>
+      <section class="summary-grid" id="inventory-secondary-grid"></section>
+    </section>
+
+    <section class="grid kpi-grid" id="inventory-kpis"></section>
 
     <section class="card" style="margin-top:20px;">
       <h2 class="section-title">Největší nesoulady</h2>
@@ -816,6 +828,16 @@
         </div>
       `).join('');
 
+      const inventoryRoutes = [
+        ['Objednávání', 'ordering.html', overview.counts.lowAfterSales ? 'Navazuje tam rozhodnutí, co skutečně doobjednat.' : 'Shortlist, simulace a export objednávky.'],
+        ['Logistika', 'logistics.html', 'Navazuje sem řešení pohybů, expedice a provozního toku.'],
+        ['Přehled firmy', 'index.html', 'Vrať se na hlavní decision layer a širší kontext firmy.'],
+        ['Ranní report', '../data/current/morning_report_previous_day.txt', 'Rychlý textový vstup do dnešního stavu napříč firmou.']
+      ];
+      document.getElementById('inventory-route-links').innerHTML = inventoryRoutes.map(([label, href, hint]) => `
+        <a href="${href}" ${href.startsWith('..') ? 'target="_blank" rel="noopener"' : ''} title="${hint}">${label}</a>
+      `).join('');
+
       document.getElementById('inventory-stat-list').innerHTML = [
         ['Datum reportu', new Date(overview.window.from).toLocaleDateString('cs-CZ')],
         ['LTM celkem', `${fmt(ltmRows.reduce((sum, item) => sum + item.qty, 0))} ks`],
@@ -825,34 +847,20 @@
         ['Ruční mapování', fmt(overview.counts.manualMapped4pxAliases || 0)],
       ].map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
 
-      document.getElementById('inventory-usage-list').innerHTML = [
-        ['Rychlé filtry', 'Začni nesoulady, nízkým skladem po prodeji a prodaným včera.'],
-        ['Pohled skladu', 'Přepínač KOMPLET / CZ / SK / LTM / MĚČÍN přepne celý výpis i pokrytí zásoby.'],
-        ['Stránkování', 'Přehled ukazuje jen aktuální stránku, takže se v něm neztratíš.'],
-      ].map(([title, text], index) => `
-         <div class="ux-side-item">
-           <span class="ux-dot ${index === 1 ? 'gold' : index === 2 ? 'green' : 'blue'}"></span>
-           <div>
-             <strong>${title}</strong>
-             <span>${text}</span>
-           </div>
-         </div>
-       `).join('');
-
       document.getElementById('inventory-work-grid').innerHTML = [
         {
-          title: 'Kde začít dnes',
-          text: 'Nejkratší pracovní pořadí pro první průchod skladem.',
+          title: 'Pořadí po hlavním průchodu',
+          text: 'Krátký follow-up až ve chvíli, kdy už máš hotový horní explorer.',
           body: [
-            ['1', overview.counts.lowAfterSales ? 'Nízký sklad po prodeji' : 'Shortlist nesouladů'],
-            ['2', overview.counts.onlyIn4px ? 'Nepárované položky 4PX' : 'Top priority shortlist'],
-            ['3', 'Explorer podle pohledu skladu'],
-            ['4', 'Teprve potom další analýza dole'],
+            ['1', overview.counts.lowAfterSales ? 'Přepnout do objednávání' : 'Vrátit se k top nesouladům'],
+            ['2', overview.counts.onlyIn4px ? 'Dopárovat 4PX orphan SKU' : 'Projít ruční mapování'],
+            ['3', 'Otevřít kontrolní tabulky dole'],
+            ['4', 'Teprve potom širší zásobovou analýzu'],
           ]
         },
         {
           title: 'Rizikové fronty',
-          text: 'Kolik práce je v jednotlivých typech problému.',
+          text: 'Kolik práce čeká v jednotlivých sekundárních frontách.',
           body: [
             ['Nesoulady', fmt(overview.counts.stockMismatch || 0)],
             ['Nízký sklad po prodeji', fmt(overview.counts.lowAfterSales || 0)],
@@ -861,13 +869,59 @@
           ]
         },
         {
-          title: 'Sklady v pohledu',
-          text: 'Pomáhá vybrat správný přepínač ještě před otevřením exploreru.',
+          title: 'Kam to nejspíš povede dál',
+          text: 'Až po hlavním průchodu skladu, ne jako první navigace dne.',
           body: [
-            ['4PX CZ + SK', `${fmt(total4pxAvailable)} ks`],
-            ['LTM', `${fmt(ltmRows.reduce((sum, item) => sum + item.qty, 0))} ks`],
-            ['Měčín', `${fmt(mecinRows.reduce((sum, item) => sum + item.qty, 0))} ks`],
-            ['Doporučení', 'Začni KOMPLET, pak řež podle skladu'],
+            ['Objednávání', overview.counts.lowAfterSales ? 'navazuje hned' : 'dle potřeby'],
+            ['Logistika', overview.counts.onlyIn4px ? 'zkontrolovat orphan flow' : 'jen provozní follow-up'],
+            ['LTM + Měčín', `${fmt(ltmRows.reduce((sum, item) => sum + item.qty, 0) + mecinRows.reduce((sum, item) => sum + item.qty, 0))} ks`],
+            ['Doporučení', 'Nahoře rozhodnutí, dole kontext'],
+          ]
+        }
+      ].map(card => `
+        <article class="summary-card">
+          <h3>${card.title}</h3>
+          <p>${card.text}</p>
+          <div class="ux-stat-list">
+            ${card.body.map(([label, value]) => `
+              <div class="ux-stat-row">
+                <span>${label}</span>
+                <strong>${value}</strong>
+              </div>
+            `).join('')}
+          </div>
+        </article>
+      `).join('');
+
+      document.getElementById('inventory-secondary-grid').innerHTML = [
+        {
+          title: 'KPI a health kontext',
+          text: 'Souhrnný health score a podíl slow/dead zásoby pro širší obrázek po hlavním rozhodnutí.',
+          body: [
+            ['Health score', `${fmt(healthScore)} / 100`],
+            ['Slow + dead', percent(slowDeadShare)],
+            ['Dead stock', percent(deadShare)],
+            ['Cover', totalCoverDays == null ? '–' : `${fmtOne(totalCoverDays)} dní`],
+          ]
+        },
+        {
+          title: 'Kontrolní tabulky',
+          text: 'Nesoulady, low stock, jen ve 4PX a mapovací návrhy pro hlubší kontrolu.',
+          body: [
+            ['Největší nesoulady', fmt(priorityRows.length)],
+            ['Po včerejšku dochází', fmt(lowStockRows.length)],
+            ['Jen ve 4PX', fmt(only4pxRows.length)],
+            ['Ruční mapování', fmt(overview.counts.manualMapped4pxAliases || 0)],
+          ]
+        },
+        {
+          title: 'Širší zásobový kontext',
+          text: 'Až když potřebuješ víc než hlavní explorer a sekundární kontrolní tabulky.',
+          body: [
+            ['Slow movers', fmt(slowRows.length)],
+            ['Dead stock', fmt(deadRows.length)],
+            ['Overstock value', money(overstockValue)],
+            ['Doporučení', 'Nech až po hlavním průchodu'],
           ]
         }
       ].map(card => `
