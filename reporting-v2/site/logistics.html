@@ -29,12 +29,12 @@
       <div class="ux-date-note"><strong>Období:</strong> expedice za včerejšek, expirace a nepárované SKU podle posledního 4PX refreshi.</div>
     </header>
 
-    <section class="layer-shell">
+    <section class="layer-shell" id="logistics-step-1">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Decision layer</div>
-          <h2 class="layer-title">Kde je logistický signál dne</h2>
-          <p class="layer-subtitle">Odděluje provoz expedice od datových a párovacích problémů, aby se to nemíchalo dohromady.</p>
+          <div class="layer-label">Krok 1</div>
+          <h2 class="layer-title">Co dnes v logistice řešit nejdřív</h2>
+          <p class="layer-subtitle">Nejdřív signál a první rozhodnutí. Až potom operativní přehled a detailní tabulky.</p>
         </div>
       </div>
       <section class="signal-grid" id="logistics-decision-grid"></section>
@@ -43,9 +43,9 @@
     <section class="layer-shell">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Focus layer</div>
-          <h2 class="layer-title">Co projít jako první</h2>
-          <p class="layer-subtitle">Krátká vrstva pro expedici, expirace a nepárované SKU.</p>
+          <div class="layer-label">Hlavní vstupy</div>
+          <h2 class="layer-title">Kam se přepnout a co zkontrolovat jako první</h2>
+          <p class="layer-subtitle">Krátká pracovní fronta, navazující vstupy a stručný kontext bez technického balastu.</p>
         </div>
       </div>
       <section class="ux-grid">
@@ -62,31 +62,30 @@
 
       <div class="ux-side-stack">
         <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Expedice stručně</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Jedna karta pro včerejší logistiku.</p>
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Hlavní vstupy</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Otevři jen to, co dnes skutečně navazuje na logistický problém.</p>
+          <div class="section-nav-links" id="logistics-route-links" style="margin-top:16px;"></div>
+        </div>
+        <div class="ux-panel-card">
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Logistika stručně</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Krátký kontext pro dnešní průchod bez rozklikávání detailu.</p>
           <div class="ux-stat-list" id="logistics-stat-list"></div>
         </div>
-        <details class="secondary-details">
-          <summary>Poznámky k datům</summary>
-          <div class="ux-side-list" id="logistics-notes" style="margin-top:14px;"></div>
-        </details>
       </div>
     </section>
 
     </section>
 
-    <section class="layer-shell">
+    <section class="layer-shell" id="logistics-step-2">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Work layer</div>
-          <h2 class="layer-title">Pracovní vrstva logistiky</h2>
-          <p class="layer-subtitle">Nejdřív agregovaný přehled, pod tím tabulky s expedicí a dopravci.</p>
+          <div class="layer-label">Krok 2</div>
+          <h2 class="layer-title">Hlavní pracovní vrstva logistiky</h2>
+          <p class="layer-subtitle">Nejdřív agregovaný přehled, potom operativní tabulky s expedicí a dopravci.</p>
         </div>
       </div>
       <section class="summary-grid" id="logistics-work-grid"></section>
     </section>
-
-    <section class="grid kpi-grid" id="log-kpis"></section>
 
     <section class="grid two-col">
       <div class="card">
@@ -123,7 +122,24 @@
     </section>
 
     <details class="secondary-details">
-      <summary>Detail layer, expirační a párovací detail</summary>
+      <summary>Krok 3: KPI, expirační a párovací detail</summary>
+
+      <section class="layer-shell" style="margin-top:20px;">
+        <div class="layer-head">
+          <div>
+            <div class="layer-label">Secondary layer</div>
+            <h2 class="layer-title">Vedlejší tabulky a datový detail</h2>
+            <p class="layer-subtitle">KPI, expirační fronta, nepárované SKU a datové poznámky patří až po hlavní operativní vrstvě.</p>
+          </div>
+        </div>
+        <section class="grid kpi-grid" id="log-kpis"></section>
+      </section>
+
+      <section class="card" style="margin-top:20px;">
+        <h2 class="section-title">Poznámky k datům</h2>
+        <div class="section-subtitle">Kontrolní kontext ke zdrojům a publikaci až tehdy, když řešíš proč čísla vypadají takto.</div>
+        <div class="ux-side-list" id="logistics-notes" style="margin-top:16px;"></div>
+      </section>
 
       <section class="grid two-col" style="margin-top:18px;">
         <div class="card">
@@ -277,6 +293,16 @@
         ['Refresh', refreshTs],
       ].map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
 
+      const logisticsRoutes = [
+        ['Sklad', 'inventory.html', 'Navazuje sem hlavní zásobový explorer, nesoulady a párování.'],
+        ['Objednávání', 'ordering.html', overview.counts.lowAfterSales ? 'Když chybí sklad po prodeji, pokračuj shortlistem objednávky.' : 'Shortlist, simulace a export objednávky.'],
+        ['Přehled firmy', 'index.html', 'Vrať se na hlavní decision layer a širší kontext firmy.'],
+        ['Expirační data', '../data/current/4px_expiry_overview.json', 'Surový expirační vstup pro detailní kontrolu.']
+      ];
+      document.getElementById('logistics-route-links').innerHTML = logisticsRoutes.map(([label, href, hint]) => `
+        <a href="${href}" ${href.startsWith('..') ? 'target="_blank" rel="noopener"' : ''} title="${hint}">${label}</a>
+      `).join('');
+
       document.getElementById('logistics-notes').innerHTML = [
         ['Expirace', 'Expirace bereme z detailního 4PX inventory pullu po SKU dávkách.'],
         ['Párování SKU', 'Primárně párujeme přes kód produktu / SKU, nepárované položky zůstávají na seznamu ke kontrole.'],
@@ -292,6 +318,16 @@
       `).join('');
 
       document.getElementById('logistics-work-grid').innerHTML = [
+        {
+          title: 'Pořadí po prvním přečtení',
+          text: 'Krátký pracovní tah po načtení horního signálu.',
+          body: [
+            ['1', expiries.topExpiring?.[0]?.sku ? `Prověřit ${expiries.topExpiring[0].sku}` : 'Projít včerejší expedici'],
+            ['2', (overview.onlyIn4px?.length || 0) ? 'Zkontrolovat nepárované SKU' : 'Ověřit dopravce a coverage'],
+            ['3', 'Teprve potom otevřít detailní tabulky dole'],
+            ['4', 'Datové poznámky jen při nejasnosti'],
+          ]
+        },
         {
           title: 'Expediční rytmus',
           text: 'První pracovní souhrn pro včerejší pohyb zásilek.',
@@ -320,16 +356,6 @@
             ['Coverage warning', report.logistics.coverageWarnings?.length ? 'Ano' : 'Ne'],
             ['Auto alias', fmt(overview.counts?.autoMapped4pxAliases || 0)],
             ['Další krok', (overview.onlyIn4px?.length || 0) ? 'Projít párování' : 'Běžná kontrola'],
-          ]
-        },
-        {
-          title: 'Další krok',
-          text: 'Jedna doporučená akce po prvním přečtení stránky.',
-          body: [
-            ['První akce', expiries.topExpiring?.[0]?.sku ? `Prověřit ${expiries.topExpiring[0].sku}` : (overview.onlyIn4px?.length || 0) ? 'Projít nepárované SKU' : 'Zkontrolovat top outbound'],
-            ['Top dopravce', topCarrier],
-            ['Refresh', refreshTs],
-            ['Režim', (overview.onlyIn4px?.length || 0) || report.logistics.coverageWarnings?.length ? 'Operativa + datový dluh' : 'Čistá operativa'],
           ]
         }
       ].map(card => `
