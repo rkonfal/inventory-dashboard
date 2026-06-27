@@ -15,9 +15,10 @@
         <div class="ux-intro">
           <div class="ux-kicker">Hlavní přehled • command center</div>
           <h1 class="ux-title">Homepage jako řídicí centrum firmy</h1>
-          <p class="ux-subtitle">Nejdřív signál, pak kontext, potom práce. Všechno důležité pro dnešek bez lovení v detailu.</p>
+          <p class="ux-subtitle">Nejdřív signál, potom práce. Hlavní vstupy nahoře, zbytek až níž.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="../data/current/morning_report_previous_day.txt" target="_blank" rel="noopener">Ranní report</a>
+            <a class="ux-button secondary" href="ordering.html">Objednávání</a>
             <a class="ux-button secondary" href="inventory.html">Sklad</a>
             <a class="ux-button secondary" href="finance.html">Finance</a>
           </div>
@@ -33,8 +34,8 @@
       <div class="layer-head">
         <div>
           <div class="layer-label">Decision layer</div>
-          <h2 class="layer-title">Co ten den opravdu znamená pro firmu</h2>
-          <p class="layer-subtitle">Čtyři jasné signály, které řeknou, jestli je den pod kontrolou, kde je riziko a kam má jít první pozornost.</p>
+          <h2 class="layer-title">Co dnešek znamená pro firmu</h2>
+          <p class="layer-subtitle">Pár jasných signálů, jestli je den pod kontrolou a kam má jít první pozornost.</p>
         </div>
         <div class="layer-note">Signál nahoře, detail až níž.</div>
       </div>
@@ -46,7 +47,7 @@
         <div>
           <div class="layer-label">Focus layer</div>
           <h2 class="layer-title">Kam se přepnout dál</h2>
-          <p class="layer-subtitle">Homepage už není jen shrnutí, ale rozcestník do hlavních pracovních směrů.</p>
+          <p class="layer-subtitle">Nahoře jen hlavní vstupy. Vedlejší kontext a reporty jsou až níž.</p>
         </div>
       </div>
       <section class="ux-grid">
@@ -73,21 +74,15 @@
 
         <div class="ux-side-stack">
           <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Hlavní vstupy</h3>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Otevři jen to, co dnes opravdu vede práci.</p>
+            <div class="section-nav-links" id="main-route-links" style="margin-top:16px;"></div>
+          </div>
+
+          <div class="ux-panel-card">
             <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Včerejšek jedním pohledem</h3>
-            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rychlý kontext pro dnešní rozhodnutí.</p>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Krátký kontext pro dnešní rozhodnutí.</p>
             <div class="ux-stat-list" id="report-mini"></div>
-          </div>
-
-          <div class="ux-panel-card">
-            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Odkud přišly objednávky</h3>
-            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rozpad výkonu podle hlavních pohledů.</p>
-            <div class="ux-stat-list" id="eshop-source-split"></div>
-          </div>
-
-          <div class="ux-panel-card">
-            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Co je v pořádku</h3>
-            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Krátká kontrola, že zdroje běží a kde je případný problém.</p>
-            <div class="ux-side-list" id="status-list"></div>
           </div>
         </div>
       </section>
@@ -98,14 +93,38 @@
         <div>
           <div class="layer-label">Work layer</div>
           <h2 class="layer-title">Hlavní pracovní proudy firmy</h2>
-          <p class="layer-subtitle">Každý blok říká, co je signál, jaký je kontext a kde pokračovat do operativního detailu.</p>
+          <p class="layer-subtitle">Jen hlavní proudy, které typicky vedou další práci ještě dnes.</p>
         </div>
       </div>
       <section class="summary-grid" id="overview-work-grid"></section>
     </section>
 
     <details class="secondary-details">
-      <summary>Detail layer, technický a rozšířený detail</summary>
+      <summary>Vedlejší reporty, zdroje a technický detail</summary>
+
+      <section class="layer-shell" style="margin-top:20px;">
+        <div class="layer-head">
+          <div>
+            <div class="layer-label">Secondary layer</div>
+            <h2 class="layer-title">Další reporty a vedlejší proudy</h2>
+            <p class="layer-subtitle">Marketing, affiliate, obaly a širší kontext patří až sem, ne do horního rozhodovacího toku.</p>
+          </div>
+        </div>
+        <section class="summary-grid" id="overview-secondary-grid"></section>
+      </section>
+
+      <section class="grid two-col">
+        <div class="card">
+          <h2 class="section-title">Odkud přišly objednávky</h2>
+          <div class="section-subtitle">Rozpad výkonu podle hlavních pohledů, až když potřebuješ víc než hlavní signál.</div>
+          <div class="ux-stat-list" id="eshop-source-split"></div>
+        </div>
+        <div class="card">
+          <h2 class="section-title">Co je v pořádku</h2>
+          <div class="section-subtitle">Krátká kontrola, že zdroje běží a kde je případný problém.</div>
+          <div class="ux-side-list" id="status-list"></div>
+        </div>
+      </section>
 
       <section class="grid kpi-grid" id="top-kpis"></section>
 
@@ -277,6 +296,16 @@
         </div>
       `).join('');
 
+      const mainRoutes = [
+        ['Objednávání', 'ordering.html', alerts.some(item => item.includes('sklad')) ? 'Nejdůležitější pracovní tok pro dnešek.' : 'Shortlist, simulace a export objednávky.'],
+        ['Sklad', 'inventory.html', totalLowStockRows ? `Aktuálně ${DP.fmtNumber(totalLowStockRows)} nízkých skladových pozic.` : 'Dostupnost, nesoulady a rizika skladu.'],
+        ['E-shop', 'eshop.html', alerts.some(item => item.includes('objednávek')) ? 'Jsou tu alerty kolem objednávek nebo výkonu.' : 'Objednávky, výkon a konverze v detailu.'],
+        ['Finance', 'finance.html', Number(summary.finance?.cash?.overdueInvoicesCount || 0) ? `${DP.fmtNumber(summary.finance?.cash?.overdueInvoicesCount || 0)} položek po splatnosti.` : 'Cash, zisk a závazky bez šumu.']
+      ];
+      document.getElementById('main-route-links').innerHTML = mainRoutes.map(([label, href, hint]) => `
+        <a href="${href}" title="${hint}">${label}</a>
+      `).join('');
+
       document.getElementById('report-mini').innerHTML = [
         ['AOV', fmtMoney(report.eshop.averageOrderValue || 0)],
         ['Expedice CZ+SK', `${DP.fmtNumber(report.logistics.shipmentsTotal || 0)} (${report.logistics.byAccount?.CZ || 0}/${report.logistics.byAccount?.SK || 0})`],
@@ -322,10 +351,10 @@
         </div>
       `).join('');
 
-      document.getElementById('overview-work-grid').innerHTML = [
+      const primaryWorkCards = [
         {
           title: 'Objednávky a výkon',
-          text: 'Co se stalo včera a jestli je potřeba řešit výkon nebo mix zdrojů.',
+          text: 'První kontrola výkonu a objednávek, když den nevypadá zdravě.',
           body: [
             ['Objednávky', DP.fmtNumber(report.eshop.orders || 0)],
             ['Tržby', fmtMoney(report.eshop.revenueWithVat || 0)],
@@ -335,7 +364,7 @@
         },
         {
           title: 'Sklad a párování',
-          text: 'Operativní vrstva pro doplnění, nesoulady a dostupnost po včerejším prodeji.',
+          text: 'Hlavní operativní vrstva pro doplnění, nesoulady a dostupnost.',
           body: [
             ['Nízký sklad', DP.fmtNumber(summary.pairing?.lowAfterSales || 0)],
             ['Nesoulady', DP.fmtNumber(summary.pairing?.stockMismatch || 0)],
@@ -343,9 +372,22 @@
             ['Další krok', 'Otevřít sklad'],
           ],
         },
+        {
+          title: 'Finance a cash',
+          text: 'Kolik je opravdu k dispozici a jestli už finance tlačí na rozhodnutí.',
+          body: [
+            ['Cash po závazcích', fmtMoney(summary.finance?.cash?.netCashPosition || 0)],
+            ['Po splatnosti', `${DP.fmtNumber(summary.finance?.cash?.overdueInvoicesCount || 0)} ks`],
+            ['Zisk měsíce', fmtMoney(summary.finance?.currentMonth?.profit || 0)],
+            ['Další krok', Number(summary.finance?.cash?.overdueInvoicesCount || 0) ? 'Otevřít finance' : 'Cash pod kontrolou'],
+          ],
+        }
+      ].filter(Boolean);
+
+      const secondaryWorkCards = [
         packaging.summary ? {
           title: 'Obalový materiál',
-          text: 'Týdenní spotřeba obalů a rychlá kontrola, kde začíná docházet krytí zásob.',
+          text: 'Kontrola spotřeby obalů a krytí zásob až ve chvíli, kdy řešíš provozní detail.',
           body: [
             ['Poslední týden', DP.fmtNumber(packaging.summary.lastWeekConsumed || 0)],
             ['Hlavní velikost', packaging.summary.topPackageOverall || '–'],
@@ -354,18 +396,8 @@
           ],
         } : null,
         {
-          title: 'Finance a cash',
-          text: 'Kolik je opravdu k dispozici a jestli už některý závazek tlačí na rozhodnutí.',
-          body: [
-            ['Cash po závazcích', fmtMoney(summary.finance?.cash?.netCashPosition || 0)],
-            ['Po splatnosti', `${DP.fmtNumber(summary.finance?.cash?.overdueInvoicesCount || 0)} ks`],
-            ['Zisk měsíce', fmtMoney(summary.finance?.currentMonth?.profit || 0)],
-            ['Další krok', Number(summary.finance?.cash?.overdueInvoicesCount || 0) ? 'Otevřít finance' : 'Cash pod kontrolou'],
-          ],
-        },
-        {
           title: 'Marketing a akvizice',
-          text: 'Lehký kontext, aby bylo jasné, kolik výkon stojí a jestli to odpovídá situaci.',
+          text: 'Vedlejší kontext k výkonu, nákladům a kanálům.',
           body: [
             ['Spend', fmtMoney(summary.marketing?.currentMonth?.totalSpend || 0)],
             ['Podíl na výnosech', `${(summary.marketing?.currentMonth?.spendShareOfRevenuePct ?? 0).toFixed(1)} %`],
@@ -377,7 +409,7 @@
         },
         {
           title: 'Affiliate a síť',
-          text: 'Nováčci a MLM síť odděleně, aby bylo vidět nábor i reálný obrat partnerů.',
+          text: 'Nábor a obrat partnerů odděleně, ale až mimo hlavní denní tok.',
           body: [
             ['Nováčci obrat', fmtMoney(summary.affiliate?.summary?.noviceRevenueCzkEquiv || 0)],
             ['MLM obrat', fmtMoney(summary.affiliate?.summary?.networkRevenueCzkEquiv || 0)],
@@ -400,6 +432,21 @@
           </div>
         </article>
       `).join('');
+      document.getElementById('overview-work-grid').innerHTML = primaryWorkCards.map(card => `
+        <article class="summary-card">
+          <h3>${card.title}</h3>
+          <p>${card.text}</p>
+          <div class="ux-stat-list">
+            ${card.body.map(([label, value]) => `
+              <div class="ux-stat-row">
+                <span>${label}</span>
+                <strong>${value}</strong>
+              </div>
+            `).join('')}
+          </div>
+        </article>
+      `).join('');
+      document.getElementById('overview-secondary-grid').innerHTML = secondaryWorkCards;
 
       const kpis = [
         ['4PX sklad CZ + SK', DP.fmtNumber(Math.round(total4pxStock)), `CZ ${DP.fmtNumber(summary.accounts.cz.inventory.availableStockTotal)} · SK ${DP.fmtNumber(summary.accounts.sk.inventory.availableStockTotal)}`, 'green'],
