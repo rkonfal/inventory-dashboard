@@ -470,6 +470,15 @@
       line-height: 1.45;
     }
 
+    .ordering-followup-card {
+      border-style: dashed;
+      background: rgba(255, 255, 255, .62);
+    }
+
+    [data-theme="dark"] .ordering-followup-card {
+      background: rgba(20, 24, 31, .72);
+    }
+
     .ordering-note-input,
     .ordering-qty-input {
       min-width: 0;
@@ -993,121 +1002,6 @@
       </div>
     </section>
 
-    <details class="secondary-details" style="margin-top:20px;">
-      <summary>Detail layer, vedlejší analytika objednávání</summary>
-
-    <section class="grid two-col" style="margin-top:20px;">
-      <div class="card">
-        <h2 class="section-title">Co objednat hned</h2>
-        <div class="section-subtitle">Produkty, které podle posledních 90 dní potřebují řešit objednávku jako první.</div>
-        <div class="ux-table-wrap" style="margin-top:16px;">
-          <table class="table" data-sortable-table="critical-reorder">
-            <thead>
-              <tr>
-                <th><button type="button" class="table-sort" data-sort-table="critical-reorder" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
-                <th class="num"><button type="button" class="table-sort" data-sort-table="critical-reorder" data-sort-key="stock">Sklad <span class="table-sort-arrow">↕</span></button></th>
-                <th class="num"><button type="button" class="table-sort" data-sort-table="critical-reorder" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
-                <th class="num"><button type="button" class="table-sort" data-sort-table="critical-reorder" data-sort-key="recommended">Doporučit objednat <span class="table-sort-arrow">↕</span></button></th>
-              </tr>
-            </thead>
-            <tbody id="critical-reorder-table"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2 class="section-title">Příliš vysoká zásoba</h2>
-        <div class="section-subtitle">Produkty, u kterých už držíme zbytečně moc zásoby.</div>
-        <div class="ux-table-wrap" style="margin-top:16px;">
-          <table class="table" data-sortable-table="overstock">
-            <thead>
-              <tr>
-                <th><button type="button" class="table-sort" data-sort-table="overstock" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
-                <th class="num"><button type="button" class="table-sort" data-sort-table="overstock" data-sort-key="stock">Sklad <span class="table-sort-arrow">↕</span></button></th>
-                <th class="num"><button type="button" class="table-sort" data-sort-table="overstock" data-sort-key="months">Měsíce zásoby <span class="table-sort-arrow">↕</span></button></th>
-                <th class="num"><button type="button" class="table-sort" data-sort-table="overstock" data-sort-key="value">Vázaná hodnota <span class="table-sort-arrow">↕</span></button></th>
-              </tr>
-            </thead>
-            <tbody id="overstock-table"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="grid two-col" style="margin-top:20px;">
-      <div class="card">
-        <h2 class="section-title">Položky k ověření</h2>
-        <div class="section-subtitle">Produkty s největší změnou proti ročnímu průměru.</div>
-        <table class="table" data-sortable-table="trend-watch">
-          <thead>
-            <tr>
-              <th><button type="button" class="table-sort" data-sort-table="trend-watch" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="trend-watch" data-sort-key="trend">Trend 90d vs 365d <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="trend-watch" data-sort-key="sales90">Prodej 90d <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="trend-watch" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
-            </tr>
-          </thead>
-          <tbody id="trend-watch-table"></tbody>
-        </table>
-      </div>
-
-      <div class="card">
-        <h2 class="section-title">Co přidat při volné kapacitě</h2>
-        <div class="section-subtitle">Rozumné doplnění, když je v objednávce ještě místo.</div>
-        <table class="table" data-sortable-table="fillers">
-          <thead>
-            <tr>
-              <th><button type="button" class="table-sort" data-sort-table="fillers" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="fillers" data-sort-key="sales365">Prodej 365d <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="fillers" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="fillers" data-sort-key="recommended">Doporučit přidat <span class="table-sort-arrow">↕</span></button></th>
-            </tr>
-          </thead>
-          <tbody id="fillers-table"></tbody>
-        </table>
-      </div>
-    </section>
-
-    </details>
-
-    <section class="card" id="ordering-step-3" data-section-nav-label="Krok 3: simulace objednávky" data-section-nav-order="3" style="margin-top:20px;">
-      <div class="toolbar workspace-toolbar">
-        <div>
-          <h2 class="section-title">Krok 3: simulace objednávky</h2>
-          <div class="section-subtitle">Až po shortlistu, ne před ním. Kapacita je zatím orientační podle objemu doplnění.</div>
-        </div>
-        <div class="toolbar-controls">
-          <label class="control-group">
-            <span class="control-label">Plán objednávky</span>
-            <input id="planning-order-date" class="input" type="date" />
-          </label>
-          <label class="control-group">
-            <span class="control-label">Oček. doručení</span>
-            <input id="planning-arrival-date" class="input" type="date" />
-          </label>
-          <label class="control-group">
-            <span class="control-label">Kapacita</span>
-            <select id="planning-capacity" class="select">
-              <option value="small">Menší doplnění</option>
-              <option value="half" selected>Půl kamionu</option>
-              <option value="full">Celý kamion</option>
-            </select>
-          </label>
-          <label class="control-group">
-            <span class="control-label">Pražská výpomoc</span>
-            <select id="planning-praha" class="select">
-              <option value="on" selected>Zapnuto</option>
-              <option value="off">Vypnuto</option>
-            </select>
-          </label>
-        </div>
-      </div>
-
-      <div class="ux-date-note" id="planning-summary">Načítám varianty objednávky…</div>
-      <div class="toolbar-inline-summary"><strong>Pracovní tok:</strong> nejdřív shortlist, potom simulace kapacity a až nakonec export. Tahle sekce má zůstat po ruce při skrolování.</div>
-      <section class="ux-hero-metrics" id="planning-variants"></section>
-    </section>
-
     <section class="card" id="ordering-step-2" data-section-nav-label="Krok 2: shortlist pro nákup" data-section-nav-order="2" style="margin-top:20px;">
       <div class="toolbar workspace-toolbar planning-toolbar">
         <div class="planning-toolbar-top">
@@ -1183,6 +1077,121 @@
         <div class="ux-empty-state">Vyber v shortlistu konkrétní položku a tady uvidíš forecast, balení, důvod i datový status.</div>
       </div>
     </section>
+
+    <section class="card ordering-followup-card" id="ordering-step-3" data-section-nav-label="Krok 3: simulace objednávky" data-section-nav-order="3" style="margin-top:20px;">
+      <div class="toolbar workspace-toolbar">
+        <div>
+          <h2 class="section-title">Krok 3: simulace objednávky</h2>
+          <div class="section-subtitle">Teprve po shortlistu. Tady si ověříš kapacitu, timing a varianty finální objednávky.</div>
+        </div>
+        <div class="toolbar-controls">
+          <label class="control-group">
+            <span class="control-label">Plán objednávky</span>
+            <input id="planning-order-date" class="input" type="date" />
+          </label>
+          <label class="control-group">
+            <span class="control-label">Oček. doručení</span>
+            <input id="planning-arrival-date" class="input" type="date" />
+          </label>
+          <label class="control-group">
+            <span class="control-label">Kapacita</span>
+            <select id="planning-capacity" class="select">
+              <option value="small">Menší doplnění</option>
+              <option value="half" selected>Půl kamionu</option>
+              <option value="full">Celý kamion</option>
+            </select>
+          </label>
+          <label class="control-group">
+            <span class="control-label">Pražská výpomoc</span>
+            <select id="planning-praha" class="select">
+              <option value="on" selected>Zapnuto</option>
+              <option value="off">Vypnuto</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="ux-date-note" id="planning-summary">Načítám varianty objednávky…</div>
+      <div class="toolbar-inline-summary"><strong>Pracovní tok:</strong> nejdřív vyčisti shortlist, potom zkontroluj kapacitu a až nakonec potvrď exportní variantu.</div>
+      <section class="ux-hero-metrics" id="planning-variants"></section>
+    </section>
+
+    <details class="secondary-details" style="margin-top:20px;">
+      <summary>Vedlejší analytika a kontrolní tabulky</summary>
+
+    <section class="grid two-col" style="margin-top:20px;">
+      <div class="card">
+        <h2 class="section-title">Co objednat hned</h2>
+        <div class="section-subtitle">Produkty, které podle posledních 90 dní potřebují řešit objednávku jako první.</div>
+        <div class="ux-table-wrap" style="margin-top:16px;">
+          <table class="table" data-sortable-table="critical-reorder">
+            <thead>
+              <tr>
+                <th><button type="button" class="table-sort" data-sort-table="critical-reorder" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+                <th class="num"><button type="button" class="table-sort" data-sort-table="critical-reorder" data-sort-key="stock">Sklad <span class="table-sort-arrow">↕</span></button></th>
+                <th class="num"><button type="button" class="table-sort" data-sort-table="critical-reorder" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
+                <th class="num"><button type="button" class="table-sort" data-sort-table="critical-reorder" data-sort-key="recommended">Doporučit objednat <span class="table-sort-arrow">↕</span></button></th>
+              </tr>
+            </thead>
+            <tbody id="critical-reorder-table"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">Příliš vysoká zásoba</h2>
+        <div class="section-subtitle">Produkty, u kterých už držíme zbytečně moc zásoby.</div>
+        <div class="ux-table-wrap" style="margin-top:16px;">
+          <table class="table" data-sortable-table="overstock">
+            <thead>
+              <tr>
+                <th><button type="button" class="table-sort" data-sort-table="overstock" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+                <th class="num"><button type="button" class="table-sort" data-sort-table="overstock" data-sort-key="stock">Sklad <span class="table-sort-arrow">↕</span></button></th>
+                <th class="num"><button type="button" class="table-sort" data-sort-table="overstock" data-sort-key="months">Měsíce zásoby <span class="table-sort-arrow">↕</span></button></th>
+                <th class="num"><button type="button" class="table-sort" data-sort-table="overstock" data-sort-key="value">Vázaná hodnota <span class="table-sort-arrow">↕</span></button></th>
+              </tr>
+            </thead>
+            <tbody id="overstock-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid two-col" style="margin-top:20px;">
+      <div class="card">
+        <h2 class="section-title">Položky k ověření</h2>
+        <div class="section-subtitle">Produkty s největší změnou proti ročnímu průměru.</div>
+        <table class="table" data-sortable-table="trend-watch">
+          <thead>
+            <tr>
+              <th><button type="button" class="table-sort" data-sort-table="trend-watch" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="trend-watch" data-sort-key="trend">Trend 90d vs 365d <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="trend-watch" data-sort-key="sales90">Prodej 90d <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="trend-watch" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
+            </tr>
+          </thead>
+          <tbody id="trend-watch-table"></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">Co přidat při volné kapacitě</h2>
+        <div class="section-subtitle">Rozumné doplnění, když je v objednávce ještě místo.</div>
+        <table class="table" data-sortable-table="fillers">
+          <thead>
+            <tr>
+              <th><button type="button" class="table-sort" data-sort-table="fillers" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="fillers" data-sort-key="sales365">Prodej 365d <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="fillers" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="fillers" data-sort-key="recommended">Doporučit přidat <span class="table-sort-arrow">↕</span></button></th>
+            </tr>
+          </thead>
+          <tbody id="fillers-table"></tbody>
+        </table>
+      </div>
+    </section>
+
+    </details>
 
     <details class="secondary-details" style="margin-top:20px;">
       <summary>Detailní explorer položek</summary>
