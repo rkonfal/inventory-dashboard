@@ -479,6 +479,15 @@
       background: rgba(20, 24, 31, .72);
     }
 
+    .ordering-secondary-details {
+      border-style: dashed;
+      background: rgba(255, 255, 255, .58);
+    }
+
+    [data-theme="dark"] .ordering-secondary-details {
+      background: rgba(20, 24, 31, .68);
+    }
+
     .ordering-note-input,
     .ordering-qty-input {
       min-width: 0;
@@ -848,9 +857,9 @@
     <header class="header">
       <div class="ux-topbar">
         <div class="ux-intro">
-          <div class="ux-kicker">Objednávání zboží • decision + work layer</div>
-          <h1 class="ux-title">Objednávka bez chaosu, nejdřív rozhodnutí, potom shortlist</h1>
-          <p class="ux-subtitle">Nahoře co řešit hned, pod tím pracovní fronty, shortlist a až nakonec detail SKU.</p>
+          <div class="ux-kicker">Objednávání • denní řízení zásob</div>
+          <h1 class="ux-title">Nejdřív rozhodnutí, potom shortlist</h1>
+          <p class="ux-subtitle">Vyber, co řešit dnes, potvrď shortlist a až potom jdi do simulace nebo detailu.</p>
           <div class="ux-actions">
             <a class="ux-button primary" href="inventory.html">Zpátky na sklad</a>
             <a class="ux-button secondary" href="../data/current/ordering_core.json" target="_blank" rel="noopener">Ordering core</a>
@@ -873,7 +882,7 @@
         <div class="ordering-executive-top">
           <div class="layer-label">Executive summary</div>
           <h2 class="ordering-executive-title">Shrnutí dnešní objednávky</h2>
-          <p class="ordering-executive-text">Načítám hlavní závěr, rizika a doporučený postup…</p>
+          <p class="ordering-executive-text">Krátký verdict k dnešku: co je riziko, co je priorita a jestli už můžeš jít do shortlistu.</p>
         </div>
       </section>
 
@@ -883,7 +892,7 @@
             <div>
               <div class="layer-label">Promo layer</div>
               <h2 class="ordering-executive-title" style="margin:4px 0 0; font-size:28px;">AKCE</h2>
-              <p class="ordering-executive-text">Samostatná podsekce pro květnové a červnové akce. Hned vidíš, kolikrát je umíme pokrýt aktuálním skladem.</p>
+              <p class="ordering-executive-text">Volitelná promo vrstva. Otevři ji až když řešíš akční pokrytí skladu.</p>
             </div>
             <div class="section-subtitle" id="ordering-actions-summary">Načítám akční přehled…</div>
           </div>
@@ -1193,14 +1202,14 @@
 
     </details>
 
-    <details class="secondary-details" style="margin-top:20px;">
-      <summary>Detailní explorer položek</summary>
+    <details class="secondary-details ordering-secondary-details" style="margin-top:20px;">
+      <summary>Sekundární explorer a SKU detail</summary>
 
     <section class="card" style="margin-top:20px;">
       <div class="toolbar">
         <div>
-          <h2 class="section-title">Detailní explorer položek</h2>
-          <div class="section-subtitle">Rozhodovací detail pro SKU, kde potřebuješ vidět důvod, blokaci, balení i doporučené množství.</div>
+          <h2 class="section-title">Sekundární explorer položek</h2>
+          <div class="section-subtitle">Použij až když shortlist nestačí a potřebuješ ručně dohledat důvod, blokaci nebo balení konkrétní SKU.</div>
         </div>
         <div class="toolbar-controls">
           <label class="control-group">
@@ -1280,8 +1289,8 @@
     <section class="card" style="margin-top:20px;">
       <div class="toolbar">
         <div>
-          <h2 class="section-title">Detail vybrané položky</h2>
-          <div class="section-subtitle" id="ordering-detail-summary">Klikni v exploreru na konkrétní SKU, ať hned vidíš režim rozhodnutí, důvod doporučení i handoff text.</div>
+          <h2 class="section-title">Detail vybrané SKU</h2>
+          <div class="section-subtitle" id="ordering-detail-summary">Vyber v exploreru konkrétní SKU jen tehdy, když shortlist nebo quick tabulky nestačí.</div>
         </div>
         <div class="ordering-detail-actions">
           <button id="ordering-copy-row-summary" class="ux-button secondary" type="button">Kopírovat detail položky</button>
@@ -2925,7 +2934,7 @@
               <p>${fmt(blockedItems)} SKU je mimo nákupní režim. Datové brzdy drž odděleně od business priorit, ale nenech je potichu růst.</p>
             </article>
           </div>
-          <div class="ordering-mobile-note">Decision layer nově drží 4 health otázky: A produkty v riziku, slow/dead cash, cover skladu a overstock tlak.</div>
+          <div class="ordering-mobile-note">Nahoře řeš jen 4 otázky: výpadky A SKU, uvázanou cash, cover skladu a tlak overstocku.</div>
         `;
       }
 
@@ -2997,10 +3006,10 @@
         `).join('');
 
         usageList.innerHTML = [
-          'Začni frontou objednat hned, tam je operativní rozhodnutí s nejvyšší prioritou.',
-          'Ruční ověření ber jako samostatnou frontu, ne jako slabší verzi kritických SKU.',
-          'Než exportuješ objednávku, zkontroluj blokované SKU a chybějící balení.',
-          'Explorer používej hlavně tam, kde potřebuješ vysvětlení nebo ruční zásah do množství.',
+          'Začni frontou objednat hned, tam je nejdůležitější rozhodnutí dne.',
+          'Ruční ověření drž odděleně od kritických SKU.',
+          'Před exportem zkontroluj blokace a chybějící balení.',
+          'Explorer otevírej až tehdy, když shortlist nestačí.',
         ].map(text => `<div class="ux-side-list-item">${text}</div>`).join('');
 
         statList.innerHTML = [
@@ -3420,7 +3429,7 @@
           button.classList.toggle('active', button.dataset.orderingMarket === marketKey);
         });
 
-        document.getElementById('ordering-window').innerHTML = `<strong>Okno analytiky:</strong> ${analytics.window?.days || 548} dní · trh ${marketTitle(marketKey)} · data do ${DP.fmtDateTime(analytics.generatedAt)} · referenční vrstva ${fmt(orderingReference.summary?.trackedItems || 0)} SKU (${DP.fmtDateTime(orderingReference.generatedAt)}).`;
+        document.getElementById('ordering-window').innerHTML = `<strong>Data:</strong> okno ${analytics.window?.days || 548} dní · trh ${marketTitle(marketKey)} · analytika do ${DP.fmtDateTime(analytics.generatedAt)} · reference ${fmt(orderingReference.summary?.trackedItems || 0)} SKU.`;
 
         if (!preservePlanningSetup) {
           const defaultOrderDate = new Date();
