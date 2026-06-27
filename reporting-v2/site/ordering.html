@@ -256,7 +256,7 @@
 
     table[data-sortable-table="planning"] {
       width: 100%;
-      min-width: 1360px;
+      min-width: 1080px;
       table-layout: fixed;
     }
 
@@ -279,41 +279,195 @@
 
     table[data-sortable-table="planning"] th:nth-child(2),
     table[data-sortable-table="planning"] td:nth-child(2) {
-      width: 248px;
+      width: 250px;
     }
 
     table[data-sortable-table="planning"] th:nth-child(3),
     table[data-sortable-table="planning"] td:nth-child(3) {
-      width: 136px;
+      width: 150px;
     }
 
     table[data-sortable-table="planning"] th:nth-child(4),
     table[data-sortable-table="planning"] td:nth-child(4) {
-      width: 152px;
+      width: 220px;
     }
 
     table[data-sortable-table="planning"] th:nth-child(5),
     table[data-sortable-table="planning"] td:nth-child(5) {
-      width: 136px;
+      width: 150px;
     }
 
     table[data-sortable-table="planning"] th:nth-child(6),
-    table[data-sortable-table="planning"] td:nth-child(6),
+    table[data-sortable-table="planning"] td:nth-child(6) {
+      width: 158px;
+    }
+
     table[data-sortable-table="planning"] th:nth-child(7),
-    table[data-sortable-table="planning"] td:nth-child(7),
-    table[data-sortable-table="planning"] th:nth-child(8),
-    table[data-sortable-table="planning"] td:nth-child(8) {
-      width: 92px;
+    table[data-sortable-table="planning"] td:nth-child(7) {
+      width: 220px;
     }
 
-    table[data-sortable-table="planning"] th:nth-child(9),
-    table[data-sortable-table="planning"] td:nth-child(9) {
-      width: 96px;
+    .planning-active-context {
+      margin-top: 10px;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.55;
     }
 
-    table[data-sortable-table="planning"] th:nth-child(10),
-    table[data-sortable-table="planning"] td:nth-child(10) {
-      width: 176px;
+    .planning-active-context strong {
+      color: var(--text);
+    }
+
+    .planning-table-row {
+      cursor: pointer;
+    }
+
+    .planning-table-row.is-active td {
+      background: rgba(200, 162, 75, .12);
+    }
+
+    [data-theme="dark"] .planning-table-row.is-active td {
+      background: rgba(200, 162, 75, .16);
+    }
+
+    .planning-row-head {
+      display: grid;
+      gap: 6px;
+    }
+
+    .planning-row-title {
+      font-size: 14px;
+      line-height: 1.42;
+    }
+
+    .planning-row-title strong {
+      display: inline-block;
+      margin-right: 4px;
+      font-size: 15px;
+    }
+
+    .planning-row-tags,
+    .planning-row-support {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 8px;
+    }
+
+    .planning-row-support {
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .planning-row-signal,
+    .planning-row-order {
+      display: grid;
+      gap: 6px;
+    }
+
+    .planning-row-order strong,
+    .planning-row-stock strong {
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .planning-row-stock {
+      display: grid;
+      gap: 4px;
+    }
+
+    .planning-row-order .muted,
+    .planning-row-stock .muted,
+    .planning-row-signal .muted {
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .planning-selection-panel {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, .55);
+      padding: 16px;
+    }
+
+    [data-theme="dark"] .planning-selection-panel {
+      background: rgba(20, 24, 31, .7);
+    }
+
+    .planning-toolbar {
+      gap: 16px;
+    }
+
+    .planning-toolbar-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .planning-toolbar-title {
+      min-width: 0;
+      flex: 1 1 320px;
+    }
+
+    .planning-toolbar-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .planning-control-grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 1.4fr) minmax(340px, 1.8fr);
+      gap: 12px 16px;
+      width: 100%;
+    }
+
+    .planning-control-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, .55);
+    }
+
+    [data-theme="dark"] .planning-control-card {
+      background: rgba(255, 255, 255, .05);
+    }
+
+    .planning-control-card .control-label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .planning-workflow-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .planning-workflow-step {
+      border: 1px dashed var(--border-strong);
+      border-radius: 16px;
+      padding: 10px 12px;
+      background: rgba(49, 94, 251, .04);
+    }
+
+    .planning-workflow-step strong {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 4px;
+      letter-spacing: .01em;
+    }
+
+    .planning-workflow-step span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.45;
     }
 
     .ordering-note-input,
@@ -636,6 +790,20 @@
         padding: 13px 14px;
         border-radius: 16px;
       }
+
+      .planning-control-grid,
+      .planning-workflow-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .planning-toolbar-actions {
+        width: 100%;
+      }
+
+      .planning-toolbar-actions .ux-button {
+        flex: 1 1 100%;
+      }
+
       .ordering-detail-grid {
         grid-template-columns: 1fr;
       }
@@ -941,41 +1109,58 @@
     </section>
 
     <section class="card" id="ordering-step-2" data-section-nav-label="Krok 2: shortlist pro nákup" data-section-nav-order="2" style="margin-top:20px;">
-      <div class="toolbar workspace-toolbar">
-        <div>
-          <h2 class="section-title">Krok 2: shortlist pro nákup</h2>
-          <div class="section-subtitle">Hlavní pracovní tabulka. Vyber, co opravdu patří do objednávky.</div>
-        </div>
-        <div class="toolbar-controls" style="align-items:flex-end; gap:12px; flex-wrap:wrap;">
-          <div class="control-group" style="min-width:220px;">
-            <span class="control-label">Trh</span>
-            <div class="quick-filters" style="margin:0;">
-              <button class="quick-filter active" type="button" data-ordering-market="complete">Vše</button>
-              <button class="quick-filter" type="button" data-ordering-market="cz">CZ</button>
-              <button class="quick-filter" type="button" data-ordering-market="sk">SK</button>
-            </div>
+      <div class="toolbar workspace-toolbar planning-toolbar">
+        <div class="planning-toolbar-top">
+          <div class="planning-toolbar-title">
+            <h2 class="section-title">Krok 2: shortlist pro nákup</h2>
+            <div class="section-subtitle">Hlavní pracovní tabulka. Vyber, co opravdu patří do objednávky.</div>
           </div>
-          <div class="control-group" style="min-width:320px;">
+          <div class="planning-toolbar-actions">
+            <button class="ux-button secondary" id="export-planning-csv" type="button">Export CSV</button>
+            <button class="ux-button primary" id="export-planning-xlsx" type="button">Export XLSX</button>
+          </div>
+        </div>
+        <div class="planning-control-grid">
+          <div class="planning-control-card">
             <span class="control-label">Režim shortlistu</span>
             <div class="quick-filters" style="margin:0;">
               <button class="quick-filter active" type="button" data-planning-scope="recommended">Doporučená objednávka</button>
               <button class="quick-filter" type="button" data-planning-scope="catalog">Celý katalog zboží</button>
             </div>
           </div>
-          <label class="control-group">
-            <span class="control-label">Typ doporučení</span>
-            <select id="planning-type-filter" class="select">
+          <div class="planning-control-card">
+            <span class="control-label">Pracovní fronta</span>
+            <div class="quick-filters" id="planning-type-filters" style="margin:0;">
+              <button class="quick-filter active" type="button" data-planning-type="all">Vše</button>
+              <button class="quick-filter" type="button" data-planning-type="must">Objednat hned / brzy</button>
+              <button class="quick-filter" type="button" data-planning-type="recommended">Standardní shortlist</button>
+              <button class="quick-filter" type="button" data-planning-type="fillers">Doplňky do objednávky</button>
+            </div>
+            <select id="planning-type-filter" class="select" style="display:none;">
               <option value="all">Všechny pracovní fronty</option>
               <option value="must">Jen objednat hned / brzy</option>
               <option value="recommended">Jen standardní shortlist</option>
               <option value="fillers">Jen doplněk do objednávky</option>
             </select>
-          </label>
-          <button class="ux-button secondary" id="export-planning-csv" type="button">Export CSV</button>
-          <button class="ux-button primary" id="export-planning-xlsx" type="button">Export XLSX</button>
+          </div>
         </div>
       </div>
       <div class="section-subtitle" id="planning-table-summary">Načítám doporučené položky…</div>
+      <div class="planning-active-context" id="planning-active-context">Načítám aktivní nastavení shortlistu…</div>
+      <div class="planning-workflow-strip">
+        <div class="planning-workflow-step">
+          <strong>1. Vyber režim</strong>
+          <span>Nejdřív si ujasni, jestli řešíš doporučený shortlist, nebo celý katalog.</span>
+        </div>
+        <div class="planning-workflow-step">
+          <strong>2. Zúž pracovní frontu</strong>
+          <span>Přepni si jen kritické položky, standardní shortlist nebo fillers.</span>
+        </div>
+        <div class="planning-workflow-step">
+          <strong>3. Uprav a exportuj</strong>
+          <span>Vyber SKU, uprav ks a poznámku, pak teprve export.</span>
+        </div>
+      </div>
       <div class="toolbar-inline-summary"><strong>Tip:</strong> začni frontou „objednat hned / brzy“, potom otevři standardní shortlist a fillers přidávej až nakonec.</div>
       <div class="ux-table-wrap">
         <table class="table" data-sortable-table="planning">
@@ -984,12 +1169,9 @@
               <th>Export</th>
               <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
               <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="priority">Priorita <span class="table-sort-arrow">↕</span></button></th>
-              <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="source">Důvod <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="forecast90">F30 / 60 / 90 <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="minimum">A min <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="ideal">B ideál <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="step">Pack <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="exportQty">Moje ks <span class="table-sort-arrow">↕</span></button></th>
+              <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="source">Signál <span class="table-sort-arrow">↕</span></button></th>
+              <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="cover">Sklad / pokrytí <span class="table-sort-arrow">↕</span></button></th>
+              <th><button type="button" class="table-sort" data-sort-table="planning" data-sort-key="exportQty">Objednat <span class="table-sort-arrow">↕</span></button></th>
               <th>Pozn.</th>
             </tr>
           </thead>
@@ -997,6 +1179,9 @@
         </table>
       </div>
       <div class="ux-date-note" id="planning-export-summary" style="margin-top:16px;">Připravuji export…</div>
+      <div class="planning-selection-panel" id="planning-selection-panel">
+        <div class="ux-empty-state">Vyber v shortlistu konkrétní položku a tady uvidíš forecast, balení, důvod i datový status.</div>
+      </div>
     </section>
 
     <details class="secondary-details" style="margin-top:20px;">
@@ -1276,7 +1461,9 @@
       const planningVariants = document.getElementById('planning-variants');
       const planningTable = document.getElementById('planning-table');
       const planningTableSummary = document.getElementById('planning-table-summary');
+      const planningActiveContext = document.getElementById('planning-active-context');
       const planningExportSummary = document.getElementById('planning-export-summary');
+      const planningSelectionPanel = document.getElementById('planning-selection-panel');
       const exportPlanningCsvButton = document.getElementById('export-planning-csv');
       const exportPlanningXlsxButton = document.getElementById('export-planning-xlsx');
       const orderingActionsSummary = document.getElementById('ordering-actions-summary');
@@ -1306,6 +1493,7 @@
         sk: { analytics: null, ordering: null, reference: null },
       };
       let currentPlanningRows = [];
+      let selectedPlanningCode = '';
       let currentExplorerRows = [];
       let currentExplorerVisibleRows = [];
       let currentExplorerPage = 1;
@@ -2101,6 +2289,151 @@
         planningExportSummary.innerHTML = `<strong>XLSX export:</strong> vybráno ${fmt(selectedRows.length)} položek, celkem ${fmt(units)} ks, poznámka u ${fmt(notedRows)} položek. Kolegyně může libovolně odškrtnout položky, upravit exportované množství a dopsat interní poznámku.`;
       }
 
+      function planningScopeLabel() {
+        return currentPlanningScope === 'catalog' ? 'Celý katalog zboží' : 'Doporučená objednávka';
+      }
+
+      function planningTypeLabel() {
+        return planningTypeFilter.options[planningTypeFilter.selectedIndex]?.text || planningTypeFilter.value || 'Vše';
+      }
+
+      function syncPlanningTypeButtons() {
+        document.querySelectorAll('[data-planning-type]').forEach(button => {
+          button.classList.toggle('active', button.dataset.planningType === (planningTypeFilter.value || 'all'));
+        });
+      }
+
+      function renderPlanningActiveContext() {
+        planningActiveContext.innerHTML = `<strong>Aktivní filtr:</strong> trh ${marketTitle(currentMarket)} · režim ${planningScopeLabel()} · typ ${planningTypeLabel()}. Trh přepneš nahoře v hlavičce stránky.`;
+      }
+
+      function syncPlanningSelection(rows) {
+        const availableRows = rows || [];
+        if (!availableRows.length) {
+          selectedPlanningCode = '';
+          return null;
+        }
+        const selectedRow = availableRows.find(row => row.code === selectedPlanningCode);
+        if (selectedRow) return selectedRow;
+        selectedPlanningCode = availableRows[0].code;
+        return availableRows[0];
+      }
+
+      function renderPlanningSelectionPanel(row) {
+        if (!row) {
+          planningSelectionPanel.innerHTML = '<div class="ux-empty-state">Vyber v shortlistu konkrétní položku a tady uvidíš forecast, balení, důvod i datový status.</div>';
+          return;
+        }
+
+        const urgency = recommendationUrgency(row);
+        const exportState = planningExportState.get(row.code) || { selected: false, quantity: 0, note: '' };
+        const reasons = [
+          row.reason || 'Bez doplňujícího komentáře.',
+          ...(row.actionReasons || []),
+        ].filter(Boolean).slice(0, 4);
+
+        planningSelectionPanel.innerHTML = `
+          <div class="ux-section-head" style="margin-bottom:12px;">
+            <div>
+              <h3 class="ux-section-title" style="font-size:19px;">Detail shortlist položky</h3>
+              <p class="ux-section-subtitle">${escapeHtml(row.code)} · ${escapeHtml(row.title)}</p>
+            </div>
+            <div class="planning-row-tags">
+              ${riskBadge(row)}
+              ${roleBadge(row)}
+              ${packagingBadge(row)}
+            </div>
+          </div>
+          <div class="ordering-detail-grid">
+            <div class="ordering-detail-card">
+              <span class="label">Doporučení</span>
+              <strong>${urgency.label}</strong>
+              <div class="muted small" style="margin-top:6px;">${escapeHtml(urgency.hint)}</div>
+            </div>
+            <div class="ordering-detail-card">
+              <span class="label">Objednat do exportu</span>
+              <strong>${fmt(exportState.quantity || 0)} ks</strong>
+              <div class="muted small" style="margin-top:6px;">Finální doporučení ${fmt(row.finalOrderUnits || 0)} ks · krok ${fmt(row.orderStepUnits || 1)} ks</div>
+            </div>
+            <div class="ordering-detail-card">
+              <span class="label">Forecast</span>
+              <strong>${fmt(row.forecast30)} / ${fmt(row.forecast60)} / ${fmt(row.forecast90)}</strong>
+              <div class="muted small" style="margin-top:6px;">F30 / 60 / 90 · safety ${fmt(row.safetyStockUnits || 0)} ks</div>
+            </div>
+            <div class="ordering-detail-card">
+              <span class="label">Sklad a pokrytí</span>
+              <strong>${fmt(row.effectiveStock || 0)} ks</strong>
+              <div class="muted small" style="margin-top:6px;">Pokrytí ${cover(row.daysOfCover90d)} · trend ${pct(row.trend90v365Pct)}</div>
+            </div>
+          </div>
+          <div class="ordering-detail-list">
+            ${reasons.map(text => `<div class="ordering-detail-list-item">${escapeHtml(text)}</div>`).join('')}
+            <div class="ordering-detail-list-item"><strong>Datový status:</strong> ${escapeHtml(row.dataStatus || 'Bez datové výjimky.')}</div>
+            <div class="ordering-detail-list-item"><strong>Balení:</strong> ${escapeHtml(row.packagingRaw || 'bez mapy')} · ${escapeHtml(row.roundingMode || 'bez omezení balení')}</div>
+            <div class="ordering-detail-list-item"><strong>Poznámka do exportu:</strong> ${escapeHtml(exportState.note || 'zatím bez interní poznámky')}</div>
+          </div>
+        `;
+      }
+
+      function renderPlanningTableRows(rows, emptyText) {
+        const selectedRow = syncPlanningSelection(rows);
+        planningTable.innerHTML = (rows || []).map(row => {
+          const urgency = recommendationUrgency(row);
+          const exportState = planningExportState.get(row.code) || { selected: true, quantity: Math.max(0, Number(row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? 0)), note: '' };
+          return `
+          <tr class="planning-table-row${row.code === selectedPlanningCode ? ' is-active' : ''}" data-planning-row="${row.code}">
+            <td>
+              <label style="display:flex; justify-content:center; align-items:center;">
+                <input type="checkbox" data-planning-export-select="${row.code}" ${exportState.selected ? 'checked' : ''} />
+              </label>
+            </td>
+            <td>
+              <div class="planning-row-head">
+                <div class="planning-row-title"><strong>${escapeHtml(row.code)}</strong>${escapeHtml(row.title)}</div>
+                <div class="planning-row-tags">
+                  ${roleBadge(row)}
+                  ${sourceChannelBadge(row)}
+                  ${trendBadge(row)}
+                </div>
+                <div class="planning-row-support">
+                  <span>${escapeHtml(row.marketLabel || marketTitle(currentMarket))}</span>
+                  <span>Balení ${escapeHtml(row.packagingRaw || 'bez mapy')}</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="planning-row-signal">
+                <strong>${urgency.label}</strong>
+                <div class="muted">${escapeHtml(urgency.hint)}</div>
+              </div>
+            </td>
+            <td>
+              <div class="planning-row-signal">
+                <strong>${escapeHtml(row.source || 'Bez zdroje')}</strong>
+                <div class="muted">${escapeHtml(row.reason || 'Bez důvodu')}</div>
+                <div class="muted">${escapeHtml(row.dataStatus || 'Bez datové výjimky')}</div>
+              </div>
+            </td>
+            <td>
+              <div class="planning-row-stock">
+                <strong>${fmt(row.effectiveStock || 0)} ks</strong>
+                <div class="muted">Pokrytí ${cover(row.daysOfCover90d)}</div>
+                <div class="muted">Prodej 90d ${fmt(row.units90d || 0)} ks</div>
+              </div>
+            </td>
+            <td>
+              <div class="planning-row-order">
+                <strong>Doporučeno ${fmt(row.finalOrderUnits || 0)} ks</strong>
+                <div class="muted">Min ${fmt((row.roundedMinUnits ?? row.recommendedMinUnits) || 0)} ks · ideál ${fmt((row.idealUnits ?? row.optimumUnits) || 0)} ks</div>
+                <input class="input ordering-qty-input" type="number" min="0" step="1" inputmode="numeric" data-planning-export-qty="${row.code}" value="${Math.max(0, Number(exportState.quantity || 0))}" />
+              </div>
+            </td>
+            <td><input class="input ordering-note-input" type="text" data-planning-export-note="${row.code}" value="${escapeHtml(exportState.note || '')}" placeholder="Interní poznámka do exportu" /></td>
+          </tr>`;
+        }).join('') || `<tr><td colspan="7">${emptyText}</td></tr>`;
+        renderPlanningSelectionPanel(selectedRow);
+      }
+
       function exportPlanningXlsx(rows) {
         if (!window.XLSX) {
           planningExportSummary.innerHTML = '<strong>XLSX export:</strong> knihovna pro XLSX se nenačetla. Zkus prosím obnovit stránku, případně použij dočasně CSV export.';
@@ -2292,6 +2625,7 @@
             ideal: { type: 'number', defaultDirection: 'desc', value: row => row.idealUnits ?? row.optimumUnits ?? 0 },
             step: { type: 'number', defaultDirection: 'desc', value: row => row.orderStepUnits || 1 },
             finalOrder: { type: 'number', defaultDirection: 'desc', value: row => row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? 0 },
+            cover: { type: 'number', defaultDirection: 'asc', value: row => row.daysOfCover90d ?? Number.POSITIVE_INFINITY },
             exportQty: { type: 'number', defaultDirection: 'desc', value: row => (planningExportState.get(row.code)?.quantity) ?? (row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? 0) },
             rounding: { type: 'text', defaultDirection: 'asc', value: row => row.roundingMode || '' },
           },
@@ -2335,6 +2669,7 @@
         const periodInsight = buildSelectedPeriodPlanningInsight(sortedRows, leadDays);
         currentPlanningRows = sortedRows;
         ensurePlanningExportState(sortedRows);
+        renderPlanningActiveContext();
         planningSummary.innerHTML = `<strong>Simulace:</strong> lead time ${fmt(leadDays)} dní, kapacita ${profile.label}, pražská výpomoc ${usePraha ? 'zapnutá' : 'vypnutá'}. Varianty jsou spočítané z aktuálního odhadu prodeje a orientační hodnoty zásoby.`;
 
         const scenarioMeta = {
@@ -2376,49 +2711,7 @@
         planningVariants.innerHTML = insightCard + variantCards;
 
         planningTableSummary.textContent = `Zobrazeno ${fmt(sortedRows.length)} položek z celkem ${fmt((planning.recommendationRows || []).length)} doporučených. Rozlišení: nutné objednat vs doporučené doplnění.`;
-        planningTable.innerHTML = sortedRows.map(row => {
-          const urgency = recommendationUrgency(row);
-          const exportState = planningExportState.get(row.code) || { selected: true, quantity: Math.max(0, Number(row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? 0)), note: '' };
-          return `
-          <tr>
-            <td>
-              <label style="display:flex; justify-content:center; align-items:center;">
-                <input type="checkbox" data-planning-export-select="${row.code}" ${exportState.selected ? 'checked' : ''} />
-              </label>
-            </td>
-            <td>
-              <div class="ordering-row-title"><strong>${row.code} · ${row.title}</strong></div>
-              <div class="ordering-row-meta">
-                <span class="ordering-meta-chip">Sklad ${fmt(row.effectiveStock)} ks</span>
-                <span class="ordering-meta-chip">Pokrytí ${cover(row.daysOfCover90d)}</span>
-                <span class="ordering-meta-chip">Trend ${pct(row.trend90v365Pct)}</span>
-              </div>
-              <div class="ordering-row-submeta">
-                <span>Balení ${row.packagingRaw || 'bez mapy'}</span>
-                <span>Role ${roleLabel(row)}</span>
-              </div>
-            </td>
-            <td>
-              <div class="ordering-cell-stack">
-                <strong>${urgency.label}</strong>
-                <div class="ordering-reason-text" title="${escapeHtml(urgency.hint)}">${escapeHtml(urgency.hint)}</div>
-              </div>
-            </td>
-            <td>
-              <div class="ordering-cell-stack">
-                <strong>${row.source}</strong>
-                <div class="ordering-reason-text" title="${escapeHtml(row.reason)}">${escapeHtml(row.reason)}</div>
-                <div class="ordering-reason-text" title="${escapeHtml(row.dataStatus || '')}">${escapeHtml(row.dataStatus || '')}</div>
-              </div>
-            </td>
-            <td class="num">${fmt(row.forecast30)} / ${fmt(row.forecast60)} / ${fmt(row.forecast90)}</td>
-            <td class="num">${fmt((row.roundedMinUnits ?? row.recommendedMinUnits) || 0)} ks</td>
-            <td class="num">${fmt((row.idealUnits ?? row.optimumUnits) || 0)} ks</td>
-            <td class="num">${fmt(row.orderStepUnits || 1)} ks</td>
-            <td class="num"><input class="input ordering-qty-input" type="number" min="0" step="1" inputmode="numeric" data-planning-export-qty="${row.code}" value="${Math.max(0, Number(exportState.quantity || 0))}" /></td>
-            <td><input class="input ordering-note-input" type="text" data-planning-export-note="${row.code}" value="${escapeHtml(exportState.note || '')}" placeholder="Interní poznámka do exportu" /></td>
-          </tr>`;
-        }).join('') || '<tr><td colspan="10">Zatím bez doporučených položek.</td></tr>';
+        renderPlanningTableRows(sortedRows, 'Zatím bez doporučených položek.');
         renderPlanningExportSummary(sortedRows);
         updateSortableTableHead('planning');
       }
@@ -2494,52 +2787,11 @@
         const sortedRows = sortRowsWithConfig(visibleRows, getPlanningSortConfig());
         currentPlanningRows = sortedRows;
         ensurePlanningExportState(sortedRows);
+        renderPlanningActiveContext();
         planningTableSummary.textContent = includeAllCatalog
           ? `Zobrazeno ${fmt(sortedRows.length)} položek z celkem ${fmt(Math.min(rows.length, 120))} orderable SKU v katalogu. Tabulka je teď pracovní katalog, ne jen doporučený shortlist.`
           : `Zobrazeno ${fmt(sortedRows.length)} položek z celkem ${fmt(Math.min(rows.length, 120))} doporučených. Odhad vychází z tempa posledních 90 dní, delší historie a aktuálního trendu.`;
-        planningTable.innerHTML = sortedRows.map(row => {
-          const urgency = recommendationUrgency(row);
-          const exportState = planningExportState.get(row.code) || { selected: true, quantity: Math.max(0, Number(row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? 0)), note: '' };
-          return `
-          <tr>
-            <td>
-              <label style="display:flex; justify-content:center; align-items:center;">
-                <input type="checkbox" data-planning-export-select="${row.code}" ${exportState.selected ? 'checked' : ''} />
-              </label>
-            </td>
-            <td>
-              <div class="ordering-row-title"><strong>${row.code} · ${row.title}</strong></div>
-              <div class="ordering-row-meta">
-                <span class="ordering-meta-chip">Sklad ${fmt(row.effectiveStock)} ks</span>
-                <span class="ordering-meta-chip">Pokrytí ${cover(row.daysOfCover90d)}</span>
-                <span class="ordering-meta-chip">Trend ${pct(row.trend90v365Pct)}</span>
-              </div>
-              <div class="ordering-row-submeta">
-                <span>Balení ${row.packagingRaw || 'bez mapy'}</span>
-                <span>Role ${roleLabel(row)}</span>
-              </div>
-            </td>
-            <td>
-              <div class="ordering-cell-stack">
-                <strong>${urgency.label}</strong>
-                <div class="ordering-reason-text" title="${escapeHtml(urgency.hint)}">${escapeHtml(urgency.hint)}</div>
-              </div>
-            </td>
-            <td>
-              <div class="ordering-cell-stack">
-                <strong>${row.source}</strong>
-                <div class="ordering-reason-text" title="${escapeHtml(row.reason)}">${escapeHtml(row.reason)}</div>
-                <div class="ordering-reason-text" title="${escapeHtml(row.dataStatus || '')}">${escapeHtml(row.dataStatus || '')}</div>
-              </div>
-            </td>
-            <td class="num">${fmt(row.forecast30)} / ${fmt(row.forecast60)} / ${fmt(row.forecast90)}</td>
-            <td class="num">${fmt((row.roundedMinUnits ?? row.recommendedMinUnits) || 0)} ks</td>
-            <td class="num">${fmt((row.idealUnits ?? row.optimumUnits) || 0)} ks</td>
-            <td class="num">${fmt(row.orderStepUnits || 1)} ks</td>
-            <td class="num"><input class="input ordering-qty-input" type="number" min="0" step="1" inputmode="numeric" data-planning-export-qty="${row.code}" value="${Math.max(0, Number(exportState.quantity || 0))}" /></td>
-            <td><input class="input ordering-note-input" type="text" data-planning-export-note="${row.code}" value="${escapeHtml(exportState.note || '')}" placeholder="Interní poznámka do exportu" /></td>
-          </tr>`;
-        }).join('') || '<tr><td colspan="10">Zatím bez doporučených položek.</td></tr>';
+        renderPlanningTableRows(sortedRows, 'Zatím bez doporučených položek.');
         renderPlanningExportSummary(sortedRows);
         updateSortableTableHead('planning');
       }
@@ -3151,6 +3403,7 @@
         ordering = next.ordering;
         orderingReference = next.reference;
         planningExportState.clear();
+        selectedPlanningCode = '';
         currentExplorerPage = 1;
         selectedExplorerCode = '';
 
@@ -3178,6 +3431,7 @@
         renderQuickTables();
         renderOrderingSalesModule();
         syncPlanningScopeButtons();
+        syncPlanningTypeButtons();
         renderPlanning();
         renderExplorer();
         renderOrderingActions();
@@ -3251,6 +3505,14 @@
         if (scopeButton) {
           currentPlanningScope = scopeButton.dataset.planningScope || 'recommended';
           syncPlanningScopeButtons();
+          renderPlanning();
+          return;
+        }
+
+        const planningTypeButton = event.target.closest('[data-planning-type]');
+        if (planningTypeButton) {
+          planningTypeFilter.value = planningTypeButton.dataset.planningType || 'all';
+          syncPlanningTypeButtons();
           renderPlanning();
           return;
         }
@@ -3374,7 +3636,17 @@
       planningArrivalDate.addEventListener('change', renderPlanning);
       planningCapacity.addEventListener('change', renderPlanning);
       planningPraha.addEventListener('change', renderPlanning);
-      planningTypeFilter.addEventListener('change', renderPlanning);
+      planningTypeFilter.addEventListener('change', () => {
+        syncPlanningTypeButtons();
+        renderPlanning();
+      });
+      planningTable.addEventListener('click', event => {
+        if (event.target.closest('input, button, a, select, label')) return;
+        const rowEl = event.target.closest('[data-planning-row]');
+        if (!rowEl) return;
+        selectedPlanningCode = rowEl.dataset.planningRow || '';
+        renderPlanningTableRows(currentPlanningRows, 'Zatím bez doporučených položek.');
+      });
       planningTable.addEventListener('input', event => {
         const qtyCode = event.target?.dataset?.planningExportQty;
         if (qtyCode) {
@@ -3383,6 +3655,9 @@
           if (current.quantity > 0) current.selected = true;
           planningExportState.set(qtyCode, current);
           renderPlanningExportSummary(currentPlanningRows);
+          if (qtyCode === selectedPlanningCode) {
+            renderPlanningSelectionPanel(currentPlanningRows.find(row => row.code === selectedPlanningCode));
+          }
           return;
         }
 
@@ -3392,6 +3667,9 @@
         current.note = String(event.target.value || '');
         planningExportState.set(noteCode, current);
         renderPlanningExportSummary(currentPlanningRows);
+        if (noteCode === selectedPlanningCode) {
+          renderPlanningSelectionPanel(currentPlanningRows.find(row => row.code === selectedPlanningCode));
+        }
       });
       planningTable.addEventListener('change', event => {
         const selectCode = event.target?.dataset?.planningExportSelect;
@@ -3400,6 +3678,9 @@
         current.selected = Boolean(event.target.checked);
         planningExportState.set(selectCode, current);
         renderPlanningExportSummary(currentPlanningRows);
+        if (selectCode === selectedPlanningCode) {
+          renderPlanningSelectionPanel(currentPlanningRows.find(row => row.code === selectedPlanningCode));
+        }
       });
       exportPlanningCsvButton.addEventListener('click', () => {
         const defaults = ordering.planning?.defaults || {};
