@@ -1138,10 +1138,10 @@
           <h1 class="ux-title">Nejdřív rozhodnutí, potom shortlist</h1>
           <p class="ux-subtitle">Vyber, co řešit dnes, potvrď shortlist a až potom jdi do simulace nebo detailu.</p>
           <div class="ux-actions">
-            <a class="ux-button primary" href="inventory.html">Zpátky na sklad</a>
-            <a class="ux-button secondary" href="../data/current/ordering_core.json" target="_blank" rel="noopener">Ordering core</a>
-            <a class="ux-button secondary" href="../data/current/ordering_reference_data.json" target="_blank" rel="noopener">Reference data</a>
-            <a class="ux-button secondary" href="../data/current/inventory_analytics_730d.json" target="_blank" rel="noopener">Analytika</a>
+            <a class="ux-button primary" href="../data/current/morning_report_previous_day.txt" target="_blank" rel="noopener">Ranní report</a>
+            <a class="ux-button secondary" href="index.html">Přehled</a>
+            <a class="ux-button secondary" href="inventory.html">Sklad</a>
+            <a class="ux-button secondary" href="logistics.html">Logistika</a>
           </div>
         </div>
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
@@ -1157,7 +1157,7 @@
       </div>
       <section class="ordering-executive" id="ordering-executive-summary">
         <div class="ordering-executive-top">
-          <div class="layer-label">Executive summary</div>
+          <div class="layer-label">Rychlý verdict</div>
           <h2 class="ordering-executive-title">Shrnutí dnešní objednávky</h2>
           <p class="ordering-executive-text">Krátký verdict k dnešku: co je riziko, co je priorita a jestli už můžeš jít do shortlistu.</p>
         </div>
@@ -1167,7 +1167,7 @@
         <button id="ordering-actions-toggle" class="ordering-actions-toggle" type="button" aria-expanded="false" aria-controls="ordering-actions-body">
           <div class="ordering-actions-head">
             <div>
-              <div class="layer-label">Promo layer</div>
+              <div class="layer-label">Akční vrstva</div>
               <h2 class="ordering-executive-title" style="margin:4px 0 0; font-size:28px;">AKCE</h2>
               <p class="ordering-executive-text">Volitelná promo vrstva. Otevři ji až když řešíš akční pokrytí skladu.</p>
             </div>
@@ -1183,7 +1183,7 @@
     <section class="layer-shell">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Decision layer</div>
+          <div class="layer-label">Krok 1</div>
           <h2 class="layer-title">Co je dnes nutné rozhodnout v objednávce</h2>
           <p class="layer-subtitle">Kritické doplnění, ruční ověření, blokace shortlistu a přebytek zásoby v jedné vrstvě.</p>
         </div>
@@ -1196,7 +1196,7 @@
     <section class="layer-shell">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Focus layer</div>
+          <div class="layer-label">Hlavní vstupy</div>
           <h2 class="layer-title">Pracovní režim pro dnešní objednávku</h2>
           <p class="layer-subtitle">Nejdřív fronty a vysvětlení, potom shortlist, simulace a export.</p>
         </div>
@@ -1213,16 +1213,18 @@
         <div class="ux-list" id="ordering-alert-list"></div>
       </div>
 
-      <div class="ux-side-stack">
-        <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Jak začít</h3>
-          <div class="ux-side-list" id="ordering-usage-list"></div>
+        <div class="ux-side-stack">
+          <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Hlavní vstupy</h3>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Otevři jen to, co dnes skutečně navazuje na rozhodnutí o objednávce.</p>
+            <div class="section-nav-links" id="ordering-route-links" style="margin-top:16px;"></div>
+            <div class="ux-side-list" id="ordering-usage-list" style="margin-top:16px;"></div>
+          </div>
+          <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Rychlý souhrn</h3>
+            <div class="ux-stat-list" id="ordering-stat-list"></div>
+          </div>
         </div>
-        <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Rychlý souhrn</h3>
-          <div class="ux-stat-list" id="ordering-stat-list"></div>
-        </div>
-      </div>
     </section>
 
     </section>
@@ -1230,7 +1232,7 @@
     <section class="layer-shell">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Work layer</div>
+          <div class="layer-label">Krok 2</div>
           <h2 class="layer-title">Shortlist, simulace a export objednávky</h2>
           <p class="layer-subtitle">Operativní fronty nahoře, detailní shortlist a doporučené množství níž.</p>
         </div>
@@ -1731,6 +1733,7 @@
       const executiveSummary = document.getElementById('ordering-executive-summary');
       const alertList = document.getElementById('ordering-alert-list');
       const alertBadge = document.getElementById('ordering-alert-badge');
+      const orderingRouteLinks = document.getElementById('ordering-route-links');
       const usageList = document.getElementById('ordering-usage-list');
       const statList = document.getElementById('ordering-stat-list');
       const explorerTable = document.getElementById('ordering-explorer-table');
@@ -3288,6 +3291,16 @@
           'Před exportem zkontroluj blokace a chybějící balení.',
           'Explorer otevírej až tehdy, když shortlist nestačí.',
         ].map(text => `<div class="ux-side-list-item">${text}</div>`).join('');
+
+        const orderingRoutes = [
+          ['Přehled firmy', 'index.html', 'Vrať se na hlavní signál dne a širší kontext firmy.'],
+          ['Sklad', 'inventory.html', 'Navazuje sem kontrola nesouladů, nízkého skladu a orphan SKU.'],
+          ['Logistika', 'logistics.html', 'Po objednávce navazuje expedice, expirace a provozní follow-up.'],
+          ['Ordering core', '../data/current/ordering_core.json', 'Surový vstup pro detailní kontrolu shortlistu a modelu.']
+        ];
+        orderingRouteLinks.innerHTML = orderingRoutes.map(([label, href, hint]) => `
+          <a href="${href}" ${href.startsWith('..') ? 'target="_blank" rel="noopener"' : ''} title="${hint}">${label}</a>
+        `).join('');
 
         statList.innerHTML = [
           ['Historie objednávání', '1,5 roku'],

@@ -20,7 +20,7 @@
             <a class="ux-button primary" href="../data/current/morning_report_previous_day.txt" target="_blank" rel="noopener">Ranní report</a>
             <a class="ux-button secondary" href="ordering.html">Objednávání</a>
             <a class="ux-button secondary" href="inventory.html">Sklad</a>
-            <a class="ux-button secondary" href="finance.html">Finance</a>
+            <a class="ux-button secondary" href="logistics.html">Logistika</a>
           </div>
         </div>
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
@@ -33,7 +33,7 @@
     <section class="layer-shell">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Decision layer</div>
+          <div class="layer-label">Krok 1</div>
           <h2 class="layer-title">Co dnešek znamená pro firmu</h2>
           <p class="layer-subtitle">Pár jasných signálů, jestli je den pod kontrolou a kam má jít první pozornost.</p>
         </div>
@@ -45,7 +45,7 @@
     <section class="layer-shell">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Focus layer</div>
+          <div class="layer-label">Hlavní vstupy</div>
           <h2 class="layer-title">Kam se přepnout dál</h2>
           <p class="layer-subtitle">Nahoře jen hlavní vstupy. Vedlejší kontext a reporty jsou až níž.</p>
         </div>
@@ -91,7 +91,7 @@
     <section class="layer-shell">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Work layer</div>
+          <div class="layer-label">Krok 2</div>
           <h2 class="layer-title">Hlavní pracovní proudy firmy</h2>
           <p class="layer-subtitle">Jen hlavní proudy, které typicky vedou další práci ještě dnes.</p>
         </div>
@@ -105,7 +105,7 @@
       <section class="layer-shell" style="margin-top:20px;">
         <div class="layer-head">
           <div>
-            <div class="layer-label">Secondary layer</div>
+            <div class="layer-label">Sekundární vrstva</div>
             <h2 class="layer-title">Další reporty a vedlejší proudy</h2>
             <p class="layer-subtitle">Marketing, affiliate, obaly a širší kontext patří až sem, ne do horního rozhodovacího toku.</p>
           </div>
@@ -299,7 +299,7 @@
       const mainRoutes = [
         ['Objednávání', 'ordering.html', alerts.some(item => item.includes('sklad')) ? 'Nejdůležitější pracovní tok pro dnešek.' : 'Shortlist, simulace a export objednávky.'],
         ['Sklad', 'inventory.html', totalLowStockRows ? `Aktuálně ${DP.fmtNumber(totalLowStockRows)} nízkých skladových pozic.` : 'Dostupnost, nesoulady a rizika skladu.'],
-        ['E-shop', 'eshop.html', alerts.some(item => item.includes('objednávek')) ? 'Jsou tu alerty kolem objednávek nebo výkonu.' : 'Objednávky, výkon a konverze v detailu.'],
+        ['Logistika', 'logistics.html', (report.logistics.expiringProducts || []).length ? `Aktuálně ${DP.fmtNumber((report.logistics.expiringProducts || []).length)} expiračních položek k řešení.` : 'Expedice, expirace a párovací detail.'],
         ['Finance', 'finance.html', Number(summary.finance?.cash?.overdueInvoicesCount || 0) ? `${DP.fmtNumber(summary.finance?.cash?.overdueInvoicesCount || 0)} položek po splatnosti.` : 'Cash, zisk a závazky bez šumu.']
       ];
       document.getElementById('main-route-links').innerHTML = mainRoutes.map(([label, href, hint]) => `
