@@ -216,6 +216,97 @@
       padding: 12px 14px;
     }
 
+    .metric-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 170px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .92), rgba(246, 248, 252, .98));
+      box-shadow: var(--shadow-soft);
+    }
+
+    [data-theme="dark"] .metric-card {
+      background: linear-gradient(180deg, rgba(30, 36, 46, .94), rgba(20, 24, 31, .92));
+    }
+
+    .metric-card.danger {
+      border-color: rgba(214, 69, 69, .22);
+      background: linear-gradient(180deg, rgba(255, 247, 247, .96), rgba(255, 250, 250, .98));
+    }
+
+    .metric-card.warn {
+      border-color: rgba(200, 162, 75, .28);
+      background: linear-gradient(180deg, rgba(255, 250, 239, .96), rgba(255, 252, 246, .99));
+    }
+
+    .metric-card.success {
+      border-color: rgba(20, 184, 166, .22);
+      background: linear-gradient(180deg, rgba(241, 253, 250, .96), rgba(248, 255, 252, .99));
+    }
+
+    .metric-card.blue,
+    .metric-card.accent {
+      color: #f8fbff;
+      border-color: rgba(255, 255, 255, .10);
+      background: linear-gradient(135deg, rgba(54, 90, 227, .98), rgba(78, 116, 244, .94));
+    }
+
+    .metric-card.blue .metric-label,
+    .metric-card.blue .metric-sub,
+    .metric-card.blue .muted,
+    .metric-card.accent .metric-label,
+    .metric-card.accent .metric-sub,
+    .metric-card.accent .muted {
+      color: rgba(248, 251, 255, .82);
+    }
+
+    [data-theme="dark"] .metric-card.danger {
+      background: linear-gradient(180deg, rgba(56, 30, 33, .92), rgba(33, 20, 24, .94));
+    }
+
+    [data-theme="dark"] .metric-card.warn {
+      background: linear-gradient(180deg, rgba(63, 51, 25, .92), rgba(35, 29, 18, .94));
+    }
+
+    [data-theme="dark"] .metric-card.success {
+      background: linear-gradient(180deg, rgba(18, 58, 54, .92), rgba(17, 31, 30, .94));
+    }
+
+    .metric-label {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+
+    .metric-value {
+      font-size: 34px;
+      font-weight: 850;
+      line-height: 1;
+      letter-spacing: -.04em;
+      color: var(--text-strong);
+    }
+
+    .metric-sub {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text-muted);
+    }
+
+    #ordering-hero {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    #planning-variants {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
     .layer-shell,
     .card,
     .secondary-details {
@@ -784,12 +875,169 @@
     }
 
     @media (max-width: 1024px) {
+      .ux-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        width: 100%;
+      }
+
+      .ux-actions .ux-button {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .section-nav-links {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .section-nav-links a {
+        width: 100%;
+        justify-content: center;
+      }
+
+      #ordering-market-switch {
+        display: grid !important;
+        grid-template-columns: auto repeat(3, minmax(0, auto));
+        align-items: center;
+        gap: 8px;
+      }
+
+      table[data-sortable-table="planning"] {
+        min-width: 960px;
+      }
+
+      table[data-sortable-table="planning"] th,
+      table[data-sortable-table="planning"] td {
+        padding: 10px 8px;
+        font-size: 12px;
+      }
+
+      table[data-sortable-table="planning"] th:nth-child(2),
+      table[data-sortable-table="planning"] td:nth-child(2) {
+        width: 220px;
+      }
+
+      table[data-sortable-table="planning"] th:nth-child(3),
+      table[data-sortable-table="planning"] td:nth-child(3) {
+        width: 132px;
+      }
+
+      table[data-sortable-table="planning"] th:nth-child(4),
+      table[data-sortable-table="planning"] td:nth-child(4) {
+        width: 186px;
+      }
+
+      table[data-sortable-table="planning"] th:nth-child(5),
+      table[data-sortable-table="planning"] td:nth-child(5) {
+        width: 132px;
+      }
+
+      table[data-sortable-table="planning"] th:nth-child(6),
+      table[data-sortable-table="planning"] td:nth-child(6) {
+        width: 138px;
+      }
+
+      table[data-sortable-table="planning"] th:nth-child(7),
+      table[data-sortable-table="planning"] td:nth-child(7) {
+        width: 180px;
+      }
+
       .ordering-executive-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      #ordering-hero {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      #planning-variants {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
     @media (max-width: 768px) {
+      .ux-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .theme-toggle {
+        width: auto;
+      }
+
+      .section-nav-links {
+        grid-template-columns: 1fr;
+      }
+
+      #ordering-market-switch {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      #ordering-market-switch strong {
+        grid-column: 1 / -1;
+      }
+
+      .ordering-sales-controls {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: end;
+      }
+
+      .ordering-sales-controls .control-group,
+      .ordering-sales-controls > div {
+        min-width: 0 !important;
+      }
+
+      .ordering-sales-controls > :last-child {
+        grid-column: 1 / -1;
+      }
+
+      .ordering-sales-controls .quick-filters {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .planning-control-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #planning-type-filters {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      #planning-type-filters .quick-filter {
+        width: 100%;
+      }
+
+      .planning-workflow-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .ordering-simulation-controls,
+      .ordering-explorer-controls {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: end;
+      }
+
+      .ordering-simulation-controls .control-group,
+      .ordering-explorer-controls .control-group {
+        min-width: 0;
+      }
+
+      .ordering-simulation-controls .ux-button,
+      .ordering-explorer-controls .ux-button {
+        width: 100%;
+      }
+
+      .ordering-simulation-controls > :nth-last-child(-n+2),
+      .ordering-explorer-controls > :nth-last-child(-n+2) {
+        grid-column: span 1;
+      }
+
       .ordering-executive {
         padding: 16px;
         border-radius: 18px;
@@ -804,14 +1052,14 @@
         gap: 10px;
       }
 
+      #ordering-hero,
+      #planning-variants {
+        grid-template-columns: 1fr;
+      }
+
       .ordering-executive-card {
         padding: 13px 14px;
         border-radius: 16px;
-      }
-
-      .planning-control-grid,
-      .planning-workflow-strip {
-        grid-template-columns: 1fr;
       }
 
       .planning-toolbar-actions {
@@ -836,6 +1084,16 @@
         font-size: 16px;
       }
 
+      .metric-card {
+        min-height: 0;
+        padding: 15px;
+        border-radius: 16px;
+      }
+
+      .metric-value {
+        font-size: 28px;
+      }
+
       .ordering-explorer-pagination {
         display: grid;
         grid-template-columns: 1fr;
@@ -844,8 +1102,27 @@
     }
 
     @media (max-width: 560px) {
+      .ordering-sales-controls,
+      .ordering-simulation-controls,
+      .ordering-explorer-controls,
+      #planning-type-filters {
+        grid-template-columns: 1fr;
+      }
+
+      .ordering-sales-controls .quick-filters {
+        grid-template-columns: 1fr;
+      }
+
       .ordering-detail-card .label {
         font-size: 11px;
+      }
+
+      .metric-label {
+        font-size: 11px;
+      }
+
+      .metric-sub {
+        font-size: 12px;
       }
     }
   </style>
@@ -967,7 +1244,7 @@
           <h2 class="section-title">Prodeje za vlastní období</h2>
           <div class="section-subtitle">Kolegové si můžou vybrat období od-do a hned vidí, co se v objednávání opravdu prodávalo.</div>
         </div>
-        <div class="toolbar-controls" style="align-items:flex-end; gap:12px; flex-wrap:wrap;">
+        <div class="toolbar-controls ordering-sales-controls" style="align-items:flex-end; gap:12px; flex-wrap:wrap;">
           <label class="control-group">
             <span class="control-label">Od</span>
             <input id="ordering-sales-from" class="input" type="date" />
@@ -1093,7 +1370,7 @@
           <h2 class="section-title">Krok 3: simulace objednávky</h2>
           <div class="section-subtitle">Teprve po shortlistu. Tady si ověříš kapacitu, timing a varianty finální objednávky.</div>
         </div>
-        <div class="toolbar-controls">
+        <div class="toolbar-controls ordering-simulation-controls">
           <label class="control-group">
             <span class="control-label">Plán objednávky</span>
             <input id="planning-order-date" class="input" type="date" />
@@ -1211,7 +1488,7 @@
           <h2 class="section-title">Sekundární explorer položek</h2>
           <div class="section-subtitle">Použij až když shortlist nestačí a potřebuješ ručně dohledat důvod, blokaci nebo balení konkrétní SKU.</div>
         </div>
-        <div class="toolbar-controls">
+        <div class="toolbar-controls ordering-explorer-controls">
           <label class="control-group">
             <span class="control-label">Hledat</span>
             <input id="ordering-search" class="input" type="search" placeholder="Kód, název" />
