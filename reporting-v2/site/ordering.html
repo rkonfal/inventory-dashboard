@@ -1238,56 +1238,6 @@
       <section class="summary-grid" id="ordering-work-grid"></section>
     </section>
 
-    <section class="card" style="margin-top:20px;">
-      <div class="toolbar workspace-toolbar">
-        <div>
-          <h2 class="section-title">Prodeje za vlastní období</h2>
-          <div class="section-subtitle">Kolegové si můžou vybrat období od-do a hned vidí, co se v objednávání opravdu prodávalo.</div>
-        </div>
-        <div class="toolbar-controls ordering-sales-controls" style="align-items:flex-end; gap:12px; flex-wrap:wrap;">
-          <label class="control-group">
-            <span class="control-label">Od</span>
-            <input id="ordering-sales-from" class="input" type="date" />
-          </label>
-          <label class="control-group">
-            <span class="control-label">Do</span>
-            <input id="ordering-sales-to" class="input" type="date" />
-          </label>
-          <div class="control-group" style="min-width:260px;">
-            <span class="control-label">Rychlá volba</span>
-            <div class="quick-filters" style="margin:0;">
-              <button class="quick-filter active" type="button" data-ordering-sales-preset="30">30 dní</button>
-              <button class="quick-filter" type="button" data-ordering-sales-preset="90">90 dní</button>
-              <button class="quick-filter" type="button" data-ordering-sales-preset="365">365 dní</button>
-              <button class="quick-filter" type="button" data-ordering-sales-preset="all">Celé okno</button>
-            </div>
-          </div>
-          <label class="control-group" style="min-width:220px;">
-            <span class="control-label">Hledat SKU</span>
-            <input id="ordering-sales-search" class="input" type="search" placeholder="Kód, název" />
-          </label>
-        </div>
-      </div>
-
-      <div class="ux-date-note" id="ordering-sales-summary">Načítám prodeje za vybrané období…</div>
-      <section class="summary-grid" id="ordering-sales-kpis" style="margin-top:16px;"></section>
-      <div class="ux-table-wrap" style="margin-top:16px;">
-        <table class="table">
-          <thead>
-            <tr>
-              <th><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="soldUnits">Prodáno ks <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="avgPerDay">Průměr / den <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="stock">Sklad <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="coverAtPace">Pokrytí při tempu <span class="table-sort-arrow">↕</span></button></th>
-              <th><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="lastSaleDate">Poslední prodej <span class="table-sort-arrow">↕</span></button></th>
-            </tr>
-          </thead>
-          <tbody id="ordering-sales-table"></tbody>
-        </table>
-      </div>
-    </section>
-
     <section class="card" id="ordering-step-2" data-section-nav-label="Krok 2: shortlist pro nákup" data-section-nav-order="2" style="margin-top:20px;">
       <div class="toolbar workspace-toolbar planning-toolbar">
         <div class="planning-toolbar-top">
@@ -1403,7 +1353,57 @@
     </section>
 
     <details class="secondary-details" style="margin-top:20px;">
-      <summary>Vedlejší analytika a kontrolní tabulky</summary>
+      <summary>Sekundární analytika, prodeje a kontrolní tabulky</summary>
+
+    <section class="card" style="margin-top:20px;">
+      <div class="toolbar workspace-toolbar">
+        <div>
+          <h2 class="section-title">Prodeje za vlastní období</h2>
+          <div class="section-subtitle">Sekundární kontrola. Použij až když po shortlistu nebo simulaci potřebuješ ověřit skutečné prodeje v libovolném okně.</div>
+        </div>
+        <div class="toolbar-controls ordering-sales-controls" style="align-items:flex-end; gap:12px; flex-wrap:wrap;">
+          <label class="control-group">
+            <span class="control-label">Od</span>
+            <input id="ordering-sales-from" class="input" type="date" />
+          </label>
+          <label class="control-group">
+            <span class="control-label">Do</span>
+            <input id="ordering-sales-to" class="input" type="date" />
+          </label>
+          <div class="control-group" style="min-width:260px;">
+            <span class="control-label">Rychlá volba</span>
+            <div class="quick-filters" style="margin:0;">
+              <button class="quick-filter active" type="button" data-ordering-sales-preset="30">30 dní</button>
+              <button class="quick-filter" type="button" data-ordering-sales-preset="90">90 dní</button>
+              <button class="quick-filter" type="button" data-ordering-sales-preset="365">365 dní</button>
+              <button class="quick-filter" type="button" data-ordering-sales-preset="all">Celé okno</button>
+            </div>
+          </div>
+          <label class="control-group" style="min-width:220px;">
+            <span class="control-label">Hledat SKU</span>
+            <input id="ordering-sales-search" class="input" type="search" placeholder="Kód, název" />
+          </label>
+        </div>
+      </div>
+
+      <div class="ux-date-note" id="ordering-sales-summary">Načítám prodeje za vybrané období…</div>
+      <section class="summary-grid" id="ordering-sales-kpis" style="margin-top:16px;"></section>
+      <div class="ux-table-wrap" style="margin-top:16px;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="soldUnits">Prodáno ks <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="avgPerDay">Průměr / den <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="stock">Sklad <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="coverAtPace">Pokrytí při tempu <span class="table-sort-arrow">↕</span></button></th>
+              <th><button type="button" class="table-sort" data-sort-table="ordering-sales" data-sort-key="lastSaleDate">Poslední prodej <span class="table-sort-arrow">↕</span></button></th>
+            </tr>
+          </thead>
+          <tbody id="ordering-sales-table"></tbody>
+        </table>
+      </div>
+    </section>
 
     <section class="grid two-col" style="margin-top:20px;">
       <div class="card">
