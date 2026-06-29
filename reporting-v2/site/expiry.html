@@ -209,28 +209,41 @@
       if (Number.isNaN(date.getTime())) return value;
       return new Intl.DateTimeFormat('cs-CZ', { day: 'numeric', month: 'numeric' }).format(date);
     };
-    const deriveWpjSync = (row, product = {}) => {
-      if (row.wpjSyncStatus && row.wpjSyncLabel) return row;
-      const stores = Array.isArray(product.stores) ? product.stores : [];
-      const wpjFourpxStoreTotal = stores
+    const wpjFourpxStoreTotal = product => {
+      const stores = Array.isArray(product?.stores) ? product.stores : [];
+      return stores
         .filter(store => String(store?.store?.name || '').startsWith('4PX'))
         .reduce((sum, store) => sum + Number(store?.inStore || 0), 0);
-      if (product.code && wpjFourpxStoreTotal > 0) {
+    };
+    const deriveWpjSync = (row, exactProduct = null, fallbackProduct = null) => {
+      if (row.wpjSyncStatus && row.wpjSyncLabel) return row;
+      const exactStoreTotal = wpjFourpxStoreTotal(exactProduct);
+      if (exactProduct?.code && exactStoreTotal > 0) {
         return {
           ...row,
           wpjSyncStatus: 'aligned',
           wpjSyncLabel: '4PX ano / WPJ ano',
           wpjSyncTone: 'success',
-          wpjSyncNote: `WPJ hlásí 4PX sklad ${fmt(wpjFourpxStoreTotal)} ks.`
+          wpjSyncNote: `WPJ hlásí 4PX sklad ${fmt(exactStoreTotal)} ks pro přesnou variantu ${exactProduct.code}.`
         };
       }
-      if (product.code) {
+      if (exactProduct?.code) {
         return {
           ...row,
           wpjSyncStatus: 'missing_wpj_4px_stock',
           wpjSyncLabel: '4PX ano / WPJ ne',
           wpjSyncTone: 'warning',
-          wpjSyncNote: `WPJ 4PX sklad 0 ks, visible ${product.visible ? 'ano' : 'ne'}.`
+          wpjSyncNote: `WPJ má přesnou variantu ${exactProduct.code}, ale 4PX sklad 0 ks, visible ${exactProduct.visible ? 'ano' : 'ne'}.`
+        };
+      }
+      if (fallbackProduct?.code) {
+        const fallbackStoreTotal = wpjFourpxStoreTotal(fallbackProduct);
+        return {
+          ...row,
+          wpjSyncStatus: 'missing_wpj_variant',
+          wpjSyncLabel: '4PX ano / WPJ jen základ',
+          wpjSyncTone: 'warning',
+          wpjSyncNote: `Ve WPJ chybí přesná varianta ${row.sku}; existuje jen ${fallbackProduct.code} s 4PX skladem ${fmt(fallbackStoreTotal)} ks, visible ${fallbackProduct.visible ? 'ano' : 'ne'}.`
         };
       }
       return {
@@ -444,9 +457,12 @@
       const expiringRows = (expiryOverview.topExpiring || []).map(row => {
         const marketAnalytics = analyticsLookup(marketAnalyticsMaps[row.account] || {}, row.sku);
         const analytics = marketAnalytics || analyticsLookup(analyticsMap, row.sku) || {};
-        const product = productMap[row.sku] || productMap[row.sku?.split('/')[0]] || {};
-        const rule = ruleMap[row.sku] || ruleMap[row.sku?.split('/')[0]] || buildFallbackRule(row, analytics, product);
-        const sync = deriveWpjSync(row, product);
+        const plainSku = row.sku?.split('/')[0];
+        const exactProduct = productMap[row.sku] || null;
+        const fallbackProduct = plainSku && plainSku !== row.sku ? (productMap[plainSku] || null) : null;
+        const product = exactProduct || fallbackProduct || {};
+        const rule = ruleMap[row.sku] || ruleMap[plainSku] || buildFallbackRule(row, analytics, product);
+        const sync = deriveWpjSync(row, exactProduct, fallbackProduct);
         return {
           ...sync,
           analytics,
