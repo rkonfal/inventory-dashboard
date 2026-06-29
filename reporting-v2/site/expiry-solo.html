@@ -10,7 +10,7 @@
     .expiry-solo-table .num { white-space: nowrap; }
     .expiry-solo-toolbar {
       display:grid;
-      grid-template-columns: minmax(220px, 1.3fr) repeat(3, minmax(140px, .7fr));
+      grid-template-columns: minmax(220px, 1.3fr) repeat(4, minmax(140px, .7fr));
       gap: 12px;
       margin-top: 18px;
     }
@@ -92,6 +92,14 @@
           <option value="7">Do 7 dní</option>
           <option value="30">Do 30 dní</option>
           <option value="90">Do 90 dní</option>
+        </select>
+        <select id="wpj-filter">
+          <option value="all">4PX vs WPJ: vše</option>
+          <option value="mismatch">Jen nesoulad</option>
+          <option value="missing_wpj_4px_stock">Jen 4PX ano / WPJ ne</option>
+          <option value="missing_wpj_variant">Jen 4PX ano / WPJ jen základ</option>
+          <option value="no_wpj_product">Jen 4PX ano / WPJ produkt chybí</option>
+          <option value="aligned">Jen 4PX ano / WPJ ano</option>
         </select>
         <select id="sort-by">
           <option value="days">Seřadit podle nejbližší expirace</option>
@@ -230,6 +238,7 @@
     const searchEl = document.getElementById('search');
     const accountFilterEl = document.getElementById('account-filter');
     const urgencyFilterEl = document.getElementById('urgency-filter');
+    const wpjFilterEl = document.getElementById('wpj-filter');
     const sortByEl = document.getElementById('sort-by');
     const tableBodyCz = document.getElementById('table-body-cz');
     const tableBodySk = document.getElementById('table-body-sk');
@@ -255,6 +264,14 @@
       if (urgency === 'expired') return row.daysToExpiry != null && row.daysToExpiry < 0;
       const limit = Number(urgency);
       return row.daysToExpiry != null && row.daysToExpiry >= 0 && row.daysToExpiry <= limit;
+    }
+
+    function matchesWpjSync(row, wpjFilter) {
+      if (wpjFilter === 'all') return true;
+      const status = row.wpjSyncStatus || '';
+      if (wpjFilter === 'mismatch') return Boolean(status) && status !== 'aligned';
+      if (wpjFilter === 'aligned') return status === 'aligned';
+      return status === wpjFilter;
     }
 
     function renderSummary(list) {
@@ -345,11 +362,13 @@
       const term = (searchEl.value || '').trim().toLowerCase();
       const account = accountFilterEl.value;
       const urgency = urgencyFilterEl.value;
+      const wpjFilter = wpjFilterEl.value;
       const sortBy = sortByEl.value;
 
       let list = rows.filter(row => {
         if (account !== 'all' && row.account !== account) return false;
         if (!matchesUrgency(row, urgency)) return false;
+        if (!matchesWpjSync(row, wpjFilter)) return false;
         if (!term) return true;
         return `${row.sku} ${row.title || ''}`.toLowerCase().includes(term);
       });
@@ -408,12 +427,19 @@
       const generatedAt = expiryOverview.generatedAt ? new Date(expiryOverview.generatedAt) : null;
       dateNote.innerHTML = `<strong>Data:</strong> ${generatedAt ? new Intl.DateTimeFormat('cs-CZ', { dateStyle: 'medium', timeStyle: 'short' }).format(generatedAt) : 'neuvedeno'} • Průměr za den = posledních 30 dní / 30. Prodej i sklad se počítají odděleně pro CZ a SK.`;
 
+      const params = new URLSearchParams(window.location.search);
+      const requestedWpjFilter = params.get('wpj');
+      const allowedWpjFilters = new Set(['all', 'mismatch', 'missing_wpj_4px_stock', 'missing_wpj_variant', 'no_wpj_product', 'aligned']);
+      if (requestedWpjFilter && allowedWpjFilters.has(requestedWpjFilter)) {
+        wpjFilterEl.value = requestedWpjFilter;
+      }
+
       renderSummary(rows);
       renderTable();
     }
 
-    [searchEl, accountFilterEl, urgencyFilterEl, sortByEl].forEach(el => el.addEventListener('input', renderTable));
-    [accountFilterEl, urgencyFilterEl, sortByEl].forEach(el => el.addEventListener('change', renderTable));
+    [searchEl, accountFilterEl, urgencyFilterEl, wpjFilterEl, sortByEl].forEach(el => el.addEventListener('input', renderTable));
+    [accountFilterEl, urgencyFilterEl, wpjFilterEl, sortByEl].forEach(el => el.addEventListener('change', renderTable));
 
     init();
   </script>
