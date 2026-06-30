@@ -31,7 +31,26 @@
       <div class="ux-date-note"><strong>Období:</strong> tabulky níž ukazují všechny budoucí expirace do 6 měsíců, expirační sklad je aktuální stav a prodejní kontext vychází hlavně z 30denního a 365denního výkonu.</div>
     </header>
 
-    <section class="ux-grid">
+    <section class="layer-shell" id="expiry-step-1" data-section-nav-label="Krok 1: co znamenají expirace" data-section-nav-order="1">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Krok 1</div>
+          <h2 class="layer-title">Co je v expiracích obchodně důležité</h2>
+          <p class="layer-subtitle">Nejdřív rozsah půlročního okna, kritické SKU a ekonomika dárků. Detail tabulek až potom.</p>
+        </div>
+      </div>
+      <section class="grid kpi-grid" id="expiry-kpis"></section>
+    </section>
+
+    <section class="layer-shell" id="expiry-inputs" data-section-nav-label="Hlavní vstupy" data-section-nav-order="2">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Hlavní vstupy</div>
+          <h2 class="layer-title">Kam se podívat hned po signálu</h2>
+          <p class="layer-subtitle">Krátká pracovní vrstva pro rozhodnutí, co pustit do akce, co použít jako dárek a kam skočit do detailu.</p>
+        </div>
+      </div>
+      <section class="ux-grid">
       <div class="ux-focus-card">
         <div class="ux-section-head">
           <div>
@@ -45,6 +64,11 @@
 
       <div class="ux-side-stack">
         <div class="ux-panel-card">
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Hlavní vstupy</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Přeskoč rovnou na půlroční seznamy, akční shortlist nebo nosné bestsellery.</p>
+          <div class="section-nav-links" id="expiry-route-links" style="margin-top:16px;"></div>
+        </div>
+        <div class="ux-panel-card">
           <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Kolik může stát dárek</h3>
           <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Nejdřív uhlídat ekonomiku akce.</p>
           <div class="ux-stat-list" id="gift-limit-list"></div>
@@ -56,10 +80,17 @@
         </div>
       </div>
     </section>
+    </section>
 
-    <section class="grid kpi-grid" id="expiry-kpis"></section>
-
-    <section class="grid two-col">
+    <section class="layer-shell" id="expiry-step-2" data-section-nav-label="Krok 2: pracovní vrstva" data-section-nav-order="3">
+      <div class="layer-head">
+        <div>
+          <div class="layer-label">Krok 2</div>
+          <h2 class="layer-title">Pracovní pohled na expirace podle trhu</h2>
+          <p class="layer-subtitle">Kompletní operativní seznamy pro CZ a SK, aby bylo hned jasné kde je datumový tlak a kde jen zásobový tlak.</p>
+        </div>
+      </div>
+      <section class="grid two-col">
       <div class="card">
         <div class="ux-section-head" style="margin-bottom:0;">
           <div>
@@ -114,9 +145,10 @@
       </div>
     </section>
     <div class="ux-date-note" style="margin-top:12px;"><strong>Zdroj skladu:</strong> expirační sklad je součet 4PX batchů s dohledaným `expiry_date` a jejich `warehouse_stock`. Prodej 30d a pokrytí se berou odděleně pro CZ a SK.</div>
+    </section>
 
-    <details class="secondary-details" open>
-      <summary>Návrhy mechanik a komunikační detail</summary>
+    <details class="secondary-details" id="expiry-secondary" data-section-nav-label="Sekundární vrstva" data-section-nav-order="4" open>
+      <summary>Sekundární vrstva: mechaniky, shortlist a komunikační detail</summary>
 
       <section class="grid two-col" style="margin-top:18px;">
         <div class="card">
@@ -131,7 +163,7 @@
         </div>
       </section>
 
-    <section class="card">
+    <section class="card" id="expiry-action-shortlist">
       <div class="ux-section-head" style="margin-bottom:0;">
         <div>
           <h2 class="ux-section-title">Krátký seznam expirací s návrhem akce</h2>
@@ -157,7 +189,7 @@
     </section>
 
     <section class="grid two-col">
-      <div class="card">
+      <div class="card" id="expiry-nearest">
         <h2 class="section-title">Nejbližší expirace v příštím půlroce</h2>
         <div class="section-subtitle">Kompletní výpis půlročního okna seřazený podle data a velikosti zásoby.</div>
         <div class="ux-table-wrap" style="margin-top:16px;">
@@ -175,7 +207,7 @@
           </table>
         </div>
       </div>
-      <div class="card">
+      <div class="card" id="expiry-carriers">
         <h2 class="section-title">Co použít jako tahák akce</h2>
         <div class="section-subtitle">Bestsellery, které mají sílu utáhnout dárek nebo balíček.</div>
         <div class="ux-table-wrap" style="margin-top:16px;">
@@ -199,6 +231,12 @@
   <script src="assets/app.js"></script>
   <script>
     DP.initThemeToggle();
+    DP.renderRouteLinks('expiry-route-links', [
+      ['CZ seznam', '#expiry-step-2', 'Kompletní půlroční přehled pro CZ a SK'],
+      ['Akční shortlist', '#expiry-action-shortlist', 'Návrhy mechanik a shortlist SKU do akce'],
+      ['Nejbližší expirace', '#expiry-nearest', 'Rychlý detail nejbližších batchů'],
+      ['Taháky akce', '#expiry-carriers', 'Bestsellery vhodné jako nosič akce'],
+    ]);
 
     const HALF_YEAR_DAYS = 183;
     const fmt = value => DP.fmtNumber(Math.round(Number(value || 0)));

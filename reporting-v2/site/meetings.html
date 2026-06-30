@@ -118,10 +118,10 @@
       <section class="ux-hero-metrics meetings-grid" id="kpis"></section>
     </header>
 
-    <section class="layer-shell">
+    <section class="layer-shell" id="meetings-step-1" data-section-nav-label="Krok 1: co je důležité" data-section-nav-order="1">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Decision layer</div>
+          <div class="layer-label">Krok 1</div>
           <h2 class="layer-title">Co je dnes u porad opravdu důležité</h2>
           <p class="layer-subtitle">Odděleně vidíš stav follow-upů, tlak termínů, zapojené lidi a rozhodnutí.</p>
         </div>
@@ -129,10 +129,10 @@
       <section class="signal-grid" id="meetings-decision-grid"></section>
     </section>
 
-    <section class="layer-shell">
+    <section class="layer-shell" id="meetings-inputs" data-section-nav-label="Hlavní vstupy" data-section-nav-order="2">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Focus layer</div>
+          <div class="layer-label">Hlavní vstupy</div>
           <h2 class="layer-title">Co projít jako první</h2>
           <p class="layer-subtitle">Krátká pracovní fronta, než člověk začne listovat celou historií porad.</p>
         </div>
@@ -151,6 +151,12 @@
 
         <div class="ux-side-stack">
           <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Hlavní vstupy</h3>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rychlý přechod do pracovního pohledu nebo do sekundární vrstvy porad.</p>
+            <div class="section-nav-links" id="meetings-route-links" style="margin-top:16px;"></div>
+          </div>
+
+          <div class="ux-panel-card">
             <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Porady stručně</h3>
             <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Jedna orientační karta před detailním průchodem.</p>
             <div class="ux-stat-list" id="meetings-focus-summary"></div>
@@ -165,10 +171,10 @@
       </section>
     </section>
 
-    <section class="layer-shell">
+    <section class="layer-shell" id="meetings-step-2" data-section-nav-label="Krok 2: pracovní vrstva" data-section-nav-order="3">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Work layer</div>
+          <div class="layer-label">Krok 2</div>
           <h2 class="layer-title">Jak ty porady prakticky používat</h2>
           <p class="layer-subtitle">První pracovní vrstva před detailním listováním jednotlivých porad.</p>
         </div>
@@ -176,8 +182,10 @@
       <section class="summary-grid" id="meetings-work-grid"></section>
     </section>
 
-    <section class="meetings-layout">
-      <div class="card" style="padding:22px; border-radius:24px;">
+    <details class="secondary-details" id="meetings-secondary" data-section-nav-label="Sekundární vrstva" data-section-nav-order="4" open>
+      <summary>Sekundární vrstva: detailní pohledy a doporučené čtení porad</summary>
+      <section class="meetings-layout" style="margin-top:18px;">
+      <div class="card" id="meetings-main" style="padding:22px; border-radius:24px;">
         <div class="ux-section-head" style="margin-bottom:14px;">
           <div>
             <h2 class="ux-section-title" id="main-title">Porady podle data</h2>
@@ -201,11 +209,17 @@
         </div>
       </aside>
     </section>
+    </details>
   </main>
 
   <script src="assets/app.js"></script>
   <script>
     DP.initThemeToggle();
+    DP.renderRouteLinks('meetings-route-links', [
+      ['Pracovní pohled', '#meetings-main', 'Hlavní obsah s přepínatelnými pohledy porad'],
+      ['Sekundární vrstva', '#meetings-secondary', 'Doporučené čtení a detailní vrstva porad'],
+      ['Zdroj dat', 'assets/meetings.json', 'Strukturovaný zdroj porad a follow-upů'],
+    ]);
     const STORAGE_KEY = 'dp-meetings-task-statuses';
     const taskStatusOverrides = loadTaskStatusOverrides();
     const state = { meetings: [], view: 'timeline' };

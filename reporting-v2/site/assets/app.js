@@ -57,6 +57,17 @@
     }).join('');
   }
 
+  function renderRouteLinks(targetId, links = []) {
+    const target = typeof targetId === 'string' ? document.getElementById(targetId) : targetId;
+    if (!target) return;
+    target.innerHTML = (links || []).map(link => {
+      const [label, href, hint] = Array.isArray(link) ? link : [link.label, link.href, link.hint];
+      if (!label || !href) return '';
+      const external = String(href).startsWith('..') || String(href).startsWith('http');
+      return `<a href="${escapeHtml(href)}" ${external ? 'target="_blank" rel="noopener"' : ''} title="${escapeHtml(hint || '')}">${escapeHtml(label)}</a>`;
+    }).join('');
+  }
+
   function escapeHtml(text) {
     return String(text)
       .replace(/&/g, '&amp;')
@@ -228,7 +239,7 @@
       nav.setAttribute('aria-label', 'Rychlá navigace sekcí');
       nav.innerHTML = `
         <div class="section-nav-label">Rychlá navigace</div>
-        <div class="section-nav-links">
+        <div class="section-nav-links section-nav-links-scroll">
           ${items.slice(0, 8).map(item => `<a href="#${escapeHtml(item.id)}">${escapeHtml(item.label)}</a>`).join('')}
         </div>
       `;
@@ -266,7 +277,7 @@
     nav.setAttribute('aria-label', 'Rychlá navigace sekcí');
     nav.innerHTML = `
       <div class="section-nav-label">Rychlá navigace</div>
-      <div class="section-nav-links">
+      <div class="section-nav-links section-nav-links-scroll">
         ${items.slice(0, 8).map(item => `<a href="#${escapeHtml(item.id)}">${escapeHtml(item.label)}</a>`).join('')}
       </div>
     `;
@@ -286,6 +297,7 @@
     loadJson,
     statusPill,
     renderStatusStrip,
+    renderRouteLinks,
     initThemeToggle,
     renderSidebar,
     ensureSectionNav,

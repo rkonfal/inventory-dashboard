@@ -29,21 +29,22 @@
       <div class="ux-date-note"><strong>Období:</strong> kompletní výsledek WPJShopu za včerejšek.</div>
     </header>
 
-    <section class="layer-shell">
+    <section class="layer-shell" id="eshop-step-1" data-section-nav-label="Krok 1: co znamená výkon" data-section-nav-order="1">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Decision layer</div>
+          <div class="layer-label">Krok 1</div>
           <h2 class="layer-title">Co včerejší výkon znamená</h2>
           <p class="layer-subtitle">Rychlé čtení, jestli je problém ve výkonu, kvalitě objednávek nebo v mixu prodejních pohledů.</p>
         </div>
+        <div class="layer-note">Nejdřív výkon a riziko, až potom hlubší rozpad.</div>
       </div>
       <section class="signal-grid" id="eshop-decision-grid"></section>
     </section>
 
-    <section class="layer-shell">
+    <section class="layer-shell" id="eshop-inputs" data-section-nav-label="Hlavní vstupy" data-section-nav-order="2">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Focus layer</div>
+          <div class="layer-label">Hlavní vstupy</div>
           <h2 class="layer-title">Kam se podívat hned po signálu</h2>
           <p class="layer-subtitle">Krátká pracovní vrstva s výkonem, problémy a rychlým přepnutím pohledu.</p>
         </div>
@@ -62,6 +63,11 @@
 
       <div class="ux-side-stack">
         <div class="ux-panel-card">
+          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Hlavní vstupy</h3>
+          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Otevři jen pohledy, které typicky vedou další e-shop rozhodnutí.</p>
+          <div class="section-nav-links" id="eshop-route-links" style="margin-top:16px;"></div>
+        </div>
+        <div class="ux-panel-card">
           <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Včerejšek stručně</h3>
           <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Základ bez čtení celého ranního reportu.</p>
           <div class="ux-stat-list" id="eshop-stat-list"></div>
@@ -76,10 +82,10 @@
 
     </section>
 
-    <section class="layer-shell">
+    <section class="layer-shell" id="eshop-step-2" data-section-nav-label="Krok 2: pracovní vrstva" data-section-nav-order="3">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Work layer</div>
+          <div class="layer-label">Krok 2</div>
           <h2 class="layer-title">Pracovní pohled na výkon e-shopu</h2>
           <p class="layer-subtitle">Jedna vrstva pro rychlý rozpad podle pohledu, druhá pro detail produktů a metod.</p>
         </div>
@@ -87,10 +93,10 @@
       <section class="summary-grid" id="eshop-work-grid"></section>
     </section>
 
-    <section class="layer-shell">
+    <section class="layer-shell" id="eshop-secondary" data-section-nav-label="Sekundární vrstva" data-section-nav-order="4">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Linked view</div>
+          <div class="layer-label">Sekundární vrstva</div>
           <h2 class="layer-title">Včerejšek rovnou navázaný na YTD kontext</h2>
           <p class="layer-subtitle">Operativní výkon nahoře, hned pod ním širší YTD pohled, aby se denní výkyv četl v kontextu.</p>
         </div>
@@ -172,7 +178,7 @@
     </section>
 
     <details class="secondary-details">
-      <summary>Detail layer, struktura objednávek a top produkty</summary>
+      <summary>Detail objednávek, metod a top produktů</summary>
 
       <section class="grid two-col" style="margin-top:18px;">
         <div class="card">
@@ -245,6 +251,13 @@
       const ga4 = await DP.loadJson('../data/current/ga4_overview.json').catch(() => ({}));
       const ga4Mode = ga4.property?.mode === 'combined' ? 'GA4 CZ+SK bundle' : 'GA4';
       const ga4SkCountry = (ga4.countries7d || []).find(row => row.country === 'Slovakia');
+      DP.renderRouteLinks('eshop-route-links', [
+        ['Přehled firmy', 'index.html', 'Vrať se na hlavní firemní signál a priority dne.'],
+        ['Objednávání', 'ordering.html', 'Navazující krok, když výkon souvisí s dostupností nebo plánem zásob.'],
+        ['Sklad', 'inventory.html', 'Prověř, jestli výkon nebo problémy nesouvisí s dostupností a nesoulady.'],
+        ['Marketing', 'marketing.html', ga4.ready ? `${ga4Mode}: ${DP.fmtNumber(ga4.last7days?.sessions || 0)} sessions a ${DP.fmtNumber(Math.round(ga4.last7days?.ecommercePurchases || 0))} nákupů.` : 'Propoj výkon e-shopu s akvizicí a spendem.'],
+        ['E-shop YTD data', '../data/current/eshop_ytd.json', 'Surový YTD vstup pro hlubší kontrolu.'],
+      ]);
       const text = await fetch('../data/current/morning_report_previous_day.txt', { cache: 'no-store' }).then(r => r.text());
       const complete = report.eshop;
       const viewButtons = Array.from(document.querySelectorAll('#eshop-view-tabs [data-view]'));

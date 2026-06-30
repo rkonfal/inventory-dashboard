@@ -95,63 +95,63 @@
       <div class="ux-date-note"><strong>Období:</strong> marketingové náklady a dodavatelé za poslední dostupný měsíc, ranní text je jen včerejší kontext.</div>
     </header>
 
-    <details class="secondary-details">
-      <summary>Zdroj a poznámka k marketingu</summary>
-      <div id="source-alert" style="margin-top:14px;"></div>
-    </details>
-
-    <section class="layer-shell">
+    <section class="layer-shell" id="marketing-step-1" data-section-nav-label="Krok 1: co znamená spend" data-section-nav-order="1">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Decision layer</div>
+          <div class="layer-label">Krok 1</div>
           <h2 class="layer-title">Co marketingový spend právě znamená</h2>
-          <p class="layer-subtitle">Jestli řešíme výši spendu, efektivitu kanálů, nebo chybějící zdrojový kontext.</p>
+          <p class="layer-subtitle">Hned je vidět, jestli řešíme výši spendu, efektivitu kanálů nebo chybějící zdrojový kontext.</p>
         </div>
+        <div class="layer-note">Nejdřív výkon a směr, až potom kampaně.</div>
       </div>
       <section class="signal-grid" id="marketing-decision-grid"></section>
     </section>
 
-    <section class="layer-shell">
+    <section class="layer-shell" id="marketing-inputs" data-section-nav-label="Hlavní vstupy" data-section-nav-order="2">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Focus layer</div>
-          <h2 class="layer-title">Co číst hned po signálu</h2>
-          <p class="layer-subtitle">Rychlý kontext měsíce, kanálů a komentáře k tomu, co opravdu stojí za pozornost.</p>
+          <div class="layer-label">Hlavní vstupy</div>
+          <h2 class="layer-title">Kam se přepnout po horním signálu</h2>
+          <p class="layer-subtitle">Rychlý kontext měsíce, kanálů a návazných pohledů, které typicky vedou další práci.</p>
         </div>
       </div>
       <section class="ux-grid">
-      <div class="ux-focus-card">
-        <div class="ux-section-head">
-          <div>
-            <h2 class="ux-section-title">Co je v reklamě důležité</h2>
-            <p class="ux-section-subtitle">Rychlý kontext bez zbytečně technických detailů.</p>
+        <div class="ux-focus-card">
+          <div class="ux-section-head">
+            <div>
+              <h2 class="ux-section-title">Co je v reklamě důležité</h2>
+              <p class="ux-section-subtitle">Rychlý kontext bez zbytečně technických detailů.</p>
+            </div>
+            <span class="badge warn" id="source-mode">Načítám přehled…</span>
           </div>
-          <span class="badge warn" id="source-mode">Načítám přehled…</span>
+          <div class="ux-list" id="marketing-focus"></div>
         </div>
-        <div class="ux-list" id="marketing-focus"></div>
-      </div>
 
-      <div class="ux-side-stack">
-        <div class="ux-panel-card">
-          <h3 id="marketing-period-title" style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Tento měsíc</h3>
-          <p id="marketing-period-subtitle" style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Nahoře jsou spendy. Klaviyo atribuce je schválně oddělená pod nimi.</p>
-          <div class="ux-stat-list" id="marketing-current"></div>
-          <div class="ux-stat-list" id="marketing-klaviyo-current" style="margin-top:14px;"></div>
+        <div class="ux-side-stack">
+          <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Hlavní vstupy</h3>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Otevři jen pohledy, které pomůžou rozhodnout další marketingový krok.</p>
+            <div class="section-nav-links" id="marketing-route-links" style="margin-top:16px;"></div>
+          </div>
+          <div class="ux-panel-card">
+            <h3 id="marketing-period-title" style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Tento měsíc</h3>
+            <p id="marketing-period-subtitle" style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Nahoře jsou spendy. Klaviyo atribuce je schválně oddělená pod nimi.</p>
+            <div class="ux-stat-list" id="marketing-current"></div>
+            <div class="ux-stat-list" id="marketing-klaviyo-current" style="margin-top:14px;"></div>
+          </div>
+          <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Co z toho plyne</h3>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Krátké čtení toho, co je teď důležité vidět hned.</p>
+            <div class="ux-list" id="dashboard-commentary" style="margin-top:16px;"></div>
+          </div>
         </div>
-        <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Co z toho plyne</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Krátké čtení toho, co je teď důležité vidět hned.</p>
-          <div class="ux-list" id="dashboard-commentary" style="margin-top:16px;"></div>
-        </div>
-      </div>
+      </section>
     </section>
 
-    </section>
-
-    <section class="layer-shell">
+    <section class="layer-shell" id="marketing-step-2" data-section-nav-label="Krok 2: pracovní vrstva" data-section-nav-order="3">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Work layer</div>
+          <div class="layer-label">Krok 2</div>
           <h2 class="layer-title">Pracovní vrstva pro kanály a trend</h2>
           <p class="layer-subtitle">Nejdřív přehled kanálů, pak teprve denní trend a detail kampaní.</p>
         </div>
@@ -213,8 +213,19 @@
       </div>
     </section>
 
-    <details class="secondary-details">
-      <summary>Detail layer, rozšířený marketingový detail</summary>
+    <details class="secondary-details" id="marketing-secondary" data-section-nav-label="Sekundární vrstva" data-section-nav-order="4">
+      <summary>Sekundární vrstva, trend a CRM detail</summary>
+
+      <section class="layer-shell" style="margin-top:20px;">
+        <div class="layer-head">
+          <div>
+            <div class="layer-label">Sekundární vrstva</div>
+            <h2 class="layer-title">Zdroj, důvěra dat a rozšířený marketingový detail</h2>
+            <p class="layer-subtitle">Zdrojovou poznámku, denní trend a CRM detail řeš až ve chvíli, kdy horní provozní vrstva nestačí.</p>
+          </div>
+        </div>
+        <div id="source-alert"></div>
+      </section>
 
       <section class="grid kpi-grid" id="top-kpis" style="margin-top:18px;"></section>
 
@@ -332,6 +343,13 @@
         klaviyo.generatedAt,
       ].filter(Boolean);
       const refreshValue = shortTs(refreshCandidates.sort().slice(-1)[0]);
+      DP.renderRouteLinks('marketing-route-links', [
+        ['Přehled firmy', 'index.html', 'Vrať se na hlavní firemní signál a návazné priority.'],
+        ['E-shop', 'eshop.html', ga4.ready ? `${ga4Mode}: ${DP.fmtNumber(Math.round(ga4.currentMonth?.sessions || 0))} sessions a ${money(ga4.currentMonth?.purchaseRevenue || 0)} revenue.` : 'Propoj spend s výkonem e-shopu a akvizicí.'],
+        ['Affiliate', 'affiliate.html', affiliate.ready ? `Affiliate období ${affiliate.period?.label || '–'} a síťové výnosy ${money(affiliate.summary?.networkRevenueCzkEquiv || 0)}.` : 'Mrkni na nováčky, síť a affiliate obrat.'],
+        ['Finance', 'finance.html', 'Zkontroluj, jak marketingový spend sedí proti cashi a výsledku měsíce.'],
+        ['Marketing data', '../data/current/marketing_overview.json', 'Surový marketingový vstup pro hlubší kontrolu.'],
+      ]);
       document.getElementById('source-mode').textContent = source.label;
       document.getElementById('source-mode').className = `badge ${source.tone}`;
       document.getElementById('source-alert').innerHTML = `<div class="alert ${source.tone === 'danger' ? 'danger' : source.tone === 'warn' ? 'warn' : 'success'}">${sourceMessage}</div>`;

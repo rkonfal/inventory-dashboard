@@ -216,6 +216,53 @@
       padding: 12px 14px;
     }
 
+    .ordering-flow-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .ordering-flow-link {
+      display: grid;
+      gap: 6px;
+      min-height: 108px;
+      padding: 14px 15px;
+      border: 1px solid rgba(49, 94, 251, .12);
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.88), rgba(245, 248, 255, .96)),
+        radial-gradient(circle at top right, rgba(49, 94, 251, .16), transparent 45%);
+      color: var(--text);
+      text-decoration: none;
+      box-shadow: var(--shadow-soft);
+      transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+    }
+
+    .ordering-flow-link:hover {
+      transform: translateY(-1px);
+      border-color: rgba(49, 94, 251, .22);
+      box-shadow: 0 18px 28px rgba(15, 23, 42, .08);
+    }
+
+    .ordering-flow-link strong {
+      font-size: 13px;
+      letter-spacing: .01em;
+    }
+
+    .ordering-flow-link span {
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    [data-theme="dark"] .ordering-flow-link {
+      background:
+        linear-gradient(180deg, rgba(28, 34, 44, .96), rgba(22, 27, 35, .92)),
+        radial-gradient(circle at top right, rgba(99, 127, 255, .18), transparent 48%);
+      border-color: rgba(255, 255, 255, .08);
+    }
+
     .metric-card {
       display: flex;
       flex-direction: column;
@@ -409,6 +456,45 @@
       color: var(--text);
     }
 
+    .planning-workbench-summary {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+      margin-bottom: 14px;
+    }
+
+    .planning-workbench-card {
+      display: grid;
+      gap: 6px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, .92);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(12px);
+    }
+
+    .planning-workbench-card strong {
+      font-size: 26px;
+      line-height: 1;
+      letter-spacing: -.03em;
+      color: var(--text-strong);
+    }
+
+    .planning-workbench-card .label {
+      color: var(--text-faint);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    [data-theme="dark"] .planning-workbench-card {
+      background: rgba(20, 24, 31, .9);
+    }
+
     .planning-table-row {
       cursor: pointer;
     }
@@ -488,6 +574,27 @@
 
     .planning-toolbar {
       gap: 16px;
+    }
+
+    .ordering-workflow-shell {
+      display: grid;
+      gap: 18px;
+    }
+
+    .ordering-workflow-shell .workspace-toolbar {
+      position: static;
+      top: auto;
+      z-index: auto;
+      backdrop-filter: none;
+    }
+
+    #ordering-step-2 > .workspace-toolbar,
+    #ordering-step-3 > .workspace-toolbar,
+    .secondary-details .card > .workspace-toolbar {
+      position: static;
+      top: auto;
+      z-index: auto;
+      backdrop-filter: none;
     }
 
     .planning-toolbar-top {
@@ -582,6 +689,83 @@
     .ordering-note-input,
     .ordering-qty-input {
       min-width: 0;
+    }
+
+    .ordering-variant-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .ordering-variant-note {
+      margin-top: 8px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(255, 255, 255, .22);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .metric-card:not(.accent):not(.blue) .ordering-variant-note {
+      border-top-color: var(--line);
+    }
+
+    .ordering-model-notes {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, .72);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    [data-theme="dark"] .ordering-model-notes {
+      background: rgba(20, 24, 31, .8);
+    }
+
+    .ordering-model-notes > summary {
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 700;
+      color: var(--text-strong);
+    }
+
+    .ordering-model-body {
+      padding: 0 16px 16px;
+    }
+
+    .ordering-model-body > p {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .ordering-model-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .ordering-model-note {
+      display: grid;
+      gap: 6px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .7);
+    }
+
+    .ordering-model-note strong {
+      font-size: 13px;
+    }
+
+    .ordering-model-note span {
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    [data-theme="dark"] .ordering-model-note {
+      background: rgba(255, 255, 255, .04);
     }
 
     #planning-table-summary {
@@ -757,6 +941,47 @@
 
     [data-theme="dark"] .ordering-action-card {
       background: rgba(20, 24, 31, .8);
+    }
+
+    .ordering-audit-shell {
+      margin-top: 18px;
+    }
+
+    .ordering-audit-banner {
+      display: grid;
+      gap: 6px;
+      padding: 14px 16px;
+      border: 1px dashed var(--border-strong);
+      border-radius: 18px;
+      background: rgba(49, 94, 251, .05);
+      color: var(--text);
+    }
+
+    .ordering-audit-banner strong {
+      font-size: 13px;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+
+    .ordering-audit-banner span {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .ordering-audit-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(340px, .95fr);
+      gap: 18px;
+    }
+
+    .ordering-audit-card {
+      border-style: solid;
+      background: rgba(255, 255, 255, .7);
+    }
+
+    [data-theme="dark"] .ordering-audit-card {
+      background: rgba(20, 24, 31, .76);
     }
 
     .ordering-action-card h3 {
@@ -959,6 +1184,10 @@
     }
 
     @media (max-width: 768px) {
+      .ordering-workflow-shell > .layer-head {
+        display: none;
+      }
+
       .ux-actions {
         grid-template-columns: 1fr;
       }
@@ -992,6 +1221,13 @@
 
       .ordering-sales-controls > :last-child {
         grid-column: 1 / -1;
+      }
+
+      .ordering-flow-strip,
+      .planning-workbench-summary,
+      .ordering-model-grid,
+      .ordering-audit-layout {
+        grid-template-columns: 1fr;
       }
 
       .ordering-sales-controls .quick-filters {
@@ -1101,12 +1337,31 @@
       }
     }
 
+    @media (max-width: 900px) {
+      body.page-ordering-simplified .mobile-nav-toggle {
+        left: calc(100vw - 58px) !important;
+        right: auto !important;
+      }
+
+      [data-section-nav-order] {
+        scroll-margin-top: 84px;
+      }
+    }
+
     @media (max-width: 560px) {
       .ordering-sales-controls,
       .ordering-simulation-controls,
       .ordering-explorer-controls,
       #planning-type-filters {
         grid-template-columns: 1fr;
+      }
+
+      #planning-variants {
+        grid-template-columns: 1fr !important;
+      }
+
+      #ordering-step-3 .metric-card {
+        min-height: 0;
       }
 
       .ordering-sales-controls .quick-filters {
@@ -1155,6 +1410,28 @@
         <button class="quick-filter" type="button" data-ordering-market="cz">CZ</button>
         <button class="quick-filter" type="button" data-ordering-market="sk">SK</button>
       </div>
+      <nav class="ordering-flow-strip" aria-label="Pracovní tok objednávky">
+        <a class="ordering-flow-link" href="#ordering-executive-summary">
+          <strong>1. Verdikt dne</strong>
+          <span>Rychlý závěr, jestli je den na zásah nebo jen kontrolu.</span>
+        </a>
+        <a class="ordering-flow-link" href="#ordering-step-1">
+          <strong>2. Rizika</strong>
+          <span>Odděl kritické zásahy, ruční ověření a datové blokace.</span>
+        </a>
+        <a class="ordering-flow-link" href="#ordering-step-2">
+          <strong>3. Shortlist</strong>
+          <span>Potvrď minimum, doporučení a exportované kusy.</span>
+        </a>
+        <a class="ordering-flow-link" href="#ordering-step-3">
+          <strong>4. Simulace</strong>
+          <span>Porovnej varianty objednávky proti kapacitě a rizikům.</span>
+        </a>
+        <a class="ordering-flow-link" href="#ordering-audit-mode">
+          <strong>5. Audit</strong>
+          <span>Explorer nech až na dohledání detailu a vysvětlení modelu.</span>
+        </a>
+      </nav>
       <section class="ordering-executive" id="ordering-executive-summary">
         <div class="ordering-executive-top">
           <div class="layer-label">Rychlý verdict</div>
@@ -1180,7 +1457,7 @@
       </section>
     </header>
 
-    <section class="layer-shell">
+    <section class="layer-shell" id="ordering-inputs" data-section-nav-label="Hlavní vstupy" data-section-nav-order="2">
       <div class="layer-head">
         <div>
           <div class="layer-label">Krok 1</div>
@@ -1229,12 +1506,12 @@
 
     </section>
 
-    <section class="layer-shell">
+    <section class="layer-shell ordering-workflow-shell">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Krok 2</div>
-          <h2 class="layer-title">Shortlist, simulace a export objednávky</h2>
-          <p class="layer-subtitle">Operativní fronty nahoře, detailní shortlist a doporučené množství níž.</p>
+          <div class="layer-label">Pracovní workflow</div>
+          <h2 class="layer-title">Shortlist a simulace objednávky</h2>
+          <p class="layer-subtitle">Nejdřív shortlist pro nákup, potom kapacita, timing a exportní varianta.</p>
         </div>
       </div>
       <section class="summary-grid" id="ordering-work-grid"></section>
@@ -1279,6 +1556,28 @@
       </div>
       <div class="section-subtitle" id="planning-table-summary">Načítám doporučené položky…</div>
       <div class="planning-active-context" id="planning-active-context">Načítám aktivní nastavení shortlistu…</div>
+      <div class="planning-workbench-summary" id="planning-workbench-summary">
+        <div class="planning-workbench-card">
+          <span class="label">Vybrané SKU</span>
+          <strong>0</strong>
+          <span class="muted small">Položky, které teď opravdu půjdou do exportu.</span>
+        </div>
+        <div class="planning-workbench-card">
+          <span class="label">Export</span>
+          <strong>0 ks</strong>
+          <span class="muted small">Ruční exportované množství po úpravách.</span>
+        </div>
+        <div class="planning-workbench-card">
+          <span class="label">Proxy hodnota</span>
+          <strong>0 Kč</strong>
+          <span class="muted small">Orientační hodnota vybraného shortlistu.</span>
+        </div>
+        <div class="planning-workbench-card">
+          <span class="label">Poznámky</span>
+          <strong>0</strong>
+          <span class="muted small">Kolik SKU už má interní komentář pro kolegyni.</span>
+        </div>
+      </div>
       <div class="planning-workflow-strip">
         <div class="planning-workflow-step">
           <strong>1. Vyber režim</strong>
@@ -1352,10 +1651,42 @@
       <div class="ux-date-note" id="planning-summary">Načítám varianty objednávky…</div>
       <div class="toolbar-inline-summary"><strong>Pracovní tok:</strong> nejdřív vyčisti shortlist, potom zkontroluj kapacitu a až nakonec potvrď exportní variantu.</div>
       <section class="ux-hero-metrics" id="planning-variants"></section>
+      <details class="ordering-model-notes" style="margin-top:16px;">
+        <summary>Jak se to počítá</summary>
+        <div class="ordering-model-body">
+          <p>Model drží jen tři pracovní pojmy: <strong>Minimum</strong>, <strong>Doporučeno</strong> a <strong>Export</strong>. Všechno ostatní je podpůrný detail pro audit.</p>
+          <div class="ordering-model-grid">
+            <div class="ordering-model-note">
+              <strong>Lead time a datum doručení</strong>
+              <span>Doporučení se přepočítává podle času mezi objednávkou a doručením, ne jen podle fixního backendového odhadu.</span>
+            </div>
+            <div class="ordering-model-note">
+              <strong>Tempo prodeje</strong>
+              <span>Hlavní váhu má posledních 90 dní, ale model pořád kontroluje i delší historii, trend a bezpečnostní rezervu.</span>
+            </div>
+            <div class="ordering-model-note">
+              <strong>Balení a zaokrouhlení</strong>
+              <span>Objednávka se zaokrouhluje podle dohledaného kroku balení, aby export seděl s realitou dodavatele.</span>
+            </div>
+            <div class="ordering-model-note">
+              <strong>Priorita</strong>
+              <span>Priorita už není jen o velikosti objednávky. Kombinuje riziko výpadku, pokrytí, trend a provozní signál.</span>
+            </div>
+            <div class="ordering-model-note">
+              <strong>Pražská výpomoc</strong>
+              <span>Když je zapnutá, model umí část tlaku přenést do fallback vrstvy, ale v kartách scénářů je to vidět jako samostatné riziko.</span>
+            </div>
+            <div class="ordering-model-note">
+              <strong>Simulace vs export</strong>
+              <span>Simulace pracuje nad shortlistem. Export jde jen z označených řádků a respektuje ručně změněné množství i poznámky.</span>
+            </div>
+          </div>
+        </div>
+      </details>
     </section>
 
-    <details class="secondary-details" style="margin-top:20px;">
-      <summary>Sekundární analytika, prodeje a kontrolní tabulky</summary>
+    <details class="secondary-details" id="ordering-secondary" data-section-nav-label="Sekundární vrstva" data-section-nav-order="4" style="margin-top:20px;">
+      <summary>Sekundární vrstva: analytika, prodeje a kontrolní tabulky</summary>
 
     <section class="card" style="margin-top:20px;">
       <div class="toolbar workspace-toolbar">
@@ -1481,14 +1812,19 @@
 
     </details>
 
-    <details class="secondary-details ordering-secondary-details" style="margin-top:20px;">
-      <summary>Sekundární explorer a SKU detail</summary>
-
-    <section class="card" style="margin-top:20px;">
+    <details class="secondary-details ordering-secondary-details" id="ordering-audit-mode" style="margin-top:20px;">
+      <summary>Auditní mód: explorer a SKU detail</summary>
+      <div class="ordering-audit-shell">
+        <div class="ordering-audit-banner">
+          <strong>Auditní vrstva</strong>
+          <span>Tohle už není hlavní pracovní plocha. Otevírej ji až tehdy, když shortlist nebo simulace potřebují ruční dovysvětlení konkrétní SKU.</span>
+        </div>
+        <div class="ordering-audit-layout">
+    <section class="card ordering-audit-card" style="margin-top:20px;">
       <div class="toolbar">
         <div>
-          <h2 class="section-title">Sekundární explorer položek</h2>
-          <div class="section-subtitle">Použij až když shortlist nestačí a potřebuješ ručně dohledat důvod, blokaci nebo balení konkrétní SKU.</div>
+          <h2 class="section-title">Auditní explorer položek</h2>
+          <div class="section-subtitle">Sekundární dohledání. Filtruj, když potřebuješ vysvětlit prioritu, blokaci, balení nebo důvod doporučení.</div>
         </div>
         <div class="toolbar-controls ordering-explorer-controls">
           <label class="control-group">
@@ -1517,9 +1853,13 @@
             <span class="control-label">Řadit</span>
             <select id="ordering-sort" class="select">
               <option value="priority">Priorita objednávky</option>
-              <option value="recommended">Doporučené množství</option>
-              <option value="coverAsc">Nejnižší pokrytí</option>
+              <option value="order">Doporučené množství</option>
+              <option value="cover">Nejnižší pokrytí</option>
+              <option value="stock">Nejvyšší sklad v ks</option>
+              <option value="periodSales">Nejvyšší prodej v období</option>
+              <option value="sales90">Nejvyšší prodej 90d</option>
               <option value="stockValue">Největší vázaná hodnota</option>
+              <option value="product">Produkt A–Z</option>
               <option value="code">Kód A–Z</option>
             </select>
           </label>
@@ -1547,7 +1887,7 @@
               <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="periodSales">Prodej v období <span class="table-sort-arrow">↕</span></button></th>
               <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="sales90">Prodej 90d <span class="table-sort-arrow">↕</span></button></th>
               <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
-              <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="target">Cíl <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="target">Doporučeno <span class="table-sort-arrow">↕</span></button></th>
               <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="step">Krok balení <span class="table-sort-arrow">↕</span></button></th>
               <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="order">Objednat <span class="table-sort-arrow">↕</span></button></th>
               <th><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="rounding">Balicí pravidlo <span class="table-sort-arrow">↕</span></button></th>
@@ -1565,10 +1905,10 @@
       </div>
     </section>
 
-    <section class="card" style="margin-top:20px;">
+    <section class="card ordering-audit-card" style="margin-top:20px;">
       <div class="toolbar">
         <div>
-          <h2 class="section-title">Detail vybrané SKU</h2>
+          <h2 class="section-title">Auditní detail vybrané SKU</h2>
           <div class="section-subtitle" id="ordering-detail-summary">Vyber v exploreru konkrétní SKU jen tehdy, když shortlist nebo quick tabulky nestačí.</div>
         </div>
         <div class="ordering-detail-actions">
@@ -1579,6 +1919,8 @@
         <div class="ux-empty-state">Zatím není vybraná žádná položka.</div>
       </div>
     </section>
+        </div>
+      </div>
     </details>
   </main>
 
@@ -1760,6 +2102,7 @@
       const planningTable = document.getElementById('planning-table');
       const planningTableSummary = document.getElementById('planning-table-summary');
       const planningActiveContext = document.getElementById('planning-active-context');
+      const planningWorkbenchSummary = document.getElementById('planning-workbench-summary');
       const planningExportSummary = document.getElementById('planning-export-summary');
       const planningSelectionPanel = document.getElementById('planning-selection-panel');
       const exportPlanningCsvButton = document.getElementById('export-planning-csv');
@@ -1853,6 +2196,18 @@
         const from = isoDate(orderingSalesHistory.window?.from);
         const to = isoDate(orderingSalesHistory.window?.to);
         return { from, to };
+      }
+
+      function normalizeExplorerSortKey(value) {
+        if (value === 'recommended') return 'order';
+        if (value === 'coverAsc') return 'cover';
+        return value || 'priority';
+      }
+
+      function explorerSortDefaultDirection(key) {
+        const normalized = normalizeExplorerSortKey(key);
+        const config = getExplorerSortConfig();
+        return config.columns[normalized]?.defaultDirection || 'desc';
       }
 
       function syncOrderingSalesPresetButtons() {
@@ -2004,7 +2359,7 @@
           else if (daysOfCover90d <= 60) reorderRisk = 'watch';
         }
         const recommendedMinUnits = dailyRunRate90d > 0 ? Math.max(0, Math.round(dailyRunRate90d * 30 - effectiveStock)) : 0;
-        const recommendedOrderUnits = dailyRunRate90d > 0 ? Math.max(0, Math.round(dailyRunRate90d * 74 - effectiveStock)) : 0;
+        const recommendedOrderUnits = dailyRunRate90d > 0 ? Math.max(0, Math.round(dailyRunRate90d * 30 - effectiveStock)) : 0;
 
         return {
           ...row,
@@ -2056,7 +2411,7 @@
           topSkuItems: orderableRows.filter(row => row.orderingRole === 'top_sku').length,
           fillUpItems: orderableRows.filter(row => row.orderingRole === 'fill_up').length,
           redItems: redRows.length,
-          cashInRedTurnover: redRows.reduce((sum, item) => sum + Number(item.stockValueSelling || 0), 0),
+          cashInRedTurnover: redRows.reduce((sum, item) => sum + Math.max(0, Number(item.stockValueAbraAvg ?? item.stockValueSelling ?? 0)), 0),
         };
       }
 
@@ -2077,46 +2432,62 @@
         return 'success';
       }
 
+      function healthCoverDays(row) {
+        const candidates = [row?.daysOfCover90d, row?.daysOfCover365d, row?.daysOfCover730d];
+        for (const value of candidates) {
+          if (value != null && Number.isFinite(Number(value))) return Number(value);
+        }
+        return null;
+      }
+
+      function positiveStockValue(row) {
+        return Math.max(0, Number(row?.stockValueAbraAvg ?? row?.stockValueSelling ?? 0));
+      }
+
       function currentInventoryHealthSnapshot() {
         const snapshot = currentOrderingSnapshot();
         const orderableRows = snapshot.orderableRows || [];
-        const aRows = orderableRows.filter(row => row.orderingRole === 'top_sku');
-        const totalStockValue = orderableRows.reduce((sum, row) => sum + Math.max(0, Number(row.stockValueSelling || 0)), 0);
-        const deadRows = orderableRows.filter(row => Math.max(0, Number(row.effectiveStock || 0)) > 0 && Number(row.daysOfCover90d ?? row.daysOfCover365d ?? 0) > 180);
+        const abcARows = orderableRows.filter(row => row.abcClass === 'A');
+        const aRows = abcARows.length ? abcARows : orderableRows.filter(row => row.orderingRole === 'top_sku');
+        const aBaseCount = aRows.length;
+        const totalStockValue = orderableRows.reduce((sum, row) => sum + positiveStockValue(row), 0);
+        const deadRows = orderableRows.filter(row => Math.max(0, Number(row.effectiveStock || 0)) > 0 && (healthCoverDays(row) || 0) > 180);
         const slowRows = orderableRows.filter(row => {
-          const cover = Number(row.daysOfCover90d ?? row.daysOfCover365d ?? 0);
+          const cover = healthCoverDays(row) || 0;
           return Math.max(0, Number(row.effectiveStock || 0)) > 0 && cover > 90 && cover <= 180;
         });
         const overstockRows = orderableRows.filter(row => {
           if (Math.max(0, Number(row.effectiveStock || 0)) <= 0) return false;
           const tags = new Set(row.tags || []);
-          const cover = Number(row.daysOfCover90d ?? row.daysOfCover365d ?? 0);
+          const cover = healthCoverDays(row) || 0;
           return tags.has('overstocked') || cover > 90 || row.turnoverZone === 'red';
         });
         const aCriticalRows = aRows.filter(row => {
-          const cover = Number(row.daysOfCover90d ?? row.daysOfCover365d ?? Infinity);
-          return Number(row.effectiveStock || 0) <= 0 || cover < 7 || row.reorderRisk === 'critical';
+          const cover = healthCoverDays(row);
+          return Number(row.effectiveStock || 0) <= 0 || row.reorderRisk === 'critical' || (cover != null && cover < 7);
         });
         const aWarningRows = aRows.filter(row => {
-          const cover = Number(row.daysOfCover90d ?? row.daysOfCover365d ?? Infinity);
-          return !aCriticalRows.includes(row) && (cover < 14 || ['soon', 'watch'].includes(row.reorderRisk));
+          const cover = healthCoverDays(row);
+          return !aCriticalRows.includes(row) && (['soon', 'watch'].includes(row.reorderRisk) || (cover != null && cover < 14));
         });
-        const deadValue = deadRows.reduce((sum, row) => sum + Math.max(0, Number(row.stockValueSelling || 0)), 0);
-        const slowValue = slowRows.reduce((sum, row) => sum + Math.max(0, Number(row.stockValueSelling || 0)), 0);
+        const deadValue = deadRows.reduce((sum, row) => sum + positiveStockValue(row), 0);
+        const slowValue = slowRows.reduce((sum, row) => sum + positiveStockValue(row), 0);
         const slowDeadValue = deadValue + slowValue;
-        const overstockValue = overstockRows.reduce((sum, row) => sum + Math.max(0, Number(row.stockValueSelling || 0)), 0);
+        const overstockValue = overstockRows.reduce((sum, row) => sum + positiveStockValue(row), 0);
         const dailySalesValue90 = orderableRows.reduce((sum, row) => {
           const units90 = Math.max(0, Number(row.units90d || 0));
           const price = Math.max(0, Number(row.unitSellingPrice || 0));
           return sum + (units90 * price) / 90;
         }, 0);
-        const totalCoverDays = dailySalesValue90 > 0 ? totalStockValue / dailySalesValue90 : null;
-        const slowDeadShare = totalStockValue > 0 ? (slowDeadValue / totalStockValue) * 100 : 0;
-        const deadShare = totalStockValue > 0 ? (deadValue / totalStockValue) * 100 : 0;
-        const overstockShare = totalStockValue > 0 ? (overstockValue / totalStockValue) * 100 : 0;
+        const totalCoverDays = dailySalesValue90 > 0 ? Number((totalStockValue / dailySalesValue90).toFixed(1)) : null;
+        const slowDeadShare = totalStockValue > 0 ? Number((((slowDeadValue / totalStockValue) * 100)).toFixed(1)) : 0;
+        const deadShare = totalStockValue > 0 ? Number((((deadValue / totalStockValue) * 100)).toFixed(1)) : 0;
+        const overstockShare = totalStockValue > 0 ? Number((((overstockValue / totalStockValue) * 100)).toFixed(1)) : 0;
         let healthScore = 100;
-        healthScore -= aCriticalRows.length * 8;
-        healthScore -= aWarningRows.length * 3;
+        if (aBaseCount) {
+          healthScore -= Math.round((aCriticalRows.length / aBaseCount) * 60);
+          healthScore -= Math.round((aWarningRows.length / aBaseCount) * 25);
+        }
         if (deadShare > 15) healthScore -= 20;
         else if (deadShare > 8) healthScore -= 10;
         if (slowDeadShare > 35) healthScore -= 15;
@@ -2125,11 +2496,27 @@
         else if (totalCoverDays != null && totalCoverDays > 90) healthScore -= 8;
         if (overstockShare > 20) healthScore -= 10;
         healthScore = Math.max(0, Math.round(healthScore));
+        const rankCriticalRows = rows => [...rows].sort((a, b) => (
+          ((Number(a.effectiveStock || 0) <= 0 ? 0 : 1) - (Number(b.effectiveStock || 0) <= 0 ? 0 : 1))
+          || ((a.reorderRisk === 'critical' ? 0 : 1) - (b.reorderRisk === 'critical' ? 0 : 1))
+          || ((healthCoverDays(a) ?? 999999) - (healthCoverDays(b) ?? 999999))
+          || (Number(a.abcRank ?? 999999) - Number(b.abcRank ?? 999999))
+          || (Number(b.abcRevenue365d || 0) - Number(a.abcRevenue365d || 0))
+          || String(a.code || '').localeCompare(String(b.code || ''), 'cs')
+        ));
+        const rankWarningRows = rows => [...rows].sort((a, b) => (
+          ((a.reorderRisk === 'soon' ? 0 : 1) - (b.reorderRisk === 'soon' ? 0 : 1))
+          || ((healthCoverDays(a) ?? 999999) - (healthCoverDays(b) ?? 999999))
+          || (Number(a.abcRank ?? 999999) - Number(b.abcRank ?? 999999))
+          || (Number(b.abcRevenue365d || 0) - Number(a.abcRevenue365d || 0))
+          || String(a.code || '').localeCompare(String(b.code || ''), 'cs')
+        ));
         return {
           ...snapshot,
           aRows,
-          aCriticalRows,
-          aWarningRows,
+          aBaseCount,
+          aCriticalRows: rankCriticalRows(aCriticalRows),
+          aWarningRows: rankWarningRows(aWarningRows),
           totalStockValue,
           deadRows,
           slowRows,
@@ -2492,6 +2879,7 @@
       function filterPlanningRows(rows) {
         const mode = planningTypeFilter.value || 'all';
         return (rows || []).filter(row => {
+          if (row.orderable === false) return false;
           const urgency = recommendationUrgency(row).key;
           if (mode === 'must') return urgency === 'must';
           if (mode === 'recommended') return urgency === 'recommended';
@@ -2519,7 +2907,9 @@
       }
 
       function exportPlanningRows(rows) {
-        const exported = getPlanningExportSelection(filterPlanningRows(rows)).map(row => {
+        const selectedRows = getPlanningExportSelection(filterPlanningRows(rows))
+          .filter(row => row.exportSelected && row.exportQuantity > 0);
+        const exported = selectedRows.map(row => {
           const urgency = recommendationUrgency(row);
           return [
             row.code,
@@ -2537,13 +2927,14 @@
             row.idealUnits ?? row.optimumUnits ?? 0,
             row.orderStepUnits || 1,
             row.finalOrderUnits ?? row.roundedOptimumUnits ?? row.optimumUnits ?? 0,
+            row.exportQuantity || 0,
             row.exportNote || '',
             row.roundingMode || '',
             row.packagingRaw || '',
           ];
         });
         downloadCsv(`ordering_recommendations_${new Date().toISOString().slice(0, 10)}.csv`, [
-          ['code', 'title', 'priority', 'source', 'reason', 'stock_units', 'cover_90d_days', 'forecast_30', 'forecast_60', 'forecast_90', 'safety_units', 'minimum_units', 'ideal_units', 'order_step_units', 'final_order_units', 'note', 'rounding_mode', 'packaging'],
+          ['code', 'title', 'priority', 'source', 'reason', 'stock_units', 'cover_90d_days', 'forecast_30', 'forecast_60', 'forecast_90', 'safety_units', 'minimum_units', 'ideal_units', 'order_step_units', 'final_order_units', 'export_units', 'note', 'rounding_mode', 'packaging'],
           ...exported,
         ]);
       }
@@ -2584,7 +2975,32 @@
         const selectedRows = getPlanningExportSelection(rows).filter(row => row.exportSelected && row.exportQuantity > 0);
         const units = selectedRows.reduce((sum, row) => sum + (row.exportQuantity || 0), 0);
         const notedRows = selectedRows.filter(row => row.exportNote).length;
-        planningExportSummary.innerHTML = `<strong>XLSX export:</strong> vybráno ${fmt(selectedRows.length)} položek, celkem ${fmt(units)} ks, poznámka u ${fmt(notedRows)} položek. Kolegyně může libovolně odškrtnout položky, upravit exportované množství a dopsat interní poznámku.`;
+        const value = selectedRows.reduce((sum, row) => sum + (Number(row.exportQuantity || 0) * Number(row.unitSellingPrice || 0)), 0);
+        if (planningWorkbenchSummary) {
+          planningWorkbenchSummary.innerHTML = `
+            <div class="planning-workbench-card">
+              <span class="label">Vybrané SKU</span>
+              <strong>${fmt(selectedRows.length)}</strong>
+              <span class="muted small">Položky, které teď opravdu půjdou do exportu.</span>
+            </div>
+            <div class="planning-workbench-card">
+              <span class="label">Export</span>
+              <strong>${fmt(units)} ks</strong>
+              <span class="muted small">Ruční exportované množství po úpravách.</span>
+            </div>
+            <div class="planning-workbench-card">
+              <span class="label">Proxy hodnota</span>
+              <strong>${money(value)}</strong>
+              <span class="muted small">Orientační hodnota vybraného shortlistu.</span>
+            </div>
+            <div class="planning-workbench-card">
+              <span class="label">Poznámky</span>
+              <strong>${fmt(notedRows)}</strong>
+              <span class="muted small">Kolik SKU už má interní komentář pro kolegyni.</span>
+            </div>
+          `;
+        }
+        planningExportSummary.innerHTML = `<strong>Export:</strong> vybráno ${fmt(selectedRows.length)} položek, celkem ${fmt(units)} ks, poznámka u ${fmt(notedRows)} položek. Export respektuje checkboxy, ruční množství i interní poznámky.`;
       }
 
       function planningScopeLabel() {
@@ -2648,10 +3064,10 @@
               <strong>${urgency.label}</strong>
               <div class="muted small" style="margin-top:6px;">${escapeHtml(urgency.hint)}</div>
             </div>
-            <div class="ordering-detail-card">
-              <span class="label">Objednat do exportu</span>
+              <div class="ordering-detail-card">
+              <span class="label">Export</span>
               <strong>${fmt(exportState.quantity || 0)} ks</strong>
-              <div class="muted small" style="margin-top:6px;">Finální doporučení ${fmt(row.finalOrderUnits || 0)} ks · krok ${fmt(row.orderStepUnits || 1)} ks</div>
+              <div class="muted small" style="margin-top:6px;">Doporučeno ${fmt(row.finalOrderUnits || 0)} ks · krok ${fmt(row.orderStepUnits || 1)} ks</div>
             </div>
             <div class="ordering-detail-card">
               <span class="label">Forecast</span>
@@ -2722,7 +3138,7 @@
             <td>
               <div class="planning-row-order">
                 <strong>Doporučeno ${fmt(row.finalOrderUnits || 0)} ks</strong>
-                <div class="muted">Min ${fmt((row.roundedMinUnits ?? row.recommendedMinUnits) || 0)} ks · ideál ${fmt((row.idealUnits ?? row.optimumUnits) || 0)} ks</div>
+                <div class="muted">Minimum ${fmt((row.roundedMinUnits ?? row.recommendedMinUnits) || 0)} ks · export ${fmt(exportState.quantity || 0)} ks</div>
                 <input class="input ordering-qty-input" type="number" min="0" step="1" inputmode="numeric" data-planning-export-qty="${row.code}" value="${Math.max(0, Number(exportState.quantity || 0))}" />
               </div>
             </td>
@@ -2788,6 +3204,51 @@
         planningExportSummary.innerHTML = `<strong>XLSX export:</strong> hotovo, exportoval jsem ${fmt(selectedRows.length)} položek a ${fmt(selectedRows.reduce((sum, row) => sum + (row.exportQuantity || 0), 0))} ks.`;
       }
 
+      function blendRecommendationTarget(dynamicValue, baselineValue, dynamicWeight = 0.8) {
+        const safeDynamic = Math.max(0, Number(dynamicValue || 0));
+        const safeBaseline = Math.max(0, Number(baselineValue || 0));
+        if (safeDynamic <= 0) return safeBaseline;
+        const safeWeight = clamp(Number(dynamicWeight || 0), 0, 1);
+        return Math.max(0, Math.round((safeDynamic * safeWeight) + (safeBaseline * (1 - safeWeight))));
+      }
+
+      function dynamicRecommendationTargets(row, leadDays) {
+        const stockUnits = Math.max(0, Number(row.effectiveStock || 0));
+        const dynamicMinDays = Math.max(21, 30 - 9);
+        const dynamicIdealDays = 30;
+        const dynamicMaxDays = Math.max(45, 30 + 15);
+        const dynamicMin = Math.max(0, forecastUnits(row, dynamicMinDays) - stockUnits);
+        const dynamicIdeal = Math.max(dynamicMin, forecastUnits(row, dynamicIdealDays) - stockUnits);
+        const dynamicMax = Math.max(
+          dynamicIdeal,
+          forecastUnits(row, dynamicMaxDays) - stockUnits + Math.round(safetyUnits(row, leadDays) * 0.2),
+        );
+        const baselineMin = Math.max(0, Number(row.recommendedMinUnits || 0));
+        const baselineIdeal = Math.max(0, Number(row.recommendedOrderUnits || 0));
+
+        return {
+          minimumUnits: blendRecommendationTarget(dynamicMin, baselineMin, 0.85),
+          optimumUnits: blendRecommendationTarget(dynamicIdeal, baselineIdeal, 0.8),
+          capacityUnits: blendRecommendationTarget(dynamicMax, Math.max(baselineIdeal, baselineMin), 0.9),
+        };
+      }
+
+      function mergeRecommendationRows(primaryRows, secondaryRows) {
+        const merged = [];
+        const seen = new Set();
+        (primaryRows || []).forEach(row => {
+          if (!row?.code || seen.has(row.code) || row.orderable === false) return;
+          merged.push(row);
+          seen.add(row.code);
+        });
+        (secondaryRows || []).forEach(row => {
+          if (!row?.code || seen.has(row.code) || row.orderable === false) return;
+          merged.push(row);
+          seen.add(row.code);
+        });
+        return merged;
+      }
+
       function buildRecommendationRows(includeAll = false) {
         const orderDate = parseDateInput(planningOrderDate.value) || new Date();
         const arrivalDate = parseDateInput(planningArrivalDate.value) || orderDate;
@@ -2798,14 +3259,16 @@
           if (includeAll) return true;
           if (!(row.recommendedOrderUnits > 0 || row.recommendedMinUnits > 0)) return false;
           if (row.reorderRisk === 'critical' || row.reorderRisk === 'soon' || row.reorderRisk === 'watch') return true;
+          if (row.orderingRole === 'fill_up') return true;
           if (row.turnoverZone === 'green' && (row.daysOfCover90d || 999) <= 120 && (row.units365d || 0) > 0) return true;
-          return false;
+          return row.recommendedOrderUnits > 0;
         }).map(row => {
           const sourceMeta = rowReason(row, leadDays, usePraha);
-          const optimum = Math.max(row.recommendedOrderUnits || 0, row.recommendedMinUnits || 0);
-          const roundedMin = roundToAllowedPackSizes(row, row.recommendedMinUnits || 0, 'minimum');
+          const dynamicTargets = dynamicRecommendationTargets(row, leadDays);
+          const optimum = Math.max(dynamicTargets.optimumUnits || 0, dynamicTargets.minimumUnits || 0);
+          const roundedMin = roundToAllowedPackSizes(row, dynamicTargets.minimumUnits || 0, 'minimum');
           const roundedOptimum = roundToAllowedPackSizes(row, optimum, 'balanced');
-          const roundedMax = roundToAllowedPackSizes(row, maxUnits(row, leadDays), 'capacity');
+          const roundedMax = roundToAllowedPackSizes(row, Math.max(dynamicTargets.capacityUnits || 0, maxUnits(row, leadDays)), 'capacity');
           const recommendation = {
             ...row,
             forecast30: forecastUnits(row, 30),
@@ -2845,16 +3308,21 @@
           if (type === 'conservative') {
             if (row.reorderRisk === 'critical') units = Math.max(row.recommendedMinUnits || 0, Math.round(row.optimumUnits * 0.7));
             else if (row.reorderRisk === 'soon') units = Math.max(0, Math.round((row.recommendedMinUnits || 0) * 0.8));
+            else if (row.reorderRisk === 'watch') units = Math.round(row.optimumUnits * 0.35);
+            else if (row.turnoverZone === 'green') units = Math.round(row.optimumUnits * Math.min(profile.fillerShare, 0.18));
+            else units = Math.round(row.optimumUnits * 0.2);
           } else if (type === 'balanced') {
             if (row.reorderRisk === 'critical') units = row.optimumUnits;
             else if (row.reorderRisk === 'soon') units = Math.max(row.recommendedMinUnits || 0, Math.round(row.optimumUnits * 0.9));
             else if (row.reorderRisk === 'watch') units = Math.round(row.optimumUnits * 0.55);
             else if (row.turnoverZone === 'green') units = Math.round(row.optimumUnits * profile.fillerShare);
+            else units = Math.round(row.optimumUnits * 0.5);
           } else {
             if (row.reorderRisk === 'critical') units = Math.min(row.maxUnits, Math.round(row.optimumUnits * 1.15));
             else if (row.reorderRisk === 'soon') units = Math.min(row.maxUnits, Math.round(row.optimumUnits * 1.05));
             else if (row.reorderRisk === 'watch') units = Math.round(row.optimumUnits * 0.85);
             else if (row.turnoverZone === 'green') units = Math.round(row.optimumUnits * (0.55 + profile.fillerShare));
+            else units = Math.round(row.optimumUnits * 0.75);
           }
 
           const roundedPlan = roundToAllowedPackSizes(row, units, type);
@@ -2888,15 +3356,17 @@
 
       function computeCapacityLoad(rows, profile) {
         const target = Number(profile?.targetUnits || 0);
-        if (!target) return { packUnits: 0, usagePct: 0 };
-        const packUnits = (rows || []).reduce((sum, row) => {
+        if (!target) return { plannedUnits: 0, logisticSteps: 0, usagePct: 0 };
+        const plannedUnits = (rows || []).reduce((sum, row) => sum + Number(row.plannedUnits || 0), 0);
+        const logisticSteps = (rows || []).reduce((sum, row) => {
           const plannedUnits = Number(row.plannedUnits || 0);
           const packSize = Math.max(1, Number(row.plannedOrderStepUnits || row.orderStepUnits || 1));
           return sum + (plannedUnits / packSize);
         }, 0);
         return {
-          packUnits,
-          usagePct: Math.round((packUnits / target) * 100),
+          plannedUnits,
+          logisticSteps,
+          usagePct: Math.round((plannedUnits / target) * 100),
         };
       }
 
@@ -2905,6 +3375,64 @@
         if (!Number.isFinite(usage) || usage <= 0) return '0 %';
         if (usage >= 250) return `${fmt(usage)} % (nad rámec modelu)`;
         return `${fmt(usage)} %`;
+      }
+
+      function scenarioCapacityBadge(usagePct) {
+        if (usagePct > 105) return '<span class="badge danger">kapacita přes limit</span>';
+        if (usagePct >= 90) return '<span class="badge warn">kapacita na hraně</span>';
+        return '<span class="badge success">kapacita OK</span>';
+      }
+
+      function scenarioCriticalBadge(criticalLeft) {
+        if (criticalLeft > 0) return `<span class="badge danger">kritické po doplnění ${fmt(criticalLeft)}</span>`;
+        return '<span class="badge success">kritické SKU pokryté</span>';
+      }
+
+      function scenarioPrahaBadge(prahaRisk) {
+        if (prahaRisk > 0) return `<span class="badge warn">pražská výpomoc ${fmt(prahaRisk)} SKU</span>`;
+        return '<span class="badge success">bez pražské výpomoci</span>';
+      }
+
+      function scenarioWhenToChoose(type, capacityLoad, criticalLeft, prahaRisk) {
+        if (type === 'conservative') {
+          return criticalLeft > 0
+            ? 'Zvol ji, když chceš rychle pokrýt největší tlak a zbytek ještě ručně ověřit.'
+            : 'Zvol ji, když chceš bezpečné minimum bez zbytečného plnění kapacity.';
+        }
+        if (capacityLoad.usagePct > 100) {
+          return 'Použij ji jen když opravdu chceš jít až na hranu kapacity a současně přijmeš vyšší provozní tlak.';
+        }
+        if (prahaRisk > 0) {
+          return 'Vhodná pro standardní objednávku, ale počítá s částí tlaku přenesenou do pražské výpomoci.';
+        }
+        return 'Tohle je doporučená výchozí varianta pro běžnou objednávku bez dalšího drama.';
+      }
+
+      function renderScenarioCard(variant) {
+        const units = variant.rows.reduce((sum, row) => sum + (row.plannedUnits || 0), 0);
+        const value = variant.rows.reduce((sum, row) => sum + ((row.unitSellingPrice || 0) * (row.plannedUnits || 0)), 0);
+        const criticalLeft = variant.rows.filter(row => row.reorderRisk === 'critical' && (((row.effectiveStock || 0) + (row.plannedUnits || 0) - forecastUnits(row, variant.leadDays)) / Math.max(estimateDailyDemand(row), 0.01)) < 30).length;
+        const prahaRisk = variant.rows.filter(row => row.source === 'Pražská výpomoc').length;
+        const capacityLoad = computeCapacityLoad(variant.rows, variant.profile);
+        return `
+          <article class="metric-card ${variant.tone}">
+            <div class="metric-label">${variant.key} · ${variant.title}</div>
+            <div class="metric-value">${fmt(units)} ks</div>
+            <div class="metric-sub">${variant.subtitle}</div>
+            <div class="ordering-variant-badges">
+              ${scenarioCapacityBadge(capacityLoad.usagePct)}
+              ${scenarioCriticalBadge(criticalLeft)}
+              ${scenarioPrahaBadge(prahaRisk)}
+            </div>
+            <div class="muted small" style="margin-top:10px; line-height:1.6;">
+              Proxy hodnota ${money(value)}<br>
+              Využití kapacity ${formatCapacityUsage(capacityLoad.usagePct)}<br>
+              Orientačně ${fmt(Math.round(capacityLoad.logisticSteps))} balení / logistických kroků<br>
+              Červená po 1 / 2 / 3 / 4 měsících: ${fmt(redRiskAfterMonths(variant.rows, 1))} / ${fmt(redRiskAfterMonths(variant.rows, 2))} / ${fmt(redRiskAfterMonths(variant.rows, 3))} / ${fmt(redRiskAfterMonths(variant.rows, 4))}
+            </div>
+            <div class="ordering-variant-note"><strong>Kdy zvolit:</strong> ${scenarioWhenToChoose(variant.scenarioType, capacityLoad, criticalLeft, prahaRisk)}</div>
+          </article>
+        `;
       }
 
       function getPlanningSortConfig() {
@@ -2947,21 +3475,24 @@
             step: { type: 'number', defaultDirection: 'desc', value: row => row.orderStepUnits || row.recommendedOrderStep || 1 },
             order: { type: 'number', defaultDirection: 'desc', value: row => row.finalOrderUnits ?? row.recommendedOrderUnits ?? 0 },
             rounding: { type: 'text', defaultDirection: 'asc', value: row => row.roundingMode || '' },
-            priority: { type: 'number', defaultDirection: 'desc', value: row => row.recommendedOrderUnits || 0 },
+            priority: { type: 'number', defaultDirection: 'desc', value: row => row.priorityScore ?? row.recommendedOrderUnits ?? 0 },
             recommended: { type: 'number', defaultDirection: 'desc', value: row => row.recommendedOrderUnits || 0 },
             coverAsc: { type: 'number', defaultDirection: 'asc', value: row => row.daysOfCover90d },
-            stockValue: { type: 'number', defaultDirection: 'desc', value: row => row.stockValueSelling || 0 },
+            stockValue: { type: 'number', defaultDirection: 'desc', value: row => row.stockValueAbraAvg ?? row.stockValueSelling ?? 0 },
             code: { type: 'text', defaultDirection: 'asc', value: row => row.code || '' },
           },
         };
       }
 
-      function renderPlanningPayload(planning, leadDays, usePraha, profile) {
-        const scenarios = planning.scenarios || [];
-        const filteredRows = filterPlanningRows(planning.recommendationRows || []);
+      function renderPlanningPayload(planning, leadDays, usePraha, profile, derivedRows = []) {
+        const primaryRows = (derivedRows || []).length ? (derivedRows || []) : (planning.recommendationRows || []);
+        const secondaryRows = (derivedRows || []).length ? (planning.recommendationRows || []) : [];
+        const mergedRows = mergeRecommendationRows(primaryRows, secondaryRows);
+        const prioritizedRows = sortRowsWithConfig(mergedRows, getPlanningSortConfig());
+        const filteredRows = filterPlanningRows(mergedRows);
         const scenarioRowsByKey = {
-          A: buildScenarioRows('conservative', planning.recommendationRows || [], profile),
-          B: buildScenarioRows('balanced', planning.recommendationRows || [], profile),
+          A: buildScenarioRows('conservative', prioritizedRows, profile),
+          B: buildScenarioRows('balanced', prioritizedRows, profile),
         };
         const sortedRows = sortRowsWithConfig(filteredRows, getPlanningSortConfig());
         const periodInsight = buildSelectedPeriodPlanningInsight(sortedRows, leadDays);
@@ -2972,25 +3503,20 @@
 
         const scenarioMeta = {
           A: { title: 'Varianta A, minimum', subtitle: 'Nejnutnější doplnění, spodní bezpečný rámec.', tone: '' },
-          B: { title: 'Varianta B, ideál', subtitle: 'Doporučený cílový stav pro standardní objednávku.', tone: 'accent' },
+          B: { title: 'Varianta B, doporučeno', subtitle: 'Doporučený cílový stav pro standardní objednávku.', tone: 'accent' },
         };
-        const variantCards = scenarios.filter(variant => variant.key === 'A' || variant.key === 'B').map(variant => {
-          const meta = scenarioMeta[variant.key] || { title: variant.title, subtitle: variant.subtitle, tone: '' };
-          const capacityLoad = computeCapacityLoad(scenarioRowsByKey[variant.key] || [], profile);
-          return `
-          <article class="metric-card ${meta.tone}">
-            <div class="metric-label">${variant.key} · ${meta.title}</div>
-            <div class="metric-value">${fmt(variant.plannedUnits || 0)} ks</div>
-            <div class="metric-sub">${meta.subtitle}</div>
-            <div class="muted small" style="margin-top:10px; line-height:1.6;">
-              Hodnota proxy ${money(variant.proxyValue)}<br>
-              Využití kapacity ${formatCapacityUsage(capacityLoad.usagePct)}<br>
-              Orientačně ${fmt(Math.round(capacityLoad.packUnits))} balení / logistických kroků<br>
-              Kritické SKU po doplnění ${fmt(variant.criticalLeft || 0)}<br>
-              Riziko pražské výpomoci ${fmt(variant.prahaFallbackRisk || 0)} SKU<br>
-              Červená po 1 / 2 / 3 / 4 měsících: ${fmt(variant.redRiskAfterMonths?.m1 || 0)} / ${fmt(variant.redRiskAfterMonths?.m2 || 0)} / ${fmt(variant.redRiskAfterMonths?.m3 || 0)} / ${fmt(variant.redRiskAfterMonths?.m4 || 0)}
-            </div>
-          </article>`;
+        const variantCards = ['A', 'B'].map(key => {
+          const meta = scenarioMeta[key] || { title: key, subtitle: '', tone: '' };
+          return renderScenarioCard({
+            key,
+            title: meta.title,
+            subtitle: meta.subtitle,
+            tone: meta.tone,
+            rows: scenarioRowsByKey[key] || [],
+            profile,
+            leadDays,
+            scenarioType: key === 'A' ? 'conservative' : 'balanced',
+          });
         }).join('');
 
         const insightCard = periodInsight ? `
@@ -3008,7 +3534,7 @@
 
         planningVariants.innerHTML = insightCard + variantCards;
 
-        planningTableSummary.textContent = `Zobrazeno ${fmt(sortedRows.length)} položek z celkem ${fmt((planning.recommendationRows || []).length)} doporučených. Rozlišení: nutné objednat vs doporučené doplnění.`;
+        planningTableSummary.textContent = `Zobrazeno ${fmt(sortedRows.length)} položek z celkem ${fmt(mergedRows.length)} doporučených. Rozlišení: nutné objednat vs doporučené doplnění.`;
         renderPlanningTableRows(sortedRows, 'Zatím bez doporučených položek.');
         renderPlanningExportSummary(sortedRows);
         updateSortableTableHead('planning');
@@ -3027,7 +3553,8 @@
           && selectedUsePraha === Boolean(defaults.prahaFallback);
 
         if (useBackendPlanning) {
-          renderPlanningPayload(ordering.planning, selectedLeadDays, selectedUsePraha, profile);
+          const derivedRecommendation = buildRecommendationRows(false);
+          renderPlanningPayload(ordering.planning, selectedLeadDays, selectedUsePraha, profile, derivedRecommendation.rows);
           return;
         }
 
@@ -3037,34 +3564,17 @@
         const balanced = buildScenarioRows('balanced', rows, profile);
 
         const variants = [
-          { key: 'A', title: 'Varianta A, minimum', tone: '', rows: conservative, subtitle: 'Nejnutnější doplnění, spodní bezpečný rámec.' },
-          { key: 'B', title: 'Varianta B, ideál', tone: 'accent', rows: balanced, subtitle: 'Doporučený cílový stav pro standardní objednávku.' },
+          { key: 'A', title: 'Varianta A, minimum', tone: '', rows: conservative, subtitle: 'Nejnutnější doplnění, spodní bezpečný rámec.', scenarioType: 'conservative' },
+          { key: 'B', title: 'Varianta B, doporučeno', tone: 'accent', rows: balanced, subtitle: 'Doporučený cílový stav pro standardní objednávku.', scenarioType: 'balanced' },
         ];
 
         planningSummary.innerHTML = `<strong>Simulace:</strong> lead time ${fmt(leadDays)} dní, kapacita ${profile.label}, pražská výpomoc ${usePraha ? 'zapnutá' : 'vypnutá'}. ${includeAllCatalog ? 'Pracovní tabulka je přepnutá na celý katalog zboží.' : 'Pracovní tabulka je přepnutá na doporučenou objednávku.'}`;
 
-        const variantCards = variants.map(variant => {
-          const units = variant.rows.reduce((sum, row) => sum + (row.plannedUnits || 0), 0);
-          const value = variant.rows.reduce((sum, row) => sum + ((row.unitSellingPrice || 0) * (row.plannedUnits || 0)), 0);
-          const criticalLeft = variant.rows.filter(row => row.reorderRisk === 'critical' && (((row.effectiveStock || 0) + (row.plannedUnits || 0) - forecastUnits(row, leadDays)) / Math.max(estimateDailyDemand(row), 0.01)) < 30).length;
-          const prahaRisk = variant.rows.filter(row => row.source === 'Pražská výpomoc').length;
-          const capacityLoad = computeCapacityLoad(variant.rows, profile);
-          return `
-            <article class="metric-card ${variant.tone}">
-              <div class="metric-label">${variant.key} · ${variant.title}</div>
-              <div class="metric-value">${fmt(units)} ks</div>
-              <div class="metric-sub">${variant.subtitle}</div>
-              <div class="muted small" style="margin-top:10px; line-height:1.6;">
-                Hodnota proxy ${money(value)}<br>
-                Využití kapacity ${formatCapacityUsage(capacityLoad.usagePct)}<br>
-                Orientačně ${fmt(Math.round(capacityLoad.packUnits))} balení / logistických kroků<br>
-                Kritické SKU po doplnění ${fmt(criticalLeft)}<br>
-                Riziko pražské výpomoci ${fmt(prahaRisk)} SKU<br>
-                Červená po 1 / 2 / 3 / 4 měsících: ${fmt(redRiskAfterMonths(variant.rows, 1))} / ${fmt(redRiskAfterMonths(variant.rows, 2))} / ${fmt(redRiskAfterMonths(variant.rows, 3))} / ${fmt(redRiskAfterMonths(variant.rows, 4))}
-              </div>
-            </article>
-          `;
-        }).join('');
+        const variantCards = variants.map(variant => renderScenarioCard({
+          ...variant,
+          profile,
+          leadDays,
+        })).join('');
 
         const insightCard = periodInsight ? `
           <article class="metric-card blue">
@@ -3081,14 +3591,14 @@
 
         planningVariants.innerHTML = insightCard + variantCards;
 
-        const visibleRows = filterPlanningRows(rows.slice(0, 120));
+        const visibleRows = filterPlanningRows(rows);
         const sortedRows = sortRowsWithConfig(visibleRows, getPlanningSortConfig());
         currentPlanningRows = sortedRows;
         ensurePlanningExportState(sortedRows);
         renderPlanningActiveContext();
         planningTableSummary.textContent = includeAllCatalog
-          ? `Zobrazeno ${fmt(sortedRows.length)} položek z celkem ${fmt(Math.min(rows.length, 120))} orderable SKU v katalogu. Tabulka je teď pracovní katalog, ne jen doporučený shortlist.`
-          : `Zobrazeno ${fmt(sortedRows.length)} položek z celkem ${fmt(Math.min(rows.length, 120))} doporučených. Odhad vychází z tempa posledních 90 dní, delší historie a aktuálního trendu.`;
+          ? `Zobrazeno ${fmt(sortedRows.length)} položek z celkem ${fmt(rows.length)} orderable SKU v katalogu. Tabulka je teď pracovní katalog, ne jen doporučený shortlist.`
+          : `Zobrazeno ${fmt(sortedRows.length)} položek z celkem ${fmt(rows.length)} doporučených. Odhad vychází z tempa posledních 90 dní, delší historie, lead time a aktuálního trendu.`;
         renderPlanningTableRows(sortedRows, 'Zatím bez doporučených položek.');
         renderPlanningExportSummary(sortedRows);
         updateSortableTableHead('planning');
@@ -3339,9 +3849,15 @@
           if (!saved || typeof saved !== 'object') return;
           if (typeof saved.search === 'string') searchInput.value = saved.search;
           if ([...filterSelect.options].some(option => option.value === saved.filter)) filterSelect.value = saved.filter;
-          if ([...sortSelect.options].some(option => option.value === saved.sort)) sortSelect.value = saved.sort;
+          const normalizedSort = normalizeExplorerSortKey(saved.sort);
+          if ([...sortSelect.options].some(option => option.value === normalizedSort)) sortSelect.value = normalizedSort;
           if ([...pageSizeSelect.options].some(option => option.value === String(saved.pageSize))) pageSizeSelect.value = String(saved.pageSize);
-          if (saved.sortState?.key) sortableTableStates.explorer = saved.sortState;
+          if (saved.sortState?.key) {
+            sortableTableStates.explorer = {
+              key: normalizeExplorerSortKey(saved.sortState.key),
+              direction: saved.sortState.direction || explorerSortDefaultDirection(saved.sortState.key),
+            };
+          }
           if (saved.selectedCode) selectedExplorerCode = saved.selectedCode;
           currentExplorerPage = Math.max(1, Number(saved.currentPage || 1));
         } catch (error) {
@@ -3423,7 +3939,7 @@
 
       function renderDetailPanel(row) {
         if (!row) {
-          detailSummary.textContent = 'Klikni v exploreru na konkrétní SKU, ať hned vidíš režim rozhodnutí, důvod doporučení i handoff text.';
+          detailSummary.textContent = 'Vyber v auditním exploreru konkrétní SKU a tady hned uvidíš důvod doporučení, balení i handoff text.';
           detailPanel.innerHTML = '<div class="ux-empty-state">Zatím není vybraná žádná položka.</div>';
           return;
         }
@@ -3433,7 +3949,7 @@
         detailSummary.textContent = `${row.code} · ${row.title}`;
         detailPanel.innerHTML = `
           <div class="ordering-detail-grid">
-            <div class="ordering-detail-card"><span class="label">Finální objednávka</span><strong>${fmt(row.finalOrderUnits || 0)} ks</strong><div class="muted small" style="margin-top:6px;">Ideál ${fmt(row.idealUnits || 0)} ks, krok ${fmt(row.orderStepUnits || 1)} ks</div></div>
+            <div class="ordering-detail-card"><span class="label">Doporučeno</span><strong>${fmt(row.finalOrderUnits || 0)} ks</strong><div class="muted small" style="margin-top:6px;">Minimum ${fmt(row.recommendedMinUnits || 0)} ks, model ${fmt(row.idealUnits || 0)} ks</div></div>
             <div class="ordering-detail-card"><span class="label">Pokrytí a prodej</span><strong>${cover(row.daysOfCover90d)}</strong><div class="muted small" style="margin-top:6px;">Prodej 90d ${fmt(row.units90d)} ks, v okně ${fmt(row.unitsWindow ?? row.units730d)} ks</div></div>
             <div class="ordering-detail-card"><span class="label">Trend a role</span><strong>${pct(row.trend90v365Pct)}</strong><div class="muted small" style="margin-top:6px;">${row.orderingRole || 'standard'} · ${row.sourceChannel || 'zdroj neznámý'}</div></div>
             <div class="ordering-detail-card"><span class="label">Balení a pravidlo</span><strong>${escapeHtml(row.packagingRaw || 'bez mapy')}</strong><div class="muted small" style="margin-top:6px;">${escapeHtml(row.roundingMode || 'bez omezení')} · párování ${escapeHtml(row.packagingMatchStatus || 'chybí')}</div></div>
@@ -3496,7 +4012,7 @@
         currentExplorerPage = clamp(currentExplorerPage, 1, totalPages);
         const pageRows = rows.slice((currentExplorerPage - 1) * explorerPageSize(), currentExplorerPage * explorerPageSize());
         currentExplorerVisibleRows = pageRows;
-        explorerSummary.textContent = `Zobrazeno ${fmt(rows.length)} SKU, z toho ${fmt(excludedCount)} mimo nákup. Referenční vrstva je načtená pro ${fmt(orderingReference.summary.trackedItems || 0)} SKU, balení přesně spárované u ${fmt(packagingExact)} SKU, přes prefix u ${fmt(packagingBase)} a chybí u ${fmt(packagingMissing)} SKU.`;
+        explorerSummary.textContent = `Auditní pohled vrací ${fmt(rows.length)} SKU, z toho ${fmt(excludedCount)} mimo nákup. Referenční vrstva je načtená pro ${fmt(orderingReference.summary.trackedItems || 0)} SKU, balení přesně spárované u ${fmt(packagingExact)} SKU, přes prefix u ${fmt(packagingBase)} a chybí u ${fmt(packagingMissing)} SKU.`;
         paginationSummary.textContent = `Strana ${fmt(currentExplorerPage)} z ${fmt(totalPages)} · zobrazeno ${fmt(pageRows.length)} z ${fmt(rows.length)} řádků.`;
         pagePrevButton.disabled = currentExplorerPage <= 1;
         pageNextButton.disabled = currentExplorerPage >= totalPages;
@@ -3566,14 +4082,14 @@
             product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
             stock: { type: 'number', defaultDirection: 'desc', value: row => row.effectiveStock },
             months: { type: 'number', defaultDirection: 'desc', value: row => row.stockMonthsOnHand },
-            value: { type: 'number', defaultDirection: 'desc', value: row => row.stockValueSelling },
+            value: { type: 'number', defaultDirection: 'desc', value: row => row.stockValueAbraAvg ?? row.stockValueSelling ?? 0 },
           },
           renderRow: row => `
             <tr>
               <td>${row.code} · ${row.title}</td>
               <td class="num">${fmt(row.effectiveStock)}</td>
               <td class="num">${months(row.stockMonthsOnHand)}</td>
-              <td class="num">${money(row.stockValueSelling)}</td>
+              <td class="num">${money(row.stockValueAbraAvg ?? row.stockValueSelling ?? 0)}</td>
             </tr>
           `,
         }, (ordering.overstockRisks || []).slice(0, 20));
@@ -3654,19 +4170,33 @@
         }
 
         const summary = marketPayload.summary || {};
-        orderingActionsSummary.textContent = `${fmt(summary.actionCount || 0)} akcí, potenciálně pokryto ${fmt(summary.totalPotentialActions || 0)} promo spuštění, nulová zásoba u ${fmt(summary.zeroStockActions || 0)} akcí.`;
+        const bundleCount = summary.bundleCount ?? summary.actionCount ?? 0;
+        const discountCount = summary.discountCount || 0;
+        const totalGroups = summary.actionCount || 0;
+        const summaryParts = [];
+        if (discountCount > 0) {
+          summaryParts.push(`${fmt(bundleCount)} akcí a ${fmt(discountCount)} slevových skupin`);
+        } else {
+          summaryParts.push(`${fmt(totalGroups)} akcí`);
+        }
+        summaryParts.push(`potenciálně pokryto ${fmt(summary.totalPotentialActions || 0)} promo spuštění`);
+        if (summary.discountItemCount) {
+          summaryParts.push(`ve slevách ${fmt(summary.discountItemCount)} SKU`);
+        }
+        summaryParts.push(`nulová zásoba u ${fmt(summary.zeroStockActions || 0)} skupin`);
+        orderingActionsSummary.textContent = `${summaryParts.join(', ')}.`;
         orderingActionsList.innerHTML = (marketPayload.actions || []).map(action => `
           <article class="ordering-action-card">
             <div class="ordering-action-banner">
               <div>
                 <span class="ordering-action-row-code">${escapeHtml(action.label || '')}</span>
                 <h3>${escapeHtml(action.title || '')}</h3>
-                <p class="ordering-executive-text">${fmt((action.items || []).length)} produktů ve skupině${action.bottleneckLabel ? `, bottleneck: ${escapeHtml(action.bottleneckLabel)}` : ''}.</p>
+                <p class="ordering-executive-text">${fmt((action.items || []).length)} produktů ve skupině${action.kind === 'bundle' ? action.bottleneckLabel ? `, bottleneck: ${escapeHtml(action.bottleneckLabel)}` : '' : action.kind === 'discount_set' ? action.bottleneckLabel ? `, sada limitovaná: ${escapeHtml(action.bottleneckLabel)}` : '' : ', zvýhodněné SKU k auditu zásoby.'}</p>
               </div>
               <div class="ordering-action-potential">
-                <span class="ordering-action-row-code">Pokrytí akce</span>
-                <strong>${fmt(action.availableActions || 0)}×</strong>
-                <span class="ordering-action-row-note">limit ${fmt(action.bottleneckActions || 0)}×</span>
+                <span class="ordering-action-row-code">${action.kind === 'discount' ? 'Zásoba ve slevě' : action.kind === 'discount_set' ? 'Pokrytí sady' : 'Pokrytí akce'}</span>
+                <strong>${fmt(action.availableActions || 0)}${action.kind === 'discount' ? ' ks' : '×'}</strong>
+                <span class="ordering-action-row-note">${action.kind === 'discount' ? `zásoba napříč slevou ${fmt(action.totalStock || 0)} ks` : `limit ${fmt(action.bottleneckActions || 0)}×`}</span>
               </div>
             </div>
             <table class="ordering-action-table">
@@ -3792,13 +4322,13 @@
       });
 
       function syncExplorerSortStateFromSelect() {
-        const sort = sortSelect.value;
+        const sort = normalizeExplorerSortKey(sortSelect.value);
         const current = sortableTableStates.explorer || {};
         sortableTableStates.explorer = {
           key: sort,
           direction: current.key === sort
-            ? (current.direction || (sort === 'coverAsc' || sort === 'code' ? 'asc' : 'desc'))
-            : (sort === 'coverAsc' || sort === 'code' ? 'asc' : 'desc'),
+            ? (current.direction || explorerSortDefaultDirection(sort))
+            : explorerSortDefaultDirection(sort),
         };
       }
 
@@ -3836,8 +4366,10 @@
         const tableId = button.dataset.sortTable;
         const key = button.dataset.sortKey;
         const current = sortableTableStates[tableId] || { key, direction: 'desc' };
-        const nextDirection = current.key === key ? (current.direction === 'desc' ? 'asc' : 'desc') : 'desc';
-        sortableTableStates[tableId] = { key, direction: nextDirection };
+        const normalizedKey = tableId === 'explorer' ? normalizeExplorerSortKey(key) : key;
+        const defaultDirection = tableId === 'explorer' ? explorerSortDefaultDirection(normalizedKey) : 'desc';
+        const nextDirection = current.key === normalizedKey ? (current.direction === 'desc' ? 'asc' : 'desc') : defaultDirection;
+        sortableTableStates[tableId] = { key: normalizedKey, direction: nextDirection };
 
         if (tableId === 'planning') {
           renderPlanning();
@@ -3849,13 +4381,7 @@
           return;
         }
         if (tableId === 'explorer') {
-          const sortMap = {
-            product: 'code',
-            stock: 'stockValue',
-            cover: 'coverAsc',
-            order: 'recommended',
-          };
-          if (sortMap[key]) sortSelect.value = sortMap[key];
+          if ([...sortSelect.options].some(option => option.value === normalizedKey)) sortSelect.value = normalizedKey;
           currentExplorerPage = 1;
           renderExplorer();
           return;
@@ -3871,8 +4397,8 @@
         if (tableId === 'overstock') {
           renderSortableShortTable({
             id: 'overstock', bodyId: 'overstock-table', defaultSortKey: 'value', defaultDirection: 'desc', fallbackKey: 'product', colspan: 4, emptyMessage: 'Aktuálně bez červené obrátkovosti.',
-            columns: { product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` }, stock: { type: 'number', defaultDirection: 'desc', value: row => row.effectiveStock }, months: { type: 'number', defaultDirection: 'desc', value: row => row.stockMonthsOnHand }, value: { type: 'number', defaultDirection: 'desc', value: row => row.stockValueSelling } },
-            renderRow: row => `<tr><td>${row.code} · ${row.title}</td><td class="num">${fmt(row.effectiveStock)}</td><td class="num">${months(row.stockMonthsOnHand)}</td><td class="num">${money(row.stockValueSelling)}</td></tr>`,
+            columns: { product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` }, stock: { type: 'number', defaultDirection: 'desc', value: row => row.effectiveStock }, months: { type: 'number', defaultDirection: 'desc', value: row => row.stockMonthsOnHand }, value: { type: 'number', defaultDirection: 'desc', value: row => row.stockValueAbraAvg ?? row.stockValueSelling ?? 0 } },
+            renderRow: row => `<tr><td>${row.code} · ${row.title}</td><td class="num">${fmt(row.effectiveStock)}</td><td class="num">${months(row.stockMonthsOnHand)}</td><td class="num">${money(row.stockValueAbraAvg ?? row.stockValueSelling ?? 0)}</td></tr>`,
           }, (ordering.overstockRisks || []).slice(0, 20));
           return;
         }
@@ -3991,20 +4517,7 @@
         }
       });
       exportPlanningCsvButton.addEventListener('click', () => {
-        const defaults = ordering.planning?.defaults || {};
-        const selectedLeadDays = Math.max(1, daysBetween(parseDateInput(planningOrderDate.value) || new Date(), parseDateInput(planningArrivalDate.value) || new Date()));
-        const selectedUsePraha = planningPraha.value === 'on';
-        const useBackendPlanning = ordering.planning
-          && currentPlanningScope !== 'catalog'
-          && selectedLeadDays === (defaults.leadDays || 21)
-          && planningCapacity.value === (defaults.capacity || 'half')
-          && selectedUsePraha === Boolean(defaults.prahaFallback);
-
-        if (useBackendPlanning) {
-          exportPlanningRows(ordering.planning?.recommendationRows || []);
-          return;
-        }
-        exportPlanningRows(buildRecommendationRows(currentPlanningScope === 'catalog').rows.slice(0, 120));
+        exportPlanningRows(currentPlanningRows);
       });
       exportPlanningXlsxButton.addEventListener('click', () => exportPlanningXlsx(currentPlanningRows));
       exportCurrentViewButton.addEventListener('click', () => exportExplorerRows(currentExplorerRows));

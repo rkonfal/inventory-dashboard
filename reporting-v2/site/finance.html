@@ -37,62 +37,62 @@
       <div class="ux-date-note"><strong>Období:</strong> P&amp;L za poslední uzavřený měsíc, závazky jako aktuální stav, deník za poslední 3 měsíce.</div>
     </header>
 
-    <details class="secondary-details">
-      <summary>Zdroj a poznámka k financím</summary>
-      <div id="source-alert" style="margin-top:14px;"></div>
-    </details>
-
-    <section class="layer-shell">
+    <section class="layer-shell" id="finance-step-1" data-section-nav-label="Krok 1: co hlídat teď" data-section-nav-order="1">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Decision layer</div>
-          <h2 class="layer-title">Jeden pohled na cash, tlak a trend měsíce</h2>
-          <p class="layer-subtitle">Tahle vrstva má říct, jestli je potřeba řešit hotovost, závazky, nebo výkon měsíce.</p>
+          <div class="layer-label">Krok 1</div>
+          <h2 class="layer-title">Co hlídat teď ve financích</h2>
+          <p class="layer-subtitle">Jedním pohledem poznáš, jestli je potřeba řešit cash, závazky nebo výsledek měsíce.</p>
         </div>
+        <div class="layer-note">Nejdřív signál, až potom účetní detail.</div>
       </div>
       <section class="signal-grid" id="finance-decision-grid"></section>
     </section>
 
-    <section class="layer-shell">
+    <section class="layer-shell" id="finance-inputs" data-section-nav-label="Hlavní vstupy" data-section-nav-order="2">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Focus layer</div>
-          <h2 class="layer-title">Co si otevřít hned po prvním přečtení</h2>
-          <p class="layer-subtitle">Nejdřív pracovní kontext, pak zkratka k závazkům, cashi a měsíčnímu výsledku.</p>
+          <div class="layer-label">Hlavní vstupy</div>
+          <h2 class="layer-title">Kam se přepnout po prvním signálu</h2>
+          <p class="layer-subtitle">Horní vrstva má dát pracovní kontext a zkratky k dalším finančním krokům.</p>
         </div>
       </div>
       <section class="ux-grid">
-      <div class="ux-focus-card">
-        <div class="ux-section-head">
-          <div>
-            <h2 class="ux-section-title">Co řešit hned</h2>
-            <p class="ux-section-subtitle">Krátká orientace bez zbytečného přepínání.</p>
+        <div class="ux-focus-card">
+          <div class="ux-section-head">
+            <div>
+              <h2 class="ux-section-title">Co řešit hned</h2>
+              <p class="ux-section-subtitle">Krátká orientace bez zbytečného přepínání.</p>
+            </div>
+            <span class="badge warn" id="source-mode">Načítám přehled…</span>
           </div>
-          <span class="badge warn" id="source-mode">Načítám přehled…</span>
+          <div class="ux-list" id="finance-focus"></div>
         </div>
-        <div class="ux-list" id="finance-focus"></div>
-      </div>
 
-      <div class="ux-side-stack">
-        <div class="ux-panel-card">
-          <h3 id="finance-period-title" style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Tento měsíc stručně</h3>
-          <p id="finance-period-subtitle" style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Jen to hlavní z posledního měsíce.</p>
-          <div class="ux-stat-list" id="current-month-list"></div>
+        <div class="ux-side-stack">
+          <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Hlavní vstupy</h3>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Otevři jen to, co typicky vede další finanční práci ještě dnes.</p>
+            <div class="section-nav-links" id="finance-route-links" style="margin-top:16px;"></div>
+          </div>
+          <div class="ux-panel-card">
+            <h3 id="finance-period-title" style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Tento měsíc stručně</h3>
+            <p id="finance-period-subtitle" style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Jen to hlavní z posledního měsíce.</p>
+            <div class="ux-stat-list" id="current-month-list"></div>
+          </div>
+          <div class="ux-panel-card">
+            <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Hotovost stručně</h3>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Kolik máme a co z toho ukrajují závazky.</p>
+            <div class="ux-stat-list" id="cash-list"></div>
+          </div>
         </div>
-        <div class="ux-panel-card">
-          <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Hotovost stručně</h3>
-          <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Kolik máme a co z toho ukrajují závazky.</p>
-          <div class="ux-stat-list" id="cash-list"></div>
-        </div>
-      </div>
+      </section>
     </section>
 
-    </section>
-
-    <section class="layer-shell">
+    <section class="layer-shell" id="finance-step-2" data-section-nav-label="Krok 2: pracovní vrstva" data-section-nav-order="3">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Work layer</div>
+          <div class="layer-label">Krok 2</div>
           <h2 class="layer-title">Pracovní vrstva pro cash a závazky</h2>
           <p class="layer-subtitle">Krátké pracovní bloky před tím, než člověk spadne do účetního detailu.</p>
         </div>
@@ -100,8 +100,19 @@
       <section class="summary-grid" id="finance-work-grid"></section>
     </section>
 
-    <details class="secondary-details">
-      <summary>Detail layer, trend a účetní detail</summary>
+    <details class="secondary-details" id="finance-secondary" data-section-nav-label="Sekundární vrstva" data-section-nav-order="4">
+      <summary>Sekundární vrstva a účetní detail</summary>
+
+      <section class="layer-shell" style="margin-top:20px;">
+        <div class="layer-head">
+          <div>
+            <div class="layer-label">Sekundární vrstva</div>
+            <h2 class="layer-title">Zdroj, důvěra dat a účetní drilldown</h2>
+            <p class="layer-subtitle">Zdrojovou poznámku, trend a detail dokladů řeš až ve chvíli, kdy horní vrstvy nestačí.</p>
+          </div>
+        </div>
+        <div id="source-alert"></div>
+      </section>
 
       <section class="card" style="margin-top:18px;">
         <h2 class="section-title">Vývoj roku po měsících</h2>
@@ -230,6 +241,12 @@
       const current = data.currentMonth || {};
       const cash = data.cash || {};
       const previous = data.previousMonth || {};
+      DP.renderRouteLinks('finance-route-links', [
+        ['Přehled firmy', 'index.html', 'Vrať se na hlavní firemní signál a širší kontext.'],
+        ['Marketing', 'marketing.html', current.marketing ? `Marketing v měsíci ${money(current.marketing)}.` : 'Mrkni na rozpad spendu a kanálů.'],
+        ['Twisto', 'twisto.html', Number(cash.overdueInvoicesCount || 0) ? `${DP.fmtNumber(cash.overdueInvoicesCount || 0)} položek po splatnosti a kontrola, co opravdu dorazilo.` : 'Zkontroluj, že payouty a doručené peníze sedí.'],
+        ['Finance data', '../data/current/finance_overview.json', 'Surový finanční vstup pro hlubší kontrolu.'],
+      ]);
       const toggleButtons = [...document.querySelectorAll('[data-view-toggle]')];
       let activeMode = 'current';
       const journal = data.journal || {};
