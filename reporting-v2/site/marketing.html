@@ -92,7 +92,7 @@
       </div>
       <section class="ux-hero-metrics" id="marketing-hero"></section>
       <div class="status-strip" id="marketing-status-strip"></div>
-      <div class="ux-date-note"><strong>Období:</strong> marketingové náklady a dodavatelé za poslední dostupný měsíc, ranní text je jen včerejší kontext.</div>
+      <div class="ux-date-note"><strong>Období:</strong> výchozí pohled drží poslední smysluplné období. Když live PPC pro aktuální měsíc ještě vrací nuly nebo preparing stav, stránka otevře minulý měsíc.</div>
     </header>
 
     <section class="layer-shell" id="marketing-step-1" data-section-nav-label="Krok 1: co znamená spend" data-section-nav-order="1">
@@ -431,10 +431,6 @@
         ['Finance', 'finance.html', 'Zkontroluj, jak marketingový spend sedí proti cashi a výsledku měsíce.'],
         ['Marketing data', '../data/current/marketing_overview.json', 'Surový marketingový vstup pro hlubší kontrolu.'],
       ]);
-      document.getElementById('source-mode').textContent = source.label;
-      document.getElementById('source-mode').className = `badge ${source.tone}`;
-      document.getElementById('source-alert').innerHTML = `<div class="alert ${source.tone === 'danger' ? 'danger' : source.tone === 'warn' ? 'warn' : 'success'}">${sourceMessage}</div>`;
-
       const normalizeDate = value => {
         if (!value) return '–';
         if (typeof value === 'string' && /^\d{8}/.test(value)) return `${value.slice(0,4)}-${value.slice(4,6)}-${value.slice(6,8)}`;
@@ -457,6 +453,34 @@
       const cardTone = value => value == null ? 'tone-mid' : value >= 20 ? 'tone-good' : value >= 10 ? 'tone-mid' : 'tone-bad';
       const modeLabel = mode => mode === 'previous' ? 'Minulý měsíc' : 'Současný stav';
       const sectionMonthLabel = mode => mode === 'previous' ? 'minulý měsíc' : 'tento měsíc';
+      const buildPpcSnapshot = mode => {
+        const metaMonth = (mode === 'previous' ? meta.previousMonth : meta.currentMonth) || {};
+        const googleMonth = (mode === 'previous' ? google.previousMonth : google.currentMonth) || {};
+        const sklikMonth = ((mode === 'previous' ? sklik.previousMonth : sklik.currentMonth) || {});
+        const sklikTotal = sklikMonth.total || {};
+        const statsStatus = mode === 'previous' ? (sklik.statsStatusPreviousMonth || []) : (sklik.statsStatusCurrentMonth || []);
+        return {
+          amount: Number(metaMonth.spendCzk || 0) + Number(googleMonth.spendCzk || 0) + Number(sklikTotal.priceCzk || 0),
+          clicks: Number(metaMonth.clicks || 0) + Number(googleMonth.clicks || 0) + Number(sklikTotal.clicks || 0),
+          conversions: Number(metaMonth.purchaseConversions || 0) + Number(googleMonth.conversions || 0) + Number(sklikTotal.conversions || 0),
+          value: Number(metaMonth.purchaseValueCzk || 0) + Number(googleMonth.conversionValueCzk || 0) + Number(sklikTotal.conversionValueCzk || 0),
+          hasPreparingStatus: statsStatus.some(row => String(row.status || '').toLowerCase() === 'preparing'),
+          connectedSources: [meta.ready, google.ready, sklik.ready].filter(Boolean).length,
+        };
+      };
+      const hasMeaningfulPpcData = snapshot => ['amount', 'clicks', 'conversions', 'value'].some(key => Number(snapshot?.[key] || 0) > 0);
+      const currentPpcSnapshot = buildPpcSnapshot('current');
+      const previousPpcSnapshot = buildPpcSnapshot('previous');
+      const currentPpcLooksPartial = currentPpcSnapshot.connectedSources > 0
+        && !hasMeaningfulPpcData(currentPpcSnapshot)
+        && hasMeaningfulPpcData(previousPpcSnapshot);
+      const currentPpcWarning = currentPpcLooksPartial
+        ? ' Současný stav PPC pro aktuální měsíc je zatím nulový nebo ještě ve stavu preparing, proto stránka startuje na minulém měsíci.'
+        : '';
+
+      document.getElementById('source-mode').textContent = source.label;
+      document.getElementById('source-mode').className = `badge ${source.tone}`;
+      document.getElementById('source-alert').innerHTML = `<div class="alert ${source.tone === 'danger' ? 'danger' : source.tone === 'warn' ? 'warn' : 'success'}">${sourceMessage}${currentPpcWarning}</div>`;
 
       const buildMonth = mode => {
         const raw = (mode === 'previous' ? data.previousMonth : data.currentMonth) || {};
@@ -589,7 +613,7 @@
         || sklik.previousMonth
         || klaviyo.previousMonth
       );
-      let activeMode = monthHasDirectPrevious ? 'current' : 'current';
+      let activeMode = monthHasDirectPrevious && currentPpcLooksPartial ? 'previous' : 'current';
       const toggleButtons = [...document.querySelectorAll('[data-view-toggle]')];
       const trendMobileHost = document.getElementById('daily-trend-table').closest('.ux-table-wrap');
 
@@ -632,8 +656,12 @@
         toggleButtons.forEach(button => button.classList.toggle('is-active', button.dataset.viewToggle === mode));
         document.getElementById('marketing-period-title').textContent = `${modeLabel(mode)} (${month.label || '–'})`;
         document.getElementById('marketing-period-subtitle').textContent = mode === 'previous'
-          ? 'Porovnáváš uzavřený minulý měsíc. Klaviyo atribuce zůstává schválně oddělená pod spendy.'
-          : 'Nahoře jsou spendy. Klaviyo atribuce je schválně oddělená pod nimi.';
+          ? (currentPpcLooksPartial
+            ? 'Výchozí pohled je přepnutý na minulý měsíc, protože současný PPC stav ještě vrací nulová nebo připravovaná data. Klaviyo atribuce zůstává schválně oddělená pod spendy.'
+            : 'Porovnáváš uzavřený minulý měsíc. Klaviyo atribuce zůstává schválně oddělená pod spendy.')
+          : (currentPpcLooksPartial
+            ? 'Současný stav může být na začátku měsíce ještě prázdný, protože PPC platformy dopočítávají dnešní data. Klaviyo atribuce je schválně oddělená pod nimi.'
+            : 'Nahoře jsou spendy. Klaviyo atribuce je schválně oddělená pod nimi.');
 
         const strongestSource = [...sourceConfigs].sort((a, b) => (b.amount || 0) - (a.amount || 0))[0];
         const bestRoasSource = [...sourceConfigs].filter(source => source.roas != null).sort((a, b) => (b.roas || 0) - (a.roas || 0))[0];
