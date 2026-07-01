@@ -178,6 +178,28 @@
         </div>
       </div>
       <div class="grid kpi-grid" id="ga4-kpis" style="margin-top:20px;"></div>
+      <div class="ux-panel-card" id="ga4-ai-layer" style="display:none; margin-top:20px;">
+        <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">AI / assistant vrstva</h3>
+        <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Odděleně ukazuje tvrdě měřené AI referraly, pravděpodobné Bing / assistant vstupy a slabší proxy signál nad organic/direct chováním.</p>
+        <div id="ga4-ai-strip" style="margin-top:16px;"></div>
+        <div class="ux-table-wrap" style="margin-top:16px;">
+          <table class="table desktop-only">
+            <thead>
+              <tr>
+                <th>Bucket</th>
+                <th>Důvěra</th>
+                <th class="num">Sessions 7d</th>
+                <th class="num">Vliv trans. 30d</th>
+                <th class="num">Vliv revenue 30d</th>
+                <th>Top zdroje</th>
+              </tr>
+            </thead>
+            <tbody id="ga4-ai-table"></tbody>
+          </table>
+          <div class="mobile-only mobile-campaign-list" id="ga4-ai-mobile"></div>
+        </div>
+        <div class="section-subtitle" id="ga4-ai-note" style="margin-top:12px;"></div>
+      </div>
       <div class="grid two-col" style="gap:20px; margin-top:20px;">
         <div class="ux-table-wrap">
           <table class="table desktop-only">
@@ -312,15 +334,74 @@
       legacy_snapshot: { label: 'starší uložený přehled', tone: 'warn' },
       missing: { label: 'bez zdroje', tone: 'danger' },
     }[status] || { label: status || 'marketing ready', tone: 'info' });
+    const aiConfidence = {
+      high: { label: 'vysoká', tone: 'success' },
+      medium: { label: 'střední', tone: 'warn' },
+      low: { label: 'nižší', tone: 'info' },
+    };
+
+    function renderAiTrafficLayer(aiTraffic) {
+      const shell = document.getElementById('ga4-ai-layer');
+      if (!shell || !aiTraffic?.ready) return;
+      shell.style.display = '';
+      const buckets = aiTraffic.buckets || [];
+      DP.renderStatusStrip('ga4-ai-strip', [
+        { label: 'Explicit AI sessions 7d', value: DP.fmtNumber(aiTraffic.summary?.explicitAiSessions7d || 0), tone: 'success' },
+        { label: 'Assistant / Bing sessions 7d', value: DP.fmtNumber(aiTraffic.summary?.assistantLikeSessions7d || 0), tone: 'warn' },
+        { label: 'Proxy trans. 30d', value: DP.fmtNumber(aiTraffic.summary?.proxyTransactions30d || 0), tone: 'info' },
+      ], { compact: true });
+      document.getElementById('ga4-ai-note').textContent = aiTraffic.methodology?.note || '';
+
+      const topSourceText = bucket => {
+        const sessionSources = bucket.topSessionSources7d || [];
+        if (sessionSources.length) return sessionSources.slice(0, 2).map(row => `${row.label}: ${DP.fmtNumber(Math.round(row.value || 0))} sessions`).join(' • ');
+        const influenceSources = bucket.topInfluenceSources30d || [];
+        if (influenceSources.length) return influenceSources.slice(0, 2).map(row => `${row.label}: ${money(row.value || 0)}`).join(' • ');
+        return 'Bez výrazného zdroje';
+      };
+
+      document.getElementById('ga4-ai-table').innerHTML = buckets.map(bucket => {
+        const confidence = aiConfidence[bucket.confidence] || aiConfidence.low;
+        return `
+          <tr>
+            <td><strong>${bucket.label}</strong><br><span style="color:var(--text-muted); font-size:12px;">${bucket.description}</span></td>
+            <td>${confidence.label}</td>
+            <td class="num">${bucket.sessions7d ? DP.fmtNumber(Math.round(bucket.sessions7d || 0)) : '–'}</td>
+            <td class="num">${DP.fmtNumber(bucket.transactions30dInfluenced || 0)}</td>
+            <td class="num">${money(bucket.revenue30dInfluenced || 0)}</td>
+            <td>${topSourceText(bucket)}</td>
+          </tr>
+        `;
+      }).join('') || '<tr><td colspan="6">AI vrstva zatím není k dispozici.</td></tr>';
+
+      document.getElementById('ga4-ai-mobile').innerHTML = buckets.map(bucket => {
+        const confidence = aiConfidence[bucket.confidence] || aiConfidence.low;
+        return `
+          <div class="mobile-campaign-card">
+            <strong>${bucket.label}</strong>
+            <div style="color:var(--text-muted); font-size:12px; margin-top:6px;">${bucket.description}</div>
+            <div class="mobile-metric-grid" style="margin-top:10px;">
+              <div><span>Důvěra</span><br>${confidence.label}</div>
+              <div><span>Sessions 7d</span><br>${bucket.sessions7d ? DP.fmtNumber(Math.round(bucket.sessions7d || 0)) : '–'}</div>
+              <div><span>Trans. 30d</span><br>${DP.fmtNumber(bucket.transactions30dInfluenced || 0)}</div>
+              <div><span>Revenue 30d</span><br>${money(bucket.revenue30dInfluenced || 0)}</div>
+            </div>
+            <div style="margin-top:10px; color:var(--text-muted); font-size:12px;">${topSourceText(bucket)}</div>
+          </div>
+        `;
+      }).join('') || '<div class="mobile-campaign-card"><strong>AI vrstva zatím není k dispozici.</strong></div>';
+    }
 
     (async () => {
       const data = await DP.loadJson('../data/current/marketing_overview.json');
+      const ga4Live = await DP.loadJson('../data/current/ga4_overview.json').catch(() => ({}));
       const sklik = data.directSources?.sklik || {};
       const meta = data.directSources?.meta || {};
       const google = data.directSources?.google || {};
       const klaviyo = data.directSources?.klaviyo || {};
       const affiliate = data.directSources?.affiliate || {};
-      const ga4 = data.analytics || {};
+      const ga4Raw = Object.keys(ga4Live || {}).length ? ga4Live : (data.analytics || {});
+      const ga4 = { ready: Boolean(ga4Raw?.last7days || ga4Raw?.currentMonth || ga4Raw?.channelPerformance7d?.length), ...ga4Raw };
       const ga4Mode = ga4.property?.mode === 'combined' ? 'GA4 CZ+SK bundle' : 'GA4';
       const ga4Country = name => (ga4.countries7d || []).find(row => row.country === name) || null;
       const ga4SkCountry = ga4Country('Slovakia');
@@ -851,6 +932,8 @@
               </div>
             </div>
           `).join('') || '<div class="mobile-campaign-card"><strong>Bez GA4 landing pages</strong></div>';
+
+          renderAiTrafficLayer(ga4.aiTraffic);
         }
 
         document.getElementById('daily-trend-table').innerHTML = dailyRows.map(row => `

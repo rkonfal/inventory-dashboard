@@ -140,6 +140,18 @@
         </div>
       </div>
       <div class="grid kpi-grid" id="ga4-eshop-kpis"></div>
+      <div class="ux-panel-card" id="ga4-eshop-ai-layer" style="display:none; margin-top:20px;">
+        <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">AI / assistant vrstva</h3>
+        <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rychlý pohled na tvrdě měřené AI referraly, pravděpodobné assistant vstupy a slabší proxy signál.</p>
+        <div id="ga4-eshop-ai-strip" style="margin-top:16px;"></div>
+        <div class="ux-table-wrap" style="margin-top:16px;">
+          <table class="table">
+            <thead><tr><th>Bucket</th><th>Důvěra</th><th class="num">Sessions 7d</th><th class="num">Vliv trans. 30d</th><th class="num">Vliv revenue 30d</th></tr></thead>
+            <tbody id="ga4-eshop-ai-table"></tbody>
+          </table>
+        </div>
+        <div class="section-subtitle" id="ga4-eshop-ai-note" style="margin-top:12px;"></div>
+      </div>
       <div class="grid two-col" style="margin-top:20px;">
         <div class="card" style="padding:0; background:transparent; border:none; box-shadow:none;">
           <div class="ux-table-wrap">
@@ -227,6 +239,11 @@
   <script src="assets/app.js"></script>
   <script>
     DP.initThemeToggle();
+    const aiConfidence = {
+      high: 'vysoká',
+      medium: 'střední',
+      low: 'nižší',
+    };
 
     function formatDateRange(windowData) {
       const from = new Date(windowData.from);
@@ -248,7 +265,8 @@
       const report = await DP.loadJson('../data/current/morning_report_previous_day.json');
       const history8d = await DP.loadJson('../data/current/wpj_history_8_days.json');
       const eshopYtd = await DP.loadJson('../data/current/eshop_ytd.json').catch(() => ({}));
-      const ga4 = await DP.loadJson('../data/current/ga4_overview.json').catch(() => ({}));
+      const ga4Raw = await DP.loadJson('../data/current/ga4_overview.json').catch(() => ({}));
+      const ga4 = { ready: Boolean(ga4Raw?.last7days || ga4Raw?.currentMonth || ga4Raw?.channelPerformance7d?.length), ...ga4Raw };
       const ga4Mode = ga4.property?.mode === 'combined' ? 'GA4 CZ+SK bundle' : 'GA4';
       const ga4SkCountry = (ga4.countries7d || []).find(row => row.country === 'Slovakia');
       DP.renderRouteLinks('eshop-route-links', [
@@ -272,6 +290,27 @@
         mecin: { label: 'Prodejna Měčín', accent: 'Jen objednávky z pokladny Měčín.' },
       };
       const shortTs = value => value ? DP.fmtDateTime(value) : '–';
+
+      function renderAiTrafficLayer(aiTraffic) {
+        const shell = document.getElementById('ga4-eshop-ai-layer');
+        if (!shell || !aiTraffic?.ready) return;
+        shell.style.display = '';
+        DP.renderStatusStrip('ga4-eshop-ai-strip', [
+          { label: 'Explicit AI sessions 7d', value: DP.fmtNumber(aiTraffic.summary?.explicitAiSessions7d || 0), tone: 'success' },
+          { label: 'Assistant / Bing sessions 7d', value: DP.fmtNumber(aiTraffic.summary?.assistantLikeSessions7d || 0), tone: 'warn' },
+          { label: 'Proxy trans. 30d', value: DP.fmtNumber(aiTraffic.summary?.proxyTransactions30d || 0), tone: 'info' },
+        ], { compact: true });
+        document.getElementById('ga4-eshop-ai-note').textContent = aiTraffic.methodology?.note || '';
+        document.getElementById('ga4-eshop-ai-table').innerHTML = (aiTraffic.buckets || []).map(bucket => `
+          <tr>
+            <td><strong>${bucket.label}</strong><br><span style="color:var(--text-muted); font-size:12px;">${bucket.description}</span></td>
+            <td>${aiConfidence[bucket.confidence] || aiConfidence.low}</td>
+            <td class="num">${bucket.sessions7d ? DP.fmtNumber(Math.round(bucket.sessions7d || 0)) : '–'}</td>
+            <td class="num">${DP.fmtNumber(bucket.transactions30dInfluenced || 0)}</td>
+            <td class="num">${Math.round(bucket.revenue30dInfluenced || 0) ? `${DP.fmtNumber(Math.round(bucket.revenue30dInfluenced || 0))} Kč` : '0 Kč'}</td>
+          </tr>
+        `).join('') || '<tr><td colspan="5">AI vrstva zatím není k dispozici.</td></tr>';
+      }
 
       function syncViewButtons() {
         viewButtons.forEach(button => button.classList.toggle('active', button.dataset.view === activeView));
@@ -689,6 +728,8 @@
               <td class="num">${row.purchaseRatePct == null ? '–' : `${Number(row.purchaseRatePct).toFixed(2)} %`}</td>
             </tr>
           `).join('') || '<tr><td colspan="4">GA4 landing pages zatím nejsou k dispozici.</td></tr>';
+
+          renderAiTrafficLayer(ga4.aiTraffic);
         }
 
         renderRows('payments-table', (eshop.paymentMethods || []).slice(0, 8), row => DP.fmtNumber(row.count));
