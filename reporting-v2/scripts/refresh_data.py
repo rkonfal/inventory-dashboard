@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from __future__ import annotations
+
 import hashlib
 import html
 import json
@@ -9,12 +11,18 @@ import shutil
 import subprocess
 import sys
 import unicodedata
+import csv
+import io
+import posixpath
+import zipfile
 from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field, replace
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
+from urllib.request import Request, urlopen
+from xml.etree import ElementTree as ET
 from zoneinfo import ZoneInfo
 
 from adapters.abra import AbraAdapter
@@ -40,6 +48,7 @@ CONFIG_DIR = ROOT / 'config'
 SKU_MAPPING_OVERRIDE_FILE = CONFIG_DIR / 'sku_mapping_overrides.json'
 POS_ADMIN_VIEW_OVERRIDE_FILE = CONFIG_DIR / 'pos_admin_view_overrides.json'
 ORDERING_REFERENCE_OVERRIDE_FILE = CONFIG_DIR / 'ordering_reference_overrides.json'
+STORE_EXPIRY_BATCHES_FILE = CONFIG_DIR / 'store_expiry_batches.json'
 ORDERING_PACKAGING_MATCH_FILE = ROOT.parent / 'knowledge' / 'tiande_order_packaging_catalog_match.json'
 CURRENT_DIR = ROOT / 'data' / 'current'
 SNAPSHOT_DIR = ROOT / 'data' / 'snapshots'
@@ -52,6 +61,9 @@ LIVE_FINANCE_LOGISTICS_ACCOUNTS = ('518201', '518400')
 LIVE_FINANCE_BANKFEE_ACCOUNTS = ('568001', '568100')
 SK_EUR_TO_CZK_RATE = 27.27
 LIVE_CASH_ACCOUNT_PREFIXES = ('221', '211')
+ORDERING_TARGET_COVER_DAYS = 30
+ABRA_STOCK_CARD_PAGE_SIZE = 5000
+ABRA_STOCK_CARD_MAX_PAGES = 20
 
 class Settings:
     FALSE_VALUES = {'0', 'false', 'no'}
@@ -104,6 +116,8 @@ class Settings:
         self.klaviyo_private_api_key = self.get_stripped('KLAVIYO_PRIVATE_API_KEY')
         self.fourpx_warehouse_code = self.get_stripped('FOURPX_WAREHOUSE_CODE', 'CZPRGA') or 'CZPRGA'
         self.fourpx_outbound_max_pages = self.get_int('FOURPX_OUTBOUND_MAX_PAGES', 20)
+        self.store_expiry_sheet_csv_url = self.get_stripped('STORE_EXPIRY_SHEET_CSV_URL')
+        self.store_expiry_sheet_timeout_seconds = self.get_int('STORE_EXPIRY_SHEET_TIMEOUT_SECONDS', 30)
 
         self.reporting_heavy_payloads = self.csv('REPORTING_HEAVY_PAYLOADS')
         self.reporting_skip_heavy_snapshot_writes = self.is_enabled('REPORTING_SKIP_HEAVY_SNAPSHOT_WRITES', True)
@@ -250,6 +264,7 @@ class RefreshRuntimeContext:
     pos_view_filters: dict[str, list[int]]
     ordering_reference_overrides: dict[str, Any]
     ordering_packaging_map: dict[str, Any]
+    store_expiry_input: dict[str, Any]
     warehouse_code: str
     max_pages: int
     now_local: datetime
@@ -311,6 +326,7 @@ class RefreshBuildResult:
     ordering_reference_sk_payload: dict[str, Any]
     ordering_sales_history_payload: dict[str, Any]
     expiry_overview_payload: dict[str, Any]
+    store_expiry_watchdog_payload: dict[str, Any]
     combined_index_payload: dict[str, Any]
     combined_overview_payload: dict[str, Any]
     baseline_orders: float | int | None
@@ -351,6 +367,7 @@ class RefreshBuildState:
     ordering_reference_sk_payload: dict[str, Any]
     ordering_sales_history_payload: dict[str, Any]
     expiry_overview_payload: dict[str, Any]
+    store_expiry_watchdog_payload: dict[str, Any]
     combined_index_payload: dict[str, Any]
     combined_overview_payload: dict[str, Any]
     stock_summary: dict[str, Any]
@@ -480,6 +497,414 @@ def load_ordering_reference_overrides(path: Path):
             payload['titleContains'].append({'needle': needle, 'meta': dict(meta)})
 
     return payload
+
+
+def normalize_lookup_key(value):
+    text = str(value or '').strip().lower()
+    text = ''.join(ch for ch in unicodedata.normalize('NFD', text) if unicodedata.category(ch) != 'Mn')
+    return re.sub(r'[^a-z0-9]+', '_', text).strip('_')
+
+
+def parse_boolish(value, default=True):
+    if value in (None, ''):
+        return default
+    key = normalize_lookup_key(value)
+    if key in {'0', 'false', 'ne', 'no', 'off', 'inactive', 'disabled'}:
+        return False
+    if key in {'1', 'true', 'ano', 'yes', 'on', 'active', 'enabled'}:
+        return True
+    return default
+
+
+def parse_decimal(value):
+    if value in (None, ''):
+        return 0.0
+    if isinstance(value, (int, float)):
+        return float(value)
+    text = str(value).strip().replace('\u00a0', '').replace(' ', '')
+    if not text:
+        return 0.0
+    if text.count(',') == 1 and text.count('.') == 0:
+        text = text.replace(',', '.')
+    elif text.count(',') and text.count('.'):
+        text = text.replace(',', '')
+    try:
+        return float(text)
+    except ValueError:
+        return 0.0
+
+
+def normalize_google_sheet_csv_url(value):
+    url = str(value or '').strip()
+    if not url:
+        return ''
+    if 'docs.google.com/spreadsheets/d/' not in url:
+        return url
+    sheet_id_match = re.search(r'/spreadsheets/d/([a-zA-Z0-9-_]+)', url)
+    if not sheet_id_match:
+        return url
+    sheet_id = sheet_id_match.group(1)
+    gid_match = re.search(r'[?#&]gid=(\d+)', url)
+    gid = gid_match.group(1) if gid_match else '0'
+    return f'https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid={gid}'
+
+
+def normalize_google_sheet_xlsx_url(value):
+    url = str(value or '').strip()
+    if not url or 'docs.google.com/spreadsheets/d/' not in url:
+        return ''
+    sheet_id_match = re.search(r'/spreadsheets/d/([a-zA-Z0-9-_]+)', url)
+    if not sheet_id_match:
+        return ''
+    sheet_id = sheet_id_match.group(1)
+    return f'https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=xlsx'
+
+
+STORE_EXPIRY_HEADER_ALIASES = {
+    'store': 'store',
+    'view': 'store',
+    'prodejna': 'store',
+    'prodejna_kod': 'store',
+    'prodejna_code': 'store',
+    'sku': 'sku',
+    'kod': 'sku',
+    'code': 'sku',
+    'product_code': 'sku',
+    'produkt': 'title',
+    'product': 'title',
+    'nazev': 'title',
+    'title': 'title',
+    'sarze': 'batch',
+    'saze': 'batch',
+    'batch': 'batch',
+    'batch_no': 'batch',
+    'batch_code': 'batch',
+    'expirace': 'expiryDate',
+    'datum_expirace': 'expiryDate',
+    'expiry': 'expiryDate',
+    'expiry_date': 'expiryDate',
+    'datum_naskladneni': 'receivedDate',
+    'naskladneno_dne': 'receivedDate',
+    'received_date': 'receivedDate',
+    'prijem_dne': 'receivedDate',
+    'naskladneno': 'receivedUnits',
+    'pocet': 'receivedUnits',
+    'received_units': 'receivedUnits',
+    'received_qty': 'receivedUnits',
+    'kusu_naskladneno': 'receivedUnits',
+    'vyrazeno': 'discardedUnits',
+    'discarded_units': 'discardedUnits',
+    'discarded_qty': 'discardedUnits',
+    'presunuto': 'transferredUnits',
+    'transferred_units': 'transferredUnits',
+    'transfered_units': 'transferredUnits',
+    'transferred_qty': 'transferredUnits',
+    'poznamka': 'note',
+    'note': 'note',
+    'poznamky': 'note',
+    'aktivni': 'active',
+    'active': 'active',
+    'enabled': 'active',
+}
+
+STORE_EXPIRY_VIEW_LABELS = {
+    'ltm': 'Litomerice',
+    'mecin': 'Mecin',
+}
+
+
+def parse_store_expiry_view(value):
+    key = normalize_lookup_key(value)
+    if key in {'ltm', 'litomerice', 'litomerice_prodejna', 'prodejna_litomerice'}:
+        return 'ltm'
+    if key in {'mecin', 'mecin_prodejna', 'prodejna_mecin'}:
+        return 'mecin'
+    return None
+
+
+def normalize_store_expiry_row(raw_row, index, *, source_mode='local_json', sheet_title=''):
+    if not isinstance(raw_row, dict):
+        return None, f'Radek {index}: vstup neni objekt.'
+
+    row = {}
+    for key, value in raw_row.items():
+        canonical = STORE_EXPIRY_HEADER_ALIASES.get(normalize_lookup_key(key))
+        if canonical:
+            row[canonical] = value
+
+    if sheet_title and not row.get('store'):
+        row['store'] = sheet_title
+
+    store_view = parse_store_expiry_view(row.get('store'))
+    sku = normalize_product_code(row.get('sku'))
+    batch = str(row.get('batch') or '').strip()
+    title = str(row.get('title') or '').strip()
+    expiry_dt = parse_dt(row.get('expiryDate'))
+    received_dt = parse_dt(row.get('receivedDate'))
+    received_units = parse_decimal(row.get('receivedUnits'))
+    discarded_units = parse_decimal(row.get('discardedUnits'))
+    transferred_units = parse_decimal(row.get('transferredUnits'))
+    note = str(row.get('note') or '').strip()
+    active = parse_boolish(row.get('active'), True)
+
+    if not store_view:
+        return None, f'Radek {index}: chybi nebo nesedi prodejna.'
+    if not sku:
+        return None, f'Radek {index}: chybi SKU.'
+    if not expiry_dt:
+        return None, f'Radek {index}: chybi nebo nesedi expirace.'
+    if received_units <= 0:
+        return None, f'Radek {index}: naskladneno musi byt vetsi nez 0.'
+
+    return {
+        'rowNumber': index,
+        'sourceMode': source_mode,
+        'storeView': store_view,
+        'storeLabel': STORE_EXPIRY_VIEW_LABELS.get(store_view, store_view.upper()),
+        'sku': sku,
+        'title': title,
+        'batch': batch or f'{sku}-{expiry_dt.date().isoformat()}',
+        'expiryDate': expiry_dt.date().isoformat(),
+        'receivedDate': received_dt.date().isoformat() if received_dt else None,
+        'receivedUnits': round(received_units, 2),
+        'discardedUnits': round(max(discarded_units, 0.0), 2),
+        'transferredUnits': round(max(transferred_units, 0.0), 2),
+        'note': note,
+        'active': active,
+    }, None
+
+
+def spreadsheet_column_index(cell_ref):
+    match = re.match(r'([A-Z]+)', str(cell_ref or '').upper())
+    if not match:
+        return 0
+    value = 0
+    for char in match.group(1):
+        value = value * 26 + (ord(char) - 64)
+    return max(value - 1, 0)
+
+
+def xlsx_cell_text(cell, shared_strings, ns):
+    cell_type = cell.get('t')
+    if cell_type == 'inlineStr':
+        return ''.join(part.text or '' for part in cell.findall('.//main:t', ns))
+    value_node = cell.find('main:v', ns)
+    if value_node is None:
+        return ''
+    value = value_node.text or ''
+    if cell_type == 's':
+        try:
+            return shared_strings[int(value)]
+        except Exception:
+            return ''
+    return value
+
+
+def parse_store_expiry_rows_from_xlsx_bytes(body, *, source_url=''):
+    ns = {
+        'main': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main',
+        'rel': 'http://schemas.openxmlformats.org/officeDocument/2006/relationships',
+        'pkgrel': 'http://schemas.openxmlformats.org/package/2006/relationships',
+    }
+    warnings = []
+    rows = []
+
+    with zipfile.ZipFile(io.BytesIO(body)) as archive:
+        shared_strings = []
+        if 'xl/sharedStrings.xml' in archive.namelist():
+            shared_root = ET.fromstring(archive.read('xl/sharedStrings.xml'))
+            for item in shared_root.findall('main:si', ns):
+                shared_strings.append(''.join(part.text or '' for part in item.findall('.//main:t', ns)))
+
+        workbook_root = ET.fromstring(archive.read('xl/workbook.xml'))
+        rels_root = ET.fromstring(archive.read('xl/_rels/workbook.xml.rels'))
+        relationship_targets = {
+            rel.get('Id'): rel.get('Target')
+            for rel in rels_root.findall('pkgrel:Relationship', ns)
+            if rel.get('Id') and rel.get('Target')
+        }
+
+        sheets = []
+        for sheet in workbook_root.findall('main:sheets/main:sheet', ns):
+            rel_id = sheet.get('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id')
+            sheets.append((sheet.get('name') or '', relationship_targets.get(rel_id) or ''))
+
+        for sheet_title, target in sheets:
+            if not target:
+                continue
+            worksheet_path = posixpath.normpath(posixpath.join('xl', target))
+            if worksheet_path not in archive.namelist():
+                continue
+            worksheet_root = ET.fromstring(archive.read(worksheet_path))
+
+            matrix = []
+            for row_node in worksheet_root.findall('.//main:sheetData/main:row', ns):
+                cells = {}
+                max_col = -1
+                for cell in row_node.findall('main:c', ns):
+                    col_index = spreadsheet_column_index(cell.get('r'))
+                    cells[col_index] = xlsx_cell_text(cell, shared_strings, ns).strip()
+                    max_col = max(max_col, col_index)
+                matrix.append([cells.get(index, '') for index in range(max_col + 1)] if max_col >= 0 else [])
+
+            header_index = None
+            headers = []
+            for idx, candidate in enumerate(matrix[:5]):
+                normalized = [normalize_lookup_key(value) for value in candidate if str(value or '').strip()]
+                has_sku = 'sku' in normalized
+                has_units = any(value in {'pocet', 'naskladneno', 'received_units', 'received_qty'} for value in normalized)
+                has_expiry = any(value in {'expirace', 'expiry', 'expiry_date', 'datum_expirace'} for value in normalized)
+                if has_sku and has_units and has_expiry:
+                    header_index = idx
+                    headers = candidate
+                    break
+            if header_index is None and parse_store_expiry_view(sheet_title):
+                for idx, candidate in enumerate(matrix[:5]):
+                    normalized = [normalize_lookup_key(value) for value in candidate[:3]]
+                    if len(candidate) >= 3 and normalized[2:3] == ['expirace']:
+                        header_index = idx
+                        headers = ['SKU', 'POCET', 'EXPIRACE']
+                        break
+            if header_index is None or not headers:
+                continue
+
+            for data_index, values in enumerate(matrix[header_index + 1:], start=header_index + 2):
+                if not any(str(value or '').strip() for value in values):
+                    continue
+                raw_row = {}
+                for column_index, header in enumerate(headers):
+                    header_text = str(header or '').strip()
+                    if not header_text:
+                        continue
+                    raw_row[header_text] = values[column_index] if column_index < len(values) else ''
+                normalized, warning = normalize_store_expiry_row(
+                    raw_row,
+                    data_index,
+                    source_mode='google_sheet_workbook',
+                    sheet_title=sheet_title,
+                )
+                if warning:
+                    warnings.append(f'{sheet_title}: {warning}')
+                    continue
+                normalized['sourceSheet'] = sheet_title
+                rows.append(normalized)
+
+    if source_url and not rows:
+        warnings.append(f'Workbook z {source_url} nevratil zadne platne radky.')
+    return rows, warnings
+
+
+def load_store_expiry_rows_from_csv_text(text, *, source_url=''):
+    rows = []
+    warnings = []
+    reader = csv.DictReader(io.StringIO(text))
+    if not reader.fieldnames:
+        return rows, ['CSV nema hlavicku.']
+    for index, raw_row in enumerate(reader, start=2):
+        normalized, warning = normalize_store_expiry_row(raw_row, index, source_mode='google_sheet')
+        if warning:
+            warnings.append(warning)
+            continue
+        rows.append(normalized)
+    if source_url and not rows:
+        warnings.append(f'CSV z {source_url} nevratilo zadne platne radky.')
+    return rows, warnings
+
+
+def load_store_expiry_rows_from_json(path: Path):
+    warnings = []
+    if not path.exists():
+        return [], warnings
+    try:
+        payload = json.loads(path.read_text(encoding='utf-8'))
+    except Exception as exc:
+        return [], [f'Neplatny JSON ve store expiry vstupu: {path} ({exc})']
+
+    raw_rows = payload.get('rows') if isinstance(payload, dict) else payload
+    rows = []
+    for index, raw_row in enumerate(raw_rows or [], start=1):
+        normalized, warning = normalize_store_expiry_row(raw_row, index, source_mode='local_json')
+        if warning:
+            warnings.append(warning)
+            continue
+        rows.append(normalized)
+    return rows, warnings
+
+
+def load_store_expiry_input(path: Path, sheet_url: str):
+    warnings = []
+    rows = []
+    source = {
+        'status': 'missing',
+        'mode': 'none',
+        'label': 'Bez zdroje',
+        'sheetUrl': '',
+        'localPath': str(path),
+    }
+
+    normalized_workbook_url = normalize_google_sheet_xlsx_url(sheet_url)
+    normalized_sheet_url = normalize_google_sheet_csv_url(sheet_url)
+    if normalized_workbook_url:
+        source.update({
+            'mode': 'google_sheet_workbook',
+            'label': 'Google Sheet workbook',
+            'sheetUrl': normalized_workbook_url,
+        })
+        try:
+            req = Request(
+                normalized_workbook_url,
+                headers={'User-Agent': 'reporting-v2/1.0'},
+                method='GET',
+            )
+            with urlopen(req, timeout=SETTINGS.store_expiry_sheet_timeout_seconds) as resp:
+                body = resp.read()
+            rows, warnings = parse_store_expiry_rows_from_xlsx_bytes(body, source_url=normalized_workbook_url)
+            source['status'] = 'ok' if rows else 'warn'
+        except Exception as exc:
+            warnings.append(f'Google Sheet workbook se nepodarilo nacist: {exc}')
+            source['status'] = 'warn'
+
+    if not rows and normalized_sheet_url:
+        source.update({
+            'mode': 'google_sheet',
+            'label': 'Google Sheet CSV',
+            'sheetUrl': normalized_sheet_url,
+        })
+        try:
+            req = Request(
+                normalized_sheet_url,
+                headers={'User-Agent': 'reporting-v2/1.0'},
+                method='GET',
+            )
+            with urlopen(req, timeout=SETTINGS.store_expiry_sheet_timeout_seconds) as resp:
+                text = resp.read().decode('utf-8-sig', 'ignore')
+            rows, csv_warnings = load_store_expiry_rows_from_csv_text(text, source_url=normalized_sheet_url)
+            warnings.extend(csv_warnings)
+            source['status'] = 'ok' if rows else 'warn'
+        except Exception as exc:
+            warnings.append(f'Google Sheet CSV se nepodarilo nacist: {exc}')
+            source['status'] = 'warn'
+
+    if not rows:
+        local_rows, local_warnings = load_store_expiry_rows_from_json(path)
+        warnings.extend(local_warnings)
+        if local_rows:
+            rows = local_rows
+            source.update({
+                'status': 'ok' if not warnings else 'warn',
+                'mode': 'local_json' if source['mode'] == 'none' else 'google_sheet_fallback_local',
+                'label': 'Lokalni JSON',
+            })
+
+    if not rows and source['status'] == 'missing':
+        source['label'] = 'Vstup chybi'
+
+    return {
+        'generatedAt': current_local_time().isoformat(),
+        'source': source,
+        'warnings': warnings,
+        'rows': rows,
+    }
 
 
 def normalize_supplier_sku(value):
@@ -779,6 +1204,10 @@ def num(value):
     return float(value or 0)
 
 
+def ordering_target_units(daily_run_rate, effective_stock, target_days=ORDERING_TARGET_COVER_DAYS):
+    return max(0, round(max(0.0, float(daily_run_rate or 0)) * max(0, int(target_days or 0)) - max(0.0, float(effective_stock or 0))))
+
+
 def pct_delta(current, baseline):
     if not baseline:
         return None
@@ -970,14 +1399,15 @@ def order_currency(order):
     return str(currency or '').strip().upper()
 
 
-def load_json_if_fresh(path: Path, *, max_age_hours):
+def load_json_if_fresh(path: Path, *, max_age_hours, freshness_key='generatedAt'):
     if not path.exists():
         return None
     try:
         data = json.loads(path.read_text(encoding='utf-8'))
     except Exception:
         return None
-    generated = parse_dt(data.get('generatedAt'))
+    freshness_value = data.get(freshness_key) or data.get('generatedAt')
+    generated = parse_dt(freshness_value)
     if not generated:
         return None
     age_hours = (current_local_time() - generated).total_seconds() / 3600
@@ -1904,6 +2334,264 @@ def collect_wpj_order_product_metrics(orders, wpj_by_code=None, manual_overrides
     return metrics
 
 
+def collect_exact_order_metrics(orders, end_dt, pos_admin_views=None, windows=(90, 30, 14)):
+    metrics = {}
+    view_keys = ('complete', 'cz', 'sk', 'ltm', 'mecin')
+    max_window = max(windows) if windows else 0
+
+    for order in orders or []:
+        dt = parse_dt(order.get('dateCreated'))
+        if not dt:
+            continue
+        days_ago = (end_dt.date() - dt.date()).days
+        if days_ago < 0 or (max_window and days_ago > max_window - 1):
+            continue
+        view = classify_order_view(order, pos_admin_views)
+        for item in order.get('items') or []:
+            if item.get('type') != 'product':
+                continue
+            raw_code = normalize_product_code(item.get('code') or item.get('name') or '–')
+            row = metrics.setdefault(raw_code, {
+                'code': raw_code,
+                'lastSaleDate': None,
+                'byView': {
+                    key: {f'units{days}d': 0.0 for days in windows}
+                    for key in view_keys
+                },
+                **{f'units{days}d': 0.0 for days in windows},
+            })
+            units = num(item.get('pieces'))
+            for days in windows:
+                if days_ago <= days - 1:
+                    row[f'units{days}d'] += units
+                    row['byView']['complete'][f'units{days}d'] += units
+                    row['byView'][view][f'units{days}d'] += units
+            if not row['lastSaleDate'] or dt.isoformat() > row['lastSaleDate']:
+                row['lastSaleDate'] = dt.isoformat()
+
+    for row in metrics.values():
+        for days in windows:
+            row[f'units{days}d'] = round(row.get(f'units{days}d', 0.0), 2)
+        row['byView'] = {
+            key: {
+                metric_key: round(metric_value, 2)
+                for metric_key, metric_value in value.items()
+            }
+            for key, value in row['byView'].items()
+        }
+    return metrics
+
+
+def aggregate_exact_inventory(items):
+    grouped = {}
+    for item in items or []:
+        raw_code = normalize_product_code(item.get('sku_code'))
+        if not raw_code:
+            continue
+        row = grouped.setdefault(raw_code, {
+            'code': raw_code,
+            'availableStock': 0.0,
+            'pendingStock': 0.0,
+            'freezeStock': 0.0,
+            'onwayStock': 0.0,
+        })
+        row['availableStock'] += num(item.get('available_stock'))
+        row['pendingStock'] += num(item.get('pending_stock'))
+        row['freezeStock'] += num(item.get('freeze_stock'))
+        row['onwayStock'] += num(item.get('onway_stock'))
+    for row in grouped.values():
+        row['availableStock'] = round(row['availableStock'], 2)
+        row['pendingStock'] = round(row['pendingStock'], 2)
+        row['freezeStock'] = round(row['freezeStock'], 2)
+        row['onwayStock'] = round(row['onwayStock'], 2)
+    return grouped
+
+
+def fetch_store_expiry_sales_orders(ctx: RefreshRuntimeContext, rows: list[dict[str, Any]]):
+    if not rows or not wpj_endpoint() or not SETTINGS.wpj_access_token:
+        return [], []
+
+    active_rows = [row for row in rows if row.get('active')]
+    if not active_rows:
+        return [], []
+
+    warnings = []
+    received_dates = [parse_dt(row.get('receivedDate')) for row in active_rows if row.get('receivedDate')]
+    if received_dates:
+        start_dt = min(received_dates).replace(hour=0, minute=0, second=0, microsecond=0)
+    else:
+        start_dt = ctx.report_end - timedelta(days=365)
+        warnings.append('Cast batchu nema datum naskladneni, prodeje se proto pocitaji jen z poslednich 365 dnu.')
+
+    fetched = []
+    for view in {'ltm', 'mecin'}:
+        if not any(row.get('storeView') == view for row in active_rows):
+            continue
+        pos_ids = ctx.pos_view_filters.get(view) or []
+        if not pos_ids:
+            warnings.append(f'Chybi POS mapping pro prodejnu {STORE_EXPIRY_VIEW_LABELS.get(view, view)}.')
+            continue
+        for pos_id in pos_ids:
+            fetched.extend(fetch_wpj_orders(
+                wpj_endpoint(),
+                SETTINGS.wpj_access_token,
+                start_dt,
+                ctx.report_end,
+                limit=1000,
+                detailed=True,
+                pos_id=pos_id,
+                classified_view=view,
+            ))
+
+    return fetched, warnings
+
+
+def build_store_expiry_watchdog(
+    generated_at,
+    now_local,
+    store_expiry_input,
+    wpj_products=None,
+    sales_orders=None,
+    manual_overrides=None,
+    pos_admin_views=None,
+):
+    wpj_products = wpj_products or []
+    sales_orders = sales_orders or []
+    manual_overrides = manual_overrides or {'aliases': {}, 'ignore': set()}
+    pos_admin_views = pos_admin_views or {}
+    source = dict(store_expiry_input.get('source') or {})
+    warnings = list(store_expiry_input.get('warnings') or [])
+    raw_rows = [row for row in (store_expiry_input.get('rows') or []) if row.get('active', True)]
+    wpj_by_code = {item.get('code'): item for item in wpj_products if item.get('code')}
+    sales_metrics = collect_wpj_order_product_metrics(
+        sales_orders,
+        wpj_by_code=wpj_by_code,
+        manual_overrides=manual_overrides,
+        pos_admin_views=pos_admin_views,
+    )
+
+    rows_by_group = defaultdict(list)
+    for row in raw_rows:
+        rows_by_group[(row.get('storeView'), normalize_product_code(row.get('sku')))].append(dict(row))
+
+    items = []
+    group_summaries = []
+    today = now_local.date()
+    for (store_view, sku), group_rows in rows_by_group.items():
+        group_rows.sort(key=lambda row: (
+            row.get('receivedDate') or row.get('expiryDate') or '9999-12-31',
+            row.get('expiryDate') or '9999-12-31',
+            row.get('batch') or '',
+        ))
+        sales = sales_metrics.get(sku) or {}
+        sold_units = round(((sales.get('byView') or {}).get(store_view) or {}).get('units', 0.0), 2)
+        unmatched_sales_units = sold_units
+        group_remaining = 0.0
+        group_received = 0.0
+        group_adjustments = 0.0
+
+        for row in group_rows:
+            received_units = round(num(row.get('receivedUnits')), 2)
+            discarded_units = round(num(row.get('discardedUnits')), 2)
+            transferred_units = round(num(row.get('transferredUnits')), 2)
+            available_before_sales = round(max(received_units - discarded_units - transferred_units, 0.0), 2)
+            allocated_sold_units = round(min(available_before_sales, unmatched_sales_units), 2)
+            remaining_units = round(max(available_before_sales - allocated_sold_units, 0.0), 2)
+            unmatched_sales_units = round(max(unmatched_sales_units - allocated_sold_units, 0.0), 2)
+            expiry_dt = parse_dt(row.get('expiryDate'))
+            days_to_expiry = (expiry_dt.date() - today).days if expiry_dt else None
+
+            severity = 'ok'
+            if remaining_units > 0 and days_to_expiry is not None:
+                if days_to_expiry < 0:
+                    severity = 'expired'
+                elif days_to_expiry <= 14:
+                    severity = 'critical'
+                elif days_to_expiry <= 30:
+                    severity = 'soon'
+                elif days_to_expiry <= 60:
+                    severity = 'watch'
+
+            product = wpj_by_code.get(sku) or {}
+            title = row.get('title') or product.get('title') or sku
+            items.append({
+                **row,
+                'title': title,
+                'soldUnitsFifo': allocated_sold_units,
+                'remainingUnits': remaining_units,
+                'availableBeforeSales': available_before_sales,
+                'daysToExpiry': days_to_expiry,
+                'severity': severity,
+                'salesSourceUnits': sold_units,
+                'sourceCodes': sorted(set((sales.get('sourceCodes') or []) + [sku])),
+            })
+            group_remaining += remaining_units
+            group_received += received_units
+            group_adjustments += discarded_units + transferred_units
+
+        group_summaries.append({
+            'storeView': store_view,
+            'storeLabel': STORE_EXPIRY_VIEW_LABELS.get(store_view, store_view.upper()),
+            'sku': sku,
+            'title': (wpj_by_code.get(sku) or {}).get('title') or group_rows[0].get('title') or sku,
+            'receivedUnits': round(group_received, 2),
+            'adjustedUnits': round(group_adjustments, 2),
+            'soldUnits': round(sold_units, 2),
+            'remainingUnits': round(group_remaining, 2),
+            'unmatchedSalesUnits': round(unmatched_sales_units, 2),
+        })
+        if unmatched_sales_units > 0:
+            warnings.append(
+                f'{STORE_EXPIRY_VIEW_LABELS.get(store_view, store_view)} / {sku}: prodeje presahuji sledovane batche o {format_units(unmatched_sales_units)}.'
+            )
+
+    visible_items = [item for item in items if item.get('remainingUnits', 0) > 0]
+    severity_order = {'expired': 0, 'critical': 1, 'soon': 2, 'watch': 3, 'ok': 4}
+    visible_items.sort(key=lambda item: (
+        severity_order.get(item.get('severity'), 9),
+        item.get('daysToExpiry') if item.get('daysToExpiry') is not None else 9999,
+        -(item.get('remainingUnits') or 0),
+        item.get('storeView') or '',
+        item.get('sku') or '',
+    ))
+    group_summaries.sort(key=lambda item: (item.get('storeView') or '', -(item.get('remainingUnits') or 0), item.get('sku') or ''))
+
+    summary = {
+        'inputRows': len(store_expiry_input.get('rows') or []),
+        'activeRows': len(raw_rows),
+        'trackedGroups': len(group_summaries),
+        'visibleRows': len(visible_items),
+        'totalRemainingUnits': round(sum(item.get('remainingUnits') or 0 for item in visible_items), 2),
+        'expiredRows': sum(1 for item in visible_items if item.get('severity') == 'expired'),
+        'criticalRows': sum(1 for item in visible_items if item.get('severity') == 'critical'),
+        'soonRows': sum(1 for item in visible_items if item.get('severity') == 'soon'),
+        'watchRows': sum(1 for item in visible_items if item.get('severity') == 'watch'),
+        'storesTracked': sorted({item.get('storeView') for item in raw_rows if item.get('storeView')}),
+        'salesOrdersProcessed': len(sales_orders),
+        'sourceWarnings': len(warnings),
+    }
+    alerts = []
+    if summary['expiredRows']:
+        alerts.append(f'{summary["expiredRows"]} batchu po expiraci stale drzi zbyvajici kusy.')
+    if summary['criticalRows']:
+        alerts.append(f'{summary["criticalRows"]} batchu je do 14 dnu.')
+    if not visible_items and raw_rows:
+        alerts.append('Vsechny sledovane batchy jsou uz odprodane nebo uzavrene.')
+    if not raw_rows:
+        alerts.append('Store expiry vstup zatim nema zadne aktivni radky.')
+
+    return {
+        'generatedAt': generated_at,
+        'source': source,
+        'summary': summary,
+        'alerts': alerts,
+        'warnings': warnings,
+        'groups': group_summaries,
+        'items': visible_items,
+        'allItems': items,
+    }
+
+
 def normalize_product_code(value):
     return str(value or '').strip()
 
@@ -2107,6 +2795,14 @@ def reapply_combined_stock_to_analytics(payload, combined_index, market_key='com
             changed = True
         if 'wpj4pxStoreTotal' in item and round(num(item.get('wpj4pxStoreTotal')), 2) != next_wpj_total:
             item['wpj4pxStoreTotal'] = next_wpj_total
+            changed = True
+        next_selling_value = round(next_stock * money(item.get('unitSellingPrice')), 2) if item.get('unitSellingPrice') else None
+        if item.get('stockValueSelling') != next_selling_value:
+            item['stockValueSelling'] = next_selling_value
+            changed = True
+        next_abra_value = round(next_stock * money(item.get('unitCostAbraAvg')), 2) if item.get('unitCostAbraAvg') else None
+        if item.get('stockValueAbraAvg') != next_abra_value:
+            item['stockValueAbraAvg'] = next_abra_value
             changed = True
     return payload, changed
 
@@ -2492,6 +3188,11 @@ def build_inventory_analytics_window(ctx: InventoryAnalyticsBuildContext):
     metrics = {}
     view_keys = ('complete', 'cz', 'sk', 'ltm', 'mecin')
     metric_windows = tuple(dict.fromkeys((ctx.window_days, 365, 180, 90, 30, 14)))
+    abra_costs_by_code = fetch_abra_average_cost_map([
+        item.get('code')
+        for item in (ctx.combined_index.get('items') or [])
+        if item.get('code')
+    ])
 
     for order in ctx.orders:
         dt = parse_dt(order.get('dateCreated'))
@@ -2569,10 +3270,8 @@ def build_inventory_analytics_window(ctx: InventoryAnalyticsBuildContext):
         else:
             turnover_zone = 'red'
 
-        reorder_target_days = 60
-        safety_days = 14 if units90d > 0 else 0
-        recommended_min_units = max(0, round(daily_run_rate_90 * 30 - effective_stock)) if daily_run_rate_90 else 0
-        recommended_order_units = max(0, round(daily_run_rate_90 * (reorder_target_days + safety_days) - effective_stock)) if daily_run_rate_90 else 0
+        recommended_min_units = ordering_target_units(daily_run_rate_90, effective_stock, ORDERING_TARGET_COVER_DAYS)
+        recommended_order_units = ordering_target_units(daily_run_rate_90, effective_stock, ORDERING_TARGET_COVER_DAYS)
         reorder_risk = 'none'
         if units90d > 0:
             if days_of_cover_90 is None or days_of_cover_90 <= 14:
@@ -2622,12 +3321,15 @@ def build_inventory_analytics_window(ctx: InventoryAnalyticsBuildContext):
             item['title'],
             ctx.ordering_reference_overrides or {},
         )
+        abra_cost_meta = abra_costs_by_code.get(code) or {}
+        unit_cost_abra = money(abra_cost_meta.get('unitCostAbraAvg')) if abra_cost_meta.get('unitCostAbraAvg') else None
 
         analytics_item = {
             'code': code,
             'title': item['title'],
             'effectiveStock': round(effective_stock, 2),
             'unitSellingPrice': money(item.get('wpj', {}).get('priceWithVat')) if item.get('wpj', {}).get('priceWithVat') else None,
+            'unitCostAbraAvg': unit_cost_abra,
             'fourpxAvailable': item['fourpx']['availableTotal'],
             'wpj4pxStoreTotal': item['wpj']['fourpxStoreTotal'],
             'units730d': units730d,
@@ -2662,6 +3364,7 @@ def build_inventory_analytics_window(ctx: InventoryAnalyticsBuildContext):
             'lastSaleDate': metric['lastSaleDate'],
             'daysSinceLastSale': days_since_last_sale,
             'stockValueSelling': selling_value,
+            'stockValueAbraAvg': round(effective_stock * unit_cost_abra, 2) if unit_cost_abra else None,
             'tags': tags,
             'byView': by_view,
             'itemType': reference_meta.get('itemType'),
@@ -2674,6 +3377,22 @@ def build_inventory_analytics_window(ctx: InventoryAnalyticsBuildContext):
             'referenceFlags': sorted(set(reference_meta.get('referenceFlags') or [])),
         }
         items.append(enrich_item_with_packaging(analytics_item, ctx.ordering_packaging_map))
+
+    abc_by_code = classify_abc_buckets(items)
+    for item in items:
+        abc_meta = abc_by_code.get(item.get('code'))
+        if abc_meta:
+            item.update(abc_meta)
+        else:
+            item.update({
+                'abcClass': None if item.get('orderable') is False else 'C',
+                'abcRank': None,
+                'abcRevenue365d': round(max(0.0, float(item.get('units365d') or 0)) * max(0.0, float(item.get('unitSellingPrice') or 0)), 2),
+                'abcRevenueShare': 0.0,
+                'abcUnitsShare': 0.0,
+                'abcCombinedScore': 0.0,
+                'abcCumulativeShare': None,
+            })
 
     turnover = sorted([item for item in items if item['units365d'] > 0 and item['effectiveStock'] > 0], key=lambda item: item['units365d'], reverse=True)
     dead_stock = sorted([item for item in items if 'dead_stock' in item['tags']], key=lambda item: item['effectiveStock'], reverse=True)
@@ -2807,6 +3526,45 @@ def enrich_inventory_analytics_prices(payload, wpj_by_code):
         if item.get('unitSellingPrice') != next_price:
             item['unitSellingPrice'] = next_price
             changed = True
+        next_selling_value = round(max(0.0, num(item.get('effectiveStock'))) * max(0.0, money(next_price)), 2) if next_price else None
+        if item.get('stockValueSelling') != next_selling_value:
+            item['stockValueSelling'] = next_selling_value
+            changed = True
+    return payload, changed
+
+
+def enrich_inventory_analytics_abra_costs(payload, abra_costs_by_code):
+    if not payload or not payload.get('items'):
+        return payload, False
+
+    changed = False
+    for item in payload.get('items') or []:
+        cost_meta = (abra_costs_by_code or {}).get(normalize_product_code(item.get('code'))) or {}
+        next_unit_cost = money(cost_meta.get('unitCostAbraAvg')) if cost_meta.get('unitCostAbraAvg') else None
+        next_stock_value = round(max(0.0, num(item.get('effectiveStock'))) * max(0.0, money(next_unit_cost)), 2) if next_unit_cost else None
+        if item.get('unitCostAbraAvg') != next_unit_cost:
+            item['unitCostAbraAvg'] = next_unit_cost
+            changed = True
+        if item.get('stockValueAbraAvg') != next_stock_value:
+            item['stockValueAbraAvg'] = next_stock_value
+            changed = True
+    return payload, changed
+
+
+def reapply_inventory_recommendation_targets(payload):
+    if not payload or not payload.get('items'):
+        return payload, False
+
+    changed = False
+    for item in payload.get('items') or []:
+        next_min = ordering_target_units(item.get('dailyRunRate90d'), item.get('effectiveStock'), ORDERING_TARGET_COVER_DAYS)
+        next_recommended = ordering_target_units(item.get('dailyRunRate90d'), item.get('effectiveStock'), ORDERING_TARGET_COVER_DAYS)
+        if int(item.get('recommendedMinUnits') or 0) != next_min:
+            item['recommendedMinUnits'] = next_min
+            changed = True
+        if int(item.get('recommendedOrderUnits') or 0) != next_recommended:
+            item['recommendedOrderUnits'] = next_recommended
+            changed = True
     return payload, changed
 
 
@@ -2859,10 +3617,8 @@ def build_inventory_analytics_market_view(base_payload, combined_index, generate
         else:
             turnover_zone = 'red'
 
-        reorder_target_days = 60
-        safety_days = 14 if units90d > 0 else 0
-        recommended_min_units = max(0, round(daily_run_rate_90 * 30 - effective_stock)) if daily_run_rate_90 else 0
-        recommended_order_units = max(0, round(daily_run_rate_90 * (reorder_target_days + safety_days) - effective_stock)) if daily_run_rate_90 else 0
+        recommended_min_units = ordering_target_units(daily_run_rate_90, effective_stock, ORDERING_TARGET_COVER_DAYS)
+        recommended_order_units = ordering_target_units(daily_run_rate_90, effective_stock, ORDERING_TARGET_COVER_DAYS)
         reorder_risk = 'none'
         if units90d > 0:
             if days_of_cover_90 is None or days_of_cover_90 <= 14:
@@ -2922,6 +3678,7 @@ def build_inventory_analytics_market_view(base_payload, combined_index, generate
             'trend90v365Pct': trend_pct,
             'seasonalityYoYPct': yoy_pct,
             'stockValueSelling': round(effective_stock * money(base_item.get('unitSellingPrice')), 2) if base_item.get('unitSellingPrice') else None,
+            'stockValueAbraAvg': round(effective_stock * money(base_item.get('unitCostAbraAvg')), 2) if base_item.get('unitCostAbraAvg') else None,
             'tags': tags,
             'orderingRole': classify_ordering_role({**base_item, 'effectiveStock': effective_stock, 'units365d': units365d, 'daysOfCover90d': days_of_cover_90, 'turnoverZone': turnover_zone, 'reorderRisk': reorder_risk, 'recommendedOrderUnits': recommended_order_units}),
             'market': market_key,
@@ -2963,11 +3720,81 @@ def build_inventory_analytics_market_view(base_payload, combined_index, generate
 def classify_ordering_role(item):
     if not item.get('orderable', True):
         return 'excluded'
-    if item.get('turnoverZone') == 'green' and (item.get('units365d') or 0) > 0 and (item.get('recommendedOrderUnits') or 0) > 0:
-        return 'fill_up'
     if item.get('reorderRisk') in {'critical', 'soon'} or item.get('strategicPriority') == 'risky':
         return 'top_sku'
+    if item.get('turnoverZone') == 'green' and (item.get('units365d') or 0) > 0 and (item.get('recommendedOrderUnits') or 0) > 0:
+        return 'fill_up'
     return 'standard'
+
+
+def classify_abc_buckets(items, revenue_weight=0.5, units_weight=0.5):
+    eligible = []
+    total_revenue = 0.0
+    total_units = 0.0
+
+    for item in items or []:
+        if item.get('orderable') is False:
+            continue
+        units_365d = max(0.0, float(item.get('units365d') or 0))
+        unit_price = max(0.0, float(item.get('unitSellingPrice') or 0))
+        revenue_365d = units_365d * unit_price
+        total_revenue += revenue_365d
+        total_units += units_365d
+        if units_365d > 0 or revenue_365d > 0:
+            eligible.append({
+                'code': item.get('code'),
+                'units365d': units_365d,
+                'revenue365d': revenue_365d,
+            })
+
+    if not eligible:
+        return {}
+
+    scored = []
+    for row in eligible:
+        revenue_share = (row['revenue365d'] / total_revenue) if total_revenue > 0 else 0.0
+        units_share = (row['units365d'] / total_units) if total_units > 0 else 0.0
+        combined_score = (revenue_share * revenue_weight) + (units_share * units_weight)
+        scored.append({
+            **row,
+            'revenueShare': revenue_share,
+            'unitsShare': units_share,
+            'combinedScore': combined_score,
+        })
+
+    scored.sort(
+        key=lambda row: (
+            -row['combinedScore'],
+            -row['revenue365d'],
+            -row['units365d'],
+            row.get('code') or '',
+        )
+    )
+
+    total_combined_score = sum(row['combinedScore'] for row in scored) or 1.0
+    cumulative_share = 0.0
+    classified = {}
+    for rank, row in enumerate(scored, start=1):
+        previous_share = cumulative_share
+        score_share = row['combinedScore'] / total_combined_score if total_combined_score > 0 else 0.0
+        cumulative_share += score_share
+        if previous_share < 0.8:
+            abc_class = 'A'
+        elif previous_share < 0.95:
+            abc_class = 'B'
+        else:
+            abc_class = 'C'
+        classified[row['code']] = {
+            'abcClass': abc_class,
+            'abcRank': rank,
+            'abcRevenue365d': round(row['revenue365d'], 2),
+            'abcRevenueShare': round(row['revenueShare'], 6),
+            'abcUnitsShare': round(row['unitsShare'], 6),
+            'abcCombinedScore': round(row['combinedScore'], 6),
+            'abcCumulativeShare': round(cumulative_share, 6),
+        }
+
+    return classified
 
 
 def enrich_item_with_packaging(item, ordering_packaging_map=None):
@@ -3120,6 +3947,35 @@ def safety_units_for_ordering(item, lead_days):
     return max(1, round(base * max(14, lead_days * 0.5)))
 
 
+def blend_recommendation_target(dynamic_value, baseline_value, dynamic_weight=0.8):
+    safe_dynamic = max(0, float(dynamic_value or 0))
+    safe_baseline = max(0, float(baseline_value or 0))
+    if safe_dynamic <= 0:
+        return int(round(safe_baseline))
+    safe_weight = max(0.0, min(1.0, float(dynamic_weight or 0)))
+    return max(0, round((safe_dynamic * safe_weight) + (safe_baseline * (1 - safe_weight))))
+
+
+def dynamic_recommendation_targets(item, lead_days):
+    stock_units = max(0.0, float(item.get('effectiveStock') or 0))
+    dynamic_min_days = max(21, ORDERING_TARGET_COVER_DAYS - 9)
+    dynamic_ideal_days = ORDERING_TARGET_COVER_DAYS
+    dynamic_max_days = max(45, ORDERING_TARGET_COVER_DAYS + 15)
+    dynamic_min = max(0, forecast_ordering_units(item, dynamic_min_days) - stock_units)
+    dynamic_ideal = max(dynamic_min, forecast_ordering_units(item, dynamic_ideal_days) - stock_units)
+    dynamic_max = max(
+        dynamic_ideal,
+        forecast_ordering_units(item, dynamic_max_days) - stock_units + round(safety_units_for_ordering(item, lead_days) * 0.2),
+    )
+    baseline_min = max(0, int(item.get('recommendedMinUnits') or 0))
+    baseline_ideal = max(0, int(item.get('recommendedOrderUnits') or 0))
+    return {
+        'minimumUnits': blend_recommendation_target(dynamic_min, baseline_min, 0.85),
+        'optimumUnits': blend_recommendation_target(dynamic_ideal, baseline_ideal, 0.8),
+        'capacityUnits': blend_recommendation_target(dynamic_max, max(baseline_ideal, baseline_min), 0.9),
+    }
+
+
 def max_units_for_ordering(item, lead_days):
     ninety = forecast_ordering_units(item, 90)
     recommended = int(item.get('recommendedOrderUnits') or 0)
@@ -3129,6 +3985,89 @@ def max_units_for_ordering(item, lead_days):
         round(ninety + safety_units_for_ordering(item, lead_days) * 0.7),
     )
     return max(recommended, computed)
+
+
+def ordering_market_label(item):
+    market = str(item.get('market') or 'complete').lower()
+    if market == 'cz':
+        return 'CZ'
+    if market == 'sk':
+        return 'SK'
+    return 'CZ + SK'
+
+
+def format_cover_days_for_reason(value):
+    if value is None:
+        return 'bez prodeje'
+    rounded = round(float(value), 1)
+    if abs(rounded - round(rounded)) < 0.05:
+        return f'{int(round(rounded))} dní'
+    return f"{str(rounded).replace('.', ',')} dní"
+
+
+def recommendation_action_reasons(item, lead_days):
+    reasons = []
+    market_label = ordering_market_label(item)
+    cover_label = format_cover_days_for_reason(item.get('daysOfCover90d'))
+    reorder_risk = item.get('reorderRisk')
+    role = item.get('orderingRole') or classify_ordering_role(item)
+    trend_pct = float(item.get('trend90v365Pct') or 0)
+
+    if reorder_risk == 'critical':
+        reasons.append(f'{market_label} je na kritickém pokrytí {cover_label}.')
+    elif reorder_risk == 'soon':
+        reasons.append(f'{market_label} je na hraničním pokrytí {cover_label}.')
+    elif reorder_risk == 'watch':
+        reasons.append(f'{market_label} je potřeba hlídat, pokrytí je {cover_label}.')
+
+    if role == 'top_sku':
+        reasons.append('Patří mezi hlavní refill položky a má jít před fillery.')
+    elif role == 'fill_up':
+        reasons.append('Je to filler, takže patří až za hlavní refill shortlist.')
+
+    if trend_pct >= 25:
+        reasons.append(f'Prodej zrychluje o {round(trend_pct, 1):g} % proti ročnímu tempu.')
+    elif trend_pct <= -25:
+        reasons.append(f'Prodej slábne o {round(abs(trend_pct), 1):g} % proti ročnímu tempu.')
+
+    if item.get('strategicPriority') == 'risky':
+        reasons.append('Referenční vrstva ho vede jako rizikové SKU.')
+
+    if item.get('sourceChannel') == 'praha':
+        reasons.append('Je navázané jen na Prahu, ne na Riga flow.')
+    elif item.get('sourceChannel') == 'riga':
+        reasons.append('Je navázané přímo na Riga flow.')
+    elif item.get('sourceChannel') == 'unknown':
+        reasons.append('Zdrojový kanál není referenčně rozlišený.')
+
+    if item.get('packagingMatchStatus') == 'missing':
+        reasons.append('Chybí jisté mapování balení pro objednávku.')
+
+    return reasons[:4]
+
+
+def recommendation_data_status(item):
+    bits = []
+    packaging_status = item.get('packagingMatchStatus')
+    if packaging_status == 'exact_code':
+        bits.append('balení spárované přesně')
+    elif packaging_status == 'base_code':
+        bits.append('balení spárované přes prefix')
+    elif packaging_status == 'missing':
+        bits.append('balení chybí')
+
+    source_channel = item.get('sourceChannel') or 'unknown'
+    if source_channel == 'praha':
+        bits.append('Praha-only zdroj')
+    elif source_channel == 'riga':
+        bits.append('Riga-only zdroj')
+    elif source_channel == 'unknown':
+        bits.append('zdroj bez referenčního kanálu')
+
+    if item.get('referenceSource') and item.get('referenceSource') != 'default':
+        bits.append(f"reference {item.get('referenceSource')}")
+
+    return ' · '.join(bits[:3]) if bits else 'sklad, forecast a balení bez výjimky'
 
 
 def recommendation_source_meta(item, lead_days, use_praha):
@@ -3150,14 +4089,56 @@ def recommendation_source_meta(item, lead_days, use_praha):
             'source': 'Praha fallback',
             'reason': 'kritické pokrytí před doručením' if item.get('reorderRisk') == 'critical' else 'nízké pokrytí před doručením',
         }
+    if item.get('orderingRole') == 'top_sku':
+        return {
+            'source': 'Riga',
+            'reason': 'hlavní refill kvůli pokrytí 90d' if item.get('reorderRisk') == 'critical' else 'hlavní refill kvůli průběžnému pokrytí',
+        }
     if item.get('turnoverZone') == 'green':
-        return {'source': 'Riga', 'reason': 'zelená obrátkovost, vhodné do doplnění'}
+        return {'source': 'Riga', 'reason': 'filler se zdravou obrátkou, až po hlavním refill'}
     if float(item.get('trend90v365Pct') or 0) >= 25:
         return {'source': 'Riga', 'reason': 'zrychlující prodej proti ročnímu průměru'}
     return {
         'source': 'Riga',
         'reason': 'doplnit kvůli pokrytí 90d' if item.get('reorderRisk') == 'critical' else 'doplnit kvůli průběžnému pokrytí',
     }
+
+
+def recommendation_priority_score(item):
+    score = (
+        (5000 if item.get('reorderRisk') == 'critical' else 3000 if item.get('reorderRisk') == 'soon' else 1500 if item.get('reorderRisk') == 'watch' else 400)
+        + max(0, 120 - int(item.get('daysOfCover90d') if item.get('daysOfCover90d') is not None else 120)) * 10
+        + float(item.get('trend90v365Pct') or 0)
+        + min(float(item.get('units90d') or 0), 1000)
+    )
+
+    role = item.get('orderingRole') or classify_ordering_role(item)
+    if role == 'top_sku':
+        score += 900
+    elif role == 'fill_up':
+        score -= 250
+
+    strategic_priority = item.get('strategicPriority') or 'standard'
+    if strategic_priority == 'risky':
+        score += 350
+    elif strategic_priority == 'supplement':
+        score -= 80
+
+    packaging_status = item.get('packagingMatchStatus')
+    if packaging_status == 'exact_code':
+        score += 60
+    elif packaging_status == 'base_code':
+        score += 20
+    elif packaging_status == 'missing':
+        score -= 60
+
+    source_channel = item.get('sourceChannel') or 'unknown'
+    if source_channel in {'praha', 'riga'}:
+        score += 40
+    elif source_channel == 'unknown':
+        score -= 40
+
+    return round(score, 1)
 
 
 def build_ordering_recommendation_rows(items, lead_days=21, use_praha=True):
@@ -3174,11 +4155,11 @@ def build_ordering_recommendation_rows(items, lead_days=21, use_praha=True):
             continue
 
         source_meta = recommendation_source_meta(item, lead_days, use_praha)
-        recommended_min = int(item.get('recommendedMinUnits') or 0)
-        optimum = max(int(item.get('recommendedOrderUnits') or 0), recommended_min)
-        rounded_min = round_to_allowed_pack_sizes(item, recommended_min, scenario_type='minimum')
+        dynamic_targets = dynamic_recommendation_targets(item, lead_days)
+        optimum = max(int(dynamic_targets.get('optimumUnits') or 0), int(dynamic_targets.get('minimumUnits') or 0))
+        rounded_min = round_to_allowed_pack_sizes(item, int(dynamic_targets.get('minimumUnits') or 0), scenario_type='minimum')
         rounded_optimum = round_to_allowed_pack_sizes(item, optimum, scenario_type='balanced')
-        rounded_max = round_to_allowed_pack_sizes(item, max_units_for_ordering(item, lead_days), scenario_type='capacity')
+        rounded_max = round_to_allowed_pack_sizes(item, max(int(dynamic_targets.get('capacityUnits') or 0), max_units_for_ordering(item, lead_days)), scenario_type='capacity')
         row = dict(item)
         row.update({
             'forecast30': forecast_ordering_units(item, 30),
@@ -3199,13 +4180,11 @@ def build_ordering_recommendation_rows(items, lead_days=21, use_praha=True):
             'packagingOptionsLabel': ' / '.join(str(option) for option in (item.get('orderPackOptions') or [])) if item.get('orderPackOptions') else '1',
             'source': source_meta['source'],
             'reason': source_meta['reason'],
+            'actionReasons': recommendation_action_reasons(item, lead_days),
+            'dataStatus': recommendation_data_status(item),
+            'marketLabel': ordering_market_label(item),
         })
-        row['priorityScore'] = (
-            (5000 if item.get('reorderRisk') == 'critical' else 3000 if item.get('reorderRisk') == 'soon' else 1500 if item.get('reorderRisk') == 'watch' else 400)
-            + max(0, 120 - int(item.get('daysOfCover90d') if item.get('daysOfCover90d') is not None else 120)) * 10
-            + float(item.get('trend90v365Pct') or 0)
-            + min(float(item.get('units90d') or 0), 1000)
-        )
+        row['priorityScore'] = recommendation_priority_score(row)
         rows.append(row)
 
     rows.sort(key=lambda item: (-item.get('priorityScore', 0), -item.get('optimumUnits', 0), item.get('code') or ''))
@@ -3366,7 +4345,7 @@ def build_ordering_core(ctx: OrderingCoreBuildContext):
     )
     overstock_risks = sorted(
         [item for item in orderable_items if item.get('turnoverZone') == 'red' and item.get('effectiveStock', 0) > 0],
-        key=lambda item: (-(item.get('stockValueSelling') or 0), -(item.get('daysOfCover365d') or 0), -(item.get('effectiveStock') or 0)),
+        key=lambda item: (-(item.get('stockValueAbraAvg') or item.get('stockValueSelling') or 0), -(item.get('daysOfCover365d') or 0), -(item.get('effectiveStock') or 0)),
     )
     trend_watch = sorted(
         [item for item in orderable_items if item.get('trend90v365Pct') is not None and item.get('units90d', 0) > 0],
@@ -3378,7 +4357,7 @@ def build_ordering_core(ctx: OrderingCoreBuildContext):
         key=lambda item: (-item.get('units365d', 0), item.get('daysOfCover90d') or 999),
     )
 
-    cash_in_red = round(sum(item.get('stockValueSelling') or 0 for item in overstock_risks[:100]), 2)
+    cash_in_red = round(sum((item.get('stockValueAbraAvg') or item.get('stockValueSelling') or 0) for item in overstock_risks[:100]), 2)
     alerts = []
     if critical_reorder:
         alerts.append(f'{len(critical_reorder)} SKU mají kritické pokrytí podle 90denní rychlosti prodeje.')
@@ -3468,17 +4447,59 @@ def build_ordering_reference_data(analytics_payload, generated_at):
     }
 
 
-def build_expiry_overview(generated_at, combined_index, cz_expiry_rows, sk_expiry_rows):
+def build_expiry_overview(
+    generated_at,
+    combined_index,
+    cz_expiry_rows,
+    sk_expiry_rows,
+    *,
+    cz_inventory_items=None,
+    sk_inventory_items=None,
+    sales_orders=None,
+    end_dt=None,
+    pos_admin_views=None,
+):
     title_by_code = {}
     for row in combined_index.get('items') or []:
         title_by_code[row['code']] = row['title']
         for source_code in row.get('fourpx', {}).get('sourceCodes') or []:
             title_by_code.setdefault(source_code, row['title'])
+
+    exact_inventory_by_market = {
+        'CZ': aggregate_exact_inventory(cz_inventory_items or []),
+        'SK': aggregate_exact_inventory(sk_inventory_items or []),
+    }
+    exact_sales_metrics = collect_exact_order_metrics(
+        sales_orders or [],
+        end_dt=end_dt or current_local_time(),
+        pos_admin_views=pos_admin_views,
+        windows=(90, 30, 14),
+    )
+
     combined_rows = []
     for row in (cz_expiry_rows or []) + (sk_expiry_rows or []):
         enriched = dict(row)
         enriched['title'] = title_by_code.get(row['sku']) or row['sku']
         enriched['label'] = f"{row['sku']} · {enriched['title']} ({row['account']})"
+        exact_inventory = (exact_inventory_by_market.get(row['account']) or {}).get(row['sku']) or {}
+        exact_sales = exact_sales_metrics.get(row['sku']) or {}
+        view_sales = ((exact_sales.get('byView') or {}).get(str(row['account']).lower()) or {})
+        units90d = round(view_sales.get('units90d', 0.0), 2)
+        units30d = round(view_sales.get('units30d', 0.0), 2)
+        units14d = round(view_sales.get('units14d', 0.0), 2)
+        exact_stock_total = round(num(exact_inventory.get('availableStock')), 2)
+        daily_run_rate_90 = units90d / 90 if units90d else 0.0
+        daily_run_rate_30 = units30d / 30 if units30d else 0.0
+        enriched['exactAnalytics'] = {
+            'code': row['sku'],
+            'availableStock': exact_stock_total,
+            'units90d': units90d,
+            'units30d': units30d,
+            'units14d': units14d,
+            'daysOfCover30d': round(exact_stock_total / daily_run_rate_30, 1) if daily_run_rate_30 > 0 else None,
+            'daysOfCover90d': round(exact_stock_total / daily_run_rate_90, 1) if daily_run_rate_90 > 0 else None,
+            'lastSaleDate': exact_sales.get('lastSaleDate'),
+        }
         combined_rows.append(enriched)
 
     combined_rows.sort(key=lambda item: (-item['riskScore'], item['daysToExpiry'], -item['datedStock'], item['sku'], item['dateExpiry']))
@@ -3527,7 +4548,10 @@ def summarize_4px_window(label, outbound, start_dt, end_dt):
 
 def build_inventory_health_summary(analytics_payload, ordering_core_payload):
     items = [row for row in (analytics_payload or {}).get('items') or [] if row.get('orderable') is not False]
-    top_sku_rows = [row for row in items if row.get('orderingRole') == 'top_sku']
+    a_rows = [row for row in items if row.get('abcClass') == 'A']
+    if not a_rows:
+        a_rows = [row for row in items if row.get('orderingRole') == 'top_sku']
+    a_base_count = len(a_rows)
 
     def cover_days(row):
         for key in ('daysOfCover90d', 'daysOfCover365d', 'daysOfCover730d'):
@@ -3537,7 +4561,7 @@ def build_inventory_health_summary(analytics_payload, ordering_core_payload):
         return None
 
     def positive_stock_value(row):
-        return max(0.0, float(row.get('stockValueSelling') or 0))
+        return max(0.0, float(row.get('stockValueAbraAvg') or row.get('stockValueSelling') or 0))
 
     def is_dead_stock(row):
         cover = cover_days(row)
@@ -3548,13 +4572,13 @@ def build_inventory_health_summary(analytics_payload, ordering_core_payload):
         return float(row.get('effectiveStock') or 0) > 0 and cover is not None and 90 < cover <= 180
 
     a_critical_rows = [
-        row for row in top_sku_rows
+        row for row in a_rows
         if float(row.get('effectiveStock') or 0) <= 0
         or row.get('reorderRisk') == 'critical'
         or ((cover_days(row) is not None) and cover_days(row) < 7)
     ]
     a_warning_rows = [
-        row for row in top_sku_rows
+        row for row in a_rows
         if row not in a_critical_rows and (
             row.get('reorderRisk') in {'soon', 'watch'}
             or ((cover_days(row) is not None) and cover_days(row) < 14)
@@ -3585,9 +4609,34 @@ def build_inventory_health_summary(analytics_payload, ordering_core_payload):
     dead_share = round((dead_value / total_stock_value) * 100, 1) if total_stock_value > 0 else 0.0
     overstock_share = round((overstock_value / total_stock_value) * 100, 1) if total_stock_value > 0 else 0.0
 
+    a_critical_rows = sorted(
+        a_critical_rows,
+        key=lambda row: (
+            0 if float(row.get('effectiveStock') or 0) <= 0 else 1,
+            0 if row.get('reorderRisk') == 'critical' else 1,
+            cover_days(row) if cover_days(row) is not None else 999999,
+            row.get('abcRank') if row.get('abcRank') is not None else 999999,
+            -float(row.get('abcRevenue365d') or 0),
+        ),
+    )
+    a_warning_rows = sorted(
+        a_warning_rows,
+        key=lambda row: (
+            0 if row.get('reorderRisk') == 'soon' else 1,
+            cover_days(row) if cover_days(row) is not None else 999999,
+            row.get('abcRank') if row.get('abcRank') is not None else 999999,
+            -float(row.get('abcRevenue365d') or 0),
+        ),
+    )
+
+    a_critical_share = round((len(a_critical_rows) / a_base_count) * 100, 1) if a_base_count else 0.0
+    a_warning_share = round((len(a_warning_rows) / a_base_count) * 100, 1) if a_base_count else 0.0
+
     health_score = 100
-    health_score -= len(a_critical_rows) * 8
-    health_score -= len(a_warning_rows) * 3
+    if a_base_count:
+        # Calibrate score by share of the true ABC-A layer in risk, so larger assortments do not collapse to zero too easily.
+        health_score -= round((len(a_critical_rows) / a_base_count) * 60)
+        health_score -= round((len(a_warning_rows) / a_base_count) * 25)
     if dead_share > 15:
         health_score -= 20
     elif dead_share > 8:
@@ -3607,7 +4656,11 @@ def build_inventory_health_summary(analytics_payload, ordering_core_payload):
     return {
         'healthScore': health_score,
         'aCriticalCount': len(a_critical_rows),
+        'aCriticalShare': a_critical_share,
         'aWarningCount': len(a_warning_rows),
+        'aWarningShare': a_warning_share,
+        'aBaseCount': a_base_count,
+        'topSkuCount': a_base_count,
         'slowDeadValue': round(slow_dead_value, 2),
         'slowDeadShare': slow_dead_share,
         'deadValue': round(dead_value, 2),
@@ -3842,8 +4895,13 @@ def inventory_health_headline(health):
         return 'health metrika skladu zatím není k dispozici'
     score = int(health.get('healthScore') or 0)
     a_critical = int(health.get('aCriticalCount') or 0)
+    a_base_count = int(health.get('aBaseCount') or health.get('topSkuCount') or 0)
     slow_dead_share = float(health.get('slowDeadShare') or 0)
-    return f'score skladu {score}/100 · A riziko {a_critical} SKU · slow/dead {str(round(slow_dead_share, 1)).replace(".", ",")} %'
+    if a_base_count > 0:
+        critical_text = f'{a_critical} z {a_base_count} SKU'
+    else:
+        critical_text = f'{a_critical} SKU'
+    return f'score skladu {score}/100 · A riziko {critical_text} · slow/dead {str(round(slow_dead_share, 1)).replace(".", ",")} %'
 
 
 def inventory_health_cash_line(health):
@@ -3860,7 +4918,7 @@ def inventory_health_cash_line(health):
 
 
 def abc_inventory_line():
-    return 'ABC skladu: A = klíčové rychloobrátkové SKU, B = střed, C = pomalé nebo doplňkové položky.'
+    return 'ABC skladu: A = horní vrstva podle kombinace obratu a prodaných kusů, B = střed, C = pomalé nebo doplňkové položky.'
 
 
 def format_morning_report_text(report):
@@ -4079,6 +5137,83 @@ def abra_get(config, evidence, params=None, selector=None):
 
 def abra_download(config, path, params=None, accept=None):
     return ABRA_ADAPTER.download(config, path, params=params, accept=accept)
+
+
+def fetch_abra_average_cost_map(product_codes, page_size=ABRA_STOCK_CARD_PAGE_SIZE, max_pages=ABRA_STOCK_CARD_MAX_PAGES):
+    wanted_codes = {
+        normalize_product_code(code)
+        for code in (product_codes or [])
+        if normalize_product_code(code)
+    }
+    if not wanted_codes:
+        return {}
+
+    config = abra_config()
+    if not config.get('enabled'):
+        return {}
+
+    rows = []
+    for page in range(max_pages):
+        try:
+            chunk = abra_records(abra_get(config, 'skladova-karta', {
+                'detail': 'full',
+                'limit': page_size,
+                'start': page * page_size,
+                'order': 'id@A',
+            }), 'skladova-karta')
+        except Exception:
+            return {}
+        rows.extend(chunk)
+        if len(chunk) < page_size:
+            break
+
+    by_code = defaultdict(list)
+    for row in rows:
+        code = normalize_product_code(abra_text(row.get('cenik')).replace('code:', '', 1))
+        if not code or code not in wanted_codes:
+            continue
+        period_label = abra_text(row.get('ucetObdobi@showAs') or row.get('ucetObdobi'))
+        period_rank_match = re.search(r'(\d{4})', period_label)
+        period_rank = int(period_rank_match.group(1)) if period_rank_match else 0
+        quantity = max(0.0, abra_money(row.get('stavMJ') or row.get('dostupMj')))
+        inventory_value = max(0.0, abra_money(row.get('stavTuz')))
+        avg_cost = max(0.0, abra_money(row.get('prumCenaTuz')))
+        by_code[code].append({
+            'periodRank': period_rank,
+            'quantity': quantity,
+            'inventoryValue': inventory_value,
+            'avgCost': avg_cost,
+            'lastUpdate': abra_text(row.get('lastUpdate')),
+        })
+
+    result = {}
+    for code, entries in by_code.items():
+        if not entries:
+            continue
+        latest_period = max(entry.get('periodRank') or 0 for entry in entries)
+        current_entries = [entry for entry in entries if (entry.get('periodRank') or 0) == latest_period] or list(entries)
+        positive_entries = [entry for entry in current_entries if entry.get('quantity', 0) > 0 and (entry.get('inventoryValue', 0) > 0 or entry.get('avgCost', 0) > 0)]
+        if positive_entries:
+            total_quantity = sum(entry.get('quantity', 0) for entry in positive_entries)
+            total_value = sum(
+                entry.get('inventoryValue', 0) if entry.get('inventoryValue', 0) > 0 else entry.get('avgCost', 0) * entry.get('quantity', 0)
+                for entry in positive_entries
+            )
+            if total_quantity > 0 and total_value > 0:
+                result[code] = {
+                    'unitCostAbraAvg': round(total_value / total_quantity, 6),
+                    'periodRank': latest_period,
+                }
+                continue
+
+        fallback = next((item for item in sorted(current_entries, key=lambda value: value.get('lastUpdate') or '', reverse=True) if item.get('avgCost', 0) > 0), None)
+        if fallback:
+            result[code] = {
+                'unitCostAbraAvg': round(fallback.get('avgCost', 0), 6),
+                'periodRank': latest_period,
+            }
+
+    return result
 
 
 def parse_abra_vykaz_hospodareni_xls(body, label, month_key):
@@ -4801,8 +5936,10 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
         'channelPerformance7d': ga4_overview.get('channelPerformance7d') or [],
         'channelPerformanceCurrentMonth': ga4_overview.get('channelPerformanceCurrentMonth') or [],
         'landingPages7d': ga4_overview.get('landingPages7d') or [],
+        'sourcePerformance7d': ga4_overview.get('sourcePerformance7d') or [],
         'topPages7d': ga4_overview.get('topPages7d') or [],
         'countries7d': ga4_overview.get('countries7d') or [],
+        'aiTraffic': ga4_overview.get('aiTraffic') or {},
     }
 
     def build_channel_rows(sklik_direct, sklik_current, meta_direct, meta_summary, google_direct, google_summary, klaviyo_direct, klaviyo_current):
@@ -5312,6 +6449,7 @@ def build_refresh_runtime_context():
     pos_view_filters = load_pos_view_filter_ids(POS_ADMIN_VIEW_OVERRIDE_FILE)
     ordering_reference_overrides = load_ordering_reference_overrides(ORDERING_REFERENCE_OVERRIDE_FILE)
     ordering_packaging_map = load_ordering_packaging_map(ORDERING_PACKAGING_MATCH_FILE)
+    store_expiry_input = load_store_expiry_input(STORE_EXPIRY_BATCHES_FILE, SETTINGS.store_expiry_sheet_csv_url)
     warehouse_code = SETTINGS.fourpx_warehouse_code
     max_pages = SETTINGS.fourpx_outbound_max_pages
     now_local = current_local_time()
@@ -5342,6 +6480,7 @@ def build_refresh_runtime_context():
         pos_view_filters=pos_view_filters,
         ordering_reference_overrides=ordering_reference_overrides,
         ordering_packaging_map=ordering_packaging_map,
+        store_expiry_input=store_expiry_input,
         warehouse_code=warehouse_code,
         max_pages=max_pages,
         now_local=now_local,
@@ -5472,6 +6611,7 @@ def build_empty_refresh_state(generated_at: str) -> RefreshBuildState:
         ordering_reference_sk_payload={'generatedAt': generated_at, 'market': 'sk', 'summary': {}, 'items': [], 'excludedTop': []},
         ordering_sales_history_payload={'generatedAt': generated_at, 'window': {}, 'summary': {}, 'codes': {}},
         expiry_overview_payload={'generatedAt': generated_at, 'summary': {}, 'topExpiring': []},
+        store_expiry_watchdog_payload={'generatedAt': generated_at, 'source': {'status': 'missing', 'mode': 'none'}, 'summary': {}, 'alerts': [], 'warnings': [], 'groups': [], 'items': [], 'allItems': []},
         combined_index_payload={'generatedAt': generated_at, 'items': [], 'counts': {}},
         combined_overview_payload={'generatedAt': generated_at, 'counts': {}},
         stock_summary={
@@ -5531,6 +6671,21 @@ def populate_refresh_wpj_state(ctx: RefreshRuntimeContext, fetch_result: Refresh
         ordering_reference_overrides=ctx.ordering_reference_overrides,
     )
 
+    store_expiry_sales_orders, store_expiry_sales_warnings = fetch_store_expiry_sales_orders(
+        ctx,
+        ctx.store_expiry_input.get('rows') or [],
+    )
+    state.store_expiry_watchdog_payload = build_store_expiry_watchdog(
+        generated_at,
+        now_local,
+        ctx.store_expiry_input,
+        wpj_products=wpj_products,
+        sales_orders=store_expiry_sales_orders,
+        manual_overrides=ctx.manual_overrides,
+        pos_admin_views=ctx.pos_admin_views,
+    )
+    state.store_expiry_watchdog_payload['warnings'].extend(store_expiry_sales_warnings)
+
     combined_products_ctx = CombinedProductsBuildContext(
         wpj_products=wpj_products,
         yesterday_orders=yesterday_orders,
@@ -5550,14 +6705,19 @@ def populate_refresh_wpj_state(ctx: RefreshRuntimeContext, fetch_result: Refresh
         state.combined_index_payload,
         fetch_result.cz_expiry_summary,
         fetch_result.sk_expiry_summary,
+        cz_inventory_items=fetch_result.cz_inventory.get('items') or [],
+        sk_inventory_items=fetch_result.sk_inventory.get('items') or [],
+        sales_orders=ytd_orders,
+        end_dt=report_end,
+        pos_admin_views=ctx.pos_admin_views,
     )
 
     analytics_cache_path = CURRENT_DIR / 'inventory_analytics_365d.json'
     analytics_730_cache_path = CURRENT_DIR / 'inventory_analytics_730d.json'
     ordering_core_cache_path = CURRENT_DIR / 'ordering_core.json'
     ordering_sales_history_cache_path = CURRENT_DIR / 'ordering_sales_history.json'
-    state.inventory_analytics_payload = load_json_if_fresh(analytics_cache_path, max_age_hours=24)
-    state.inventory_analytics_730_payload = load_json_if_fresh(analytics_730_cache_path, max_age_hours=24)
+    state.inventory_analytics_payload = load_json_if_fresh(analytics_cache_path, max_age_hours=24, freshness_key='sourceGeneratedAt')
+    state.inventory_analytics_730_payload = load_json_if_fresh(analytics_730_cache_path, max_age_hours=24, freshness_key='sourceGeneratedAt')
     state.ordering_core_payload = load_json_if_fresh(ordering_core_cache_path, max_age_hours=24)
     state.ordering_sales_history_payload = load_json_if_fresh(ordering_sales_history_cache_path, max_age_hours=24)
 
@@ -5570,9 +6730,14 @@ def populate_refresh_wpj_state(ctx: RefreshRuntimeContext, fetch_result: Refresh
     if state.ordering_sales_history_payload:
         state.ordering_sales_history_payload = mark_payload_refreshed(state.ordering_sales_history_payload, generated_at)
     wpj_by_code = {item.get('code'): item for item in wpj_products if item.get('code')}
+    abra_costs_by_code = fetch_abra_average_cost_map(wpj_by_code.keys())
 
     state.inventory_analytics_payload, analytics_prices_changed = enrich_inventory_analytics_prices(state.inventory_analytics_payload, wpj_by_code)
     state.inventory_analytics_730_payload, analytics_730_prices_changed = enrich_inventory_analytics_prices(state.inventory_analytics_730_payload, wpj_by_code)
+    state.inventory_analytics_payload, analytics_abra_costs_changed = enrich_inventory_analytics_abra_costs(state.inventory_analytics_payload, abra_costs_by_code)
+    state.inventory_analytics_730_payload, analytics_730_abra_costs_changed = enrich_inventory_analytics_abra_costs(state.inventory_analytics_730_payload, abra_costs_by_code)
+    state.inventory_analytics_payload, analytics_targets_changed = reapply_inventory_recommendation_targets(state.inventory_analytics_payload)
+    state.inventory_analytics_730_payload, analytics_730_targets_changed = reapply_inventory_recommendation_targets(state.inventory_analytics_730_payload)
     state.inventory_analytics_payload, analytics_reference_changed = reapply_ordering_reference_to_analytics(state.inventory_analytics_payload, ctx.ordering_reference_overrides)
     state.inventory_analytics_730_payload, analytics_730_reference_changed = reapply_ordering_reference_to_analytics(state.inventory_analytics_730_payload, ctx.ordering_reference_overrides)
     state.inventory_analytics_payload, analytics_packaging_changed = reapply_ordering_packaging_to_analytics(state.inventory_analytics_payload, ctx.ordering_packaging_map)
@@ -5580,9 +6745,9 @@ def populate_refresh_wpj_state(ctx: RefreshRuntimeContext, fetch_result: Refresh
     state.inventory_analytics_payload, analytics_stock_changed = reapply_combined_stock_to_analytics(state.inventory_analytics_payload, state.combined_index_payload, market_key='complete')
     state.inventory_analytics_730_payload, analytics_730_stock_changed = reapply_combined_stock_to_analytics(state.inventory_analytics_730_payload, state.combined_index_payload, market_key='complete')
 
-    if (analytics_prices_changed or analytics_reference_changed or analytics_packaging_changed or analytics_stock_changed) and state.inventory_analytics_payload:
+    if (analytics_prices_changed or analytics_abra_costs_changed or analytics_targets_changed or analytics_reference_changed or analytics_packaging_changed or analytics_stock_changed) and state.inventory_analytics_payload:
         write_json(analytics_cache_path, state.inventory_analytics_payload)
-    if (analytics_730_prices_changed or analytics_730_reference_changed or analytics_730_packaging_changed or analytics_730_stock_changed) and state.inventory_analytics_730_payload:
+    if (analytics_730_prices_changed or analytics_730_abra_costs_changed or analytics_730_targets_changed or analytics_730_reference_changed or analytics_730_packaging_changed or analytics_730_stock_changed) and state.inventory_analytics_730_payload:
         write_json(analytics_730_cache_path, state.inventory_analytics_730_payload)
 
     analytics_orders = None
@@ -5798,6 +6963,7 @@ def build_refresh_output_registry(
         RefreshOutputSpec('ordering_reference_data_cz.json', build_result.ordering_reference_cz_payload),
         RefreshOutputSpec('ordering_reference_data_sk.json', build_result.ordering_reference_sk_payload),
         RefreshOutputSpec('ordering_sales_history.json', build_result.ordering_sales_history_payload, snapshot_policy='skip_heavy'),
+        RefreshOutputSpec('store_expiry_watchdog.json', build_result.store_expiry_watchdog_payload),
         RefreshOutputSpec('finance_overview.json', fetch_result.finance_snapshot, writer='finance'),
         RefreshOutputSpec('marketing_overview.json', fetch_result.marketing_snapshot),
         RefreshOutputSpec('affiliate_overview.json', fetch_result.affiliate_overview),
@@ -5832,6 +6998,17 @@ def build_refresh_payloads(ctx: RefreshRuntimeContext, fetch_result: RefreshFetc
         populate_refresh_wpj_state(ctx, fetch_result, state)
     else:
         state.warnings.append('WPJ část není připojená, ranní report nebude mít e-shop výkon.')
+        state.store_expiry_watchdog_payload = build_store_expiry_watchdog(
+            generated_at,
+            ctx.now_local,
+            ctx.store_expiry_input,
+            wpj_products=[],
+            sales_orders=[],
+            manual_overrides=ctx.manual_overrides,
+            pos_admin_views=ctx.pos_admin_views,
+        )
+        if ctx.store_expiry_input.get('rows'):
+            state.store_expiry_watchdog_payload['warnings'].append('WPJ neni pripojene, store expiry watchdog proto zatim neodcita automaticke prodeje.')
 
     append_refresh_source_warnings(fetch_result, state.warnings)
 
@@ -5841,6 +7018,11 @@ def build_refresh_payloads(ctx: RefreshRuntimeContext, fetch_result: RefreshFetc
             state.combined_index_payload,
             fetch_result.cz_expiry_summary,
             fetch_result.sk_expiry_summary,
+            cz_inventory_items=fetch_result.cz_inventory.get('items') or [],
+            sk_inventory_items=fetch_result.sk_inventory.get('items') or [],
+            sales_orders=analytics_orders or [],
+            end_dt=report_end,
+            pos_admin_views=ctx.pos_admin_views,
         )
 
     inventory_summary = build_refresh_inventory_summary(fetch_result)
@@ -5902,6 +7084,7 @@ def build_refresh_payloads(ctx: RefreshRuntimeContext, fetch_result: RefreshFetc
         ordering_reference_sk_payload=state.ordering_reference_sk_payload,
         ordering_sales_history_payload=state.ordering_sales_history_payload,
         expiry_overview_payload=state.expiry_overview_payload,
+        store_expiry_watchdog_payload=state.store_expiry_watchdog_payload,
         combined_index_payload=state.combined_index_payload,
         combined_overview_payload=state.combined_overview_payload,
         baseline_orders=state.baseline_orders,
@@ -5971,6 +7154,7 @@ def persist_refresh_outputs(
             'priorities': build_result.priorities,
         },
         'expiries': build_result.expiry_overview_payload.get('summary') or {},
+        'storeExpiry': build_result.store_expiry_watchdog_payload.get('summary') or {},
         'pairing': build_result.combined_overview_payload.get('counts') or {},
         'finance': {
             'ready': fetch_result.finance_snapshot.get('source', {}).get('status') != 'missing',
@@ -6039,6 +7223,7 @@ def print_refresh_summary(ctx: RefreshRuntimeContext, fetch_result: RefreshFetch
     print(f'CZ inventory rows: {len(fetch_result.cz_inventory["items"])} | CZ outbound rows: {len(fetch_result.cz_outbound["items"])}')
     print(f'SK inventory rows: {len(fetch_result.sk_inventory["items"])} | SK outbound rows: {len(fetch_result.sk_outbound["items"])}')
     print(f'WPJ previous-day orders: {build_result.wpj_summary["orders"]} | Revenue with VAT: {build_result.wpj_summary["revenueWithVat"]}')
+    print(f'Store expiry visible rows: {build_result.store_expiry_watchdog_payload.get("summary", {}).get("visibleRows", 0)}')
     print(f'Morning report file: {CURRENT_DIR / "morning_report_previous_day.txt"}')
 
 

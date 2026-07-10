@@ -20,6 +20,7 @@
             <a class="ux-button primary" href="../data/current/4px_expiry_overview.json" target="_blank" rel="noopener">Expirační data</a>
             <a class="ux-button secondary" href="expiry-solo.html">Solo report</a>
             <a class="ux-button secondary" href="expiry-solo.html?wpj=mismatch">Jen nesoulady 4PX/WPJ</a>
+            <a class="ux-button secondary" href="store-expiry.html">Prodejny expirace</a>
             <a class="ux-button secondary" href="logistics.html">Logistika</a>
             <a class="ux-button secondary" href="inventory.html">Sklad</a>
           </div>
@@ -39,7 +40,7 @@
           <p class="layer-subtitle">Nejdřív rozsah půlročního okna, kritické SKU a ekonomika dárků. Detail tabulek až potom.</p>
         </div>
       </div>
-      <section class="grid kpi-grid" id="expiry-kpis"></section>
+      <section class="signal-grid" id="expiry-kpis"></section>
     </section>
 
     <section class="layer-shell" id="expiry-inputs" data-section-nav-label="Hlavní vstupy" data-section-nav-order="2">
@@ -232,6 +233,7 @@
   <script>
     DP.initThemeToggle();
     DP.renderRouteLinks('expiry-route-links', [
+      ['Prodejny expirace', 'store-expiry.html', 'Rucni sarze na prodejnach a FIFO odpocty z pokladen'],
       ['CZ seznam', '#expiry-step-2', 'Kompletní půlroční přehled pro CZ a SK'],
       ['Akční shortlist', '#expiry-action-shortlist', 'Návrhy mechanik a shortlist SKU do akce'],
       ['Nejbližší expirace', '#expiry-nearest', 'Rychlý detail nejbližších batchů'],
@@ -396,6 +398,22 @@
       return null;
     }
 
+    function expiryAnalytics(row) {
+      const exact = row.exactAnalytics || {};
+      const fallback = row.analytics || {};
+      return {
+        units30d: exact.units30d != null ? exact.units30d : fallback.units30d,
+        units90d: exact.units90d != null ? exact.units90d : fallback.units90d,
+        units14d: exact.units14d != null ? exact.units14d : fallback.units14d,
+        daysOfCover30d: exact.daysOfCover30d != null ? exact.daysOfCover30d : null,
+        daysOfCover90d: exact.daysOfCover90d != null ? exact.daysOfCover90d : fallback.daysOfCover90d,
+        daysOfCover365d: fallback.daysOfCover365d,
+        daysOfCover730d: fallback.daysOfCover730d,
+        availableStock: exact.availableStock != null ? exact.availableStock : fallback.fourpxAvailable,
+        lastSaleDate: exact.lastSaleDate || fallback.lastSaleDate || null
+      };
+    }
+
     function normalizeText(value) {
       return String(value || '')
         .normalize('NFD')
@@ -496,11 +514,12 @@
       const expiringRows = (expiryOverview.topExpiring || []).map(row => {
         const marketAnalytics = analyticsLookup(marketAnalyticsMaps[row.account] || {}, row.sku);
         const analytics = marketAnalytics || analyticsLookup(analyticsMap, row.sku) || {};
+        const decisionAnalytics = expiryAnalytics({ ...row, analytics });
         const plainSku = row.sku?.split('/')[0];
         const exactProduct = productMap[row.sku] || null;
         const fallbackProduct = plainSku && plainSku !== row.sku ? (productMap[plainSku] || null) : null;
         const product = exactProduct || fallbackProduct || {};
-        const rule = ruleMap[row.sku] || ruleMap[plainSku] || buildFallbackRule(row, analytics, product);
+        const rule = ruleMap[row.sku] || ruleMap[plainSku] || buildFallbackRule(row, decisionAnalytics, product);
         const sync = deriveWpjSync(row, exactProduct, fallbackProduct);
         return {
           ...sync,
@@ -548,7 +567,8 @@
 
       const focusRows = halfYearRows.slice(0, 4).map(row => {
         const meta = priorityMeta(row.rule.priority);
-        const sales30d = row.analytics.units30d != null ? `${fmt(row.analytics.units30d)} ks / 30 dní` : '30denní prodej zatím bez mapování';
+        const analytics = expiryAnalytics(row);
+        const sales30d = analytics.units30d != null ? `${fmt(analytics.units30d)} ks / 30 dní` : '30denní prodej zatím bez mapování';
         return {
           title: `${meta.label}: ${row.sku} · ${row.title}`,
           text: `${row.rule.urgency} Návrh: ${row.rule.mechanic}. Hlavní produkt: ${row.rule.carrier}. ${sales30d}.`,
@@ -595,16 +615,41 @@
 
       const topExpiryRow = listedExpiringRows[0] || null;
       document.getElementById('expiry-kpis').innerHTML = [
-        ['Kritická expirační zásoba', fmtUnits(urgentStock), 'SKU s expirací do 30 dní', 'red'],
-        ['Nejurgentnější SKU', topExpiryRow ? `${topExpiryRow.sku}` : '–', topExpiryRow ? topExpiryRow.title : 'Bez dat', 'gold'],
-        ['Hlavní produkt akce', '44402-2 / 619xx', 'bestsellery, které utáhnou dárek nebo balíček', 'blue'],
-        ['Položky vhodné jako dárek', fmt(safeGiftRows.length), 'nejvyšší šance vejít se do pravidla 18 % v půlročním okně', 'green']
-      ].map(([label, value, sub, klass]) => `
-        <div class="card kpi-card ${klass}">
-          <div class="kpi-label">${label}</div>
-          <div class="kpi-value">${value}</div>
-          <div class="kpi-sub">${sub}</div>
-        </div>
+        {
+          eyebrow: 'Kritická expirační zásoba',
+          value: fmtUnits(urgentStock),
+          sub: `${fmt(urgentRows.length)} SKU s expirací do 30 dní napříč celým půlročním oknem.`,
+          meta: urgentRows.length ? 'Tohle je první shortlist, který má jít do akce nebo do dárkové mechaniky.' : 'Zatím není otevřený kritický tlak do 30 dní.',
+          tone: urgentStock > 0 ? 'danger' : 'accent',
+        },
+        {
+          eyebrow: 'Nejurgentnější SKU',
+          value: topExpiryRow ? `${topExpiryRow.sku}` : 'Bez priority',
+          sub: topExpiryRow ? `${topExpiryRow.title} • expirace ${fmtShortDate(topExpiryRow.dateExpiry)} • ${fmtUnits(topExpiryRow.expiringStock)}` : 'Jakmile se objeví první rizikový batch, uvidíš ho tady nahoře.',
+          meta: topExpiryRow ? `Návrh akce: ${topExpiryRow.actionTitle}` : 'Bez dat pro prioritní položku.',
+          tone: topExpiryRow ? 'warn' : '',
+        },
+        {
+          eyebrow: 'Tahák akce',
+          value: '44402-2 / 619xx',
+          sub: 'Bestsellery, které mají sílu utáhnout dárek, bundle nebo jemnější promo mechaniku.',
+          meta: 'Použij je jako nosič akce tam, kde by samostatná sleva ničila cenu nebo marži.',
+          tone: 'accent',
+        },
+        {
+          eyebrow: 'Položky vhodné jako dárek',
+          value: fmt(safeGiftRows.length),
+          sub: 'Nejvyšší šance vejít se do pravidla 18 % při dárku v půlročním okně.',
+          meta: safeGiftRows.length ? 'Dražší položky radši řeš přes 2+1 nebo bundle bez „zdarma“.' : 'V tomhle okně teď není nic, co by vycházelo čistě jako bezpečný dárek.',
+          tone: safeGiftRows.length ? 'info' : '',
+        }
+      ].map(card => `
+        <article class="signal-card ${card.tone || ''}">
+          <div class="eyebrow">${card.eyebrow}</div>
+          <div class="signal-value">${card.value}</div>
+          <div class="signal-sub">${card.sub}</div>
+          <div class="signal-meta">${card.meta}</div>
+        </article>
       `).join('');
 
       document.getElementById('bundle-list').innerHTML = bundleIdeas.map(row => `
@@ -628,8 +673,9 @@
       `).join('');
 
       document.getElementById('expiry-action-table').innerHTML = listedExpiringRows.length ? listedExpiringRows.map(row => {
-        const sales30d = row.analytics.units30d != null ? `${fmt(row.analytics.units30d)} ks` : '–';
-        const coverValue = row.analytics.daysOfCover730d ?? row.analytics.daysOfCover365d;
+        const analytics = expiryAnalytics(row);
+        const sales30d = analytics.units30d != null ? `${fmt(analytics.units30d)} ks` : '–';
+        const coverValue = analytics.daysOfCover30d ?? analytics.daysOfCover90d ?? analytics.daysOfCover730d ?? analytics.daysOfCover365d;
         const cover = coverValue != null ? `${Number(coverValue).toFixed(1)} dní` : '–';
         const gift = DP.statusPill(row.rule.giftCheck, row.rule.giftTone);
         return `
@@ -659,8 +705,9 @@
       }).join('') : emptyRow(5, 'V příštím půlroce teď není žádná budoucí expirace.');
 
       const renderExpirySummaryRows = rows => rows.length ? rows.map(row => {
-        const sales30d = row.analytics.units30d != null ? `${fmt(row.analytics.units30d)} ks` : '–';
-        const coverValue = row.analytics.daysOfCover730d ?? row.analytics.daysOfCover365d;
+        const analytics = expiryAnalytics(row);
+        const sales30d = analytics.units30d != null ? `${fmt(analytics.units30d)} ks` : '–';
+        const coverValue = analytics.daysOfCover30d ?? analytics.daysOfCover90d ?? analytics.daysOfCover730d ?? analytics.daysOfCover365d;
         const cover = coverValue != null ? `${Number(coverValue).toFixed(1)} dní` : '–';
         const action = `${row.rule.mechanic}`;
         const carrier = row.rule.carrier || '–';
