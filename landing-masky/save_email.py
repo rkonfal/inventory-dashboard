@@ -44,7 +44,7 @@ ALLOWED_ORIGINS = {
     origin.strip()
     for origin in os.environ.get(
         "SAVE_EMAIL_ALLOWED_ORIGINS",
-        "http://127.0.0.1:8000,http://localhost:8000,null",
+        "http://127.0.0.1:8000,http://localhost:8000,https://www.kralovstvi-tiande.cz,https://kralovstvi-tiande.cz,null",
     ).split(",")
     if origin.strip()
 }

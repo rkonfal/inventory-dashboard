@@ -3,443 +3,497 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Premium Pleťové Masky | Okamžitý glow a cílená péče</title>
+    <title>Masky na pleť | Království tianDe</title>
     <meta
       name="description"
-      content="Objevte prémiové pleťové masky pro hydrataci, rozjasnění a zklidnění. Moderní péče o pleť s výsledky, které uvidíte i ucítíte."
+      content="Objevte pleťové masky z Království tianDe. Hydratace, rozjasnění i zklidnění v look-and-feel stylu storefrontu kralovstvi-tiande.cz."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
-              sans: ["Manrope", "sans-serif"],
-              serif: ["Cormorant Garamond", "serif"],
+              sans: ["Inter", "sans-serif"],
             },
             colors: {
-              sand: "#f7f0e8",
-              clay: "#d9b8a0",
-              espresso: "#2d241f",
-              peach: "#f5dfd2",
-              moss: "#76836f",
-              pearl: "#fffaf6",
+              plum: "#69004d",
+              magenta: "#c31594",
+              blush: "#fff0f5",
+              line: "#e3e3e3",
+              ink: "#222222",
+              muted: "#8c8d96",
+              success: "#00c48f",
             },
             boxShadow: {
-              soft: "0 20px 60px rgba(45, 36, 31, 0.10)",
+              panel: "0 10px 24px rgba(34, 34, 34, 0.08)",
             },
           },
         },
       };
     </script>
   </head>
-  <body class="bg-pearl font-sans text-espresso antialiased">
-    <div class="absolute inset-x-0 top-0 -z-10 overflow-hidden">
-      <div class="mx-auto h-96 max-w-6xl bg-gradient-to-br from-peach via-white to-sand blur-3xl opacity-90"></div>
+  <body class="bg-white font-sans text-ink antialiased">
+    <div class="bg-plum px-4 py-2 text-center text-xs font-medium text-white">
+      Výběr masek ve storefront stylu Království tianDe.
+      <a class="ml-2 underline underline-offset-2" href="https://www.kralovstvi-tiande.cz/plet-masky/">Nakoupit na kralovstvi-tiande.cz</a>
     </div>
 
-    <header class="relative">
-      <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-8">
-        <a href="#top" class="text-lg font-extrabold tracking-[0.18em] text-espresso uppercase">Lumiere Skin</a>
-        <div class="hidden items-center gap-8 text-sm font-medium text-espresso/70 md:flex">
-          <a href="#benefity" class="transition hover:text-espresso">Benefity</a>
-          <a href="#produkty" class="transition hover:text-espresso">Masky</a>
-          <a href="#reference" class="transition hover:text-espresso">Reference</a>
-          <a href="#faq" class="transition hover:text-espresso">FAQ</a>
+    <header class="border-b border-line bg-white">
+      <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 lg:px-6">
+        <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <div class="flex items-center justify-between gap-4">
+            <a href="https://www.kralovstvi-tiande.cz/" class="text-xl font-extrabold uppercase tracking-[0.18em] text-plum">
+              Království tianDe
+            </a>
+            <a
+              href="#lead-form"
+              class="inline-flex rounded-full border border-plum px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-plum lg:hidden"
+            >
+              Chci tipy e-mailem
+            </a>
+          </div>
+          <div class="grid gap-2 text-xs text-muted sm:grid-cols-3 sm:gap-4">
+            <div>
+              <span class="font-semibold text-ink">Poradíme s výběrem</span><br />
+              Po-Pá 8:00-15:00
+            </div>
+            <div>
+              <a class="font-semibold text-ink" href="tel:+420373700900">+420 373 700 900</a><br />
+              <a href="mailto:info@kralovstvi-tiande.cz">info@kralovstvi-tiande.cz</a>
+            </div>
+            <div class="sm:text-right">
+              Doprava zdarma od 1 600 Kč<br />
+              Rychlé odeslání zboží skladem
+            </div>
+          </div>
         </div>
-        <a
-          href="#sleva"
-          class="rounded-full border border-espresso/10 bg-white/80 px-5 py-3 text-sm font-semibold text-espresso shadow-soft backdrop-blur transition hover:-translate-y-0.5"
-        >
-          Získat slevu
-        </a>
-      </nav>
+
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line pt-3 text-sm font-medium text-ink">
+          <a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/nejprodavanejsi/">Nejprodávanější</a>
+          <a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/novinky_k599/">Novinky</a>
+          <a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/more-slev/">AKCE %</a>
+          <a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/plet/">Pleť</a>
+          <a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/plet-masky/">Masky</a>
+          <a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/clanky/">Blog</a>
+          <a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/kontakt/">Kontakt</a>
+          <a
+            href="#lead-form"
+            class="ml-auto hidden rounded-full bg-plum px-5 py-2 text-xs font-bold uppercase tracking-[0.14em] text-white lg:inline-flex"
+          >
+            Tipy a novinky
+          </a>
+        </div>
+      </div>
     </header>
 
-    <main id="top">
-      <section class="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-8 lg:pb-24">
-        <div class="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
-            <span class="inline-flex items-center rounded-full border border-espresso/10 bg-white/75 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-espresso/70 shadow-soft">
-              Prémiová péče nové generace
-            </span>
-            <h1 class="mt-6 max-w-3xl font-serif text-5xl leading-none text-espresso sm:text-6xl lg:text-7xl">
-              Pleťové masky, které vrátí pleti jas, klid a luxusní pocit během pár minut.
+    <main>
+      <section class="border-b border-line bg-[#fafafa]">
+        <div class="mx-auto grid max-w-7xl gap-8 px-4 py-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-6 lg:py-10">
+          <div class="flex flex-col justify-center">
+            <p class="text-xs font-bold uppercase tracking-[0.18em] text-magenta">Pleť / Masky / Akční výběr</p>
+            <h1 class="mt-3 max-w-3xl text-4xl font-extrabold leading-tight text-ink sm:text-5xl">
+              Pleťové masky z
+              <span class="text-plum">Království tianDe</span>,
+              které snadno vyberete podle toho, co pleť právě potřebuje.
             </h1>
-            <p class="mt-6 max-w-2xl text-lg leading-8 text-espresso/75 sm:text-xl">
-              Vysoce účinné textilní i krémové masky s aktivními látkami pro hydrataci, rozjasnění i regeneraci. Navržené pro každodenní komfort i viditelný wow efekt před důležitou událostí.
+            <p class="mt-4 max-w-2xl text-base leading-7 text-muted">
+              Hydratační, rozjasňující i zklidňující masky pro rychlou domácí péči. Vyberte si podle potřeby pleti a pokud chcete, nechte si poslat výběr, novinky a akční tipy rovnou do e-mailu.
             </p>
-            <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row">
               <a
-                href="#produkty"
-                class="inline-flex items-center justify-center rounded-full bg-espresso px-7 py-4 text-sm font-bold text-white transition hover:bg-espresso/90"
+                href="#lead-form"
+                class="inline-flex items-center justify-center rounded-full bg-plum px-6 py-3 text-sm font-bold text-white transition hover:bg-magenta"
               >
-                Prohlédnout masky
+                Poslat tipy e-mailem
               </a>
               <a
-                href="#sleva"
-                class="inline-flex items-center justify-center rounded-full border border-espresso/15 bg-white/80 px-7 py-4 text-sm font-bold text-espresso transition hover:bg-white"
+                href="https://www.kralovstvi-tiande.cz/plet-masky/"
+                class="inline-flex items-center justify-center rounded-full border border-line bg-white px-6 py-3 text-sm font-bold text-ink transition hover:border-plum hover:text-plum"
               >
-                Sleva 10 % na první nákup
+                Otevřít masky v e-shopu
               </a>
             </div>
-            <dl class="mt-10 grid gap-5 sm:grid-cols-3">
-              <div class="rounded-3xl border border-white/70 bg-white/75 p-5 shadow-soft">
-                <dt class="text-sm font-semibold text-espresso/60">Hodnocení zákaznic</dt>
-                <dd class="mt-2 text-3xl font-extrabold">4.9/5</dd>
+            <dl class="mt-6 grid gap-3 sm:grid-cols-3">
+              <div class="rounded-2xl border border-line bg-white px-4 py-4">
+                <dt class="text-xs uppercase tracking-[0.16em] text-muted">Výběr masek</dt>
+                <dd class="mt-2 text-2xl font-extrabold text-ink">Více variant</dd>
               </div>
-              <div class="rounded-3xl border border-white/70 bg-white/75 p-5 shadow-soft">
-                <dt class="text-sm font-semibold text-espresso/60">Bez parabenů</dt>
-                <dd class="mt-2 text-3xl font-extrabold">100 %</dd>
+              <div class="rounded-2xl border border-line bg-white px-4 py-4">
+                <dt class="text-xs uppercase tracking-[0.16em] text-muted">Aktuální akce</dt>
+                <dd class="mt-2 text-2xl font-extrabold text-plum">Promo nabídky</dd>
               </div>
-              <div class="rounded-3xl border border-white/70 bg-white/75 p-5 shadow-soft">
-                <dt class="text-sm font-semibold text-espresso/60">Viditelný efekt</dt>
-                <dd class="mt-2 text-3xl font-extrabold">15 min</dd>
+              <div class="rounded-2xl border border-line bg-white px-4 py-4">
+                <dt class="text-xs uppercase tracking-[0.16em] text-muted">E-mailové tipy</dt>
+                <dd class="mt-2 text-2xl font-extrabold text-ink">Novinky</dd>
               </div>
             </dl>
           </div>
 
-          <div class="relative">
-            <div class="absolute -left-10 top-10 h-24 w-24 rounded-full bg-clay/30 blur-2xl"></div>
-            <div class="absolute -right-4 bottom-12 h-32 w-32 rounded-full bg-moss/20 blur-3xl"></div>
-            <div class="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/80 p-5 shadow-soft backdrop-blur">
-              <div class="grid gap-5 sm:grid-cols-2">
-                <article class="rounded-[1.5rem] bg-gradient-to-b from-sand to-peach p-6">
-                  <p class="text-xs font-bold uppercase tracking-[0.25em] text-espresso/50">Hydratační</p>
-                  <h2 class="mt-14 font-serif text-3xl">Dew Veil</h2>
-                  <p class="mt-3 text-sm leading-6 text-espresso/70">
-                    Kyselina hyaluronová, panthenol a hedvábná textura pro okamžitě pružnější vzhled.
-                  </p>
-                </article>
-                <article class="rounded-[1.5rem] bg-espresso p-6 text-white">
-                  <p class="text-xs font-bold uppercase tracking-[0.25em] text-white/60">Rozjasňující</p>
-                  <h2 class="mt-14 font-serif text-3xl">Glow Reset</h2>
-                  <p class="mt-3 text-sm leading-6 text-white/75">
-                    Vitamin C, niacinamid a jemný botanický komplex pro svěží tón a hladší texturu.
-                  </p>
-                </article>
+          <div class="rounded-3xl border border-line bg-white shadow-panel">
+            <div class="border-b border-line bg-plum px-5 py-4 text-white">
+              <p class="text-xs font-bold uppercase tracking-[0.18em] text-white/70">Rychlý výběr a novinky</p>
+              <h2 class="mt-2 text-2xl font-extrabold">Vyberte masku a nechte si poslat tipy na další nákup</h2>
+            </div>
+            <div class="grid gap-5 p-5">
+              <div class="rounded-2xl bg-[#fafafa] p-4 text-sm leading-6 text-muted">
+                Uložíme váš e-mail a podle zvoleného zájmu vám pošleme novinky, akční tipy a doporučení, která maska dává největší smysl.
               </div>
-              <div class="mt-5 rounded-[1.75rem] border border-espresso/10 bg-white p-6">
-                <div class="flex items-center justify-between gap-4">
-                  <div>
-                    <p class="text-sm font-semibold text-espresso/55">Nejprodávanější kombinace</p>
-                    <p class="mt-1 text-2xl font-extrabold">3 masky pro týdenní ritual</p>
+              <div class="grid gap-3 sm:grid-cols-2">
+                <div class="rounded-2xl border border-line p-4">
+                  <p class="text-xs font-bold uppercase tracking-[0.16em] text-magenta">Hydratace</p>
+                  <p class="mt-2 text-sm font-semibold text-ink">pro napjatou a unavenou pleť</p>
+                </div>
+                <div class="rounded-2xl border border-line p-4">
+                  <p class="text-xs font-bold uppercase tracking-[0.16em] text-magenta">Rozjasnění</p>
+                  <p class="mt-2 text-sm font-semibold text-ink">pro rychlý svěží efekt</p>
+                </div>
+                <div class="rounded-2xl border border-line p-4">
+                  <p class="text-xs font-bold uppercase tracking-[0.16em] text-magenta">Zklidnění</p>
+                  <p class="mt-2 text-sm font-semibold text-ink">pro citlivou a přetíženou pleť</p>
+                </div>
+                <div class="rounded-2xl border border-line p-4">
+                  <p class="text-xs font-bold uppercase tracking-[0.16em] text-magenta">Kompletní rutina</p>
+                  <p class="mt-2 text-sm font-semibold text-ink">když chcete poradit s celým výběrem</p>
+                </div>
+              </div>
+              <a
+                href="#lead-form"
+                class="inline-flex items-center justify-center rounded-full bg-magenta px-6 py-3 text-sm font-bold uppercase tracking-[0.14em] text-white"
+              >
+                Otevřít formulář
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-4 py-8 lg:px-6">
+        <div class="grid gap-4 lg:grid-cols-[240px_1fr]">
+          <aside class="rounded-3xl border border-line bg-white p-5 shadow-panel">
+            <p class="text-sm font-bold uppercase tracking-[0.16em] text-plum">Kategorie</p>
+            <ul class="mt-4 space-y-3 text-sm text-ink">
+              <li><a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/plet-cisteni-tonizace/">Čištění a tonizace</a></li>
+              <li><a class="font-bold text-plum" href="https://www.kralovstvi-tiande.cz/plet-masky/">Masky</a></li>
+              <li><a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/ocni-okoli/">Oční okolí</a></li>
+              <li><a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/pletove-kremy/">Pleťové krémy</a></li>
+              <li><a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/sera/">Séra</a></li>
+            </ul>
+            <div class="mt-6 rounded-2xl border border-line bg-[#fafafa] p-4">
+              <p class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Proč nakoupit tady</p>
+              <ul class="mt-3 space-y-2 text-sm text-ink">
+                <li>Ověřený zákazníky</li>
+                <li>Akční balíčky a dárky</li>
+                <li>Jasná návaznost na e-shop</li>
+              </ul>
+            </div>
+          </aside>
+
+          <div class="space-y-8">
+            <div class="rounded-3xl border border-line bg-white p-5 shadow-panel">
+              <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                  <p class="text-xs font-bold uppercase tracking-[0.18em] text-magenta">Výběr podle potřeby</p>
+                  <h2 class="mt-2 text-3xl font-extrabold text-ink">Výběr masek podle různých potřeb pleti</h2>
+                </div>
+                <div class="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-[0.14em]">
+                  <span class="rounded-full bg-blush px-3 py-2 text-plum">Hydratace</span>
+                  <span class="rounded-full bg-[#f4f4f4] px-3 py-2 text-ink">Rozjasnění</span>
+                  <span class="rounded-full bg-[#f4f4f4] px-3 py-2 text-ink">Citlivá pleť</span>
+                  <span class="rounded-full bg-[#f4f4f4] px-3 py-2 text-ink">Akce</span>
+                </div>
+              </div>
+
+              <div id="produkty" class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                <article class="group overflow-hidden rounded-3xl border border-line bg-white transition hover:border-plum hover:shadow-panel">
+                  <div class="border-b border-line bg-[#fafafa] px-5 py-4">
+                    <p class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Rozjasnění</p>
+                    <h3 class="mt-2 text-lg font-extrabold text-ink">Pleťová maska s kyselinou azelaovou a vitaminem C</h3>
                   </div>
-                  <span class="rounded-full bg-moss px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-white">
-                    Bestseller
-                  </span>
+                  <div class="p-5">
+                    <p class="text-sm leading-6 text-muted">Volba pro pleť, která působí unaveně nebo ztrácí jas a chcete jí dodat svěžejší vzhled.</p>
+                    <ul class="mt-4 space-y-2 text-sm text-ink">
+                      <li>Kyselina azelaová + vitamin C</li>
+                      <li><span class="text-success">Dostupnost ověřte v e-shopu</span></li>
+                      <li>Dobrá volba pro sjednocenější tón pleti</li>
+                    </ul>
+                    <div class="mt-5 flex items-center justify-between gap-3">
+                      <div>
+                        <p class="text-sm font-semibold text-ink">Aktuální cena v e-shopu</p>
+                        <p class="text-xs text-muted">Detail produktu a dostupnost najdete po kliknutí</p>
+                      </div>
+                      <a
+                        href="https://www.kralovstvi-tiande.cz/plet-masky/"
+                        class="inline-flex rounded-full bg-plum px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-white transition group-hover:bg-magenta"
+                      >
+                        Zobrazit v e-shopu
+                      </a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="group overflow-hidden rounded-3xl border border-plum bg-white transition hover:shadow-panel">
+                  <div class="bg-plum px-5 py-4 text-white">
+                    <div class="flex items-center justify-between gap-3">
+                      <div>
+                        <p class="text-xs font-bold uppercase tracking-[0.16em] text-white/70">Hydratace</p>
+                        <h3 class="mt-2 text-lg font-extrabold">Hydratační krémová maska na Aloe</h3>
+                      </div>
+                      <span class="rounded-full bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-plum">Náš tip</span>
+                    </div>
+                  </div>
+                  <div class="p-5">
+                    <p class="text-sm leading-6 text-muted">Příjemná hydratační varianta pro chvíle, kdy pleť působí napjatě, suše nebo unaveně.</p>
+                    <ul class="mt-4 space-y-2 text-sm text-ink">
+                      <li>Aloe vera + hydratační péče</li>
+                      <li><span class="text-success">Dostupnost ověřte v e-shopu</span></li>
+                      <li>Vhodná do komfortní domácí rutiny</li>
+                    </ul>
+                    <div class="mt-5 flex items-center justify-between gap-3">
+                      <div>
+                        <p class="text-sm font-semibold text-ink">Aktuální cena v e-shopu</p>
+                        <p class="text-xs text-muted">Detail produktu a dostupnost najdete po kliknutí</p>
+                      </div>
+                      <a
+                        href="https://www.kralovstvi-tiande.cz/plet-masky/"
+                        class="inline-flex rounded-full bg-magenta px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-white"
+                      >
+                        Zobrazit v e-shopu
+                      </a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="group overflow-hidden rounded-3xl border border-line bg-white transition hover:border-plum hover:shadow-panel">
+                  <div class="border-b border-line bg-[#fafafa] px-5 py-4">
+                    <p class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Zklidnění</p>
+                    <h3 class="mt-2 text-lg font-extrabold text-ink">Noční krémová maska na obličej se zeleným čajem</h3>
+                  </div>
+                  <div class="p-5">
+                    <p class="text-sm leading-6 text-muted">Večerní péče pro chvíle, kdy chcete pleť zklidnit a dopřát jí jemnější regeneraci.</p>
+                    <ul class="mt-4 space-y-2 text-sm text-ink">
+                      <li>Zelený čaj + komfortní noční péče</li>
+                      <li><span class="text-success">Dostupnost ověřte v e-shopu</span></li>
+                      <li>Vhodná jako klidnější závěr večerní rutiny</li>
+                    </ul>
+                    <div class="mt-5 flex items-center justify-between gap-3">
+                      <div>
+                        <p class="text-sm font-semibold text-ink">Aktuální cena v e-shopu</p>
+                        <p class="text-xs text-muted">Detail produktu a dostupnost najdete po kliknutí</p>
+                      </div>
+                      <a
+                        href="https://www.kralovstvi-tiande.cz/plet-masky/"
+                        class="inline-flex rounded-full bg-plum px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-white transition group-hover:bg-magenta"
+                      >
+                        Zobrazit v e-shopu
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <div class="grid gap-4 lg:grid-cols-[1fr_320px]">
+              <section class="rounded-3xl border border-line bg-white p-5 shadow-panel">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.16em] text-magenta">Proč zákaznice berou masky u nás</p>
+                    <h2 class="mt-2 text-3xl font-extrabold text-ink">Jasné benefity bez zbytečného pozlátka</h2>
+                  </div>
                 </div>
-                <div class="mt-6 grid gap-3 text-sm text-espresso/75 sm:grid-cols-3">
-                  <div class="rounded-2xl bg-sand px-4 py-3">Hydratace po ránu</div>
-                  <div class="rounded-2xl bg-peach px-4 py-3">Glow před akcí</div>
-                  <div class="rounded-2xl bg-stone-100 px-4 py-3">Regenerace přes noc</div>
+                <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                  <div class="rounded-2xl border border-line bg-[#fafafa] p-4">
+                    <p class="text-sm font-bold text-ink">Rychlý efekt</p>
+                    <p class="mt-2 text-sm leading-6 text-muted">Masky dávají smysl i pro rychlou péči před schůzkou, cestou nebo večerním programem.</p>
+                  </div>
+                  <div class="rounded-2xl border border-line bg-[#fafafa] p-4">
+                    <p class="text-sm font-bold text-ink">Přehledný výběr</p>
+                    <p class="mt-2 text-sm leading-6 text-muted">Každá varianta má jasný účel, takže zákazník nemusí složitě hádat, co si vybrat.</p>
+                  </div>
+                  <div class="rounded-2xl border border-line bg-[#fafafa] p-4">
+                    <p class="text-sm font-bold text-ink">Akční nákupní motivace</p>
+                    <p class="mt-2 text-sm leading-6 text-muted">Novinky, akční tipy a provázání na reálný e-shop pomáhají držet konverzi bez falešných slibů.</p>
+                  </div>
+                  <div class="rounded-2xl border border-line bg-[#fafafa] p-4">
+                    <p class="text-sm font-bold text-ink">Storefront důvěra</p>
+                    <p class="mt-2 text-sm leading-6 text-muted">Telefon, kontakt a jasná návaznost na hlavní e-shop drží stránku v reálném retail kontextu.</p>
+                  </div>
+                </div>
+              </section>
+
+              <aside class="rounded-3xl border border-line bg-plum p-5 text-white shadow-panel">
+                <p class="text-xs font-bold uppercase tracking-[0.16em] text-white/70">Co zákaznice řeší</p>
+                <h2 class="mt-2 text-2xl font-extrabold">Nejčastější situace při výběru masek</h2>
+                <div class="mt-5 space-y-4 text-sm leading-6 text-white/85">
+                  <div class="rounded-2xl bg-white/10 p-4">
+                    Rychlé osvěžení pleti před akcí nebo po náročném dni.
+                  </div>
+                  <div class="rounded-2xl bg-white/10 p-4">
+                    Jemnější péče pro pleť, která reaguje na stres, sucho nebo podráždění.
+                  </div>
+                  <div class="rounded-2xl bg-white/10 p-4">
+                    Snaha vybrat masku podle potřeby, ne jen podle první akce nebo obalu.
+                  </div>
+                </div>
+              </aside>
+            </div>
+
+            <div class="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+              <section class="rounded-3xl border border-line bg-white p-5 shadow-panel">
+                <p class="text-xs font-bold uppercase tracking-[0.16em] text-magenta">FAQ</p>
+                <h2 class="mt-2 text-3xl font-extrabold text-ink">Nejčastější otázky před nákupem</h2>
+                <div class="mt-5 space-y-3">
+                  <details class="rounded-2xl border border-line bg-[#fafafa] p-4" open>
+                    <summary class="cursor-pointer text-sm font-bold text-ink">Jak často masky používat?</summary>
+                    <p class="mt-3 text-sm leading-6 text-muted">Nejčastěji 2 až 3krát týdně. Hydratační varianty můžete zařadit i častěji podle potřeby pleti.</p>
+                  </details>
+                  <details class="rounded-2xl border border-line bg-[#fafafa] p-4">
+                    <summary class="cursor-pointer text-sm font-bold text-ink">Jsou vhodné i pro citlivou pleť?</summary>
+                    <p class="mt-3 text-sm leading-6 text-muted">Ano, hlavně zklidňující varianty. U velmi reaktivní pleti doporučujeme první použití na menší ploše.</p>
+                  </details>
+                  <details class="rounded-2xl border border-line bg-[#fafafa] p-4">
+                    <summary class="cursor-pointer text-sm font-bold text-ink">Kde pak skutečně nakoupím?</summary>
+                    <p class="mt-3 text-sm leading-6 text-muted">Finální nákup směřuje na e-shop Království tianDe, kde najdete kompletní nabídku i aktuální akce.</p>
+                  </details>
+                </div>
+              </section>
+
+              <section class="rounded-3xl border border-line bg-[#fafafa] p-5 shadow-panel">
+                <p class="text-xs font-bold uppercase tracking-[0.16em] text-magenta">Novinky a doporučení</p>
+                <h2 class="mt-2 text-3xl font-extrabold text-ink">Nechte si poslat výběr masek a akční tipy</h2>
+                <p class="mt-3 text-sm leading-7 text-muted">
+                  Vyplňte e-mail a pošleme vám doporučení na masky podle toho, co řešíte nejvíc, plus novinky a akční tipy z Království tianDe.
+                </p>
+
+                <form
+                  id="lead-form"
+                  action="/save-email"
+                  method="post"
+                  data-endpoint="/save-email"
+                  class="mt-5 space-y-4 rounded-3xl border border-line bg-white p-5"
+                >
+                  <div class="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label for="name" class="text-sm font-semibold text-ink">Jméno</label>
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="Vaše jméno"
+                        class="mt-2 w-full rounded-2xl border border-line bg-white px-4 py-3 text-sm outline-none transition focus:border-plum"
+                      />
+                    </div>
+                    <div>
+                      <label for="email" class="text-sm font-semibold text-ink">E-mail</label>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="vas@email.cz"
+                        required
+                        class="mt-2 w-full rounded-2xl border border-line bg-white px-4 py-3 text-sm outline-none transition focus:border-plum"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="interest" class="text-sm font-semibold text-ink">Co řešíte nejvíc?</label>
+                    <select
+                      id="interest"
+                      name="interest"
+                      class="mt-2 w-full rounded-2xl border border-line bg-white px-4 py-3 text-sm outline-none transition focus:border-plum"
+                    >
+                      <option value="">Vyberte, co vás zajímá</option>
+                      <option>Hydratace</option>
+                      <option>Rozjasnění</option>
+                      <option>Zklidnění citlivé pleti</option>
+                      <option>Kompletní rutina</option>
+                    </select>
+                  </div>
+
+                  <label class="flex items-start gap-3 rounded-2xl border border-line bg-[#fafafa] px-4 py-4 text-sm text-muted">
+                    <input
+                      id="consent"
+                      name="consent"
+                      type="checkbox"
+                      value="true"
+                      required
+                      class="mt-1 h-4 w-4 rounded border-line text-plum focus:ring-plum"
+                    />
+                    <span>
+                      Souhlasím se zpracováním údajů za účelem zaslání doporučení, novinek a akčních tipů od
+                      <a href="https://www.kralovstvi-tiande.cz/" class="font-semibold text-plum underline underline-offset-4">
+                        Království tianDe
+                      </a>.
+                      <a href="#privacy" class="ml-1 font-semibold text-plum underline underline-offset-4">Zásady zpracování</a>
+                    </span>
+                  </label>
+
+                  <button
+                    type="submit"
+                    class="inline-flex w-full items-center justify-center rounded-full bg-plum px-6 py-3 text-sm font-bold uppercase tracking-[0.14em] text-white transition hover:bg-magenta"
+                  >
+                    Poslat tipy do e-mailu
+                  </button>
+                  <p id="form-status" class="hidden rounded-2xl px-4 py-3 text-sm font-medium" aria-live="polite"></p>
+                  <p class="text-xs leading-6 text-muted">
+                    Souhlas verze <span class="font-semibold text-ink">marketing-consent-v1</span>. Data používáme pro relevantní novinky, akční tipy a lepší doporučení produktů.
+                  </p>
+                </form>
+              </section>
+            </div>
+
+            <section id="privacy" class="rounded-3xl border border-line bg-white p-5 shadow-panel">
+              <p class="text-xs font-bold uppercase tracking-[0.16em] text-magenta">Zásady zpracování</p>
+              <h2 class="mt-2 text-3xl font-extrabold text-ink">Jak pracujeme s vašimi údaji</h2>
+              <p class="mt-3 max-w-4xl text-sm leading-7 text-muted">
+                Ukládáme e-mail, jméno, vybraný zájem, čas odeslání a technický zdroj formuláře, abychom mohli poslat relevantní doporučení masek, novinky a doložit souhlas se zpracováním.
+              </p>
+              <div class="mt-5 grid gap-4 text-sm leading-7 text-muted md:grid-cols-2">
+                <div>
+                  <p><span class="font-semibold text-ink">Správce:</span> Království tianDe</p>
+                  <p><span class="font-semibold text-ink">Kontakt:</span> info@kralovstvi-tiande.cz</p>
+                  <p><span class="font-semibold text-ink">Účel:</span> newsletter, akční tipy a segmentace doporučení podle zájmu.</p>
+                </div>
+                <div>
+                  <p><span class="font-semibold text-ink">Doba uchování:</span> maximálně 365 dní nebo do odvolání souhlasu.</p>
+                  <p><span class="font-semibold text-ink">Příjemci:</span> interní marketingový tým a nástroje pro e-mailing.</p>
+                  <p><span class="font-semibold text-ink">Vaše práva:</span> přístup, oprava, výmaz, omezení zpracování a odvolání souhlasu.</p>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="benefity" class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p class="text-sm font-bold uppercase tracking-[0.24em] text-espresso/45">Proč fungují</p>
-            <h2 class="mt-3 font-serif text-4xl text-espresso sm:text-5xl">Výsledky bez kompromisů v pocitu ani složení.</h2>
-          </div>
-          <p class="max-w-2xl text-base leading-7 text-espresso/70">
-            Každá maska kombinuje silné aktivní látky, jemné materiály a snadné použití doma. Vzniká tak ritual, který je rychlý, příjemný a důvěryhodný.
-          </p>
-        </div>
-        <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          <article class="rounded-[1.75rem] border border-espresso/10 bg-white p-7 shadow-soft">
-            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-peach text-lg">01</div>
-            <h3 class="mt-5 text-xl font-extrabold">Cílená péče</h3>
-            <p class="mt-3 text-sm leading-6 text-espresso/70">Hydratace, zklidnění, rozjasnění i obnova bariéry podle aktuální potřeby pleti.</p>
-          </article>
-          <article class="rounded-[1.75rem] border border-espresso/10 bg-white p-7 shadow-soft">
-            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sand text-lg">02</div>
-            <h3 class="mt-5 text-xl font-extrabold">Prémiové textury</h3>
-            <p class="mt-3 text-sm leading-6 text-espresso/70">Lehké, komfortní a nelepivé složení, které se snadno zařadí do denní i večerní rutiny.</p>
-          </article>
-          <article class="rounded-[1.75rem] border border-espresso/10 bg-white p-7 shadow-soft">
-            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-stone-100 text-lg">03</div>
-            <h3 class="mt-5 text-xl font-extrabold">Důvěryhodné ingredience</h3>
-            <p class="mt-3 text-sm leading-6 text-espresso/70">Niacinamid, peptidy, vitamin C, ceramidy a další aktivní látky v promyšlených kombinacích.</p>
-          </article>
-          <article class="rounded-[1.75rem] border border-espresso/10 bg-white p-7 shadow-soft">
-            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-moss/20 text-lg">04</div>
-            <h3 class="mt-5 text-xl font-extrabold">Viditelný efekt rychle</h3>
-            <p class="mt-3 text-sm leading-6 text-espresso/70">Pleť působí svěžeji, hladčeji a vypnutěji už po první aplikaci před schůzkou i večerem.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="reference" class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div class="overflow-hidden rounded-[2rem] bg-espresso px-8 py-10 text-white shadow-soft lg:px-12 lg:py-14">
-          <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-            <div>
-              <p class="text-sm font-bold uppercase tracking-[0.24em] text-white/55">Social proof</p>
-              <h2 class="mt-3 font-serif text-4xl sm:text-5xl">Tisíce spokojených zákaznic se vrací pro další balení.</h2>
-              <p class="mt-5 max-w-xl text-white/75">
-                Vyzdvihují hlavně okamžitý komfort, jemné složení a to, jak snadno se z domácí péče stane malý luxusní ritual.
-              </p>
-            </div>
-            <div class="grid gap-5 md:grid-cols-3">
-              <article class="rounded-[1.5rem] bg-white/10 p-6 backdrop-blur">
-                <p class="text-sm leading-7 text-white/85">"Po 15 minutách byla pleť výrazně klidnější a krásně šťavnatá. Přesně ten efekt, který chci před eventem."</p>
-                <p class="mt-5 text-sm font-bold">Tereza, Brno</p>
-              </article>
-              <article class="rounded-[1.5rem] bg-white/10 p-6 backdrop-blur">
-                <p class="text-sm leading-7 text-white/85">"Glow Reset používám dvakrát týdně a make-up na ní pak sedí mnohem líp. Konečně něco, co dává smysl."</p>
-                <p class="mt-5 text-sm font-bold">Karolína, Praha</p>
-              </article>
-              <article class="rounded-[1.5rem] bg-white/10 p-6 backdrop-blur">
-                <p class="text-sm leading-7 text-white/85">"Skvělá kombinace jemnosti a výsledku. Neštípe, nevysušuje a pleť vypadá odpočatě i po náročném týdnu."</p>
-                <p class="mt-5 text-sm font-bold">Michaela, Olomouc</p>
-              </article>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="produkty" class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p class="text-sm font-bold uppercase tracking-[0.24em] text-espresso/45">Vyberte si masku</p>
-            <h2 class="mt-3 font-serif text-4xl text-espresso sm:text-5xl">Kurátorovaný výběr pro různé potřeby pleti.</h2>
-          </div>
-          <p class="max-w-2xl text-base leading-7 text-espresso/70">
-            Každá varianta má jasný účel, přehledné benefity a styl, který odpovídá prémiovému produktu i modernímu online nákupu.
-          </p>
-        </div>
-        <div class="mt-10 grid gap-6 lg:grid-cols-3">
-          <article class="rounded-[2rem] border border-espresso/10 bg-white p-8 shadow-soft">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <p class="text-sm font-bold uppercase tracking-[0.22em] text-espresso/45">Hydration</p>
-                <h3 class="mt-2 text-3xl font-extrabold">Dew Veil Mask</h3>
-              </div>
-              <span class="rounded-full bg-sand px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-espresso/70">1 ks</span>
-            </div>
-            <p class="mt-5 text-sm leading-7 text-espresso/70">
-              Intenzivní dávka hydratace pro unavenou, napjatou nebo dehydratovanou pleť.
-            </p>
-            <ul class="mt-6 space-y-3 text-sm text-espresso/75">
-              <li>Hyaluron + panthenol + aloe vera</li>
-              <li>Zjemňuje a podporuje pružnost</li>
-              <li>Ideální po cestování nebo klimatizaci</li>
-            </ul>
-            <div class="mt-8 flex items-end justify-between gap-4">
-              <p class="text-3xl font-extrabold">149 Kč</p>
-              <a href="#sleva" class="rounded-full bg-espresso px-5 py-3 text-sm font-bold text-white transition hover:bg-espresso/90">Chci slevu</a>
-            </div>
-          </article>
-
-          <article class="rounded-[2rem] border border-espresso bg-espresso p-8 text-white shadow-soft">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <p class="text-sm font-bold uppercase tracking-[0.22em] text-white/55">Brightening</p>
-                <h3 class="mt-2 text-3xl font-extrabold">Glow Reset Mask</h3>
-              </div>
-              <span class="rounded-full bg-white/15 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-white">Top volba</span>
-            </div>
-            <p class="mt-5 text-sm leading-7 text-white/75">
-              Rozjasňující kúra pro mdlou pleť a momenty, kdy chcete vypadat svěže bez námahy.
-            </p>
-            <ul class="mt-6 space-y-3 text-sm text-white/80">
-              <li>Vitamin C + niacinamid + peptidy</li>
-              <li>Podporuje sjednocený tón</li>
-              <li>Perfektní před focením nebo akcí</li>
-            </ul>
-            <div class="mt-8 flex items-end justify-between gap-4">
-              <p class="text-3xl font-extrabold">179 Kč</p>
-              <a href="#sleva" class="rounded-full bg-white px-5 py-3 text-sm font-bold text-espresso transition hover:bg-sand">Získat nabídku</a>
-            </div>
-          </article>
-
-          <article class="rounded-[2rem] border border-espresso/10 bg-white p-8 shadow-soft">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <p class="text-sm font-bold uppercase tracking-[0.22em] text-espresso/45">Recovery</p>
-                <h3 class="mt-2 text-3xl font-extrabold">Calm Repair Mask</h3>
-              </div>
-              <span class="rounded-full bg-peach px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-espresso/70">Noční péče</span>
-            </div>
-            <p class="mt-5 text-sm leading-7 text-espresso/70">
-              Zklidňující regenerace pro citlivou nebo podrážděnou pleť se sklonem k začervenání.
-            </p>
-            <ul class="mt-6 space-y-3 text-sm text-espresso/75">
-              <li>Centella asiatica + ceramidy + oves</li>
-              <li>Pomáhá obnovit komfort pleti</li>
-              <li>Vhodná po exfoliaci i během stresu</li>
-            </ul>
-            <div class="mt-8 flex items-end justify-between gap-4">
-              <p class="text-3xl font-extrabold">169 Kč</p>
-              <a href="#sleva" class="rounded-full bg-espresso px-5 py-3 text-sm font-bold text-white transition hover:bg-espresso/90">Mám zájem</a>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section id="faq" class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
-          <div>
-            <p class="text-sm font-bold uppercase tracking-[0.24em] text-espresso/45">FAQ</p>
-            <h2 class="mt-3 font-serif text-4xl text-espresso sm:text-5xl">Vše důležité na jednom místě.</h2>
-            <p class="mt-5 max-w-lg text-base leading-7 text-espresso/70">
-              Odpovědi, které zkracují cestu k objednávce a posilují důvěru před prvním nákupem.
-            </p>
-          </div>
-          <div class="space-y-4">
-            <details class="group rounded-[1.5rem] border border-espresso/10 bg-white p-6 shadow-soft" open>
-              <summary class="cursor-pointer list-none text-lg font-extrabold">Jak často masky používat?</summary>
-              <p class="mt-4 text-sm leading-7 text-espresso/70">Většině pleti vyhovují 2 až 3 aplikace týdně. Hydratační variantu můžete zařadit i častěji podle potřeby.</p>
-            </details>
-            <details class="group rounded-[1.5rem] border border-espresso/10 bg-white p-6 shadow-soft">
-              <summary class="cursor-pointer list-none text-lg font-extrabold">Jsou vhodné i pro citlivou pleť?</summary>
-              <p class="mt-4 text-sm leading-7 text-espresso/70">Ano, zejména Calm Repair Mask. Pokud máte velmi reaktivní pleť, doporučujeme první použití otestovat na menší části pokožky.</p>
-            </details>
-            <details class="group rounded-[1.5rem] border border-espresso/10 bg-white p-6 shadow-soft">
-              <summary class="cursor-pointer list-none text-lg font-extrabold">Jak dlouho nechat masku působit?</summary>
-              <p class="mt-4 text-sm leading-7 text-espresso/70">Doporučená doba je 10 až 15 minut. Zbylé sérum nebo krém jemně vmasírujte do pleti, krku a dekoltu.</p>
-            </details>
-            <details class="group rounded-[1.5rem] border border-espresso/10 bg-white p-6 shadow-soft">
-              <summary class="cursor-pointer list-none text-lg font-extrabold">Jak získám slevu na první objednávku?</summary>
-              <p class="mt-4 text-sm leading-7 text-espresso/70">Stačí vyplnit e-mail níže. Po odeslání vám přijde zvýhodněná nabídka a novinky z kolekce.</p>
-            </details>
-          </div>
-        </div>
-      </section>
-
-      <section id="sleva" class="mx-auto max-w-7xl px-6 pb-20 pt-8 lg:px-8">
-        <div class="overflow-hidden rounded-[2rem] border border-white/70 bg-gradient-to-br from-sand via-white to-peach p-8 shadow-soft lg:p-12">
-          <div class="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-            <div>
-              <p class="text-sm font-bold uppercase tracking-[0.24em] text-espresso/45">Sleva a novinky</p>
-              <h2 class="mt-3 font-serif text-4xl text-espresso sm:text-5xl">Získejte 10 % na první nákup a přístup k novým limitovaným maskám.</h2>
-              <p class="mt-5 max-w-xl text-base leading-7 text-espresso/70">
-                Vyplňte svůj e-mail a pošleme vám uvítací nabídku. Žádný spam, jen pečlivě vybrané tipy, rituály a nové drops.
-              </p>
-            </div>
-            <form
-              id="lead-form"
-              action="/save-email"
-              method="post"
-              data-endpoint="/save-email"
-              class="rounded-[1.75rem] border border-espresso/10 bg-white p-6 shadow-soft"
-            >
-              <label for="name" class="text-sm font-semibold text-espresso/65">Jméno</label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                placeholder="Vaše jméno"
-                class="mt-2 w-full rounded-2xl border border-espresso/10 bg-stone-50 px-4 py-4 text-sm outline-none transition focus:border-espresso/30 focus:bg-white"
-              />
-
-              <label for="email" class="mt-5 block text-sm font-semibold text-espresso/65">E-mail</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="vas@email.cz"
-                required
-                class="mt-2 w-full rounded-2xl border border-espresso/10 bg-stone-50 px-4 py-4 text-sm outline-none transition focus:border-espresso/30 focus:bg-white"
-              />
-
-              <label for="interest" class="mt-5 block text-sm font-semibold text-espresso/65">Co vás zajímá nejvíc?</label>
-              <select
-                id="interest"
-                name="interest"
-                class="mt-2 w-full rounded-2xl border border-espresso/10 bg-stone-50 px-4 py-4 text-sm outline-none transition focus:border-espresso/30 focus:bg-white"
-              >
-                <option>Hydratace</option>
-                <option>Rozjasnění</option>
-                <option>Zklidnění citlivé pleti</option>
-                <option>Kompletní rutina</option>
-              </select>
-
-              <label class="mt-5 flex items-start gap-3 rounded-2xl bg-stone-50 px-4 py-4 text-sm text-espresso/75">
-                <input
-                  id="consent"
-                  name="consent"
-                  type="checkbox"
-                  value="true"
-                  required
-                  class="mt-1 h-4 w-4 rounded border-espresso/20 text-espresso focus:ring-espresso"
-                />
-                <span>
-                  Souhlasím se zpracováním e-mailu, jména a zvoleného zájmu za účelem zaslání slevy a občasných novinek.
-                  <a href="#privacy" class="font-semibold text-espresso underline underline-offset-4">Zásady zpracování</a>
-                </span>
-              </label>
-
-              <button
-                type="submit"
-                class="mt-6 inline-flex w-full items-center justify-center rounded-full bg-espresso px-6 py-4 text-sm font-bold text-white transition hover:bg-espresso/90"
-              >
-                Odeslat a získat slevu
-              </button>
-              <p
-                id="form-status"
-                class="mt-4 hidden rounded-2xl px-4 py-3 text-sm font-medium"
-                aria-live="polite"
-              ></p>
-              <p class="mt-4 text-xs leading-6 text-espresso/55">
-                Data používáme jen pro zaslání slevy, relevantních novinek a lepší personalizaci nabídky. Souhlas verze
-                <span class="font-semibold">marketing-consent-v1</span>.
-              </p>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <section id="privacy" class="mx-auto max-w-7xl px-6 pb-20 lg:px-8">
-        <div class="rounded-[2rem] border border-espresso/10 bg-white p-8 shadow-soft">
-          <p class="text-sm font-bold uppercase tracking-[0.24em] text-espresso/45">Zásady zpracování</p>
-          <h2 class="mt-3 font-serif text-3xl text-espresso sm:text-4xl">Jak pracujeme s vašimi údaji</h2>
-          <p class="mt-4 max-w-3xl text-sm leading-7 text-espresso/70">
-            Ukládáme e-mail, jméno, zvolený zájem, čas odeslání a technický zdroj formuláře, abychom mohli doručit slevu,
-            relevantní novinky a doložit souhlas se zpracováním. Odhlášení je možné v každém e-mailu.
-          </p>
-          <div class="mt-6 grid gap-4 text-sm leading-7 text-espresso/70 md:grid-cols-2">
-            <div>
-              <p><span class="font-semibold text-espresso">Správce:</span> Lumiere Skin</p>
-              <p><span class="font-semibold text-espresso">Kontakt:</span> privacy@lumiereskin.cz</p>
-              <p><span class="font-semibold text-espresso">Účel:</span> doručení slevy, newsletter a segmentace obsahu podle zájmu.</p>
-            </div>
-            <div>
-              <p><span class="font-semibold text-espresso">Doba uchování:</span> maximálně 365 dní nebo do odvolání souhlasu.</p>
-              <p><span class="font-semibold text-espresso">Příjemci:</span> interní marketingový tým a provozovatel e-mailingové platformy.</p>
-              <p><span class="font-semibold text-espresso">Vaše práva:</span> přístup, oprava, výmaz, omezení zpracování a odvolání souhlasu.</p>
-            </div>
+            </section>
           </div>
         </div>
       </section>
     </main>
 
-    <footer class="border-t border-espresso/10 bg-white/70">
-      <div class="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 text-sm text-espresso/60 sm:flex-row sm:items-center sm:justify-between lg:px-8">
-        <p>&copy; 2026 Lumiere Skin. Prémiové masky pro moderní péči o pleť.</p>
-        <div class="flex gap-5">
-          <a href="#produkty" class="transition hover:text-espresso">Produkty</a>
-          <a href="#faq" class="transition hover:text-espresso">FAQ</a>
-          <a href="#sleva" class="transition hover:text-espresso">Sleva</a>
+    <footer class="border-t border-line bg-white">
+      <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 text-sm text-muted lg:flex-row lg:items-center lg:justify-between lg:px-6">
+        <div>
+          <p class="font-semibold text-ink">Království tianDe</p>
+          <p>Look-a-like landing page pro kategorii masek s vazbou na storefront.</p>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/plet-masky/">Masky</a>
+          <a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/kontakt/">Kontakt</a>
+          <a class="hover:text-plum" href="https://www.kralovstvi-tiande.cz/clanky/">Blog</a>
         </div>
       </div>
     </footer>
+
     <script>
       const leadForm = document.getElementById("lead-form");
       const formStatus = document.getElementById("form-status");
 
       function resolveEndpoint(form) {
-        const configuredEndpoint = form.dataset.endpoint || form.getAttribute("action") || "/save-email";
+        const configuredEndpoint =
+          window.SAVE_EMAIL_ENDPOINT ||
+          form.dataset.endpoint ||
+          form.getAttribute("action") ||
+          "/save-email";
         if (window.location.protocol === "file:") {
           return `http://127.0.0.1:8000${configuredEndpoint}`;
         }
@@ -448,9 +502,11 @@
 
       function setStatus(kind, message) {
         formStatus.textContent = message;
-        formStatus.classList.remove("hidden", "bg-green-50", "text-green-800", "bg-red-50", "text-red-700");
+        formStatus.classList.remove("hidden", "bg-green-50", "text-green-800", "bg-red-50", "text-red-700", "bg-[#f4f4f4]", "text-ink");
         if (kind === "success") {
           formStatus.classList.add("bg-green-50", "text-green-800");
+        } else if (kind === "progress") {
+          formStatus.classList.add("bg-[#f4f4f4]", "text-ink");
         } else {
           formStatus.classList.add("bg-red-50", "text-red-700");
         }
@@ -465,9 +521,7 @@
 
         submitButton.disabled = true;
         submitButton.classList.add("opacity-70");
-        setStatus("error", "Odesíláme váš e-mail...");
-        formStatus.classList.remove("bg-red-50", "text-red-700");
-        formStatus.classList.add("bg-stone-100", "text-espresso");
+        setStatus("progress", "Ukládáme váš e-mail a preference...");
 
         try {
           const response = await fetch(resolveEndpoint(leadForm), {
@@ -491,7 +545,12 @@
             throw new Error(result.error || "Odeslání se nepodařilo.");
           }
 
-          setStatus("success", result.saved ? "Děkujeme. Sleva je na cestě do vašeho e-mailu." : "Tento e-mail už evidujeme. Nabídku vám pošleme znovu jen jednou.");
+          setStatus(
+            "success",
+            result.saved
+              ? "Děkujeme. E-mail jsme uložili a zařadili vás do tipů a novinek."
+              : "Tento e-mail už evidujeme. Novinky a doporučení už na něj můžeme posílat."
+          );
           leadForm.reset();
         } catch (error) {
           setStatus("error", error.message || "Odeslání se nepodařilo. Zkuste to prosím znovu.");
