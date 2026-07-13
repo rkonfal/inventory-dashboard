@@ -48,6 +48,7 @@ CONFIG_DIR = ROOT / 'config'
 SKU_MAPPING_OVERRIDE_FILE = CONFIG_DIR / 'sku_mapping_overrides.json'
 POS_ADMIN_VIEW_OVERRIDE_FILE = CONFIG_DIR / 'pos_admin_view_overrides.json'
 ORDERING_REFERENCE_OVERRIDE_FILE = CONFIG_DIR / 'ordering_reference_overrides.json'
+ORDERING_ACTIONS_OVERRIDE_FILE = CONFIG_DIR / 'ordering_actions_overrides.json'
 STORE_EXPIRY_BATCHES_FILE = CONFIG_DIR / 'store_expiry_batches.json'
 ORDERING_PACKAGING_MATCH_FILE = ROOT.parent / 'knowledge' / 'tiande_order_packaging_catalog_match.json'
 CURRENT_DIR = ROOT / 'data' / 'current'
@@ -465,6 +466,8 @@ def load_pos_view_filter_ids(path: Path):
 def load_ordering_reference_overrides(path: Path):
     payload = {
         'skus': {},
+        'titles': {},
+        'titleStems': {},
         'prefixes': [],
         'titleContains': [],
     }
@@ -479,6 +482,18 @@ def load_ordering_reference_overrides(path: Path):
         code = normalize_product_code(raw_code)
         if code and isinstance(meta, dict):
             payload['skus'][code] = dict(meta)
+
+    for raw_title, meta in (raw.get('titles') or {}).items():
+        title_key = normalize_lookup_key(raw_title)
+        if title_key and isinstance(meta, dict):
+            payload['titles'][title_key] = dict(meta)
+            stem_key = normalize_title_stem_key(raw_title)
+            if stem_key:
+                existing = payload['titleStems'].get(stem_key)
+                if existing is None:
+                    payload['titleStems'][stem_key] = dict(meta)
+                else:
+                    payload['titleStems'][stem_key] = None
 
     for entry in (raw.get('prefixes') or []):
         if not isinstance(entry, dict):
@@ -503,6 +518,13 @@ def normalize_lookup_key(value):
     text = str(value or '').strip().lower()
     text = ''.join(ch for ch in unicodedata.normalize('NFD', text) if unicodedata.category(ch) != 'Mn')
     return re.sub(r'[^a-z0-9]+', '_', text).strip('_')
+
+
+def normalize_title_stem_key(value):
+    text = str(value or '').strip().lower()
+    text = re.sub(r'\s*\([^)]*\)\s*$', '', text)
+    text = re.sub(r'\s*,\s*\d+[\d\s.,/]*\s*(g|kg|mg|ml|l|ks|cm|mm|m)\s*$', '', text)
+    return normalize_lookup_key(text)
 
 
 def parse_boolish(value, default=True):
@@ -1035,6 +1057,33 @@ def load_ordering_packaging_map(path: Path):
     return payload
 
 
+def load_ordering_actions_overrides(path: Path):
+    payload = {
+        'defaultStartDate': None,
+        'actions': {},
+    }
+    if not path.exists():
+        return payload
+    try:
+        raw = json.loads(path.read_text(encoding='utf-8'))
+    except Exception as exc:
+        raise RuntimeError(f'Neplatný JSON v overridech akcí objednávání: {path}') from exc
+
+    default_start = normalize_iso_date(raw.get('defaultStartDate'))
+    if default_start:
+        payload['defaultStartDate'] = default_start
+
+    for action_key, row in (raw.get('actions') or {}).items():
+        if not isinstance(row, dict):
+            continue
+        start_date = normalize_iso_date(row.get('startDate'))
+        if start_date:
+            payload['actions'][str(action_key)] = {
+                'startDate': start_date,
+            }
+    return payload
+
+
 def compact_json(data):
     return json.dumps(data, ensure_ascii=False, separators=(',', ':'))
 
@@ -1194,6 +1243,22 @@ def parse_dt(value, default_tz=PRAGUE_TZ):
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=default_tz)
     return dt.astimezone(default_tz)
+
+
+def normalize_iso_date(value):
+    if value in (None, ''):
+        return None
+    if isinstance(value, date) and not isinstance(value, datetime):
+        return value.isoformat()
+    text = str(value).strip()
+    if not text:
+        return None
+    if len(text) >= 10:
+        text = text[:10]
+    try:
+        return date.fromisoformat(text).isoformat()
+    except ValueError:
+        return None
 
 
 def money(value):
@@ -1743,6 +1808,205 @@ def mark_payload_refreshed(payload, refreshed_at):
         payload['sourceGeneratedAt'] = original_generated_at
     payload['generatedAt'] = refreshed_at
     return payload
+
+
+def ordering_sales_history_needs_rebuild(payload, end_dt):
+    if not payload or not payload.get('codes'):
+        return True
+    window_to = parse_dt(((payload.get('window') or {}).get('to')))
+    if not window_to:
+        return True
+    return window_to.date() < end_dt.date()
+
+
+def action_sales_start_date(action, overrides):
+    action_overrides = ((overrides or {}).get('actions') or {}).get(str(action.get('key')))
+    candidate = normalize_iso_date((action_overrides or {}).get('startDate'))
+    if candidate:
+        return candidate
+    return normalize_iso_date((overrides or {}).get('defaultStartDate'))
+
+
+def sales_since_start(history_row, view_key, start_date):
+    if not history_row or not start_date:
+        return 0.0, 0
+    total_units = 0.0
+    sale_days = 0
+    for day_key, units in (history_row.get('dailyByView') or {}).get(view_key) or []:
+        if str(day_key) < start_date:
+            continue
+        units_value = round(num(units), 2)
+        if units_value:
+            total_units += units_value
+            sale_days += 1
+    return round(total_units, 2), sale_days
+
+
+def build_action_stock_breakdown(analytics_item, combined_item):
+    combined_item = combined_item or {}
+    analytics_item = analytics_item or {}
+    fourpx = combined_item.get('fourpx') or {}
+
+    return {
+        'effectiveStock': round(num(analytics_item.get('fourpxAvailable') or analytics_item.get('effectiveStock')), 2),
+        'fourpxTotal': round(num(fourpx.get('availableTotal')), 2),
+        'fourpxCz': round(num(((fourpx.get('cz') or {}).get('availableStock'))), 2),
+        'fourpxSk': round(num(((fourpx.get('sk') or {}).get('availableStock'))), 2),
+    }
+
+
+def resolve_action_snapshot_row(code, rows_by_code):
+    code = str(code or '')
+    if not code:
+        return {}
+    row = (rows_by_code or {}).get(code)
+    if row:
+        return row
+    if '/' in code:
+        base_code = normalize_product_code(code.split('/', 1)[0])
+        return (rows_by_code or {}).get(base_code) or {}
+    return {}
+
+
+def refresh_action_item_snapshot(item, analytics_by_code, combined_by_code, history_by_code, market_key, start_date):
+    code = str(item.get('code') or '')
+    analytics_item = resolve_action_snapshot_row(code, analytics_by_code)
+    combined_item = resolve_action_snapshot_row(code, combined_by_code)
+    history_row = resolve_action_snapshot_row(code, history_by_code)
+
+    next_item = dict(item)
+    units_per_action = max(1, int(num(next_item.get('unitsPerAction') or 1)))
+    stock_units = round(num(analytics_item.get('fourpxAvailable') or analytics_item.get('effectiveStock')), 2)
+    sales_units, sales_days = sales_since_start(history_row, market_key, start_date)
+
+    next_item['stock'] = stock_units
+    next_item['capacity'] = max(0, math.floor(max(stock_units, 0.0) / units_per_action))
+    next_item['packaging'] = next_item.get('packaging') or analytics_item.get('packagingRaw') or ''
+    next_item['price'] = round(num(next_item.get('price') or analytics_item.get('unitSellingPrice')), 2)
+    next_item['daysOfCover90d'] = analytics_item.get('daysOfCover90d')
+    next_item['reorderRisk'] = analytics_item.get('reorderRisk') or 'none'
+    next_item['lastSaleDate'] = history_row.get('lastSaleDate') or analytics_item.get('lastSaleDate')
+    next_item['salesWindowStart'] = start_date
+    next_item['salesSinceStart'] = sales_units
+    next_item['salesDaysSinceStart'] = sales_days
+    next_item['stockBreakdown'] = build_action_stock_breakdown(analytics_item, combined_item)
+    return next_item
+
+
+def recalculate_action_summary(action):
+    kind = action.get('kind')
+    items = action.get('items') or []
+
+    if kind == 'bundle':
+        all_groups = []
+        for bucket_name in ('requiredGroups', 'giftGroups'):
+            groups = []
+            for group in action.get(bucket_name) or []:
+                capacities = [max(0, int(num(item.get('capacity')))) for item in (group.get('items') or [])]
+                available = 0
+                if capacities:
+                    available = sum(capacities) if group.get('mode') == 'sum' else min(capacities)
+                next_group = dict(group)
+                next_group['availableActions'] = int(available)
+                groups.append(next_group)
+                all_groups.append(next_group)
+            action[bucket_name] = groups
+        bottleneck = min(all_groups, key=lambda group: group.get('availableActions') or 0) if all_groups else None
+        action['availableActions'] = int((bottleneck or {}).get('availableActions') or 0)
+        action['bottleneckLabel'] = (bottleneck or {}).get('label') or ''
+        action['bottleneckActions'] = int((bottleneck or {}).get('availableActions') or 0)
+    elif kind == 'discount':
+        total_capacity = int(sum(max(0, int(num(item.get('capacity')))) for item in items))
+        action['availableActions'] = total_capacity
+        action['bottleneckLabel'] = 'Celkem ve slevě'
+        action['bottleneckActions'] = total_capacity
+    elif kind == 'discount_set':
+        total_capacity = min((max(0, int(num(item.get('capacity')))) for item in items), default=0)
+        required_groups = action.get('requiredGroups') or []
+        if required_groups:
+            next_group = dict(required_groups[0])
+            next_group['availableActions'] = int(total_capacity)
+            action['requiredGroups'] = [next_group]
+            action['bottleneckLabel'] = next_group.get('label') or ''
+        action['availableActions'] = int(total_capacity)
+        action['bottleneckActions'] = int(total_capacity)
+
+    action['totalStock'] = round(sum(num(item.get('stock')) for item in items), 2)
+    action['salesWindowUnits'] = round(sum(num(item.get('salesSinceStart')) for item in items), 2)
+    return action
+
+
+def refresh_ordering_actions_payload(payload, market_payloads, combined_index_payload, sales_history_payload, generated_at, overrides=None):
+    if not payload or not isinstance(payload, dict) or not (payload.get('markets') or {}):
+        return payload
+
+    original_generated_at = payload.get('sourceGeneratedAt') or payload.get('generatedAt')
+    next_payload = json.loads(json.dumps(payload, ensure_ascii=False))
+    next_payload['generatedAt'] = generated_at
+    if original_generated_at:
+        next_payload['sourceGeneratedAt'] = original_generated_at
+
+    combined_by_code = {
+        str(item.get('code')): item
+        for item in (combined_index_payload or {}).get('items') or []
+        if item.get('code')
+    }
+    history_by_code = (sales_history_payload or {}).get('codes') or {}
+    default_start = normalize_iso_date((overrides or {}).get('defaultStartDate'))
+    window_to = ((sales_history_payload or {}).get('window') or {}).get('to')
+
+    for market_key, market_block in (next_payload.get('markets') or {}).items():
+        analytics_payload = (market_payloads or {}).get(market_key) or {}
+        analytics_by_code = {
+            str(item.get('code')): item
+            for item in (analytics_payload.get('items') or [])
+            if item.get('code')
+        }
+        actions = []
+        for action in market_block.get('actions') or []:
+            next_action = dict(action)
+            start_date = action_sales_start_date(action, overrides) or default_start
+            next_action['salesWindowStart'] = start_date
+            if start_date:
+                next_action['salesWindow'] = {
+                    'start': start_date,
+                    'end': window_to,
+                }
+
+            refreshed_items = [
+                refresh_action_item_snapshot(item, analytics_by_code, combined_by_code, history_by_code, market_key, start_date)
+                for item in (action.get('items') or [])
+            ]
+            next_action['items'] = refreshed_items
+
+            for bucket_name in ('requiredGroups', 'giftGroups'):
+                refreshed_groups = []
+                for group in action.get(bucket_name) or []:
+                    next_group = dict(group)
+                    next_group['items'] = [
+                        refresh_action_item_snapshot(item, analytics_by_code, combined_by_code, history_by_code, market_key, start_date)
+                        for item in (group.get('items') or [])
+                    ]
+                    refreshed_groups.append(next_group)
+                next_action[bucket_name] = refreshed_groups
+
+            actions.append(recalculate_action_summary(next_action))
+
+        bundle_count = sum(1 for action in actions if action.get('kind') == 'bundle')
+        discount_count = sum(1 for action in actions if action.get('kind') != 'bundle')
+        market_block['actions'] = actions
+        market_block['summary'] = {
+            'actionCount': len(actions),
+            'bundleCount': bundle_count,
+            'discountCount': discount_count,
+            'discountItemCount': sum(len(action.get('items') or []) for action in actions if action.get('kind') != 'bundle'),
+            'totalPotentialActions': int(sum(num(action.get('availableActions')) for action in actions if action.get('kind') != 'discount')),
+            'zeroStockActions': sum(1 for action in actions if num(action.get('availableActions')) <= 0),
+            'salesWindowStart': default_start,
+            'salesWindowUnits': round(sum(num(action.get('salesWindowUnits')) for action in actions), 2),
+        }
+
+    return next_payload
 
 
 def product_label(item):
@@ -2407,6 +2671,29 @@ def aggregate_exact_inventory(items):
     return grouped
 
 
+def fetch_expiry_exact_sales_orders(url, access_token, end_dt, *, pos_view_ids=None, window_days=90, limit=1000):
+    if not url or not access_token or end_dt is None:
+        return []
+
+    start_dt = (end_dt - timedelta(days=max(int(window_days or 0) - 1, 0))).replace(
+        hour=0,
+        minute=0,
+        second=0,
+        microsecond=0,
+    )
+    orders = fetch_wpj_year_order_metrics(url, access_token, start_dt, end_dt, limit=limit)
+    return apply_pos_view_overrides_to_orders(
+        orders,
+        url,
+        access_token,
+        start_dt,
+        end_dt,
+        detailed=False,
+        pos_view_ids=pos_view_ids,
+        limit=limit,
+    )
+
+
 def fetch_store_expiry_sales_orders(ctx: RefreshRuntimeContext, rows: list[dict[str, Any]]):
     if not rows or not wpj_endpoint() or not SETTINGS.wpj_access_token:
         return [], []
@@ -2698,6 +2985,18 @@ def apply_ordering_reference_overrides(reference_meta, code, title, overrides):
     meta = dict(reference_meta or {})
     code_text = normalize_product_code(code)
     title_lower = str(title or '').lower()
+    title_key = normalize_lookup_key(title)
+    title_stem_key = normalize_title_stem_key(title)
+
+    title_override = (overrides.get('titles') or {}).get(title_key)
+    if title_override:
+        meta = merge_reference_meta(meta, title_override)
+        meta['referenceSource'] = 'override:title_exact'
+
+    stem_override = (overrides.get('titleStems') or {}).get(title_stem_key)
+    if stem_override and meta.get('referenceSource') != 'override:title_exact':
+        meta = merge_reference_meta(meta, stem_override)
+        meta['referenceSource'] = 'override:title_stem'
 
     sku_override = (overrides.get('skus') or {}).get(code_text)
     if sku_override:
@@ -2861,6 +3160,7 @@ def aggregate_4px_inventory(items, wpj_by_code=None, manual_overrides=None):
             'pendingStock': 0.0,
             'freezeStock': 0.0,
             'onwayStock': 0.0,
+            'variantBreakdown': {},
         })
         row['sourceCodes'].add(raw_code)
         if mapping:
@@ -2878,6 +3178,23 @@ def aggregate_4px_inventory(items, wpj_by_code=None, manual_overrides=None):
         row['pendingStock'] += num(item.get('pending_stock'))
         row['freezeStock'] += num(item.get('freeze_stock'))
         row['onwayStock'] += num(item.get('onway_stock'))
+        variant = row['variantBreakdown'].setdefault(raw_code, {
+            'sourceCode': raw_code,
+            'skuIds': set(),
+            'batchNos': set(),
+            'availableStock': 0.0,
+            'pendingStock': 0.0,
+            'freezeStock': 0.0,
+            'onwayStock': 0.0,
+        })
+        if item.get('sku_id'):
+            variant['skuIds'].add(item['sku_id'])
+        if item.get('batch_no'):
+            variant['batchNos'].add(item['batch_no'])
+        variant['availableStock'] += num(item.get('available_stock'))
+        variant['pendingStock'] += num(item.get('pending_stock'))
+        variant['freezeStock'] += num(item.get('freeze_stock'))
+        variant['onwayStock'] += num(item.get('onway_stock'))
     for row in grouped.values():
         row['sourceCodes'] = sorted(row['sourceCodes'])
         row['mappedSourceCodes'] = sorted(row['mappedSourceCodes'])
@@ -2886,7 +3203,63 @@ def aggregate_4px_inventory(items, wpj_by_code=None, manual_overrides=None):
         row['mappingRules'] = sorted(row['mappingRules'])
         row['skuIds'] = sorted(row['skuIds'])
         row['batchNos'] = sorted(row['batchNos'])
+        row['variantBreakdown'] = [
+            {
+                **variant,
+                'skuIds': sorted(variant['skuIds']),
+                'batchNos': sorted(variant['batchNos']),
+            }
+            for _, variant in sorted(row['variantBreakdown'].items())
+        ]
     return grouped
+
+
+def merge_4px_variant_breakdown(cz_variants, sk_variants):
+    grouped = {}
+    for market, variants in (('cz', cz_variants or []), ('sk', sk_variants or [])):
+        for variant in variants:
+            code = normalize_product_code(variant.get('sourceCode'))
+            if not code:
+                continue
+            row = grouped.setdefault(code, {
+                'sourceCode': code,
+                'availableTotal': 0.0,
+                'pendingTotal': 0.0,
+                'freezeTotal': 0.0,
+                'onwayTotal': 0.0,
+                'czAvailableStock': 0.0,
+                'skAvailableStock': 0.0,
+                'czPendingStock': 0.0,
+                'skPendingStock': 0.0,
+                'czFreezeStock': 0.0,
+                'skFreezeStock': 0.0,
+                'czOnwayStock': 0.0,
+                'skOnwayStock': 0.0,
+                'skuIds': set(),
+                'batchNos': set(),
+            })
+            available = num(variant.get('availableStock'))
+            pending = num(variant.get('pendingStock'))
+            freeze = num(variant.get('freezeStock'))
+            onway = num(variant.get('onwayStock'))
+            row['availableTotal'] += available
+            row['pendingTotal'] += pending
+            row['freezeTotal'] += freeze
+            row['onwayTotal'] += onway
+            row[f'{market}AvailableStock'] += available
+            row[f'{market}PendingStock'] += pending
+            row[f'{market}FreezeStock'] += freeze
+            row[f'{market}OnwayStock'] += onway
+            row['skuIds'].update(variant.get('skuIds') or [])
+            row['batchNos'].update(variant.get('batchNos') or [])
+    return [
+        {
+            **variant,
+            'skuIds': sorted(variant['skuIds']),
+            'batchNos': sorted(variant['batchNos']),
+        }
+        for _, variant in sorted(grouped.items())
+    ]
 
 
 def aggregate_4px_outbound_by_sku(outbound_payload, start_dt, end_dt, account_label, wpj_by_code=None, manual_overrides=None):
@@ -2966,8 +3339,8 @@ def build_combined_product_views(ctx: CombinedProductsBuildContext):
         has_wpj_4px_context = any((store.get('storeName') or '').startswith('4PX') for store in stores)
         wpj_fourpx_total = round(sum(store['inStore'] for store in stores if (store.get('storeName') or '').startswith('4PX')), 2)
         wpj_total_store = round(sum(store['inStore'] for store in stores), 2)
-        fourpx_cz = cz_inventory_by_code.get(code, {'availableStock': 0.0, 'pendingStock': 0.0, 'freezeStock': 0.0, 'onwayStock': 0.0, 'batchNos': [], 'skuIds': [], 'sourceCodes': [], 'mappedSourceCodes': [], 'mappingRules': []})
-        fourpx_sk = sk_inventory_by_code.get(code, {'availableStock': 0.0, 'pendingStock': 0.0, 'freezeStock': 0.0, 'onwayStock': 0.0, 'batchNos': [], 'skuIds': [], 'sourceCodes': [], 'mappedSourceCodes': [], 'mappingRules': []})
+        fourpx_cz = cz_inventory_by_code.get(code, {'availableStock': 0.0, 'pendingStock': 0.0, 'freezeStock': 0.0, 'onwayStock': 0.0, 'batchNos': [], 'skuIds': [], 'sourceCodes': [], 'mappedSourceCodes': [], 'mappingRules': [], 'variantBreakdown': []})
+        fourpx_sk = sk_inventory_by_code.get(code, {'availableStock': 0.0, 'pendingStock': 0.0, 'freezeStock': 0.0, 'onwayStock': 0.0, 'batchNos': [], 'skuIds': [], 'sourceCodes': [], 'mappedSourceCodes': [], 'mappingRules': [], 'variantBreakdown': []})
         outbound_cz = cz_outbound_by_code.get(code, {'units': 0.0, 'shipments': [], 'logisticsProducts': [], 'carriers': [], 'name': None, 'accounts': [], 'sourceCodes': [], 'mappedSourceCodes': [], 'mappingRules': []})
         outbound_sk = sk_outbound_by_code.get(code, {'units': 0.0, 'shipments': [], 'logisticsProducts': [], 'carriers': [], 'name': None, 'accounts': [], 'sourceCodes': [], 'mappedSourceCodes': [], 'mappingRules': []})
         sales = order_metrics.get(code, {
@@ -3000,6 +3373,10 @@ def build_combined_product_views(ctx: CombinedProductsBuildContext):
         manual_mapped_aliases.update(manual_outbound_codes)
 
         fourpx_total = round(fourpx_cz['availableStock'] + fourpx_sk['availableStock'], 2)
+        variant_breakdown = merge_4px_variant_breakdown(
+            fourpx_cz.get('variantBreakdown'),
+            fourpx_sk.get('variantBreakdown'),
+        )
         stock_delta = round(wpj_fourpx_total - fourpx_total, 2)
         fourpx_relevant = has_wpj_4px_context or fourpx_total > 0 or outbound_cz['units'] > 0 or outbound_sk['units'] > 0
         flags = []
@@ -3038,6 +3415,7 @@ def build_combined_product_views(ctx: CombinedProductsBuildContext):
                 'manualMappedSourceCodes': manual_inventory_codes,
                 'autoMappedSourceCodes': auto_inventory_codes,
                 'mappingRules': mapping_rules,
+                'variantBreakdown': variant_breakdown,
             },
             'yesterdaySales': {
                 'units': round(sales['units'], 2),
@@ -3683,6 +4061,15 @@ def build_inventory_analytics_market_view(base_payload, combined_index, generate
             'orderingRole': classify_ordering_role({**base_item, 'effectiveStock': effective_stock, 'units365d': units365d, 'daysOfCover90d': days_of_cover_90, 'turnoverZone': turnover_zone, 'reorderRisk': reorder_risk, 'recommendedOrderUnits': recommended_order_units}),
             'market': market_key,
         })
+        source_channel = item.get('sourceChannel') or 'unknown'
+        if market_key == 'cz' and source_channel == 'riga' and item.get('orderable', True):
+            item['orderable'] = False
+            item['excludeFromOrderingReason'] = 'SKU je vedené jako Riga-only a pro CZ objednávání se nesmí použít'
+            item['orderingRole'] = 'excluded'
+        elif market_key == 'sk' and source_channel == 'praha' and item.get('orderable', True):
+            item['orderable'] = False
+            item['excludeFromOrderingReason'] = 'SKU je vedené jako Praha-only a pro SK objednávání se nesmí použít'
+            item['orderingRole'] = 'excluded'
         items.append(item)
 
     turnover = sorted([item for item in items if item['units365d'] > 0 and item['effectiveStock'] > 0], key=lambda item: item['units365d'], reverse=True)
@@ -3850,10 +4237,22 @@ def choose_packaging_step(item, raw_units, scenario_type='balanced'):
     if not options:
         return 1
 
+    preferred_step = int(item.get('recommendedOrderStep') or 0)
+    non_unit_options = [option for option in options if option > 1]
+    if preferred_step <= 1 and non_unit_options:
+        preferred_step = max(non_unit_options)
+
     raw_units = max(0, float(raw_units or 0))
     role = item.get('orderingRole') or 'standard'
     if raw_units <= 0:
+        if preferred_step > 1:
+            return preferred_step
         return options[0]
+
+    # If the supplier map explicitly says "order by this pack", prefer that unit
+    # over piece-by-piece ordering even when it overshoots the model forecast.
+    if preferred_step > 1:
+        return preferred_step
 
     if role == 'fill_up' or scenario_type == 'capacity':
         for step in sorted(options, reverse=True):
@@ -4488,16 +4887,23 @@ def build_expiry_overview(
         units30d = round(view_sales.get('units30d', 0.0), 2)
         units14d = round(view_sales.get('units14d', 0.0), 2)
         exact_stock_total = round(num(exact_inventory.get('availableStock')), 2)
+        expiry_cover_stock = round(
+            num(row.get('stockAtNearestExpiry')) or num(row.get('datedStock')),
+            2,
+        )
         daily_run_rate_90 = units90d / 90 if units90d else 0.0
         daily_run_rate_30 = units30d / 30 if units30d else 0.0
         enriched['exactAnalytics'] = {
             'code': row['sku'],
             'availableStock': exact_stock_total,
+            'coverStock': expiry_cover_stock,
             'units90d': units90d,
             'units30d': units30d,
             'units14d': units14d,
-            'daysOfCover30d': round(exact_stock_total / daily_run_rate_30, 1) if daily_run_rate_30 > 0 else None,
-            'daysOfCover90d': round(exact_stock_total / daily_run_rate_90, 1) if daily_run_rate_90 > 0 else None,
+            'daysOfCover30d': round(expiry_cover_stock / daily_run_rate_30, 1) if daily_run_rate_30 > 0 else None,
+            'daysOfCover90d': round(expiry_cover_stock / daily_run_rate_90, 1) if daily_run_rate_90 > 0 else None,
+            'daysOfCover30dAvailable': round(exact_stock_total / daily_run_rate_30, 1) if daily_run_rate_30 > 0 else None,
+            'daysOfCover90dAvailable': round(exact_stock_total / daily_run_rate_90, 1) if daily_run_rate_90 > 0 else None,
             'lastSaleDate': exact_sales.get('lastSaleDate'),
         }
         combined_rows.append(enriched)
@@ -6639,6 +7045,15 @@ def populate_refresh_wpj_state(ctx: RefreshRuntimeContext, fetch_result: Refresh
     history_orders = fetch_wpj_orders(wpj_url, wpj_token, history_start, report_end, limit=1000, detailed=False)
     ytd_orders = fetch_wpj_orders(wpj_url, wpj_token, ytd_start, now_local, limit=1000, detailed=False)
     yesterday_orders = fetch_wpj_orders(wpj_url, wpj_token, report_start, report_end, limit=250, detailed=True)
+    expiry_sales_orders = fetch_expiry_exact_sales_orders(
+        wpj_url,
+        wpj_token,
+        report_end,
+        pos_view_ids=ctx.pos_view_filters,
+        # Expiry pages use the exact 30d movement layer; keep the pull narrow so refresh stays reliable.
+        window_days=30,
+        limit=1000,
+    )
     history_orders = apply_pos_view_overrides_to_orders(history_orders, wpj_url, wpj_token, history_start, report_end, detailed=False, pos_view_ids=ctx.pos_view_filters, limit=1000)
     ytd_orders = apply_pos_view_overrides_to_orders(ytd_orders, wpj_url, wpj_token, ytd_start, now_local, detailed=False, pos_view_ids=ctx.pos_view_filters, limit=1000)
     yesterday_orders = apply_pos_view_overrides_to_orders(yesterday_orders, wpj_url, wpj_token, report_start, report_end, detailed=True, pos_view_ids=ctx.pos_view_filters, limit=250)
@@ -6707,7 +7122,7 @@ def populate_refresh_wpj_state(ctx: RefreshRuntimeContext, fetch_result: Refresh
         fetch_result.sk_expiry_summary,
         cz_inventory_items=fetch_result.cz_inventory.get('items') or [],
         sk_inventory_items=fetch_result.sk_inventory.get('items') or [],
-        sales_orders=ytd_orders,
+        sales_orders=expiry_sales_orders,
         end_dt=report_end,
         pos_admin_views=ctx.pos_admin_views,
     )
@@ -6716,6 +7131,8 @@ def populate_refresh_wpj_state(ctx: RefreshRuntimeContext, fetch_result: Refresh
     analytics_730_cache_path = CURRENT_DIR / 'inventory_analytics_730d.json'
     ordering_core_cache_path = CURRENT_DIR / 'ordering_core.json'
     ordering_sales_history_cache_path = CURRENT_DIR / 'ordering_sales_history.json'
+    ordering_actions_cache_path = CURRENT_DIR / 'ordering_actions.json'
+    ordering_actions_overrides = load_ordering_actions_overrides(ORDERING_ACTIONS_OVERRIDE_FILE)
     state.inventory_analytics_payload = load_json_if_fresh(analytics_cache_path, max_age_hours=24, freshness_key='sourceGeneratedAt')
     state.inventory_analytics_730_payload = load_json_if_fresh(analytics_730_cache_path, max_age_hours=24, freshness_key='sourceGeneratedAt')
     state.ordering_core_payload = load_json_if_fresh(ordering_core_cache_path, max_age_hours=24)
@@ -6806,7 +7223,7 @@ def populate_refresh_wpj_state(ctx: RefreshRuntimeContext, fetch_result: Refresh
     state.ordering_reference_cz_payload = build_ordering_reference_data(state.inventory_analytics_730_cz_payload, generated_at)
     state.ordering_reference_sk_payload = build_ordering_reference_data(state.inventory_analytics_730_sk_payload, generated_at)
 
-    if not state.ordering_sales_history_payload or not state.ordering_sales_history_payload.get('codes'):
+    if ordering_sales_history_needs_rebuild(state.ordering_sales_history_payload, now_local):
         ordering_history_end = now_local
         if analytics_orders is None:
             analytics_orders = fetch_wpj_year_order_metrics(wpj_url, wpj_token, two_year_start, ordering_history_end, limit=1000)
@@ -6820,6 +7237,21 @@ def populate_refresh_wpj_state(ctx: RefreshRuntimeContext, fetch_result: Refresh
             manual_overrides=ctx.manual_overrides,
             pos_admin_views=ctx.pos_admin_views,
         ))
+    existing_ordering_actions_payload = load_optional_current_json('ordering_actions.json')
+    refreshed_ordering_actions_payload = refresh_ordering_actions_payload(
+        existing_ordering_actions_payload,
+        market_payloads={
+            'complete': state.inventory_analytics_730_payload,
+            'cz': state.inventory_analytics_730_cz_payload,
+            'sk': state.inventory_analytics_730_sk_payload,
+        },
+        combined_index_payload=state.combined_index_payload,
+        sales_history_payload=state.ordering_sales_history_payload,
+        generated_at=generated_at,
+        overrides=ordering_actions_overrides,
+    )
+    if refreshed_ordering_actions_payload:
+        write_json(ordering_actions_cache_path, refreshed_ordering_actions_payload)
 
     state.wpj_orders_payload = {
         'generatedAt': generated_at,

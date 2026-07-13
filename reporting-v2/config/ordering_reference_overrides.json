@@ -1,19 +1,19 @@
 {
   "_note": "Fáze 2 referenční metadata pro objednávací engine. SKU overrides mají přednost před prefix/title pravidly.",
   "skus": {
-    "101491": {
-      "itemType": "print",
+    "000040": {
+      "itemType": "promo",
       "orderable": false,
       "sourceChannel": "praha",
       "strategicPriority": "supplement",
-      "excludeFromOrderingReason": "roční katalog, ne standardní objednávací SKU"
+      "excludeFromOrderingReason": "reklamní taška, promo materiál"
     },
-    "101485": {
+    "000059": {
       "itemType": "print",
       "orderable": false,
       "sourceChannel": "praha",
       "strategicPriority": "supplement",
-      "excludeFromOrderingReason": "roční katalog, ne standardní objednávací SKU"
+      "excludeFromOrderingReason": "kniha nebo podnikatelská příručka, ne standardní produkt pro doskladnění"
     },
     "000070": {
       "itemType": "print",
@@ -29,6 +29,243 @@
       "strategicPriority": "supplement",
       "excludeFromOrderingReason": "brožura, ne standardní produkt pro objednávání"
     },
+    "000086": {
+      "itemType": "promo",
+      "orderable": false,
+      "sourceChannel": "praha",
+      "strategicPriority": "supplement",
+      "excludeFromOrderingReason": "látková taška, promo nebo merch položka"
+    },
+    "10102": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "10105": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "101485": {
+      "itemType": "print",
+      "orderable": false,
+      "sourceChannel": "praha",
+      "strategicPriority": "supplement",
+      "excludeFromOrderingReason": "roční katalog, ne standardní objednávací SKU"
+    },
+    "101491": {
+      "itemType": "print",
+      "orderable": false,
+      "sourceChannel": "praha",
+      "strategicPriority": "supplement",
+      "excludeFromOrderingReason": "roční katalog, ne standardní objednávací SKU"
+    },
+    "10205": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "10262": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "113014": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "11325": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "12118": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "12201": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "12202": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "125901": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "125905": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "125906": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "12701": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "12710": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "12716": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "KURZ01": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "supplement",
+      "excludeFromOrderingReason": "online kurz, ne fyzické SKU pro doskladnění"
+    },
+    "135415-1": {
+      "itemType": "product",
+      "orderable": true,
+      "sourceChannel": "riga",
+      "strategicPriority": "standard"
+    },
+    "135467": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "14603": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "14703": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "14707": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "14801": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "14802": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "1480203": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "1480204": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "1480205": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "1480206": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "14803": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "15606": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "15801": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "15802": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
     "15TOP": {
       "itemType": "internal",
       "orderable": false,
@@ -36,12 +273,628 @@
       "strategicPriority": "risky",
       "excludeFromOrderingReason": "interní promo přehled, ne fyzické objednatelné SKU"
     },
-    "KNIHA01": {
-      "itemType": "print",
+    "16301": {
+      "itemType": "product",
       "orderable": false,
-      "sourceChannel": "praha",
-      "strategicPriority": "supplement",
-      "excludeFromOrderingReason": "kniha nebo příručka, ne standardní produkt pro doskladnění"
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "16303": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "16306": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "16307": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "17001": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "17002": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "17102": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "17103": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "180207": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "195450": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "195457": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "195459": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "195464": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "195465": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "196804": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "198821Е": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "20116": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "20139": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "20141": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "20146": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "20147": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "20148": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "20152": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "20153": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "20154": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "225435": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "225436": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "30111": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "30127": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "30130/01": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "30130/02": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "30131": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "30138": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "30221": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "30258": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "30259-1": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "30260": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "32620": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "35412-2": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "35717": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "35719": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "36802": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "37004": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "38811": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "40111": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "40115": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "40116": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "40124": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "40125": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "40201": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "41322": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "41327": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "42302": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "44410": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "44411": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "44412": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "45907": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "45908": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "45909": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "45915": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "45915-1": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "50105Е": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "50110Е": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "50114Е": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "50115Е": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "50117": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "50118": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "50201": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "50202": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "54716": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "60147": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "61911-01Е": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "65905": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "66801": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "80142": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "80407": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "80411": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "80906/01": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "80906/02": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "80909/01": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "80916": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "80919/01Е": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "80919/02Е": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "84713": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "87009": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "90136": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "90149/4": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "90159": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží, ukončený prodej před více než 3 lety"
+    },
+    "90159/01": {
+      "itemType": "product",
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží, ukončený prodej před více než 3 lety"
     },
     "IGE009": {
       "itemType": "promo",
@@ -50,29 +903,35 @@
       "strategicPriority": "supplement",
       "excludeFromOrderingReason": "papírová taška, promo nebo obalový materiál"
     },
-    "000059": {
+    "KNIHA01": {
       "itemType": "print",
       "orderable": false,
       "sourceChannel": "praha",
       "strategicPriority": "supplement",
-      "excludeFromOrderingReason": "kniha nebo podnikatelská příručka, ne standardní produkt pro doskladnění"
-    },
-    "000040": {
-      "itemType": "promo",
-      "orderable": false,
-      "sourceChannel": "praha",
-      "strategicPriority": "supplement",
-      "excludeFromOrderingReason": "reklamní taška, promo materiál"
-    },
-    "000086": {
-      "itemType": "promo",
-      "orderable": false,
-      "sourceChannel": "praha",
-      "strategicPriority": "supplement",
-      "excludeFromOrderingReason": "látková taška, promo nebo merch položka"
+      "excludeFromOrderingReason": "kniha nebo příručka, ne standardní produkt pro doskladnění"
     }
   },
   "prefixes": [
+    {
+      "prefix": "000",
+      "meta": {
+        "itemType": "promo",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "supplement",
+        "excludeFromOrderingReason": "technická / promo / tisková položka se SKU prefixem 000"
+      }
+    },
+    {
+      "prefix": "VYZSET",
+      "meta": {
+        "itemType": "promo",
+        "orderable": false,
+        "sourceChannel": "praha",
+        "strategicPriority": "supplement",
+        "excludeFromOrderingReason": "vzorkový nebo promo set, ne standardní SKU pro doskladnění"
+      }
+    },
     {
       "prefix": "BIOANALYZA",
       "meta": {
@@ -219,5 +1078,697 @@
         "excludeFromOrderingReason": "vzorek nebo promo materiál"
       }
     }
-  ]
+  ],
+  "titles": {
+    "Křišťálová kolagenová maska na oční víčka, 1 ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Kosmetická tělová fytonáplast Yaoshen Forte, 2 ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Hydrofilní odličovací máslo, 75 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Ženšen a mateří kašička, 50,1 g (30 kapslí po 1,67 g)": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Oční stíny Nápady líčení, 9 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Povzbuzující krém pro dokonalá stehna, 120 g (tube)": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Pleťový krém s arganovým olejem, 50 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Pleťový krém s cordycepsem a šalvějí, 50 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Přístroj s komplexními fotochromatickými a ultrazvukovými účinky, 1 ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Lipolytický gel na celulitidu, 120 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Emulze na nohy Lesní talismán, 100 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "CC krém, 40 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Tyčinka na odstraňování skvrn na bázi kyslíku, 35 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Plátky koncentrovaného přípravku (detergentu) na praní, 42 ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Lifting Effect Transdermal Complex, 3 g / 7 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Tělová sůl „Medová broskev“, 50 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Krční pás s bodovou turmalínovou vrstvou": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Slupovací maska na obličej Aloe, 80 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Slupovací maska s extraktem placenty, 80 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Mýdlo na obočí, 10 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Čistící náplast na nos Bambusové uhlí, 1 ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Zklidňující a ochranný pleťový krém, 50 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Regenerační pleťový toner, 100 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Denní krém na obličej „Senzace“, 10 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Čistící pěna na obličej, 160 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Pleťové podkladové sérum, 40 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Tělové mléko SOD, 125 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Krém-filler na pokožku kolem očí, 10 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Multiaktivní micelární voda, 150 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Exfoliant na obličej proti projevům stárnutí, 100 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Micelární sprchový gel se stříbrem, 300 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Ponožky s bodovou turmalínovou vrstvou, 1 pár, velikost: 22 cm": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Noční krémová maska na obličej s mišpulí, 18 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Osvěžující krémová maska na obličej Ledovcová voda, 35 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Hydrogelové polštářky na oční víčka „Mix peptidů”, 2 ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Hydrogelové polštářky na oční víčka „Organické vodní řasy”": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Revitalizační pleťový gel-elixír proti vráskám “Botoluxe”, 40 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Nápoj s kakaem obohacený hyaluronovou kyselinou, sáček 10 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Tužka na oči a obočí (odstín 1), 1ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Tužka na oči a obočí (odstín 2), 1ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Tužka na obočí, 01 Brown, 1 ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Tužka na obočí, 02 Grey, 1 ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Parafínový krém na ruce se vzácnými oleji, 75 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Pleťové matující papírky Něžná růže, 100 ks (ТМ EcoDeViva)": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Krém na ruce \"Zlatý ženšen\", 80 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Denní vložky s extraktem aloe Nefritová svěžest, 1 ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "DD tonální korekční přípravek – cushion, 15 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Regenerační sérum v kapslích na pokožku kolem očí, 36 ks x 0,7 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Pleťový exfoliant, 75 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Fukoidan, 5,7 g (30 kapslí po 190 mg)": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Bohatý tělový krém s mořskými řasami, 200 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Tonální BB-základ na obličej, 42 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Solná koupel na nohy Čínské byliny, 50 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Univerzální prací prostředek, 1000 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Oxi Hit Bělič & Odstraňovač skvrn, 650 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Bavlněné ponožky s bodovou turmalínovou vrstvou, 1 pár": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Ponožky s bodovou turmalínovou vrstvou, 1 pár, velikost: 26 cm": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Fytokrém na nohy Deo-kontrola, 80 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Fytokrém na ruce Relaxace a hydratace, 80 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Regenerační fytokrém na ruce, 80 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Ochranný tělový krém Baby Bambo pro děti, 50 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Balzám na vlasy s extraktem z aloe, 460 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Krém na ruce „Hebká protěž“, 75 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Krém na nohy Sezam a mátový olej, 75 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Sprchový gel Pupečník asijský, 400 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Sprchový gel Indické mango, 400 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Fytomaska na obličej „Regenerační s alginátem“, 20 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Bylinný zábal „Modelování postavy“, 20 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Regenerační a ochranný pleťový fluid, 110 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Regenerační a ochranný pleťový krém, 50 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Šampon “Recept starověké Číny”, 220 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Vlasový balzám - kondicionér “Recept starověké Číny”, 220 gg": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Botox Effect Transdermal Complex, 3 g / 7 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Dětský krém s prebiotiky, 50 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Gelová zubní pasta ProDental Junior, 50 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Dětská zubní pasta Ananas s rostlinnými enzymy, 75 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Osvěžující pleťová maska s okurkou, 1 ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Osvěžující pleťová maska s Aloe, 1 ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Maska na obličej s mucinem hlemýžďů, 1 ks": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Tělová sůl Horký zázvor, 150 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Náplasti na pleť se sklonem k akné, 36 ks (EcoDeViva)": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Pečující krém na nohy s rozmarýnem a propolisem, 30 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Výživný krém na ruce s rakytníkem, 30 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Změkčující krém na ruce „Slaviton“, 30 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Meadow Grass Complex Hand and Foot Cream, 30 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Šampon pro stimulaci růstu vlasů, 250 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Balzám-filler pro hustotu a růst vlasů, 250 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Vlasová voda pro hustotu a růst vlasů Premium, 100 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Neoplachová maska na obličej Fytokorekce, 50 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Ochranný krém Tekuté rukavice, 50 g (ТМ EcoDeViva)": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Oční linky ve fixu “City Style”, 2 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Kosmetická mycí houba, 12 ks 73*148": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Balzám na rty, 4,5 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Krém-sérum na oční víčka na vrásky, 30 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Pleťový krém “Koncentrát krásy”, 50 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Šampon-maska s keratinem pro barvené vlasy, 250 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Termoochranný sprej s keratinem pro barvené vlasy, 200 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Bylinná směs Taiga vision": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Bylinná směs „Přirozená hybnost“, 42 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Bylinná směs Taiga shield, 42 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Tonic, 8 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Nápoj s meduňkou a srdečníkem, 8 g sáček": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Čokoládový proteinový koktejl s guaranou se sladidlem, 300 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Krémová banánová polévka se zeleninou, 25 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Rajčatová polévka s kokosem, 28 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Nápoj s kakaem, vlašským ořechem a jódem, 15 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Bylinná směs černého čaje a rezavce šikmého, 20 sáčků po 2 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Bylinná směs černého čaje a kořene rozchodnice růžové, 20 sáčků po 2 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Jemný čisticí přípravek na obličej, 100 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Balzám „Talisman“, 8 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Zahřívací koupel na nohy, 90 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Šampon-gel na tělo a vlasy Baby Bambo, 250 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Extra hydratační pleťový gel-elixír proti vráskám “Botoluxe”, 40 g": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Fyto ústní voda, 250 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    },
+    "Zpevňující sérum na řasy a obočí, 5 ml": {
+      "orderable": false,
+      "sourceChannel": "both",
+      "strategicPriority": "risky",
+      "excludeFromOrderingReason": "trvale vyřazené zboží"
+    }
+  }
 }
