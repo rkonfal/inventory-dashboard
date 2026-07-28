@@ -114,7 +114,10 @@ class Settings:
         self.ga4_oauth_client_secret = self.first('GA4_OAUTH_CLIENT_SECRET', 'GOOGLE_ADS_OAUTH_CLIENT_SECRET') or ''
         self.ga4_refresh_token = self.get_stripped('GA4_REFRESH_TOKEN')
 
+        self.ecomail_api_key = self.get_stripped('ECOMAIL_API_KEY')
         self.klaviyo_private_api_key = self.get_stripped('KLAVIYO_PRIVATE_API_KEY')
+        self.dpd_geoapi_key = self.get_stripped('DPD_GEOAPI_KEY')
+        self.dpd_geoapi_dsw = self.get_stripped('DPD_GEOAPI_DSW')
         self.fourpx_warehouse_code = self.get_stripped('FOURPX_WAREHOUSE_CODE', 'CZPRGA') or 'CZPRGA'
         self.fourpx_outbound_max_pages = self.get_int('FOURPX_OUTBOUND_MAX_PAGES', 20)
         self.store_expiry_sheet_csv_url = self.get_stripped('STORE_EXPIRY_SHEET_CSV_URL')
@@ -2027,6 +2030,9 @@ def is_problematic_order(order):
     return any(p in name for p in patterns)
 
 
+TOP_PRODUCTS_LIMIT = 30
+
+
 def summarize_orders(orders, include_views=True, pos_admin_views=None):
     product_units = Counter()
     product_revenue = Counter()
@@ -2069,7 +2075,7 @@ def summarize_orders(orders, include_views=True, pos_admin_views=None):
             product_units[key] += num(item.get('pieces'))
             product_revenue[key] += order_item_revenue_czk(order, item, pos_admin_views)
 
-    def top_products(counter, limit=5, formatter=None):
+    def top_products(counter, limit=TOP_PRODUCTS_LIMIT, formatter=None):
         rows = []
         for key, value in counter.most_common(limit):
             meta = product_rows.get(key, {'code': key, 'name': key, 'label': key})
@@ -6348,7 +6354,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
         'aiTraffic': ga4_overview.get('aiTraffic') or {},
     }
 
-    def build_channel_rows(sklik_direct, sklik_current, meta_direct, meta_summary, google_direct, google_summary, klaviyo_direct, klaviyo_current):
+    def build_channel_rows(sklik_direct, sklik_current, meta_direct, meta_summary, google_direct, google_summary, ecomail_direct, ecomail_current):
         channel_rows = []
         if sklik_direct['ready']:
             channel_rows.append({
@@ -6377,12 +6383,12 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
                 'roas': google_summary.get('roas'),
                 'source': 'live_api',
             })
-        if klaviyo_direct['ready']:
+        if ecomail_direct['ready']:
             channel_rows.append({
-                'name': 'Klaviyo',
-                'amount': round(float(klaviyo_current.get('totalAttributedRevenueCzk') or 0), 2),
-                'clicks': int(klaviyo_current.get('totalClicks') or 0),
-                'conversions': round(float(klaviyo_current.get('totalAttributedOrders') or 0), 2),
+                'name': 'Ecomail',
+                'amount': round(float(ecomail_current.get('totalAttributedRevenueCzk') or 0), 2),
+                'clicks': int(ecomail_current.get('totalClicks') or 0),
+                'conversions': round(float(ecomail_current.get('totalAttributedOrders') or 0), 2),
                 'roas': None,
                 'source': 'live_api',
             })
@@ -6446,24 +6452,24 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
         'dailySummary': google_overview.get('dailySummary') or [],
         'dailySummaryPreviousMonth': google_overview.get('dailySummaryPreviousMonth') or [],
     }
-    klaviyo_overview = load_optional_current_json('klaviyo_overview.json') or {}
-    klaviyo_current = klaviyo_overview.get('currentMonth') or {}
-    klaviyo_previous = klaviyo_overview.get('previousMonth') or {}
-    klaviyo_direct = {
-        'ready': bool(klaviyo_overview),
-        'label': 'Klaviyo',
-        'source': (klaviyo_overview.get('source') or {}).get('status'),
-        'account': klaviyo_overview.get('account') or {},
-        'currentMonth': klaviyo_current,
-        'previousMonth': klaviyo_previous,
-        'dailySummary': klaviyo_overview.get('dailySummary') or [],
-        'dailySummaryPreviousMonth': klaviyo_overview.get('dailySummaryPreviousMonth') or [],
-        'flowsCurrentMonth': klaviyo_overview.get('flowsCurrentMonth') or [],
-        'flowsPreviousMonth': klaviyo_overview.get('flowsPreviousMonth') or [],
-        'topFlowsCurrentMonth': klaviyo_overview.get('topFlowsCurrentMonth') or [],
-        'topFlowsPreviousMonth': klaviyo_overview.get('topFlowsPreviousMonth') or [],
-        'recentCampaigns': klaviyo_overview.get('recentCampaigns') or [],
-        'recentCampaignsPreviousMonth': klaviyo_overview.get('recentCampaignsPreviousMonth') or [],
+    ecomail_overview = load_optional_current_json('ecomail_overview.json') or load_optional_current_json('klaviyo_overview.json') or {}
+    ecomail_current = ecomail_overview.get('currentMonth') or {}
+    ecomail_previous = ecomail_overview.get('previousMonth') or {}
+    ecomail_direct = {
+        'ready': bool(ecomail_overview),
+        'label': 'Ecomail',
+        'source': (ecomail_overview.get('source') or {}).get('status'),
+        'account': ecomail_overview.get('account') or {},
+        'currentMonth': ecomail_current,
+        'previousMonth': ecomail_previous,
+        'dailySummary': ecomail_overview.get('dailySummary') or [],
+        'dailySummaryPreviousMonth': ecomail_overview.get('dailySummaryPreviousMonth') or [],
+        'flowsCurrentMonth': ecomail_overview.get('flowsCurrentMonth') or [],
+        'flowsPreviousMonth': ecomail_overview.get('flowsPreviousMonth') or [],
+        'topFlowsCurrentMonth': ecomail_overview.get('topFlowsCurrentMonth') or [],
+        'topFlowsPreviousMonth': ecomail_overview.get('topFlowsPreviousMonth') or [],
+        'recentCampaigns': ecomail_overview.get('recentCampaigns') or [],
+        'recentCampaignsPreviousMonth': ecomail_overview.get('recentCampaignsPreviousMonth') or [],
     }
     affiliate_direct = {
         'ready': bool(affiliate_overview),
@@ -6540,8 +6546,8 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
                 round(float(((finance_snapshot.get('previousMonth') or {}).get('revenue') or 0)), 2),
             ),
         }
-        direct_sources = {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct, 'affiliate': affiliate_direct}
-        channel_rows = build_channel_rows(sklik_direct, sklik_current, meta_direct, meta_summary, google_direct, google_summary, klaviyo_direct, klaviyo_current)
+        direct_sources = {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'ecomail': ecomail_direct, 'klaviyo': ecomail_direct, 'affiliate': affiliate_direct}
+        channel_rows = build_channel_rows(sklik_direct, sklik_current, meta_direct, meta_summary, google_direct, google_summary, ecomail_direct, ecomail_current)
         source_message = 'Marketing se skládá z live ABRA reportu a aktuálních položek z účetního deníku.'
         live_labels = []
         if sklik_direct['ready']:
@@ -6550,8 +6556,8 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             live_labels.append('Meta Ads')
         if google_direct['ready']:
             live_labels.append('Google Ads')
-        if klaviyo_direct['ready']:
-            live_labels.append('Klaviyo')
+        if ecomail_direct['ready']:
+            live_labels.append('Ecomail')
         if affiliate_direct['ready']:
             live_labels.append('Affiliate')
         if live_labels:
@@ -6573,11 +6579,11 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
             'activeCampaignsBySource': active_campaigns,
         }
 
-    direct_sources = {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'klaviyo': klaviyo_direct, 'affiliate': affiliate_direct}
+    direct_sources = {'sklik': sklik_direct, 'meta': meta_direct, 'google': google_direct, 'ecomail': ecomail_direct, 'klaviyo': ecomail_direct, 'affiliate': affiliate_direct}
     live_labels = [source['label'] for source in direct_sources.values() if source.get('ready')]
-    channel_rows = build_channel_rows(sklik_direct, sklik_current, meta_direct, meta_summary, google_direct, google_summary, klaviyo_direct, klaviyo_current)
+    channel_rows = build_channel_rows(sklik_direct, sklik_current, meta_direct, meta_summary, google_direct, google_summary, ecomail_direct, ecomail_current)
     live_current_month = {
-        'label': (finance_snapshot.get('currentMonth') or {}).get('label') or ((meta_summary.get('dateTo') or google_summary.get('dateTo') or (sklik_direct.get('currentMonth') or {}).get('dateTo') or klaviyo_current.get('dateTo') or 'aktuální měsíc')),
+        'label': (finance_snapshot.get('currentMonth') or {}).get('label') or ((meta_summary.get('dateTo') or google_summary.get('dateTo') or (sklik_direct.get('currentMonth') or {}).get('dateTo') or ecomail_current.get('dateTo') or 'aktuální měsíc')),
         'performanceSpend': round(float(meta_summary.get('spendCzk') or 0) + float(google_summary.get('spendCzk') or 0) + float(sklik_current.get('priceCzk') or 0), 2),
         'brandSpend': 0.0,
         'totalSpend': round(float(meta_summary.get('spendCzk') or 0) + float(google_summary.get('spendCzk') or 0) + float(sklik_current.get('priceCzk') or 0), 2),
@@ -6585,7 +6591,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
     }
     live_current_month['spendShareOfRevenuePct'] = safe_ratio(live_current_month['totalSpend'], live_current_month['revenue'])
     live_previous_month = {
-        'label': ((finance_snapshot.get('previousMonth') or {}).get('label') or ((sklik_direct.get('previousMonth') or {}).get('dateTo') or meta_previous.get('dateTo') or google_previous.get('dateTo') or klaviyo_previous.get('dateTo') or 'předchozí měsíc')),
+        'label': ((finance_snapshot.get('previousMonth') or {}).get('label') or ((sklik_direct.get('previousMonth') or {}).get('dateTo') or meta_previous.get('dateTo') or google_previous.get('dateTo') or ecomail_previous.get('dateTo') or 'předchozí měsíc')),
         'performanceSpend': round(float(meta_previous.get('spendCzk') or 0) + float(google_previous.get('spendCzk') or 0) + float(sklik_previous.get('priceCzk') or 0), 2),
         'brandSpend': 0.0,
         'totalSpend': round(float(meta_previous.get('spendCzk') or 0) + float(google_previous.get('spendCzk') or 0) + float(sklik_previous.get('priceCzk') or 0), 2),
@@ -6674,7 +6680,7 @@ def build_marketing_snapshot(legacy_abra_payload, report_payload, finance_snapsh
 
     current_month = monthly[-1] if monthly else {}
     previous_month = monthly[-2] if len(monthly) > 1 else {}
-    channel_rows = build_channel_rows(sklik_direct, sklik_current, meta_direct, meta_summary, google_direct, google_summary, klaviyo_direct, klaviyo_current)
+    channel_rows = build_channel_rows(sklik_direct, sklik_current, meta_direct, meta_summary, google_direct, google_summary, ecomail_direct, ecomail_current)
     return {
         'generatedAt': generated_at,
         'source': legacy_abra_payload['source'],
@@ -6795,7 +6801,7 @@ def ensure_daily_ga4_snapshot(now_local):
 
 
 def ensure_daily_klaviyo_snapshot(now_local):
-    return MARKETING_SOURCES.ensure_klaviyo_snapshot(now_local)
+    return MARKETING_SOURCES.ensure_ecomail_snapshot(now_local)
 
 
 def run_twisto_watchdog(snapshot_path: Path, generated_at: str):
@@ -7281,7 +7287,7 @@ def append_refresh_source_warnings(fetch_result: RefreshFetchResult, warnings: l
     if not fetch_result.ga4_status.get('ready') and fetch_result.ga4_status.get('reason') != 'missing_token':
         warnings.append('GA4 denní refresh selhal, akviziční kontext se bere z posledního dostupného snapshotu.')
     if not fetch_result.klaviyo_status.get('ready') and fetch_result.klaviyo_status.get('reason') != 'missing_token':
-        warnings.append('Klaviyo denní refresh selhal, marketing používá poslední dostupný snapshot.')
+        warnings.append('Ecomail denní refresh selhal, marketing používá poslední dostupný snapshot.')
 
 
 def build_refresh_inventory_summary(fetch_result: RefreshFetchResult) -> dict[str, Any]:
