@@ -100,7 +100,6 @@
               <span class="control-label">Stav</span>
               <select id="inventory-filter" class="select">
                 <option value="all">Všechny stavy</option>
-                <option value="expiryRisk">Expirace do 3 měsíců</option>
                 <option value="expiryRisk6m">Expirace do 6 měsíců</option>
                 <option value="fastLowCover">Dochází zásoba</option>
                 <option value="lowAfterSales">Po prodeji dochází</option>
@@ -518,7 +517,6 @@
       const flags = new Set(list(row.flags));
       const tags = new Set(list(metric?.tags));
       switch (filter) {
-        case 'expiryRisk': return hasExpiryRiskInView(row, view);
         case 'expiryRisk6m': return hasExpiryRiskInView6m(row, view);
         case 'mismatch': return flags.has('stock_mismatch');
         case 'only4px': return flags.has('only_in_4px');
