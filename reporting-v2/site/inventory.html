@@ -532,7 +532,7 @@
         case 'autoAlias': return flags.has('auto_mapped_4px_alias');
         case 'fastLowCover': return tags.has('fast_mover_low_cover');
         case 'deadStock': return tags.has('dead_stock');
-        case 'slowMover': return tags.has('slow_mover');
+        case 'slowMover': return tags.has('slow_mover') && !isPromoRow(row) && !isSetRow(row) && !hasSkuStarting0000(row);
         case 'overstocked': return tags.has('overstocked');
         case 'overstockedNoPromo': return tags.has('overstocked') && !isPromoRow(row) && !isSetRow(row) && !hasSkuStarting0000(row);
         case 'promo': return isPromoRow(row);
