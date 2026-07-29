@@ -112,6 +112,7 @@
                 <option value="promo">PROMO</option>
                 <option value="manualAlias">Ručně spárováno</option>
                 <option value="autoAlias">Automatický návrh</option>
+                <option value="lte10">Do 10 ks</option>
                 <option value="ok">V pořádku</option>
               </select>
             </label>
@@ -517,6 +518,12 @@
       const flags = new Set(list(row.flags));
       const tags = new Set(list(metric?.tags));
       switch (filter) {
+        case 'lte10': {
+          const _lte10stock = view === 'sk'
+            ? Number(row.fourpx?.sk?.availableStock || 0)
+            : Number(row.fourpx?.cz?.availableStock || 0);
+          return _lte10stock <= 10;
+        }
         case 'expiryRisk6m': return hasExpiryRiskInView6m(row, view);
         case 'mismatch': return flags.has('stock_mismatch');
         case 'only4px': return flags.has('only_in_4px');
