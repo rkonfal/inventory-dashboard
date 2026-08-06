@@ -1948,12 +1948,20 @@
             </select>
           </label>
           <label class="control-group">
+            <span class="control-label">Prodejna</span>
+            <select id="ordering-store-filter" class="select">
+              <option value="all">Všechny prodejny</option>
+              <option value="with-store-stock">Jen SKU na prodejnách</option>
+            </select>
+          </label>
+          <label class="control-group">
             <span class="control-label">Řadit</span>
             <select id="ordering-sort" class="select">
               <option value="priority">Priorita objednávky</option>
               <option value="order">Doporučené množství</option>
               <option value="cover">Nejnižší pokrytí</option>
               <option value="stock">Nejvyšší sklad v ks</option>
+              <option value="storeStock">Nejvyšší zásoba na prodejnách</option>
               <option value="periodSales">Nejvyšší prodej v období</option>
               <option value="sales90">Nejvyšší prodej 90d</option>
               <option value="stockValue">Největší vázaná hodnota</option>
@@ -1982,6 +1990,7 @@
               <th><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="product">Produkt <span class="table-sort-arrow">↕</span></button></th>
               <th><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="signals">Nákupní signály <span class="table-sort-arrow">↕</span></button></th>
               <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="stock">Sklad <span class="table-sort-arrow">↕</span></button></th>
+              <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="storeStock">Prodejny <span class="table-sort-arrow">↕</span></button></th>
               <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="periodSales">Prodej v období <span class="table-sort-arrow">↕</span></button></th>
               <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="sales90">Prodej 90d <span class="table-sort-arrow">↕</span></button></th>
               <th class="num"><button type="button" class="table-sort" data-sort-table="explorer" data-sort-key="cover">Pokrytí 90d <span class="table-sort-arrow">↕</span></button></th>
@@ -2195,6 +2204,7 @@
       const explorerSummary = document.getElementById('ordering-explorer-summary');
       const searchInput = document.getElementById('ordering-search');
       const filterSelect = document.getElementById('ordering-filter');
+      const storeFilterSelect = document.getElementById('ordering-store-filter');
       const sortSelect = document.getElementById('ordering-sort');
       const pageSizeSelect = document.getElementById('ordering-page-size');
       const paginationSummary = document.getElementById('ordering-pagination-summary');
@@ -3037,6 +3047,117 @@
         return `CZ ${fmt(stock.cz)} ks · SK ${fmt(stock.sk)} ks`;
       }
 
+      function normalizeStoreName(value) {
+        return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      }
+
+      function storeIdFromName(name) {
+        const normalized = normalizeStoreName(name);
+        if (!normalized) return '';
+        if (normalized.includes('mecin')) return 'mecin';
+        if (normalized.includes('ltm') || normalized.includes('litomer')) return 'ltm';
+        return normalized.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      }
+
+      function storeLabelFromEntry(name, id = '') {
+        if (id === 'ltm') return 'Litoměřice';
+        if (id === 'mecin') return 'Měčín';
+        return String(name || '')
+          .replace(/^\[FlexiBee\]\s*/i, '')
+          .replace(/^Sklad\s*/i, '')
+          .trim() || 'Prodejna';
+      }
+
+      function isActualStoreName(name) {
+        const normalized = normalizeStoreName(name);
+        return Boolean(normalized) && !normalized.startsWith('4px') && !normalized.includes('fiktivni');
+      }
+
+      function orderingStoreEntries(row) {
+        const combined = combinedProductByCode.get(row?.code || '') || {};
+        const stores = ((combined.wpj || {}).stores || []).filter(store => isActualStoreName(store?.storeName));
+        const bucket = new Map();
+        stores.forEach(store => {
+          const id = storeIdFromName(store.storeName);
+          if (!id) return;
+          const current = bucket.get(id) || {
+            id,
+            label: storeLabelFromEntry(store.storeName, id),
+            quantity: 0,
+          };
+          current.quantity += Number(store?.inStore || 0);
+          bucket.set(id, current);
+        });
+        return [...bucket.values()]
+          .filter(store => store.quantity > 0)
+          .sort((a, b) => b.quantity - a.quantity || a.label.localeCompare(b.label, 'cs'));
+      }
+
+      function orderingStoreTotal(row) {
+        return orderingStoreEntries(row).reduce((sum, store) => sum + Number(store.quantity || 0), 0);
+      }
+
+      function storeScopeValue() {
+        return storeFilterSelect?.value || 'all';
+      }
+
+      function orderingStoreScopedQty(row, storeScope = storeScopeValue()) {
+        const entries = orderingStoreEntries(row);
+        if (storeScope === 'all' || storeScope === 'with-store-stock') {
+          return entries.reduce((sum, store) => sum + Number(store.quantity || 0), 0);
+        }
+        return Number(entries.find(store => store.id === storeScope)?.quantity || 0);
+      }
+
+      function orderingStoreBreakdownText(row) {
+        const entries = orderingStoreEntries(row);
+        if (!entries.length) return 'bez zásoby na prodejnách';
+        return entries.map(store => `${store.label} ${fmt(store.quantity)} ks`).join(' · ');
+      }
+
+      function renderOrderingStoreStockList(row, { compact = false } = {}) {
+        const entries = orderingStoreEntries(row);
+        if (!entries.length) return '';
+        return `
+          <div class="ordering-variant-stock-list${compact ? ' compact' : ''}">
+            ${entries.map(store => `
+              <div class="ordering-variant-stock-item">
+                <div>
+                  <div class="ordering-variant-stock-code">${escapeHtml(store.label)}</div>
+                  <div class="ordering-variant-stock-meta">Kamenná prodejna / lokální zásoba</div>
+                </div>
+                <div class="ordering-variant-stock-value">${fmt(store.quantity)} ks</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      function populateOrderingStoreFilterOptions(preferredValue = '') {
+        if (!storeFilterSelect) return;
+        const currentValue = preferredValue || storeFilterSelect.value || 'all';
+        const options = new Map();
+        for (const item of combinedProductByCode.values()) {
+          for (const store of ((item?.wpj || {}).stores || [])) {
+            if (!isActualStoreName(store?.storeName)) continue;
+            const id = storeIdFromName(store.storeName);
+            if (!id || options.has(id)) continue;
+            options.set(id, storeLabelFromEntry(store.storeName, id));
+          }
+        }
+        const dynamicOptions = [...options.entries()]
+          .sort((a, b) => a[1].localeCompare(b[1], 'cs'))
+          .map(([value, label]) => `<option value="${escapeHtml(value)}">${escapeHtml(label)}</option>`)
+          .join('');
+        storeFilterSelect.innerHTML = `
+          <option value="all">Všechny prodejny</option>
+          <option value="with-store-stock">Jen SKU na prodejnách</option>
+          ${dynamicOptions}
+        `;
+        const safeValue = [...storeFilterSelect.options].some(option => option.value === currentValue) ? currentValue : 'all';
+        storeFilterSelect.value = safeValue;
+      }
+
       function orderingVariantRows(row, marketKey = currentMarket) {
         const combined = combinedProductByCode.get(row?.code || '') || {};
         const breakdown = (combined.fourpx || {}).variantBreakdown || [];
@@ -3227,6 +3348,8 @@
             row.effectiveStock || 0,
             stock.cz,
             stock.sk,
+            row.storeStockTotal || 0,
+            row.storeBreakdownText || '',
             row.daysOfCover90d ?? '',
             row.forecast30 || 0,
             row.forecast60 || 0,
@@ -3243,7 +3366,7 @@
           ];
         });
         downloadCsv(`ordering_recommendations_${new Date().toISOString().slice(0, 10)}.csv`, [
-          ['code', 'title', 'priority', 'source', 'reason', 'stock_units', 'stock_cz_units', 'stock_sk_units', 'cover_90d_days', 'forecast_30', 'forecast_60', 'forecast_90', 'safety_units', 'minimum_units', 'ideal_units', 'order_step_units', 'final_order_units', 'export_units', 'note', 'rounding_mode', 'packaging'],
+          ['code', 'title', 'priority', 'source', 'reason', 'stock_units', 'stock_cz_units', 'stock_sk_units', 'store_stock_units', 'store_stock_breakdown', 'cover_90d_days', 'forecast_30', 'forecast_60', 'forecast_90', 'safety_units', 'minimum_units', 'ideal_units', 'order_step_units', 'final_order_units', 'export_units', 'note', 'rounding_mode', 'packaging'],
           ...exported,
         ]);
       }
@@ -3357,6 +3480,7 @@
         const stock = orderingStockBreakdown(row);
         const expiryInfo = row.expiry6m ? expirySummaryText(row.expiry6m) : 'bez expirace do 6 měsíců';
         const variantStockList = renderOrderingVariantStockList(row, row.market || currentMarket, { compact: true });
+        const storeStockList = renderOrderingStoreStockList(row, { compact: true });
 
         planningSelectionPanel.innerHTML = `
           <div class="ux-section-head" style="margin-bottom:12px;">
@@ -3394,6 +3518,11 @@
               <div class="muted small" style="margin-top:6px;">Pokrytí ${cover(row.daysOfCover90d)} · trend ${pct(row.trend90v365Pct)}</div>
             </div>
             <div class="ordering-detail-card">
+              <span class="label">Prodejny</span>
+              <strong>${fmt(row.storeStockTotal || 0)} ks</strong>
+              <div class="muted small" style="margin-top:6px;">${escapeHtml(row.storeBreakdownText || 'Bez zásoby na prodejnách.')}</div>
+            </div>
+            <div class="ordering-detail-card">
               <span class="label">Varianty na skladě</span>
               <strong>${variantStockList ? `${fmt(orderingVariantRows(row, row.market || currentMarket).length)} variant` : 'bez rozpadu'}</strong>
               <div class="muted small" style="margin-top:6px;">${variantStockList ? `Rozpad podle ${escapeHtml(marketTitle(row.market || currentMarket))} pohledu.` : 'U tohoto SKU není dostupný variantní rozpad zásoby.'}</div>
@@ -3408,6 +3537,7 @@
             ${reasons.map(text => `<div class="ordering-detail-list-item">${escapeHtml(text)}</div>`).join('')}
             <div class="ordering-detail-list-item"><strong>Datový status:</strong> ${escapeHtml(row.dataStatus || 'Bez datové výjimky.')}</div>
             <div class="ordering-detail-list-item"><strong>Balení:</strong> ${escapeHtml(row.packagingRaw || 'bez mapy')} · ${escapeHtml(row.roundingMode || 'bez omezení balení')}</div>
+            ${storeStockList ? `<div class="ordering-detail-list-item"><strong>Zboží na prodejnách:</strong>${storeStockList}</div>` : ''}
             ${variantStockList ? `<div class="ordering-detail-list-item"><strong>Stav variant:</strong>${variantStockList}</div>` : ''}
             <div class="ordering-detail-list-item"><strong>Poznámka do exportu:</strong> ${escapeHtml(exportState.note || 'zatím bez interní poznámky')}</div>
           </div>
@@ -3459,6 +3589,7 @@
               <div class="planning-row-stock">
                 <strong>${fmt(row.effectiveStock || 0)} ks</strong>
                 <div class="muted">${orderingStockBreakdownText(row)}</div>
+                <div class="muted">Prodejny ${escapeHtml(row.storeBreakdownText || 'bez zásoby')}</div>
                 ${variantStockList ? `<div class="muted small" style="margin-top:8px;">Varianty:</div>${variantStockList}` : ''}
                 <div class="muted">Expirace 6m ${row.expiry6m ? `ano · ${escapeHtml(expirySummaryText(row.expiry6m))}` : 'ne'}</div>
                 <div class="muted">Pokrytí ${cover(row.daysOfCover90d)}</div>
@@ -3502,6 +3633,8 @@
             'Sklad ks': Number(row.effectiveStock || 0),
             'Sklad CZ ks': stock.cz,
             'Sklad SK ks': stock.sk,
+            'Prodejny ks': Number(row.storeStockTotal || 0),
+            'Rozpad prodejen': row.storeBreakdownText || '',
             'Expirace do 6m': row.expiry6m ? 'ano' : 'ne',
             'Nejbližší expirace': row.expiry6m?.nearestDate || '',
             'Expirující ks do 6m': Number(row.expiry6m?.totalDatedStock || 0),
@@ -3527,10 +3660,10 @@
         worksheet['!autofilter'] = { ref: worksheet['!ref'] || 'A1' };
         worksheet['!cols'] = [
           { wch: 14 }, { wch: 42 }, { wch: 18 }, { wch: 18 }, { wch: 42 },
-          { wch: 12 }, { wch: 12 }, { wch: 12 }, { wch: 14 }, { wch: 16 },
-          { wch: 14 }, { wch: 18 }, { wch: 12 }, { wch: 12 }, { wch: 12 },
-          { wch: 12 }, { wch: 12 }, { wch: 18 }, { wch: 12 }, { wch: 14 },
-          { wch: 24 }, { wch: 18 },
+          { wch: 12 }, { wch: 12 }, { wch: 12 }, { wch: 16 }, { wch: 30 },
+          { wch: 14 }, { wch: 16 }, { wch: 14 }, { wch: 18 }, { wch: 12 },
+          { wch: 12 }, { wch: 12 }, { wch: 12 }, { wch: 12 }, { wch: 18 },
+          { wch: 12 }, { wch: 14 }, { wch: 24 }, { wch: 18 },
         ];
         for (let col = range.s.c; col <= range.e.c; col += 1) {
           const cellRef = XLSX.utils.encode_cell({ r: 0, c: col });
@@ -3627,6 +3760,8 @@
             actionReasons: recommendationActionReasons(row),
             dataStatus: recommendationDataStatus(row),
             marketLabel: marketLabel(row),
+            storeStockTotal: orderingStoreTotal(row),
+            storeBreakdownText: orderingStoreBreakdownText(row),
           };
           recommendation.priorityScore = recommendationPriorityScore(recommendation);
           return recommendation;
@@ -3805,6 +3940,7 @@
             product: { type: 'text', defaultDirection: 'asc', value: row => `${row.code || ''} ${row.title || ''}` },
             signals: { type: 'text', defaultDirection: 'asc', value: row => `${row.orderable ? '1' : '0'} ${row.itemType || ''} ${row.orderingRole || ''} ${row.sourceChannel || ''} ${row.reorderRisk || ''} ${row.turnoverZone || ''} ${row.trend90v365Pct || 0}` },
             stock: { type: 'number', defaultDirection: 'desc', value: row => row.effectiveStock },
+            storeStock: { type: 'number', defaultDirection: 'desc', value: row => row.storeStockScoped ?? row.storeStockTotal ?? 0 },
             periodSales: { type: 'number', defaultDirection: 'desc', value: row => row.unitsWindow ?? row.units730d },
             sales90: { type: 'number', defaultDirection: 'desc', value: row => row.units90d },
             cover: { type: 'number', defaultDirection: 'asc', value: row => row.daysOfCover90d },
@@ -4173,6 +4309,7 @@
         localStorage.setItem(ORDERING_EXPLORER_STATE_KEY, JSON.stringify({
           search: searchInput.value || '',
           filter: filterSelect.value || 'all',
+          storeFilter: storeFilterSelect?.value || 'all',
           sort: sortSelect.value || 'priority',
           pageSize: pageSizeSelect.value || '50',
           currentPage: currentExplorerPage,
@@ -4187,6 +4324,7 @@
           if (!saved || typeof saved !== 'object') return;
           if (typeof saved.search === 'string') searchInput.value = saved.search;
           if ([...filterSelect.options].some(option => option.value === saved.filter)) filterSelect.value = saved.filter;
+          if (storeFilterSelect && [...storeFilterSelect.options].some(option => option.value === saved.storeFilter)) storeFilterSelect.value = saved.storeFilter;
           const normalizedSort = normalizeExplorerSortKey(saved.sort);
           if ([...sortSelect.options].some(option => option.value === normalizedSort)) sortSelect.value = normalizedSort;
           if ([...pageSizeSelect.options].some(option => option.value === String(saved.pageSize))) pageSizeSelect.value = String(saved.pageSize);
@@ -4224,8 +4362,8 @@
         const top = (rows || []).slice(0, 8);
         if (!top.length) return 'Aktuální filtr v objednávání nic nevrací.';
         return [
-          `Shortlist objednávání, filtr ${filterSelect.options[filterSelect.selectedIndex]?.text || filterSelect.value}, řazení ${sortSelect.options[sortSelect.selectedIndex]?.text || sortSelect.value}.`,
-          ...top.map((row, index) => `${index + 1}. ${row.code} ${row.title}, objednat ${fmt(row.finalOrderUnits || 0)} ks, krok ${fmt(row.orderStepUnits || 1)} ks, pokrytí ${cover(row.daysOfCover90d)}, riziko ${row.reorderRisk || 'bez rizika'}${row.expiry6m ? `, expirace do 6 měsíců ${expirySummaryText(row.expiry6m)}` : ''}.`),
+          `Shortlist objednávání, filtr ${filterSelect.options[filterSelect.selectedIndex]?.text || filterSelect.value}, prodejna ${storeFilterSelect?.options[storeFilterSelect.selectedIndex]?.text || 'Všechny prodejny'}, řazení ${sortSelect.options[sortSelect.selectedIndex]?.text || sortSelect.value}.`,
+          ...top.map((row, index) => `${index + 1}. ${row.code} ${row.title}, objednat ${fmt(row.finalOrderUnits || 0)} ks, krok ${fmt(row.orderStepUnits || 1)} ks, pokrytí ${cover(row.daysOfCover90d)}, prodejny ${fmt(row.storeStockTotal || 0)} ks${row.storeBreakdownText ? ` (${row.storeBreakdownText})` : ''}, riziko ${row.reorderRisk || 'bez rizika'}${row.expiry6m ? `, expirace do 6 měsíců ${expirySummaryText(row.expiry6m)}` : ''}.`),
         ].join('\n');
       }
 
@@ -4242,7 +4380,7 @@
       }
 
       function exportExplorerRows(rows) {
-        const header = ['Kód', 'Produkt', 'Objednatelné', 'Riziko', 'Role', 'Trend 90v365 %', 'Pokrytí 90d', 'Sklad', 'Prodej 90d', 'Expirace do 6m', 'Nejbližší expirace', 'Expirující ks', 'Ideál ks', 'Krok balení ks', 'Finální objednávka ks', 'Balicí pravidlo', 'Důvod'];
+        const header = ['Kód', 'Produkt', 'Objednatelné', 'Riziko', 'Role', 'Trend 90v365 %', 'Pokrytí 90d', 'Sklad', 'Prodejny ks', 'Rozpad prodejen', 'Prodej 90d', 'Expirace do 6m', 'Nejbližší expirace', 'Expirující ks', 'Ideál ks', 'Krok balení ks', 'Finální objednávka ks', 'Balicí pravidlo', 'Důvod'];
         const escape = value => {
           const text = String(value ?? '');
           if (/[";,\n]/.test(text)) return `"${text.replace(/"/g, '""')}"`;
@@ -4257,6 +4395,8 @@
           row.trend90v365Pct ?? '',
           row.daysOfCover90d ?? '',
           row.effectiveStock ?? '',
+          row.storeStockTotal ?? 0,
+          row.storeBreakdownText || '',
           row.units90d ?? '',
           row.expiry6m ? 'ano' : 'ne',
           row.expiry6m?.nearestDate ?? '',
@@ -4290,6 +4430,7 @@
         const handoff = `${row.code} ${row.title}: objednat ${fmt(row.finalOrderUnits || 0)} ks po ${fmt(row.orderStepUnits || 1)} ks. Pokrytí ${cover(row.daysOfCover90d)}, prodej 90d ${fmt(row.units90d)}, trend ${pct(row.trend90v365Pct)}, riziko ${row.reorderRisk || 'bez varování'}${row.expiry6m ? `, expirace do 6 měsíců ${expirySummaryText(row.expiry6m)}` : ''}.`;
         const expiryInfo = row.expiry6m ? expirySummaryText(row.expiry6m) : 'bez expirace do 6 měsíců';
         const variantStockList = renderOrderingVariantStockList(row, row.market || currentMarket, { compact: true });
+        const storeStockList = renderOrderingStoreStockList(row, { compact: true });
         detailSummary.textContent = `${row.code} · ${row.title}`;
         detailPanel.innerHTML = `
           <div class="ordering-detail-grid">
@@ -4297,6 +4438,7 @@
             <div class="ordering-detail-card"><span class="label">Pokrytí a prodej</span><strong>${cover(row.daysOfCover90d)}</strong><div class="muted small" style="margin-top:6px;">Prodej 90d ${fmt(row.units90d)} ks, v okně ${fmt(row.unitsWindow ?? row.units730d)} ks</div></div>
             <div class="ordering-detail-card"><span class="label">Trend a role</span><strong>${pct(row.trend90v365Pct)}</strong><div class="muted small" style="margin-top:6px;">${row.orderingRole || 'standard'} · ${row.sourceChannel || 'zdroj neznámý'}</div></div>
             <div class="ordering-detail-card"><span class="label">Balení a pravidlo</span><strong>${escapeHtml(row.packagingRaw || 'bez mapy')}</strong><div class="muted small" style="margin-top:6px;">${escapeHtml(row.roundingMode || 'bez omezení')} · párování ${escapeHtml(row.packagingMatchStatus || 'chybí')}</div></div>
+            <div class="ordering-detail-card"><span class="label">Prodejny</span><strong>${fmt(row.storeStockTotal || 0)} ks</strong><div class="muted small" style="margin-top:6px;">${escapeHtml(row.storeBreakdownText || 'Bez zásoby na prodejnách.')}</div></div>
             <div class="ordering-detail-card"><span class="label">Varianty na skladě</span><strong>${variantStockList ? `${fmt(orderingVariantRows(row, row.market || currentMarket).length)} variant` : 'bez rozpadu'}</strong><div class="muted small" style="margin-top:6px;">${variantStockList ? `Rozpad podle ${escapeHtml(marketTitle(row.market || currentMarket))} pohledu.` : 'U tohoto SKU není dostupný variantní rozpad zásoby.'}</div></div>
             <div class="ordering-detail-card"><span class="label">Expirace 6m</span><strong>${row.expiry6m ? 'ano' : 'ne'}</strong><div class="muted small" style="margin-top:6px;">${escapeHtml(expiryInfo)}</div></div>
           </div>
@@ -4304,6 +4446,7 @@
             ${reasons.map(text => `<div class="ordering-detail-list-item">${escapeHtml(text)}</div>`).join('')}
           </div>
           <div class="ordering-detail-list" style="margin-top:12px;">
+            ${storeStockList ? `<div class="ordering-detail-list-item"><strong>Zboží na prodejnách:</strong>${storeStockList}</div>` : ''}
             ${variantStockList ? `<div class="ordering-detail-list-item"><strong>Stav variant:</strong>${variantStockList}</div>` : ''}
             <div class="ordering-detail-list-item"><strong>Handoff text</strong><div class="muted small" style="margin-top:6px; line-height:1.6;">${escapeHtml(handoff)}</div></div>
           </div>
@@ -4313,35 +4456,51 @@
       function getExplorerRows() {
         const term = (searchInput.value || '').trim().toLowerCase();
         const filter = filterSelect.value;
-        const sort = sortSelect.value;
+        const storeScope = storeScopeValue();
         let rows = liveAnalyticsRows().filter(row => {
           if (term) {
             const hay = `${row.code || ''} ${row.title || ''}`.toLowerCase();
             if (!hay.includes(term)) return false;
           }
-          if (filter === 'orderable') return row.orderable !== false;
-          if (filter === 'excluded') return row.orderable === false;
-          if (filter === 'critical') return row.reorderRisk === 'critical';
-          if (filter === 'urgent') return ['critical', 'soon'].includes(row.reorderRisk);
-          if (filter === 'manual-review') return row.reorderRisk === 'watch' || row.orderable === false || row.packagingMatchStatus === 'missing';
-          if (filter === 'fillup') return row.orderingRole === 'fill_up';
-          if (filter === 'topsku') return row.orderingRole === 'top_sku';
-          if (filter === 'blocked') return row.orderable === false || row.packagingMatchStatus === 'missing';
-          if (filter === 'packaging-missing') return row.packagingMatchStatus === 'missing';
-          if (filter === 'watch') return ['critical', 'soon', 'watch'].includes(row.reorderRisk);
-          if (filter === 'red') return row.turnoverZone === 'red';
-          if (filter === 'green') return row.turnoverZone === 'green';
-          if (filter === 'accelerating') return (row.trend90v365Pct || 0) >= 25;
+          let matchesFilter = true;
+          if (filter === 'orderable') matchesFilter = row.orderable !== false;
+          else if (filter === 'excluded') matchesFilter = row.orderable === false;
+          else if (filter === 'critical') matchesFilter = row.reorderRisk === 'critical';
+          else if (filter === 'urgent') matchesFilter = ['critical', 'soon'].includes(row.reorderRisk);
+          else if (filter === 'manual-review') matchesFilter = row.reorderRisk === 'watch' || row.orderable === false || row.packagingMatchStatus === 'missing';
+          else if (filter === 'fillup') matchesFilter = row.orderingRole === 'fill_up';
+          else if (filter === 'topsku') matchesFilter = row.orderingRole === 'top_sku';
+          else if (filter === 'blocked') matchesFilter = row.orderable === false || row.packagingMatchStatus === 'missing';
+          else if (filter === 'packaging-missing') matchesFilter = row.packagingMatchStatus === 'missing';
+          else if (filter === 'watch') matchesFilter = ['critical', 'soon', 'watch'].includes(row.reorderRisk);
+          else if (filter === 'red') matchesFilter = row.turnoverZone === 'red';
+          else if (filter === 'green') matchesFilter = row.turnoverZone === 'green';
+          else if (filter === 'accelerating') matchesFilter = (row.trend90v365Pct || 0) >= 25;
+          if (!matchesFilter) return false;
+          const totalStoreStock = orderingStoreTotal(row);
+          if (storeScope === 'with-store-stock') return totalStoreStock > 0;
+          if (storeScope !== 'all') return orderingStoreScopedQty(row, storeScope) > 0;
           return true;
         }).map(row => {
           const ideal = Math.max(row.recommendedOrderUnits || 0, row.recommendedMinUnits || 0);
           const rounded = roundToAllowedPackSizes(row, ideal, 'balanced');
+          const storeEntries = orderingStoreEntries(row);
+          const storeStockTotal = storeEntries.reduce((sum, store) => sum + Number(store.quantity || 0), 0);
+          const storeStockScoped = storeScope === 'all' || storeScope === 'with-store-stock'
+            ? storeStockTotal
+            : Number(storeEntries.find(store => store.id === storeScope)?.quantity || 0);
           return {
             ...row,
             idealUnits: rounded.rawUnits,
             finalOrderUnits: rounded.roundedUnits,
             orderStepUnits: rounded.orderStepUnits,
             roundingMode: rounded.roundingMode,
+            storeEntries,
+            storeStockTotal,
+            storeStockScoped,
+            storeBreakdownText: storeEntries.length
+              ? storeEntries.map(store => `${store.label} ${fmt(store.quantity)} ks`).join(' · ')
+              : '',
           };
         });
 
@@ -4355,11 +4514,12 @@
         const packagingExact = Number(orderingReference.summary.byPackagingMatchStatus?.exact_code || 0);
         const packagingBase = Number(orderingReference.summary.byPackagingMatchStatus?.base_code || 0);
         const packagingMissing = Number(orderingReference.summary.byPackagingMatchStatus?.missing || 0);
+        const storeScopeLabel = storeFilterSelect?.options[storeFilterSelect.selectedIndex]?.text || 'Všechny prodejny';
         const totalPages = Math.max(1, Math.ceil(rows.length / explorerPageSize()));
         currentExplorerPage = clamp(currentExplorerPage, 1, totalPages);
         const pageRows = rows.slice((currentExplorerPage - 1) * explorerPageSize(), currentExplorerPage * explorerPageSize());
         currentExplorerVisibleRows = pageRows;
-        explorerSummary.textContent = `Auditní pohled vrací ${fmt(rows.length)} SKU, z toho ${fmt(excludedCount)} mimo nákup. Referenční vrstva je načtená pro ${fmt(orderingReference.summary.trackedItems || 0)} SKU, balení přesně spárované u ${fmt(packagingExact)} SKU, přes prefix u ${fmt(packagingBase)} a chybí u ${fmt(packagingMissing)} SKU.`;
+        explorerSummary.textContent = `Auditní pohled vrací ${fmt(rows.length)} SKU, z toho ${fmt(excludedCount)} mimo nákup. Prodejnový filtr: ${storeScopeLabel}. Referenční vrstva je načtená pro ${fmt(orderingReference.summary.trackedItems || 0)} SKU, balení přesně spárované u ${fmt(packagingExact)} SKU, přes prefix u ${fmt(packagingBase)} a chybí u ${fmt(packagingMissing)} SKU.`;
         paginationSummary.textContent = `Strana ${fmt(currentExplorerPage)} z ${fmt(totalPages)} · zobrazeno ${fmt(pageRows.length)} z ${fmt(rows.length)} řádků.`;
         pagePrevButton.disabled = currentExplorerPage <= 1;
         pageNextButton.disabled = currentExplorerPage >= totalPages;
@@ -4373,6 +4533,7 @@
                 <span class="ordering-meta-chip">YoY ${pct(row.seasonalityYoYPct)}</span>
                 <span class="ordering-meta-chip">Poslední prodej ${row.daysSinceLastSale == null ? '–' : `${fmt(row.daysSinceLastSale)} dní`}</span>
                 <span class="ordering-meta-chip">Balení ${row.packagingRaw || 'bez mapy'}</span>
+                <span class="ordering-meta-chip">Prodejny ${row.storeBreakdownText || 'ne'}</span>
                 <span class="ordering-meta-chip">Expirace 6m ${row.expiry6m ? expirySummaryText(row.expiry6m) : 'ne'}</span>
               </div>
               ${renderOrderingVariantStockList(row, row.market || currentMarket, { compact: true })}
@@ -4380,6 +4541,12 @@
             </td>
             <td><div class="ordering-badge-wrap">${orderableBadge(row)} ${typeBadge(row)} ${roleBadge(row)} ${sourceChannelBadge(row)} ${packagingBadge(row)} ${expiryBadge(row)} ${riskBadge(row)} ${zoneBadge(row)} ${trendBadge(row)}</div></td>
             <td class="num">${fmt(row.effectiveStock)}</td>
+            <td class="num">
+              <div class="ordering-cell-stack">
+                <strong>${fmt(row.storeStockScoped || 0)} ks</strong>
+                <span class="muted">${escapeHtml(row.storeBreakdownText || 'bez zásoby na prodejnách')}</span>
+              </div>
+            </td>
             <td class="num">${fmt(row.unitsWindow ?? row.units730d)}</td>
             <td class="num">${fmt(row.units90d)}</td>
             <td class="num">${cover(row.daysOfCover90d)}</td>
@@ -4389,7 +4556,7 @@
             <td class="num">${fmt((row.finalOrderUnits ?? row.recommendedOrderUnits) || 0)} ks</td>
             <td>${row.roundingMode || 'bez omezení'}</td>
           </tr>
-        `).join('') || '<tr><td colspan="11">Nic neodpovídá aktuálnímu filtru.</td></tr>';
+        `).join('') || '<tr><td colspan="12">Nic neodpovídá aktuálnímu filtru.</td></tr>';
         updateSortableTableHead('explorer');
         renderDetailPanel(rows.find(row => row.code === selectedExplorerCode) || pageRows[0] || null);
         saveExplorerState();
@@ -4547,6 +4714,11 @@
                 <p class="ordering-executive-text">${fmt((action.items || []).length)} produktů ve skupině${action.kind === 'bundle' ? action.bottleneckLabel ? `, bottleneck: ${escapeHtml(action.bottleneckLabel)}` : '' : action.kind === 'discount_set' ? action.bottleneckLabel ? `, sada limitovaná: ${escapeHtml(action.bottleneckLabel)}` : '' : ', zvýhodněné SKU k auditu zásoby.'}${action.salesWindowStart ? ` Prodeje počítané od ${escapeHtml(action.salesWindowStart)}.` : ''}</p>
               </div>
               <div class="ordering-action-potential">
+                <span class="ordering-action-row-code">Prodáno od startu</span>
+                <strong>${fmt(action.soldActions != null ? action.soldActions : 0)}${action.kind === 'discount' ? ' ks' : '×'}</strong>
+                <span class="ordering-action-row-note">${action.salesWindowStart ? `od ${escapeHtml(action.salesWindowStart)}` : 'od startu akce'}</span>
+              </div>
+              <div class="ordering-action-potential">
                 <span class="ordering-action-row-code">${action.kind === 'discount' ? 'Zásoba ve slevě' : action.kind === 'discount_set' ? 'Pokrytí sady' : 'Pokrytí akce'}</span>
                 <strong>${fmt(action.availableActions || 0)}${action.kind === 'discount' ? ' ks' : '×'}</strong>
                 <span class="ordering-action-row-note">${action.kind === 'discount' ? `zásoba napříč slevou ${fmt(action.totalStock || 0)} ks` : `limit ${fmt(action.bottleneckActions || 0)}×`}</span>
@@ -4700,6 +4872,7 @@
         expiryLookupByMarket = buildExpiryLookup(expiryOverview);
         combinedProductByCode = new Map(((combinedProductIndexPayload?.items) || []).map(item => [item.code, item]));
 
+        populateOrderingStoreFilterOptions();
         restoreExplorerState();
         syncExplorerSortStateFromSelect();
         applyMarketPayload('complete', { preservePlanningSetup: false });
@@ -4826,6 +4999,10 @@
         renderOrderingSalesModule();
       });
       filterSelect.addEventListener('change', () => {
+        currentExplorerPage = 1;
+        renderExplorer();
+      });
+      storeFilterSelect?.addEventListener('change', () => {
         currentExplorerPage = 1;
         renderExplorer();
       });

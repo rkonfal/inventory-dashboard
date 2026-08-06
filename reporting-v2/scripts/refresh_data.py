@@ -1902,6 +1902,7 @@ def recalculate_action_summary(action):
 
     if kind == 'bundle':
         all_groups = []
+        required_group_sold_actions = []
         for bucket_name in ('requiredGroups', 'giftGroups'):
             groups = []
             for group in action.get(bucket_name) or []:
@@ -1909,20 +1910,33 @@ def recalculate_action_summary(action):
                 available = 0
                 if capacities:
                     available = sum(capacities) if group.get('mode') == 'sum' else min(capacities)
+                # Compute sold actions for this group
+                sales = [
+                    max(0.0, num(item.get('salesSinceStart') or 0) / max(1, int(num(item.get('unitsPerAction') or 1))))
+                    for item in (group.get('items') or [])
+                ]
+                group_sold = 0.0
+                if sales:
+                    group_sold = sum(sales) if group.get('mode') == 'sum' else min(sales)
                 next_group = dict(group)
                 next_group['availableActions'] = int(available)
+                next_group['soldActions'] = int(group_sold)
                 groups.append(next_group)
                 all_groups.append(next_group)
+                if bucket_name == 'requiredGroups':
+                    required_group_sold_actions.append(group_sold)
             action[bucket_name] = groups
         bottleneck = min(all_groups, key=lambda group: group.get('availableActions') or 0) if all_groups else None
         action['availableActions'] = int((bottleneck or {}).get('availableActions') or 0)
         action['bottleneckLabel'] = (bottleneck or {}).get('label') or ''
         action['bottleneckActions'] = int((bottleneck or {}).get('availableActions') or 0)
+        action['soldActions'] = int(min(required_group_sold_actions)) if required_group_sold_actions else 0
     elif kind == 'discount':
         total_capacity = int(sum(max(0, int(num(item.get('capacity')))) for item in items))
         action['availableActions'] = total_capacity
         action['bottleneckLabel'] = 'Celkem ve slevě'
         action['bottleneckActions'] = total_capacity
+        action['soldActions'] = int(sum(max(0.0, num(item.get('salesSinceStart') or 0)) for item in items))
     elif kind == 'discount_set':
         total_capacity = min((max(0, int(num(item.get('capacity')))) for item in items), default=0)
         required_groups = action.get('requiredGroups') or []
@@ -1933,6 +1947,12 @@ def recalculate_action_summary(action):
             action['bottleneckLabel'] = next_group.get('label') or ''
         action['availableActions'] = int(total_capacity)
         action['bottleneckActions'] = int(total_capacity)
+        # soldActions = min of required-group items (each item must appear once per set)
+        set_sales = [
+            max(0.0, num(item.get('salesSinceStart') or 0) / max(1, int(num(item.get('unitsPerAction') or 1))))
+            for item in items
+        ]
+        action['soldActions'] = int(min(set_sales)) if set_sales else 0
 
     action['totalStock'] = round(sum(num(item.get('stock')) for item in items), 2)
     action['salesWindowUnits'] = round(sum(num(item.get('salesSinceStart')) for item in items), 2)
