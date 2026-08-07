@@ -24,6 +24,36 @@ STATE_FILE="$ROOT/data/current/morning_report_prepare_status.json"
 DELIVERY_STATE_FILE="$ROOT/data/current/morning_report_delivery_status.json"
 REPORT_JSON="$ROOT/data/current/morning_report_previous_day.json"
 
+# ── Duplicate-send guard ─────────────────────────────────────────────────────
+# If the report was already successfully delivered today, exit silently.
+# This prevents duplicate sends caused by launchd re-firing a missed job after
+# the Mac wakes from sleep, reboots, or a session restart.
+if [[ -f "$DELIVERY_STATE_FILE" ]]; then
+  _already_today=$(python3 - <<'PYGUARD'
+import json, sys
+from datetime import datetime
+from zoneinfo import ZoneInfo
+import os
+PRAGUE_TZ = ZoneInfo('Europe/Prague')
+try:
+    d = json.loads(open(os.environ['DELIVERY_STATE_FILE']).read())
+    if d.get('allDelivered') and d.get('generatedAt'):
+        sent = datetime.fromisoformat(d['generatedAt']).astimezone(PRAGUE_TZ).strftime('%Y-%m-%d')
+        today = datetime.now(PRAGUE_TZ).strftime('%Y-%m-%d')
+        print('yes' if sent == today else 'no')
+    else:
+        print('no')
+except Exception:
+    print('no')
+PYGUARD
+)
+  if [[ "$_already_today" == "yes" ]]; then
+    log "INFO: Morning report already delivered today – skipping duplicate send."
+    exit 0
+  fi
+fi
+# ─────────────────────────────────────────────────────────────────────────────
+
 run_independent_klaviyo_refresh() {
   set +e
   python3 scripts/fetch_ecomail.py > >(tee -a "$LOG_FILE") 2> >(tee -a "$LOG_FILE" >&2)
