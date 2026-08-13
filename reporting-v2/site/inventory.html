@@ -100,6 +100,7 @@
               <span class="control-label">Stav</span>
               <select id="inventory-filter" class="select">
                 <option value="all">Všechny stavy</option>
+                <option value="expiryRisk3m">Expirace do 3 měsíců</option>
                 <option value="expiryRisk6m">Expirace do 6 měsíců</option>
                 <option value="fastLowCover">Dochází zásoba</option>
                 <option value="lowAfterSales">Po prodeji dochází</option>
@@ -125,6 +126,7 @@
                 <option value="sales365d">Největší prodej 365d</option>
                 <option value="avgMonthly">Největší průměr / měsíc</option>
                 <option value="coverAsc">Nejnižší pokrytí</option>
+                <option value="expiryAsc">Nejbližší expirace</option>
                 <option value="code">Kód A–Z</option>
               </select>
             </label>
@@ -533,6 +535,7 @@
             : Number(row.fourpx?.cz?.availableStock || 0);
           return _lte10stock <= 10;
         }
+        case 'expiryRisk3m': return hasExpiryRiskInView(row, view);
         case 'expiryRisk6m': return hasExpiryRiskInView6m(row, view);
         case 'mismatch': return flags.has('stock_mismatch');
         case 'only4px': return flags.has('only_in_4px');
@@ -931,6 +934,10 @@
       const expiryPriorityActive = expiryDataAvailable && expiryRiskRows.length > 0;
       const expiryCountLabel = expiryDataAvailable ? fmt(expiryRiskRows.length) : 'nedostupné';
       const expirySplitLabel = expiryDataAvailable ? `${fmt(expiryRiskCzRows.length)} / ${fmt(expiryRiskSkRows.length)}` : 'nedostupné';
+      const soonestExpiryRow = expiryRiskRows.slice().sort((a, b) => (a.row.expiryRisk?.nearestDays ?? 999) - (b.row.expiryRisk?.nearestDays ?? 999))[0];
+      const soonestExpiryMeta = soonestExpiryRow
+        ? `Nejbližší: ${soonestExpiryRow.row.code} · ${expiryTimingLabel(soonestExpiryRow.row.expiryRisk?.nearestDays)} dní`
+        : 'Žádné produkty nexpirují do 90 dní.';
 
       const searchInput = document.getElementById('inventory-search');
       const marketSelect = document.getElementById('inventory-market');
@@ -1055,7 +1062,7 @@
       }
 
       function defaultSortDirection(sortKey) {
-        return sortKey === 'coverAsc' || sortKey === 'code' ? 'asc' : 'desc';
+        return sortKey === 'coverAsc' || sortKey === 'code' || sortKey === 'expiryAsc' ? 'asc' : 'desc';
       }
 
       function sortLabel(sortKey) {
@@ -1156,6 +1163,14 @@
           sub: `${fmt(overview.counts.onlyIn4px || 0)} jen ve 4PX · ${fmt(overview.counts.manualMapped4pxAliases || 0)} ručních map.`,
           meta: `Health score ${fmt(healthScore)} / 100 · overstock ${money(overstockValue)}`,
           tone: overview.counts.stockMismatch ? 'warn' : '',
+        },
+        {
+          eyebrow: 'Expirace do 3 měsíců',
+          value: expiryDataAvailable ? fmt(expiryRiskRows.length) : '–',
+          sub: expiryDataAvailable ? `CZ: ${fmt(expiryRiskCzRows.length)} SKU · SK: ${fmt(expiryRiskSkRows.length)} SKU` : 'Feed nedostupný.',
+          meta: expiryDataAvailable ? soonestExpiryMeta : 'Expirační data nejsou k dispozici.',
+          tone: !expiryDataAvailable ? 'warn' : expiryRiskRows.length > 10 ? 'danger' : expiryRiskRows.length > 0 ? 'warn' : '',
+          action: expiryRiskRows.length > 0 ? { label: 'Zobrazit', filter: 'expiryRisk3m' } : null,
         }
       ].map(card => `
         <article class="signal-card ${card.tone || ''}">
@@ -1163,8 +1178,21 @@
           <div class="signal-value">${card.value}</div>
           <div class="signal-sub">${card.sub}</div>
           <div class="signal-meta">${card.meta}</div>
+          ${card.action ? `<button type="button" class="signal-card-action" data-set-filter="${card.action.filter}">${card.action.label}</button>` : ''}
         </article>
       `).join('');
+
+      document.getElementById('inventory-decision-grid').querySelectorAll('[data-set-filter]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filterEl = document.getElementById('inventory-filter');
+          if (filterEl) {
+            filterEl.value = btn.dataset.setFilter;
+            filterEl.dispatchEvent(new Event('change'));
+            const step2 = document.getElementById('inventory-step-2');
+            if (step2) step2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
 
       document.getElementById('inventory-kpis').innerHTML = [
         ['A SKU kritické', fmt(aCriticalRows.length), 'klíčové položky s rizikem výpadku', 'red'],
@@ -1353,6 +1381,12 @@
           if (sort === 'coverAsc') {
             return compareNullableNumber(daysOfCoverInView(a.row, a.metric), daysOfCoverInView(b.row, b.metric), direction, true)
               || explorerScore(b.row, b.metric, activeView) - explorerScore(a.row, a.metric, activeView);
+          }
+          if (sort === 'expiryAsc') {
+            const aDays = a.row.expiryRisk?.nearestDays ?? Infinity;
+            const bDays = b.row.expiryRisk?.nearestDays ?? Infinity;
+            const diff = direction === 'asc' ? aDays - bDays : bDays - aDays;
+            return diff || explorerScore(b.row, b.metric, activeView) - explorerScore(a.row, a.metric, activeView);
           }
           if (sort === 'code') {
             const codeCompare = String(a.row.code || '').localeCompare(String(b.row.code || ''), 'cs');

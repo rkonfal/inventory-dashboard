@@ -203,6 +203,13 @@ summary:focus-visible {
   opacity: .72;
 }
 
+.ux-button.is-active {
+  background: linear-gradient(135deg, var(--brand), var(--brand-light));
+  color: #fffaf4;
+  border-color: transparent;
+  box-shadow: 0 10px 22px rgba(107,61,99,.18);
+}
+
 .mobile-nav-toggle {
   display: none;
   position: fixed;
@@ -497,6 +504,11 @@ summary:focus-visible {
   justify-content: space-between;
   gap: 12px;
   min-height: 46px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(246,241,234,.82));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
 }
 .secondary-details summary:hover { color: var(--brand-dark); }
 .secondary-details summary::-webkit-details-marker { display: none; }
@@ -507,6 +519,14 @@ summary:focus-visible {
   transition: transform .18s ease;
 }
 .secondary-details[open] summary::before { transform: rotate(90deg); }
+.secondary-details[open] summary {
+  border-color: var(--border-strong);
+  background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(243,237,228,.90));
+}
+.secondary-details > *:not(summary) {
+  position: relative;
+  z-index: 1;
+}
 .secondary-details > section:first-of-type,
 .secondary-details > .grid:first-of-type {
   margin-top: 18px !important;
@@ -516,6 +536,9 @@ summary:focus-visible {
 .page-ordering-simplified .ux-grid,
 .page-eshop-simplified .ux-grid,
 .page-logistics-simplified .ux-grid,
+.page-packaging-simplified .ux-grid,
+.page-meetings-simplified .ux-grid,
+.page-store-expiry-simplified .ux-grid,
 .page-expiry-simplified .ux-grid,
 .page-finance-simplified .ux-grid,
 .page-marketing-simplified .ux-grid {
@@ -526,6 +549,9 @@ summary:focus-visible {
 .page-ordering-simplified .ux-focus-card,
 .page-eshop-simplified .ux-focus-card,
 .page-logistics-simplified .ux-focus-card,
+.page-packaging-simplified .ux-focus-card,
+.page-meetings-simplified .ux-focus-card,
+.page-store-expiry-simplified .ux-focus-card,
 .page-expiry-simplified .ux-focus-card,
 .page-finance-simplified .ux-focus-card,
 .page-marketing-simplified .ux-focus-card {
@@ -553,6 +579,18 @@ summary:focus-visible {
 .page-logistics-simplified .ux-focus-card .ux-section-subtitle,
 .page-logistics-simplified .ux-focus-card .ux-item strong,
 .page-logistics-simplified .ux-focus-card .ux-item span,
+.page-packaging-simplified .ux-focus-card .ux-section-title,
+.page-packaging-simplified .ux-focus-card .ux-section-subtitle,
+.page-packaging-simplified .ux-focus-card .ux-item strong,
+.page-packaging-simplified .ux-focus-card .ux-item span,
+.page-meetings-simplified .ux-focus-card .ux-section-title,
+.page-meetings-simplified .ux-focus-card .ux-section-subtitle,
+.page-meetings-simplified .ux-focus-card .ux-item strong,
+.page-meetings-simplified .ux-focus-card .ux-item span,
+.page-store-expiry-simplified .ux-focus-card .ux-section-title,
+.page-store-expiry-simplified .ux-focus-card .ux-section-subtitle,
+.page-store-expiry-simplified .ux-focus-card .ux-item strong,
+.page-store-expiry-simplified .ux-focus-card .ux-item span,
 .page-expiry-simplified .ux-focus-card .ux-section-title,
 .page-expiry-simplified .ux-focus-card .ux-section-subtitle,
 .page-expiry-simplified .ux-focus-card .ux-item strong,
@@ -572,6 +610,9 @@ summary:focus-visible {
 .page-ordering-simplified .ux-focus-card .ux-item,
 .page-eshop-simplified .ux-focus-card .ux-item,
 .page-logistics-simplified .ux-focus-card .ux-item,
+.page-packaging-simplified .ux-focus-card .ux-item,
+.page-meetings-simplified .ux-focus-card .ux-item,
+.page-store-expiry-simplified .ux-focus-card .ux-item,
 .page-expiry-simplified .ux-focus-card .ux-item,
 .page-finance-simplified .ux-focus-card .ux-item,
 .page-marketing-simplified .ux-focus-card .ux-item {
@@ -583,6 +624,9 @@ summary:focus-visible {
 .page-ordering-simplified .ux-date-note,
 .page-eshop-simplified .ux-date-note,
 .page-logistics-simplified .ux-date-note,
+.page-packaging-simplified .ux-date-note,
+.page-meetings-simplified .ux-date-note,
+.page-store-expiry-simplified .ux-date-note,
 .page-expiry-simplified .ux-date-note,
 .page-finance-simplified .ux-date-note,
 .page-marketing-simplified .ux-date-note {
@@ -699,6 +743,37 @@ summary:focus-visible {
   margin-top: 12px;
   font-size: 12px;
   color: var(--text-faint);
+}
+.signal-card-action {
+  margin-top: 14px;
+  display: inline-block;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 5px;
+  border: 1.5px solid currentColor;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.signal-card-action:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.signal-card.warn .signal-card-action {
+  color: var(--warn);
+}
+.signal-card.warn .signal-card-action:hover {
+  background: var(--warn);
+  color: #fff;
+}
+.signal-card.danger .signal-card-action {
+  color: var(--danger);
+}
+.signal-card.danger .signal-card-action:hover {
+  background: var(--danger);
+  color: #fff;
 }
 .signal-list {
   margin: 12px 0 0;
@@ -988,7 +1063,109 @@ summary:focus-visible {
   background: linear-gradient(180deg, rgba(22,28,42,.96), rgba(16,22,34,.94));
   box-shadow: inset 0 -1px 0 var(--border), inset 0 1px 0 rgba(111,140,255,.18), 0 10px 22px rgba(0,0,0,.18);
 }
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+.table tbody tr:hover td {
+  background: rgba(49,94,251,.035);
+}
+[data-theme="dark"] .table tbody tr:hover td {
+  background: rgba(255,255,255,.035);
+}
 .table td.num, .table th.num { text-align: right; }
+.top-products-grid {
+  align-items: start;
+}
+.top-products-wrap {
+  overflow-x: hidden;
+}
+.table-top-products {
+  min-width: 0;
+  table-layout: auto;
+}
+.table-top-products th:first-child,
+.table-top-products td:first-child {
+  width: auto;
+}
+.table-top-products th.num,
+.table-top-products td.num {
+  width: 120px;
+  min-width: 120px;
+  white-space: nowrap;
+}
+.table-top-products td {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.product-cell {
+  padding-right: 10px;
+}
+.product-row-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+.product-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(95,124,246,.14);
+  background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(240,245,255,.88));
+  color: var(--brand-dark);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
+}
+.product-copy {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.product-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+.product-meta {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.product-code {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.72);
+  color: var(--text-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.product-value-cell strong {
+  font-size: 14px;
+  font-weight: 800;
+}
+[data-theme="dark"] .product-rank {
+  border-color: rgba(111,140,255,.22);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  color: #c8d6ff;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+[data-theme="dark"] .product-code {
+  background: rgba(255,255,255,.05);
+  border-color: rgba(255,255,255,.08);
+  color: #c9d2e6;
+}
 .table-sort {
   display: inline-flex;
   align-items: center;
@@ -1132,6 +1309,18 @@ pre {
 
 @media (max-width: 1180px) {
   .two-col, .three-col { grid-template-columns: 1fr; }
+  .table-top-products th.num,
+  .table-top-products td.num {
+    width: 104px;
+    min-width: 104px;
+  }
+  .product-row-main {
+    gap: 10px;
+  }
+  .product-rank {
+    min-width: 36px;
+    padding: 3px 7px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1410,6 +1599,32 @@ pre {
   padding: 22px;
 }
 
+.ux-panel-card > h3:first-child {
+  margin: 0 0 8px;
+  font-size: 18px;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+
+.ux-panel-card > p:first-of-type {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ux-panel-card > .section-nav-links,
+.ux-panel-card > .ux-stat-list,
+.ux-panel-card > .ux-list,
+.ux-panel-card > .ux-side-list,
+.ux-panel-card > .ux-table-wrap,
+.ux-panel-card > .store-expiry-panel-grid,
+.ux-panel-card > .store-expiry-discipline,
+.ux-panel-card > pre,
+.ux-panel-card > [id$="-strip"] {
+  margin-top: 16px;
+}
+
 .ux-focus-card::before,
 .ux-panel-card::before {
   content: '';
@@ -1427,6 +1642,9 @@ pre {
 .page-ordering-simplified .ux-focus-card::before,
 .page-eshop-simplified .ux-focus-card::before,
 .page-logistics-simplified .ux-focus-card::before,
+.page-packaging-simplified .ux-focus-card::before,
+.page-meetings-simplified .ux-focus-card::before,
+.page-store-expiry-simplified .ux-focus-card::before,
 .page-expiry-simplified .ux-focus-card::before,
 .page-finance-simplified .ux-focus-card::before,
 .page-marketing-simplified .ux-focus-card::before {
@@ -1571,6 +1789,7 @@ pre {
   border-radius: 18px;
   border: 1px solid var(--border);
   background: rgba(255,255,255,.62);
+  padding: 6px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
 }
 
@@ -1638,6 +1857,141 @@ pre {
 }
 .toolbar-inline-summary strong {
   color: var(--text);
+}
+
+.panel-pre {
+  white-space: pre-wrap;
+  font: inherit;
+  margin: 0;
+  max-height: 340px;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: var(--card-soft);
+}
+
+.card-plain {
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.card-plain::after {
+  display: none;
+}
+
+.chart-shell {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 18px;
+  background: var(--panel);
+  box-shadow: var(--shadow-soft);
+}
+
+.chart-shell-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.chart-shell-kicker {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--text-faint);
+  font-weight: 700;
+}
+
+.chart-shell-title {
+  margin-top: 4px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.chart-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chart-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.chart-month-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.chart-month-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: var(--panel-soft);
+}
+
+.chart-month-card-label {
+  font-size: 12px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.chart-month-card-line {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.chart-month-card-delta {
+  margin-top: 6px;
+  font-weight: 700;
+}
+
+.journal-select-label {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.journal-select {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+}
+
+.pagination-inline {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pagination-inline-meta {
+  font-size: 12px;
+  color: var(--text-muted);
 }
 
 .journal-filter-bar {
@@ -2058,6 +2412,16 @@ pre {
     width: auto;
     flex: 0 0 auto;
     white-space: nowrap;
+  }
+  .chart-shell,
+  .panel-pre {
+    padding: 14px;
+  }
+  .chart-shell-header,
+  .chart-legend,
+  .pagination-inline {
+    flex-direction: column;
+    align-items: stretch;
   }
 }
 
