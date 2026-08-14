@@ -1461,7 +1461,7 @@ def build_row_from_wpj_order(order: dict[str, Any], now_dt: datetime, thresholds
     if not status_name or "storno" in normalize_text(status_name) or bool(order.get("cancelled")):
         return None
     normalized_status = normalize_text(status_name)
-    if "exped" not in normalized_status and "vyzved" not in normalized_status:
+    if "exped" not in normalized_status and "vyzved" not in normalized_status and "nedoruc" not in normalized_status:
         return None
 
     delivery_name = (
