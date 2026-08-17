@@ -8,12 +8,6 @@
   <style>
     .mobile-only { display: none; }
     .sparkline { width: 100%; height: 42px; margin-top: 12px; }
-    .ux-button.is-active {
-      background: linear-gradient(135deg, var(--brand), var(--brand-light));
-      color: #fffaf4;
-      border-color: transparent;
-      box-shadow: 0 10px 22px rgba(107,61,99,.18);
-    }
     .roas-good { color: #1d9a52; font-weight: 700; }
     .roas-mid { color: #c9a84c; font-weight: 700; }
     .roas-bad { color: #d14b4b; font-weight: 700; }
@@ -135,7 +129,7 @@
           </div>
           <div class="ux-panel-card">
             <h3 id="marketing-period-title" style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Tento měsíc</h3>
-            <p id="marketing-period-subtitle" style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Nahoře jsou spendy. Klaviyo atribuce je schválně oddělená pod nimi.</p>
+            <p id="marketing-period-subtitle" style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Nahoře jsou spendy. Výsledky Ecomailu jsou schválně oddělené pod nimi.</p>
             <div class="ux-stat-list" id="marketing-current"></div>
             <div class="ux-stat-list" id="marketing-klaviyo-current" style="margin-top:14px;"></div>
           </div>
@@ -216,6 +210,7 @@
             <tbody id="ga4-channel-table"></tbody>
           </table>
           <div class="mobile-only mobile-campaign-list" id="ga4-channel-mobile"></div>
+          <p id="ga4-channel-footnote" style="font-size:12px; color:var(--text-muted); margin-top:8px; display:none;"></p>
         </div>
         <div class="ux-table-wrap">
           <table class="table desktop-only">
@@ -285,8 +280,8 @@
       <section class="card" id="klaviyo-section" style="display:none; margin-top:18px;">
         <div class="ux-section-head">
           <div>
-            <h2 class="section-title">Klaviyo, e-mail a SMS</h2>
-            <div class="section-subtitle">Objednávky a obrat připsané Klaviyu, plus nejsilnější flow a poslední kampaně.</div>
+            <h2 class="section-title">Ecomail, e-mailing</h2>
+            <div class="section-subtitle">Konverzní obrat a objednávky z Ecomail kampaní, plus nejsilnější kampaně a poslední rozesílky.</div>
           </div>
         </div>
         <div class="grid kpi-grid" id="klaviyo-kpis" style="margin-top:20px;"></div>
@@ -311,7 +306,7 @@
           </div>
           <div class="ux-panel-card">
             <h3 style="margin:0 0 8px; font-size:18px; letter-spacing:-.02em;">Naposledy odeslané kampaně</h3>
-            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rychlý přehled toho, co se v Klaviyo naposledy měnilo nebo plánovalo.</p>
+            <p style="margin:0; color:var(--text-muted); font-size:13px; line-height:1.6;">Rychlý přehled toho, co se v Ecomailu naposledy odeslalo.</p>
             <div class="ux-list" id="klaviyo-campaign-list" style="margin-top:16px;"></div>
           </div>
         </div>
@@ -350,7 +345,7 @@
         { label: 'Assistant / Bing sessions 7d', value: DP.fmtNumber(aiTraffic.summary?.assistantLikeSessions7d || 0), tone: 'warn' },
         { label: 'Proxy trans. 30d', value: DP.fmtNumber(aiTraffic.summary?.proxyTransactions30d || 0), tone: 'info' },
       ], { compact: true });
-      document.getElementById('ga4-ai-note').textContent = aiTraffic.methodology?.note || '';
+      document.getElementById('ga4-ai-note').textContent = (aiTraffic.methodology?.note || '') + ' Čísla v závorce (LC) = přímá last-click konverze; Vliv = multi-touch, kde kanál byl kdekoli v cestě zákazníka.';
 
       const topSourceText = bucket => {
         const sessionSources = bucket.topSessionSources7d || [];
@@ -362,13 +357,23 @@
 
       document.getElementById('ga4-ai-table').innerHTML = buckets.map(bucket => {
         const confidence = aiConfidence[bucket.confidence] || aiConfidence.low;
+        const infTrans = bucket.transactions30dInfluenced || 0;
+        const lcTrans  = bucket.transactions30dLastClick  || 0;
+        const infRev   = bucket.revenue30dInfluenced      || 0;
+        const lcRev    = bucket.revenue30dLastClick       || 0;
+        const transCell = (infTrans === 0 && lcTrans > 0)
+          ? `<span title="Influenced (multi-touch): 0; Last-click: ${DP.fmtNumber(lcTrans)}" style="cursor:help;">${DP.fmtNumber(infTrans)} <small style="color:var(--text-muted); white-space:nowrap;">(LC: ${DP.fmtNumber(lcTrans)})</small></span>`
+          : DP.fmtNumber(infTrans);
+        const revCell = (infRev === 0 && lcRev > 0)
+          ? `<span title="Influenced (multi-touch): 0 Kč; Last-click: ${money(lcRev)}" style="cursor:help;">${money(infRev)} <small style="color:var(--text-muted); white-space:nowrap;">(LC: ${money(lcRev)})</small></span>`
+          : money(infRev);
         return `
           <tr>
             <td><strong>${bucket.label}</strong><br><span style="color:var(--text-muted); font-size:12px;">${bucket.description}</span></td>
             <td>${confidence.label}</td>
             <td class="num">${bucket.sessions7d ? DP.fmtNumber(Math.round(bucket.sessions7d || 0)) : '–'}</td>
-            <td class="num">${DP.fmtNumber(bucket.transactions30dInfluenced || 0)}</td>
-            <td class="num">${money(bucket.revenue30dInfluenced || 0)}</td>
+            <td class="num">${transCell}</td>
+            <td class="num">${revCell}</td>
             <td>${topSourceText(bucket)}</td>
           </tr>
         `;
@@ -376,6 +381,16 @@
 
       document.getElementById('ga4-ai-mobile').innerHTML = buckets.map(bucket => {
         const confidence = aiConfidence[bucket.confidence] || aiConfidence.low;
+        const infTrans = bucket.transactions30dInfluenced || 0;
+        const lcTrans  = bucket.transactions30dLastClick  || 0;
+        const infRev   = bucket.revenue30dInfluenced      || 0;
+        const lcRev    = bucket.revenue30dLastClick       || 0;
+        const transDisp = (infTrans === 0 && lcTrans > 0)
+          ? `${DP.fmtNumber(infTrans)} <small style="color:var(--text-muted);">(LC: ${DP.fmtNumber(lcTrans)})</small>`
+          : DP.fmtNumber(infTrans);
+        const revDisp = (infRev === 0 && lcRev > 0)
+          ? `${money(infRev)} <small style="color:var(--text-muted);">(LC: ${money(lcRev)})</small>`
+          : money(infRev);
         return `
           <div class="mobile-campaign-card">
             <strong>${bucket.label}</strong>
@@ -383,8 +398,8 @@
             <div class="mobile-metric-grid" style="margin-top:10px;">
               <div><span>Důvěra</span><br>${confidence.label}</div>
               <div><span>Sessions 7d</span><br>${bucket.sessions7d ? DP.fmtNumber(Math.round(bucket.sessions7d || 0)) : '–'}</div>
-              <div><span>Trans. 30d</span><br>${DP.fmtNumber(bucket.transactions30dInfluenced || 0)}</div>
-              <div><span>Revenue 30d</span><br>${money(bucket.revenue30dInfluenced || 0)}</div>
+              <div><span>Trans. 30d</span><br>${transDisp}</div>
+              <div><span>Revenue 30d</span><br>${revDisp}</div>
             </div>
             <div style="margin-top:10px; color:var(--text-muted); font-size:12px;">${topSourceText(bucket)}</div>
           </div>
@@ -398,7 +413,8 @@
       const sklik = data.directSources?.sklik || {};
       const meta = data.directSources?.meta || {};
       const google = data.directSources?.google || {};
-      const klaviyo = data.directSources?.klaviyo || {};
+      const ecomail = data.directSources?.ecomail || data.directSources?.klaviyo || {};
+      const klaviyo = ecomail;
       const affiliate = data.directSources?.affiliate || {};
       const ga4Raw = Object.keys(ga4Live || {}).length ? ga4Live : (data.analytics || {});
       const ga4 = { ready: Boolean(ga4Raw?.last7days || ga4Raw?.currentMonth || ga4Raw?.channelPerformance7d?.length), ...ga4Raw };
@@ -413,7 +429,7 @@
         ? { label: 'live API', tone: 'success' }
         : sourceMeta(data.source?.status);
       const sourceMessage = (!data.source?.status || data.source?.status === 'missing') && anyLiveSource
-        ? 'Souhrn měsíce z ABRA teď chybí, ale reklamní data níž běží živě z Meta Ads, Google Ads, Skliku a Klaviyo.'
+        ? 'Souhrn měsíce z ABRA teď chybí, ale reklamní data níž běží živě z Meta Ads, Google Ads, Skliku a Ecomailu.'
         : (data.source?.message || 'Bez zdrojové poznámky.');
       const refreshCandidates = [
         data.generatedAt,
@@ -657,11 +673,11 @@
         document.getElementById('marketing-period-title').textContent = `${modeLabel(mode)} (${month.label || '–'})`;
         document.getElementById('marketing-period-subtitle').textContent = mode === 'previous'
           ? (currentPpcLooksPartial
-            ? 'Výchozí pohled je přepnutý na minulý měsíc, protože současný PPC stav ještě vrací nulová nebo připravovaná data. Klaviyo atribuce zůstává schválně oddělená pod spendy.'
-            : 'Porovnáváš uzavřený minulý měsíc. Klaviyo atribuce zůstává schválně oddělená pod spendy.')
+            ? 'Výchozí pohled je přepnutý na minulý měsíc, protože současný PPC stav ještě vrací nulová nebo připravovaná data. Výsledky Ecomailu zůstávají schválně oddělené pod spendy.'
+            : 'Porovnáváš uzavřený minulý měsíc. Výsledky Ecomailu zůstávají schválně oddělené pod spendy.')
           : (currentPpcLooksPartial
-            ? 'Současný stav může být na začátku měsíce ještě prázdný, protože PPC platformy dopočítávají dnešní data. Klaviyo atribuce je schválně oddělená pod nimi.'
-            : 'Nahoře jsou spendy. Klaviyo atribuce je schválně oddělená pod nimi.');
+            ? 'Současný stav může být na začátku měsíce ještě prázdný, protože PPC platformy dopočítávají dnešní data. Výsledky Ecomailu jsou schválně oddělené pod nimi.'
+            : 'Nahoře jsou spendy. Výsledky Ecomailu jsou schválně oddělené pod nimi.');
 
         const strongestSource = [...sourceConfigs].sort((a, b) => (b.amount || 0) - (a.amount || 0))[0];
         const bestRoasSource = [...sourceConfigs].filter(source => source.roas != null).sort((a, b) => (b.roas || 0) - (a.roas || 0))[0];
@@ -697,7 +713,7 @@
             eyebrow: 'Nejlepší efektivita',
             value: bestRoasSource?.roas == null ? '–' : Number(bestRoasSource.roas).toFixed(2),
             sub: bestRoasSource ? `${bestRoasSource.label} má nejlepší návratnost.` : 'Bez kanálu s porovnatelnou efektivitou.',
-            meta: klaviyo.ready ? `Klaviyo atribuce ${money(klaviyoMonth.totalAttributedRevenueCzk)}` : source.label,
+            meta: klaviyo.ready ? `Ecomail ${money(klaviyoMonth.totalAttributedRevenueCzk)}` : source.label,
             tone: bestRoasSource?.roas >= 4 ? '' : 'warn',
           },
           {
@@ -735,7 +751,7 @@
           google.ready ? [`Google Ads`, `${money(month.googleMonth.spendCzk)} útrata, ${DP.fmtNumber(Math.round(month.googleMonth.clicks || 0))} kliků, ROAS ${month.googleMonth.roas ?? '–'}.`] : null,
           sklik.ready ? [`Sklik`, `${money(month.sklikTotal.priceCzk)} útrata, ${DP.fmtNumber(Math.round(month.sklikTotal.clicks || 0))} kliků a ${DP.fmtNumber(Math.round(month.sklikTotal.conversions || 0))} konverzí.`] : null,
           ga4.ready ? [`${ga4Mode} akvizice`, `${DP.fmtNumber(ga4.currentMonth?.sessions || 0)} sessions, ${DP.fmtNumber(Math.round(ga4.currentMonth?.ecommercePurchases || 0))} nákupů, revenue ${money(ga4.currentMonth?.purchaseRevenue || 0)}${ga4SkCountry ? `, Slovensko ${DP.fmtNumber(Math.round(ga4SkCountry.activeUsers || 0))} AU za 7 dní` : ''}.`] : null,
-          klaviyo.ready ? [`Klaviyo`, `${money(klaviyoMonth.totalAttributedRevenueCzk)} atribuovaný obrat, ${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)} objednávek, ${DP.fmtNumber(Math.round(klaviyoMonth.totalRecipients || 0))} příjemců.`] : null,
+          klaviyo.ready ? [`Ecomail`, `${money(klaviyoMonth.totalAttributedRevenueCzk)} konverzní obrat, ${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)} objednávek, ${DP.fmtNumber(Math.round(klaviyoMonth.totalRecipients || 0))} příjemců.`] : null,
           affiliate.ready ? [`Affiliate`, `Nováčci ${money(affiliate.summary?.noviceRevenueCzkEquiv || 0)}, MLM síť ${money(affiliate.summary?.networkRevenueCzkEquiv || 0)}, období ${affiliate.period?.label || '–'}.`] : null,
         ].filter(Boolean).map(([title, text], index) => `
           <div class="ux-item">
@@ -762,11 +778,11 @@
         ].filter(Boolean).map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
 
         document.getElementById('marketing-klaviyo-current').innerHTML = klaviyo.ready ? `
-          <div style="margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Klaviyo</div>
+          <div style="margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Ecomail</div>
           <div class="ux-stat-row"><span>Spend</span><strong>–</strong></div>
-          <div style="margin:12px 0 8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Atribuce</div>
-          <div class="ux-stat-row"><span>Atribuovaný obrat</span><strong>${money(klaviyoMonth.totalAttributedRevenueCzk)}</strong></div>
-          <div class="ux-stat-row"><span>Atribuované objednávky</span><strong>${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)}</strong></div>
+          <div style="margin:12px 0 8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);">Výsledky kampaní</div>
+          <div class="ux-stat-row"><span>Konverzní obrat</span><strong>${money(klaviyoMonth.totalAttributedRevenueCzk)}</strong></div>
+          <div class="ux-stat-row"><span>Konverzní objednávky</span><strong>${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)}</strong></div>
           <div class="ux-stat-row"><span>Příjemci</span><strong>${DP.fmtNumber(Math.round(klaviyoMonth.totalRecipients || 0))}</strong></div>
           <div class="ux-stat-row"><span>Kliky / CTR</span><strong>${DP.fmtNumber(Math.round(klaviyoMonth.totalClicks || 0))} / ${klaviyoMonth.clickRate == null ? '–' : `${(Number(klaviyoMonth.clickRate) * 100).toFixed(1)} %`}</strong></div>
         ` : '';
@@ -776,7 +792,7 @@
           strongestSource ? [`Nejsilnější kanál`, `${strongestSource.label} má nejvyšší útratu ${money(strongestSource.amount)}.`] : null,
           bestRoasSource ? [`Nejlepší efektivita`, `${bestRoasSource.label} má nejvyšší ROAS ${Number(bestRoasSource.roas).toFixed(2)}.`] : null,
           ga4.ready ? [`${ga4Mode} top channel`, `${ga4.channelPerformanceCurrentMonth?.[0]?.channel || '–'} přivedl ${DP.fmtNumber(ga4.channelPerformanceCurrentMonth?.[0]?.sessions || 0)} sessions a ${money(ga4.channelPerformanceCurrentMonth?.[0]?.purchaseRevenue || 0)} revenue.`] : null,
-          klaviyo.ready ? [`Klaviyo dopad`, `Email + SMS připisují ${money(klaviyoMonth.totalAttributedRevenueCzk)} a ${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)} objednávek.`] : null,
+          klaviyo.ready ? [`Ecomail dopad`, `E-mailing připisuje ${money(klaviyoMonth.totalAttributedRevenueCzk)} a ${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)} objednávek.`] : null,
           affiliate.ready ? [`Affiliate výkon`, `Mimo PPC a CRM teď affiliate ukazuje ${money(affiliate.summary?.networkRevenueCzkEquiv || 0)} obratu celé sítě a ${money(affiliate.summary?.noviceRevenueCzkEquiv || 0)} u nováčků.`] : null,
           [`Čtení trendu`, `Denní trend níž ukáže, jestli některý kanál v ${sectionMonthLabel(mode)} rostl v útratě bez růstu hodnoty.`],
         ].filter(Boolean).map(([title, text], index) => `
@@ -797,7 +813,7 @@
           meta.ready ? ['Meta Ads', money(month.metaMonth.spendCzk), `${DP.fmtNumber(Math.round(month.metaMonth.clicks || 0))} kliků, ROAS ${month.metaMonth.roas ?? '–'}`, 'blue'] : null,
           google.ready ? ['Google Ads', money(month.googleMonth.spendCzk), `${DP.fmtNumber(Math.round(month.googleMonth.clicks || 0))} kliků, ROAS ${month.googleMonth.roas ?? '–'}`, 'green'] : null,
           sklik.ready ? ['Sklik', money(month.sklikTotal.priceCzk), `${DP.fmtNumber(Math.round(month.sklikTotal.clicks || 0))} kliků, ${DP.fmtNumber(Math.round(month.sklikTotal.conversions || 0))} konverzí`, 'blue'] : null,
-          klaviyo.ready ? ['Klaviyo', money(klaviyoMonth.totalAttributedRevenueCzk), `${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)} objednávek, CTR ${klaviyoMonth.clickRate == null ? '–' : `${(Number(klaviyoMonth.clickRate) * 100).toFixed(1)} %`}`, 'green'] : null,
+          klaviyo.ready ? ['Ecomail', money(klaviyoMonth.totalAttributedRevenueCzk), `${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)} objednávek, CTR ${klaviyoMonth.clickRate == null ? '–' : `${(Number(klaviyoMonth.clickRate) * 100).toFixed(1)} %`}`, 'green'] : null,
           ['PPC total', money(ppcTotal.amount), `ROAS ${ppcTotal.roas == null ? '–' : Number(ppcTotal.roas).toFixed(2)}`, 'red']
         ].filter(Boolean).map(([label, value, sub, klass]) => `
           <div class="card kpi-card ${klass}">
@@ -829,11 +845,11 @@
             ]
           },
           {
-            title: 'CRM a atribuce',
-            text: 'Odděleně od spendu, aby se nemíchala média a CRM přínos.',
+            title: 'CRM a Ecomail',
+            text: 'Odděleně od spendu, aby se nemíchala média a výkon e-mailingu.',
             body: [
-              ['Klaviyo revenue', money(klaviyoMonth.totalAttributedRevenueCzk || 0)],
-              ['Klaviyo orders', Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)],
+              ['Ecomail revenue', money(klaviyoMonth.totalAttributedRevenueCzk || 0)],
+              ['Ecomail orders', Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)],
               ['Příjemci', DP.fmtNumber(Math.round(klaviyoMonth.totalRecipients || 0))],
               ['CTR', klaviyoMonth.clickRate == null ? '–' : `${(Number(klaviyoMonth.clickRate) * 100).toFixed(1)} %`],
             ]
@@ -916,16 +932,32 @@
             </div>
           `).join('');
 
+          const fmtCR = pct => {
+            if (pct == null) return '–';
+            const cr = Number(pct);
+            if (cr > 100) return `<span title="CR > 100 % = GA4 cross-session atribuční artefakt (nákupy přičítány přes více sessions/zařízení)" style="color:var(--warn, #d97706); cursor:help;">${cr.toFixed(2)} %*</span>`;
+            return `${cr.toFixed(2)} %`;
+          };
+
           document.getElementById('ga4-channel-table').innerHTML = (ga4.channelPerformanceCurrentMonth || []).map(row => `
             <tr>
               <td>${row.channel || '–'}</td>
               <td class="num">${DP.fmtNumber(Math.round(row.sessions || 0))}</td>
               <td class="num">${DP.fmtNumber(Math.round(row.ecommercePurchases || 0))}</td>
               <td class="num">${money(row.purchaseRevenue || 0)}</td>
-              <td class="num">${row.purchaseRatePct == null ? '–' : `${Number(row.purchaseRatePct).toFixed(2)} %`}</td>
+              <td class="num">${fmtCR(row.purchaseRatePct)}</td>
               <td class="num">${row.revenuePerSession == null ? '–' : `${Number(row.revenuePerSession).toFixed(2)} Kč`}</td>
             </tr>
           `).join('') || '<tr><td colspan="6">GA4 kanály zatím nejsou k dispozici.</td></tr>';
+
+          (() => {
+            const hasOverCR = (ga4.channelPerformanceCurrentMonth || []).some(r => Number(r.purchaseRatePct) > 100);
+            const fn = document.getElementById('ga4-channel-footnote');
+            if (fn && hasOverCR) {
+              fn.textContent = '* CR > 100 % = GA4 cross-session atribuční artefakt. Nákupy jsou přičítány přes více sessions a zařízení; u malých kanálů (AI Assistant, Paid Shopping) může počet konverzí převýšit počet sessions.';
+              fn.style.display = '';
+            }
+          })();
 
           document.getElementById('ga4-channel-mobile').innerHTML = (ga4.channelPerformanceCurrentMonth || []).map(row => `
             <div class="mobile-campaign-card">
@@ -934,7 +966,7 @@
                 <div><span>Sessions</span><br>${DP.fmtNumber(Math.round(row.sessions || 0))}</div>
                 <div><span>Nákupy</span><br>${DP.fmtNumber(Math.round(row.ecommercePurchases || 0))}</div>
                 <div><span>Revenue</span><br>${money(row.purchaseRevenue || 0)}</div>
-                <div><span>CR</span><br>${row.purchaseRatePct == null ? '–' : `${Number(row.purchaseRatePct).toFixed(2)} %`}</div>
+                <div><span>CR</span><br>${fmtCR(row.purchaseRatePct)}</div>
               </div>
             </div>
           `).join('') || '<div class="mobile-campaign-card"><strong>Bez GA4 kanálů</strong></div>';
@@ -993,9 +1025,9 @@
           const bestRevenueDay = [...klaviyoDaily].sort((a, b) => Number(b.totalAttributedRevenueCzk || 0) - Number(a.totalAttributedRevenueCzk || 0))[0];
           dailyTrendCards.push(`
             <div class="card kpi-card green">
-              <div class="kpi-label">Klaviyo, nejsilnější den</div>
+              <div class="kpi-label">Ecomail, nejsilnější den</div>
               <div class="kpi-value">${bestRevenueDay ? normalizeDate(bestRevenueDay.date) : '–'}</div>
-              <div class="kpi-sub">${bestRevenueDay ? `${money(bestRevenueDay.totalAttributedRevenueCzk)} atribuovaný obrat, ${Number(bestRevenueDay.totalAttributedOrders || 0).toFixed(2)} objednávek, CTR ${pctFromRate(bestRevenueDay.clickRate)}` : 'Denní data zatím nejsou'}</div>
+              <div class="kpi-sub">${bestRevenueDay ? `${money(bestRevenueDay.totalAttributedRevenueCzk)} konverzní obrat, ${Number(bestRevenueDay.totalAttributedOrders || 0).toFixed(2)} objednávek, CTR ${pctFromRate(bestRevenueDay.clickRate)}` : 'Denní data zatím nejsou'}</div>
               ${sparkline(klaviyoDaily.map(row => Number(row.totalAttributedRevenueCzk || 0)))}
             </div>
           `);
@@ -1163,10 +1195,10 @@
         if (klaviyo.ready) {
           document.getElementById('klaviyo-section').style.display = '';
           document.getElementById('klaviyo-kpis').innerHTML = [
-            ['Spend', '–', 'Klaviyo spend v tomto dashboardu teď nesledujeme', 'gold'],
-            ['Atribuovaný obrat', money(klaviyoMonth.totalAttributedRevenueCzk), `email ${money(klaviyoMonth.emailAttributedRevenueCzk)} • sms ${money(klaviyoMonth.smsAttributedRevenueCzk)}`, 'green'],
-            ['Atribuované objednávky', Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2), `email ${Number(klaviyoMonth.emailAttributedOrders || 0).toFixed(2)} • sms ${Number(klaviyoMonth.smsAttributedOrders || 0).toFixed(2)}`, 'blue'],
-            ['Příjemci', DP.fmtNumber(Math.round(klaviyoMonth.totalRecipients || 0)), `email ${DP.fmtNumber(Math.round(klaviyoMonth.emailRecipients || 0))} • sms ${DP.fmtNumber(Math.round(klaviyoMonth.smsRecipients || 0))}`, 'gold'],
+            ['Spend', '–', 'Spend Ecomailu v tomto dashboardu teď nesledujeme', 'gold'],
+            ['Konverzní obrat', money(klaviyoMonth.totalAttributedRevenueCzk), `email ${money(klaviyoMonth.emailAttributedRevenueCzk)}`, 'green'],
+            ['Konverzní objednávky', Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2), `email ${Number(klaviyoMonth.emailAttributedOrders || 0).toFixed(2)}`, 'blue'],
+            ['Příjemci', DP.fmtNumber(Math.round(klaviyoMonth.totalRecipients || 0)), `email ${DP.fmtNumber(Math.round(klaviyoMonth.emailRecipients || 0))}`, 'gold'],
             ['Kliky / CTR', DP.fmtNumber(Math.round(klaviyoMonth.totalClicks || 0)), `CTR ${pctFromRate(klaviyoMonth.clickRate)}`, 'red'],
           ].map(([label, value, sub, klass]) => `
             <div class="card kpi-card ${klass}">
@@ -1187,7 +1219,7 @@
               <td class="num">${Number(row.attributedOrders || 0).toFixed(2)}</td>
               <td class="num">${money(row.attributedRevenueCzk)}</td>
             </tr>
-          `).join('') : `<tr><td colspan="8">Bez flow atribuce pro ${sectionMonthLabel(mode)}.</td></tr>`;
+          `).join('') : `<tr><td colspan="8">Bez výkonných kampaní pro ${sectionMonthLabel(mode)}.</td></tr>`;
 
           document.getElementById('klaviyo-flow-mobile').innerHTML = klaviyoFlows.length ? klaviyoFlows.map(row => `
             <div class="mobile-campaign-card">
@@ -1201,7 +1233,7 @@
                 <div><span>Obrat</span><br>${money(row.attributedRevenueCzk)}</div>
               </div>
             </div>
-          `).join('') : `<div class="mobile-campaign-card"><strong>Bez flow atribuce</strong></div>`;
+          `).join('') : `<div class="mobile-campaign-card"><strong>Bez kampaní</strong></div>`;
 
           document.getElementById('klaviyo-campaign-list').innerHTML = klaviyoCampaigns.length ? klaviyoCampaigns.map((row, index) => `
             <div class="ux-item">
@@ -1212,7 +1244,7 @@
                 <span>${DP.fmtNumber(Math.round(row.recipients || 0))} příjemců • open ${pctFromRate(row.openRate)} • CTR ${pctFromRate(row.clickRate)} • conv ${pctFromRate(row.conversionRate)} • ${Number(row.attributedOrders || 0).toFixed(2)} obj. • ${money(row.attributedRevenueCzk)}</span>
               </div>
             </div>
-          `).join('') : `<div class="ux-item"><span class="ux-dot gold"></span><div><strong>Bez kampaní</strong><span>V Klaviyo teď není co vykreslit.</span></div></div>`;
+          `).join('') : `<div class="ux-item"><span class="ux-dot gold"></span><div><strong>Bez kampaní</strong><span>V Ecomailu teď není co vykreslit.</span></div></div>`;
         }
       };
 
