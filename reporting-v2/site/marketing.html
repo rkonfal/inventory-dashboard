@@ -14,6 +14,11 @@
     .tone-good { border-color: rgba(29,154,82,.35) !important; }
     .tone-mid { border-color: rgba(201,168,76,.35) !important; }
     .tone-bad { border-color: rgba(209,75,75,.35) !important; }
+    .ux-button.active {
+      background: var(--accent, #e05a2b);
+      color: #fff;
+      border-color: var(--accent, #e05a2b);
+    }
     @media (max-width: 768px) {
       .desktop-only { display: none !important; }
       .mobile-only { display: block; }
@@ -77,9 +82,8 @@
           <h1 class="ux-title">Marketing ve sjednoceném cash a performance standardu</h1>
           <p class="ux-subtitle">Nahoře je spend, efektivita a tlak na výnos. Detail kampaní a CRM až níž.</p>
           <div class="ux-actions">
-            <button class="ux-button secondary" type="button" data-view-toggle="current">Současný stav</button>
-            <button class="ux-button secondary" type="button" data-view-toggle="previous">Minulý měsíc</button>
-            <a class="ux-button primary" href="../data/current/marketing_overview.json" target="_blank" rel="noopener">Marketing data</a>
+            <button class="ux-button secondary" id="toggle-current" type="button" data-view-toggle="current">Současný stav</button>
+            <button class="ux-button secondary" id="toggle-previous" type="button" data-view-toggle="previous">Minulý měsíc</button>
           </div>
         </div>
         <button class="theme-toggle" data-theme-toggle>Tmavý režim</button>
@@ -89,12 +93,12 @@
       <div class="ux-date-note"><strong>Období:</strong> výchozí pohled drží poslední smysluplné období. Když live PPC pro aktuální měsíc ještě vrací nuly nebo preparing stav, stránka otevře minulý měsíc.</div>
     </header>
 
-    <section class="layer-shell" id="marketing-step-1" data-section-nav-label="Krok 1: co znamená spend" data-section-nav-order="1">
+    <section class="layer-shell" id="marketing-step-1" data-section-nav-label="Kde jsme" data-section-nav-order="1">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Krok 1</div>
-          <h2 class="layer-title">Co marketingový spend právě znamená</h2>
-          <p class="layer-subtitle">Hned je vidět, jestli řešíme výši spendu, efektivitu kanálů nebo chybějící zdrojový kontext.</p>
+          <div class="layer-label">Situace</div>
+          <h2 class="layer-title">Kde jsme — spend, výkon a směr</h2>
+          <p class="layer-subtitle">Nejdřív výkon a trend. Jestli čísla sedí, pokračuj dolů na kanály. Jestli ne, hned je vidět kde.</p>
         </div>
         <div class="layer-note">Nejdřív výkon a směr, až potom kampaně.</div>
       </div>
@@ -142,11 +146,11 @@
       </section>
     </section>
 
-    <section class="layer-shell" id="marketing-step-2" data-section-nav-label="Krok 2: pracovní vrstva" data-section-nav-order="3">
+    <section class="layer-shell" id="marketing-step-2" data-section-nav-label="Co s tím" data-section-nav-order="3">
       <div class="layer-head">
         <div>
-          <div class="layer-label">Krok 2</div>
-          <h2 class="layer-title">Pracovní vrstva pro kanály a trend</h2>
+          <div class="layer-label">Akce</div>
+          <h2 class="layer-title">Co s tím — přehled kanálů a trend</h2>
           <p class="layer-subtitle">Nejdřív přehled kanálů, pak teprve denní trend a detail kampaní.</p>
         </div>
       </div>
@@ -230,8 +234,8 @@
       </div>
     </section>
 
-    <details class="secondary-details" id="marketing-secondary" data-section-nav-label="Sekundární vrstva" data-section-nav-order="4">
-      <summary>Sekundární vrstva, trend a CRM detail</summary>
+    <details class="secondary-details" id="marketing-secondary" data-section-nav-label="Denní detail" data-section-nav-order="4">
+      <summary>Denní trend, Ecomail a kampaně</summary>
 
       <section class="layer-shell" style="margin-top:20px;">
         <div class="layer-head">
@@ -271,11 +275,19 @@
             <tbody id="daily-trend-table"></tbody>
           </table>
         </div>
+        <div class="mobile-only mobile-trend-list" id="daily-trend-mobile" style="margin-top:16px;"></div>
         <div class="grid kpi-grid" id="daily-trend-source-kpis" style="margin-top:20px;"></div>
       </section>
 
-    <details class="secondary-details">
-      <summary>Kampaně a CRM detail</summary>
+    <section id="campaign-detail-section" style="margin-top:24px;">
+      <div class="layer-head" style="margin-bottom:16px;">
+        <div>
+          <div class="layer-label">Kampaně</div>
+          <h2 class="layer-title">Kampaně a CRM detail</h2>
+          <p class="layer-subtitle">Aktivní kampaně podle kanálu a CRM přehled.</p>
+        </div>
+        <a class="ux-button secondary" href="../data/current/marketing_overview.json" target="_blank" rel="noopener" style="font-size:12px;">Raw data ↗</a>
+      </div>
 
       <section class="card" id="klaviyo-section" style="display:none; margin-top:18px;">
         <div class="ux-section-head">
@@ -313,7 +325,7 @@
       </section>
 
       <section class="grid" style="gap:20px; margin-top:20px;" id="source-campaign-sections"></section>
-    </details>
+    </section>
     </details>
 
   </main>
@@ -445,7 +457,7 @@
         ['E-shop', 'eshop.html', ga4.ready ? `${ga4Mode}: ${DP.fmtNumber(Math.round(ga4.currentMonth?.sessions || 0))} sessions a ${money(ga4.currentMonth?.purchaseRevenue || 0)} revenue.` : 'Propoj spend s výkonem e-shopu a akvizicí.'],
         ['Affiliate', 'affiliate.html', affiliate.ready ? `Affiliate období ${affiliate.period?.label || '–'} a síťové výnosy ${money(affiliate.summary?.networkRevenueCzkEquiv || 0)}.` : 'Mrkni na nováčky, síť a affiliate obrat.'],
         ['Finance', 'finance.html', 'Zkontroluj, jak marketingový spend sedí proti cashi a výsledku měsíce.'],
-        ['Marketing data', '../data/current/marketing_overview.json', 'Surový marketingový vstup pro hlubší kontrolu.'],
+
       ]);
       const normalizeDate = value => {
         if (!value) return '–';
@@ -506,6 +518,7 @@
         const sklikTotal = sklikMonth.total || {};
         const klaviyoMonth = (mode === 'previous' ? klaviyo.previousMonth : klaviyo.currentMonth) || {};
         const fallbackPpcAmount = Number(metaMonth.spendCzk || 0) + Number(googleMonth.spendCzk || 0) + Number(sklikTotal.priceCzk || 0);
+        const apiTotalSpend = Number(metaMonth.spendCzk || 0) + Number(googleMonth.spendCzk || 0) + Number(sklikTotal.priceCzk || 0);
         const fallbackTotalAmount = Number(raw.totalÚtrata ?? raw.totalSpend ?? 0) || fallbackPpcAmount;
         const fallbackRevenue = Number(raw.revenue || 0);
         return {
@@ -518,7 +531,7 @@
           label: raw.label || [metaMonth.dateTo, googleMonth.dateTo, sklikMonth.dateTo, sklikMonth.dateFrom].find(Boolean) || '–',
           performanceÚtrata: Number((raw.performanceÚtrata ?? raw.performanceSpend ?? fallbackPpcAmount) || 0),
           brandÚtrata: Number((raw.brandÚtrata ?? raw.brandSpend ?? Math.max(fallbackTotalAmount - fallbackPpcAmount, 0)) || 0),
-          totalÚtrata: Number((raw.totalÚtrata ?? raw.totalSpend ?? fallbackTotalAmount) || 0),
+          totalÚtrata: apiTotalSpend > 0 ? apiTotalSpend : Number(raw.totalÚtrata ?? raw.totalSpend ?? 0),
           revenue: fallbackRevenue,
           spendShareOfRevenuePct: raw.spendShareOfRevenuePct ?? (fallbackRevenue ? (fallbackTotalAmount / fallbackRevenue) * 100 : null),
         };
@@ -670,6 +683,9 @@
         }));
 
         toggleButtons.forEach(button => button.classList.toggle('is-active', button.dataset.viewToggle === mode));
+        document.querySelectorAll('[data-view-toggle]').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.viewToggle === mode);
+        });
         document.getElementById('marketing-period-title').textContent = `${modeLabel(mode)} (${month.label || '–'})`;
         document.getElementById('marketing-period-subtitle').textContent = mode === 'previous'
           ? (currentPpcLooksPartial
@@ -774,7 +790,7 @@
           sklik.ready ? ['Sklik spend', money(month.sklikTotal.priceCzk)] : null,
           meta.ready ? ['Meta Ads ROAS', month.metaMonth.roas == null ? '–' : Number(month.metaMonth.roas).toFixed(2)] : null,
           google.ready ? ['Google Ads ROAS', month.googleMonth.roas == null ? '–' : Number(month.googleMonth.roas).toFixed(2)] : null,
-          sklik.ready ? ['Sklik ROAS', month.sklikTotal.roas == null ? '–' : Number(month.sklikTotal.roas).toFixed(2)] : null,
+          sklik.ready ? ['Sklik ROAS', month.sklikTotal.roas == null ? '–' : `${Number(month.sklikTotal.roas).toFixed(2)} (asistované konverze; zahrnuje i prodeje připsané i ostatními kanály)`] : null,
         ].filter(Boolean).map(([label, value]) => `<div class="ux-stat-row"><span>${label}</span><strong>${value}</strong></div>`).join('');
 
         document.getElementById('marketing-klaviyo-current').innerHTML = klaviyo.ready ? `
@@ -812,7 +828,7 @@
           ga4.ready ? ['GA4 revenue', money(ga4.currentMonth?.purchaseRevenue || 0), `${DP.fmtNumber(Math.round(ga4.currentMonth?.ecommercePurchases || 0))} nákupů, CR ${ga4.currentMonth?.purchaseRatePct == null ? '–' : `${Number(ga4.currentMonth.purchaseRatePct).toFixed(2)} %`}`, 'gold'] : null,
           meta.ready ? ['Meta Ads', money(month.metaMonth.spendCzk), `${DP.fmtNumber(Math.round(month.metaMonth.clicks || 0))} kliků, ROAS ${month.metaMonth.roas ?? '–'}`, 'blue'] : null,
           google.ready ? ['Google Ads', money(month.googleMonth.spendCzk), `${DP.fmtNumber(Math.round(month.googleMonth.clicks || 0))} kliků, ROAS ${month.googleMonth.roas ?? '–'}`, 'green'] : null,
-          sklik.ready ? ['Sklik', money(month.sklikTotal.priceCzk), `${DP.fmtNumber(Math.round(month.sklikTotal.clicks || 0))} kliků, ${DP.fmtNumber(Math.round(month.sklikTotal.conversions || 0))} konverzí`, 'blue'] : null,
+          sklik.ready ? ['Sklik', money(month.sklikTotal.priceCzk), `${DP.fmtNumber(Math.round(month.sklikTotal.clicks || 0))} kliků, ${DP.fmtNumber(Math.round(month.sklikTotal.conversions || 0))} konverzí — Sklik počítá asistované konverze; číslo zahrnuje i prodeje připsané i ostatními kanály.`, 'blue'] : null,
           klaviyo.ready ? ['Ecomail', money(klaviyoMonth.totalAttributedRevenueCzk), `${Number(klaviyoMonth.totalAttributedOrders || 0).toFixed(2)} objednávek, CTR ${klaviyoMonth.clickRate == null ? '–' : `${(Number(klaviyoMonth.clickRate) * 100).toFixed(1)} %`}`, 'green'] : null,
           ['PPC total', money(ppcTotal.amount), `ROAS ${ppcTotal.roas == null ? '–' : Number(ppcTotal.roas).toFixed(2)}`, 'red']
         ].filter(Boolean).map(([label, value, sub, klass]) => `
