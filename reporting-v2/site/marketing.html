@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Diamond Plus Reporting V2, Marketing</title>
+  <title>Diamond Plus · Marketing</title>
   <link rel="stylesheet" href="assets/styles.css" />
   <style>
     .mobile-only { display: none; }
@@ -14,11 +14,215 @@
     .tone-good { border-color: rgba(29,154,82,.35) !important; }
     .tone-mid { border-color: rgba(201,168,76,.35) !important; }
     .tone-bad { border-color: rgba(209,75,75,.35) !important; }
-    .ux-button.active {
-      background: var(--accent, #e05a2b);
-      color: #fff;
-      border-color: var(--accent, #e05a2b);
+
+    /* ========================================================
+       Marketing page — UX & visual polish
+       ======================================================== */
+
+    /* Page title — tighter, fits 1–2 lines */
+    .ux-title {
+      font-size: clamp(22px, 2.8vw, 34px);
+      line-height: 1.12;
     }
+
+    /* Toggle buttons — pill-tab style */
+    .ux-actions {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      background: rgba(36,48,67,.06);
+      border-radius: 14px;
+      width: fit-content;
+      margin-top: 22px;
+      align-items: center;
+    }
+    .ux-actions .ux-button.secondary {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: none;
+    }
+    .ux-actions .ux-button.secondary.active,
+    .ux-actions .ux-button.secondary.is-active,
+    .ux-button.active {
+      background: var(--card, rgba(255,255,255,.92));
+      color: var(--text);
+      border: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,.10);
+      border-radius: 10px;
+    }
+    [data-theme="dark"] .ux-actions { background: rgba(255,255,255,.06); }
+    [data-theme="dark"] .ux-actions .ux-button.secondary.active,
+    [data-theme="dark"] .ux-actions .ux-button.secondary.is-active,
+    [data-theme="dark"] .ux-button.active {
+      background: rgba(255,255,255,.14);
+      color: var(--text);
+    }
+
+    /* Hero metrics — colored top accent bar on each card */
+    .ux-hero-metric {
+      position: relative;
+      overflow: hidden;
+    }
+    .ux-hero-metric::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--brand-light, #8fa4ff), var(--accent, #d8b189));
+      border-radius: 22px 22px 0 0;
+      opacity: .55;
+    }
+    .ux-hero-metric.accent::before {
+      background: linear-gradient(90deg, rgba(255,220,200,.60), rgba(255,255,255,.30));
+      opacity: 1;
+      height: 4px;
+    }
+    .ux-hero-metric .sub {
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.16);
+    }
+    .ux-hero-metric:not(.accent) .sub {
+      border-top-color: var(--border);
+    }
+
+    /* Signal cards — colored top stripe per card position */
+    .signal-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .signal-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 20px 20px 0 0;
+    }
+    .signal-card:nth-child(1)::before {
+      background: linear-gradient(90deg, var(--brand), var(--accent));
+    }
+    .signal-card:nth-child(2)::before {
+      background: var(--brand);
+      opacity: .75;
+    }
+    .signal-card:nth-child(3)::before {
+      background: var(--success, #4d9b76);
+      opacity: .8;
+    }
+    .signal-card:nth-child(4)::before {
+      background: var(--text-muted);
+      opacity: .35;
+    }
+    .signal-card .signal-meta {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-faint);
+    }
+
+    /* Layer section heads — left accent bar + colored label */
+    .layer-shell {
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      margin-top: 18px;
+    }
+    .layer-head {
+      border-left: 3px solid var(--brand);
+      padding-left: 16px;
+      margin-bottom: 22px;
+    }
+    .layer-head::before { display: none; }
+    .layer-label {
+      color: var(--brand) !important;
+      font-size: 10px;
+    }
+
+    /* Summary cards — top accent bar */
+    .summary-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .summary-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--brand-light, #8fa4ff);
+      border-radius: 18px 18px 0 0;
+      opacity: .40;
+    }
+    .summary-card h3 {
+      font-size: 16px;
+      font-weight: 750;
+      letter-spacing: -.015em;
+    }
+    .summary-card .ux-stat-list { margin-top: 14px; }
+
+    /* Stat rows — subtle dividers */
+    .ux-stat-list .ux-stat-row {
+      border-bottom: 1px solid var(--border);
+      padding: 9px 0;
+    }
+    .ux-stat-list .ux-stat-row:last-child { border-bottom: none; }
+
+    /* Focus card items — subtle dividers */
+    .ux-focus-card .ux-item,
+    .ux-panel-card .ux-item {
+      padding: 11px 0;
+    }
+
+    /* Sparklines — colored by card type */
+    #source-kpis .kpi-card.blue .sparkline polyline { stroke: var(--brand); }
+    #source-kpis .kpi-card.green .sparkline polyline { stroke: var(--success); }
+    #source-kpis .kpi-card.gold .sparkline polyline { stroke: var(--accent); }
+    #daily-trend-source-kpis .kpi-card.blue .sparkline polyline { stroke: var(--brand); }
+    #daily-trend-source-kpis .kpi-card.green .sparkline polyline { stroke: var(--success); }
+    #daily-trend-source-kpis .kpi-card.gold .sparkline polyline { stroke: var(--accent); }
+
+    /* Source KPI cards — divider between Spend and Atribuce sub-sections */
+    #source-kpis .kpi-sub > div {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    #source-kpis .kpi-sub > div:last-child { border-bottom: none; }
+    #source-kpis .kpi-sub > div > div:first-child {
+      margin-bottom: 3px;
+    }
+
+    /* Section nav — slightly bolder */
+    .section-nav-label {
+      font-size: 10px;
+      letter-spacing: .14em;
+    }
+
+    /* GA4 section — subtle brand accent on top border */
+    #ga4-acquisition-section.card {
+      border-top: 3px solid rgba(95,124,246,.18);
+    }
+
+    /* Layer note — softer */
+    .layer-note {
+      font-size: 12px;
+      padding: 6px 12px;
+      background: rgba(95,124,246,.05);
+      border: 1px solid rgba(95,124,246,.10);
+      border-radius: 99px;
+      color: var(--text-faint);
+      align-self: flex-start;
+      white-space: nowrap;
+    }
+
+    /* Summary grid — tighter spacing */
+    .summary-grid { gap: 14px; }
+
+    /* Signal grid — tighter */
+    .signal-grid { gap: 14px; }
     @media (max-width: 768px) {
       .desktop-only { display: none !important; }
       .mobile-only { display: block; }
@@ -79,7 +283,7 @@
       <div class="ux-topbar">
         <div class="ux-intro">
           <div class="ux-kicker">Marketing • spend a efektivita</div>
-          <h1 class="ux-title">Marketing ve sjednoceném cash a performance standardu</h1>
+          <h1 class="ux-title">Marketing — spend, výkon a efektivita</h1>
           <p class="ux-subtitle">Nahoře je spend, efektivita a tlak na výnos. Detail kampaní a CRM až níž.</p>
           <div class="ux-actions">
             <button class="ux-button secondary" id="toggle-current" type="button" data-view-toggle="current">Současný stav</button>
