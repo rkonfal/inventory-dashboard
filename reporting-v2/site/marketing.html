@@ -206,6 +206,18 @@
       border-top: 3px solid rgba(95,124,246,.18);
     }
 
+    /* Dark mode — fix hero metric non-accent card backgrounds */
+    [data-theme="dark"] .ux-hero-metric:not(.accent) {
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+    [data-theme="dark"] .ux-hero-metric:not(.accent) .value {
+      color: var(--text, #f5f8ff);
+    }
+    [data-theme="dark"] .ux-hero-metric:not(.accent) .sub {
+      border-top-color: rgba(255,255,255,.08);
+    }
+
     /* Layer note — softer */
     .layer-note {
       font-size: 12px;
