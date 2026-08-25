@@ -211,6 +211,19 @@
       height: auto !important;
     }
 
+    /* GA4 two-col grid — sloupce se nesynchronizují výškou (URL zalamování) */
+    #ga4-acquisition-section .grid.two-col {
+      align-items: start;
+    }
+
+    /* GA4 landing page URLs — truncate, zabrání údajům způsobit masívné zalamování */
+    #ga4-landing-table td:first-child {
+      max-width: 260px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     /* Dark mode — fix hero metric non-accent card backgrounds */
     [data-theme="dark"] .ux-hero-metric:not(.accent) {
       background: rgba(255,255,255,.06);
