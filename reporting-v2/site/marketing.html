@@ -206,6 +206,11 @@
       border-top: 3px solid rgba(95,124,246,.18);
     }
 
+    /* GA4 AI layer — řeší height:100% bug z .ux-panel-card uvnitř .card (overflow:hidden) */
+    #ga4-ai-layer {
+      height: auto !important;
+    }
+
     /* Dark mode — fix hero metric non-accent card backgrounds */
     [data-theme="dark"] .ux-hero-metric:not(.accent) {
       background: rgba(255,255,255,.06);
