@@ -1586,15 +1586,22 @@
         link.remove();
         URL.revokeObjectURL(url);
       });
+      function scrollToExplorer() {
+        const target = document.getElementById('inventory-step-2');
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
       prevPageButton.addEventListener('click', () => {
         if (currentPage > 1) {
           currentPage -= 1;
           renderExplorer();
+          scrollToExplorer();
         }
       });
       nextPageButton.addEventListener('click', () => {
         currentPage += 1;
         renderExplorer();
+        scrollToExplorer();
       });
       pageNumbersWrap?.addEventListener('click', event => {
         const button = event.target.closest('[data-page-number]');
@@ -1603,6 +1610,7 @@
         if (!Number.isFinite(nextPage) || nextPage === currentPage) return;
         currentPage = nextPage;
         renderExplorer();
+        scrollToExplorer();
       });
 
       renderExplorer();
