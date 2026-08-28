@@ -6958,7 +6958,8 @@
       "abcRevenueShare": 0.001742,
       "abcUnitsShare": 0.000237,
       "abcCombinedScore": 0.000989,
-      "abcCumulativeShare": 0.972473
+      "abcCumulativeShare": 0.972473,
+      "promoLabel": "SLEVA 20%"
     },
     {
       "code": "90204",
@@ -7209,7 +7210,8 @@
       "abcRevenueShare": 0.01241,
       "abcUnitsShare": 0.003246,
       "abcCombinedScore": 0.007828,
-      "abcCumulativeShare": 0.435928
+      "abcCumulativeShare": 0.435928,
+      "promoLabel": "SLEVA 20%"
     }
   ],
   "reorderWatch": [
@@ -9283,7 +9285,8 @@
       "abcRevenueShare": 0.001742,
       "abcUnitsShare": 0.000237,
       "abcCombinedScore": 0.000989,
-      "abcCumulativeShare": 0.972473
+      "abcCumulativeShare": 0.972473,
+      "promoLabel": "SLEVA 20%"
     },
     {
       "code": "90204",
@@ -9534,7 +9537,8 @@
       "abcRevenueShare": 0.01241,
       "abcUnitsShare": 0.003246,
       "abcCombinedScore": 0.007828,
-      "abcCumulativeShare": 0.435928
+      "abcCumulativeShare": 0.435928,
+      "promoLabel": "SLEVA 20%"
     },
     {
       "code": "20115",
@@ -9910,7 +9914,8 @@
       "abcRevenueShare": 0.006951,
       "abcUnitsShare": 0.01612,
       "abcCombinedScore": 0.011535,
-      "abcCumulativeShare": 0.315114
+      "abcCumulativeShare": 0.315114,
+      "promoLabel": "SLEVA 20%"
     },
     {
       "code": "32604",
@@ -11154,7 +11159,8 @@
       "abcRevenueShare": 0.005318,
       "abcUnitsShare": 0.003502,
       "abcCombinedScore": 0.00441,
-      "abcCumulativeShare": 0.604758
+      "abcCumulativeShare": 0.604758,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "15603",
@@ -11652,7 +11658,8 @@
       "abcRevenueShare": 0.01857,
       "abcUnitsShare": 0.027851,
       "abcCombinedScore": 0.02321,
-      "abcCumulativeShare": 0.172351
+      "abcCumulativeShare": 0.172351,
+      "promoLabel": "SLEVA 15%"
     },
     {
       "code": "191014",
@@ -12022,7 +12029,8 @@
       "abcRevenueShare": 0.007685,
       "abcUnitsShare": 0.003471,
       "abcCombinedScore": 0.005578,
-      "abcCumulativeShare": 0.522203
+      "abcCumulativeShare": 0.522203,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "41314",
@@ -12265,7 +12273,8 @@
       "abcRevenueShare": 0.000317,
       "abcUnitsShare": 7.5e-05,
       "abcCombinedScore": 0.000196,
-      "abcCumulativeShare": 0.999121
+      "abcCumulativeShare": 0.999121,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "60145",
@@ -12757,7 +12766,8 @@
       "abcRevenueShare": 0.009018,
       "abcUnitsShare": 0.005734,
       "abcCombinedScore": 0.007376,
-      "abcCumulativeShare": 0.458821
+      "abcCumulativeShare": 0.458821,
+      "promoLabel": "SLEVA 20%"
     },
     {
       "code": "65916-2",
@@ -13003,7 +13013,8 @@
       "abcRevenueShare": 0.005455,
       "abcUnitsShare": 0.003526,
       "abcCombinedScore": 0.00449,
-      "abcCumulativeShare": 0.600348
+      "abcCumulativeShare": 0.600348,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "80147/01",
@@ -13612,7 +13623,8 @@
       "abcRevenueShare": 0.000384,
       "abcUnitsShare": 0.000147,
       "abcCombinedScore": 0.000265,
-      "abcCumulativeShare": 0.998491
+      "abcCumulativeShare": 0.998491,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "20161-2",
@@ -13859,7 +13871,8 @@
       "abcRevenueShare": 0.000684,
       "abcUnitsShare": 0.000651,
       "abcCombinedScore": 0.000667,
-      "abcCumulativeShare": 0.98995
+      "abcCumulativeShare": 0.98995,
+      "promoLabel": "SLEVA 30%"
     },
     {
       "code": "195926",
@@ -14354,7 +14367,8 @@
       "abcRevenueShare": 0.001962,
       "abcUnitsShare": 0.000909,
       "abcCombinedScore": 0.001436,
-      "abcCumulativeShare": 0.940007
+      "abcCumulativeShare": 0.940007,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "41102",
@@ -14478,7 +14492,8 @@
       "abcRevenueShare": 0.001941,
       "abcUnitsShare": 0.003044,
       "abcCombinedScore": 0.002492,
-      "abcCumulativeShare": 0.821575
+      "abcCumulativeShare": 0.821575,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "30140",
@@ -15095,7 +15110,8 @@
       "abcRevenueShare": 0.00046,
       "abcUnitsShare": 0.000228,
       "abcCombinedScore": 0.000344,
-      "abcCumulativeShare": 0.997309
+      "abcCumulativeShare": 0.997309,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "980199",
@@ -15466,7 +15482,8 @@
       "abcRevenueShare": 0.001285,
       "abcUnitsShare": 0.00341,
       "abcCombinedScore": 0.002347,
-      "abcCumulativeShare": 0.836036
+      "abcCumulativeShare": 0.836036,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "16314",
@@ -15590,7 +15607,8 @@
       "abcRevenueShare": 0.000471,
       "abcUnitsShare": 0.000262,
       "abcCombinedScore": 0.000367,
-      "abcCumulativeShare": 0.995897
+      "abcCumulativeShare": 0.995897,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "980188",
@@ -16206,7 +16224,8 @@
       "abcRevenueShare": 0.002528,
       "abcUnitsShare": 0.001302,
       "abcCombinedScore": 0.001915,
-      "abcCumulativeShare": 0.888055
+      "abcCumulativeShare": 0.888055,
+      "promoLabel": "SLEVA 15%"
     },
     {
       "code": "147801",
@@ -16329,7 +16348,8 @@
       "abcRevenueShare": 0.00394,
       "abcUnitsShare": 0.001587,
       "abcCombinedScore": 0.002763,
-      "abcCumulativeShare": 0.78011
+      "abcCumulativeShare": 0.78011,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "15601",
@@ -16575,7 +16595,8 @@
       "abcRevenueShare": 0.000361,
       "abcUnitsShare": 0.001295,
       "abcCombinedScore": 0.000828,
-      "abcCumulativeShare": 0.984093
+      "abcCumulativeShare": 0.984093,
+      "promoLabel": "SLEVA 15%"
     },
     {
       "code": "10306",
@@ -17066,7 +17087,8 @@
       "abcRevenueShare": 0.000317,
       "abcUnitsShare": 0.001456,
       "abcCombinedScore": 0.000887,
-      "abcCumulativeShare": 0.979858
+      "abcCumulativeShare": 0.979858,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "90141",
@@ -17312,7 +17334,8 @@
       "abcRevenueShare": 0.000672,
       "abcUnitsShare": 0.001007,
       "abcCombinedScore": 0.000839,
-      "abcCumulativeShare": 0.983265
+      "abcCumulativeShare": 0.983265,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "57010",
@@ -18301,7 +18324,8 @@
       "abcRevenueShare": 0.005749,
       "abcUnitsShare": 0.004121,
       "abcCombinedScore": 0.004935,
-      "abcCumulativeShare": 0.553582
+      "abcCumulativeShare": 0.553582,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "195431",
@@ -18424,7 +18448,8 @@
       "abcRevenueShare": 0.000625,
       "abcUnitsShare": 0.002053,
       "abcCombinedScore": 0.001339,
-      "abcCumulativeShare": 0.946801
+      "abcCumulativeShare": 0.946801,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "30203",
@@ -19528,7 +19553,8 @@
       "abcRevenueShare": 0.000509,
       "abcUnitsShare": 0.001824,
       "abcCombinedScore": 0.001167,
-      "abcCumulativeShare": 0.962779
+      "abcCumulativeShare": 0.962779,
+      "promoLabel": "SLEVA 20%"
     },
     {
       "code": "90151",
@@ -20497,7 +20523,8 @@
       "abcRevenueShare": 0.000317,
       "abcUnitsShare": 7.5e-05,
       "abcCombinedScore": 0.000196,
-      "abcCumulativeShare": 0.999121
+      "abcCumulativeShare": 0.999121,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "34401-1",
@@ -21455,7 +21482,8 @@
       "abcRevenueShare": 0.000684,
       "abcUnitsShare": 0.000651,
       "abcCombinedScore": 0.000667,
-      "abcCumulativeShare": 0.98995
+      "abcCumulativeShare": 0.98995,
+      "promoLabel": "SLEVA 30%"
     },
     {
       "code": "195448",
@@ -22072,7 +22100,8 @@
       "abcRevenueShare": 0.002088,
       "abcUnitsShare": 0.000992,
       "abcCombinedScore": 0.00154,
-      "abcCumulativeShare": 0.932628
+      "abcCumulativeShare": 0.932628,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "980199",
@@ -22567,7 +22596,8 @@
       "abcRevenueShare": 0.000471,
       "abcUnitsShare": 0.000262,
       "abcCombinedScore": 0.000367,
-      "abcCumulativeShare": 0.995897
+      "abcCumulativeShare": 0.995897,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "11317-01",
@@ -23537,7 +23567,8 @@
       "abcRevenueShare": 0.000384,
       "abcUnitsShare": 0.000147,
       "abcCombinedScore": 0.000265,
-      "abcCumulativeShare": 0.998491
+      "abcCumulativeShare": 0.998491,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "52902",
@@ -23785,7 +23816,8 @@
       "abcRevenueShare": 0.00046,
       "abcUnitsShare": 0.000228,
       "abcCombinedScore": 0.000344,
-      "abcCumulativeShare": 0.997309
+      "abcCumulativeShare": 0.997309,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "12106",
@@ -24273,7 +24305,8 @@
       "abcRevenueShare": 0.001285,
       "abcUnitsShare": 0.00341,
       "abcCombinedScore": 0.002347,
-      "abcCumulativeShare": 0.836036
+      "abcCumulativeShare": 0.836036,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "135456",
@@ -24519,7 +24552,8 @@
       "abcRevenueShare": 0.000509,
       "abcUnitsShare": 0.001824,
       "abcCombinedScore": 0.001167,
-      "abcCumulativeShare": 0.962779
+      "abcCumulativeShare": 0.962779,
+      "promoLabel": "SLEVA 20%"
     },
     {
       "code": "14602",
@@ -25388,7 +25422,8 @@
       "abcRevenueShare": 0.006951,
       "abcUnitsShare": 0.01612,
       "abcCombinedScore": 0.011535,
-      "abcCumulativeShare": 0.315114
+      "abcCumulativeShare": 0.315114,
+      "promoLabel": "SLEVA 20%"
     },
     {
       "code": "50101",
@@ -26246,7 +26281,8 @@
       "abcRevenueShare": 0.002528,
       "abcUnitsShare": 0.001302,
       "abcCombinedScore": 0.001915,
-      "abcCumulativeShare": 0.888055
+      "abcCumulativeShare": 0.888055,
+      "promoLabel": "SLEVA 15%"
     },
     {
       "code": "40105",
@@ -26741,7 +26777,8 @@
       "abcRevenueShare": 0.001941,
       "abcUnitsShare": 0.003044,
       "abcCombinedScore": 0.002492,
-      "abcCumulativeShare": 0.821575
+      "abcCumulativeShare": 0.821575,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "30132/02",
@@ -26990,7 +27027,8 @@
       "abcRevenueShare": 0.003885,
       "abcUnitsShare": 0.000483,
       "abcCombinedScore": 0.002184,
-      "abcCumulativeShare": 0.847267
+      "abcCumulativeShare": 0.847267,
+      "promoLabel": "SLEVA 20%"
     },
     {
       "code": "65914-2",
@@ -27859,7 +27897,8 @@
       "abcRevenueShare": 0.005318,
       "abcUnitsShare": 0.003502,
       "abcCombinedScore": 0.00441,
-      "abcCumulativeShare": 0.604758
+      "abcCumulativeShare": 0.604758,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "15105",
@@ -28105,7 +28144,8 @@
       "abcRevenueShare": 0.000361,
       "abcUnitsShare": 0.001295,
       "abcCombinedScore": 0.000828,
-      "abcCumulativeShare": 0.984093
+      "abcCumulativeShare": 0.984093,
+      "promoLabel": "SLEVA 15%"
     },
     {
       "code": "50104",
@@ -28596,7 +28636,8 @@
       "abcRevenueShare": 0.004008,
       "abcUnitsShare": 0.002691,
       "abcCombinedScore": 0.00335,
-      "abcCumulativeShare": 0.713199
+      "abcCumulativeShare": 0.713199,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "14602/1",
@@ -29085,7 +29126,8 @@
       "abcRevenueShare": 0.007685,
       "abcUnitsShare": 0.003471,
       "abcCombinedScore": 0.005578,
-      "abcCumulativeShare": 0.522203
+      "abcCumulativeShare": 0.522203,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "34413-2",
@@ -29208,7 +29250,8 @@
       "abcRevenueShare": 0.009018,
       "abcUnitsShare": 0.005734,
       "abcCombinedScore": 0.007376,
-      "abcCumulativeShare": 0.458821
+      "abcCumulativeShare": 0.458821,
+      "promoLabel": "SLEVA 20%"
     },
     {
       "code": "980155",
@@ -30570,7 +30613,8 @@
       "abcRevenueShare": 0.000317,
       "abcUnitsShare": 0.001456,
       "abcCombinedScore": 0.000887,
-      "abcCumulativeShare": 0.979858
+      "abcCumulativeShare": 0.979858,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "56007",
@@ -30693,7 +30737,8 @@
       "abcRevenueShare": 0.005359,
       "abcUnitsShare": 0.012972,
       "abcCombinedScore": 0.009166,
-      "abcCumulativeShare": 0.394845
+      "abcCumulativeShare": 0.394845,
+      "promoLabel": "akční balíček"
     },
     {
       "code": "12114",
