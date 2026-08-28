@@ -1,0 +1,5 @@
+{
+  "_note": "Ruční metadata pro AKCE panel. Struktura akcí zatím zůstává v ordering_actions.json, ale refresh_data z něj při každém běhu dopočítá živé sklady a prodeje.",
+  "defaultStartDate": "2026-09-01",
+  "actions": {}
+}
