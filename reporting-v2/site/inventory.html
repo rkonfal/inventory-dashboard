@@ -431,6 +431,10 @@
     function inventoryBadges(row, metric, expiryRisk, view) {
       const badges = [];
       const flags = new Set(list(row.flags));
+      if (metric?.promoLabel) {
+        const isSleva = metric.promoLabel.startsWith('SLEVA');
+        badges.push(`<span class="pill ${isSleva ? 'danger' : 'warning'}" title="Promo září/říjen 2026">${metric.promoLabel}</span>`);
+      }
       if (expiryRisk?.hasRisk && hasExpiryRiskInView(row, view)) badges.push('<span class="pill danger">expirace do 3 měsíců</span>');
       if (row.expiryRisk6m?.hasRisk && hasExpiryRiskInView6m(row, view) && !hasExpiryRiskInView(row, view)) badges.push('<span class="pill warning">expirace do 6 měsíců</span>');
       if (flags.has('stock_mismatch')) badges.push('<span class="pill danger">nesoulad stavů</span>');
