@@ -909,6 +909,165 @@
       "sourceChannel": "praha",
       "strategicPriority": "supplement",
       "excludeFromOrderingReason": "kniha nebo příručka, ne standardní produkt pro doskladnění"
+    },
+    "16313": {
+      "promoLabel": "akční balíček"
+    },
+    "16314": {
+      "promoLabel": "akční balíček"
+    },
+    "16312": {
+      "promoLabel": "akční balíček"
+    },
+    "16304": {
+      "promoLabel": "akční balíček"
+    },
+    "56311": {
+      "promoLabel": "akční balíček"
+    },
+    "16309": {
+      "promoLabel": "akční balíček"
+    },
+    "16310": {
+      "promoLabel": "akční balíček"
+    },
+    "56007": {
+      "promoLabel": "akční balíček"
+    },
+    "86004": {
+      "promoLabel": "akční balíček"
+    },
+    "16001": {
+      "promoLabel": "akční balíček"
+    },
+    "36006": {
+      "promoLabel": "akční balíček"
+    },
+    "16002": {
+      "promoLabel": "akční balíček"
+    },
+    "56005": {
+      "promoLabel": "akční balíček"
+    },
+    "50224": {
+      "promoLabel": "akční balíček"
+    },
+    "50120": {
+      "promoLabel": "akční balíček"
+    },
+    "25106": {
+      "promoLabel": "akční balíček"
+    },
+    "41101": {
+      "promoLabel": "akční balíček"
+    },
+    "41102": {
+      "promoLabel": "akční balíček"
+    },
+    "23401": {
+      "promoLabel": "akční balíček"
+    },
+    "23402": {
+      "promoLabel": "akční balíček"
+    },
+    "23403": {
+      "promoLabel": "akční balíček"
+    },
+    "80904/02": {
+      "promoLabel": "akční balíček"
+    },
+    "80904/01": {
+      "promoLabel": "akční balíček"
+    },
+    "80904/03": {
+      "promoLabel": "akční balíček"
+    },
+    "67109": {
+      "promoLabel": "akční balíček"
+    },
+    "67108": {
+      "promoLabel": "akční balíček"
+    },
+    "60149-2": {
+      "promoLabel": "akční balíček"
+    },
+    "195431": {
+      "promoLabel": "akční balíček"
+    },
+    "195432": {
+      "promoLabel": "akční balíček"
+    },
+    "191008": {
+      "promoLabel": "akční balíček"
+    },
+    "135460": {
+      "promoLabel": "akční balíček"
+    },
+    "198812": {
+      "promoLabel": "akční balíček"
+    },
+    "135415": {
+      "promoLabel": "akční balíček"
+    },
+    "140110": {
+      "promoLabel": "akční balíček"
+    },
+    "147801": {
+      "promoLabel": "akční balíček"
+    },
+    "30115-2": {
+      "promoLabel": "SLEVA 30%"
+    },
+    "30117": {
+      "promoLabel": "SLEVA 15%"
+    },
+    "30118": {
+      "promoLabel": "SLEVA 15%"
+    },
+    "30106": {
+      "promoLabel": "SLEVA 20%"
+    },
+    "30138-2": {
+      "promoLabel": "SLEVA 25%"
+    },
+    "44402-2": {
+      "promoLabel": "SLEVA 20%"
+    },
+    "34413-2": {
+      "promoLabel": "SLEVA 20%"
+    },
+    "34401-2": {
+      "promoLabel": "SLEVA 20%"
+    },
+    "41328": {
+      "promoLabel": "SLEVA 20%"
+    },
+    "195429": {
+      "promoLabel": "SLEVA 20%"
+    },
+    "195458": {
+      "promoLabel": "SLEVA 15%"
+    },
+    "195469": {
+      "promoLabel": "SLEVA 20%"
+    },
+    "120105": {
+      "promoLabel": "SLEVA 30%"
+    },
+    "30129": {
+      "promoLabel": "SLEVA 20%"
+    },
+    "30126": {
+      "promoLabel": "SLEVA 20%"
+    },
+    "113012": {
+      "promoLabel": "SLEVA 15%"
+    },
+    "113013": {
+      "promoLabel": "SLEVA 15%"
+    },
+    "113007": {
+      "promoLabel": "SLEVA 30%"
     }
   },
   "prefixes": [

@@ -3770,6 +3770,7 @@ def build_inventory_analytics_window(ctx: InventoryAnalyticsBuildContext):
             'stockValueSelling': selling_value,
             'stockValueAbraAvg': round(effective_stock * unit_cost_abra, 2) if unit_cost_abra else None,
             'tags': tags,
+            'promoLabel': reference_meta.get('promoLabel') or None,
             'byView': by_view,
             'itemType': reference_meta.get('itemType'),
             'orderable': bool(reference_meta.get('orderable')),
