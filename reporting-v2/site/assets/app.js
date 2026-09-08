@@ -10,7 +10,6 @@
     ['marketing.html', 'Marketing'],
     ['ads.html', 'Reklamní výkon'],
     ['affiliate.html', 'Affiliate'],
-    ['twisto.html', 'Twisto'],
     ['ordering.html', 'Objednávání'],
   ];
 
