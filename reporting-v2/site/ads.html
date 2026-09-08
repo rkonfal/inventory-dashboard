@@ -741,12 +741,12 @@
     document.getElementById('ecomail-subtitle').textContent =
       `${ecoSum.dateFrom || ''}–${ecoSum.dateTo || ''} · ${ecoSum.campaignCount || 0} kampaní · Příjemci: ${DP.fmtNumber(ecoSum.totalRecipients || 0)} · Kliknutí: ${DP.fmtNumber(ecoSum.totalClicks || 0)}`;
 
-    DP.renderKpiGrid('ecomail-kpis', [
-      { label: 'Obrat (Ecomail)',    value: money(ecoSum.totalAttributedRevenueCzk || 0), sub: `min. měsíc: ${money(ecoPrevSum.totalAttributedRevenueCzk || 0)}` },
-      { label: 'Objednávky',         value: DP.fmtNumber(ecoSum.totalAttributedOrders || 0), sub: `min. měsíc: ${DP.fmtNumber(ecoPrevSum.totalAttributedOrders || 0)}` },
-      { label: 'Příjemci',           value: DP.fmtNumber(ecoSum.totalRecipients || 0), sub: `min. měsíc: ${DP.fmtNumber(ecoPrevSum.totalRecipients || 0)}` },
-      { label: 'Click rate',         value: pct(ecoSum.clickRate), sub: `min. měsíc: ${pct(ecoPrevSum.clickRate)}` },
-    ]);
+    document.getElementById('ecomail-kpis').innerHTML = [
+      { label: 'Obrat (Ecomail)',  value: money(ecoSum.totalAttributedRevenueCzk || 0), sub: `min. měsíc: ${money(ecoPrevSum.totalAttributedRevenueCzk || 0)}`, cls: 'gold' },
+      { label: 'Objednávky',       value: DP.fmtNumber(ecoSum.totalAttributedOrders || 0), sub: `min. měsíc: ${DP.fmtNumber(ecoPrevSum.totalAttributedOrders || 0)}`, cls: 'green' },
+      { label: 'Příjemci',          value: DP.fmtNumber(ecoSum.totalRecipients || 0), sub: `min. měsíc: ${DP.fmtNumber(ecoPrevSum.totalRecipients || 0)}`, cls: 'blue' },
+      { label: 'Click rate',        value: pct(ecoSum.clickRate), sub: `min. měsíc: ${pct(ecoPrevSum.clickRate)}`, cls: 'blue' },
+    ].map(k => `<div class="card kpi-card ${k.cls}"><div class="kpi-label">${k.label}</div><div class="kpi-value">${k.value}</div><div class="kpi-sub">${k.sub}</div></div>`).join('');
 
     const ecoCamps = ecomail.recentCampaigns || [];
     document.getElementById('ecomail-campaign-list').innerHTML = ecoCamps.length
