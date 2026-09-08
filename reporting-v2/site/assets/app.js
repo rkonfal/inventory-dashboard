@@ -5,13 +5,13 @@
     ['eshop.html', 'E-shop'],
     ['order-bump.html', 'Order bump'],
     ['logistics.html', 'Logistika'],
-    ['packaging.html', 'Obalový materiál'],
+    ['store-expiry.html', 'Prodejny expirace'],
     ['expiry.html', 'Expirace a akce'],
     ['marketing.html', 'Marketing'],
+    ['ads.html', 'Reklamní výkon'],
     ['affiliate.html', 'Affiliate'],
     ['twisto.html', 'Twisto'],
     ['ordering.html', 'Objednávání'],
-    ['meetings.html', 'Porady']
   ];
 
   function fmtNumber(value) {
