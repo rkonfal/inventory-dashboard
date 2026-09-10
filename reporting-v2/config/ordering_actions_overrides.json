@@ -1,5 +1,33 @@
 {
   "_note": "Ruční metadata pro AKCE panel. Struktura akcí zatím zůstává v ordering_actions.json, ale refresh_data z něj při každém běhu dopočítá živé sklady a prodeje.",
   "defaultStartDate": "2026-09-01",
-  "actions": {}
+  "actions": {
+    "R1": {
+      "startDate": "2026-10-01"
+    },
+    "R2": {
+      "startDate": "2026-10-01"
+    },
+    "R3": {
+      "startDate": "2026-10-01"
+    },
+    "R4": {
+      "startDate": "2026-10-01"
+    },
+    "R5": {
+      "startDate": "2026-10-01"
+    },
+    "R6": {
+      "startDate": "2026-10-01"
+    },
+    "R7": {
+      "startDate": "2026-10-01"
+    },
+    "R8": {
+      "startDate": "2026-10-01"
+    },
+    "R9": {
+      "startDate": "2026-10-01"
+    }
+  }
 }

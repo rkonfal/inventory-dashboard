@@ -1016,7 +1016,7 @@
       "promoLabel": "akční balíček"
     },
     "30115-2": {
-      "promoLabel": "SLEVA 30%"
+      "promoLabel": "SLEVA ŘÍJEN"
     },
     "30117": {
       "promoLabel": "SLEVA 15%"
@@ -1028,7 +1028,7 @@
       "promoLabel": "SLEVA 20%"
     },
     "30138-2": {
-      "promoLabel": "SLEVA 25%"
+      "promoLabel": "SLEVA ŘÍJEN"
     },
     "44402-2": {
       "promoLabel": "SLEVA 20%"
@@ -1040,7 +1040,7 @@
       "promoLabel": "SLEVA 20%"
     },
     "41328": {
-      "promoLabel": "SLEVA 20%"
+      "promoLabel": "SLEVA ŘÍJEN"
     },
     "195429": {
       "promoLabel": "SLEVA 20%"
@@ -1049,10 +1049,10 @@
       "promoLabel": "SLEVA 15%"
     },
     "195469": {
-      "promoLabel": "SLEVA 20%"
+      "promoLabel": "SLEVA ŘÍJEN"
     },
     "120105": {
-      "promoLabel": "SLEVA 30%"
+      "promoLabel": "SLEVA ŘÍJEN"
     },
     "30129": {
       "promoLabel": "SLEVA 20%"
@@ -1061,13 +1061,43 @@
       "promoLabel": "SLEVA 20%"
     },
     "113012": {
-      "promoLabel": "SLEVA 15%"
+      "promoLabel": "SLEVA ŘÍJEN"
     },
     "113013": {
-      "promoLabel": "SLEVA 15%"
+      "promoLabel": "SLEVA ŘÍJEN"
     },
     "113007": {
       "promoLabel": "SLEVA 30%"
+    },
+    "30140": {
+      "promoLabel": "SLEVA ŘÍJEN"
+    },
+    "65914-2": {
+      "promoLabel": "SLEVA ŘÍJEN"
+    },
+    "191006": {
+      "promoLabel": "SLEVA ŘÍJEN"
+    },
+    "195926": {
+      "promoLabel": "SLEVA ŘÍJEN"
+    },
+    "65916-2": {
+      "promoLabel": "SLEVA ŘÍJEN"
+    },
+    "135449": {
+      "promoLabel": "SLEVA ŘÍJEN"
+    },
+    "135456": {
+      "promoLabel": "SLEVA ŘÍJEN"
+    },
+    "191005": {
+      "promoLabel": "SLEVA ŘÍJEN"
+    },
+    "191014": {
+      "promoLabel": "SLEVA ŘÍJEN"
+    },
+    "60150": {
+      "promoLabel": "SLEVA ŘÍJEN"
     }
   },
   "prefixes": [
