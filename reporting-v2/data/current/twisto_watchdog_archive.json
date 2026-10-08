@@ -1,0 +1,1934 @@
+{
+  "batches": {
+    "b5024a2c-454a-475a-b88d-961fce59976d": {
+      "id": "b5024a2c-454a-475a-b88d-961fce59976d",
+      "state": "paid",
+      "settlementDate": "2026-03-29",
+      "amount": 6333.0,
+      "orderAmount": 6333.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "26c17efc-277b-40b7-971c-3eff4c22b4d9": {
+      "id": "26c17efc-277b-40b7-971c-3eff4c22b4d9",
+      "state": "paid",
+      "settlementDate": "2026-03-30",
+      "amount": 3038.0,
+      "orderAmount": 3038.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "a30c922a-1c67-4d28-93d8-e304c130ec90": {
+      "id": "a30c922a-1c67-4d28-93d8-e304c130ec90",
+      "state": "paid",
+      "settlementDate": "2026-03-31",
+      "amount": 4326.0,
+      "orderAmount": 4326.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "4a939022-eb81-42aa-8268-07992b4c26d1": {
+      "id": "4a939022-eb81-42aa-8268-07992b4c26d1",
+      "state": "paid",
+      "settlementDate": "2026-04-01",
+      "amount": 3528.0,
+      "orderAmount": 3528.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "57a79032-11d5-4877-89df-e3425bcb0cba": {
+      "id": "57a79032-11d5-4877-89df-e3425bcb0cba",
+      "state": "paid",
+      "settlementDate": "2026-04-01",
+      "amount": 3008.0,
+      "orderAmount": 3008.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "8cbce703-156e-4ee4-9ddb-a4c1fe9304e3": {
+      "id": "8cbce703-156e-4ee4-9ddb-a4c1fe9304e3",
+      "state": "paid",
+      "settlementDate": "2026-04-07",
+      "amount": 3439.0,
+      "orderAmount": 3439.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "6407dbd7-4be3-4fde-9aa8-7aa94acec9be": {
+      "id": "6407dbd7-4be3-4fde-9aa8-7aa94acec9be",
+      "state": "paid",
+      "settlementDate": "2026-04-09",
+      "amount": 4185.0,
+      "orderAmount": 4185.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "ec29e62d-3e35-4f47-ab6b-223a99b61864": {
+      "id": "ec29e62d-3e35-4f47-ab6b-223a99b61864",
+      "state": "paid",
+      "settlementDate": "2026-04-09",
+      "amount": 3270.0,
+      "orderAmount": 3270.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "8079e28c-467f-4360-92b7-4c9599a133b7": {
+      "id": "8079e28c-467f-4360-92b7-4c9599a133b7",
+      "state": "paid",
+      "settlementDate": "2026-04-12",
+      "amount": 5093.0,
+      "orderAmount": 5093.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "fda767be-b2a6-4e63-9293-519b50a665dd": {
+      "id": "fda767be-b2a6-4e63-9293-519b50a665dd",
+      "state": "paid",
+      "settlementDate": "2026-04-13",
+      "amount": 9902.0,
+      "orderAmount": 9902.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "cec95154-fb1b-49f2-8bc8-c53415b6f41c": {
+      "id": "cec95154-fb1b-49f2-8bc8-c53415b6f41c",
+      "state": "paid",
+      "settlementDate": "2026-04-14",
+      "amount": 6207.0,
+      "orderAmount": 6207.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "d2b1365a-1b98-4412-8b69-80a67921d649": {
+      "id": "d2b1365a-1b98-4412-8b69-80a67921d649",
+      "state": "paid",
+      "settlementDate": "2026-04-14",
+      "amount": 5114.0,
+      "orderAmount": 5114.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "a3af2605-afff-47af-967e-67c5a952a701": {
+      "id": "a3af2605-afff-47af-967e-67c5a952a701",
+      "state": "paid",
+      "settlementDate": "2026-04-15",
+      "amount": 3234.0,
+      "orderAmount": 3234.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "6ff5ec01-9b78-4148-b1e3-cfd096a36f41": {
+      "id": "6ff5ec01-9b78-4148-b1e3-cfd096a36f41",
+      "state": "paid",
+      "settlementDate": "2026-04-19",
+      "amount": 3005.0,
+      "orderAmount": 3005.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "8db37499-22b2-433a-a9c4-76e181e1116f": {
+      "id": "8db37499-22b2-433a-a9c4-76e181e1116f",
+      "state": "paid",
+      "settlementDate": "2026-04-19",
+      "amount": 5927.0,
+      "orderAmount": 5927.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "eecc8a2d-e5f2-4da6-a846-edd1e44547b5": {
+      "id": "eecc8a2d-e5f2-4da6-a846-edd1e44547b5",
+      "state": "paid",
+      "settlementDate": "2026-04-21",
+      "amount": 4322.0,
+      "orderAmount": 4322.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "528d3b56-8c02-4b8d-be31-150f5f6020e1": {
+      "id": "528d3b56-8c02-4b8d-be31-150f5f6020e1",
+      "state": "paid",
+      "settlementDate": "2026-04-23",
+      "amount": 3207.0,
+      "orderAmount": 3207.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "36b86e95-fc40-4d55-871b-1968c76b68ba": {
+      "id": "36b86e95-fc40-4d55-871b-1968c76b68ba",
+      "state": "paid",
+      "settlementDate": "2026-04-26",
+      "amount": 6573.0,
+      "orderAmount": 6573.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "9246d29c-054d-4ef4-877c-a506da116190": {
+      "id": "9246d29c-054d-4ef4-877c-a506da116190",
+      "state": "paid",
+      "settlementDate": "2026-05-04",
+      "amount": 7277.0,
+      "orderAmount": 7277.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "82b8d550-a573-47bf-9a92-39a67e7f3f2f": {
+      "id": "82b8d550-a573-47bf-9a92-39a67e7f3f2f",
+      "state": "paid",
+      "settlementDate": "2026-05-05",
+      "amount": 3480.0,
+      "orderAmount": 3480.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "8ce6a971-635e-48a3-835a-a14d0b3779d7": {
+      "id": "8ce6a971-635e-48a3-835a-a14d0b3779d7",
+      "state": "paid",
+      "settlementDate": "2026-05-10",
+      "amount": 3265.0,
+      "orderAmount": 3265.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "9c39b7f4-b650-4318-82ed-83e0ed1fc426": {
+      "id": "9c39b7f4-b650-4318-82ed-83e0ed1fc426",
+      "state": "paid",
+      "settlementDate": "2026-05-10",
+      "amount": 5035.0,
+      "orderAmount": 5035.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "fbf72b5a-646f-4dcb-adfd-5cf1f9eb05b8": {
+      "id": "fbf72b5a-646f-4dcb-adfd-5cf1f9eb05b8",
+      "state": "paid",
+      "settlementDate": "2026-05-11",
+      "amount": 653.0,
+      "orderAmount": 3697.0,
+      "refundAmount": 3044.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "25bf3e81-d5d4-400d-936a-19387c78f610": {
+      "id": "25bf3e81-d5d4-400d-936a-19387c78f610",
+      "state": "paid",
+      "settlementDate": "2026-05-12",
+      "amount": 3896.0,
+      "orderAmount": 3896.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "3094735f-00c6-409f-864d-33668ce1d0f7": {
+      "id": "3094735f-00c6-409f-864d-33668ce1d0f7",
+      "state": "paid",
+      "settlementDate": "2026-05-13",
+      "amount": 3537.0,
+      "orderAmount": 3537.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "ce991b14-35cb-41fa-801b-50105c9f12fa": {
+      "id": "ce991b14-35cb-41fa-801b-50105c9f12fa",
+      "state": "paid",
+      "settlementDate": "2026-05-14",
+      "amount": 3270.0,
+      "orderAmount": 3270.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "18282562-d883-433e-9902-f83fc38e8ce4": {
+      "id": "18282562-d883-433e-9902-f83fc38e8ce4",
+      "state": "paid",
+      "settlementDate": "2026-05-19",
+      "amount": 6267.0,
+      "orderAmount": 6267.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "6e4070ae-98de-4b71-a7ff-fe9e9d867060": {
+      "id": "6e4070ae-98de-4b71-a7ff-fe9e9d867060",
+      "state": "paid",
+      "settlementDate": "2026-05-19",
+      "amount": 3008.0,
+      "orderAmount": 3008.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "4653353a-a32a-468f-8def-2752208a1e22": {
+      "id": "4653353a-a32a-468f-8def-2752208a1e22",
+      "state": "paid",
+      "settlementDate": "2026-05-24",
+      "amount": 3001.0,
+      "orderAmount": 3001.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "b890a955-020d-407f-b6ae-b9d26cdc458e": {
+      "id": "b890a955-020d-407f-b6ae-b9d26cdc458e",
+      "state": "paid",
+      "settlementDate": "2026-05-24",
+      "amount": 3468.0,
+      "orderAmount": 3468.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "64e0988c-323c-402f-8ed9-10c88d3dc38b": {
+      "id": "64e0988c-323c-402f-8ed9-10c88d3dc38b",
+      "state": "paid",
+      "settlementDate": "2026-05-27",
+      "amount": 3406.0,
+      "orderAmount": 3406.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "354808f2-497e-4f49-8e93-6de1124bab2b": {
+      "id": "354808f2-497e-4f49-8e93-6de1124bab2b",
+      "state": "paid",
+      "settlementDate": "2026-06-02",
+      "amount": 3803.0,
+      "orderAmount": 3803.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "b7561aa8-aacf-490b-87e5-2c815a5aae9a": {
+      "id": "b7561aa8-aacf-490b-87e5-2c815a5aae9a",
+      "state": "paid",
+      "settlementDate": "2026-06-02",
+      "amount": 3017.0,
+      "orderAmount": 3017.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "38d8e859-b641-49d0-b2f4-7e3348eeeaf3": {
+      "id": "38d8e859-b641-49d0-b2f4-7e3348eeeaf3",
+      "state": "paid",
+      "settlementDate": "2026-06-03",
+      "amount": 4234.0,
+      "orderAmount": 4234.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "067ec575-5be5-4906-be03-41137412c9d8": {
+      "id": "067ec575-5be5-4906-be03-41137412c9d8",
+      "state": "paid",
+      "settlementDate": "2026-06-08",
+      "amount": 6936.0,
+      "orderAmount": 6936.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "c77f10a1-98c9-49b2-90a1-824cc4f8a29a": {
+      "id": "c77f10a1-98c9-49b2-90a1-824cc4f8a29a",
+      "state": "paid",
+      "settlementDate": "2026-06-11",
+      "amount": 4377.0,
+      "orderAmount": 4377.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "e0465b35-39fb-478e-a43d-eff996328abe": {
+      "id": "e0465b35-39fb-478e-a43d-eff996328abe",
+      "state": "paid",
+      "settlementDate": "2026-06-14",
+      "amount": 3310.0,
+      "orderAmount": 3310.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "e3753e0e-076c-4d67-b21b-2f5d5ff703f6": {
+      "id": "e3753e0e-076c-4d67-b21b-2f5d5ff703f6",
+      "state": "paid",
+      "settlementDate": "2026-06-14",
+      "amount": 6134.0,
+      "orderAmount": 6134.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "1df8a1bc-e399-47ba-a419-4683fb750f9b": {
+      "id": "1df8a1bc-e399-47ba-a419-4683fb750f9b",
+      "state": "paid",
+      "settlementDate": "2026-06-15",
+      "amount": 3009.0,
+      "orderAmount": 3009.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "c16c75e5-9c20-4dab-8fcf-5be818c81860": {
+      "id": "c16c75e5-9c20-4dab-8fcf-5be818c81860",
+      "state": "paid",
+      "settlementDate": "2026-06-15",
+      "amount": 3451.0,
+      "orderAmount": 3451.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "3312dda8-e1c3-4dd0-b0ee-6d5c8b6975b3": {
+      "id": "3312dda8-e1c3-4dd0-b0ee-6d5c8b6975b3",
+      "state": "paid",
+      "settlementDate": "2026-06-21",
+      "amount": 15364.0,
+      "orderAmount": 15364.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "6e0912bc-31cf-49df-8f3d-ccf56588a097": {
+      "id": "6e0912bc-31cf-49df-8f3d-ccf56588a097",
+      "state": "paid",
+      "settlementDate": "2026-06-21",
+      "amount": 7143.0,
+      "orderAmount": 7143.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "cdd2761a-eed9-44c8-9306-2ba444637666": {
+      "id": "cdd2761a-eed9-44c8-9306-2ba444637666",
+      "state": "paid",
+      "settlementDate": "2025-10-01",
+      "amount": 3062.0,
+      "orderAmount": 3062.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "48929013-02b3-4d41-b3a5-b5601f01d9a4": {
+      "id": "48929013-02b3-4d41-b3a5-b5601f01d9a4",
+      "state": "paid",
+      "settlementDate": "2025-10-02",
+      "amount": 3242.0,
+      "orderAmount": 3242.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "37daff1e-8ec7-481a-b8e4-3c456ef4e4c0": {
+      "id": "37daff1e-8ec7-481a-b8e4-3c456ef4e4c0",
+      "state": "paid",
+      "settlementDate": "2025-10-05",
+      "amount": 7108.0,
+      "orderAmount": 7108.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "46ef6259-65ee-4207-9eba-44ce6db9f608": {
+      "id": "46ef6259-65ee-4207-9eba-44ce6db9f608",
+      "state": "paid",
+      "settlementDate": "2025-10-06",
+      "amount": 3404.0,
+      "orderAmount": 3404.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "b2bcf015-2014-4da8-88db-94b26fd73f6b": {
+      "id": "b2bcf015-2014-4da8-88db-94b26fd73f6b",
+      "state": "paid",
+      "settlementDate": "2025-10-06",
+      "amount": 3114.0,
+      "orderAmount": 3114.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "42a5214f-627b-4f81-bfa0-f39a0847cbd2": {
+      "id": "42a5214f-627b-4f81-bfa0-f39a0847cbd2",
+      "state": "paid",
+      "settlementDate": "2025-10-07",
+      "amount": 10328.0,
+      "orderAmount": 10328.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "0d41db23-db93-4bee-b779-fbfcc562700d": {
+      "id": "0d41db23-db93-4bee-b779-fbfcc562700d",
+      "state": "paid",
+      "settlementDate": "2025-10-12",
+      "amount": 3016.0,
+      "orderAmount": 3016.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "f75774de-9583-4cb4-8786-f3f0daf971af": {
+      "id": "f75774de-9583-4cb4-8786-f3f0daf971af",
+      "state": "paid",
+      "settlementDate": "2025-10-12",
+      "amount": 3513.0,
+      "orderAmount": 3513.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "4994948f-0b71-49d2-95dc-5b6c80568a2b": {
+      "id": "4994948f-0b71-49d2-95dc-5b6c80568a2b",
+      "state": "paid",
+      "settlementDate": "2025-10-16",
+      "amount": 3708.0,
+      "orderAmount": 3763.0,
+      "refundAmount": 55.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "27db9781-fa38-40e0-8cf3-5b2086af6624": {
+      "id": "27db9781-fa38-40e0-8cf3-5b2086af6624",
+      "state": "paid",
+      "settlementDate": "2025-10-22",
+      "amount": 3280.0,
+      "orderAmount": 3280.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "680b9807-b6c8-42b3-bff5-990969513493": {
+      "id": "680b9807-b6c8-42b3-bff5-990969513493",
+      "state": "paid",
+      "settlementDate": "2025-10-23",
+      "amount": 3177.0,
+      "orderAmount": 3177.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "e9c2a7fe-2613-48c6-b045-e5f23914845e": {
+      "id": "e9c2a7fe-2613-48c6-b045-e5f23914845e",
+      "state": "paid",
+      "settlementDate": "2025-10-23",
+      "amount": 10621.0,
+      "orderAmount": 10621.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "a06658ca-0cd5-4ad3-906d-7897550287b8": {
+      "id": "a06658ca-0cd5-4ad3-906d-7897550287b8",
+      "state": "paid",
+      "settlementDate": "2025-10-26",
+      "amount": 3018.0,
+      "orderAmount": 3018.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "c491b96f-dbd7-4eb6-9679-0962c8c38603": {
+      "id": "c491b96f-dbd7-4eb6-9679-0962c8c38603",
+      "state": "paid",
+      "settlementDate": "2025-10-26",
+      "amount": 3140.0,
+      "orderAmount": 3140.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "8e307c00-2e84-4d54-af83-a83aaa348288": {
+      "id": "8e307c00-2e84-4d54-af83-a83aaa348288",
+      "state": "paid",
+      "settlementDate": "2025-10-28",
+      "amount": 3333.0,
+      "orderAmount": 3333.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "de93e1ed-390c-4b12-a0fe-3fca151fd25b": {
+      "id": "de93e1ed-390c-4b12-a0fe-3fca151fd25b",
+      "state": "paid",
+      "settlementDate": "2025-10-28",
+      "amount": 8570.0,
+      "orderAmount": 8570.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "adc7ceb7-1b79-4790-a662-4189ec45992e": {
+      "id": "adc7ceb7-1b79-4790-a662-4189ec45992e",
+      "state": "paid",
+      "settlementDate": "2025-11-05",
+      "amount": 3263.0,
+      "orderAmount": 3263.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "3174a774-0574-46fd-a6f1-ad859ab66c98": {
+      "id": "3174a774-0574-46fd-a6f1-ad859ab66c98",
+      "state": "paid",
+      "settlementDate": "2025-11-10",
+      "amount": 3024.0,
+      "orderAmount": 3024.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "a395f7fa-d05e-4ef6-a602-e6c2a8a2a9b3": {
+      "id": "a395f7fa-d05e-4ef6-a602-e6c2a8a2a9b3",
+      "state": "paid",
+      "settlementDate": "2025-11-11",
+      "amount": 3770.0,
+      "orderAmount": 3770.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "4e5eab02-be0e-4e67-aa50-417437a0fb00": {
+      "id": "4e5eab02-be0e-4e67-aa50-417437a0fb00",
+      "state": "paid",
+      "settlementDate": "2025-11-13",
+      "amount": 3006.0,
+      "orderAmount": 3006.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "9dbdacda-73cf-4ebd-ab99-0f5a97b742ff": {
+      "id": "9dbdacda-73cf-4ebd-ab99-0f5a97b742ff",
+      "state": "paid",
+      "settlementDate": "2025-11-19",
+      "amount": 11904.0,
+      "orderAmount": 11904.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "16bdfc7d-ac4f-4de8-8edd-628836e65d5b": {
+      "id": "16bdfc7d-ac4f-4de8-8edd-628836e65d5b",
+      "state": "paid",
+      "settlementDate": "2025-11-20",
+      "amount": 15513.0,
+      "orderAmount": 15513.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "41600fc3-66cb-4f65-83e2-6754feda411f": {
+      "id": "41600fc3-66cb-4f65-83e2-6754feda411f",
+      "state": "paid",
+      "settlementDate": "2025-11-23",
+      "amount": 22001.0,
+      "orderAmount": 22001.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "64292c83-66bf-4aee-b8c9-985a8cf952f3": {
+      "id": "64292c83-66bf-4aee-b8c9-985a8cf952f3",
+      "state": "paid",
+      "settlementDate": "2025-11-23",
+      "amount": 20437.0,
+      "orderAmount": 20437.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "2f13bd89-e75e-43a4-b50d-f760fee6aaba": {
+      "id": "2f13bd89-e75e-43a4-b50d-f760fee6aaba",
+      "state": "paid",
+      "settlementDate": "2025-11-26",
+      "amount": 3053.0,
+      "orderAmount": 3053.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "06c34c06-450a-4297-af21-69c794b42d0e": {
+      "id": "06c34c06-450a-4297-af21-69c794b42d0e",
+      "state": "paid",
+      "settlementDate": "2025-12-04",
+      "amount": 3393.0,
+      "orderAmount": 3393.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "59b4a36d-9f1d-4308-80a0-aaaf2608eeb4": {
+      "id": "59b4a36d-9f1d-4308-80a0-aaaf2608eeb4",
+      "state": "paid",
+      "settlementDate": "2025-12-07",
+      "amount": 3012.0,
+      "orderAmount": 3012.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "d60aa3b8-bda8-4f13-8a7b-4d4c8d6f17aa": {
+      "id": "d60aa3b8-bda8-4f13-8a7b-4d4c8d6f17aa",
+      "state": "paid",
+      "settlementDate": "2025-12-08",
+      "amount": 3603.0,
+      "orderAmount": 3603.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "dac8cabf-f30a-4cef-acb7-910c0d0842ec": {
+      "id": "dac8cabf-f30a-4cef-acb7-910c0d0842ec",
+      "state": "paid",
+      "settlementDate": "2025-12-08",
+      "amount": 4242.0,
+      "orderAmount": 4242.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "8d018e1b-69cc-4490-a1d8-81ae0fcdb121": {
+      "id": "8d018e1b-69cc-4490-a1d8-81ae0fcdb121",
+      "state": "paid",
+      "settlementDate": "2025-12-14",
+      "amount": 4452.0,
+      "orderAmount": 4452.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "94ef0d8a-ce91-4f78-9dba-05a519cb0d1b": {
+      "id": "94ef0d8a-ce91-4f78-9dba-05a519cb0d1b",
+      "state": "paid",
+      "settlementDate": "2025-12-14",
+      "amount": 3395.0,
+      "orderAmount": 3395.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "46131d21-6de4-44d6-8196-9b2b11a35fdf": {
+      "id": "46131d21-6de4-44d6-8196-9b2b11a35fdf",
+      "state": "paid",
+      "settlementDate": "2025-12-15",
+      "amount": 9110.0,
+      "orderAmount": 9110.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "db49154f-976f-4550-964b-0633f1a0c46d": {
+      "id": "db49154f-976f-4550-964b-0633f1a0c46d",
+      "state": "paid",
+      "settlementDate": "2025-12-15",
+      "amount": 3025.0,
+      "orderAmount": 3025.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "50bd4d1b-158a-4d9f-a215-b433b63879ed": {
+      "id": "50bd4d1b-158a-4d9f-a215-b433b63879ed",
+      "state": "paid",
+      "settlementDate": "2025-12-16",
+      "amount": 3039.0,
+      "orderAmount": 3039.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "89094e74-2c3f-4cba-95c7-2f7d35439c9d": {
+      "id": "89094e74-2c3f-4cba-95c7-2f7d35439c9d",
+      "state": "paid",
+      "settlementDate": "2025-12-17",
+      "amount": 6681.0,
+      "orderAmount": 6681.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "9183c3b3-ac62-4bd9-802c-68a8fa642a1e": {
+      "id": "9183c3b3-ac62-4bd9-802c-68a8fa642a1e",
+      "state": "paid",
+      "settlementDate": "2025-12-18",
+      "amount": 6535.0,
+      "orderAmount": 6535.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "303b03c8-d0b8-4ef5-bee3-3dc9196f138a": {
+      "id": "303b03c8-d0b8-4ef5-bee3-3dc9196f138a",
+      "state": "paid",
+      "settlementDate": "2026-01-08",
+      "amount": 618.0,
+      "orderAmount": 8319.0,
+      "refundAmount": 7701.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "0f0cd42a-37fd-41a9-969d-c224612de5d8": {
+      "id": "0f0cd42a-37fd-41a9-969d-c224612de5d8",
+      "state": "paid",
+      "settlementDate": "2026-01-11",
+      "amount": 4269.0,
+      "orderAmount": 4269.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "307d7605-84ec-4ed4-aa95-ce4393d38261": {
+      "id": "307d7605-84ec-4ed4-aa95-ce4393d38261",
+      "state": "paid",
+      "settlementDate": "2026-01-11",
+      "amount": 18313.0,
+      "orderAmount": 18313.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "2850d76a-2e6e-460c-b690-5f81d3ea102f": {
+      "id": "2850d76a-2e6e-460c-b690-5f81d3ea102f",
+      "state": "paid",
+      "settlementDate": "2026-01-12",
+      "amount": 13880.0,
+      "orderAmount": 13880.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "5072da3a-891b-4d7e-9f44-3be9e0db19c2": {
+      "id": "5072da3a-891b-4d7e-9f44-3be9e0db19c2",
+      "state": "paid",
+      "settlementDate": "2026-01-12",
+      "amount": 9927.0,
+      "orderAmount": 9927.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "f5cb4d0a-7b95-40c7-9303-404f284d408b": {
+      "id": "f5cb4d0a-7b95-40c7-9303-404f284d408b",
+      "state": "paid",
+      "settlementDate": "2026-01-13",
+      "amount": 9917.0,
+      "orderAmount": 9917.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "1be0fb47-27d8-4d3c-ba53-032f8b182472": {
+      "id": "1be0fb47-27d8-4d3c-ba53-032f8b182472",
+      "state": "paid",
+      "settlementDate": "2026-01-14",
+      "amount": 3120.0,
+      "orderAmount": 3120.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "8d9d2046-61a7-461b-8a23-a5d9de8701cd": {
+      "id": "8d9d2046-61a7-461b-8a23-a5d9de8701cd",
+      "state": "paid",
+      "settlementDate": "2026-01-14",
+      "amount": 898.0,
+      "orderAmount": 3923.0,
+      "refundAmount": 3025.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "0724fead-95b5-408a-859f-703f0109680c": {
+      "id": "0724fead-95b5-408a-859f-703f0109680c",
+      "state": "paid",
+      "settlementDate": "2026-01-18",
+      "amount": 3167.0,
+      "orderAmount": 3167.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "62d7e869-331c-42bf-a3b2-e105a71f04de": {
+      "id": "62d7e869-331c-42bf-a3b2-e105a71f04de",
+      "state": "paid",
+      "settlementDate": "2026-01-18",
+      "amount": 3274.0,
+      "orderAmount": 3274.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "1ec508da-0361-490a-b876-2a2f35afaa8a": {
+      "id": "1ec508da-0361-490a-b876-2a2f35afaa8a",
+      "state": "paid",
+      "settlementDate": "2026-01-20",
+      "amount": 5246.0,
+      "orderAmount": 5246.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "04b4099e-8250-4313-95d3-1c7f9ac8a293": {
+      "id": "04b4099e-8250-4313-95d3-1c7f9ac8a293",
+      "state": "paid",
+      "settlementDate": "2026-01-21",
+      "amount": 3170.0,
+      "orderAmount": 3170.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "9ea37685-3252-428e-b4c0-1aca78643e51": {
+      "id": "9ea37685-3252-428e-b4c0-1aca78643e51",
+      "state": "paid",
+      "settlementDate": "2026-01-25",
+      "amount": 11802.0,
+      "orderAmount": 11802.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "ea0c5f32-17c5-46e2-8c24-3afbc33421ad": {
+      "id": "ea0c5f32-17c5-46e2-8c24-3afbc33421ad",
+      "state": "paid",
+      "settlementDate": "2026-01-26",
+      "amount": 3002.0,
+      "orderAmount": 3002.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "313953c8-6e40-43fc-89cf-777f72c54b87": {
+      "id": "313953c8-6e40-43fc-89cf-777f72c54b87",
+      "state": "paid",
+      "settlementDate": "2026-01-29",
+      "amount": 5021.0,
+      "orderAmount": 5021.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "52859b8a-d4a1-4a28-8741-7f2c3c8a5d34": {
+      "id": "52859b8a-d4a1-4a28-8741-7f2c3c8a5d34",
+      "state": "paid",
+      "settlementDate": "2026-02-01",
+      "amount": 3140.0,
+      "orderAmount": 3140.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "5076a28a-48a2-4994-a06c-97c7d3cc190d": {
+      "id": "5076a28a-48a2-4994-a06c-97c7d3cc190d",
+      "state": "paid",
+      "settlementDate": "2026-02-04",
+      "amount": 3360.0,
+      "orderAmount": 3360.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "caa7e9ce-5740-4f25-9f11-eaa210422eac": {
+      "id": "caa7e9ce-5740-4f25-9f11-eaa210422eac",
+      "state": "paid",
+      "settlementDate": "2026-02-08",
+      "amount": 3384.0,
+      "orderAmount": 3384.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "00dd605c-eaa5-4f20-9e92-4d07e148607e": {
+      "id": "00dd605c-eaa5-4f20-9e92-4d07e148607e",
+      "state": "paid",
+      "settlementDate": "2026-02-09",
+      "amount": 4026.0,
+      "orderAmount": 4026.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "fc0be538-6b1e-4005-be83-8775d0460799": {
+      "id": "fc0be538-6b1e-4005-be83-8775d0460799",
+      "state": "paid",
+      "settlementDate": "2026-02-15",
+      "amount": 3007.0,
+      "orderAmount": 3007.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "058339e6-288f-4c94-9b5c-00d2cb556cb2": {
+      "id": "058339e6-288f-4c94-9b5c-00d2cb556cb2",
+      "state": "paid",
+      "settlementDate": "2026-02-16",
+      "amount": 3487.0,
+      "orderAmount": 3487.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "b2d8b7b8-bb62-4161-b0db-3f2d40128b1d": {
+      "id": "b2d8b7b8-bb62-4161-b0db-3f2d40128b1d",
+      "state": "paid",
+      "settlementDate": "2026-02-19",
+      "amount": 4534.0,
+      "orderAmount": 4534.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "74fb5953-1b5e-4549-9da1-b17d495f7581": {
+      "id": "74fb5953-1b5e-4549-9da1-b17d495f7581",
+      "state": "paid",
+      "settlementDate": "2026-02-24",
+      "amount": 3611.0,
+      "orderAmount": 3611.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "d2b738b2-344b-48fc-99e8-cd29389928ee": {
+      "id": "d2b738b2-344b-48fc-99e8-cd29389928ee",
+      "state": "paid",
+      "settlementDate": "2026-02-24",
+      "amount": 3489.0,
+      "orderAmount": 3489.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "89a7ba20-83d3-4f1f-8a21-f405ce55ecbe": {
+      "id": "89a7ba20-83d3-4f1f-8a21-f405ce55ecbe",
+      "state": "paid",
+      "settlementDate": "2026-03-01",
+      "amount": 5326.0,
+      "orderAmount": 5326.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "59b6117f-a97a-4f4f-a74a-cd9bc459cd8c": {
+      "id": "59b6117f-a97a-4f4f-a74a-cd9bc459cd8c",
+      "state": "paid",
+      "settlementDate": "2026-03-02",
+      "amount": 3740.0,
+      "orderAmount": 3740.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "137e56b9-f191-4117-b975-afb038e9d90f": {
+      "id": "137e56b9-f191-4117-b975-afb038e9d90f",
+      "state": "paid",
+      "settlementDate": "2026-03-08",
+      "amount": 4149.0,
+      "orderAmount": 4149.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "d550a9c8-98cb-4eb4-88e3-6b77a532f6e0": {
+      "id": "d550a9c8-98cb-4eb4-88e3-6b77a532f6e0",
+      "state": "paid",
+      "settlementDate": "2026-03-09",
+      "amount": 4217.0,
+      "orderAmount": 4217.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "fbbf6a90-0dc9-45be-b35c-c26df8428a8c": {
+      "id": "fbbf6a90-0dc9-45be-b35c-c26df8428a8c",
+      "state": "paid",
+      "settlementDate": "2026-03-09",
+      "amount": 4191.0,
+      "orderAmount": 4191.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "db42258f-2bc9-4c3d-ae8a-bde0df79e568": {
+      "id": "db42258f-2bc9-4c3d-ae8a-bde0df79e568",
+      "state": "paid",
+      "settlementDate": "2026-03-11",
+      "amount": 3047.0,
+      "orderAmount": 3047.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "65740d50-54ba-4862-8123-c69ccb470b53": {
+      "id": "65740d50-54ba-4862-8123-c69ccb470b53",
+      "state": "paid",
+      "settlementDate": "2026-03-12",
+      "amount": 4191.0,
+      "orderAmount": 4191.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "a610d6cc-80c7-4ecd-ab16-9527f721ab13": {
+      "id": "a610d6cc-80c7-4ecd-ab16-9527f721ab13",
+      "state": "paid",
+      "settlementDate": "2026-03-19",
+      "amount": 3083.0,
+      "orderAmount": 3083.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "91ee80c0-1b25-4846-a471-8353d4df5361": {
+      "id": "91ee80c0-1b25-4846-a471-8353d4df5361",
+      "state": "paid",
+      "settlementDate": "2026-03-22",
+      "amount": 11559.0,
+      "orderAmount": 11559.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "6284fe0a-0735-49e4-9416-749da0bae7e6": {
+      "id": "6284fe0a-0735-49e4-9416-749da0bae7e6",
+      "state": "paid",
+      "settlementDate": "2026-06-23",
+      "amount": 6048.0,
+      "orderAmount": 6048.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "90717595-d477-4613-9b12-f7e7b2e35af9": {
+      "id": "90717595-d477-4613-9b12-f7e7b2e35af9",
+      "state": "paid",
+      "settlementDate": "2026-06-23",
+      "amount": 6452.0,
+      "orderAmount": 6452.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "789df457-fe83-45da-acb2-a2ecfd39503c": {
+      "id": "789df457-fe83-45da-acb2-a2ecfd39503c",
+      "state": "paid",
+      "settlementDate": "2026-06-24",
+      "amount": 5104.0,
+      "orderAmount": 5104.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "799c1824-a0b6-4816-a95c-4338abe2af22": {
+      "id": "799c1824-a0b6-4816-a95c-4338abe2af22",
+      "state": "paid",
+      "settlementDate": "2026-06-25",
+      "amount": 3134.0,
+      "orderAmount": 3134.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "0e1cb46c-9bec-49b9-9fda-6fbb0bc36103": {
+      "id": "0e1cb46c-9bec-49b9-9fda-6fbb0bc36103",
+      "state": "paid",
+      "settlementDate": "2026-06-29",
+      "amount": 6205.0,
+      "orderAmount": 6205.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "b7da4018-48a6-4016-9ac5-de28887bf9d7": {
+      "id": "b7da4018-48a6-4016-9ac5-de28887bf9d7",
+      "state": "paid",
+      "settlementDate": "2026-06-30",
+      "amount": 9940.0,
+      "orderAmount": 9940.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "2f836cbc-9896-4666-a460-e22621052c99": {
+      "id": "2f836cbc-9896-4666-a460-e22621052c99",
+      "state": "paid",
+      "settlementDate": "2026-07-06",
+      "amount": 8307.0,
+      "orderAmount": 8307.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "f8d7fea4-e3e9-4991-bc00-b52a96f1b9f8": {
+      "id": "f8d7fea4-e3e9-4991-bc00-b52a96f1b9f8",
+      "state": "paid",
+      "settlementDate": "2026-07-12",
+      "amount": 3885.0,
+      "orderAmount": 3885.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "a32aebca-db65-435f-96ac-c568b5bd9754": {
+      "id": "a32aebca-db65-435f-96ac-c568b5bd9754",
+      "state": "paid",
+      "settlementDate": "2026-07-14",
+      "amount": 3084.0,
+      "orderAmount": 3084.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "f7baee92-fd04-4347-8cdd-a997a173ca3b": {
+      "id": "f7baee92-fd04-4347-8cdd-a997a173ca3b",
+      "state": "paid",
+      "settlementDate": "2026-07-19",
+      "amount": 6112.0,
+      "orderAmount": 6112.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "14fa9c6e-4826-49fc-9fc2-1e7d411e6910": {
+      "id": "14fa9c6e-4826-49fc-9fc2-1e7d411e6910",
+      "state": "paid",
+      "settlementDate": "2026-07-20",
+      "amount": 3013.0,
+      "orderAmount": 3013.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "a0941300-2dcf-42dc-a432-2fb8279e6ba5": {
+      "id": "a0941300-2dcf-42dc-a432-2fb8279e6ba5",
+      "state": "paid",
+      "settlementDate": "2026-07-23",
+      "amount": 3733.0,
+      "orderAmount": 3733.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "47ee113d-b2d7-45c9-99b5-0c6f9a4fba1d": {
+      "id": "47ee113d-b2d7-45c9-99b5-0c6f9a4fba1d",
+      "state": "paid",
+      "settlementDate": "2026-07-28",
+      "amount": 5529.0,
+      "orderAmount": 5529.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "2007f0db-6b24-43fd-95d5-e36a1055163d": {
+      "id": "2007f0db-6b24-43fd-95d5-e36a1055163d",
+      "state": "paid",
+      "settlementDate": "2026-07-30",
+      "amount": 3404.0,
+      "orderAmount": 3404.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "41810bdc-9ef6-4a1a-b9be-9218f72b0980": {
+      "id": "41810bdc-9ef6-4a1a-b9be-9218f72b0980",
+      "state": "paid",
+      "settlementDate": "2026-08-09",
+      "amount": 3363.0,
+      "orderAmount": 3363.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "336f1762-45c0-41a9-b40a-bf66ca1f42c0": {
+      "id": "336f1762-45c0-41a9-b40a-bf66ca1f42c0",
+      "state": "paid",
+      "settlementDate": "2026-08-12",
+      "amount": 4008.0,
+      "orderAmount": 4008.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "b11d1480-61f8-4ee4-8e27-3a6dbf3f1b40": {
+      "id": "b11d1480-61f8-4ee4-8e27-3a6dbf3f1b40",
+      "state": "paid",
+      "settlementDate": "2026-08-13",
+      "amount": 3607.0,
+      "orderAmount": 3607.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "4f5f1f42-5513-481b-aa27-510faa647eb1": {
+      "id": "4f5f1f42-5513-481b-aa27-510faa647eb1",
+      "state": "paid",
+      "settlementDate": "2026-08-16",
+      "amount": 3095.0,
+      "orderAmount": 3095.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "e6ed2323-8fff-444c-87b3-d0dddb7c3c34": {
+      "id": "e6ed2323-8fff-444c-87b3-d0dddb7c3c34",
+      "state": "paid",
+      "settlementDate": "2026-08-16",
+      "amount": 4564.0,
+      "orderAmount": 4564.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "ba15ff01-2bb1-40e0-a800-53170215d3d5": {
+      "id": "ba15ff01-2bb1-40e0-a800-53170215d3d5",
+      "state": "paid",
+      "settlementDate": "2026-08-20",
+      "amount": 3025.0,
+      "orderAmount": 3025.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "945cd531-724a-4872-a808-36e02556af91": {
+      "id": "945cd531-724a-4872-a808-36e02556af91",
+      "state": "paid",
+      "settlementDate": "2026-08-23",
+      "amount": 3049.0,
+      "orderAmount": 3049.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "6c7ca5c1-000c-4c02-9da5-be5cab66ec93": {
+      "id": "6c7ca5c1-000c-4c02-9da5-be5cab66ec93",
+      "state": "paid",
+      "settlementDate": "2026-09-01",
+      "amount": 3018.0,
+      "orderAmount": 3018.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "222eb83c-c250-4d54-b333-419d8536da2f": {
+      "id": "222eb83c-c250-4d54-b333-419d8536da2f",
+      "state": "paid",
+      "settlementDate": "2026-09-02",
+      "amount": 3585.0,
+      "orderAmount": 3585.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "0b6b1e14-25f5-463c-ab76-a0280a7c1cea": {
+      "id": "0b6b1e14-25f5-463c-ab76-a0280a7c1cea",
+      "state": "paid",
+      "settlementDate": "2026-09-06",
+      "amount": 6103.0,
+      "orderAmount": 6103.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "aecb1f1b-20e7-4554-afd8-69b07b5458d9": {
+      "id": "aecb1f1b-20e7-4554-afd8-69b07b5458d9",
+      "state": "paid",
+      "settlementDate": "2026-09-14",
+      "amount": 3004.0,
+      "orderAmount": 3004.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "36a34500-dbe1-4e2b-a4a0-ce86c55aad47": {
+      "id": "36a34500-dbe1-4e2b-a4a0-ce86c55aad47",
+      "state": "paid",
+      "settlementDate": "2026-09-17",
+      "amount": 6711.0,
+      "orderAmount": 6711.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "07157378-d230-40f9-b0f8-9c247e55d70b": {
+      "id": "07157378-d230-40f9-b0f8-9c247e55d70b",
+      "state": "paid",
+      "settlementDate": "2026-09-30",
+      "amount": 3002.0,
+      "orderAmount": 3002.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "8b4607a2-cd56-4253-9742-fa3da43f3a26": {
+      "id": "8b4607a2-cd56-4253-9742-fa3da43f3a26",
+      "state": "paid",
+      "settlementDate": "2026-09-30",
+      "amount": 3004.0,
+      "orderAmount": 3004.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    },
+    "3f5157cf-ce8e-4a97-8880-2fc15cb5e32f": {
+      "id": "3f5157cf-ce8e-4a97-8880-2fc15cb5e32f",
+      "state": "paid",
+      "settlementDate": "2026-10-04",
+      "amount": 6390.0,
+      "orderAmount": 6390.0,
+      "refundAmount": 0.0,
+      "marginAmount": 0.0,
+      "deductMargin": false
+    }
+  },
+  "bankTransactions": {
+    "27558628576": {
+      "id": "27558628576",
+      "date": "2026-03-31+0200",
+      "amount": 1693.0,
+      "counterAccount": "2400797644",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "Vera Vecerova, https://www.twisto.cz/vychytavky/snap/",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "261263362"
+    },
+    "27575322057": {
+      "id": "27575322057",
+      "date": "2026-04-09+0200",
+      "amount": 1092.0,
+      "counterAccount": "2400797644",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "Lucie Maryskova, https://www.twisto.cz/vychytavky/snap/",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "261265650"
+    },
+    "27633497648": {
+      "id": "27633497648",
+      "date": "2026-05-14+0200",
+      "amount": 2575.0,
+      "counterAccount": "2400797644",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "Sona Dobi, https://www.twisto.cz/vychytavky/snap/",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "261279008"
+    },
+    "27667625748": {
+      "id": "27667625748",
+      "date": "2026-06-02+0200",
+      "amount": 751.0,
+      "counterAccount": "2400797644",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "Adriana Nakladalova, https://www.twisto.cz/vychytavky/snap/",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "261284253"
+    },
+    "27670828107": {
+      "id": "27670828107",
+      "date": "2026-06-04+0200",
+      "amount": 4234.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "9334207639",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "9334207639"
+    },
+    "27677788694": {
+      "id": "27677788694",
+      "date": "2026-06-09+0200",
+      "amount": 6936.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "1165995181",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "1165995181"
+    },
+    "27683483647": {
+      "id": "27683483647",
+      "date": "2026-06-12+0200",
+      "amount": 4377.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "0551886339",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "0551886339"
+    },
+    "27688095064": {
+      "id": "27688095064",
+      "date": "2026-06-15+0200",
+      "amount": 6134.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "5567295593",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "5567295593"
+    },
+    "27688095065": {
+      "id": "27688095065",
+      "date": "2026-06-15+0200",
+      "amount": 3310.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "0574726487",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "0574726487"
+    },
+    "27690483100": {
+      "id": "27690483100",
+      "date": "2026-06-16+0200",
+      "amount": 3451.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "7477348969",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "7477348969"
+    },
+    "27690483101": {
+      "id": "27690483101",
+      "date": "2026-06-16+0200",
+      "amount": 3009.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "8993061418",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "8993061418"
+    },
+    "27694207212": {
+      "id": "27694207212",
+      "date": "2026-06-18+0200",
+      "amount": 2691.0,
+      "counterAccount": "2400797644",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "Blanka Budinska, https://www.twisto.cz/vychytavky/snap/",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "261290421"
+    },
+    "27695890193": {
+      "id": "27695890193",
+      "date": "2026-06-19+0200",
+      "amount": 170382.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "vyrovnání plateb - Twisto Payments",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": ""
+    },
+    "27699172282": {
+      "id": "27699172282",
+      "date": "2026-06-22+0200",
+      "amount": 15364.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "8174652213",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "8174652213"
+    },
+    "27699172283": {
+      "id": "27699172283",
+      "date": "2026-06-22+0200",
+      "amount": 7143.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "8487419205",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "8487419205"
+    },
+    "27699416629": {
+      "id": "27699416629",
+      "date": "2026-06-22+0200",
+      "amount": 1184.0,
+      "counterAccount": "2400797644",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "Alena Hagyariova, https://www.twisto.cz/vychytavky/snap/",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "261292725"
+    },
+    "27702937744": {
+      "id": "27702937744",
+      "date": "2026-06-24+0200",
+      "amount": 6452.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "6804775590",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "6804775590"
+    },
+    "27702937745": {
+      "id": "27702937745",
+      "date": "2026-06-24+0200",
+      "amount": 6048.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "9981404465",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "9981404465"
+    },
+    "27706070009": {
+      "id": "27706070009",
+      "date": "2026-06-26+0200",
+      "amount": 5104.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "3452247948",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "3452247948"
+    },
+    "27709342226": {
+      "id": "27709342226",
+      "date": "2026-06-29+0200",
+      "amount": 3134.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "9108159292",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "9108159292"
+    },
+    "27719262864": {
+      "id": "27719262864",
+      "date": "2026-07-02+0200",
+      "amount": 6205.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "6192977344",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "6192977344"
+    },
+    "27719397764": {
+      "id": "27719397764",
+      "date": "2026-07-02+0200",
+      "amount": 9940.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "9730743877",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "9730743877"
+    },
+    "27725514827": {
+      "id": "27725514827",
+      "date": "2026-07-07+0200",
+      "amount": 8307.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "6450836060",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "6450836060"
+    },
+    "27735253051": {
+      "id": "27735253051",
+      "date": "2026-07-13+0200",
+      "amount": 3885.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "5593639246",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "5593639246"
+    },
+    "27739706205": {
+      "id": "27739706205",
+      "date": "2026-07-15+0200",
+      "amount": 3084.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "6357564478",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "6357564478"
+    },
+    "27747259740": {
+      "id": "27747259740",
+      "date": "2026-07-20+0200",
+      "amount": 6112.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "4881165494",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "4881165494"
+    },
+    "27749473851": {
+      "id": "27749473851",
+      "date": "2026-07-21+0200",
+      "amount": 3013.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "6867073072",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "6867073072"
+    },
+    "27754076312": {
+      "id": "27754076312",
+      "date": "2026-07-24+0200",
+      "amount": 3733.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "0998875123",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "0998875123"
+    },
+    "27760664727": {
+      "id": "27760664727",
+      "date": "2026-07-29+0200",
+      "amount": 5529.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "0433472080",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "0433472080"
+    },
+    "27763601872": {
+      "id": "27763601872",
+      "date": "2026-07-31+0200",
+      "amount": 3404.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "7698878859",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "7698878859"
+    },
+    "27782405383": {
+      "id": "27782405383",
+      "date": "2026-08-10+0200",
+      "amount": 3363.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "4282192157",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "4282192157"
+    },
+    "27787969196": {
+      "id": "27787969196",
+      "date": "2026-08-13+0200",
+      "amount": 4008.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "5923525112",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "5923525112"
+    },
+    "27789999628": {
+      "id": "27789999628",
+      "date": "2026-08-14+0200",
+      "amount": 3607.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "8282583057",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "8282583057"
+    },
+    "27794317829": {
+      "id": "27794317829",
+      "date": "2026-08-17+0200",
+      "amount": 3095.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "3155347052",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "3155347052"
+    },
+    "27794317830": {
+      "id": "27794317830",
+      "date": "2026-08-17+0200",
+      "amount": 4564.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "0122336312",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "0122336312"
+    },
+    "27801754112": {
+      "id": "27801754112",
+      "date": "2026-08-21+0200",
+      "amount": 3025.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "4636818901",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "4636818901"
+    },
+    "27805080426": {
+      "id": "27805080426",
+      "date": "2026-08-24+0200",
+      "amount": 3049.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "8588382722",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "8588382722"
+    },
+    "27823005109": {
+      "id": "27823005109",
+      "date": "2026-09-02+0200",
+      "amount": 3018.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "0577509785",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "0577509785"
+    },
+    "27824719520": {
+      "id": "27824719520",
+      "date": "2026-09-03+0200",
+      "amount": 3585.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "1831566737",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "1831566737"
+    },
+    "27830093368": {
+      "id": "27830093368",
+      "date": "2026-09-07+0200",
+      "amount": 6103.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "3357759231",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "3357759231"
+    },
+    "27843862002": {
+      "id": "27843862002",
+      "date": "2026-09-15+0200",
+      "amount": 3004.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "2974333486",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "2974333486"
+    },
+    "27849873000": {
+      "id": "27849873000",
+      "date": "2026-09-18+0200",
+      "amount": 6711.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "2645637537",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "2645637537"
+    },
+    "27870959074": {
+      "id": "27870959074",
+      "date": "2026-10-01+0200",
+      "amount": 3004.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "1807898523",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "1807898523"
+    },
+    "27870959078": {
+      "id": "27870959078",
+      "date": "2026-10-01+0200",
+      "amount": 3002.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "4910775351",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "4910775351"
+    },
+    "27878207759": {
+      "id": "27878207759",
+      "date": "2026-10-05+0200",
+      "amount": 6390.0,
+      "counterAccount": "2500719088",
+      "counterAccountName": "Twisto payments a.s.",
+      "comment": "0005280065",
+      "type": "Příjem převodem uvnitř banky",
+      "variableSymbol": "0005280065"
+    }
+  },
+  "wpjOrders": {
+    "261263362": {
+      "id": 3596325,
+      "code": "261263362",
+      "dateCreated": "2026-03-30T23:51:14+02:00",
+      "amount": 1693.0,
+      "status": "doručeno",
+      "isPaid": true,
+      "cancelled": false,
+      "historySnippet": "Za tento nákup přičteno na účet uživatele 65.1 bodů. <p>Děkujeme vám za vaši objednávku č. 261263362, na jejím vyřízení již pilně pracujeme.</p><p>Aby k vám balíček dorazil v pořádku a co nejdříve, pečlivě vše připravuje"
+    },
+    "261265650": {
+      "id": 3598758,
+      "code": "261265650",
+      "dateCreated": "2026-04-06T21:24:05+02:00",
+      "amount": 1092.0,
+      "status": "doručeno",
+      "isPaid": true,
+      "cancelled": false,
+      "historySnippet": "Za tento nákup přičteno na účet uživatele 55.4 bodů. <p>Děkujeme vám za vaši objednávku č. 261265650, na jejím vyřízení již pilně pracujeme.</p><p>Aby k vám balíček dorazil v pořádku a co nejdříve, pečlivě vše připravuje"
+    },
+    "261279008": {
+      "id": 3612849,
+      "code": "261279008",
+      "dateCreated": "2026-05-11T12:51:41+02:00",
+      "amount": 2575.0,
+      "status": "doručeno",
+      "isPaid": true,
+      "cancelled": false,
+      "historySnippet": "Za tento nákup přičteno na účet uživatele 86.9 bodů. <p>Děkujeme vám za vaši objednávku č. 261279008, na jejím vyřízení již pilně pracujeme.</p><p>Aby k vám balíček dorazil v pořádku a co nejdříve, pečlivě vše připravuje"
+    },
+    "261284253": {
+      "id": 3618405,
+      "code": "261284253",
+      "dateCreated": "2026-05-27T10:42:56+02:00",
+      "amount": 751.0,
+      "status": "doručeno",
+      "isPaid": true,
+      "cancelled": false,
+      "historySnippet": "Za tento nákup přičteno na účet uživatele 22.1 bodů. <p>Děkujeme vám za vaši objednávku č. 261284253, na jejím vyřízení již pilně pracujeme.</p><p>Aby k vám balíček dorazil v pořádku a co nejdříve, pečlivě vše připravuje"
+    },
+    "261290421": {
+      "id": 3624869,
+      "code": "261290421",
+      "dateCreated": "2026-06-15T14:28:43+02:00",
+      "amount": 2691.0,
+      "status": "doručeno",
+      "isPaid": true,
+      "cancelled": false,
+      "historySnippet": "Za tento nákup přičteno na účet uživatele 95.4 bodů. <p>Děkujeme vám za vaši objednávku č. 261290421, na jejím vyřízení již pilně pracujeme.</p><p>Aby k vám balíček dorazil v pořádku a co nejdříve, pečlivě vše připravuje"
+    },
+    "261292725": {
+      "id": 3627310,
+      "code": "261292725",
+      "dateCreated": "2026-06-22T11:14:40+02:00",
+      "amount": 1184.0,
+      "status": "doručeno",
+      "isPaid": true,
+      "cancelled": false,
+      "historySnippet": "Za tento nákup přičteno na účet uživatele 42.4 bodů. <p>Děkujeme vám za vaši objednávku č. 261292725, na jejím vyřízení již pilně pracujeme.</p><p>Aby k vám balíček dorazil v pořádku a co nejdříve, pečlivě vše připravuje"
+    },
+    "261301137": {
+      "id": 3636233,
+      "code": "261301137",
+      "dateCreated": "2026-07-20T21:11:19+02:00",
+      "amount": 875.0,
+      "status": "doručeno",
+      "isPaid": true,
+      "cancelled": false,
+      "historySnippet": "Za tento nákup přičteno na účet uživatele 29.5 bodů. <p>Děkujeme vám za vaši objednávku č. 261301137, na jejím vyřízení již pilně pracujeme.</p><p>Aby k vám balíček dorazil v pořádku a co nejdříve, pečlivě vše připravuje"
+    }
+  },
+  "updatedAt": "2026-10-08T18:00:03.747845+02:00",
+  "counts": {
+    "batches": 140,
+    "bankTransactions": 45,
+    "wpjOrders": 7
+  }
+}

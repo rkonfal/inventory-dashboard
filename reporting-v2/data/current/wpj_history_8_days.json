@@ -1,0 +1,57 @@
+{
+  "generatedAt": "2026-10-08T18:00:03.747845+02:00",
+  "window": {
+    "from": "2026-09-30T00:00:01+02:00",
+    "to": "2026-10-08T00:00:00+02:00"
+  },
+  "days": [
+    {
+      "date": "2026-09-30",
+      "orders": 912,
+      "revenueWithVat": 1637367.49,
+      "averageOrderValue": 1795.36
+    },
+    {
+      "date": "2026-10-01",
+      "orders": 290,
+      "revenueWithVat": 453979.99,
+      "averageOrderValue": 1565.45
+    },
+    {
+      "date": "2026-10-02",
+      "orders": 235,
+      "revenueWithVat": 359117.56,
+      "averageOrderValue": 1528.16
+    },
+    {
+      "date": "2026-10-03",
+      "orders": 158,
+      "revenueWithVat": 240545.46,
+      "averageOrderValue": 1522.44
+    },
+    {
+      "date": "2026-10-04",
+      "orders": 291,
+      "revenueWithVat": 452760.91,
+      "averageOrderValue": 1555.88
+    },
+    {
+      "date": "2026-10-05",
+      "orders": 404,
+      "revenueWithVat": 602659.71,
+      "averageOrderValue": 1491.73
+    },
+    {
+      "date": "2026-10-06",
+      "orders": 573,
+      "revenueWithVat": 879425.52,
+      "averageOrderValue": 1534.77
+    },
+    {
+      "date": "2026-10-07",
+      "orders": 703,
+      "revenueWithVat": 1063437.45,
+      "averageOrderValue": 1512.71
+    }
+  ]
+}

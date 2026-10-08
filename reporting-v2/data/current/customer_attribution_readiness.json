@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-01T13:26:08.957337+02:00",
+  "status": "not_ready_for_customer_level_attribution",
+  "summary": {
+    "why": "Pipeline already has order-level and customer-level truth, but still lacks purchase-level touchpoint exports and identity stitching.",
+    "nextBestStep": "Export purchase-level GA4 journeys with transaction_id and session attribution fields, then match them to order_fact."
+  },
+  "availableInputs": {
+    "orderFact": {
+      "present": true,
+      "orders": 193384,
+      "hasCustomerKey": true,
+      "hasOrderCode": true
+    },
+    "customerFact": {
+      "present": true,
+      "customersCount": 38661,
+      "hasFirstOrderAt": true
+    },
+    "ga4Overview": {
+      "present": true,
+      "hasChannelAggregates": true,
+      "hasPurchaseLevelRows": false,
+      "hasTransactionIdLink": false,
+      "hasUserLevelJourney": false
+    },
+    "platformOverviews": {
+      "meta": true,
+      "google": true,
+      "sklik": true,
+      "klaviyo": true
+    }
+  },
+  "missingCanonicalDatasets": [
+    "ga4_purchase_journey_window.json",
+    "order_attribution_candidates.json",
+    "customer_attribution_truth.json",
+    "campaign_customer_truth.json"
+  ],
+  "requiredCapabilities": [
+    "purchase-level GA4 export with transactionId",
+    "session and first-user attribution fields",
+    "identity stitching between GA4 purchase and backend order",
+    "order-level attribution weight calculation",
+    "incrementality classification per order"
+  ],
+  "proposedMatchingPriority": [
+    "transactionId -> order code exact match",
+    "identity match via email or stable customer key",
+    "time + revenue tolerance fallback",
+    "weak inference only as low-confidence fallback"
+  ],
+  "outputTargets": [
+    "which campaign truly triggered a purchase",
+    "which campaigns only assisted",
+    "weighted revenue by campaign, not just platform claim",
+    "new-customer weighted contribution",
+    "capture vs creation split"
+  ]
+}

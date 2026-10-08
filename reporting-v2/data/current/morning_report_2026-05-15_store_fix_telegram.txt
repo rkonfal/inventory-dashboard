@@ -1,0 +1,13 @@
+Oprava zdrojů prodeje pro 15. 5. 2026
+
+Původně bylo chybné párování prodejen, protože mapping byl mylně vyhodnocovaný přes adminy místo přes prodejny (`posId`). To je už opravené.
+
+Správně má být:
+• CZ e-shop: 280 objednávek, 458 162 Kč
+• SK e-shop: 26 objednávek, 56 454,33 Kč
+• Litoměřice: 3 objednávky, 2 731 Kč
+• Měčín: 4 objednávky, 4 567 Kč
+
+Oprava je už zapsaná v reportingu přes store-level mapping:
+• Litoměřice = `posId 2`
+• Měčín = `posId 1`

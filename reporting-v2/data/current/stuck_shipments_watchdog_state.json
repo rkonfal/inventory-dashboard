@@ -1,0 +1,36 @@
+{
+  "updatedAt": "2026-10-08T18:02:12.045221+02:00",
+  "sourceKind": "wpj",
+  "source": {
+    "kind": "wpj",
+    "label": "WPJ live watchdog",
+    "windowFrom": "2026-09-17T18:02:12.045221+02:00",
+    "windowTo": "2026-10-08T19:02:12.045221+02:00",
+    "lookbackDays": 21,
+    "scannedOrders": 7409
+  },
+  "summary": {
+    "total": 0,
+    "warnCount": 0,
+    "alertCount": 0,
+    "criticalCount": 0,
+    "zeroValueCount": 0,
+    "missingTiandeIdCount": 0,
+    "missingSponsorIdCount": 0,
+    "avgHoursWithoutMovement": 0.0,
+    "maxHoursWithoutMovement": 0.0,
+    "oldestMovementAt": null,
+    "newestMovementAt": null,
+    "byCountry": {},
+    "currencyTotals": {},
+    "carrierCheck": {},
+    "directCarrierCheck": {},
+    "needsCarrierEscalationCount": 0
+  },
+  "delta": {
+    "new": [],
+    "resolved": [],
+    "escalated": []
+  },
+  "orders": {}
+}

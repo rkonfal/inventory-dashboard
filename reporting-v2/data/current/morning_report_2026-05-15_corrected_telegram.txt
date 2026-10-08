@@ -1,0 +1,29 @@
+Ranní report, včerejšek (15. 5. 2026)
+✅ WPJ + 4PX kompletní
+
+📌 Přehled
+• Objednávky: 313 (-5,9 % vs 7D)
+• Tržby: 521 914 Kč (-11,5 % vs 7D)
+• Obrat od začátku měsíce: 9 528 529 Kč (-1,4 % vs 1. 4.–15. 4., 9 665 660 Kč; -4,6 % vs předminulý 1. 3.–15. 3., 9 991 335 Kč)
+• Expedice: 310 (CZ 283 / SK 27)
+• Sklad: 359 369 ks
+
+⚠️ Co dnes řešit
+• 2 problematických / stornovaných objednávek
+• 3 včera prodané produkty jsou teď na nízkém skladu
+• 10 skladových pozic je v mínusu
+
+✅ Co dnes udělat
+• Dohlédnout 195448, aktuálně 0 ks.
+• Dohlédnout 000083, aktuálně 1 ks.
+• Projít 2 problematických nebo stornovaných objednávek z včerejška.
+
+🛒 Tahouni: 000083 151 ks, 44402-2 119 ks, 30118/01 83 ks
+
+🧭 Zdroje prodeje
+• CZ e-shop: 280 objednávek, 458 162 Kč
+• SK e-shop: 26 objednávek, 56 454 Kč
+• Litoměřice: 3 objednávek, 2 731 Kč
+• Měčín: 4 objednávek, 4 567 Kč
+
+Detail: https://rkonfal.github.io/diamond-plus-reporting-preview/site/index.html

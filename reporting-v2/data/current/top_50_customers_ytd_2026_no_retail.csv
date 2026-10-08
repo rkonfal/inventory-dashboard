@@ -1,0 +1,51 @@
+rank,label,firm,person,email,ico,city,orders,revenueWithVat,averageOrderValue,lastOrderAt
+1,FAKAR s.r.o. (Iveta Farmačková),FAKAR s.r.o.,Iveta Farmačková,info@energieprirody.cz,05551323,Brno 2,52,232411.0,4469.44,2026-05-04T08:44:54+02:00
+2,Adam Cechner PRODEJ,,Adam Cechner PRODEJ,adamcechner@gmail.com,,,66,180334.0,2732.33,2026-05-04T16:11:43+02:00
+3,Krystyna Kašubiaková,,Krystyna Kašubiaková,nati.sz@email.cz,,Třinec,25,98563.15,3942.53,2026-04-28T19:28:08+02:00
+4,Vendula Scheichlová (Kateřina Krejčí),Vendula Scheichlová,Kateřina Krejčí,mgr.vendulascheichlova@seznam.cz,63933357,České Budějovice,24,70285.0,2928.54,2026-05-01T22:50:36+02:00
+5,Merry Lynch (Jan Churan),Merry Lynch,Jan Churan,rivox@volny.cz,25026569,Ústí nad Labem 1,12,66770.0,5564.17,2026-05-04T10:49:25+02:00
+6,Ivana Kunešová,,Ivana Kunešová,ivanakunes@seznam.cz,,Horažďovice,53,58327.0,1100.51,2026-05-02T10:11:26+02:00
+7,KidPro Toys s.r.o. (Eva Domorádová),KidPro Toys s.r.o.,Eva Domorádová,domoradova@kidpro.cz,07952759,Praha,24,47587.0,1982.79,2026-04-27T07:34:54+02:00
+8,Miluše Dubská,,Miluše Dubská,milusedubska@seznam.cz,,Bystřice,21,43596.75,2076.04,2026-05-01T14:58:43+02:00
+9,Z-BOX (Kamila Sabelová),Z-BOX,Kamila Sabelová,k.sabelova@seznam.cz,,Komorní Lhotka,12,40331.0,3360.92,2026-05-04T19:28:57+02:00
+10,Dana Pokorná,,Dana Pokorná,danka.pokorna1@seznam.cz,,Budětsko,12,40108.0,3342.33,2026-04-28T11:52:55+02:00
+11,Miroslava Kostková,,Miroslava Kostková,mir.kostkova@seznam.cz,,Kladno,15,36375.0,2425.0,2026-04-24T20:52:59+02:00
+12,Dana Grogerová,,Dana Grogerová,dandy.25@seznam.cz,,Milevsko 1,8,35789.0,4473.62,2026-04-30T18:12:17+02:00
+13,Milada Fohlerová,,Milada Fohlerová,mfohlerova@centrum.cz,,Klášter Hradiště nad Jizerou,18,35158.0,1953.22,2026-05-02T21:16:26+02:00
+14,Z-BOX (Zdeňka Špůrková),Z-BOX,Zdeňka Špůrková,zdenina.11@seznam.cz,,Dobré Pole,8,34015.0,4251.88,2026-05-04T20:15:21+02:00
+15,Martina Tomšů,,Martina Tomšů,martina1tomsu@gmail.com,,Dolní Benešov,14,32960.0,2354.29,2026-04-27T09:56:09+02:00
+16,Lucie Holubcová,,Lucie Holubcová,lucahorackova@seznam.cz,,Krnov 1,7,32366.0,4623.71,2026-05-05T08:05:12+02:00
+17,Hana Langerová,,Hana Langerová,regnalh@gmail.com,,Kamenice,9,32331.0,3592.33,2026-04-28T13:09:24+02:00
+18,Vendula Zpěváková,,Vendula Zpěváková,vendulka.churanova@seznam.cz,,Bor,13,32237.0,2479.77,2026-04-20T08:46:25+02:00
+19,Pavla Kavinová,,Pavla Kavinová,kavinova.pavla@seznam.cz,,Nezbavětice,26,32001.0,1230.81,2026-05-04T10:25:58+02:00
+20,Andrea Svitáková,,Andrea Svitáková,andrea.svitakova@seznam.cz,,Benešov u Prahy,19,31982.75,1683.3,2026-04-15T11:31:59+02:00
+21,Marcela Šperlová,,Marcela Šperlová,kocka33@seznam.cz,,Dobšice,9,31916.0,3546.22,2026-05-02T13:35:57+02:00
+22,Ladislava Šperlingová,,Ladislava Šperlingová,l.sperlingova@seznam.cz,,Praha 9 - Hloubětín,15,31883.0,2125.53,2026-04-18T11:09:16+02:00
+23,Lenka Holadová,,Lenka Holadová,lenkaholadova@seznam.cz,,Děčín,7,31696.0,4528.0,2026-04-27T14:25:04+02:00
+24,Iveta Freyová,,Iveta Freyová,typivet@seznam.cz,,Praha 9 - Letňany,9,31684.0,3520.44,2026-03-17T19:09:47+01:00
+25,Marie Čekanová,,Marie Čekanová,maricek56@seznam.cz,,Olšany,14,31449.0,2246.36,2026-04-29T21:00:05+02:00
+26,Jitka Doležalová,,Jitka Doležalová,doletka2@seznam.cz,,Velké Meziříčí,10,31382.0,3138.2,2026-05-04T22:26:36+02:00
+27,Gabriela Makarová,,Gabriela Makarová,gabcag@seznam.cz,,Ostrava,12,31207.0,2600.58,2026-04-28T21:15:32+02:00
+28,Martina Mrázková,,Martina Mrázková,mrazkova73@seznam.cz,,Uherské Hradiště 6,34,31084.0,914.24,2026-05-01T17:28:20+02:00
+29,Alena Tůmová,,Alena Tůmová,ala.tumova@centrum.cz,,Jindřichův Hradec 1,12,31018.0,2584.83,2026-04-30T23:30:21+02:00
+30,Dana Schitková,,Dana Schitková,dana.schitkova@centrum.cz,,Šumperk 1,7,29971.0,4281.57,2026-04-21T20:17:40+02:00
+31,Lýdie Vallušová,,Lýdie Vallušová,lydie05@seznam.cz,,Stráž pod Ralskem,19,29900.0,1573.68,2026-05-04T08:19:18+02:00
+32,Jaroslava Voleníková,,Jaroslava Voleníková,jaus1@seznam.cz,,Teplice 1,9,29854.0,3317.11,2026-05-03T08:01:01+02:00
+33,Věra Čechová (Věra Čechová),Věra Čechová,Věra Čechová,veracech@seznam.cz,14111225,Klenčí pod Čerchovem,17,29822.0,1754.24,2026-05-04T19:21:58+02:00
+34,Jana Šrámková,,Jana Šrámková,sramkova_jana@seznam.cz,,Plzeň,13,29427.0,2263.62,2026-04-17T21:54:43+02:00
+35,Monika Černá,,Monika Černá,cerna.monika@mujmail.cz,,Kladno-Vrapice,16,29267.0,1829.19,2026-05-02T13:41:06+02:00
+36,Gabriela Bohuslavová,,Gabriela Bohuslavová,g.bohuslavova@seznam.cz,,Sadov,8,29239.0,3654.88,2026-05-04T17:41:09+02:00
+37,Blanka Sekyrková,,Blanka Sekyrková,blankasekyrkova@seznam.cz,,Pardubice,15,28522.45,1901.5,2026-05-03T10:41:03+02:00
+38,Hana Bačkalová,,Hana Bačkalová,oslancovah@seznam.cz,,Vlkaneč,15,28223.5,1881.57,2026-05-02T13:45:17+02:00
+39,Jaroslava Boudná,,Jaroslava Boudná,boudnajarka@seznam.cz,,Ústí nad Labem Trmice,15,28155.0,1877.0,2026-04-19T19:21:27+02:00
+40,Andrea Kolářová,,Andrea Kolářová,hyzlovaa@seznam.cz,,Ivanovice na Hané,9,28093.0,3121.44,2026-04-21T22:10:47+02:00
+41,Iva Zatloukalová,,Iva Zatloukalová,ivaabcd1234@seznam.cz,,Přerov 2,15,27975.0,1865.0,2026-04-27T21:10:27+02:00
+42,Marie Krupková,,Marie Krupková,marie@krupci.cz,,Příbor,19,27644.15,1454.96,2026-05-02T13:57:54+02:00
+43,Centrum sociálních služeb (Marie Hromadková),Centrum sociálních služeb,Marie Hromadková,hromadkovamasha@centrum.cz,,Jindřichův Hradec 1,17,27553.0,1620.76,2026-05-04T19:25:15+02:00
+44,Radomíra Kučerová,,Radomíra Kučerová,35radka@seznam.cz,,Chvaletice,9,26652.0,2961.33,2026-04-29T14:12:50+02:00
+45,Zlata Mihulová Růžičková,,Zlata Mihulová Růžičková,zlata@recoma.cz,,Drnovice u Lysic,12,26238.0,2186.5,2026-05-02T09:15:22+02:00
+46,Jana Kotasová,,Jana Kotasová,j.kotasova@email.cz,,Havířov 1,13,25974.0,1998.0,2026-05-02T22:41:22+02:00
+47,Ilona Malinovská,,Ilona Malinovská,illonkamali@seznam.cz,,Stará Voda,13,25823.0,1986.38,2026-04-19T10:44:57+02:00
+48,Stanislava Slámová,,Stanislava Slámová,slamova77@email.cz,,Vimperk,20,25656.0,1282.8,2026-05-04T04:21:01+02:00
+49,Emílie Nováková,,Emílie Nováková,milka.novakova@seznam.cz,,Lechovice,14,25590.0,1827.86,2026-05-04T09:53:50+02:00
+50,Veronika Hriciščuková,,Veronika Hriciščuková,veru.hrici@seznam.cz,,Terezín,4,25209.0,6302.25,2026-04-14T11:34:49+02:00

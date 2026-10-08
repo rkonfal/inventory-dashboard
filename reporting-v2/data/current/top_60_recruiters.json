@@ -1,0 +1,2468 @@
+{
+  "generatedAt": "2026-04-29T09:08:31.921005+02:00",
+  "usersProcessed": 139656,
+  "recruitersCount": 3477,
+  "topN": 60,
+  "rows": [
+    {
+      "sponsorID": "13650710",
+      "recruiterLabel": "Rudolf Konfal",
+      "recruiterEmail": "rkonfal.rk@gmail.com",
+      "recruiterTiandeId": "13650710",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 1498,
+      "sampleCustomers": [
+        {
+          "id": 173,
+          "label": "Bohumila Viskova",
+          "email": "bohumila1961@email.cz",
+          "dateRegistered": "2023-01-22T06:00:00+01:00"
+        },
+        {
+          "id": 206,
+          "label": "Jana Hrdinová",
+          "email": "janca.hrdinova@gmail.com",
+          "dateRegistered": "2017-07-24T12:19:25+02:00"
+        },
+        {
+          "id": 368,
+          "label": "Helena Obrtelova",
+          "email": "amanda49@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 508,
+          "label": "Petra Hejduková",
+          "email": "petra.hejdukova@centrum.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 1375,
+          "label": "Edita Hubená",
+          "email": "editahubena@seznam.cz",
+          "dateRegistered": "2021-07-27T08:00:00+02:00"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "sponsorID": "13823879",
+      "recruiterLabel": "Michaela Krásová",
+      "recruiterEmail": "krasovamichaela178@gmail.com",
+      "recruiterTiandeId": "13823879",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 570,
+      "sampleCustomers": [
+        {
+          "id": 405,
+          "label": "Gabriela Zahradníková",
+          "email": "gzahradnikova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 1354,
+          "label": "Michaela Čechová",
+          "email": "misa.cechova@centrum.cz",
+          "dateRegistered": "2023-06-28T10:00:00+02:00"
+        },
+        {
+          "id": 4131,
+          "label": "Petra Hausdorfová",
+          "email": "petulihaus79@gmail.com",
+          "dateRegistered": "2022-11-25T06:00:00+01:00"
+        },
+        {
+          "id": 5562,
+          "label": "Soňa Jirků",
+          "email": "sona.jirku@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 8735,
+          "label": "Kamila Jílková",
+          "email": "Kamila.24@seznam.cz",
+          "dateRegistered": "2021-07-19T02:00:00+02:00"
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "sponsorID": "15277943",
+      "recruiterLabel": "Anna Dvorská",
+      "recruiterEmail": "annadvorska50@gmail.com",
+      "recruiterTiandeId": "15277943",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 569,
+      "sampleCustomers": [
+        {
+          "id": 891,
+          "label": "Jaroslava Fišerová",
+          "email": "jaroslavafiserova@atlas.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 1179,
+          "label": "Radka Zbožínková",
+          "email": "zbozinkova.radka@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 1565,
+          "label": "Renata Jančová",
+          "email": "RendaDav@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 1674,
+          "label": "Eva Kianicová",
+          "email": "kianicovaeva@gmail.com",
+          "dateRegistered": "2017-07-24T12:19:28+02:00"
+        },
+        {
+          "id": 2198,
+          "label": "Lenka Roušavá",
+          "email": "lenka.rousava@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "sponsorID": "13243193",
+      "recruiterLabel": "Roman Kočí",
+      "recruiterEmail": "rklever@seznam.cz",
+      "recruiterTiandeId": "13243193",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 409,
+      "sampleCustomers": [
+        {
+          "id": 6276,
+          "label": "Iveta Frömlová",
+          "email": "Iveta.Fromlova@seznam.cz",
+          "dateRegistered": "2022-11-23T02:00:00+01:00"
+        },
+        {
+          "id": 6644,
+          "label": "Veronika Bělohoubková",
+          "email": "Belohoubkova.V@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 9151,
+          "label": "Petra ROTHOVÁ",
+          "email": "Magnolie33@centrum.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 9258,
+          "label": "Barbora Konečná",
+          "email": "obchod@trendyflorist.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 9306,
+          "label": "Zdeňka Pechová",
+          "email": "pech.zdenka@gmail.com",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 4
+    },
+    {
+      "sponsorID": "13285739",
+      "recruiterLabel": "Iveta Houšťová",
+      "recruiterEmail": "houstova.iveta@seznam.cz",
+      "recruiterTiandeId": "13285739",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 407,
+      "sampleCustomers": [
+        {
+          "id": 2599,
+          "label": "Dagmar Caletkova",
+          "email": "dadacal@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 5669,
+          "label": "Monika Kukučková",
+          "email": "elenor.dorhain@gmail.com",
+          "dateRegistered": "2022-08-25T06:00:00+02:00"
+        },
+        {
+          "id": 6223,
+          "label": "Romana Jeremiášova",
+          "email": "romisek1988@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 7768,
+          "label": "Lucie Deglmannova",
+          "email": "lucie-vosicka@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 10709,
+          "label": "Jitka Tlustáková",
+          "email": "jtlustakova@centrum.cz",
+          "dateRegistered": "2017-08-18T09:00:00+02:00"
+        }
+      ],
+      "rank": 5
+    },
+    {
+      "sponsorID": "13256691",
+      "recruiterLabel": "Dana Přindová",
+      "recruiterEmail": "dana.prind@seznam.cz",
+      "recruiterTiandeId": "13256691",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 343,
+      "sampleCustomers": [
+        {
+          "id": 580,
+          "label": "Božena Javorská",
+          "email": "javorskab@seznam.cz",
+          "dateRegistered": "2023-08-07T04:00:00+02:00"
+        },
+        {
+          "id": 6115,
+          "label": "Daniela Králová",
+          "email": "kbarron@seznam.cz",
+          "dateRegistered": "2022-08-24T06:00:00+02:00"
+        },
+        {
+          "id": 14068,
+          "label": "Kateřina Wandlová",
+          "email": "katarina.w@centrum.cz",
+          "dateRegistered": "2017-09-25T02:00:00+02:00"
+        },
+        {
+          "id": 16303,
+          "label": "Dana Bušková",
+          "email": "lubosbusek@seznam.cz",
+          "dateRegistered": "2017-10-22T03:00:00+02:00"
+        },
+        {
+          "id": 16360,
+          "label": "Markéta Krásná",
+          "email": "marjan3@seznam.cz",
+          "dateRegistered": "2021-10-15T10:00:00+02:00"
+        }
+      ],
+      "rank": 6
+    },
+    {
+      "sponsorID": "13206161",
+      "recruiterLabel": "Jana Bařinková",
+      "recruiterEmail": "barinkova.jana@seznam.cz",
+      "recruiterTiandeId": "13206161",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 334,
+      "sampleCustomers": [
+        {
+          "id": 2795,
+          "label": "Blanka Stibichova",
+          "email": "dommnich@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2890,
+          "label": "Věra Nesládková",
+          "email": "vera.nesladkova@seznam.cz",
+          "dateRegistered": "2022-10-30T09:00:00+01:00"
+        },
+        {
+          "id": 3297,
+          "label": "Blanka Kučerová",
+          "email": "kucerova@compag.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3387,
+          "label": "Marcela Hussien",
+          "email": "muhli74@gmail.com",
+          "dateRegistered": "2023-02-27T05:00:00+01:00"
+        },
+        {
+          "id": 3511,
+          "label": "Ilona Dohnalová",
+          "email": "dohnalkai@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 7
+    },
+    {
+      "sponsorID": "13210459",
+      "recruiterLabel": "Natalie Szmeková",
+      "recruiterEmail": "nati.sz@email.cz",
+      "recruiterTiandeId": "13210459",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 333,
+      "sampleCustomers": [
+        {
+          "id": 3025,
+          "label": "Hana Szmeková",
+          "email": "Hana.Szmekova@gmail.com",
+          "dateRegistered": "2022-12-31T11:00:00+01:00"
+        },
+        {
+          "id": 9198,
+          "label": "Urszula Dyrdova",
+          "email": "k.urszula@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 10838,
+          "label": "Radka Rucká",
+          "email": "radka.rucka@seznam.cz",
+          "dateRegistered": "2017-08-18T09:00:00+02:00"
+        },
+        {
+          "id": 11054,
+          "label": "Ivana Hemzová",
+          "email": "hemzovaivana@seznam.cz",
+          "dateRegistered": "2017-08-19T10:00:00+02:00"
+        },
+        {
+          "id": 12856,
+          "label": "Jiřina Macháčová",
+          "email": "jiruska2@seznam.cz",
+          "dateRegistered": "2017-09-11T20:18:16+02:00"
+        }
+      ],
+      "rank": 8
+    },
+    {
+      "sponsorID": "13222916",
+      "recruiterLabel": "Jiří Kolinek",
+      "recruiterEmail": "jirkajanakolinkova@seznam.cz",
+      "recruiterTiandeId": "13222916",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 282,
+      "sampleCustomers": [
+        {
+          "id": 3630,
+          "label": "Žaneta Zieglerová",
+          "email": "zzieglerova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3881,
+          "label": "Marie Moraňová",
+          "email": "majka.133@hotmail.com",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 4244,
+          "label": "Jana Šusterová",
+          "email": "jana69@atlas.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 5788,
+          "label": "Dagmar Kecliková",
+          "email": "dagmarkeclikova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 6179,
+          "label": "Kamila Lajčáková",
+          "email": "kamila.lajcakova@gmail.com",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 9
+    },
+    {
+      "sponsorID": "13215183",
+      "recruiterLabel": "Monika Kantoříková",
+      "recruiterEmail": "m.kantorikova@seznam.cz",
+      "recruiterTiandeId": "13215183",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 270,
+      "sampleCustomers": [
+        {
+          "id": 5616,
+          "label": "Dana Přindová",
+          "email": "dana.prind@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 6077,
+          "label": "Vendula Přesličková",
+          "email": "preslickovaV@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 7154,
+          "label": "Iveta Stranská",
+          "email": "i.stranska81@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 8939,
+          "label": "Bohumila Kořínková",
+          "email": "kosmetika-boja@centrum.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 9160,
+          "label": "Lenka Cepníková",
+          "email": "Len.kuncova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 10
+    },
+    {
+      "sponsorID": "13213690",
+      "recruiterLabel": "Michaela Sovíková",
+      "recruiterEmail": "misena007@seznam.cz",
+      "recruiterTiandeId": "13213690",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 254,
+      "sampleCustomers": [
+        {
+          "id": 3508,
+          "label": "Jitka Něměčková",
+          "email": "jitulanemeckova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 6059,
+          "label": "Kristýna Jiříčková",
+          "email": "jirickova.kristyna@seznam.cz",
+          "dateRegistered": "2023-10-26T10:00:00+02:00"
+        },
+        {
+          "id": 6428,
+          "label": "Martin Ošťádal",
+          "email": "martin@ostadal.eu",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 6757,
+          "label": "Miroslava Vojáčková",
+          "email": "vojackovamiroslava@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 8257,
+          "label": "Jana Mrozková",
+          "email": "timmea@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 11
+    },
+    {
+      "sponsorID": "13209843",
+      "recruiterLabel": "Jiřina Radová",
+      "recruiterEmail": "podnikani@jirinaradova.cz",
+      "recruiterTiandeId": "13209843",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 228,
+      "sampleCustomers": [
+        {
+          "id": 3124,
+          "label": "Kateřina Štěpánková",
+          "email": "katerina.rihova.pardubice@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3826,
+          "label": "Petra Silpochova",
+          "email": "Petrasil@seznam.cz",
+          "dateRegistered": "2023-08-20T10:00:00+02:00"
+        },
+        {
+          "id": 4265,
+          "label": "Irena Hrdá",
+          "email": "hrdaska@seznam.cz",
+          "dateRegistered": "2017-07-24T12:19:34+02:00"
+        },
+        {
+          "id": 4375,
+          "label": "Svatava Krouparová",
+          "email": "svatava.krouparova@hotmail.com",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 4758,
+          "label": "Dagmar Báčová",
+          "email": "damatopa@centrum.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 12
+    },
+    {
+      "sponsorID": "13528363",
+      "recruiterLabel": "Katarína Vargová",
+      "recruiterEmail": "Katytiande@gmail.com",
+      "recruiterTiandeId": "13528363",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 223,
+      "sampleCustomers": [
+        {
+          "id": 44800,
+          "label": "Anna Dudášová",
+          "email": "andus1960@gmail.com",
+          "dateRegistered": "2018-06-18T06:00:00+02:00"
+        },
+        {
+          "id": 61102,
+          "label": "Ružena Agocsová",
+          "email": "ruzenaagocsova@gmail.com",
+          "dateRegistered": "2019-02-12T02:00:00+01:00"
+        },
+        {
+          "id": 61334,
+          "label": "Andrea Hajduková",
+          "email": "anda1212@gmail.com",
+          "dateRegistered": "2019-02-15T02:00:00+01:00"
+        },
+        {
+          "id": 64035,
+          "label": "Viktoria Demeterova",
+          "email": "demeter.viktoria.sk@gmail.com",
+          "dateRegistered": "2019-04-03T06:00:00+02:00"
+        },
+        {
+          "id": 84268,
+          "label": "Simona Mitrikova",
+          "email": "simi.mitrikova@gmail.com",
+          "dateRegistered": "2020-02-11T02:00:00+01:00"
+        }
+      ],
+      "rank": 13
+    },
+    {
+      "sponsorID": "13147369",
+      "recruiterLabel": "Pavlína Macháčková",
+      "recruiterEmail": "tiandepavlina@email.cz",
+      "recruiterTiandeId": "13147369",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 222,
+      "sampleCustomers": [
+        {
+          "id": 758,
+          "label": "Martina Havlíková",
+          "email": "martinahrancikova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 1135,
+          "label": "Jana Hillová",
+          "email": "hillovajana@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 1268,
+          "label": "Edita Kloparová",
+          "email": "ekloparova@gmail.com",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 1887,
+          "label": "Ing. Markéta",
+          "email": "marketa.konecna@volny.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2018,
+          "label": "Petra Pospíšilová",
+          "email": "petulink@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 14
+    },
+    {
+      "sponsorID": "13616698",
+      "recruiterLabel": "Romana Pazderová",
+      "recruiterEmail": "roomiceek@gmail.com",
+      "recruiterTiandeId": "13616698",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 218,
+      "sampleCustomers": [
+        {
+          "id": 769,
+          "label": "Gabriela Kaňková",
+          "email": "gabriela.kankova@seznam.cz",
+          "dateRegistered": "2023-09-21T12:00:00+02:00"
+        },
+        {
+          "id": 3696,
+          "label": "Monika Bejčková",
+          "email": "monikab007@seznam.cz",
+          "dateRegistered": "2017-07-24T12:19:32+02:00"
+        },
+        {
+          "id": 15204,
+          "label": "Eliška Caklová",
+          "email": "cakel@email.cz",
+          "dateRegistered": "2023-10-23T03:00:00+02:00"
+        },
+        {
+          "id": 41867,
+          "label": "Marie Konášková",
+          "email": "majkakonaskova@seznam.cz",
+          "dateRegistered": "2021-06-16T04:00:00+02:00"
+        },
+        {
+          "id": 53379,
+          "label": "Renáta Kačírková",
+          "email": "ren.dobrovskaa@seznam.cz",
+          "dateRegistered": "2022-08-08T07:00:00+02:00"
+        }
+      ],
+      "rank": 15
+    },
+    {
+      "sponsorID": "13336744",
+      "recruiterLabel": "Pavla Magyaričová",
+      "recruiterEmail": "Pavlakrajic@gmail.com",
+      "recruiterTiandeId": "13336744",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 207,
+      "sampleCustomers": [
+        {
+          "id": 24198,
+          "label": "Jana Poskočilová",
+          "email": "kucianova@email.cz",
+          "dateRegistered": "2018-01-21T07:00:00+01:00"
+        },
+        {
+          "id": 25319,
+          "label": "Petra Štofilova",
+          "email": "pstofilova@seznam.cz",
+          "dateRegistered": "2018-01-30T04:00:00+01:00"
+        },
+        {
+          "id": 25405,
+          "label": "Marie Koláčková",
+          "email": "Kolackovamayuko@seznam.CZ",
+          "dateRegistered": "2022-08-26T11:00:00+02:00"
+        },
+        {
+          "id": 26219,
+          "label": "Hana Smékalová",
+          "email": "hanka.smekalova@seznam.cz",
+          "dateRegistered": "2018-02-04T09:00:00+01:00"
+        },
+        {
+          "id": 26222,
+          "label": "Diana Samuri",
+          "email": "dianasamuri2@gmail.com",
+          "dateRegistered": "2018-02-04T09:00:00+01:00"
+        }
+      ],
+      "rank": 16
+    },
+    {
+      "sponsorID": "13400550",
+      "recruiterLabel": "Alena Mikulášková",
+      "recruiterEmail": "alena.24@seznam.cz",
+      "recruiterTiandeId": "13400550",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 206,
+      "sampleCustomers": [
+        {
+          "id": 11522,
+          "label": "Alžběta Štěpánová",
+          "email": "alzbetastepanova@gmail.com",
+          "dateRegistered": "2021-10-21T09:00:00+02:00"
+        },
+        {
+          "id": 16683,
+          "label": "Lucie Raschová",
+          "email": "Lucille7@centrum.cz",
+          "dateRegistered": "2017-10-26T21:46:02+02:00"
+        },
+        {
+          "id": 17609,
+          "label": "Marečková Hana",
+          "email": "kvetinkahanicka@seznam.cz",
+          "dateRegistered": "2017-11-07T09:37:11+01:00"
+        },
+        {
+          "id": 22068,
+          "label": "Gabriela Wiesnetová",
+          "email": "xgabca.v@seznam.cz",
+          "dateRegistered": "2022-03-24T04:00:00+01:00"
+        },
+        {
+          "id": 25825,
+          "label": "Adéla Tauerová",
+          "email": "Knopfova.A@seznam.cz",
+          "dateRegistered": "2018-02-01T07:00:00+01:00"
+        }
+      ],
+      "rank": 17
+    },
+    {
+      "sponsorID": "13402931",
+      "recruiterLabel": "Šárka Knesplová",
+      "recruiterEmail": "knesplova.sarka@email.cz",
+      "recruiterTiandeId": "13402931",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 206,
+      "sampleCustomers": [
+        {
+          "id": 4995,
+          "label": "Eliška",
+          "email": "eli.fialova@email.cz",
+          "dateRegistered": "2022-09-18T01:00:00+02:00"
+        },
+        {
+          "id": 7832,
+          "label": "Simona Řitičková",
+          "email": "srdickosimonka@seznam.cz",
+          "dateRegistered": "2022-10-04T03:00:00+02:00"
+        },
+        {
+          "id": 10834,
+          "label": "Andre Kendíková",
+          "email": "ajinek81@seznam.cz",
+          "dateRegistered": "2022-12-06T05:00:00+01:00"
+        },
+        {
+          "id": 18040,
+          "label": "iveta loubová",
+          "email": "vecinamimi@seznam.cz",
+          "dateRegistered": "2022-12-21T08:00:00+01:00"
+        },
+        {
+          "id": 28996,
+          "label": "Jitka Suchomelová",
+          "email": "jitka.suchomelova@centrum.cz",
+          "dateRegistered": "2018-02-17T03:00:00+01:00"
+        }
+      ],
+      "rank": 18
+    },
+    {
+      "sponsorID": "6931685",
+      "recruiterLabel": "Simona Žáková",
+      "recruiterEmail": "simona.zakova@email.cz",
+      "recruiterTiandeId": "6931685",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 204,
+      "sampleCustomers": [
+        {
+          "id": 25,
+          "label": "Leona Ochodnická",
+          "email": "ochodnickova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 76,
+          "label": "Veronika Hriciščuková",
+          "email": "veru.hrici@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 77,
+          "label": "Lenka Pokladníková",
+          "email": "L.p.info@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 119,
+          "label": "Věra Smolíková",
+          "email": "v.e.r.a.66@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 146,
+          "label": "Markéta Úlehlová",
+          "email": "Marketaul@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 19
+    },
+    {
+      "sponsorID": "13226041",
+      "recruiterLabel": "Jana Hanzlíková",
+      "recruiterEmail": "j.pauliova@seznam.cz",
+      "recruiterTiandeId": "13226041",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 198,
+      "sampleCustomers": [
+        {
+          "id": 4303,
+          "label": "Pavlína Csernáková",
+          "email": "csernakova.pavlina@email.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 4413,
+          "label": "Zuzana Mikotová",
+          "email": "zuzana_mikotova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 4535,
+          "label": "Lenka Košťálová",
+          "email": "Lkostalova@atlas.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 5789,
+          "label": "Jana Kotrbová",
+          "email": "kotrbova.jane@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 5803,
+          "label": "Petra Koutníková",
+          "email": "p.koutnikova@email.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 20
+    },
+    {
+      "sponsorID": "13182252",
+      "recruiterLabel": "Marie Krupková",
+      "recruiterEmail": "marie@krupci.cz",
+      "recruiterTiandeId": "13182252",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 197,
+      "sampleCustomers": [
+        {
+          "id": 2324,
+          "label": "Lenka Šimíčková",
+          "email": "simickova17@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3199,
+          "label": "Jana Michálková",
+          "email": "janicamichalkova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3362,
+          "label": "Karolína Pivková",
+          "email": "karolinapivkova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3945,
+          "label": "Anna Grmelová",
+          "email": "grmelka@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 4251,
+          "label": "Jiřina Feixová",
+          "email": "jirinka.feixova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 21
+    },
+    {
+      "sponsorID": "13377219",
+      "recruiterLabel": "Jana Rősslerová",
+      "recruiterEmail": "rosslerova.j@gmail.com",
+      "recruiterTiandeId": "13377219",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 192,
+      "sampleCustomers": [
+        {
+          "id": 299,
+          "label": "Vladislava Šímová",
+          "email": "simova.v@email.cz",
+          "dateRegistered": "2017-07-24T12:19:26+02:00"
+        },
+        {
+          "id": 14263,
+          "label": "Marie Johanovská",
+          "email": "Marie.basova@seznam.cz",
+          "dateRegistered": "2023-02-08T09:00:00+01:00"
+        },
+        {
+          "id": 25782,
+          "label": "Lucie Balounová",
+          "email": "luciebalounova@centrum.cz",
+          "dateRegistered": "2023-03-10T07:00:00+01:00"
+        },
+        {
+          "id": 28515,
+          "label": "Lucie Applová",
+          "email": "applovalucie@gmail.com",
+          "dateRegistered": "2019-07-28T10:00:00+02:00"
+        },
+        {
+          "id": 31141,
+          "label": "Lucie Řiháková",
+          "email": "lucierihakova@email.cz",
+          "dateRegistered": "2022-12-20T03:00:00+01:00"
+        }
+      ],
+      "rank": 22
+    },
+    {
+      "sponsorID": "13728494",
+      "recruiterLabel": "Jana Jakoubková",
+      "recruiterEmail": "jana.jakoubkova@gmail.com",
+      "recruiterTiandeId": "13728494",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 179,
+      "sampleCustomers": [
+        {
+          "id": 998,
+          "label": "Iva Nevyjelová",
+          "email": "ivusks@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2584,
+          "label": "Jana Bajerová",
+          "email": "bajerovajana@seznam.cz",
+          "dateRegistered": "2023-01-09T12:00:00+01:00"
+        },
+        {
+          "id": 3052,
+          "label": "Jolana Slámová",
+          "email": "jola1234@seznam.cz",
+          "dateRegistered": "2023-10-27T11:00:00+02:00"
+        },
+        {
+          "id": 5203,
+          "label": "Irena Sovová",
+          "email": "isovova@volny.cz",
+          "dateRegistered": "2023-01-11T09:00:00+01:00"
+        },
+        {
+          "id": 10899,
+          "label": "Růžena Divišová",
+          "email": "diviska.ruzenka@seznam.cz",
+          "dateRegistered": "2022-08-14T10:00:00+02:00"
+        }
+      ],
+      "rank": 23
+    },
+    {
+      "sponsorID": "13065787",
+      "recruiterLabel": "Andrea Svitáková",
+      "recruiterEmail": "andrea.svitakova@seznam.cz",
+      "recruiterTiandeId": "13065787",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 178,
+      "sampleCustomers": [
+        {
+          "id": 594,
+          "label": "Gabriela Smolová",
+          "email": "g.smolova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 809,
+          "label": "Zdeňka Matoušková",
+          "email": "siluetabenesov@email.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 997,
+          "label": "Ilona Hlúchová",
+          "email": "ilona.hluchova@gmail.com",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 1018,
+          "label": "Renata Martínková",
+          "email": "r.martinkova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 1280,
+          "label": "Zdeňka Šetková",
+          "email": "zdenka.log@tiscali.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 24
+    },
+    {
+      "sponsorID": "13223899",
+      "recruiterLabel": "Michaela Holinská",
+      "recruiterEmail": "mholinska@seznam.cz",
+      "recruiterTiandeId": "13223899",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 178,
+      "sampleCustomers": [
+        {
+          "id": 3976,
+          "label": "Ivana Valachová",
+          "email": "ivana@ivanavalachov.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3979,
+          "label": "Eva Lněničková",
+          "email": "EvaLnenickova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3986,
+          "label": "Iveta Vejmělková",
+          "email": "ivevej@seznam.cz",
+          "dateRegistered": "2021-09-06T11:00:00+02:00"
+        },
+        {
+          "id": 4220,
+          "label": "Petra Bustová",
+          "email": "peta.bustova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 5518,
+          "label": "Radka Janatová",
+          "email": "radka.janatova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:19:36+02:00"
+        }
+      ],
+      "rank": 25
+    },
+    {
+      "sponsorID": "13357365",
+      "recruiterLabel": "Michaela Tylová",
+      "recruiterEmail": "tiandesmichaelou@gmail.com",
+      "recruiterTiandeId": "13357365",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 178,
+      "sampleCustomers": [
+        {
+          "id": 19765,
+          "label": "Dominika Večerková",
+          "email": "D.kallerova@seznam.cz",
+          "dateRegistered": "2023-01-23T11:00:00+01:00"
+        },
+        {
+          "id": 20504,
+          "label": "Magda Tomečková",
+          "email": "Baladynka@seznam.cz",
+          "dateRegistered": "2017-12-06T09:00:00+01:00"
+        },
+        {
+          "id": 20946,
+          "label": "Simona Brodova",
+          "email": "sisa.nem@seznam.cz",
+          "dateRegistered": "2017-12-12T10:00:00+01:00"
+        },
+        {
+          "id": 21038,
+          "label": "Jitka Brabencová",
+          "email": "jitka.brabencova@respect.cz",
+          "dateRegistered": "2017-12-14T10:00:00+01:00"
+        },
+        {
+          "id": 24109,
+          "label": "Marcela Dorová",
+          "email": "MDorova@seznam.cz",
+          "dateRegistered": "2018-01-20T08:00:00+01:00"
+        }
+      ],
+      "rank": 26
+    },
+    {
+      "sponsorID": "13103253",
+      "recruiterLabel": "Monika Nevečeřalová",
+      "recruiterEmail": "monikatiande1970@gmail.com",
+      "recruiterTiandeId": "13103253",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 174,
+      "sampleCustomers": [
+        {
+          "id": 5868,
+          "label": "Ivana Tichovská",
+          "email": "gearzy@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 5942,
+          "label": "Monika Čížová",
+          "email": "strelka2005@seznam.cz",
+          "dateRegistered": "2023-03-13T05:00:00+01:00"
+        },
+        {
+          "id": 6982,
+          "label": "Hana Domesová",
+          "email": "hanaka.d@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 6996,
+          "label": "Marcela Formánková",
+          "email": "celaformicka@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 7429,
+          "label": "Jana Goldmannová",
+          "email": "goldici@email.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 27
+    },
+    {
+      "sponsorID": "13210433",
+      "recruiterLabel": "Lenka Zelinová",
+      "recruiterEmail": "zelinova.lenka@seznam.cz",
+      "recruiterTiandeId": "13210433",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 167,
+      "sampleCustomers": [
+        {
+          "id": 3463,
+          "label": "Monika Kozubková",
+          "email": "m.ledwonova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3503,
+          "label": "Anna Paclová",
+          "email": "dudul@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3673,
+          "label": "Lenka Kadečková",
+          "email": "lanisa@tiscali.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 4595,
+          "label": "Pavlina Parvoničová",
+          "email": "pavlina.parvonicova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 4600,
+          "label": "Jitka Holická",
+          "email": "j.holicka@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 28
+    },
+    {
+      "sponsorID": "13142795",
+      "recruiterLabel": "Gabriela Novotná",
+      "recruiterEmail": "gabriela_blazkova@centrum.cz",
+      "recruiterTiandeId": "13142795",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 165,
+      "sampleCustomers": [
+        {
+          "id": 1067,
+          "label": "Adela Blazkova",
+          "email": "Adela.Blazkova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 1556,
+          "label": "Eva Šimůnková",
+          "email": "s.a.r.a.a.a.ch@seznam.cz",
+          "dateRegistered": "2023-06-14T08:00:00+02:00"
+        },
+        {
+          "id": 2549,
+          "label": "Martina Zadražilová",
+          "email": "Martisko01@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2570,
+          "label": "Dagmar Zadinová",
+          "email": "Dasa23@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2648,
+          "label": "Petra Kuřátková",
+          "email": "kuratkovapetra@seznam.cz",
+          "dateRegistered": "2017-07-24T12:19:30+02:00"
+        }
+      ],
+      "rank": 29
+    },
+    {
+      "sponsorID": "13249874",
+      "recruiterLabel": "Marta Neumannová",
+      "recruiterEmail": "m.neumannova@centrum.cz",
+      "recruiterTiandeId": "13249874",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 159,
+      "sampleCustomers": [
+        {
+          "id": 507,
+          "label": "Ivana Nožková",
+          "email": "nozkovai@seznam.cz",
+          "dateRegistered": "2017-07-24T12:19:26+02:00"
+        },
+        {
+          "id": 5694,
+          "label": "Lucie Nová",
+          "email": "luckasynkova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 6049,
+          "label": "Anna Toužimská",
+          "email": "brichackova.anicka@gmail.com",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 6608,
+          "label": "Jan Cmunt",
+          "email": "jancmunt@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 7012,
+          "label": "Zdenka Lodková",
+          "email": "zx100@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 30
+    },
+    {
+      "sponsorID": "13721270",
+      "recruiterLabel": "Eliška Hadincová",
+      "recruiterEmail": "Eliska.tiande@gmail.com",
+      "recruiterTiandeId": "13721270",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 148,
+      "sampleCustomers": [
+        {
+          "id": 5666,
+          "label": "Ladislava Hynštová",
+          "email": "l.hynstova@seznam.cz",
+          "dateRegistered": "2023-03-16T01:00:00+01:00"
+        },
+        {
+          "id": 11756,
+          "label": "Olga Pohlídalová",
+          "email": "wanda16@seznam.cz",
+          "dateRegistered": "2023-02-28T12:00:00+01:00"
+        },
+        {
+          "id": 26186,
+          "label": "Lenka Bursová",
+          "email": "bursova.leny@seznam.cz",
+          "dateRegistered": "2023-01-03T02:00:00+01:00"
+        },
+        {
+          "id": 26375,
+          "label": "Libuše Vlačihová",
+          "email": "j.serif@seznam.cz",
+          "dateRegistered": "2022-05-04T07:00:00+02:00"
+        },
+        {
+          "id": 29370,
+          "label": "Naděžda Rabová",
+          "email": "nadezdarabova@seznam.cz",
+          "dateRegistered": "2023-01-06T03:00:00+01:00"
+        }
+      ],
+      "rank": 31
+    },
+    {
+      "sponsorID": "13319892",
+      "recruiterLabel": "Hana Křížová",
+      "recruiterEmail": "hannycross@gmail.com",
+      "recruiterTiandeId": "13319892",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 148,
+      "sampleCustomers": [
+        {
+          "id": 12248,
+          "label": "Tereza Křížová",
+          "email": "terezacross@seznam.cz",
+          "dateRegistered": "2017-08-31T09:00:00+02:00"
+        },
+        {
+          "id": 12639,
+          "label": "Hannelore Vorlová",
+          "email": "vorlova.hana@seznam.cz",
+          "dateRegistered": "2017-09-08T11:00:00+02:00"
+        },
+        {
+          "id": 12733,
+          "label": "Hana Flachova",
+          "email": "Hana.Flachova@seznam.cz",
+          "dateRegistered": "2022-11-10T11:00:00+01:00"
+        },
+        {
+          "id": 12888,
+          "label": "Iva Šafránková",
+          "email": "vlasakovaiva@seznam.cz",
+          "dateRegistered": "2023-06-25T06:00:00+02:00"
+        },
+        {
+          "id": 18569,
+          "label": "Alena Mechlová",
+          "email": "mechlova.a@seznam.cz",
+          "dateRegistered": "2017-11-15T11:00:00+01:00"
+        }
+      ],
+      "rank": 32
+    },
+    {
+      "sponsorID": "13239659",
+      "recruiterLabel": "Silvie Lehečková",
+      "recruiterEmail": "sisicaso@gmail.com",
+      "recruiterTiandeId": "13239659",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 145,
+      "sampleCustomers": [
+        {
+          "id": 4164,
+          "label": "Olga Čelková",
+          "email": "olga.celkova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 6201,
+          "label": "Petra Nekolná",
+          "email": "7.Petulka@seznam.cz",
+          "dateRegistered": "2017-07-24T12:19:38+02:00"
+        },
+        {
+          "id": 8176,
+          "label": "Milena Adlerova",
+          "email": "adlerova108@gmail.com",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 11563,
+          "label": "Lucie Danková",
+          "email": "dankovalucie@seznam.cz",
+          "dateRegistered": "2022-06-11T10:00:00+02:00"
+        },
+        {
+          "id": 16776,
+          "label": "Šárka kramperova",
+          "email": "sarka.kramperova@seznam.cz",
+          "dateRegistered": "2021-08-15T07:00:00+02:00"
+        }
+      ],
+      "rank": 33
+    },
+    {
+      "sponsorID": "13780181",
+      "recruiterLabel": "Hana Netoličková",
+      "recruiterEmail": "netolickovah@gmail.com",
+      "recruiterTiandeId": "13780181",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 142,
+      "sampleCustomers": [
+        {
+          "id": 22112,
+          "label": "Květa Škodová",
+          "email": "skodova.kveta@seznam.cz",
+          "dateRegistered": "2018-01-05T09:57:02+01:00"
+        },
+        {
+          "id": 30382,
+          "label": "Lenka Hofmanová",
+          "email": "lenny.lorencova@gmail.com",
+          "dateRegistered": "2018-02-25T08:00:00+01:00"
+        },
+        {
+          "id": 33072,
+          "label": "Zdeňka Lukšíková",
+          "email": "zdenka.luksikova@gmail.com",
+          "dateRegistered": "2022-12-03T07:00:00+01:00"
+        },
+        {
+          "id": 33473,
+          "label": "Alena Pudil",
+          "email": "alena.najbrtova@seznam.cz",
+          "dateRegistered": "2018-03-13T11:55:24+01:00"
+        },
+        {
+          "id": 36907,
+          "label": "Andrea Vranová",
+          "email": "andrearoudna55@seznam.cz",
+          "dateRegistered": "2021-01-17T05:00:00+01:00"
+        }
+      ],
+      "rank": 34
+    },
+    {
+      "sponsorID": "13621271",
+      "recruiterLabel": "Markéta Vysoká",
+      "recruiterEmail": "vysoka.marketa1@gmail.com",
+      "recruiterTiandeId": "13621271",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 142,
+      "sampleCustomers": [
+        {
+          "id": 5406,
+          "label": "Miroslava Mazzoliniová",
+          "email": "m.mazzolini1@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 29420,
+          "label": "Jindra Síkorová",
+          "email": "SikorovaJindra@seznam.cz",
+          "dateRegistered": "2018-02-19T08:00:00+01:00"
+        },
+        {
+          "id": 34172,
+          "label": "Václava šušnjarová",
+          "email": "vendulasusnjarova@seznam.cz",
+          "dateRegistered": "2018-03-17T14:12:47+01:00"
+        },
+        {
+          "id": 36600,
+          "label": "Jindřiška Fialová",
+          "email": "jindrisinka.fialova@seznam.cz",
+          "dateRegistered": "2018-04-04T19:23:53+02:00"
+        },
+        {
+          "id": 45027,
+          "label": "Jana Augustinova",
+          "email": "augu.jana@gmail.com",
+          "dateRegistered": "2018-06-20T05:00:00+02:00"
+        }
+      ],
+      "rank": 35
+    },
+    {
+      "sponsorID": "13218553",
+      "recruiterLabel": "Marcela Šperlová",
+      "recruiterEmail": "kocka33@seznam.cz",
+      "recruiterTiandeId": "13218553",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 140,
+      "sampleCustomers": [
+        {
+          "id": 3441,
+          "label": "Jana Zaoralová",
+          "email": "jana.semeniukova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3577,
+          "label": "Gabriela Sedláčková",
+          "email": "gabina74@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3751,
+          "label": "Hana Rohovska",
+          "email": "hanachnovakova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 4217,
+          "label": "Soňa Samková",
+          "email": "T.Sonja@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 5095,
+          "label": "Zuzana Řehořová",
+          "email": "rehorovazuzana@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 36
+    },
+    {
+      "sponsorID": "13123402",
+      "recruiterLabel": "Ivana Rajsiglová",
+      "recruiterEmail": "ivana.rajsiglova@post.cz",
+      "recruiterTiandeId": "13123402",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 137,
+      "sampleCustomers": [
+        {
+          "id": 418,
+          "label": "Miroslava Parobková",
+          "email": "m.parobkova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 426,
+          "label": "Gabriela Novotná",
+          "email": "gabriela_blazkova@centrum.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 427,
+          "label": "Jitka Polanková",
+          "email": "jitulka.polankova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 776,
+          "label": "Petra Sojková",
+          "email": "petra.sojkova85@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2525,
+          "label": "Petra Čížková",
+          "email": "petra.slunce@email.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 37
+    },
+    {
+      "sponsorID": "13320843",
+      "recruiterLabel": "Pavla Kavinová",
+      "recruiterEmail": "kavinova.pavla@seznam.cz",
+      "recruiterTiandeId": "13320843",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 132,
+      "sampleCustomers": [
+        {
+          "id": 16097,
+          "label": "Hana Jirová",
+          "email": "H.Jirova@seznam.cz",
+          "dateRegistered": "2017-10-19T01:00:00+02:00"
+        },
+        {
+          "id": 16282,
+          "label": "Šárka Koubová",
+          "email": "sarkar@tiscali.cz",
+          "dateRegistered": "2017-10-22T10:00:00+02:00"
+        },
+        {
+          "id": 16288,
+          "label": "Michala Šimková",
+          "email": "mamca353@centrum.cz",
+          "dateRegistered": "2017-10-22T11:00:00+02:00"
+        },
+        {
+          "id": 16290,
+          "label": "Iveta Bočanová",
+          "email": "iveta.bocanova@seznam.cz",
+          "dateRegistered": "2017-10-22T11:00:00+02:00"
+        },
+        {
+          "id": 16351,
+          "label": "Jaroslava Peroutková",
+          "email": "jperoutkova@seznam.cz",
+          "dateRegistered": "2017-10-22T10:00:00+02:00"
+        }
+      ],
+      "rank": 38
+    },
+    {
+      "sponsorID": "13314250",
+      "recruiterLabel": "Klára Thiele Jirková",
+      "recruiterEmail": "jirkova.klara@seznam.cz",
+      "recruiterTiandeId": "13314250",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 128,
+      "sampleCustomers": [
+        {
+          "id": 48,
+          "label": "Lenka Jiřinová",
+          "email": "Lenysa.j@seznam.cz",
+          "dateRegistered": "2023-03-25T10:00:00+01:00"
+        },
+        {
+          "id": 10466,
+          "label": "Věra HAUEROVÁ",
+          "email": "hauerova.vera@seznam.cz",
+          "dateRegistered": "2017-08-18T09:00:00+02:00"
+        },
+        {
+          "id": 11077,
+          "label": "Eva Štěpová",
+          "email": "eva@stepova.cz",
+          "dateRegistered": "2017-08-19T04:00:00+02:00"
+        },
+        {
+          "id": 11108,
+          "label": "Zuzana Conková",
+          "email": "ZuzanaConkova@seznam.cz",
+          "dateRegistered": "2017-08-20T12:00:00+02:00"
+        },
+        {
+          "id": 11682,
+          "label": "Zuzana Koldovská",
+          "email": "zuzana.koldovska@centrum.cz",
+          "dateRegistered": "2017-08-25T08:00:00+02:00"
+        }
+      ],
+      "rank": 39
+    },
+    {
+      "sponsorID": "13314257",
+      "recruiterLabel": "Věra HAUEROVÁ",
+      "recruiterEmail": "hauerova.vera@seznam.cz",
+      "recruiterTiandeId": "13314257",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 125,
+      "sampleCustomers": [
+        {
+          "id": 11125,
+          "label": "Dana Muchová",
+          "email": "danca.muchova@seznam.cz",
+          "dateRegistered": "2017-08-20T05:00:00+02:00"
+        },
+        {
+          "id": 11170,
+          "label": "Miluše Uzlová",
+          "email": "marcelauzlova@seznam.cz",
+          "dateRegistered": "2017-08-21T11:00:00+02:00"
+        },
+        {
+          "id": 11260,
+          "label": "Ivana Kroupová",
+          "email": "i.kroupova@centrum.cz",
+          "dateRegistered": "2017-08-21T09:00:00+02:00"
+        },
+        {
+          "id": 11602,
+          "label": "Marie Čekanová",
+          "email": "maricek56@seznam.cz",
+          "dateRegistered": "2017-08-24T09:00:00+02:00"
+        },
+        {
+          "id": 11604,
+          "label": "Hana Krejčová",
+          "email": "Hanikrejcova@seznam.cz",
+          "dateRegistered": "2017-08-24T09:00:00+02:00"
+        }
+      ],
+      "rank": 40
+    },
+    {
+      "sponsorID": "13126219",
+      "recruiterLabel": "Marta Bezecná",
+      "recruiterEmail": "mbezecna@seznam.cz",
+      "recruiterTiandeId": "13126219",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 124,
+      "sampleCustomers": [
+        {
+          "id": 351,
+          "label": "Ivana Sokolová",
+          "email": "sokolova.khilma@gmail.com",
+          "dateRegistered": "2022-01-26T11:00:00+01:00"
+        },
+        {
+          "id": 798,
+          "label": "Lenka Krůpová",
+          "email": "fruide@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 849,
+          "label": "Petra Gregorová",
+          "email": "petula.gregorova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2383,
+          "label": "Vendula Hejdová",
+          "email": "vendula.hejdova@gmail.com",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3978,
+          "label": "Marcela Holajnová",
+          "email": "marcelaholajnova@centrum.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 41
+    },
+    {
+      "sponsorID": "13381168",
+      "recruiterLabel": "Věra Václavíková",
+      "recruiterEmail": "VeraVaclavikova@seznam.cz",
+      "recruiterTiandeId": "13381168",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 124,
+      "sampleCustomers": [
+        {
+          "id": 4083,
+          "label": "Jitka Návarová",
+          "email": "matousjitka@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 13420,
+          "label": "Veronika Chvojková",
+          "email": "verca.peskova@gmail.com",
+          "dateRegistered": "2017-09-18T08:00:00+02:00"
+        },
+        {
+          "id": 18234,
+          "label": "Dana Hamplová",
+          "email": "hamplovadana@seznam.cz",
+          "dateRegistered": "2022-09-14T04:00:00+02:00"
+        },
+        {
+          "id": 19214,
+          "label": "Gabriela Boháčová",
+          "email": "bohacova.gabriela@email.cz",
+          "dateRegistered": "2017-11-21T08:00:00+01:00"
+        },
+        {
+          "id": 29756,
+          "label": "Milada Rampasová",
+          "email": "mrampasova@seznam.cz",
+          "dateRegistered": "2018-02-21T12:00:00+01:00"
+        }
+      ],
+      "rank": 42
+    },
+    {
+      "sponsorID": "13403743",
+      "recruiterLabel": "Michaela Nováková",
+      "recruiterEmail": "michaela.navratova@seznam.cz",
+      "recruiterTiandeId": "13403743",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 122,
+      "sampleCustomers": [
+        {
+          "id": 2264,
+          "label": "Petra Brandová",
+          "email": "branpet@seznam.cz",
+          "dateRegistered": "2023-04-24T02:00:00+02:00"
+        },
+        {
+          "id": 10319,
+          "label": "Martina Semrádová",
+          "email": "barvaduse@gmail.com",
+          "dateRegistered": "2023-05-03T11:00:00+02:00"
+        },
+        {
+          "id": 26353,
+          "label": "Michaela Lišková",
+          "email": "liskovamisa@centrum.cz",
+          "dateRegistered": "2018-02-05T18:15:34+01:00"
+        },
+        {
+          "id": 28768,
+          "label": "Lucie Weissová",
+          "email": "weissova37@seznam.cz",
+          "dateRegistered": "2018-02-15T08:00:00+01:00"
+        },
+        {
+          "id": 32156,
+          "label": "Pavla Doleželová",
+          "email": "dolpa2@seznam.cz",
+          "dateRegistered": "2018-03-07T08:00:00+01:00"
+        }
+      ],
+      "rank": 43
+    },
+    {
+      "sponsorID": "13321030",
+      "recruiterLabel": "Ľubica Ľuptáková",
+      "recruiterEmail": "lubicasro@gmail.com",
+      "recruiterTiandeId": "13321030",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 122,
+      "sampleCustomers": [
+        {
+          "id": 11548,
+          "label": "Iveta Valentová",
+          "email": "valentova.iveta@gmail.com",
+          "dateRegistered": "2017-08-24T03:00:00+02:00"
+        },
+        {
+          "id": 11703,
+          "label": "Emília Mitterová",
+          "email": "e.mitterova@gmail.com",
+          "dateRegistered": "2017-08-25T09:00:00+02:00"
+        },
+        {
+          "id": 13365,
+          "label": "Mária Zimková",
+          "email": "zimkova305@gmail.com",
+          "dateRegistered": "2017-09-18T04:00:00+02:00"
+        },
+        {
+          "id": 20682,
+          "label": "Zuzana Vicianová",
+          "email": "vicianova.z@zoznam.sk",
+          "dateRegistered": "2017-12-09T04:00:00+01:00"
+        },
+        {
+          "id": 26069,
+          "label": "Iveta Čákovská",
+          "email": "ivetacakovska@gmail.com",
+          "dateRegistered": "2018-02-03T07:00:00+01:00"
+        }
+      ],
+      "rank": 44
+    },
+    {
+      "sponsorID": "13269574",
+      "recruiterLabel": "Lucie Biolková",
+      "recruiterEmail": "lucie.biolkova@seznam.cz",
+      "recruiterTiandeId": "13269574",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 121,
+      "sampleCustomers": [
+        {
+          "id": 7323,
+          "label": "Květoslava Szczotková",
+          "email": "szczotkova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 10041,
+          "label": "Judita Petrželová",
+          "email": "petrzelovajudita@email.cz",
+          "dateRegistered": "2017-08-07T09:00:00+02:00"
+        },
+        {
+          "id": 10045,
+          "label": "Jolana Maroszová",
+          "email": "jolkamarosz@seznam.cz",
+          "dateRegistered": "2017-08-07T09:00:00+02:00"
+        },
+        {
+          "id": 10104,
+          "label": "Milena Young",
+          "email": "young.milena@gmail.com",
+          "dateRegistered": "2017-08-07T09:33:27+02:00"
+        },
+        {
+          "id": 10263,
+          "label": "Radana Zamrazilová-Lexová",
+          "email": "R.Zamrazilova@seznam.cz",
+          "dateRegistered": "2017-08-07T09:00:00+02:00"
+        }
+      ],
+      "rank": 45
+    },
+    {
+      "sponsorID": "13267366",
+      "recruiterLabel": "Hana Lafatová",
+      "recruiterEmail": "hana.lafatova@seznam.cz",
+      "recruiterTiandeId": "13267366",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 117,
+      "sampleCustomers": [
+        {
+          "id": 3965,
+          "label": "Jaroslava Hajíčková",
+          "email": "joanynka@seznam.cz",
+          "dateRegistered": "2017-07-24T12:19:33+02:00"
+        },
+        {
+          "id": 6750,
+          "label": "Ivana Votavová",
+          "email": "votavka007@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 7517,
+          "label": "Hana Novotná",
+          "email": "hananovotnamuchova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 7661,
+          "label": "Helena Čunková",
+          "email": "mrlinovahelena@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 7876,
+          "label": "Jiřina Sobotková",
+          "email": "jirasobotkova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:19:42+02:00"
+        }
+      ],
+      "rank": 46
+    },
+    {
+      "sponsorID": "13310037",
+      "recruiterLabel": "Judita Petrželová",
+      "recruiterEmail": "petrzelovajudita@email.cz",
+      "recruiterTiandeId": "13310037",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 116,
+      "sampleCustomers": [
+        {
+          "id": 14332,
+          "label": "Jitka Ammerová",
+          "email": "hammerkajitka@seznam.cz",
+          "dateRegistered": "2017-09-27T06:00:00+02:00"
+        },
+        {
+          "id": 19015,
+          "label": "Jana Suchánková",
+          "email": "j.suchankova@atlas.cz",
+          "dateRegistered": "2022-03-17T04:00:00+01:00"
+        },
+        {
+          "id": 21911,
+          "label": "Iveta Píšťková",
+          "email": "ivetapistkova@gmail.com",
+          "dateRegistered": "2018-01-03T11:00:00+01:00"
+        },
+        {
+          "id": 22123,
+          "label": "Petra Stránská",
+          "email": "petrahradec@email.cz",
+          "dateRegistered": "2018-01-05T10:00:00+01:00"
+        },
+        {
+          "id": 22424,
+          "label": "Renata Blažková",
+          "email": "renolda23@gmail.com",
+          "dateRegistered": "2018-01-08T09:00:00+01:00"
+        }
+      ],
+      "rank": 47
+    },
+    {
+      "sponsorID": "13202021",
+      "recruiterLabel": "Anna Celengová",
+      "recruiterEmail": "annacelengova@seznam.cz",
+      "recruiterTiandeId": "13202021",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 112,
+      "sampleCustomers": [
+        {
+          "id": 4009,
+          "label": "Štefan Celenga",
+          "email": "stefan.celenga@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 5130,
+          "label": "Pavlína Talafová",
+          "email": "talafovapavlina@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 15315,
+          "label": "Katerina Jadviszczokova",
+          "email": "azloutek@seznam.cz",
+          "dateRegistered": "2017-10-09T09:00:00+02:00"
+        },
+        {
+          "id": 18759,
+          "label": "Sylvie Vlachovičová",
+          "email": "sylvie.vlachovicova@seznam.cz",
+          "dateRegistered": "2017-11-16T06:00:00+01:00"
+        },
+        {
+          "id": 26799,
+          "label": "Zdeňka Jopková",
+          "email": "jopkova.z@seznam.cz",
+          "dateRegistered": "2018-02-07T08:00:00+01:00"
+        }
+      ],
+      "rank": 48
+    },
+    {
+      "sponsorID": "13329514",
+      "recruiterLabel": "Hana Hübschová",
+      "recruiterEmail": "hanahubschova@seznam.cz",
+      "recruiterTiandeId": "13329514",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 111,
+      "sampleCustomers": [
+        {
+          "id": 13859,
+          "label": "Petra Podešvová",
+          "email": "podesvova.p@centrum.cz",
+          "dateRegistered": "2017-09-22T08:00:00+02:00"
+        },
+        {
+          "id": 13998,
+          "label": "Hana Papežová",
+          "email": "opca@seznam.cz",
+          "dateRegistered": "2017-09-24T07:00:00+02:00"
+        },
+        {
+          "id": 15556,
+          "label": "Andrea Hebelková",
+          "email": "Hebelkova.Andrea@seznam.cz",
+          "dateRegistered": "2017-10-12T08:00:00+02:00"
+        },
+        {
+          "id": 17211,
+          "label": "Ivona Cikánková",
+          "email": "ivona.cikankova@seznam.cz",
+          "dateRegistered": "2022-11-24T08:00:00+01:00"
+        },
+        {
+          "id": 17223,
+          "label": "Pavla Pravdová",
+          "email": "pavlaPravdova85@seznam.cz",
+          "dateRegistered": "2017-11-03T12:00:00+01:00"
+        }
+      ],
+      "rank": 49
+    },
+    {
+      "sponsorID": "13373391",
+      "recruiterLabel": "Alena Novotná",
+      "recruiterEmail": "ala.n@seznam.cz",
+      "recruiterTiandeId": "13373391",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 107,
+      "sampleCustomers": [
+        {
+          "id": 27577,
+          "label": "Renata Součková",
+          "email": "rensouckova@seznam.cz",
+          "dateRegistered": "2022-12-06T12:00:00+01:00"
+        },
+        {
+          "id": 28016,
+          "label": "Renáta Charvátová",
+          "email": "renata.13@centrum.cz",
+          "dateRegistered": "2018-02-13T04:00:00+01:00"
+        },
+        {
+          "id": 28598,
+          "label": "Olga STACHOVÁ",
+          "email": "olga.stachova@email.cz",
+          "dateRegistered": "2018-02-14T08:00:00+01:00"
+        },
+        {
+          "id": 30967,
+          "label": "Květa Hurychová",
+          "email": "kvetahur@seznam.cz",
+          "dateRegistered": "2018-02-28T07:00:00+01:00"
+        },
+        {
+          "id": 33761,
+          "label": "Jaroslava",
+          "email": "j-andrlova@seznam.cz",
+          "dateRegistered": "2018-03-14T07:00:00+01:00"
+        }
+      ],
+      "rank": 50
+    },
+    {
+      "sponsorID": "13208264",
+      "recruiterLabel": "Petra Darebníková",
+      "recruiterEmail": "pnedbalova9@gmail.com",
+      "recruiterTiandeId": "13208264",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 106,
+      "sampleCustomers": [
+        {
+          "id": 3239,
+          "label": "Veronika Žajdlíková",
+          "email": "veronika.fojtikova@centrum.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 3955,
+          "label": "Veronika Benkovič",
+          "email": "halaskova.v@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 4048,
+          "label": "Petra Miklíková",
+          "email": "kvetula17@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 4741,
+          "label": "Romana Mifková",
+          "email": "romana.mifkova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 5000,
+          "label": "Nataša Bumbálková",
+          "email": "natasa.bumbalkova@post.cz",
+          "dateRegistered": "2017-07-24T12:19:35+02:00"
+        }
+      ],
+      "rank": 51
+    },
+    {
+      "sponsorID": "13252333",
+      "recruiterLabel": "ID 13252333",
+      "recruiterEmail": "",
+      "recruiterTiandeId": "13252333",
+      "recruiterIsB2B": null,
+      "recruitedCustomers": 103,
+      "sampleCustomers": [
+        {
+          "id": 6769,
+          "label": "Jana Nováková",
+          "email": "penzionvpodzamci@seznam.cz",
+          "dateRegistered": "2023-10-30T02:00:00+01:00"
+        },
+        {
+          "id": 7408,
+          "label": "Ing. Jana",
+          "email": "janapolackova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 11085,
+          "label": "Pavla Vacková",
+          "email": "Pavla.Koliskova@seznam.cz",
+          "dateRegistered": "2017-08-19T18:29:49+02:00"
+        },
+        {
+          "id": 11177,
+          "label": "Martina Fenclová Jirásková",
+          "email": "JiraskovaSkutec@seznam.cz",
+          "dateRegistered": "2017-08-21T11:00:00+02:00"
+        },
+        {
+          "id": 12138,
+          "label": "Marcela Zukalová",
+          "email": "zukalinka@gmail.com",
+          "dateRegistered": "2017-08-30T09:00:00+02:00"
+        }
+      ],
+      "rank": 52
+    },
+    {
+      "sponsorID": "6906148",
+      "recruiterLabel": "Renata Králová",
+      "recruiterEmail": "renata.kralova@kralovstvi-tiande.cz",
+      "recruiterTiandeId": "6906148",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 103,
+      "sampleCustomers": [
+        {
+          "id": 12,
+          "label": "Petra Pajerová",
+          "email": "info@vasetiande.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 24,
+          "label": "Simona Žáková",
+          "email": "simona.zakova@email.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 26,
+          "label": "Eva Bílá",
+          "email": "evabila4@gmail.com",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 59,
+          "label": "Andrea Svitáková",
+          "email": "andrea.svitakova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 63,
+          "label": "Pavel Ženožička",
+          "email": "hanouskovamartina@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 53
+    },
+    {
+      "sponsorID": "13319309",
+      "recruiterLabel": "Gabriela Sobíšková",
+      "recruiterEmail": "gabisb73@gmail.com",
+      "recruiterTiandeId": "13319309",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 102,
+      "sampleCustomers": [
+        {
+          "id": 69,
+          "label": "Eva Neradová",
+          "email": "neradovaeva@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 13283,
+          "label": "Andrea Chlumová",
+          "email": "andrea.chlumova@email.cz",
+          "dateRegistered": "2017-09-17T07:00:00+02:00"
+        },
+        {
+          "id": 13544,
+          "label": "Věra Koutenská",
+          "email": "vera.koutenska@seznam.cz",
+          "dateRegistered": "2017-09-19T06:00:00+02:00"
+        },
+        {
+          "id": 13983,
+          "label": "Lenka Vítková",
+          "email": "lenkavitku@seznam.cz",
+          "dateRegistered": "2017-09-24T05:00:00+02:00"
+        },
+        {
+          "id": 16794,
+          "label": "Hana Vanišová",
+          "email": "hanasekv@seznam.cz",
+          "dateRegistered": "2017-10-28T10:00:00+02:00"
+        }
+      ],
+      "rank": 54
+    },
+    {
+      "sponsorID": "13472696",
+      "recruiterLabel": "ID 13472696",
+      "recruiterEmail": "",
+      "recruiterTiandeId": "13472696",
+      "recruiterIsB2B": null,
+      "recruitedCustomers": 101,
+      "sampleCustomers": [
+        {
+          "id": 79171,
+          "label": "Beata Bakosova",
+          "email": "bbakosova@gmail.com",
+          "dateRegistered": "2019-12-06T09:00:00+01:00"
+        },
+        {
+          "id": 83492,
+          "label": "Dominika Kráľová",
+          "email": "dominikabenkova16@gmail.com",
+          "dateRegistered": "2020-02-04T09:00:00+01:00"
+        },
+        {
+          "id": 95156,
+          "label": "Veronika Barnášová",
+          "email": "barnasova351@gmail.com",
+          "dateRegistered": "2020-06-29T09:00:00+02:00"
+        },
+        {
+          "id": 96854,
+          "label": "Natália Kojmová",
+          "email": "natalia19101994@gmail.com",
+          "dateRegistered": "2020-07-19T08:00:00+02:00"
+        },
+        {
+          "id": 103040,
+          "label": "Zuzana Tomasova",
+          "email": "zuzanakrisicova@gmail.com",
+          "dateRegistered": "2020-09-02T10:00:00+02:00"
+        }
+      ],
+      "rank": 55
+    },
+    {
+      "sponsorID": "13190061",
+      "recruiterLabel": "Zuzana Grygier",
+      "recruiterEmail": "zuzanagrygier@seznam.cz",
+      "recruiterTiandeId": "13190061",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 101,
+      "sampleCustomers": [
+        {
+          "id": 2491,
+          "label": "Anna Celengová",
+          "email": "annacelengova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2548,
+          "label": "Kateřina Důjková",
+          "email": "Katerina.Dujkova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2597,
+          "label": "Žaneta Juroková",
+          "email": "jurokovazaneta@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2607,
+          "label": "Alexandra Severová",
+          "email": "severovaa@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2624,
+          "label": "Jana Bařinková",
+          "email": "barinkova.jana@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 56
+    },
+    {
+      "sponsorID": "13196219",
+      "recruiterLabel": "Ivana Nohavová",
+      "recruiterEmail": "nohavovaivana@gmail.com",
+      "recruiterTiandeId": "13196219",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 100,
+      "sampleCustomers": [
+        {
+          "id": 2593,
+          "label": "Petra Kudláčková",
+          "email": "petra.kudlackova@post.cz",
+          "dateRegistered": "2017-07-24T12:19:30+02:00"
+        },
+        {
+          "id": 2666,
+          "label": "Michala Talaskova",
+          "email": "michala.talaskova@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2704,
+          "label": "Nikol Kelová",
+          "email": "nikol.kelova@centrum.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2729,
+          "label": "Ivana Skypalová",
+          "email": "skypalova.ivana@seznam.cz",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        },
+        {
+          "id": 2752,
+          "label": "Petra Darebníková",
+          "email": "pnedbalova9@gmail.com",
+          "dateRegistered": "2017-07-24T12:00:00+02:00"
+        }
+      ],
+      "rank": 57
+    },
+    {
+      "sponsorID": "13588450",
+      "recruiterLabel": "Silvia Orelová",
+      "recruiterEmail": "orelovasilvia@gmail.com",
+      "recruiterTiandeId": "13588450",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 100,
+      "sampleCustomers": [
+        {
+          "id": 74880,
+          "label": "Jana Žideková",
+          "email": "ekonomika.uctovnictvo@gmail.com",
+          "dateRegistered": "2019-10-15T06:00:00+02:00"
+        },
+        {
+          "id": 94753,
+          "label": "Andrea Babínová",
+          "email": "andreja432121@gmail.com",
+          "dateRegistered": "2020-06-23T12:00:00+02:00"
+        },
+        {
+          "id": 97330,
+          "label": "Viera Vachová",
+          "email": "vieravachova1@gmail.com",
+          "dateRegistered": "2020-07-22T10:00:00+02:00"
+        },
+        {
+          "id": 115021,
+          "label": "Andrea Achberger",
+          "email": "achberger.andrea@gmail.com",
+          "dateRegistered": "2020-11-20T01:00:00+01:00"
+        },
+        {
+          "id": 135460,
+          "label": "Lívia Mráz",
+          "email": "hyli@pobox.sk",
+          "dateRegistered": "2021-02-25T06:00:00+01:00"
+        }
+      ],
+      "rank": 58
+    },
+    {
+      "sponsorID": "13442474",
+      "recruiterLabel": "Hana Skálová",
+      "recruiterEmail": "hankakubikova@seznam.cz",
+      "recruiterTiandeId": "13442474",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 99,
+      "sampleCustomers": [
+        {
+          "id": 15349,
+          "label": "Martina Prahová",
+          "email": "macinkaprahu@centrum.cz",
+          "dateRegistered": "2021-11-11T03:00:00+01:00"
+        },
+        {
+          "id": 24301,
+          "label": "Jana Kostková",
+          "email": "kostkovaja@seznam.cz",
+          "dateRegistered": "2021-07-27T10:00:00+02:00"
+        },
+        {
+          "id": 29081,
+          "label": "Monika Holaňová",
+          "email": "holanovamonika@seznam.cz",
+          "dateRegistered": "2021-11-26T01:00:00+01:00"
+        },
+        {
+          "id": 34966,
+          "label": "Romana Bedrníková",
+          "email": "bedrnro@seznam.cz",
+          "dateRegistered": "2021-09-29T03:00:00+02:00"
+        },
+        {
+          "id": 40222,
+          "label": "Silvie Mechelkova8",
+          "email": "salixs@centrum.cz",
+          "dateRegistered": "2022-01-05T01:00:00+01:00"
+        }
+      ],
+      "rank": 59
+    },
+    {
+      "sponsorID": "13649123",
+      "recruiterLabel": "Jana Janíková",
+      "recruiterEmail": "jana11051985@seznam.cz",
+      "recruiterTiandeId": "13649123",
+      "recruiterIsB2B": false,
+      "recruitedCustomers": 99,
+      "sampleCustomers": [
+        {
+          "id": 70238,
+          "label": "Denisa Navrathová",
+          "email": "denisa.navrathova@seznam.cz",
+          "dateRegistered": "2022-03-23T10:00:00+01:00"
+        },
+        {
+          "id": 87109,
+          "label": "Monika Tomíčková",
+          "email": "tomickova.monika@seznam.cz",
+          "dateRegistered": "2023-09-04T04:00:00+02:00"
+        },
+        {
+          "id": 90218,
+          "label": "Pavlína Škrabalová",
+          "email": "skrabalovi@seznam.cz",
+          "dateRegistered": "2020-04-28T05:00:00+02:00"
+        },
+        {
+          "id": 90564,
+          "label": "Radka Kreibichová",
+          "email": "Radomi-la@seznam.cz",
+          "dateRegistered": "2020-04-30T05:00:00+02:00"
+        },
+        {
+          "id": 91941,
+          "label": "Kateřina Palyzová",
+          "email": "katerina.palyzova@seznam.cz",
+          "dateRegistered": "2020-05-18T08:00:00+02:00"
+        }
+      ],
+      "rank": 60
+    }
+  ]
+}

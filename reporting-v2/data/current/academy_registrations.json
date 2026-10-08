@@ -1,0 +1,247 @@
+{
+  "generatedAt": "2026-10-03T07:00:05.144966+02:00",
+  "source": "/home/univerzita/data/academy-registrations.jsonl",
+  "total": 6371,
+  "uniqueEmails": 5611,
+  "duplicateEmails": 598,
+  "duplicateRecords": 760,
+  "yesterday": {
+    "date": "2026-10-02",
+    "count": 13
+  },
+  "today": {
+    "date": "2026-10-03",
+    "count": 0
+  },
+  "last7Days": [
+    {
+      "date": "2026-09-26",
+      "count": 24
+    },
+    {
+      "date": "2026-09-27",
+      "count": 145
+    },
+    {
+      "date": "2026-09-28",
+      "count": 110
+    },
+    {
+      "date": "2026-09-29",
+      "count": 150
+    },
+    {
+      "date": "2026-09-30",
+      "count": 133
+    },
+    {
+      "date": "2026-10-01",
+      "count": 23
+    },
+    {
+      "date": "2026-10-02",
+      "count": 13
+    }
+  ],
+  "trend7d": [
+    {
+      "date": "2026-09-25",
+      "count": 9,
+      "avg7d": 19.5
+    },
+    {
+      "date": "2026-09-26",
+      "count": 24,
+      "avg7d": 20.1
+    },
+    {
+      "date": "2026-09-27",
+      "count": 145,
+      "avg7d": 38.9
+    },
+    {
+      "date": "2026-09-28",
+      "count": 110,
+      "avg7d": 52.6
+    },
+    {
+      "date": "2026-09-29",
+      "count": 150,
+      "avg7d": 70.4
+    },
+    {
+      "date": "2026-09-30",
+      "count": 133,
+      "avg7d": 84.1
+    },
+    {
+      "date": "2026-10-01",
+      "count": 23,
+      "avg7d": 84.9
+    },
+    {
+      "date": "2026-10-02",
+      "count": 13,
+      "avg7d": 85.4
+    }
+  ],
+  "sources": {
+    "facebook": 2841,
+    "ecomail": 130,
+    "organic": 3288,
+    "fbclid": 3625
+  },
+  "topCampaigns": [
+    {
+      "campaign": "akademie-dejiny-diet",
+      "count": 975
+    },
+    {
+      "campaign": "akademie-natalie-otazky-bez-rozpaku",
+      "count": 654
+    },
+    {
+      "campaign": "akademie-dejiny-diet-30-9",
+      "count": 355
+    },
+    {
+      "campaign": "akademie-brozury",
+      "count": 269
+    },
+    {
+      "campaign": "FM-LEAD-AKVIZICE - Menopausa",
+      "count": 265
+    }
+  ],
+  "topAffiliates": [
+    {
+      "affiliate": "ESHOP",
+      "count": 4709
+    },
+    {
+      "affiliate": "g73ps2",
+      "count": 426
+    },
+    {
+      "affiliate": "y9qnc3",
+      "count": 315
+    },
+    {
+      "affiliate": "ihcwc1",
+      "count": 197
+    },
+    {
+      "affiliate": "r88ri8",
+      "count": 75
+    },
+    {
+      "affiliate": "t37qey",
+      "count": 63
+    },
+    {
+      "affiliate": "c8rrdv",
+      "count": 41
+    },
+    {
+      "affiliate": "uc5dyo",
+      "count": 36
+    },
+    {
+      "affiliate": "yoj4id",
+      "count": 35
+    },
+    {
+      "affiliate": "7kevst",
+      "count": 34
+    }
+  ],
+  "affiliateSummary": {
+    "eshopChannel": 4709,
+    "externalTotal": 1662,
+    "topExternal": [
+      {
+        "code": "g73ps2",
+        "name": "Jiřina Radová",
+        "count": 426
+      },
+      {
+        "code": "y9qnc3",
+        "name": "Hanka Netoličková",
+        "count": 315
+      },
+      {
+        "code": "ihcwc1",
+        "name": "Natalie Szmeková",
+        "count": 197
+      },
+      {
+        "code": "r88ri8",
+        "name": "Andrea Svitáková",
+        "count": 75
+      },
+      {
+        "code": "t37qey",
+        "name": "Pavlína Macháčková",
+        "count": 63
+      },
+      {
+        "code": "c8rrdv",
+        "name": "c8rrdv",
+        "count": 41
+      },
+      {
+        "code": "uc5dyo",
+        "name": "Silvie Lehečková",
+        "count": 36
+      },
+      {
+        "code": "yoj4id",
+        "name": "Ivana Rajsiglová",
+        "count": 35
+      }
+    ]
+  },
+  "yesterdayBreakdown": {
+    "externalAffiliate": 8,
+    "eshopOrganic": 5,
+    "facebookSource": 0,
+    "topExternalAffiliate": [
+      {
+        "code": "g73ps2",
+        "name": "Jiřina Radová",
+        "count": 3
+      },
+      {
+        "code": "ffhdir",
+        "name": "Michaela Krásová",
+        "count": 1
+      },
+      {
+        "code": "efi9by",
+        "name": "efi9by",
+        "count": 1
+      },
+      {
+        "code": "lx4ek6",
+        "name": "lx4ek6",
+        "count": 1
+      },
+      {
+        "code": "t37qey",
+        "name": "Pavlína Macháčková",
+        "count": 1
+      },
+      {
+        "code": "r88ri8",
+        "name": "Andrea Svitáková",
+        "count": 1
+      }
+    ]
+  },
+  "metaYesterday": {
+    "spendCzk": 1503.08,
+    "clicks": 279,
+    "leadConversions": 9.0,
+    "purchaseConversions": 116.0
+  }
+}

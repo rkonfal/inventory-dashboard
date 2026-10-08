@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-10-08T18:00:03.747845+02:00",
+  "heavyPayloads": [
+    "customer_fact_ytd_window.json",
+    "order_fact_ytd_window.json",
+    "ordering_sales_history.json"
+  ],
+  "mode": "ssh",
+  "synced": [
+    "customer_fact_ytd_window.json",
+    "order_fact_ytd_window.json",
+    "ordering_sales_history.json"
+  ],
+  "skipped": [],
+  "status": "ok"
+}

@@ -1,0 +1,404 @@
+{
+  "generatedAt": "2026-10-08T18:00:03.747845+02:00",
+  "source": {
+    "status": "live_api",
+    "message": "Affiliate přehled se skládá přímo z živých API endpointů affiliate portálu, bez závislosti na HTML exportech.",
+    "errors": []
+  },
+  "period": {
+    "dateFrom": "2026-10-01",
+    "dateTo": "2026-10-08",
+    "label": "2026-10-01 až 2026-10-08"
+  },
+  "reports": {
+    "novice": {
+      "label": "Získaní nováčci",
+      "url": null,
+      "available": true,
+      "error": null,
+      "partners": 2,
+      "totals": {
+        "contacts": 0.0,
+        "orderingContacts": 0.0,
+        "orders": 0.0,
+        "revenueCzkEquiv": 0.0
+      },
+      "monthly": [],
+      "topPartners": [
+        {
+          "partnerCode": "pqopo3",
+          "partnerName": "tarabovamilka66@gmail.com",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "orders": 0.0,
+          "revenueCzkEquiv": 0.0
+        },
+        {
+          "partnerCode": "yn8wxm",
+          "partnerName": "Iveta Liptayová",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "orders": 0.0,
+          "revenueCzkEquiv": 0.0
+        }
+      ]
+    },
+    "network": {
+      "label": "MLM síť a tržby",
+      "url": null,
+      "available": true,
+      "error": null,
+      "partners": 50,
+      "totals": {
+        "networkCustomers": 17174.0,
+        "orderingCustomers": 4580.0,
+        "orders": 18241.0,
+        "revenueCzkEquiv": 29538007.0
+      },
+      "monthly": [
+        {
+          "key": "zari_2025",
+          "label": "Zari 2025",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 126.0,
+          "revenueCzkEquiv": 192576.0
+        },
+        {
+          "key": "rijen_2025",
+          "label": "Rijen 2025",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 355.0,
+          "revenueCzkEquiv": 523692.0
+        },
+        {
+          "key": "listopad_2025",
+          "label": "Listopad 2025",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 680.0,
+          "revenueCzkEquiv": 1111652.0
+        },
+        {
+          "key": "prosinec_2025",
+          "label": "Prosinec 2025",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 440.0,
+          "revenueCzkEquiv": 584168.0
+        },
+        {
+          "key": "leden_2026",
+          "label": "Leden 2026",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 1240.0,
+          "revenueCzkEquiv": 2174020.0
+        },
+        {
+          "key": "unor_2026",
+          "label": "Unor 2026",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 1269.0,
+          "revenueCzkEquiv": 2002353.0
+        },
+        {
+          "key": "brezen_2026",
+          "label": "Brezen 2026",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 1960.0,
+          "revenueCzkEquiv": 3257318.0
+        },
+        {
+          "key": "duben_2026",
+          "label": "Duben 2026",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 2126.0,
+          "revenueCzkEquiv": 3472645.0
+        },
+        {
+          "key": "kveten_2026",
+          "label": "Kveten 2026",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 2093.0,
+          "revenueCzkEquiv": 3478884.0
+        },
+        {
+          "key": "cerven_2026",
+          "label": "Cerven 2026",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 1739.0,
+          "revenueCzkEquiv": 2808931.0
+        },
+        {
+          "key": "cervenec_2026",
+          "label": "Cervenec 2026",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 1710.0,
+          "revenueCzkEquiv": 2697997.0
+        },
+        {
+          "key": "srpen_2026",
+          "label": "Srpen 2026",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 1572.0,
+          "revenueCzkEquiv": 2511908.0
+        },
+        {
+          "key": "zari_2026",
+          "label": "Zari 2026",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 2313.0,
+          "revenueCzkEquiv": 3855199.0
+        },
+        {
+          "key": "rijen_2026",
+          "label": "Rijen 2026",
+          "contacts": 0.0,
+          "orderingContacts": 0.0,
+          "networkCustomers": 0.0,
+          "orderingCustomers": 0.0,
+          "orders": 618.0,
+          "revenueCzkEquiv": 866664.0
+        }
+      ],
+      "topPartners": [
+        {
+          "partnerCode": "ESHOP",
+          "partnerName": "E-shop (interní)",
+          "partnerTiandeId": null,
+          "networkCustomers": 4538.0,
+          "orderingCustomers": 1273.0,
+          "orders": 4719.0,
+          "revenueCzkEquiv": 7730281.0
+        },
+        {
+          "partnerCode": "g73ps2",
+          "partnerName": "Jiřina Radová",
+          "partnerTiandeId": null,
+          "networkCustomers": 944.0,
+          "orderingCustomers": 297.0,
+          "orders": 1011.0,
+          "revenueCzkEquiv": 1874999.0
+        },
+        {
+          "partnerCode": "ffhdir",
+          "partnerName": "Michaela Krásová",
+          "partnerTiandeId": null,
+          "networkCustomers": 803.0,
+          "orderingCustomers": 169.0,
+          "orders": 866.0,
+          "revenueCzkEquiv": 1566842.0
+        },
+        {
+          "partnerCode": "5uzst8",
+          "partnerName": "Iveta Houšťová",
+          "partnerTiandeId": null,
+          "networkCustomers": 957.0,
+          "orderingCustomers": 232.0,
+          "orders": 980.0,
+          "revenueCzkEquiv": 1435731.0
+        },
+        {
+          "partnerCode": "ihcwc1",
+          "partnerName": "Natalie Szmeková",
+          "partnerTiandeId": null,
+          "networkCustomers": 755.0,
+          "orderingCustomers": 195.0,
+          "orders": 818.0,
+          "revenueCzkEquiv": 1385361.0
+        },
+        {
+          "partnerCode": "b0to1x",
+          "partnerName": "Renata",
+          "partnerTiandeId": null,
+          "networkCustomers": 712.0,
+          "orderingCustomers": 93.0,
+          "orders": 730.0,
+          "revenueCzkEquiv": 1291634.0
+        },
+        {
+          "partnerCode": "r88ri8",
+          "partnerName": "Andrea Svitáková",
+          "partnerTiandeId": null,
+          "networkCustomers": 415.0,
+          "orderingCustomers": 105.0,
+          "orders": 439.0,
+          "revenueCzkEquiv": 805896.0
+        },
+        {
+          "partnerCode": "mjd0x9",
+          "partnerName": "Jana Bařinková",
+          "partnerTiandeId": null,
+          "networkCustomers": 443.0,
+          "orderingCustomers": 110.0,
+          "orders": 454.0,
+          "revenueCzkEquiv": 740571.0
+        },
+        {
+          "partnerCode": "oj1slw",
+          "partnerName": "Eva Štěpová",
+          "partnerTiandeId": null,
+          "networkCustomers": 348.0,
+          "orderingCustomers": 76.0,
+          "orders": 355.0,
+          "revenueCzkEquiv": 698921.0
+        },
+        {
+          "partnerCode": "3xkqnt",
+          "partnerName": "Věra Hauerová",
+          "partnerTiandeId": null,
+          "networkCustomers": 352.0,
+          "orderingCustomers": 79.0,
+          "orders": 367.0,
+          "revenueCzkEquiv": 644629.0
+        },
+        {
+          "partnerCode": "y9qnc3",
+          "partnerName": "Hanka Netoličková",
+          "partnerTiandeId": null,
+          "networkCustomers": 407.0,
+          "orderingCustomers": 111.0,
+          "orders": 428.0,
+          "revenueCzkEquiv": 638076.0
+        },
+        {
+          "partnerCode": "098luz",
+          "partnerName": "Věra Václavíková",
+          "partnerTiandeId": null,
+          "networkCustomers": 381.0,
+          "orderingCustomers": 89.0,
+          "orders": 400.0,
+          "revenueCzkEquiv": 584674.0
+        },
+        {
+          "partnerCode": "t37qey",
+          "partnerName": "Pavlína Macháčková",
+          "partnerTiandeId": null,
+          "networkCustomers": 349.0,
+          "orderingCustomers": 108.0,
+          "orders": 376.0,
+          "revenueCzkEquiv": 579987.0
+        },
+        {
+          "partnerCode": "kliz70",
+          "partnerName": "Alena Mikulášková",
+          "partnerTiandeId": null,
+          "networkCustomers": 348.0,
+          "orderingCustomers": 76.0,
+          "orders": 368.0,
+          "revenueCzkEquiv": 559598.0
+        },
+        {
+          "partnerCode": "4jl9i8",
+          "partnerName": "Pavla Kavinová",
+          "partnerTiandeId": null,
+          "networkCustomers": 339.0,
+          "orderingCustomers": 82.0,
+          "orders": 356.0,
+          "revenueCzkEquiv": 554354.0
+        },
+        {
+          "partnerCode": "db8csr",
+          "partnerName": "Michaela Holinská",
+          "partnerTiandeId": null,
+          "networkCustomers": 297.0,
+          "orderingCustomers": 84.0,
+          "orders": 323.0,
+          "revenueCzkEquiv": 507336.0
+        },
+        {
+          "partnerCode": "xd9b8y",
+          "partnerName": "Hana Lafatová",
+          "partnerTiandeId": null,
+          "networkCustomers": 269.0,
+          "orderingCustomers": 75.0,
+          "orders": 280.0,
+          "revenueCzkEquiv": 494196.0
+        },
+        {
+          "partnerCode": "yoj4id",
+          "partnerName": "Ivana Rajsiglová",
+          "partnerTiandeId": null,
+          "networkCustomers": 283.0,
+          "orderingCustomers": 66.0,
+          "orders": 290.0,
+          "revenueCzkEquiv": 488731.0
+        },
+        {
+          "partnerCode": "7kevst",
+          "partnerName": "Marie Krupková",
+          "partnerTiandeId": null,
+          "networkCustomers": 273.0,
+          "orderingCustomers": 67.0,
+          "orders": 289.0,
+          "revenueCzkEquiv": 484352.0
+        },
+        {
+          "partnerCode": "zfh4az",
+          "partnerName": "Petra Darebniková",
+          "partnerTiandeId": null,
+          "networkCustomers": 244.0,
+          "orderingCustomers": 47.0,
+          "orders": 252.0,
+          "revenueCzkEquiv": 460405.0
+        }
+      ]
+    }
+  },
+  "summary": {
+    "noviceRevenueCzkEquiv": 0.0,
+    "networkRevenueCzkEquiv": 29538007.0,
+    "novicePartners": 2,
+    "networkPartners": 50,
+    "noviceOrders": 0.0,
+    "networkOrders": 18241.0,
+    "noviceOrderingContacts": 0.0,
+    "networkOrderingCustomers": 4580.0,
+    "topNovicePartner": {
+      "partnerCode": "pqopo3",
+      "partnerName": "tarabovamilka66@gmail.com",
+      "revenueCzkEquiv": 0.0
+    },
+    "topNetworkPartner": {
+      "partnerCode": "ESHOP",
+      "partnerName": "E-shop (interní)",
+      "revenueCzkEquiv": 7730281.0
+    }
+  }
+}

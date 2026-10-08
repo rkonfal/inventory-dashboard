@@ -1,0 +1,34 @@
+Ranní report, včerejšek (7. 10. 2026)
+✅ WPJ + 4PX kompletní
+
+📌 Přehled
+• Objednávky: 703 (+71,9 % vs 7D)
+• Tržby: 1 063 437 Kč (+60,9 % vs 7D)
+• Obrat od začátku měsíce: 4 031 301 Kč (-10,8 % vs 1. 9.–7. 9., 4 521 795 Kč; +6,6 % vs předminulý 1. 8.–7. 8., 3 780 726 Kč)
+• Expedice: 663 (CZ 591 / SK 72)
+• Sklad: 365 557 ks
+
+⚠️ Co dnes řešit
+• 7 problematických / stornovaných objednávek
+• 2 včera prodané produkty jsou teď na nízkém skladu
+• 10 skladových pozic je v mínusu
+
+✅ Co dnes udělat
+• Prověřit A produkty v riziku výpadku (1 SKU): 30115.
+• Dohlédnout BAL036, aktuálně 8 ks.
+• Projít 7 problematických nebo stornovaných objednávek z včerejška.
+
+📦 Zdraví skladu
+• score skladu 69/100 · A riziko 1 z 116 SKU · slow/dead 3,6 %
+• ABC skladu: A = horní vrstva podle kombinace obratu a prodaných kusů, B = střed, C = pomalé nebo doplňkové položky.
+• vázaný cash slow/dead 9 232 214 Kč (3,6 %) · dead stock 1,4 % · cover 315,6 dní
+
+🛒 Tahouni: 44402-2 253 ks, 61912 223 ks, 64404-2 178 ks
+
+🧭 Zdroje prodeje
+• CZ e-shop: 620 objednávek, 921 341 Kč
+• SK e-shop: 78 objednávek, 136 274 Kč
+• Litoměřice: 3 objednávek, 3 768 Kč
+• Měčín: 2 objednávek, 2 055 Kč
+
+Detail: https://rkonfal.github.io/diamond-plus-reporting-preview/site/index.html
