@@ -1871,11 +1871,21 @@ def resolve_action_snapshot_row(code, rows_by_code):
     return {}
 
 
+def resolve_action_history_row(code, history_by_code):
+    """History lookup for action items: never fall back to base code.
+    Variants like 80904/01 must NOT inherit the parent 80904 total —
+    that would assign the same aggregated sales to every variant."""
+    code = str(code or '')
+    if not code:
+        return {}
+    return (history_by_code or {}).get(code) or {}
+
+
 def refresh_action_item_snapshot(item, analytics_by_code, combined_by_code, history_by_code, market_key, start_date):
     code = str(item.get('code') or '')
     analytics_item = resolve_action_snapshot_row(code, analytics_by_code)
     combined_item = resolve_action_snapshot_row(code, combined_by_code)
-    history_row = resolve_action_snapshot_row(code, history_by_code)
+    history_row = resolve_action_history_row(code, history_by_code)
 
     next_item = dict(item)
     units_per_action = max(1, int(num(next_item.get('unitsPerAction') or 1)))
